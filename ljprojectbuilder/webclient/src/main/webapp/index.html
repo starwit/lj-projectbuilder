@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="<%= locale %>" ng-app="lirejarpApp" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>lirejarpApp</title>
+	<meta name="keywords" content="lirejarpApp" jee, java, architecture" />
+	<meta name="description" content="Lightweight REST JEE Arch Pattern" />
+	
+	<link href="res/css/page.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/menu.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/forms.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/tables.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/props.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/vars.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/viewports.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="bgBox">
+		<div id="bgWrap">
+			<div id="headerBox">
+				<div id="menuBox" ng-include src="'menu.html'"></div>
+				<div id="logoBox"><img src="res/img/brand/logo.png" border="0" /></div>
+			</div>
+			<div id="contentBox">
+				<div id="contentWrap">
+					<div ng-view></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="res/lib/angular.js" type="application/javascript"></script>
+	<script src="res/lib/angular-route.js" type="application/javascript"></script>
+	<script src="res/lib/global-directives.js" type="application/javascript"></script>
+	<script src="res/lib/angular-translate.min.js" type="application/javascript"></script>
+	<script src="res/lib/angular-translate-loader-static-files.min.js" type="application/javascript"></script>
+	
+	<script src="serviceconnector/rest-connector-factory.js"></script>
+	<script src="app.config.js"></script>
+	<script src="app.routes.js"></script>
+	
+	<!-- ###BEGIN### generated scripts -->
+	<!-- ###END### generated scripts -->
+
+</body>
+</html>

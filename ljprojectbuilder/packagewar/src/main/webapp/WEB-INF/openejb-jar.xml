@@ -1,0 +1,11 @@
+<openejb-jar>
+	<pojo-deployment class-name="de.starwit.ljprojectbuilder.api.rest.RestfulApplication">
+		<properties>
+			cxf.jaxrs.providers = com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider
+		</properties>
+	</pojo-deployment>
+	<properties>
+		openejb.deploymentId.format = {appId}/{ejbJarId}/{ejbName}
+		openejb.jndiname.format = {appId}.{deploymentId}{interfaceType.annotationName}
+	</properties>
+</openejb-jar>

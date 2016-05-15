@@ -1,0 +1,77 @@
+/* --- FONTS --- */
+
+html,body,button,label,input,select,textarea{font-family:arial,helvetica,sans-serif}
+
+form.editForm span.error:before,#contentBox ul li:before,#contentBox .errorGlobal p{font-weight:bold}
+th,td,.subPartTitle h1,.subPartTitle h2{font-weight:normal}
+
+html,body{font-size:12px}
+form.editForm span.error:before,#contentBox ul li:before{font-size:120%}
+#menuBox ul li:hover span.hidden,button.buttonSmall,form.editForm span.error,#contentBox ul li{font-size:90%}
+
+.subPartTitle h1,.subPartTitle h2{font-variant:small-caps}
+
+
+/* --- COLOR --- */
+
+#menuBox ul li a,button,.resultTable table th{color:#fff}
+#menuBox ul li:hover span.hidden,.subPartTitle h1,.subPartTitle h2{color:#a5a6a4}
+button.buttonRounded:hover span.hidden{color:#858684}
+form.editForm span.error,#contentBox ul li:before{color:rgba(153,0,0,1)} /* red */
+
+
+/* --- BACKGROUND --- */
+
+/* white themes */
+
+td,input,select,textarea{background:none rgba(235,235,235,1)}
+input:focus,select:focus,textarea:focus{background:none rgba(255,255,255,1)}
+
+/* grey themes */
+
+html,body{background-color:rgba(105,106,104,1)}
+#menuBox ul li a{background-color:rgba(35,36,34,1)}
+#menuBox ul li a:hover{background-color:rgba(15,16,14,1)}
+
+tr:hover td,tr.selected td{background-color:rgba(195,196,194,1)}
+
+#contentBox{background-color:rgba(205,206,204,1)}
+
+button.grey{background:none #555654}
+button.grey:hover{background:none #252624}
+
+/* green themes */
+
+button.green{background-color:rgba(145,159,4,1)}
+button.green:hover,.resultTable table th{background-color:rgba(126,137,23,1)}
+
+/* no background */
+
+fieldset{background:none transparent}
+
+
+/* --- BORDER --- */
+
+th,td{border:1px solid #a5a6a4}
+:required,button,fieldset,input,select,textarea{border:none}
+
+
+/* --- RADIUS --- */
+
+#menuBox ul li a{-moz-border-radius:10px;-webkit-border-radius:10px;-ms-border-radius:10px;border-radius:10px}
+button{-moz-border-radius:5px;-webkit-border-radius:5px;-ms-border-radius:5px;border-radius:5px}
+:required,input,select,textarea{-moz-border-radius:0;-webkit-border-radius:0;-ms-border-radius:0;border-radius:0}
+
+button.buttonRounded{border-radius:220px 0 0 220px}
+
+
+/* --- SHADOW --- */
+
+#menuBox ul li a{-moz-box-shadow:0 4px 12px rgba(0,0,0,0.8);-webkit-box-shadow:0 4px 12px rgba(0,0,0,0.8);-ms-box-shadow:0 4px 12px rgba(0,0,0,0.8);box-shadow:0 4px 12px rgba(0,0,0,0.8)}
+#menuBox ul li a:hover{-moz-box-shadow:0 4px 6px rgba(0,0,0,0.6);-webkit-box-shadow:0 4px 6px rgba(0,0,0,0.6);-ms-box-shadow:0 4px 6px rgba(0,0,0,0.6);box-shadow:0 4px 6px rgba(0,0,0,0.6)}
+:required{-moz-box-shadow:none;-webkit-box-shadow:none;-ms-box-shadow:none;box-shadow:none}
+
+
+/* --- CLEARER --- */
+
+#bgBox .clearer{float:none!important;clear:both!important;margin:0!important;padding:0!important;height:1px!important;font-size:1px!important;font-weight:normal!important;line-height:1px!important;background:none transparent!important;border:none!important}

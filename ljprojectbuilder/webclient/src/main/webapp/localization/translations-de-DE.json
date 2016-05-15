@@ -1,0 +1,14 @@
+{
+	"error.number": "Der eingegebene Wert muss eine Zahl sein.",
+	"error.minlength": "Der eingegebene Wert ist zu kurz.",
+	"error.maxlength": "Der eingegebene Wert ist zu lang.",
+	"error.required": "Das Feld darf nicht leer sein.",
+	"error.pattern": "Die Eingabe ist nicht korrekt.",
+	
+	"###BEGIN###" : "Generierung beginnt",
+	
+	"###END###" : "Genererierung endet",
+	
+	"button.create" : "erstellen",
+	"button.update" : "bearbeiten"
+}
