@@ -5,7 +5,7 @@
                         http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="MeineJpaPU" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:openejb/Resource/jdbc/ljprojectbuilderp</jta-data-source>
+		<jta-data-source>java:openejb/Resource/jdbc/ljprojectbuilder</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>

@@ -21,7 +21,7 @@ public class ProjectSetupBean {
 	}
 
 	public ProjectSetupBean() {
-		this.currentProjectName = "ljprojectbuilderp";
+		this.currentProjectName = "ljprojectbuilder";
 		this.projectPath = Paths.get("").toAbsolutePath().getParent().toString();
 		this.targetPath = Paths.get("").toAbsolutePath().getParent().toString();
 		this.newProjectName = "demoapp";
