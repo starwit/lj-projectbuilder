@@ -74,7 +74,7 @@
 								<lib>com.h2database:h2:1.3.175</lib>
 								<lib>remove:openjpa-</lib>
 							</libs>
-							<webappDir>${project.basedir}/../lj-projectbuilder/target</webappDir>
+							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
 						</configuration>
 					</plugin>
 				</plugins>

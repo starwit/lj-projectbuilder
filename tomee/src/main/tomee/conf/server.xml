@@ -113,7 +113,7 @@
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
       </Realm>
 
-      <Host appBase="${project.basedir}/../ljprojectbuilder/target" autoDeploy="true" name="localhost" unpackWARs="true">
+      <Host appBase="${project.parent.basedir}/ljprojectbuilder/target" autoDeploy="true" name="localhost" unpackWARs="true">
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
