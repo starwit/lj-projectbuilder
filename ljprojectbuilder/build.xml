@@ -1,0 +1,15 @@
+<project name="ljprojectbuilder" default="copy" basedir=".">
+	<description>
+    does simple file copy, no building here
+  </description>
+	<!-- set global properties for this build -->
+	<property name="src" location="webclient/src/main/webapp/" />
+	<property name="dest" location="target/ljprojectbuilder" />
+
+	<target name="copy" description="copies web frontend">
+		<echo>copy web frontend from ${src} to ${dest}</echo>
+		<copy todir="${dest}">
+			<fileset dir="${src}" />
+		</copy>
+	</target>
+</project>

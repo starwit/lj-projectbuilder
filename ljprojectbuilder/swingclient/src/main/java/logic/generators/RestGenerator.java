@@ -23,7 +23,7 @@ public class RestGenerator extends Generator {
 	
 	public void generate(GeneratorSetupBean setupBean) {
 		
-		String packagePath = setupBean.getProjectPath() + "/" + setupBean.getProjectName() + "/business/" + Generator.SRC_JAVA_PATH + "/" + setupBean.getProjectName();
+		String packagePath = setupBean.getProjectPath() + "/" + setupBean.getProjectName() + "/rest/" + Generator.SRC_JAVA_PATH + "/" + setupBean.getProjectName();
         GeneratorConfig generatorConfig = GeneratorConfig.REST;
         generate(setupBean, packagePath, generatorConfig);
         generateRestfulApplications(setupBean, packagePath);

@@ -27,7 +27,7 @@ public class FrontendGenerator extends Generator {
 
 	@Override
 	public void generate(GeneratorSetupBean setupBean) {
-		String packagePath = setupBean.getProjectPath() + "/" + setupBean.getProjectName() + "/frontend/" + Generator.SRC_FRONTEND_PATH;
+		String packagePath = setupBean.getProjectPath() + "/" + setupBean.getProjectName() + "/webclient/" + Generator.SRC_FRONTEND_PATH;
 		String domain = setupBean.getDomainName();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain);

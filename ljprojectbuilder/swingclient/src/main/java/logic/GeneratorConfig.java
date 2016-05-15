@@ -21,7 +21,7 @@ public enum GeneratorConfig {
 	
 	CONTROLLER_UI(".ctrl.js", "webclient/ctrl.ftl", "viewcomponents"),
 	CONFIG_UI(".routes.js", "webclient/routes.ftl", "viewcomponents"),
-	CONNECTOR_UI(".connector.js", "webclient/connector.ftl", "serviceconnector"),
+	CONNECTOR_UI(".connector.factory.js", "webclient/connector.ftl", "shared/restfacade"),
 	
 	SCRIPT_BINDING("index.html", "webclient/scripts.ftl", ""),
 	VIEWS_UI("app.module.js", "webclient/app.module.ftl", ""),
