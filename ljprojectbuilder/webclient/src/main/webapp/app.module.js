@@ -5,7 +5,9 @@ var ljprojectbuilderApp = angular.module('ljprojectbuilderApp', [
     'pascalprecht.translate',
   
     //###BEGIN### include generated files
-    'ljprojectbuilderApp.project',
+	'ljprojectbuilderApp.project',
+	'ljprojectbuilderApp.attribute',
+	'ljprojectbuilderApp.domain',
 	//###END### include generated files
 	'ngRoute'
 ]);
