@@ -1,14 +1,13 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var ljprojectbuilderApp = angular.module('ljprojectbuilderApp', [
+angular.module('ljprojectbuilderApp', [
     'pascalprecht.translate',
     //###BEGIN### include generated files
 	//###END### include generated files
 	'ngRoute'
-]);
-
-ljprojectbuilderApp.config(['$translateProvider', function($translateProvider) {
+])
+.config(['$translateProvider', function($translateProvider) {
 	$translateProvider
 	.useStaticFilesLoader({
 		prefix: 'localization/translations-',
@@ -16,6 +15,5 @@ ljprojectbuilderApp.config(['$translateProvider', function($translateProvider) {
 	}).preferredLanguage('de-DE')
 		.useSanitizeValueStrategy('escaped') // Security for escaping variables
 		.usePostCompiling(true); // Post compiling angular filters
-}]);
-	
-ljprojectbuilderApp.factory('restConnectorFactory', restConnectorFactory);
+}])
+.factory('restConnectorFactory', restConnectorFactory);

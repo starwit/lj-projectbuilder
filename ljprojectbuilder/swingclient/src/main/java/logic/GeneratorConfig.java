@@ -16,17 +16,17 @@ public enum GeneratorConfig {
 	REST("Rest.java", "rest/rest.ftl", "api/rest"),
 	REST_APP("RestfulApplication.java", "rest/restfulApplication.ftl", "api/restapp"),
 	
-	ALL_UI("-all.html", "frontend/all.ftl",  "views"),
-	MAINTAIN_UI("-single.html", "frontend/single.ftl",  "views"),
+	ALL_UI(".all.html", "webclient/all.ftl",  "viewcomponents"),
+	MAINTAIN_UI(".single.html", "webclient/single.ftl",  "viewcomponents"),
 	
-	CONTROLLER_UI("-ctrl.js", "frontend/ctrl.ftl", "views"),
-	CONFIG_UI("-config.js", "frontend/config.ftl", "views"),
-	CONNECTOR_UI("-connector-factory.js", "frontend/connector.ftl", "serviceconnector"),
+	CONTROLLER_UI(".ctrl.js", "webclient/ctrl.ftl", "viewcomponents"),
+	CONFIG_UI(".routes.js", "webclient/routes.ftl", "viewcomponents"),
+	CONNECTOR_UI(".connector.js", "webclient/connector.ftl", "serviceconnector"),
 	
-	SCRIPT_BINDING("index.html", "frontend/scripts.ftl", ""),
-	VIEWS_UI("app.config.js", "frontend/app.config.ftl", ""),
-	MENU_UI("menu.html", "frontend/menu.ftl", ""),
-	TRANSLATION_UI("translations-de-DE.json", "frontend/translation.ftl", "localization"),
+	SCRIPT_BINDING("index.html", "webclient/scripts.ftl", ""),
+	VIEWS_UI("app.module.js", "webclient/app.module.ftl", ""),
+	MENU_UI("menu.html", "webclient/menu.ftl", ""),
+	TRANSLATION_UI("translations-de-DE.json", "webclient/translation.ftl", "localization"),
 
 	TESTDATA("Entity.json", "test/entityDataImport.ftl", "datasets");
 	
