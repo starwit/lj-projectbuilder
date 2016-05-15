@@ -1,8 +1,8 @@
-package de.starwit.lirejarp.api.rest.response;
+package de.starwit.ljprojectbuilderp.api.rest.response;
 
 import java.util.Collection;
 
-import de.starwit.lirejarp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
 
 /**
  * This wrapper is used to get an entity which has a oneToMany relation. 

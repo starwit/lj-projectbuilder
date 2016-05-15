@@ -1,7 +1,7 @@
-package de.starwit.lirejarp.api.rest.response;
+package de.starwit.ljprojectbuilderp.api.rest.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import de.starwit.lirejarp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
 
 @XmlRootElement
 public class EntityResponse<E extends AbstractEntity> extends Response<E>{

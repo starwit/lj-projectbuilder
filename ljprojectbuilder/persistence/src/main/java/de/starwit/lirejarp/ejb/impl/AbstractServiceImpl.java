@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.ejb.impl;
+package de.starwit.ljprojectbuilderp.ejb.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -17,10 +17,10 @@ import javax.validation.ValidationException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
-import de.starwit.lirejarp.ejb.AbstractService;
-import de.starwit.lirejarp.entity.AbstractEntity;
-import de.starwit.lirejarp.exception.EntityNotFoundException;
-import de.starwit.lirejarp.exception.IllegalIdException;
+import de.starwit.ljprojectbuilderp.ejb.AbstractService;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.exception.EntityNotFoundException;
+import de.starwit.ljprojectbuilderp.exception.IllegalIdException;
 
 /**
  * AbstractService used as template for all service implementations and implements the basic 

@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.ejb;
+package de.starwit.ljprojectbuilderp.ejb;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,8 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.starwit.lirejarp.entity.AbstractEntity;
-import de.starwit.lirejarp.exception.EntityNotFoundException;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.exception.EntityNotFoundException;
 
 
 public abstract class AbstractServiceTest<E extends AbstractService<T>, T extends AbstractEntity> {

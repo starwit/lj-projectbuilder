@@ -19,7 +19,7 @@ public class GeneratorSetupBean {
 	private List<DomainAttributeBean> domainAttributes = new ArrayList<DomainAttributeBean>();
 	
 	public GeneratorSetupBean() {
-		this.projectName = "lirejarp";
+		this.projectName = "ljprojectbuilderp";
 		this.projectPath = Paths.get("").toAbsolutePath().getParent().toString();
 		this.templatePath = Paths.get("").toAbsolutePath().getParent().toString() + "/lj-projectbuilder/src/main/resources";
 	}

@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.exception;
+package de.starwit.ljprojectbuilderp.exception;
 
 
 public class ImportException extends Exception {

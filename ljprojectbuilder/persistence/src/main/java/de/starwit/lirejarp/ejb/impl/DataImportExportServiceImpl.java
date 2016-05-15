@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.ejb.impl;
+package de.starwit.ljprojectbuilderp.ejb.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +17,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.starwit.lirejarp.config.ProjectConfig;
-import de.starwit.lirejarp.ejb.DataImportExportService;
-import de.starwit.lirejarp.entity.AbstractEntity;
-import de.starwit.lirejarp.exception.ImportException;
+import de.starwit.ljprojectbuilderp.config.ProjectConfig;
+import de.starwit.ljprojectbuilderp.ejb.DataImportExportService;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.exception.ImportException;
 
 
 @Stateless(name="DataImportExportService")
@@ -41,7 +41,7 @@ public class DataImportExportServiceImpl implements DataImportExportService {
 			    while (tok.hasMoreTokens()) {
 			    	String entityName = tok.nextToken();
 			    	@SuppressWarnings("unchecked")
-					Class<? extends AbstractEntity> entityClass = (Class<? extends AbstractEntity>) Class.forName("de.starwit.lirejarp.entity." + entityName);
+					Class<? extends AbstractEntity> entityClass = (Class<? extends AbstractEntity>) Class.forName("de.starwit.ljprojectbuilderp.entity." + entityName);
 					InputStream in = this.getClass().getClassLoader()
 							.getResourceAsStream(ProjectConfig.IMPORT_EXPORT_FOLDER + "/" + entityName + ".json");
 					if (file.exists()) {

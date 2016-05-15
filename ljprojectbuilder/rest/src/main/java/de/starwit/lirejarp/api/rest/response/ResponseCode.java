@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.api.rest.response;
+package de.starwit.ljprojectbuilderp.api.rest.response;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

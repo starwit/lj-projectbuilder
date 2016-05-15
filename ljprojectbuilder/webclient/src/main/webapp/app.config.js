@@ -1,14 +1,14 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var lirejarpApp = angular.module('lirejarpApp', [
+var ljprojectbuilderpApp = angular.module('ljprojectbuilderpApp', [
     'pascalprecht.translate',
     //###BEGIN### include generated files
 	//###END### include generated files
 	'ngRoute'
 ]);
 
-lirejarpApp.config(['$translateProvider', function($translateProvider) {
+ljprojectbuilderpApp.config(['$translateProvider', function($translateProvider) {
 	$translateProvider
 	.useStaticFilesLoader({
 		prefix: 'localization/translations-',
@@ -18,4 +18,4 @@ lirejarpApp.config(['$translateProvider', function($translateProvider) {
 		.usePostCompiling(true); // Post compiling angular filters
 }]);
 	
-lirejarpApp.factory('restConnectorFactory', restConnectorFactory);
+ljprojectbuilderpApp.factory('restConnectorFactory', restConnectorFactory);

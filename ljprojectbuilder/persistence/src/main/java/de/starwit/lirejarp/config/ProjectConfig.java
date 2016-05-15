@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.config;
+package de.starwit.ljprojectbuilderp.config;
 
 public class ProjectConfig {
 

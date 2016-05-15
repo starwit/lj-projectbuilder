@@ -1,10 +1,10 @@
-package de.starwit.lirejarp.api.rest.response;
+package de.starwit.ljprojectbuilderp.api.rest.response;
 
 import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.starwit.lirejarp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
 
 @XmlRootElement
 public class EntityListResponse<E extends AbstractEntity> extends Response<Collection<E>>{

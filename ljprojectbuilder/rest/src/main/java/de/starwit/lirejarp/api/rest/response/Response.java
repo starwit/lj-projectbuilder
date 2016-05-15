@@ -1,10 +1,10 @@
-package de.starwit.lirejarp.api.rest.response;
+package de.starwit.ljprojectbuilderp.api.rest.response;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.starwit.lirejarp.api.rest.validation.ValidationError;
+import de.starwit.ljprojectbuilderp.api.rest.validation.ValidationError;
 
 @XmlRootElement
 public class Response<E> {

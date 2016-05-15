@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.api.rest.validation;
+package de.starwit.ljprojectbuilderp.api.rest.validation;
 
 public class ValidationError {
 	String fieldname;

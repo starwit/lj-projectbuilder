@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.api.restapp;
+package de.starwit.ljprojectbuilderp.api.restapp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import de.starwit.lirejarp.api.rest.AbstractRest;
+import de.starwit.ljprojectbuilderp.api.rest.AbstractRest;
 
 
 @ApplicationPath("/api")

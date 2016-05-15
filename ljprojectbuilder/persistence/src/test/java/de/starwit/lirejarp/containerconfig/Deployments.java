@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.containerconfig;
+package de.starwit.ljprojectbuilderp.containerconfig;
 
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -24,7 +24,7 @@ public class Deployments {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap.create(JavaArchive.class, "test.jar")
-					.addPackages(true, "de/starwit/lirejarp")
+					.addPackages(true, "de/starwit/ljprojectbuilderp")
 	                .addAsResource("META-INF/beans.xml", "META-INF/beans.xml")
 	                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
 	}

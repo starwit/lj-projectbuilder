@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.api.rest.validation;
+package de.starwit.ljprojectbuilderp.api.rest.validation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,9 +9,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import de.starwit.lirejarp.api.rest.response.ResponseCode;
-import de.starwit.lirejarp.api.rest.response.ResponseMetadata;
-import de.starwit.lirejarp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.api.rest.response.ResponseCode;
+import de.starwit.ljprojectbuilderp.api.rest.response.ResponseMetadata;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
 
 public class EntityValidator {
 	

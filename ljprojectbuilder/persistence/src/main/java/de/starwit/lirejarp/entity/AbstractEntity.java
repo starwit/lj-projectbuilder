@@ -1,4 +1,4 @@
-package de.starwit.lirejarp.entity;
+package de.starwit.ljprojectbuilderp.entity;
 
 import java.io.Serializable;
 

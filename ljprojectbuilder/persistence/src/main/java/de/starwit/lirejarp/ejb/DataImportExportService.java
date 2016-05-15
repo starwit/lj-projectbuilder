@@ -1,11 +1,11 @@
-package de.starwit.lirejarp.ejb;
+package de.starwit.ljprojectbuilderp.ejb;
 
 import java.io.InputStream;
 
 import javax.ejb.Local;
 
-import de.starwit.lirejarp.entity.AbstractEntity;
-import de.starwit.lirejarp.exception.ImportException;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.exception.ImportException;
 
 @Local
 public interface DataImportExportService {

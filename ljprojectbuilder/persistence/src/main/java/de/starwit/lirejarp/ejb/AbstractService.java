@@ -1,12 +1,12 @@
-package de.starwit.lirejarp.ejb;
+package de.starwit.ljprojectbuilderp.ejb;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.validation.ValidationException;
 
-import de.starwit.lirejarp.entity.AbstractEntity;
-import de.starwit.lirejarp.exception.EntityNotFoundException;
+import de.starwit.ljprojectbuilderp.entity.AbstractEntity;
+import de.starwit.ljprojectbuilderp.exception.EntityNotFoundException;
 
 /**
  * Service Interface for all methods defined in the class AbstractDao. 
