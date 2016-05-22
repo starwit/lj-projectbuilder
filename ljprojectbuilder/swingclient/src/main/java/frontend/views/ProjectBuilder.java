@@ -12,10 +12,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.log4j.Logger;
+
 import frontend.beans.GeneratorSetupBean;
 import frontend.beans.ProjectSetupBean;
 
 public class ProjectBuilder {
+	
+	static final Logger LOG = Logger.getLogger(ProjectBuilder.class);
 
 	private final frontend.beans.ProjectSetupBean projectSetup = new ProjectSetupBean();
 	private final frontend.beans.GeneratorSetupBean generatorSetup = new GeneratorSetupBean();
@@ -33,7 +37,7 @@ public class ProjectBuilder {
 					ProjectBuilder window = new ProjectBuilder();
 					window.frmProjectSetup.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Error creating project builder. ", e);
 				}
 			}
 		});
