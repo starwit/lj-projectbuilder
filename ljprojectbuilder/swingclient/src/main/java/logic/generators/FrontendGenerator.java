@@ -120,6 +120,7 @@ public class FrontendGenerator extends Generator {
 					if (currentLine.contains(BEGIN_GENERATION)) {
 						copyContentFromFile = false;
 						template.process(data, writer);
+						writer.write(System.getProperty("line.separator"));
 					}
 				}
 			}
