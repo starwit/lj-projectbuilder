@@ -10,6 +10,7 @@
 		<thead>
 			<tr>
 				<th>{{'project.title' | translate}}</th>
+				<th>{{'project.templatelocation' | translate}}</th>
 				<th>{{'project.packagePrefix' | translate}}</th>
 				<th>{{'project.description' | translate}}</th>
 			</tr>	
@@ -20,6 +21,7 @@
 				ng-dblclick="setSelected(project.id);gotoUpdateProject(idSelected);">
 
 				<td>{{project.title}}</td>
+				<th>{{'project.templatelocation' | translate}}</th>
 				<td>{{project.packagePrefix}}</td>
 				<td>{{project.description}}</td>
 			</tr>

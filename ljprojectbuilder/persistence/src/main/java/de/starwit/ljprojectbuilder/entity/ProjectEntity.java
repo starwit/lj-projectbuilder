@@ -16,6 +16,9 @@ public class ProjectEntity extends AbstractEntity {
 	//domain attributes
 	
 	@NotBlank
+	private String templateLocation;
+	
+	@NotBlank
 	private String title;
 	
 	@NotBlank
@@ -51,5 +54,14 @@ public class ProjectEntity extends AbstractEntity {
 	
 		public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Column(name="TEMPLATELOCATION", nullable = false)
+	public String getTemplateLocation() {
+		return templateLocation;
+	}
+
+	public void setTemplateLocation(String templateLocation) {
+		this.templateLocation = templateLocation;
 	}
 }

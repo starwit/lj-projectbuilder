@@ -11,7 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import logic.GeneratorConfig;
+
 import org.apache.log4j.Logger;
+import org.w3c.tidy.Tidy;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -20,7 +23,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import frontend.beans.GeneratorSetupBean;
-import logic.GeneratorConfig;
 
 public abstract class Generator {
 

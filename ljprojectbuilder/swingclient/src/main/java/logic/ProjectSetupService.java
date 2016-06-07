@@ -13,6 +13,8 @@ import java.util.Collection;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 import frontend.beans.ProjectSetupBean;
 
@@ -27,13 +29,17 @@ public class ProjectSetupService {
 	 */
 	public void copyProjectTemplate(ProjectSetupBean properties) {
 		try {
-			File srcDir = new File(properties.getProjectPath() + "/" + properties.getCurrentProjectName());
-			File srcDirTomee = new File(properties.getProjectPath() + "/tomee");
-			File destDir = new File(properties.getTargetPath() + "/" + properties.getCurrentProjectName());
-			File destDirTomee = new File(properties.getTargetPath() + "/tomee");
-			FileUtils.copyDirectory(srcDir, destDir);
-			FileUtils.copyDirectory(srcDirTomee, destDirTomee);
-		} catch (IOException e) {
+			String srcDir = properties.getProjectPath();
+			File destDir = new File(properties.getTargetPath());
+			
+			if (!destDir.exists()) {
+				Git git = Git.cloneRepository()
+						.setURI(srcDir)
+						.setDirectory(destDir)
+						.call();
+			}
+
+		} catch (GitAPIException e) {
 			LOG.error("Error copying files for project template.", e);
 		}
 	}

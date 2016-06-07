@@ -5,11 +5,8 @@ import java.nio.file.Paths;
 public class ProjectSetupBean {
 	
 	private String newProjectName;
-	
 	private String currentProjectName;
-	
 	private String projectPath;
-	
 	private String targetPath;
 	
 	public String getTargetPath() {
