@@ -14,7 +14,6 @@ import java.util.Properties;
 import logic.GeneratorConfig;
 
 import org.apache.log4j.Logger;
-import org.w3c.tidy.Tidy;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;

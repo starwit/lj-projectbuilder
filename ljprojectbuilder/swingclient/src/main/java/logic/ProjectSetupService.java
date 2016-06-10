@@ -137,6 +137,5 @@ public class ProjectSetupService {
 			writer.close();
 			moved.toFile().delete();
 		}
-
 	}
 }

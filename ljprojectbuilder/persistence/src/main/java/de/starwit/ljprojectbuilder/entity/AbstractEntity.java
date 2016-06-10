@@ -24,5 +24,4 @@ public abstract class AbstractEntity implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 }

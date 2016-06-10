@@ -59,7 +59,6 @@ public class DataImportExportServiceImpl implements DataImportExportService {
 			throws ImportException {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			
 				List<? extends AbstractEntity> entities = mapper.readValue(in, mapper.getTypeFactory().constructCollectionType(List.class, entityClass));
 				for (AbstractEntity entity : entities) {
 					entityManager.persist(entity);

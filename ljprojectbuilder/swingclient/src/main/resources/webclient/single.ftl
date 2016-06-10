@@ -1,3 +1,4 @@
+<#compress>
 <div class="subPartTitle"><h1>{{title | translate}}</h1></div>
 <div class="subPart addressSingle">
 	<form class="editForm" name="${domain?lower_case}Form">   
@@ -61,4 +62,4 @@
 			<button class="buttonRounded green" ng-click="doMaintain()"><img src="res/img/symbols/save-wh.png" border="0" /><span class="hidden">Speichern</span></button>
 			<button class="buttonRounded grey" ng-click="doBack()"><img src="res/img/symbols/refresh-wh.png" border="0" /><span class="hidden">Formular zur&uuml;cksetzen</span></button>
 	</form>	
-</div>
+</#compress>

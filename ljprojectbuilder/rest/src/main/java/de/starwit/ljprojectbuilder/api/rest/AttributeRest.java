@@ -28,7 +28,6 @@ public class AttributeRest extends AbstractRest<AttributeEntity> {
 	//Create
 	@Path("/")
 	@PUT
-	@Override
 	public EntityResponse<AttributeEntity> create(AttributeEntity entity) {
 		return super.createGeneric(entity);
 	}
@@ -36,7 +35,6 @@ public class AttributeRest extends AbstractRest<AttributeEntity> {
 	//Update
 	@Path("/")
 	@POST
-	@Override
 	public EntityResponse<AttributeEntity> update(AttributeEntity entity) {
 		return super.updateGeneric(entity);
 	}

@@ -40,6 +40,9 @@ tr:hover td,tr.selected td{background-color:rgba(195,196,194,1)}
 button.grey{background:none #555654}
 button.grey:hover{background:none #252624}
 
+button.blue{background:none #333455}
+button.blue:hover{background:none #252655}
+
 /* green themes */
 
 button.green{background-color:rgba(145,159,4,1)}

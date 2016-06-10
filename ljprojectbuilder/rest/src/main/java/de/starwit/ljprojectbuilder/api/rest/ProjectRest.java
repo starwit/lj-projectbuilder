@@ -28,7 +28,6 @@ public class ProjectRest extends AbstractRest<ProjectEntity> {
 	//Create
 	@Path("/")
 	@PUT
-	@Override
 	public EntityResponse<ProjectEntity> create(ProjectEntity entity) {
 		return super.createGeneric(entity);
 	}
@@ -36,7 +35,6 @@ public class ProjectRest extends AbstractRest<ProjectEntity> {
 	//Update
 	@Path("/")
 	@POST
-	@Override
 	public EntityResponse<ProjectEntity> update(ProjectEntity entity) {
 		return super.updateGeneric(entity);
 	}

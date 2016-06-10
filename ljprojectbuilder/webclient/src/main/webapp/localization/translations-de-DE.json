@@ -16,8 +16,16 @@
 	"attribute.create.title": "Attribute erfassen",
 	"attribute.update.title": "Attribute bearbeiten",	
 	"domain.update.title": "Domain bearbeiten",	
-	"project.update.title": "Project bearbeiten",	
-	"project.update.title": "Project bearbeiten",	
+	
+	"project.all.title": "Projekt anzeigen",	
+	"project.create.title": "Projekt erfassen",	
+	"project.update.title": "Projekt bearbeiten",
+	
+	"project.title": "Titel",
+	"project.templatelocation": "Git-Repository des Templates",
+	"project.packageprefix": "Java Package Name",
+	"project.description": "Beschreibung",
+	
 	"###END###" : "Genererierung endet",
 	
 	"button.create" : "erstellen",

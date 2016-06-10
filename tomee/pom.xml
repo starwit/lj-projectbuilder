@@ -39,6 +39,8 @@
 						<libs>
 							<lib>com.h2database:h2:1.3.175</lib>
 							<lib>remove:openjpa-</lib>
+							<lib>resteasy-jaxrs:3:0:17:Final</lib>
+							<lib>remove:jaxb-impl</lib>
 						</libs>
 					</configuration>
 				</plugin>

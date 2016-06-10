@@ -28,7 +28,6 @@ public class ${domain}Rest extends AbstractRest<${domain}Entity> {
 	//Create
 	@Path("/")
 	@PUT
-	@Override
 	public EntityResponse<${domain}Entity> create(${domain}Entity entity) {
 		return super.createGeneric(entity);
 	}
@@ -36,7 +35,6 @@ public class ${domain}Rest extends AbstractRest<${domain}Entity> {
 	//Update
 	@Path("/")
 	@POST
-	@Override
 	public EntityResponse<${domain}Entity> update(${domain}Entity entity) {
 		return super.updateGeneric(entity);
 	}

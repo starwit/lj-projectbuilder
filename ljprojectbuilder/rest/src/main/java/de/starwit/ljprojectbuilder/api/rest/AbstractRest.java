@@ -28,35 +28,6 @@ public abstract class AbstractRest<E extends AbstractEntity> {
 	}
 	
 	/**
-	 * Deserialisation of JSON is not working. Implement abstract method instead:
-	 **************************************************************************** 	
-		@PUT
-		@Override
-		public ResultStateWrapper create(E entity) {
-			return super.createGeneric(entity);
-		}
-	 ****************************************************************************
-	 * @param entity
-	 * @return
-	 */
-	public abstract EntityResponse<E> create(E entity);
-	
-	/**
-	 * Deserialisation of JSON is not working. Implement abstract method instead:
-	 **************************************************************************** 	
-		@POST
-		@Override
-		public ResultStateWrapper update(E entity) {
-			return super.updateGeneric(entity);
-		}
-	 ****************************************************************************
-	 * @param entity
-	 * @return
-	 */
-	public abstract EntityResponse<E> update(E entity);
-	
-
-	/**
 	 * Typify persistence service
 	 */
 	protected abstract AbstractService<E> getService();
