@@ -45,6 +45,10 @@ projectControllers.maintainProjectController = function ($scope, $routeParams, $
 		}
 	};
 	
+	$scope.doGenerate = function () {
+		projectConnectorFactory.generate($scope.project);
+	};
+	
 	$scope.doBack = function () {
 		gotoProject.all($location);
 	};

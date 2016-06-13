@@ -1,6 +1,14 @@
 function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
+	factory.generate = function(project) {
+		return $http.post('api/project/generate', project)
+			.then(
+				restConnectorFactory.handleResponseSuccess ,
+				restConnectorFactory.handleResponseError
+			);
+	}
+	
 	factory.getProjectAll = function($scope) {
 		$http.get('api/project/query/all')
 		.then(function (response) {
@@ -47,6 +55,5 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 			restConnectorFactory.getAllowedFields($scope, content);
 		});
 	};
-		
 	return factory;
 }

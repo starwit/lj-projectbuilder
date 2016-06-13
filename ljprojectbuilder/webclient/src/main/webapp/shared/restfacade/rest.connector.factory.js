@@ -1,5 +1,3 @@
-//factory functions
-
 function restConnectorFactory ($http, $location) {
 	var factory = {};
 	
@@ -14,6 +12,18 @@ function restConnectorFactory ($http, $location) {
         	errorPath($location);
         }
 	};
+	
+	factory.handleResponseSuccess = function(response) {
+		if (response.data.metadata.responseCode == 'OK' || response.data.metadata.responseCode == 'EMPTY') {
+			return response.data.result;
+		} else {
+			return $q.reject(response.data.metadata.message);
+		}
+	}
+	
+	factory.handleResponseError = function(response) {
+		return $q.reject(response.data.metadata.message);
+	}
 	
 	factory.getAllowedFields = function($scope, allowedFields) {
 		$scope.allowedfields = {};

@@ -23,6 +23,7 @@
 	
 	"project.title": "Titel",
 	"project.templatelocation": "Git-Repository des Templates",
+	"project.targetpath": "Zielverzeichnis",
 	"project.packageprefix": "Java Package Name",
 	"project.description": "Beschreibung",
 	

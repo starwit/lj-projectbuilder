@@ -23,6 +23,7 @@ public class ProjectSetupService {
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml" };
 	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
 	
+	
 	/**
 	 * Copies the project template and tomee to an new project location.
 	 * @param properties
