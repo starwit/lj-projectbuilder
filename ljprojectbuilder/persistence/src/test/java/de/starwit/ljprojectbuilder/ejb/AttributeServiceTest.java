@@ -22,15 +22,25 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
-//		Assert.fail("Not yet implemented");
-		
+		Assert.assertEquals("Test", entity.getName());
+		Assert.assertEquals("String", entity.getType());
+		Assert.assertNull(entity.getPattern());
+		Assert.assertNull(entity.getMax());
+		Assert.assertNull(entity.getMin());
 	}
 
 	@Override
 	public void testUpdate() {
 		entity = getService().findById(ID);
+		entity.setMax(20);
+		entity.setMin(3);
+		entity.setName("TestChanged");
 		entity = getService().update(entity);
-//		Assert.fail("Not yet implemented");
+		Assert.assertNotNull(entity.getId());
+		Assert.assertEquals("TestChanged", entity.getName());
+		Assert.assertNull(entity.getPattern());
+		Assert.assertEquals(new Integer(20), entity.getMax());
+		Assert.assertEquals(new Integer(10), entity.getMin());
 	}
 
 }

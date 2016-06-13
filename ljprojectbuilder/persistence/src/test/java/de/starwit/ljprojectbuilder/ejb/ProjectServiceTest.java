@@ -23,15 +23,15 @@ public class ProjectServiceTest extends AbstractServiceTest<ProjectService, Proj
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
-//		Assert.fail("Not yet implemented");
-		
+		Assert.assertEquals("test", entity.getPackagePrefix());
 	}
 
 	@Override
 	public void testUpdate() {
 		entity = getService().findById(ID);
+		entity.setTitle("TestChanged");
 		entity = getService().update(entity);
-//		Assert.fail("Not yet implemented");
+		Assert.assertEquals("TestChanged", entity.getTitle());
+		Assert.assertEquals("test", entity.getPackagePrefix());
 	}
-
 }

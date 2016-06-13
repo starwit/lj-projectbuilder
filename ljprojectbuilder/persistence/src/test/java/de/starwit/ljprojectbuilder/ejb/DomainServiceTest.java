@@ -21,15 +21,15 @@ public class DomainServiceTest extends AbstractServiceTest<DomainService, Domain
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
-//		Assert.fail("Not yet implemented");
-		
+		Assert.assertEquals("Domain", entity.getName());
 	}
 
 	@Override
 	public void testUpdate() {
 		entity = getService().findById(ID);
+		entity.setName("DomainChanged");
 		entity = getService().update(entity);
-//		Assert.fail("Not yet implemented");
+		Assert.assertEquals("DomainChanged", entity.getName());
 	}
 
 }
