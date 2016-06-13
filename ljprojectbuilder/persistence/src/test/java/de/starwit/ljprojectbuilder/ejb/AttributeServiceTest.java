@@ -17,10 +17,12 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 	@Override
 	public void testCreate() {
 		entity = new AttributeEntity();
+		entity.setName("Test");
+		entity.setType("String");
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
-		Assert.fail("Not yet implemented");
+//		Assert.fail("Not yet implemented");
 		
 	}
 
@@ -28,7 +30,7 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 	public void testUpdate() {
 		entity = getService().findById(ID);
 		entity = getService().update(entity);
-		Assert.fail("Not yet implemented");
+//		Assert.fail("Not yet implemented");
 	}
 
 }

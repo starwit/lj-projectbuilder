@@ -36,7 +36,6 @@ public class ProjectEntity extends AbstractEntity {
 	@Max(value=100)
 	private String packagePrefix;
 	
-	@NotBlank
 	@Size(max=100)
 	private String targetPath;
 	
@@ -79,7 +78,7 @@ public class ProjectEntity extends AbstractEntity {
 		this.packagePrefix = packagePrefix;
 	}
 
-	@Column(name="DESCRIPTION", nullable = false, length=100)
+	@Column(name="DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}

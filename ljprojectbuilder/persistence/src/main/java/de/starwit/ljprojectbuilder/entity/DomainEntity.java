@@ -18,7 +18,6 @@ public class DomainEntity extends AbstractEntity {
 	@NotBlank
 	private String name;
 	
-	@NotBlank
 	private String description;
 	
 	
@@ -32,7 +31,7 @@ public class DomainEntity extends AbstractEntity {
 		this.name = name;
 	}
 
-	@Column(name="DESCRIPTION", nullable = false)
+	@Column(name="DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}

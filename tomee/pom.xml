@@ -31,9 +31,9 @@
 				<plugin>
 					<groupId>org.apache.openejb.maven</groupId>
 					<artifactId>tomee-maven-plugin</artifactId>
-					<version>1.7.1</version>
+					<version>1.7.4</version>
 					<configuration>
-						<tomeeVersion>1.7.1</tomeeVersion>
+						<tomeeVersion>1.7.4</tomeeVersion>
 						<tomeeClassifier>plus</tomeeClassifier>
 						<config>${project.basedir}/src/main/tomee/conf</config>
 						<libs>

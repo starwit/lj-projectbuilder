@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 @XmlRootElement
@@ -19,19 +19,15 @@ public class AttributeEntity extends AbstractEntity {
 	@NotBlank
 	private String name;
 	
-	@NotBlank
 	private String description;
 	
 	@NotBlank
 	private String type;
 	
-	@NotBlank
 	private String pattern;
 	
-	@NotNull
 	private Integer max;
 	
-	@NotNull
 	private Integer min;
 	
 	
@@ -45,7 +41,7 @@ public class AttributeEntity extends AbstractEntity {
 		this.name = name;
 	}
 
-	@Column(name="DESCRIPTION", nullable = false)
+	@Column(name="DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}
@@ -63,7 +59,7 @@ public class AttributeEntity extends AbstractEntity {
 		this.type = type;
 	}
 
-	@Column(name="PATTERN", nullable = false)
+	@Column(name="PATTERN")
 	public String getPattern() {
 		return pattern;
 	}
@@ -72,7 +68,7 @@ public class AttributeEntity extends AbstractEntity {
 		this.pattern = pattern;
 	}
 
-	@Column(name="MAX", nullable = false)
+	@Column(name="MAXIMUM")
 	public Integer getMax() {
 		return max;
 	}
@@ -81,7 +77,7 @@ public class AttributeEntity extends AbstractEntity {
 		this.max = max;
 	}
 
-	@Column(name="MIN", nullable = false)
+	@Column(name="MINIMUM")
 	public Integer getMin() {
 		return min;
 	}
