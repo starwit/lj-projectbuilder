@@ -3,11 +3,9 @@ package de.starwit.ljprojectbuilder.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @XmlRootElement
 @Entity
@@ -16,30 +14,30 @@ public class ProjectEntity extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=100)
 	private String templateLocation;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=100)
 	private String templateTitle;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=100)
 	private String templatePackagePrefix;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=100)
 	private String title;
 	
-	@NotBlank
-	@Max(value=100)
+	@NotNull
+	@Size(max=100)
 	private String packagePrefix;
 	
+	@NotNull
 	@Size(max=100)
 	private String targetPath;
 	
-	@NotBlank
 	private String description;
 	
 	@Column(name="TEMPLATE_TITLE", nullable=false, length=100)

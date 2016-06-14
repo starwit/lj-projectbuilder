@@ -16,10 +16,14 @@ public class ProjectServiceTest extends AbstractServiceTest<ProjectService, Proj
 
 	@Override
 	public void testCreate() {
-		entity = new ProjectEntity();
+		ProjectEntity entity = new ProjectEntity();
 		entity.setPackagePrefix("test");
-		entity.setTemplateLocation("test");
 		entity.setTitle("Test");
+		entity.setTargetPath("test");
+
+		entity.setTemplateLocation("test");
+		entity.setTemplatePackagePrefix("test");
+		entity.setTemplateTitle("test");
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
@@ -28,7 +32,7 @@ public class ProjectServiceTest extends AbstractServiceTest<ProjectService, Proj
 
 	@Override
 	public void testUpdate() {
-		entity = getService().findById(ID);
+		ProjectEntity entity = getService().findById(ID);
 		entity.setTitle("TestChanged");
 		entity = getService().update(entity);
 		Assert.assertEquals("TestChanged", entity.getTitle());

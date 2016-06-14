@@ -40,7 +40,7 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 		Assert.assertEquals("TestChanged", entity.getName());
 		Assert.assertNull(entity.getPattern());
 		Assert.assertEquals(new Integer(20), entity.getMax());
-		Assert.assertEquals(new Integer(10), entity.getMin());
+		Assert.assertEquals(new Integer(3), entity.getMin());
 	}
 
 }
