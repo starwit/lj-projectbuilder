@@ -63,7 +63,7 @@ public class ProjectEntity extends AbstractEntity {
 		return title;
 	}
 	
-		public void setTitle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -71,8 +71,8 @@ public class ProjectEntity extends AbstractEntity {
 	public String getPackagePrefix() {
 		return packagePrefix;
 	}
-	
-		public void setPackagePrefix(String packagePrefix) {
+
+	public void setPackagePrefix(String packagePrefix) {
 		this.packagePrefix = packagePrefix;
 	}
 
@@ -80,8 +80,8 @@ public class ProjectEntity extends AbstractEntity {
 	public String getDescription() {
 		return description;
 	}
-	
-		public void setDescription(String description) {
+
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	
@@ -93,7 +93,7 @@ public class ProjectEntity extends AbstractEntity {
 	public void setTemplateLocation(String templateLocation) {
 		this.templateLocation = templateLocation;
 	}
-	
+
 	@Column(name="TARGETPATH", nullable = false, length=100)
 	public String getTargetPath() {
 		return targetPath;

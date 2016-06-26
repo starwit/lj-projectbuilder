@@ -1,35 +1,23 @@
-<div class="subPart personAll">
-	<div class="subPartTitle"><h1>{{title | translate}}</h1></div>
-	<div class="editMenu">
-		<button class="buttonLarge grey floating" ng-click="gotoCreateProject();">erstellen</button>
-		<button class="buttonLarge grey floating" ng-click="idSelected != null && gotoUpdateProject(idSelected);" ng-disabled="idSelected == null">bearbeiten</button>
-		<button class="buttonLarge grey floating" ng-click="idSelected != null && deleteProject(idSelected);" ng-disabled="idSelected == null">l&ouml;schen</button>
-	</div>
-	<div class="resultTable">
-		<table>
-		<thead>
-			<tr>
-				<th>{{'project.title' | translate}}</th>
-				<th>{{'project.templatelocation' | translate}}</th>
-				<th>{{'project.targetpath' | translate}}</th>
-				<th>{{'project.packagePrefix' | translate}}</th>
-				<th>{{'project.description' | translate}}</th>
-			</tr>	
-		</thead>
-		<tbody>
-			<tr ng-repeat="project in projectAll" ng-click="setSelected(project.id)" 
-				ng-class="{selected: project.id === idSelected }" 
-				ng-dblclick="setSelected(project.id);gotoUpdateProject(idSelected);">
-
-				<td>{{project.title}}</td>
-				<td>{{project.templatelocation}}</td>
-				<td>{{project.targetPath}}</td>
-				<td>{{project.packagePrefix}}</td>
-				<td>{{project.description}}</td>
-			</tr>
-		</tbody>
-		<tfoot></tfoot>
-		</table>
+<div class="w3-row-padding w3-container">
+	<div class="w3-row-padding">
+		<div class="w3-half">
+			<h2>{{title | translate}}</h2>
+		</div>
+		<div class="w3-half">
+			<div class="w3-right">
+				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateProject();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+			</div>
+		</div>
+	</div>	
+	<div class="w3-row-padding">	
+		<div class="w3-container">
+			<ul class="w3-ul w3-card-4 w3-hoverable">
+			  <li class="w3-padding-16" ng-repeat="project in projectAll" ng-dblclick="gotoUpdateProject(project.id);">
+			    <span ng-click="deleteProject(project.id);"  class="w3-closebtn w3-padding">x</span>
+			    <span class="w3-xlarge">{{project.title}}</span><br>
+			    <span>{{project.description}}</span>
+			  </li>
+			</ul>
 		</div>	
 	</div>
 </div>

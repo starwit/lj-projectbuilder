@@ -17,15 +17,20 @@
 	"attribute.update.title": "Attribute bearbeiten",	
 	"domain.update.title": "Domain bearbeiten",	
 	
-	"project.all.title": "Projekt anzeigen",	
+	"project.all.title": "Übersicht Projekte",	
 	"project.create.title": "Projekt erfassen",	
 	"project.update.title": "Projekt bearbeiten",
 	
-	"project.title": "Titel",
-	"project.templatelocation": "Git-Repository des Templates",
+	"project.target" : "Zielprojekt",
+	"project.title": "Projektname",
 	"project.targetpath": "Zielverzeichnis",
-	"project.packageprefix": "Java Package Name",
+	"project.packageprefix": "Java-Package-Name",
 	"project.description": "Beschreibung",
+	
+	"project.template" : "Templateprojekt",
+	"project.templatetitle" : "Templatename",
+	"project.templatelocation": "Git-Repository des Templates",
+	"project.templatepackageprefix": "Java-Package des Templates",
 	
 	"###END###" : "Genererierung endet",
 	
