@@ -1,10 +1,10 @@
-package de.starwit.ljprojectbuilder.api.rest.response;
+package de.starwit.ljprojectbuilder.response;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.starwit.ljprojectbuilder.api.rest.validation.ValidationError;
+import de.starwit.ljprojectbuilder.validation.ValidationError;
 
 @XmlRootElement
 public class ResponseMetadata {

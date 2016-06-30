@@ -8,9 +8,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.starwit.ljprojectbuilder.api.rest.response.EntityResponse;
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.response.EntityResponse;
 
 @Path("/domain")
 @Consumes("application/json")

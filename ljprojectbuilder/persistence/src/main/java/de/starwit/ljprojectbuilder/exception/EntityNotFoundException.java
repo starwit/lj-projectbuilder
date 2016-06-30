@@ -17,7 +17,4 @@ public class EntityNotFoundException extends Exception {
 		String notFound = "Entity " + className + " of id " + id + " could not be found. ";
 		return notFound;
 	}
-	
-	
-
 }

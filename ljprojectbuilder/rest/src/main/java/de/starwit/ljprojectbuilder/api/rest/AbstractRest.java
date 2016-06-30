@@ -9,14 +9,14 @@ import javax.ws.rs.PathParam;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.api.rest.response.EntityListResponse;
-import de.starwit.ljprojectbuilder.api.rest.response.EntityResponse;
-import de.starwit.ljprojectbuilder.api.rest.response.ResponseCode;
-import de.starwit.ljprojectbuilder.api.rest.response.ResponseMetadata;
-import de.starwit.ljprojectbuilder.api.rest.validation.EntityValidator;
 import de.starwit.ljprojectbuilder.ejb.AbstractService;
 import de.starwit.ljprojectbuilder.entity.AbstractEntity;
 import de.starwit.ljprojectbuilder.exception.EntityNotFoundException;
+import de.starwit.ljprojectbuilder.response.EntityListResponse;
+import de.starwit.ljprojectbuilder.response.EntityResponse;
+import de.starwit.ljprojectbuilder.response.ResponseCode;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
+import de.starwit.ljprojectbuilder.validation.EntityValidator;
 
 public abstract class AbstractRest<E extends AbstractEntity> {
 	

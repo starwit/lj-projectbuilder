@@ -39,6 +39,7 @@ public class ProjectSetupService {
 						.setDirectory(destDir)
 						.call();
 			}
+			renameAll(properties);
 
 		} catch (GitAPIException e) {
 			LOG.error("Error copying files for project template.", e);

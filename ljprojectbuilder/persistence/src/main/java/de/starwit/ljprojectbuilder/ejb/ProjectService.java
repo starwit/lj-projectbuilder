@@ -3,12 +3,13 @@ package de.starwit.ljprojectbuilder.ejb;
 import java.io.Serializable;
 import javax.ejb.Local;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 @Local
 public interface ProjectService extends Serializable, AbstractService<ProjectEntity> {
 	
-	public void copyProjectTemplate(ProjectEntity entity);
-	public void renameAll(ProjectEntity entity);
+	public ResponseMetadata copyProjectTemplate(ProjectEntity entity);
+	public ResponseMetadata renameAll(ProjectEntity entity);
 
 }
 

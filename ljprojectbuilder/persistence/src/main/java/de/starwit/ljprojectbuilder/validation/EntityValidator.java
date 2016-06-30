@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.api.rest.validation;
+package de.starwit.ljprojectbuilder.validation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,9 +9,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import de.starwit.ljprojectbuilder.api.rest.response.ResponseCode;
-import de.starwit.ljprojectbuilder.api.rest.response.ResponseMetadata;
 import de.starwit.ljprojectbuilder.entity.AbstractEntity;
+import de.starwit.ljprojectbuilder.response.ResponseCode;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 public class EntityValidator {
 	

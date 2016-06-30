@@ -15,10 +15,11 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
-						<input class="w3-input" name="templatelocation" id="templatelocation" type="text" ng-model="project.templateLocation" required 
-						 type="file" />
+						<input type="url" class="w3-input" name="templatelocation" id="templatelocation" type="text" ng-model="project.templateLocation" required 
+						 />
 						<label class="w3-label w3-validate" for="templatelocation">{{'project.templatelocation' | translate}}</label>
 						<label class="w3-label w3-validate w3-tiny w3-right" ng-show="projectForm.templatelocation.$error.required">{{'error.required' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right" ng-show="projectForm.templatelocation.$error.url">{{'error.url' | translate}}</label>
 					</div>	
 					<div class="w3-group">
 						<input class="w3-input" name="templatetitle" id="templatetitle" type="text" ng-model="project.templateTitle" required />
@@ -37,20 +38,21 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.target' | translate}}</h3>
 					<div class="w3-group">
-						<input class="w3-input w3-col s11" name="targetpath" id="targetpath" type="text" ng-model="project.targetPath" required />
-						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" ng-click="doGenerate()"><i class="fa fa-gear"></i></button>
+						<input type="text" ng-pattern="/^[:\\/a-zA-Z0-9]*$/" class="w3-input w3-col s11" name="targetpath" id="targetpath" type="text" ng-model="project.targetPath" required />
+						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" ng-click="doGenerate()" ng-disabled="projectForm.$dirty || !projectForm.$valid"><i class="fa fa-gear"></i></button>
 						<label class="w3-label w3-validate" for="targetpath">{{'project.targetpath' | translate}}</label>
 						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.targetpath.$error.required">{{'error.required' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.targetpath.$error.pattern">{{'error.pattern' | translate}}</label>
 					</div>
 					<div class="w3-group">
 						<input class="w3-input w3-col s11" name="title" id="title" type="text" ng-model="project.title" required />
-						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" ng-click="doGenerate()"><i class="fa fa-gear"></i></button>
+						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" ng-click="doRename()" ng-disabled="projectForm.$dirty || !projectForm.$valid"><i class="fa fa-gear"></i></button>
 						<label class="w3-label w3-validate" for="title">{{'project.title' | translate}}</label>
 						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.title.$error.required">{{'error.required' | translate}}</label>
 					</div>
 					<div class="w3-group">
 						<input class="w3-input w3-col s11" name="packageprefix" id="packageprefix" type="text" ng-model="project.packagePrefix" required />
-						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" ng-click="doGenerate()"><i class="fa fa-gear"></i></button>
+						<button class="w3-btn w3-red w3-round-xxlarge w3-col s1" onclick="document.getElementById('successdialog').style.display='block'" ng-disabled="projectForm.$dirty || !projectForm.$valid"><i class="fa fa-gear"></i></button>
 						<label class="w3-label w3-validate" for="packageprefix">{{'project.packageprefix' | translate}}</label>
 						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.packageprefix.$error.required">{{'error.required' | translate}}</label>
 					</div>

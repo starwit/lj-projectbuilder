@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.api.rest.response;
+package de.starwit.ljprojectbuilder.response;
 
 import java.util.Collection;
 

@@ -27,6 +27,7 @@ public class ProjectBuilder {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private GeneratorJPanel generatorPanel;
 	private ProjectBuilderJPanel projectPanel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -95,7 +96,7 @@ public class ProjectBuilder {
 				    	if (tabbedPane.getSelectedIndex() == 1) {
 				    		generatorSetup.setProjectName(projectSetup.getNewProjectName());
 				    		generatorSetup.setProjectPath(projectSetup.getTargetPath());
-			    		
+				    		
 				    		generatorPanel.newProjectNameBinding.unbind();
 				    		generatorPanel.newProjectNameBinding.bind();
 				    		generatorPanel.projectHomeBinding.unbind();
@@ -103,6 +104,7 @@ public class ProjectBuilder {
 				    	} else {
 				    		projectSetup.setNewProjectName(generatorSetup.getProjectName());
 				    		projectSetup.setTargetPath(generatorSetup.getProjectPath());
+				    		
 				    		projectPanel.newProjectNameBinding.unbind();
 				    		projectPanel.newProjectNameBinding.bind();
 				    		projectPanel.projectHomeBinding.unbind();
@@ -112,8 +114,6 @@ public class ProjectBuilder {
 			    });
 		    }
 		});
-
 		projectPanel.setBackground(SystemColor.inactiveCaptionBorder);
 	}
-
 }

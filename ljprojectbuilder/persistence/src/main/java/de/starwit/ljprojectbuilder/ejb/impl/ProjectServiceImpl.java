@@ -17,10 +17,11 @@ import javax.ejb.Stateless;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.starwit.ljprojectbuilder.response.ResponseCode;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 @Stateless(name = "ProjectService")
 public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> implements ProjectService {
@@ -34,33 +35,42 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 	 * Copies the project template and tomee to an new project location.
 	 * @param properties
 	 */
-	public void copyProjectTemplate(ProjectEntity entity) {
+	public ResponseMetadata copyProjectTemplate(ProjectEntity entity) {
+		
+		String srcDir = entity.getTemplateLocation();
+		File destDir = new File(entity.getTargetPath());
+		
 		try {
-			String srcDir = entity.getTemplateLocation();
-			File destDir = new File(entity.getTargetPath());
-			
 			if (!destDir.exists()) {
 				Git.cloneRepository()
 						.setURI(srcDir)
 						.setDirectory(destDir)
 						.call();
+			} else {
+				return new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.exists");
 			}
 
-		} catch (GitAPIException e) {
+		} catch (Exception e) {
 			LOG.error("Error copying files for project template.", e);
+			if (destDir.exists()) {
+				destDir.delete();
+			}
+			return new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.templatenotfound");
 		}
+		return new ResponseMetadata(ResponseCode.OK, "project.copytemplate.success");
 	}
 	
 	/**
 	 * This is used for renaming the whole project. Renames all occurences of the project name with a new project name.
 	 * @param properties
 	 */
-	public void renameAll(ProjectEntity entity) {
+	public ResponseMetadata renameAll(ProjectEntity entity) {
 		LOG.info("Try to rename project " + entity.getTitle() + ".");
 		File parentdirectory = new File(entity.getTargetPath());
 		String currentProjectName = parentdirectory.getName();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
+		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
 	}
 
 	/**

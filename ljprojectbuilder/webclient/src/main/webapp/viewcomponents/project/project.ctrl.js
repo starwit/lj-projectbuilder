@@ -23,7 +23,7 @@ projectControllers.loadProjectController = function($rootScope, $scope, $locatio
 	};
 };
 
-projectControllers.maintainProjectController = function ($scope, $routeParams, $location, projectConnectorFactory, $translate, gotoProject) {
+projectControllers.maintainProjectController = function ($rootScope, $scope, $routeParams, $location, projectConnectorFactory, $translate, gotoProject) {
 	$scope.project = {};
 	init();
 	
@@ -46,7 +46,33 @@ projectControllers.maintainProjectController = function ($scope, $routeParams, $
 	};
 	
 	$scope.doGenerate = function () {
-		projectConnectorFactory.generate($scope.project);
+		$rootScope.dialog = {};
+		projectConnectorFactory.generate($scope.project)
+		.then(function(response) {
+			$rootScope.dialog.text = response.message;
+			if (response.responseCode == 'OK' || response.responseCode == 'EMPTY') {
+				$rootScope.dialog.title = "project.dialog.success.title";
+				document.getElementById('successdialog').style.display = 'block';
+			} else {
+				$rootScope.dialog.title = "project.dialog.error.title";
+				document.getElementById('errordialog').style.display = 'block';
+			}
+		});
+	};
+	
+	$scope.doRename = function () {
+		$rootScope.dialog = {};
+		projectConnectorFactory.rename($scope.project)
+		.then(function(response) {
+			$rootScope.dialog.text = response.message;
+			if (response.responseCode == 'OK' || response.responseCode == 'EMPTY') {
+				$rootScope.dialog.title = "project.dialog.success.title";
+				document.getElementById('successdialog').style.display = 'block';
+			} else {
+				$rootScope.dialog.title = "project.dialog.error.title";
+				document.getElementById('errordialog').style.display = 'block';
+			}
+		});
 	};
 	
 	$scope.doBack = function () {

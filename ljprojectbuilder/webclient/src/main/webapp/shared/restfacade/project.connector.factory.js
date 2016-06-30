@@ -4,8 +4,14 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	factory.generate = function(project) {
 		return $http.post('api/project/generate', project)
 			.then(
-				restConnectorFactory.handleResponseSuccess ,
-				restConnectorFactory.handleResponseError
+				function(response) { return response.data.metadata; }
+			);
+	}
+	
+	factory.rename = function(project) {
+		return $http.post('api/project/rename', project)
+			.then(
+				function(response) { return response.data.metadata; }
 			);
 	}
 	

@@ -1,4 +1,4 @@
-function restConnectorFactory ($http, $location) {
+function restConnectorFactory ($http, $location, $q) {
 	var factory = {};
 	
 	factory.handleResponse = function($scope, response, successPath, errorPath) {
