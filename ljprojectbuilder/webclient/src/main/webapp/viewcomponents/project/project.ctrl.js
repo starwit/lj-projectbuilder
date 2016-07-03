@@ -24,7 +24,15 @@ projectControllers.loadProjectController = function($rootScope, $scope, $locatio
 };
 
 projectControllers.maintainProjectController = function ($rootScope, $scope, $routeParams, $location, projectConnectorFactory, $translate, gotoProject) {
+	
 	$scope.project = {};
+	$scope.gotoAll = function() { gotoProject.all($location); };
+	$scope.gotoProject = function() { 
+		if ($scope.project != null && $scope.project.id != null) { 
+			gotoUpdateProject.update($location, id);
+		}
+	};
+	$scope.gotoCreateProject = function () { gotoProject.create($location); };
 	init();
 	
 	function init() {
@@ -37,42 +45,61 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 		});
 	};
 	
-	$scope.doMaintain = function () {
-		if ($scope.mode == 'update') {
-			projectConnectorFactory.updateProject($scope, function($location) {gotoProject.all($location);}, function($location) {gotoProject.update($location, $scope.project.id);});
+	function showDialog(dialogtitle, dialogtext, dialogid) {
+		$rootScope.dialog.title = dialogtitle;
+		$rootScope.dialog.text = dialogtext;
+		document.getElementById(dialogid).style.display = 'block';
+	};
+	
+	function showGenerationResultDialog(response) {
+		if (response.responseCode == 'OK' || response.responseCode == 'EMPTY') {
+			showDialog("project.dialog.success.title", response.message, 'successdialog');
 		} else {
-			projectConnectorFactory.createProject($scope, function($location) {gotoProject.all($location);}, function($location) {gotoProject.create($location);});
+			showDialog("project.dialog.error.title", response.message, 'errordialog');
+		}
+	};
+	
+	function saveSuccess(response) {
+		$scope.project = response;
+		showDialog("project.dialog.success.title", "project.save.success", 'successdialog');
+	};
+	
+	function saveError(response) {
+		$rootScope.dialog.title = "project.dialog.error.title";
+		showDialog("project.dialog.error.title", "project.save.error", 'errordialog');
+	};
+	
+	$scope.doMaintain = function () {
+		$rootScope.dialog = {};
+		if ($scope.mode == 'update') {
+			projectConnectorFactory.updateProject($scope.project).then(
+					saveSuccess, 
+					saveError
+			);
+		} else {
+			projectConnectorFactory.createProject($scope.project).then(
+					saveSuccess, 
+					saveError
+			);
 		}
 	};
 	
 	$scope.doGenerate = function () {
 		$rootScope.dialog = {};
 		projectConnectorFactory.generate($scope.project)
-		.then(function(response) {
-			$rootScope.dialog.text = response.message;
-			if (response.responseCode == 'OK' || response.responseCode == 'EMPTY') {
-				$rootScope.dialog.title = "project.dialog.success.title";
-				document.getElementById('successdialog').style.display = 'block';
-			} else {
-				$rootScope.dialog.title = "project.dialog.error.title";
-				document.getElementById('errordialog').style.display = 'block';
-			}
-		});
+		.then(showGenerationResultDialog);
 	};
 	
 	$scope.doRename = function () {
 		$rootScope.dialog = {};
 		projectConnectorFactory.rename($scope.project)
-		.then(function(response) {
-			$rootScope.dialog.text = response.message;
-			if (response.responseCode == 'OK' || response.responseCode == 'EMPTY') {
-				$rootScope.dialog.title = "project.dialog.success.title";
-				document.getElementById('successdialog').style.display = 'block';
-			} else {
-				$rootScope.dialog.title = "project.dialog.error.title";
-				document.getElementById('errordialog').style.display = 'block';
-			}
-		});
+		.then(showGenerationResultDialog);
+	};
+	
+	$scope.doRenamePackage = function () {
+		$rootScope.dialog = {};
+		projectConnectorFactory.renamePackage($scope.project)
+		.then(showGenerationResultDialog);
 	};
 	
 	$scope.doBack = function () {

@@ -20,6 +20,8 @@ public class DomainEntity extends AbstractEntity {
 	
 	private String description;
 	
+	private ProjectEntity project;
+	
 	
 
 	@Column(name="NAME", nullable = false)

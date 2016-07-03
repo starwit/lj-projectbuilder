@@ -1,29 +1,23 @@
-<div class="subPart personAll">
-	<div class="subPartTitle"><h1>{{title | translate}}</h1></div>
-	<div class="editMenu">
-		<button class="buttonLarge grey floating" ng-click="gotoCreateDomain();">erstellen</button>
-		<button class="buttonLarge grey floating" ng-click="idSelected != null && gotoUpdateDomain(idSelected);" ng-disabled="idSelected == null">bearbeiten</button>
-		<button class="buttonLarge grey floating" ng-click="idSelected != null && deleteDomain(idSelected);" ng-disabled="idSelected == null">l&ouml;schen</button>
-	</div>
-	<div class="resultTable">
-		<table>
-		<thead>
-			<tr>
-				<th>{{'domain.name' | translate}}</th>
-				<th>{{'domain.description' | translate}}</th>
-			</tr>	
-		</thead>
-		<tbody>
-			<tr ng-repeat="domain in domainAll" ng-click="setSelected(domain.id)" 
-				ng-class="{selected: domain.id === idSelected }" 
-				ng-dblclick="setSelected(domain.id);gotoUpdateDomain(idSelected);">
-
-				<td>{{domain.name}}</td>
-				<td>{{domain.description}}</td>
-			</tr>
-		</tbody>
-		<tfoot></tfoot>
-		</table>
+<div class="w3-row-padding w3-container">
+	<div class="w3-row-padding">
+		<div class="w3-half">
+			<h2>{{title | translate}} {{domain.project.title}}</h2>
+		</div>
+		<div class="w3-half">
+			<div class="w3-right">
+				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateDomain();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+			</div>
+		</div>
+	</div>	
+	<div class="w3-row-padding">	
+		<div class="w3-container">
+			<ul class="w3-ul w3-card-4 w3-hoverable">
+			  <li class="w3-padding-16" ng-repeat="domain in domainAll" ng-dblclick="gotoUpdateDomain(domain.id);">
+			    <span ng-click="deleteProject(project.id);"  class="w3-closebtn w3-padding">x</span>
+			    <span class="w3-xlarge">{{domain.name}}</span><br>
+			    <span>{{domain.description}}</span>
+			  </li>
+			</ul>
 		</div>	
 	</div>
 </div>

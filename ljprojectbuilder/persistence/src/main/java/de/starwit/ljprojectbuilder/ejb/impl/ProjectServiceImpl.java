@@ -64,12 +64,27 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 	 * This is used for renaming the whole project. Renames all occurences of the project name with a new project name.
 	 * @param properties
 	 */
-	public ResponseMetadata renameAll(ProjectEntity entity) {
-		LOG.info("Try to rename project " + entity.getTitle() + ".");
+	public ResponseMetadata renameProject(ProjectEntity entity) {
+		LOG.info("Try to rename project " + entity.getTemplatePackagePrefix() + ".");
+		
+		
 		File parentdirectory = new File(entity.getTargetPath());
-		String currentProjectName = parentdirectory.getName();
+		String currentProjectName = entity.getTemplateTitle();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
+		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
+	}	
+	
+	/**
+	 * This is used for renaming a package structure.
+	 * @param properties
+	 */
+	public ResponseMetadata renamePackage(ProjectEntity entity) {
+		LOG.info("Try to rename package " + entity.getTitle() + ".");
+		File parentdirectory = new File(entity.getTargetPath());
+
+		renameDirectories(entity.getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameFiles(entity.getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
 		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
 	}
 
@@ -103,7 +118,6 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 				LOG.error(e.getMessage());
 				renameDirectories(oldProjectName, newProjectName, childdirectory);
 			}
-
 		}
 	}
 

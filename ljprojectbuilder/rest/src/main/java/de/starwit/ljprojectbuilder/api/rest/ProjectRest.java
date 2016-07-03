@@ -51,9 +51,17 @@ public class ProjectRest extends AbstractRest<ProjectEntity> {
 	@Path("/rename")
 	@POST
 	public EntityResponse<ProjectEntity> renameProject(ProjectEntity entity) {
-		service.renameAll(entity);
 		EntityResponse<ProjectEntity> response = new EntityResponse<>(entity);
-		ResponseMetadata responseMetadata = service.renameAll(entity);
+		ResponseMetadata responseMetadata = service.renameProject(entity);
+		response.setMetadata(responseMetadata);
+		return response;
+	}
+	
+	@Path("/renamepackage")
+	@POST
+	public EntityResponse<ProjectEntity> renamePackage(ProjectEntity entity) {
+		EntityResponse<ProjectEntity> response = new EntityResponse<>(entity);
+		ResponseMetadata responseMetadata = service.renamePackage(entity);
 		response.setMetadata(responseMetadata);
 		return response;
 	}

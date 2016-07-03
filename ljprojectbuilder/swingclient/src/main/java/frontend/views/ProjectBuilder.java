@@ -114,6 +114,7 @@ public class ProjectBuilder {
 			    });
 		    }
 		});
+		
 		projectPanel.setBackground(SystemColor.inactiveCaptionBorder);
 	}
 }

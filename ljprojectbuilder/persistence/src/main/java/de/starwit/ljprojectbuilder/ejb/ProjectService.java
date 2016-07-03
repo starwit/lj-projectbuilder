@@ -9,7 +9,8 @@ import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 public interface ProjectService extends Serializable, AbstractService<ProjectEntity> {
 	
 	public ResponseMetadata copyProjectTemplate(ProjectEntity entity);
-	public ResponseMetadata renameAll(ProjectEntity entity);
+	public ResponseMetadata renameProject(ProjectEntity entity);
+	public ResponseMetadata renamePackage(ProjectEntity entity);
 
 }
 

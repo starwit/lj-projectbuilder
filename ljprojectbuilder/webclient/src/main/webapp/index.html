@@ -33,10 +33,10 @@
 	  </div>
 	</div>
 	
-	<div class="w3-modal" id="successdialog" style="display: none;">
+	<div class="w3-modal" id="successdialog" style="display: none;" onclick="document.getElementById('successdialog').style.display='none'">
 	  <div class="w3-modal-content w3-card-4  w3-animate-top">
 	    <header class="w3-container w3-teal">
-	      <span class="w3-closebtn" onclick="document.getElementById('successdialog').style.display='none'">×</span>
+	      <span class="w3-closebtn">×</span>
 	      <h2>{{dialog.title | translate }}</h2>
 	    </header>
 	    <div class="w3-container">
@@ -52,6 +52,16 @@
 		</div>
 	</header>
 	<div class="w3-row-padding w3-margin-top">
+	
+		 <!-- Sidenav -->
+		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="loadProjectController">
+		  <a href="javascript:void(0)" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';" class="w3-closenav">Close</a>
+		  <a ng-repeat="project in projectAll" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';"  ng-click="gotoUpdateProject(project.id);">{{project.title}}</a>
+		</nav>
+		
+		<!-- Overlay -->
+		<div class="w3-overlay" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';" style="cursor:pointer"></div>
+			
 		<div ng-view></div>
 	</div>
 

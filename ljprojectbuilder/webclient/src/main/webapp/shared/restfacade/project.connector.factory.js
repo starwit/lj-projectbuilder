@@ -15,6 +15,13 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 			);
 	}
 	
+	factory.renamePackage = function(project) {
+		return $http.post('api/project/renamepackage', project)
+			.then(
+				function(response) { return response.data.metadata; }
+			);
+	}	
+	
 	factory.getProjectAll = function($scope) {
 		$http.get('api/project/query/all')
 		.then(function (response) {
@@ -31,18 +38,20 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 		});
 	};
 		
-	factory.createProject = function($scope, successPath, errorPath) {
-		$http.put('api/project/', $scope.project)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath,  errorPath);
-		});
+	factory.createProject = function(project) {
+		return $http.put('api/project/', project)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.updateProject = function($scope, successPath, errorPath) {
-		$http.post('api/project/', $scope.project)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath, errorPath);
-		});
+	factory.updateProject = function(project) {
+		return $http.post('api/project/', project)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
 	factory.deleteProject = function($scope, id) {
