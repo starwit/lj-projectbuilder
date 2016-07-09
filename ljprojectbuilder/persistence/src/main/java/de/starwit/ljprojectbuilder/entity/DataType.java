@@ -1,4 +1,4 @@
-package frontend.beans;
+package de.starwit.ljprojectbuilder.entity;
 
 public enum DataType {
 

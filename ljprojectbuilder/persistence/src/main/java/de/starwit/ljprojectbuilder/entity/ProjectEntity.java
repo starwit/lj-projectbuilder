@@ -1,11 +1,19 @@
 package de.starwit.ljprojectbuilder.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement
 @Entity
@@ -39,6 +47,8 @@ public class ProjectEntity extends AbstractEntity {
 	private String targetPath;
 	
 	private String description;
+	
+	private List<DomainEntity> domains;
 	
 	@Column(name="TEMPLATE_TITLE", nullable=false, length=100)
 	public String getTemplateTitle() {
@@ -101,5 +111,16 @@ public class ProjectEntity extends AbstractEntity {
 
 	public void setTargetPath(String targetPath) {
 		this.targetPath = targetPath;
+	}
+
+	@XmlTransient
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="project")
+	public List<DomainEntity> getDomains() {
+		return domains;
+	}
+
+	public void setDomains(List<DomainEntity> domains) {
+		this.domains = domains;
 	}
 }

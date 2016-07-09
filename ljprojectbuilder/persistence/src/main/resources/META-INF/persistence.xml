@@ -12,7 +12,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
            	<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-<!--   			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
+  			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.transaction.manager_lookup_class"
                 value="org.apache.openejb.hibernate.TransactionManagerLookup"/>
 		</properties>

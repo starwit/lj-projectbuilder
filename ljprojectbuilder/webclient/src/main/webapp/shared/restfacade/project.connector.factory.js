@@ -3,23 +3,17 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	
 	factory.generate = function(project) {
 		return $http.post('api/project/generate', project)
-			.then(
-				function(response) { return response.data.metadata; }
-			);
+			.then(function(response) { return response.data.metadata; }	);
 	}
 	
 	factory.rename = function(project) {
 		return $http.post('api/project/rename', project)
-			.then(
-				function(response) { return response.data.metadata; }
-			);
+			.then(function(response) { return response.data.metadata; }	);
 	}
 	
 	factory.renamePackage = function(project) {
 		return $http.post('api/project/renamepackage', project)
-			.then(
-				function(response) { return response.data.metadata; }
-			);
+			.then(function(response) { return response.data.metadata; }	);
 	}	
 	
 	factory.getProjectAll = function($scope) {

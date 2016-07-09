@@ -37,4 +37,3 @@ angular.module('ljprojectbuilderApp.project', ['ngRoute','pascalprecht.translate
 		templateUrl : "viewcomponents/project/project.single.html"
 	});
 }]);
-

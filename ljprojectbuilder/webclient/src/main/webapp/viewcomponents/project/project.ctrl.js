@@ -27,11 +27,7 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 	
 	$scope.project = {};
 	$scope.gotoAll = function() { gotoProject.all($location); };
-	$scope.gotoProject = function() { 
-		if ($scope.project != null && $scope.project.id != null) { 
-			gotoUpdateProject.update($location, id);
-		}
-	};
+	$scope.gotoUpdateProject = function() { gotoUpdateProject.update($location, id); }
 	$scope.gotoCreateProject = function () { gotoProject.create($location); };
 	init();
 	

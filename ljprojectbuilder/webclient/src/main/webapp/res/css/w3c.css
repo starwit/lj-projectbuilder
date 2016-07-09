@@ -538,7 +538,7 @@ ul.w3-ul li:last-child {
     cursor: auto;
     display: none;
     margin: 0;
-    padding: 0;
+    padding: 5px;
     position: relative;
     width: 100%;
 }

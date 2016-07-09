@@ -2,6 +2,8 @@ package de.starwit.ljprojectbuilder.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,15 +24,13 @@ public class AttributeEntity extends AbstractEntity {
 	private String description;
 	
 	@NotBlank
-	private String type;
+	private DataType type;
 	
 	private String pattern;
 	
 	private Integer max;
 	
 	private Integer min;
-	
-	
 
 	@Column(name="NAME", nullable = false)
 	public String getName() {
@@ -50,12 +50,13 @@ public class AttributeEntity extends AbstractEntity {
 		this.description = description;
 	}
 
+	@Enumerated(EnumType.STRING)
 	@Column(name="TYPE", nullable = false)
-	public String getType() {
+	public DataType getType() {
 		return type;
 	}
 	
-		public void setType(String type) {
+	public void setType(DataType type) {
 		this.type = type;
 	}
 
@@ -82,7 +83,7 @@ public class AttributeEntity extends AbstractEntity {
 		return min;
 	}
 	
-		public void setMin(Integer min) {
+	public void setMin(Integer min) {
 		this.min = min;
 	}
 }

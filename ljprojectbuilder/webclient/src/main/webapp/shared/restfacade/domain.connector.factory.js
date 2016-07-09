@@ -1,6 +1,14 @@
 function domainConnectorFactory ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
+	factory.getDomainsByProject = function(projectId) {
+		return $http.get('api/domain/query/domainsbyproject/' + projectId)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+	
 	factory.getDomainAll = function($scope) {
 		$http.get('api/domain/query/all')
 		.then(function (response) {
@@ -40,11 +48,10 @@ function domainConnectorFactory ($http, $location, restConnectorFactory) {
 		});
 	};
 	
-	factory.getAllowedFields = function($scope) {
-		$http.get('api/domain/query/allowedvalues')
+	factory.getTypes = function() {
+		return $http.get('api/domain/query/types')
 		.then(function(response) {
-			content = response.data;
-			restConnectorFactory.getAllowedFields($scope, content);
+			return content = response.data;
 		});
 	};
 		

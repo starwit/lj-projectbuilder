@@ -6,6 +6,6 @@
 	<!-- ###BEGIN### include menu items -->
 <li><a href="#/viewcomponents/project-all/" name="projectAll">{{'project.all.title' | translate}} ></a></li>
 <li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><a href="#/viewcomponents/project-maintain/update/{{project.id}}">{{project.title}} ></a></li>
-<li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><a href="#/viewcomponents/domain-all/" name="domain">{{'domain.all.title' | translate}}</a></li>
+<li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><a href="#/viewcomponents/domain-byproject/{{project.id}}" name="domain">{{'domain.all.title' | translate}}</a></li>
 	<!-- ###END### include menu items -->
 </ul>

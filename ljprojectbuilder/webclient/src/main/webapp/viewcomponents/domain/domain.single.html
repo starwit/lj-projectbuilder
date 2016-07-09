@@ -1,46 +1,80 @@
-<div class="subPartTitle"><h1>{{title | translate}}</h1></div>
-<div class="subPart addressSingle">
+<div class="w3-row-padding w3-container">
+ 	<div class="w3-row-padding">
 	<form class="editForm" name="domainForm">   
-			<div class="errorGlobal">
-				<b>{{message}}</b>
-				<ul>
-					<li ng-repeat="error in validationErrors">{{error.fieldname}}: {{error.message}}</li>
-				</ul>
+		<div class="w3-half"><h2>{{title | translate}}</h2></div>
+		<div class="w3-right"><button class="w3-btn w3-red w3-round-xxlarge" ng-click="doMaintain();"><i class="fa fa-save"></i> Speichern</button></div>
+	
+			<div class="w3-container">
+				<div class="w3-group">
+				</div>
 			</div>
-		<div class="editArea">
-		<fieldset>
+	
+		<div class="w3-half w3-row-padding">
+			<div class="w3-container w3-card-4">
+				<div class="w3-group">
+					<input name="name" class="w3-input" id="name" type="text" ng-model="domain.name"  required />
+					<label class="w3-label w3-validate">{{'domain.name' | translate}}</label>
+					<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.name.$error.required">{{'error.required' | translate}}</label>
+				</div>
+			</div>	
+		</div>	
+
+		<div class="w3-half w3-row-padding">
+			<div class="w3-container w3-card-4">
+				<div class="w3-group">
+					<input name="description" class="w3-input" id="description" type="text" ng-model="domain.description"  required />
+					<label class="w3-label w3-validate">{{'domain.description' | translate}}</label>
+					<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.description.$error.required">{{'error.required' | translate}}</label>
+				</div>
+			</div>	
+		</div>	
+<br /><br /><br /><br /><br /><br />
+		<div class="w3-col w3-row-padding">
+			<div class="w3-container w3-card-4">
+				<div class="w3-half">
+					<h3>{{'attribute.all.title' | translate}}</h3>
+				</div>
 				
-			<span class="error" ng-show="domainForm.name.$error.required">{{'error.required' | translate}}</span><div class="clear"></div>	
-			
-			
-			
-			<label for="name">{{'domain.name' | translate}}:</label>
-			<input name="name" id="name" type="text" ng-model="domain.name" 
-				
-			
-			
-			 required
-			/>
-			<div class="clear"></div>
-		</fieldset>	
-		<fieldset>
-				
-			<span class="error" ng-show="domainForm.description.$error.required">{{'error.required' | translate}}</span><div class="clear"></div>	
-			
-			
-			
-			<label for="description">{{'domain.description' | translate}}:</label>
-			<input name="description" id="description" type="text" ng-model="domain.description" 
-				
-			
-			
-			 required
-			/>
-			<div class="clear"></div>
-		</fieldset>	
-		</div>
-		<div class="submitArea">
-			<button class="buttonRounded green" ng-click="doMaintain()"><img src="res/img/symbols/save-wh.png" border="0" /><span class="hidden">Speichern</span></button>
-			<button class="buttonRounded grey" ng-click="doBack()"><img src="res/img/symbols/refresh-wh.png" border="0" /><span class="hidden">Formular zur&uuml;cksetzen</span></button>
+				<div class="w3-half w3-row-padding">
+					<div class="w3-right w3-container">
+						<button class="w3-btn w3-theme w3-round-xxlarge w3-padding" ng-click="addAttribute();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+					</div>
+				</div>
+
+			    <table class="w3-table">
+					<thead>
+						<tr>
+							<th>{{'attribute.name' | translate}}
+								<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
+							</th>
+							<th>{{'attribute.description' | translate}}
+								<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
+							</th>
+							<th>{{'attribute.type' | translate}}</th>
+							<th>{{'attribute.pattern' | translate}}</th>
+							<th>{{'attribute.max' | translate}}</th>
+							<th>{{'attribute.min' | translate}}</th>
+							<th></th>
+						</tr>	
+					</thead>
+					<tbody>
+						<tr ng-repeat="attribute in domain.attributes track by $index">
+							<td>
+								<input name="attributename" class="w3-input" id="attributename" type="text" ng-model="attribute.name"  required />
+								
+							</td>
+							<td><input name="attributedescription" class="w3-input" id="attributedescription" type="text" ng-model="attribute.description"/></td>
+							<td><select class="w3-select w3-border" name="types" id="types" ng-model="attribute.type" ng-options="type as type for type in types" required></select></td>
+							<td><input name="attributepattern" class="w3-input" id="attributepattern" type="text" ng-model="attribute.pattern"/></td>
+							<td><input name="attributemax" class="w3-input" id="attributemax" type="text" ng-model="attribute.max"/></td>
+							<td><input name="attributemin" class="w3-input" id="attributemin" type="text" ng-model="attribute.min"/></td>
+							<td><span ng-click="removeAttribute($index);"  class="w3-closebtn w3-padding">x</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>	
+		
 	</form>	
-</div>
+	</div>	
+</div>  

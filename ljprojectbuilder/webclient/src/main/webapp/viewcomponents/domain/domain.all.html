@@ -5,19 +5,43 @@
 		</div>
 		<div class="w3-half">
 			<div class="w3-right">
-				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateDomain();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateDomain(projectid);"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
 			</div>
 		</div>
 	</div>	
 	<div class="w3-row-padding">	
-		<div class="w3-container">
-			<ul class="w3-ul w3-card-4 w3-hoverable">
-			  <li class="w3-padding-16" ng-repeat="domain in domainAll" ng-dblclick="gotoUpdateDomain(domain.id);">
-			    <span ng-click="deleteProject(project.id);"  class="w3-closebtn w3-padding">x</span>
-			    <span class="w3-xlarge">{{domain.name}}</span><br>
-			    <span>{{domain.description}}</span>
-			  </li>
-			</ul>
+		<div class="w3-accordion" ng-repeat="domain in domainAll">
+			<button ng-click="showDetails(domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+				<h3>{{domain.name}}</h3>
+				<span>{{domain.description}}</span>
+			</button>
+			<div id="{{domain.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="gotoUpdateDomain(projectid, domain.id);">
+			  	<span ng-click="deleteDomain(domain.id);" class="w3-closebtn w3-padding">x</span>
+			    <h3>{{'attribute.all.title' | translate}}</h3>
+			    <table class="w3-table-all">
+					<thead >
+						<tr class="w3-theme-l3">
+							<th>{{'attribute.name' | translate}}</th>
+							<th>{{'attribute.description' | translate}}</th>
+							<th>{{'attribute.type' | translate}}</th>
+							<th>{{'attribute.pattern' | translate}}</th>
+							<th>{{'attribute.max' | translate}}</th>
+							<th>{{'attribute.min' | translate}}</th>
+						</tr>	
+					</thead>
+					<tbody>
+						<tr ng-repeat="attribute in domain.attributes">
+			
+							<td>{{attribute.name}}</td>
+							<td>{{attribute.description}}</td>
+							<td>{{attribute.type}}</td>
+							<td>{{attribute.pattern}}</td>
+							<td>{{attribute.max}}</td>
+							<td>{{attribute.min}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>	
 	</div>
 </div>
