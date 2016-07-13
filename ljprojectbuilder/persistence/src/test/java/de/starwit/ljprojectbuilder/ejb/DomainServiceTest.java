@@ -1,13 +1,19 @@
 package de.starwit.ljprojectbuilder.ejb;
 
+import javax.inject.Inject;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 
 @RunWith(Arquillian.class)
 public class DomainServiceTest extends AbstractServiceTest<DomainService, DomainEntity> {
+	
+	@Inject
+	private ProjectService projectService;
 	
 	@Override
 	public void setService(DomainService service) {
@@ -16,7 +22,16 @@ public class DomainServiceTest extends AbstractServiceTest<DomainService, Domain
 
 	@Override
 	public void testCreate() {
+		ProjectEntity pentity = new ProjectEntity();
+		pentity.setTargetPath("D:/tmp/test/");
+		pentity.setTemplateLocation("http://test");
+		pentity.setTemplateTitle("testproject");
+		pentity.setTitle("lirejarp");
+		pentity.setPackagePrefix("lirejarp");
+		pentity.setTemplatePackagePrefix("test");
+		pentity = projectService.create(pentity);
 		entity = new DomainEntity();
+		entity.setProject(pentity);
 		entity.setName("Domain");
 		entity = getService().create(entity);
 		ID = entity.getId();

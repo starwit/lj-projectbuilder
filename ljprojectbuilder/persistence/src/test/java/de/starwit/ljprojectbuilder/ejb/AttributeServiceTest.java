@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 
 import de.starwit.ljprojectbuilder.entity.AttributeEntity;
+import de.starwit.ljprojectbuilder.entity.DataType;
 
 @RunWith(Arquillian.class)
 public class AttributeServiceTest extends AbstractServiceTest<AttributeService, AttributeEntity> {
@@ -18,12 +19,12 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 	public void testCreate() {
 		entity = new AttributeEntity();
 		entity.setName("Test");
-		entity.setType("String");
+		entity.setType(DataType.String);
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
 		Assert.assertEquals("Test", entity.getName());
-		Assert.assertEquals("String", entity.getType());
+		Assert.assertEquals(DataType.String, entity.getType());
 		Assert.assertNull(entity.getPattern());
 		Assert.assertNull(entity.getMax());
 		Assert.assertNull(entity.getMin());
