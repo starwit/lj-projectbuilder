@@ -40,6 +40,7 @@
 	"project.targetpath"			: "Zielverzeichnis",
 	"project.packageprefix"			: "Java-Package-Name",
 	"project.description"			: "Beschreibung",
+	"project.domains"				: "Domainobjekte",
 	
 	"project.template" 				: "Templateprojekt",
 	"project.templatetitle" 		: "Templatename",
@@ -48,5 +49,8 @@
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",
-	"button.update" 				: "bearbeiten"
+	"button.update" 				: "bearbeiten",
+	"button.save" 					: "Speichern",
+	"button.generate" 				: "Generieren",
+	"button.add" 					: "Hinzufügen"
 }

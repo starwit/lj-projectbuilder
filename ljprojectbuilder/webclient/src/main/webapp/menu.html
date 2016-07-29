@@ -1,11 +1,6 @@
 <ul class="w3-navbar w3-theme">
-<li><a name="project" 
-		ondblclick="location.path('/viewcomponents/project-all/')"
-		onclick="document.getElementById('projectSidenav').style.display='block';document.getElementById('projectOverlay').style.display='block';">
-		<img src="res/img/brand/logo.png" border="0" width="45px"/></a></li>
+	<li><a name="project" href="#/viewcomponents/project-all/"><img src="res/img/brand/logo.png" border="0" width="45px"/></a></li>
 	<!-- ###BEGIN### include menu items -->
-<li><a href="#/viewcomponents/project-all/" name="projectAll">{{'project.all.title' | translate}} ></a></li>
-<li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><a href="#/viewcomponents/project-maintain/update/{{project.id}}">{{project.title}} ></a></li>
-<li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><a href="#/viewcomponents/domain-byproject/{{project.id}}" name="domain">{{'domain.all.title' | translate}}</a></li>
+	<li ng-controller="maintainProjectController" ng-show="project != null && project.id != null"><h4><a href="#/viewcomponents/project-maintain/update/{{project.id}}">{{project.title}}</a></h4></li>
 	<!-- ###END### include menu items -->
 </ul>

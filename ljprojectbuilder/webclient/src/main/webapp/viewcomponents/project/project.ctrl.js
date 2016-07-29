@@ -102,3 +102,33 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 		gotoProject.all($location);
 	};
 };
+
+projectControllers.projectGenerateController = function($scope, $routeParams, $location, domainConnectorFactory, projectConnectorFactory, gotoProject) {
+
+	$scope.domainAll = [];
+	$scope.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.id); };
+
+	
+	init();
+	function init() {
+		//change title on view change
+		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
+			$scope.title=next.title;
+			$scope.subtitle=next.subtitle;
+			if ($routeParams.id != undefined) {
+				$scope.projectid = $routeParams.id;
+				domainConnectorFactory.getDomainsByProject($routeParams.id)
+					.then(function(response) {
+						$scope.domainAll = response;
+					}, null);
+				
+				projectConnectorFactory.loadProject($scope, $routeParams.id);
+			}
+		});
+		$scope.refresh();
+	}
+	
+	$scope.doBack = function () {
+		gotoProject.back($location);
+	};
+};

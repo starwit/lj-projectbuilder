@@ -4,14 +4,14 @@
 			<h2>{{title | translate}} {{domain.project.title}}</h2>
 		</div>
 		<div class="w3-half">
-			<div class="w3-right">
-				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateDomain(projectid);"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+			<div class="w3-right w3-padding-top">
+				<button class="w3-btn w3-theme w3-round-xxlarge " ng-click="gotoCreateDomain(projectid);"><i class="fa fa-plus"></i> {{'button.add' | translate}}</button>
 			</div>
 		</div>
 	</div>	
 	<div class="w3-row-padding">	
 		<div class="w3-accordion" ng-repeat="domain in domainAll">
-			<button ng-click="showDetails(domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+			<button ng-click="showDetails(domain.id);" ng-dblclick="gotoUpdateDomain(projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
 				<h3>{{domain.name}}</h3>
 				<span>{{domain.description}}</span>
 			</button>

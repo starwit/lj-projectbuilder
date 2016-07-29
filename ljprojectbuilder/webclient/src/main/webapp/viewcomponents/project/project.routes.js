@@ -35,5 +35,11 @@ angular.module('ljprojectbuilderApp.project', ['ngRoute','pascalprecht.translate
 		subtitle : "",
 		mode:"update",
 		templateUrl : "viewcomponents/project/project.single.html"
+	}).when('/viewcomponents/project-maintain/generate/:id', {
+		controller : 'projectGenerateController',
+		title : "project.generate.title",
+		subtitle : "",
+		mode:"generate",
+		templateUrl : "viewcomponents/project/project.generate.html"
 	});
 }]);

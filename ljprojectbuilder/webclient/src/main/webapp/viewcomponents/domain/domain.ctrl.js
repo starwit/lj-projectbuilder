@@ -43,7 +43,7 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 	$scope.projectid = {};
 	init();
 	
-	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain($scope, id);};
+	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain($scope, id);	};
 	
 	function init() {
 		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
@@ -65,9 +65,13 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 	
 	$scope.doMaintain = function () {
 		if ($scope.mode == 'update') {
-			domainConnectorFactory.updateDomain($scope, function($location) {gotoDomain.all($location, $scope.domain.project.id);}, function($location) {gotoDomain.update($location, $scope.domain.project.id, $scope.domain.id);});
+			domainConnectorFactory.updateDomain($scope, 
+					function($location) {gotoDomain.all($location, $scope.domain.project.id);}, 
+					function($location) {gotoDomain.update($location, $scope.domain.project.id, $scope.domain.id);});
 		} else {
-			domainConnectorFactory.createDomain($scope, function($location) {gotoDomain.all($location, $scope.domain.project.id);}, function($location) {gotoDomain.create($location, $scope.domain.project.id);});
+			domainConnectorFactory.createDomain($scope, 
+					function($location) {gotoDomain.all($location, $scope.domain.project.id);}, 
+					function($location) {gotoDomain.create($location, $scope.domain.project.id);});
 		}
 	};
 	

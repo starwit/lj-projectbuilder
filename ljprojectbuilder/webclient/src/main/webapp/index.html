@@ -8,7 +8,8 @@
 
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
 	<link href="res/css/w3c.css" rel="stylesheet" type="text/css" />	
-	<link href="res/css/w3-theme.css" rel="stylesheet" type="text/css" />	
+	<link href="res/css/w3-theme.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/w3-theme-color.css" rel="stylesheet" type="text/css" />	
 <!-- 	<link href="res/css/page.css" rel="stylesheet" type="text/css" /> -->
 <!-- 	<link href="res/css/menu.css" rel="stylesheet" type="text/css" /> -->
 <!-- 	<link href="res/css/forms.css" rel="stylesheet" type="text/css" /> -->
@@ -51,7 +52,12 @@
 			<div ng-include src="'menu.html'"></div>
 		</div>
 	</header>
-	<div class="w3-row-padding w3-margin-top">
+	<div class="">
+	<ul class="w3-navbar w3-light-grey">
+	  <li ng-controller="maintainProjectController" ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
+	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
+	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/project-maintain/generate/{{project.id}}">Generierung</a></li>
+	</ul>
 	
 		 <!-- Sidenav -->
 		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="loadProjectController">

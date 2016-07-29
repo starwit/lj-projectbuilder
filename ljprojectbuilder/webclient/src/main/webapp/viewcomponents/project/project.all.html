@@ -4,20 +4,17 @@
 			<h2>{{title | translate}}</h2>
 		</div>
 		<div class="w3-half">
-			<div class="w3-right">
-				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateProject();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+			<div class="w3-right w3-padding-top">
+				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoCreateProject();"><i class="fa fa-plus"></i> {{ 'button.add' | translate}}</button>
 			</div>
 		</div>
 	</div>	
-	<div class="w3-row-padding">	
-		<div class="w3-container">
-			<ul class="w3-ul w3-card-4 w3-hoverable">
-			  <li class="w3-padding-16" ng-repeat="project in projectAll" ng-dblclick="gotoUpdateProject(project.id);">
-			    <span ng-click="deleteProject(project.id);"  class="w3-closebtn w3-padding">x</span>
-			    <span class="w3-xlarge">{{project.title}}</span><br>
-			    <span>{{project.description}}</span>
-			  </li>
-			</ul>
+	<div class="w3-row-padding">
+		<div ng-repeat="project in projectAll">
+			<button ng-dblclick="gotoUpdateProject(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+				<h3>{{project.title}}</h3>
+				<span>{{project.description}}</span>
+			</button>
 		</div>	
 	</div>
 </div>
