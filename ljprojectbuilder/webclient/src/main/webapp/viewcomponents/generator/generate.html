@@ -2,7 +2,7 @@
 	<form id="projectForm" name="projectForm" class="w3-container"> 
 		<div class="w3-row-padding">
 			<div class="w3-half"><h2>Projektsetup</h2></div>
-			<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doMaintain();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
+			<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doProjectSetupAll();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
 		</div>
 		
 		<div class="w3-row-padding">
@@ -39,35 +39,35 @@
 		<div class="w3-padding-top" ng-if="domainAll != null && domainAll.length > 0">
 			<div class="w3-container w3-padding-top">
 				<div class="w3-half w3-padding-top"><h2>{{'project.domains' | translate}}</h2></div>
-				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doMaintain();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
+				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="generate();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
 			</div>
 					
 			<div class="w3-half w3-row-padding">
 				<div ng-repeat="domain in domainAll">
 					<p />
-					<input class="w3-check" type="checkbox" checked="checked" />{{domain.name}}
+					<input class="w3-check" type="checkbox" checked="true" ng-model="domain.selected"/>{{domain.name}}
 				</div>
 			</div>		
 				
 			<div class="w3-half w3-row-padding">
 				<p />
-				<input class="w3-check" type="checkbox" checked="checked">
-				<label class="w3-validate">Enity</label>
+				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateEntity">
+				<label class="w3-validate">Entity</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateService">
 				<label class="w3-validate">Backend Services</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox" >
+				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateRest">
 				<label class="w3-validate">REST API</label>
 						
 				<p />
-				<input class="w3-check" type="checkbox" checked="checked">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateFrontend">
 				<label class="w3-validate">Frontend</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox">
+				<input class="w3-check" type="checkbox" checked="false" ng-model="generatorDto.generateTests">
 				<label class="w3-validate">Testdata</label>
 			</div>	
 		</div>	

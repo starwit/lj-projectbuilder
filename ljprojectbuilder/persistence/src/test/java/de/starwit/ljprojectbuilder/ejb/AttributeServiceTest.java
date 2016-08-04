@@ -19,12 +19,12 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 	public void testCreate() {
 		entity = new AttributeEntity();
 		entity.setName("Test");
-		entity.setType(DataType.String);
+		entity.setDataType(DataType.String);
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());
 		Assert.assertEquals("Test", entity.getName());
-		Assert.assertEquals(DataType.String, entity.getType());
+		Assert.assertEquals(DataType.String, entity.getDataType());
 		Assert.assertNull(entity.getPattern());
 		Assert.assertNull(entity.getMax());
 		Assert.assertNull(entity.getMin());
@@ -43,5 +43,4 @@ public class AttributeServiceTest extends AbstractServiceTest<AttributeService, 
 		Assert.assertEquals(new Integer(20), entity.getMax());
 		Assert.assertEquals(new Integer(3), entity.getMin());
 	}
-
 }

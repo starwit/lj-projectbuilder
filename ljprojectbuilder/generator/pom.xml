@@ -4,31 +4,41 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>ljprojectbuilder</artifactId>
 		<groupId>ljprojectbuilder</groupId>
+		<artifactId>ljprojectbuilder</artifactId>
 		<version>1</version>
 	</parent>
 
-	<artifactId>rest</artifactId>
+	<artifactId>generator</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>ljprojectbuilder</groupId>
-			<artifactId>generator</artifactId>
-			<type>jar</type>
-		</dependency>	
-	
+
 		<dependency>
 			<groupId>ljprojectbuilder</groupId>
 			<artifactId>persistence</artifactId>
 			<type>jar</type>
 		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		</dependency>	
 
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
 		</dependency>
 
 		<dependency>
@@ -38,15 +48,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-jsr303</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-core</artifactId>
-			<scope>compile</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

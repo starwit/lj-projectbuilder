@@ -1,0 +1,20 @@
+package de.starwit.ljprojectbuilder.ejb;
+
+import java.io.Serializable;
+
+import javax.ejb.Local;
+
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
+
+@Local
+public interface ProjectSetupService extends Serializable {
+	
+	public ResponseMetadata copyProjectTemplate(ProjectEntity entity);
+	public ResponseMetadata renameProject(ProjectEntity entity);
+	public ResponseMetadata renamePackage(ProjectEntity entity);
+
+}
+
+
+    

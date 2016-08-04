@@ -10,7 +10,6 @@ import javax.ws.rs.Produces;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 @Path("/project")
 @Consumes("application/json")
@@ -37,32 +36,5 @@ public class ProjectRest extends AbstractRest<ProjectEntity> {
 	@POST
 	public EntityResponse<ProjectEntity> update(ProjectEntity entity) {
 		return super.updateGeneric(entity);
-	}
-	
-	@Path("/generate")
-	@POST
-	public EntityResponse<ProjectEntity> generate(ProjectEntity entity) {
-		ResponseMetadata responseMetadata = service.copyProjectTemplate(entity);
-		EntityResponse<ProjectEntity> response = new EntityResponse<>(entity);
-		response.setMetadata(responseMetadata);
-		return response;
-	}
-	
-	@Path("/rename")
-	@POST
-	public EntityResponse<ProjectEntity> renameProject(ProjectEntity entity) {
-		EntityResponse<ProjectEntity> response = new EntityResponse<>(entity);
-		ResponseMetadata responseMetadata = service.renameProject(entity);
-		response.setMetadata(responseMetadata);
-		return response;
-	}
-	
-	@Path("/renamepackage")
-	@POST
-	public EntityResponse<ProjectEntity> renamePackage(ProjectEntity entity) {
-		EntityResponse<ProjectEntity> response = new EntityResponse<>(entity);
-		ResponseMetadata responseMetadata = service.renamePackage(entity);
-		response.setMetadata(responseMetadata);
-		return response;
 	}
 }

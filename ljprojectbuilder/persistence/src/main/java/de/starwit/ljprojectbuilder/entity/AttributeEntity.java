@@ -24,13 +24,15 @@ public class AttributeEntity extends AbstractEntity {
 	private String description;
 	
 	@NotBlank
-	private DataType type;
+	private DataType dataType;
 	
 	private String pattern;
 	
 	private Integer max;
 	
 	private Integer min;
+	
+	private boolean nullable = true;
 
 	@Column(name="NAME", nullable = false)
 	public String getName() {
@@ -52,12 +54,12 @@ public class AttributeEntity extends AbstractEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="TYPE", nullable = false)
-	public DataType getType() {
-		return type;
+	public DataType getDataType() {
+		return dataType;
 	}
 	
-	public void setType(DataType type) {
-		this.type = type;
+	public void setDataType(DataType type) {
+		this.dataType = type;
 	}
 
 	@Column(name="PATTERN")
@@ -85,5 +87,13 @@ public class AttributeEntity extends AbstractEntity {
 	
 	public void setMin(Integer min) {
 		this.min = min;
+	}
+
+	public boolean isNullable() {
+		return nullable;
+	}
+
+	public void setNullable(boolean nullable) {
+		this.nullable = nullable;
 	}
 }

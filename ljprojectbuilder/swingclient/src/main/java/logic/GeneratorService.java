@@ -28,6 +28,7 @@ public class GeneratorService {
 		LOG.info("Setup Bean generate Service: " + setupBean.getGenerateService());
 		LOG.info("Setup Bean generate Rest: " + setupBean.getGenerateRest());
 		LOG.info("Setup Bean generate Frontend: " + setupBean.getGenerateFrontend());
+		
 		if (setupBean.getDomainAttributes() != null && setupBean.getDomainAttributes().size() > 0) {
 			LOG.info("First Attribute Name: " + setupBean.getDomainAttributes().get(0).getColumnName());
 		}
@@ -36,10 +37,12 @@ public class GeneratorService {
 			EntityGenerator entityGenerator = new EntityGenerator();
 			entityGenerator.generate(setupBean);
 		}
+		
 		if (setupBean.getGenerateService()) {
 			ServiceGenerator serviceGenerator = new ServiceGenerator();
 			serviceGenerator.generate(setupBean);
 		}
+		
 		if (setupBean.getGenerateRest()) {
 			RestGenerator restGenerator = new RestGenerator();
 			restGenerator.generate(setupBean);

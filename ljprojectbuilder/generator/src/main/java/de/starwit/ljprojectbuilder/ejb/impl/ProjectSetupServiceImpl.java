@@ -18,18 +18,18 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
 
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
+import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-@Stateless(name = "ProjectService")
-public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> implements ProjectService {
+@Stateless(name = "ProjectSetupService")
+public class ProjectSetupServiceImpl implements ProjectSetupService {
 	
 	private static final long serialVersionUID = 1L;
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml" };
-	final static Logger LOG = Logger.getLogger(ProjectServiceImpl.class);
+	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
 	
 	
 	/**

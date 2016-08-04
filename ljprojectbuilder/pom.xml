@@ -23,6 +23,13 @@
 				<version>${project.version}</version>
 				<type>jar</type>
 			</dependency>
+			
+			<dependency>
+				<groupId>ljprojectbuilder</groupId>
+				<artifactId>generator</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
 
 			<dependency>
 				<groupId>ljprojectbuilder</groupId>
@@ -204,6 +211,7 @@
 
 	<modules>
 		<module>persistence</module>
+		<module>generator</module>
 		<module>rest</module>
 		<module>webclient</module>
 		<module>swingclient</module>
