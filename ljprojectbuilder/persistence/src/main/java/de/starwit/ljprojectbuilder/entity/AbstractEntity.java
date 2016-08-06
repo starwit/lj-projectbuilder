@@ -7,12 +7,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass  
 public abstract class AbstractEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Long id;
+	private boolean selected;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,5 +27,15 @@ public abstract class AbstractEntity implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@XmlTransient
+	@JsonIgnore
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }

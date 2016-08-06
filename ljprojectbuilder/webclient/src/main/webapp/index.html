@@ -10,13 +10,6 @@
 	<link href="res/css/w3c.css" rel="stylesheet" type="text/css" />	
 	<link href="res/css/w3-theme.css" rel="stylesheet" type="text/css" />
 	<link href="res/css/w3-theme-color.css" rel="stylesheet" type="text/css" />	
-<!-- 	<link href="res/css/page.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/menu.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/forms.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/tables.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/props.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/vars.css" rel="stylesheet" type="text/css" /> -->
-<!-- 	<link href="res/css/viewports.css" rel="stylesheet" type="text/css" /> -->
 </head>
 
 <body>
@@ -56,7 +49,7 @@
 	<ul class="w3-navbar w3-light-grey">
 	  <li ng-controller="maintainProjectController" ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
 	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
-	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/project-maintain/generate/{{project.id}}">Generierung</a></li>
+	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
 	</ul>
 	
 		 <!-- Sidenav -->
@@ -67,7 +60,6 @@
 		
 		<!-- Overlay -->
 		<div class="w3-overlay" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';" style="cursor:pointer"></div>
-			
 		<div ng-view></div>
 	</div>
 
@@ -78,22 +70,27 @@
 	
 	<script src="shared/directives/global.directives.js" type="application/javascript"></script>
 	<script src="shared/restfacade/rest.connector.factory.js"></script>
-	<script src="app.module.js"></script>
-	<script src="app.routes.js"></script>
+	<script src="shared/restfacade/projectsetup.connector.factory.js"></script>
 	
 	<!-- ###BEGIN### generated scripts -->
-<script src="shared/restfacade/project.connector.factory.js" type="application/javascript"></script>
-<script src="viewcomponents/project/project.ctrl.js" type="application/javascript" ></script>
-<script src="viewcomponents/project/project.routes.js" type="application/javascript" ></script>
+	<script src="shared/restfacade/project.connector.factory.js" type="application/javascript"></script>
+	<script src="viewcomponents/project/project.ctrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/project/project.routes.js" type="application/javascript" ></script>
 
-<script src="shared/restfacade/attribute.connector.factory.js" type="application/javascript"></script>
-<script src="viewcomponents/attribute/attribute.ctrl.js" type="application/javascript" ></script>
-<script src="viewcomponents/attribute/attribute.routes.js" type="application/javascript" ></script>
+	<script src="shared/restfacade/attribute.connector.factory.js" type="application/javascript"></script>
+	<script src="viewcomponents/attribute/attribute.ctrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/attribute/attribute.routes.js" type="application/javascript" ></script>
 
-<script src="shared/restfacade/domain.connector.factory.js" type="application/javascript"></script>
-<script src="viewcomponents/domain/domain.ctrl.js" type="application/javascript" ></script>
-<script src="viewcomponents/domain/domain.routes.js" type="application/javascript" ></script>
+	<script src="shared/restfacade/domain.connector.factory.js" type="application/javascript"></script>
+	<script src="viewcomponents/domain/domain.ctrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/domain/domain.routes.js" type="application/javascript" ></script>
 
+	<script src="shared/restfacade/generator.connector.factory.js"></script>
+	<script src="viewcomponents/generator/generator.ctrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/generator/generator.routes.js" type="application/javascript" ></script>
+	
+	<script src="app.module.js"></script>
+	<script src="app.routes.js"></script>
 	<!-- ###END### generated scripts -->
 
 </body>

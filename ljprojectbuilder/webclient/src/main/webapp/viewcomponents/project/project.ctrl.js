@@ -36,7 +36,8 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 			$scope.title = next.title;
 			$scope.mode = next.mode;
 			if ($routeParams.id != undefined) {
-				projectConnectorFactory.loadProject($scope, $routeParams.id);
+				projectConnectorFactory.loadProject($scope, $routeParams.id)
+					.then(	setProject, null);
 			}
 		});
 	};
@@ -53,6 +54,10 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 		} else {
 			showDialog("project.dialog.error.title", response.message, 'errordialog');
 		}
+	};
+	
+	function setProject(response) {
+		$scope.project = response;
 	};
 	
 	function saveSuccess(response) {
@@ -80,21 +85,21 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 		}
 	};
 	
-	$scope.doGenerate = function () {
+	$scope.doProjectSetup = function () {
 		$rootScope.dialog = {};
-		projectConnectorFactory.generate($scope.project)
+		projectSetupConnectorFactory.projectSetup($scope.project)
 		.then(showGenerationResultDialog);
 	};
 	
 	$scope.doRename = function () {
 		$rootScope.dialog = {};
-		projectConnectorFactory.rename($scope.project)
+		projectSetupConnectorFactory.rename($scope.project)
 		.then(showGenerationResultDialog);
 	};
 	
 	$scope.doRenamePackage = function () {
 		$rootScope.dialog = {};
-		projectConnectorFactory.renamePackage($scope.project)
+		projectSetupConnectorFactory.renamePackage($scope.project)
 		.then(showGenerationResultDialog);
 	};
 	
@@ -118,11 +123,14 @@ projectControllers.projectGenerateController = function($scope, $routeParams, $l
 			if ($routeParams.id != undefined) {
 				$scope.projectid = $routeParams.id;
 				domainConnectorFactory.getDomainsByProject($routeParams.id)
-					.then(function(response) {
-						$scope.domainAll = response;
-					}, null);
+					.then(
+						function(response) { $scope.domainAll = response; }, null
+					);
 				
-				projectConnectorFactory.loadProject($scope, $routeParams.id);
+				projectConnectorFactory.loadProject($scope, $routeParams.id)
+				.then(	
+						function(response) { $scope.project = response; }
+				);
 			}
 		});
 		$scope.refresh();

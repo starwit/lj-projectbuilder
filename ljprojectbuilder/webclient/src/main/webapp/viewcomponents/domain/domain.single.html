@@ -45,7 +45,7 @@
 						<th>{{'attribute.description' | translate}}
 							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
 						</th>
-						<th>{{'attribute.type' | translate}}</th>
+						<th>{{'attribute.dataType' | translate}}</th>
 						<th>{{'attribute.pattern' | translate}}</th>
 						<th>{{'attribute.max' | translate}}</th>
 						<th>{{'attribute.min' | translate}}</th>
@@ -56,10 +56,9 @@
 					<tr ng-repeat="attribute in domain.attributes track by $index">
 						<td>
 							<input name="attributename" class="w3-input" id="attributename" type="text" ng-model="attribute.name"  required />
-							
 						</td>
 						<td><input name="attributedescription" class="w3-input" id="attributedescription" type="text" ng-model="attribute.description"/></td>
-						<td><select class="w3-select w3-border" name="types" id="types" ng-model="attribute.type" ng-options="type as type for type in types" required></select></td>
+						<td><select class="w3-select w3-border" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in dataTypes" required></select></td>
 						<td><input name="attributepattern" class="w3-input" id="attributepattern" type="text" ng-model="attribute.pattern"/></td>
 						<td><input name="attributemax" class="w3-input" id="attributemax" type="text" ng-model="attribute.max"/></td>
 						<td><input name="attributemin" class="w3-input" id="attributemin" type="text" ng-model="attribute.min"/></td>

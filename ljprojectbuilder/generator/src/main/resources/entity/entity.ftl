@@ -46,9 +46,9 @@ public class ${domain}Entity extends AbstractEntity {
 			</#if>
 		</#if>
 	<#if attribute.dataType == "Date" || attribute.dataType == "Time" || attribute.dataType == "Timestamp">
-	private Date ${attribute.columnName};
+	private Date ${attribute.name};
 	<#else>
-	private ${attribute.dataType} ${attribute.columnName};
+	private ${attribute.dataType} ${attribute.name};
 	</#if>
 	
 	</#list>
@@ -56,51 +56,51 @@ public class ${domain}Entity extends AbstractEntity {
 	<#list (attributes) as attribute> 
 
 	<#if attribute.dataType == "String"> 
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if><#if attribute.max??>, length=${attribute.max}</#if>)
-	public ${attribute.dataType} get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if><#if attribute.max??>, length=${attribute.max}</#if>)
+	public ${attribute.dataType} get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	<#if attribute.dataType == "Integer"> 
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
-	public ${attribute.dataType} get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
+	public ${attribute.dataType} get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	<#if attribute.dataType == "BigDecimal"> 
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
-	public ${attribute.dataType} get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
+	public ${attribute.dataType} get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	<#if attribute.dataType == "Double"> 
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
-	public ${attribute.dataType} get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
+	public ${attribute.dataType} get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	<#if attribute.dataType == "Enum"> 
 	@Enumerated(EnumType.STRING)
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
-	public ${attribute.dataType} get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
+	public ${attribute.dataType} get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	<#if attribute.dataType == "Date" || attribute.dataType == "Time" || attribute.dataType == "Timestamp"> 
 	@Temporal(TemporalType.${attribute.dataType?upper_case})
-	@Column(name="${attribute.columnName?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
-	public Date get${attribute.columnName?cap_first}() {
-		return ${attribute.columnName};
+	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if>)
+	public Date get${attribute.name?cap_first}() {
+		return ${attribute.name};
 	}
 	</#if>
 	
 	<#if attribute.dataType == "Date" || attribute.dataType == "Time" || attribute.dataType == "Timestamp">
-	public void set${attribute.columnName?cap_first}(Date ${attribute.columnName}) {
-		this.${attribute.columnName} = ${attribute.columnName};
+	public void set${attribute.name?cap_first}(Date ${attribute.name}) {
+		this.${attribute.name} = ${attribute.name};
 	}
 	<#else>
-		public void set${attribute.columnName?cap_first}(${attribute.dataType} ${attribute.columnName}) {
-		this.${attribute.columnName} = ${attribute.columnName};
+		public void set${attribute.name?cap_first}(${attribute.dataType} ${attribute.name}) {
+		this.${attribute.name} = ${attribute.name};
 	}
 	</#if>
 	</#list>

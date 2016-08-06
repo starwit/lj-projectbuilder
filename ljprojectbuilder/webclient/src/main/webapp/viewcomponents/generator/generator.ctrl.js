@@ -1,6 +1,6 @@
 var generatorControllers = {};
 
-generatorControllers.generatorController = function($scope, $routeParams, $location, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory, gotoProject) {
+generatorControllers.generatorController = function($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 
 	$scope.domainAll = [];
 	$scope.generatorDto = {};
@@ -22,7 +22,9 @@ generatorControllers.generatorController = function($scope, $routeParams, $locat
 				
 				projectConnectorFactory.loadProject($scope, $routeParams.id)
 				.then(	
-					function(response) { $scope.generatorDto.project = response; }
+					function(response) { 
+						$scope.generatorDto.project = response; 
+					}, null
 				);
 			}
 		});
@@ -33,15 +35,15 @@ generatorControllers.generatorController = function($scope, $routeParams, $locat
 		$scope.generatorDto.domains = [];
 		if ($scope.domainAll != null) {
 			$scope.domainAll.forEach(function(domain) {
-				$scope.generatorDto.domains.push(domain);
+				if (domain.selected) {
+					$scope.generatorDto.domains.push(domain);
+				}
 			});
 			generatorConnectorFactory.generate($scope.generatorDto);
 		}
 	};
 	
-	
 	$scope.doProjectSetupAll = function () {
-		$rootScope.dialog = {};
 		projectSetupConnectorFactory.projectSetupAll($scope.generatorDto.project);
 	};
 };

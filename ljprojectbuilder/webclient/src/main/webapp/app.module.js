@@ -8,6 +8,7 @@ var ljprojectbuilderApp = angular.module('ljprojectbuilderApp', [
 	'ljprojectbuilderApp.project',
 	'ljprojectbuilderApp.attribute',
 	'ljprojectbuilderApp.domain',
+	'ljprojectbuilderApp.generator',
 	//###END### include generated files
 	'ngRoute'
 ]);
@@ -24,3 +25,6 @@ ljprojectbuilderApp.config(['$translateProvider', function($translateProvider) {
 	
 ljprojectbuilderApp.factory('restConnectorFactory', restConnectorFactory);
 
+ljprojectbuilderApp.controller(projectControllers);
+ljprojectbuilderApp.controller(domainControllers);
+ljprojectbuilderApp.controller(generatorControllers);

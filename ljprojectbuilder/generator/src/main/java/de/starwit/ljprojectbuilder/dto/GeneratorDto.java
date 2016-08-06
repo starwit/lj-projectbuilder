@@ -1,5 +1,6 @@
 package de.starwit.ljprojectbuilder.dto;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class GeneratorDto {
 	/********************* GETTER, SETTER **************************/
 	
 	public GeneratorDto() {
-		this.templatePath = Paths.get("").toAbsolutePath().getParent().toString() + "/generator/src/main/resources";
+		this.templatePath = this.getClass().getClassLoader().getResource("").getPath().toString() + "../../../../generator/src/main/resources";
 	}
 	
 	public ProjectEntity getProject() {

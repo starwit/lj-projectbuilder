@@ -22,8 +22,12 @@ public class ServiceGenerator extends Generator {
 			return;
 		}
 		
-		String packagePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.SRC_JAVA_PATH + setupBean.getProject().getTitle();
-		String packageTestPath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.TEST_JAVA_PATH + setupBean.getProject().getTitle();
+		String packagePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.SRC_JAVA_PATH 
+				+ setupBean.getProject().getPackagePrefix() + "/"
+				+ setupBean.getProject().getTitle();
+		String packageTestPath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.TEST_JAVA_PATH 
+				+ setupBean.getProject().getPackagePrefix() + "/"
+				+ setupBean.getProject().getTitle();
 		String packageTestResourcePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.TEST_RESOURCES_PATH;
 		
         GeneratorConfig generatorConfig_I = GeneratorConfig.SERVICE_INTERFACE;

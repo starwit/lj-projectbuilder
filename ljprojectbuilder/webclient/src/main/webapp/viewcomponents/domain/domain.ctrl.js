@@ -54,7 +54,7 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 			$scope.domain.project.id = $scope.projectid;
 			
 			domainConnectorFactory.getTypes().then(function(response) {
-				$scope.types = response;
+				$scope.dataTypes = response;
 			})
 
 			if ($routeParams.id != undefined) {
@@ -80,7 +80,7 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 			$scope.domain.attributes = [];
 		}
 		var attribute = {};
-		attribute.type = "String";
+		attribute.dataType = "String";
 		attribute.name = "attribute";
 		$scope.domain.attributes.push(attribute);
 	};

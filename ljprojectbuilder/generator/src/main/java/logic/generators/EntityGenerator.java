@@ -24,7 +24,8 @@ public class EntityGenerator extends Generator {
 			return;
 		}
 		
-		String packagePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.SRC_JAVA_PATH
+		String packagePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/persistence/" + Generator.SRC_JAVA_PATH 
+				+ setupBean.getProject().getPackagePrefix() + "/"
 				+ setupBean.getProject().getTitle();
 		GeneratorConfig generatorConfig = GeneratorConfig.ENTITY;
 		

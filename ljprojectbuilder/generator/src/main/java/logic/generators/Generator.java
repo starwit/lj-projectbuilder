@@ -29,8 +29,8 @@ public abstract class Generator {
 	public final static Logger LOG = Logger.getLogger(Generator.class);
 
 	public final static String SRC_FRONTEND_PATH = "src/main/webapp/";
-	public final static String SRC_JAVA_PATH = "src/main/java/de/starwit/";
-	public final static String TEST_JAVA_PATH = "src/test/java/de/starwit/";
+	public final static String SRC_JAVA_PATH = "src/main/java/de/";
+	public final static String TEST_JAVA_PATH = "src/test/java/de/";
 	public final static String TEST_RESOURCES_PATH = "src/test/resources/";
 
 	public abstract void generate(GeneratorDto setupBean);

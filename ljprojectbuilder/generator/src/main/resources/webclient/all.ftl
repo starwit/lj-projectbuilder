@@ -11,7 +11,7 @@
 			<#list attributes> 
 			<tr>
 				<#items as attribute>
-				<th>{{'${domain?lower_case}.${attribute.columnName}' | translate}}</th>
+				<th>{{'${domain?lower_case}.${attribute.name}' | translate}}</th>
 				</#items>
 			</tr>	
 			</#list>
@@ -23,7 +23,7 @@
 
 				<#list attributes> 
 				<#items as attribute>
-				<td>{{${domain?lower_case}.${attribute.columnName}}}</td>
+				<td>{{${domain?lower_case}.${attribute.name}}}</td>
 				</#items>
 				</#list>
 			</tr>
