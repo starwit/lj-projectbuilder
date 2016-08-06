@@ -1,8 +1,8 @@
-package de.starwit.${appName?lower_case}.ejb;
+package de.${package}.${appName?lower_case}.ejb;
 
 import java.io.Serializable;
 import javax.ejb.Local;
-import de.starwit.${appName?lower_case}.entity.${domain}Entity;
+import de.${package}.${appName?lower_case}.entity.${domain}Entity;
 
 @Local
 public interface ${domain}Service extends Serializable, AbstractService<${domain}Entity> {

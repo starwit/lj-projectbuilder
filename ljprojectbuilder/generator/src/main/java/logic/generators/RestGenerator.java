@@ -56,6 +56,7 @@ public class RestGenerator extends Generator {
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("classnames", classnames);
 			data.put("appName", setupBean.getProject().getTitle());
+			data.put("package", setupBean.getProject().getPackagePrefix());
 			
 			// Load template from source folder
 			Template template = cfg.getTemplate(GeneratorConfig.REST_APP.templateFile);

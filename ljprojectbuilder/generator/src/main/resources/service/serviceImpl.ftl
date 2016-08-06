@@ -1,9 +1,9 @@
-package de.starwit.${appName?lower_case}.ejb.impl;
+package de.${package}.${appName?lower_case}.ejb.impl;
 
 
 import javax.ejb.Stateless;
-import de.starwit.${appName?lower_case}.ejb.${domain}Service;
-import de.starwit.${appName?lower_case}.entity.${domain}Entity;
+import de.${package}.${appName?lower_case}.ejb.${domain}Service;
+import de.${package}.${appName?lower_case}.entity.${domain}Entity;
 
 @Stateless(name = "${domain}Service")
 public class ${domain}ServiceImpl extends AbstractServiceImpl<${domain}Entity> implements ${domain}Service {

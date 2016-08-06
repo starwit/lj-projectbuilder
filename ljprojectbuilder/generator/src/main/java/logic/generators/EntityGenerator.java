@@ -39,6 +39,7 @@ public class EntityGenerator extends Generator {
 			data.put("domainUpper", domain.getName().toUpperCase());
 			data.put("attributes", domain.getAttributes());
 			data.put("appName", setupBean.getProject().getTitle());
+			data.put("package", setupBean.getProject().getPackagePrefix());
 			
 			Set<String> imports = new HashSet<String>();
 			if (domain.getAttributes() != null) {

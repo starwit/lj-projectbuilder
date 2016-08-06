@@ -45,6 +45,7 @@ public class ServiceGenerator extends Generator {
 	            data.put("domainLower", domain.getName().toLowerCase());
 	            data.put("domainUpper", domain.getName().toUpperCase());
 	            data.put("appName", setupBean.getProject().getTitle());
+				data.put("package", setupBean.getProject().getPackagePrefix());
 	            
 	            //loadTemplates and write files from template
 	            Template template_I = getTemplate(setupBean, generatorConfig_I);

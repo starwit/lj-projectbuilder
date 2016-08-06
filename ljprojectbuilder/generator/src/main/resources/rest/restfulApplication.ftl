@@ -1,4 +1,4 @@
-package de.starwit.${appName?lower_case}.api.restapp;
+package de.${package}.${appName?lower_case}.api.restapp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 <#list (classnames) as name>
-import de.starwit.${appName?lower_case}.api.rest.${name};
+import de.${package}.${appName?lower_case}.api.rest.${name};
 </#list>
 
 

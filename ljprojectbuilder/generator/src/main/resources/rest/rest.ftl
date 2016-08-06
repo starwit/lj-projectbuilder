@@ -1,4 +1,4 @@
-package de.starwit.${appName?lower_case}.api.rest;
+package de.${package}.${appName?lower_case}.api.rest;
 
 
 import javax.inject.Inject;
@@ -8,9 +8,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.starwit.${appName?lower_case}.api.rest.response.EntityResponse;
-import de.starwit.${appName?lower_case}.ejb.${domain}Service;
-import de.starwit.${appName?lower_case}.entity.${domain}Entity;
+import de.${package}.${appName?lower_case}.api.rest.response.EntityResponse;
+import de.${package}.${appName?lower_case}.ejb.${domain}Service;
+import de.${package}.${appName?lower_case}.entity.${domain}Entity;
 
 @Path("/${domainLower}")
 @Consumes("application/json")

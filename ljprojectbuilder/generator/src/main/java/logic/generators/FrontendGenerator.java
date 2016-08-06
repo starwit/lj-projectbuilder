@@ -41,6 +41,7 @@ public class FrontendGenerator extends Generator {
 		data.put("appName", setupBean.getProject().getTitle());
 		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
 		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
+		data.put("package", setupBean.getProject().getPackagePrefix());
 		
 		for (DomainEntity domain : domains) {
 			data.put("domain", domain.getName());
