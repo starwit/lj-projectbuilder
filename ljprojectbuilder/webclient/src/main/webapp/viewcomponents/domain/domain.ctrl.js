@@ -1,5 +1,5 @@
 var domainControllers = {};
-domainControllers.loadDomainController = function($rootScope, $routeParams, $scope, $location, domainConnectorFactory, $translate, gotoDomain) {
+domainControllers.loadDomainController = ['$rootScope', '$routeParams', '$scope', '$location', 'domainConnectorFactory', '$translate', 'gotoDomain', function($rootScope, $routeParams, $scope, $location, domainConnectorFactory, $translate, gotoDomain) {
 
 	$scope.domainAll = [];
 	$scope.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.projectid); };
@@ -40,9 +40,9 @@ domainControllers.loadDomainController = function($rootScope, $routeParams, $sco
 	        x.className = x.className.replace(" w3-show", "");
 	    }
 	};
-};
+}];
 
-domainControllers.maintainDomainController = function ($scope, $routeParams, $location, domainConnectorFactory, $translate, gotoDomain) {
+domainControllers.maintainDomainController = ['$scope', '$routeParams', '$location', 'domainConnectorFactory', '$translate', 'gotoDomain', function ($scope, $routeParams, $location, domainConnectorFactory, $translate, gotoDomain) {
 	$scope.domain = {};
 	$scope.projectid = {};
 	init();
@@ -104,4 +104,4 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 	};
 	
 	$scope.doBack = function () {	 gotoDomain.all($location);	};
-};
+}];

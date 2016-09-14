@@ -1,5 +1,5 @@
 var projectControllers = {};
-projectControllers.loadProjectController = function($rootScope, $scope, $location, projectConnectorFactory, $translate, gotoProject) {
+projectControllers.loadProjectController = [ '$rootScope', '$scope', '$location', 'projectConnectorFactory', '$translate', 'gotoProject',  function($rootScope, $scope, $location, projectConnectorFactory, $translate, gotoProject) {
 
 	$scope.projectAll = [];
 	$scope.refresh = function() { projectConnectorFactory.getProjectAll().then(	setProjectAll, null); };
@@ -22,13 +22,12 @@ projectControllers.loadProjectController = function($rootScope, $scope, $locatio
 		$scope.projectAll = response;		
 	}
 	
-	
 	$scope.doBack = function () {
 		gotoProject.back($location);
 	};
-};
+}];
 
-projectControllers.maintainProjectController = function ($rootScope, $scope, $routeParams, $location, projectConnectorFactory, $translate, gotoProject) {
+projectControllers.maintainProjectController = ['$rootScope', '$scope', '$routeParams', '$location', 'projectConnectorFactory', '$translate', 'gotoProject', function ($rootScope, $scope, $routeParams, $location, projectConnectorFactory, $translate, gotoProject) {
 	
 	$scope.project = {};
 	$scope.gotoAll = function() { gotoProject.all($location); };
@@ -41,8 +40,7 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 			$scope.title = next.title;
 			$scope.mode = next.mode;
 			if ($routeParams.id != undefined) {
-				projectConnectorFactory.loadProject($routeParams.id)
-					.then(	setProject, null);
+				projectConnectorFactory.loadProject($routeParams.id).then(setProject, null);
 			}
 		});
 	};
@@ -111,37 +109,4 @@ projectControllers.maintainProjectController = function ($rootScope, $scope, $ro
 	$scope.doBack = function () {
 		gotoProject.all($location);
 	};
-};
-
-projectControllers.projectGenerateController = function($scope, $routeParams, $location, domainConnectorFactory, projectConnectorFactory, gotoProject) {
-
-	$scope.domainAll = [];
-	$scope.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.id); };
-
-	
-	init();
-	function init() {
-		//change title on view change
-		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-			$scope.title=next.title;
-			$scope.subtitle=next.subtitle;
-			if ($routeParams.id != undefined) {
-				$scope.projectid = $routeParams.id;
-				domainConnectorFactory.getDomainsByProject($routeParams.id)
-					.then(
-						function(response) { $scope.domainAll = response; }, null
-					);
-				
-				projectConnectorFactory.loadProject($scope, $routeParams.id)
-				.then(	
-						function(response) { $scope.project = response; }
-				);
-			}
-		});
-		$scope.refresh();
-	}
-	
-	$scope.doBack = function () {
-		gotoProject.back($location);
-	};
-};
+}];

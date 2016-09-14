@@ -1,6 +1,6 @@
 var generatorControllers = {};
 
-generatorControllers.generatorController = function($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
+generatorControllers.generatorController = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory', function($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 
 	$scope.domainAll = [];
 	$scope.generatorDto = {};
@@ -46,4 +46,4 @@ generatorControllers.generatorController = function($scope, $routeParams, domain
 	$scope.doProjectSetupAll = function () {
 		projectSetupConnectorFactory.projectSetupAll($scope.generatorDto.project);
 	};
-};
+}];
