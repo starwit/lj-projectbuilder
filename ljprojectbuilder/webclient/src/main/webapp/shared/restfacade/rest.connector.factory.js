@@ -1,18 +1,6 @@
 function restConnectorFactory ($http, $location, $q) {
 	var factory = {};
 	
-	factory.handleResponse = function($scope, response, successPath, errorPath) {
-		content = response.data;
-		// promise fulfilled
-        if (content.metadata.responseCode === 'OK') {
-        	successPath($location);
-        } else {
-        	$scope.message = content.metadata.message;		
-        	$scope.validationErrors = content.metadata.validationErrors;	
-        	errorPath($location);
-        }
-	};
-	
 	factory.handleResponseSuccess = function(response) {
 		if (response.data.metadata.responseCode == 'OK' || response.data.metadata.responseCode == 'EMPTY') {
 			return response.data.result;

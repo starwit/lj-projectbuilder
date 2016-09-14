@@ -9,43 +9,36 @@ function domainConnectorFactory ($http, $location, restConnectorFactory) {
 		);
 	};
 	
-	factory.getDomainAll = function($scope) {
-		$http.get('api/domain/query/all')
-		.then(function (response) {
-			content = response.data;
-			$scope.domainAll = content.result;		
-		});
+	factory.loadDomain = function(domainId) {
+		return $http.get('api/domain/query/' + domainId)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+	
+	factory.createDomain= function(domain) {
+		return $http.put('api/domain/', domain)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.loadDomain = function($scope, id) {
-		$http.get('api/domain/query/' + id)
-		.then(function (response) {
-			content = response.data;
-			$scope.domain = content.result;		
-		});
+	factory.updateDomain = function(domain) {
+		return $http.post('api/domain/', domain)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.createDomain = function($scope, successPath, errorPath) {
-		$http.put('api/domain/', $scope.domain)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath,  errorPath);
-		});
-	};
-		
-	factory.updateDomain = function($scope, successPath, errorPath) {
-		$http.post('api/domain/', $scope.domain)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath, errorPath);
-		});
-	};
-		
-	factory.deleteDomain = function($scope, id) {
-		$http.delete('api/domain/' + id)
-		.then(function(response) {
-			content = response.data;
-			$scope.protocol = content.result;
-			factory.getDomainAll($scope);
-		});
+	factory.deleteDomain = function(id) {
+		return $http.delete('api/domain/' + id)
+		.then(
+				restConnectorFactory.handleResponseSuccess,
+				restConnectorFactory.handleResponseError
+		);
 	};
 	
 	factory.getTypes = function() {

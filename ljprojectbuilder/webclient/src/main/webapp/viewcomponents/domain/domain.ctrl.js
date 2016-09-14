@@ -5,7 +5,11 @@ domainControllers.loadDomainController = function($rootScope, $routeParams, $sco
 	$scope.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.projectid); };
 	$scope.gotoUpdateDomain = function(projectid, id) { gotoDomain.update($location, projectid, id); };
 	$scope.gotoCreateDomain = function (projectid) { gotoDomain.create($location, projectid); };
-	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain($scope, id);};
+	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain(id).then(
+			function(response) {
+				domainConnectorFactory.getDomainsByProject(id); 
+			}, null	);	
+	};
 	$scope.setSelected = function (idSelected) { $scope.idSelected = idSelected; };
 	
 	init();
@@ -43,7 +47,11 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 	$scope.projectid = {};
 	init();
 	
-	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain($scope, id);	};
+	$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain(id).then(
+			function(response) {
+				domainConnectorFactory.getDomainsByProject(id); 
+			}, null	);	
+	};
 	
 	function init() {
 		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
@@ -58,20 +66,24 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 			})
 
 			if ($routeParams.id != undefined) {
-				domainConnectorFactory.loadDomain($scope, $routeParams.id);
+				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, null);
 			}
 		});
 	};
 	
+	function setDomain(response) {
+		$scope.domain = response;
+	}
+	
 	$scope.doMaintain = function () {
 		if ($scope.mode == 'update') {
-			domainConnectorFactory.updateDomain($scope, 
-					function($location) {gotoDomain.all($location, $scope.domain.project.id);}, 
-					function($location) {gotoDomain.update($location, $scope.domain.project.id, $scope.domain.id);});
+			domainConnectorFactory.updateDomain($scope.domain).then(
+					function(response) {gotoDomain.all($location, response.project.id);}, 
+					function(response) {gotoDomain.update($location, $scope.domain.project.id, $scope.domain.id);});
 		} else {
-			domainConnectorFactory.createDomain($scope, 
-					function($location) {gotoDomain.all($location, $scope.domain.project.id);}, 
-					function($location) {gotoDomain.create($location, $scope.domain.project.id);});
+			domainConnectorFactory.createDomain($scope.domain).then(
+					function(response) {gotoDomain.all($location, $scope.domain.project.id);}, 
+					function(response) {gotoDomain.create($location, $scope.domain.project.id);});
 		}
 	};
 	
@@ -91,7 +103,5 @@ domainControllers.maintainDomainController = function ($scope, $routeParams, $lo
 		}
 	};
 	
-	$scope.doBack = function () {
-		gotoDomain.all($location);
-	};
+	$scope.doBack = function () {	 gotoDomain.all($location);	};
 };

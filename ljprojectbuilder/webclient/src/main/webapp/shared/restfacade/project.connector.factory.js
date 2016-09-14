@@ -1,15 +1,15 @@
 function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
-	factory.getProjectAll = function($scope) {
-		$http.get('api/project/query/all')
-		.then(function (response) {
-			content = response.data;
-			$scope.projectAll = content.result;		
-		});
+	factory.getProjectAll = function() {
+		return $http.get('api/project/query/all')
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.loadProject = function($scope, id) {
+	factory.loadProject = function(id) {
 		return $http.get('api/project/query/' + id)
 		.then(
 			restConnectorFactory.handleResponseSuccess,
@@ -33,21 +33,13 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 		);
 	};
 		
-	factory.deleteProject = function($scope, id) {
-		$http.delete('api/project/' + id)
-		.then(function(response) {
-			content = response.data;
-			$scope.protocol = content.result;
-			factory.getProjectAll($scope);
-		});
+	factory.deleteProject = function(id) {
+		return $http.delete('api/project/' + id)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 	
-	factory.getAllowedFields = function($scope) {
-		$http.get('api/project/query/allowedvalues')
-		.then(function(response) {
-			content = response.data;
-			restConnectorFactory.getAllowedFields($scope, content);
-		});
-	};
 	return factory;
 }

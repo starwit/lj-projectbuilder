@@ -25,6 +25,8 @@
 	"attribute.all.title"			: "Attribute",
 	"attribute.create.title"		: "Attribute erfassen",
 	"attribute.update.title"		: "Attribute bearbeiten",	
+	
+	"domain.create.title"			: "Domain erfassen",	
 	"domain.update.title"			: "Domain bearbeiten",	
 	"domain.all.title"				: "Domainobjekte",	
 	"domain.name"					: "Name",
