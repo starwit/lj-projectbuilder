@@ -1,4 +1,4 @@
-function projectConnectorFactory ($http, $location, restConnectorFactory) {
+projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
 	factory.getProjectAll = function() {
@@ -42,4 +42,4 @@ function projectConnectorFactory ($http, $location, restConnectorFactory) {
 	};
 	
 	return factory;
-}
+}]

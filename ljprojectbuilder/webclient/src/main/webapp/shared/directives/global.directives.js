@@ -1,6 +1,6 @@
 var directives = {};
 
-directives.focus = function($timeout, $parse) {
+directives.focus = ['$timeout', '$parse', function($timeout, $parse) {
   focus = {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -20,4 +20,4 @@ directives.focus = function($timeout, $parse) {
     }
   }
   return focus;
-};
+}];

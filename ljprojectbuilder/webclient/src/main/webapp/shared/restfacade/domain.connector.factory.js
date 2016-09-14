@@ -1,4 +1,4 @@
-function domainConnectorFactory ($http, $location, restConnectorFactory) {
+domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', function  ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
 	factory.getDomainsByProject = function(projectId) {
@@ -49,4 +49,4 @@ function domainConnectorFactory ($http, $location, restConnectorFactory) {
 	};
 		
 	return factory;
-}
+}]

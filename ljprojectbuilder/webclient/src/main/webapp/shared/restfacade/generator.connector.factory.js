@@ -1,4 +1,4 @@
-function generatorConnectorFactory ($http, $location, restConnectorFactory) {
+generatorConnectorFactory = ['$http', '$location', 'restConnectorFactory', function  ($http, $location, restConnectorFactory) {
 	var factory = {};
 	
 	factory.generate = function(generatorinput) {
@@ -10,4 +10,4 @@ function generatorConnectorFactory ($http, $location, restConnectorFactory) {
 	};
 
 	return factory;
-}
+}]

@@ -1,4 +1,4 @@
-function restConnectorFactory ($http, $location, $q) {
+restConnectorFactory = ['$http', '$location', '$q', function  ($http, $location, $q) {
 	var factory = {};
 	
 	factory.handleResponseSuccess = function(response) {
@@ -25,4 +25,4 @@ function restConnectorFactory ($http, $location, $q) {
 		}
 	};
 	return factory;
-}
+}]
