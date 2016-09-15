@@ -1,3 +1,3 @@
-ljprojectbuilderApp.config(['$routeProvider', function($routeProvider) {
+angular.module('ljprojectbuilderApp').config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
 }]);

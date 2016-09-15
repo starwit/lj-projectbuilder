@@ -1,19 +1,18 @@
 'use strict';
 
 //Declare app level module which depends on views, and components
-var ljprojectbuilderApp = angular.module('ljprojectbuilderApp', [
+angular.module('ljprojectbuilderApp', [
     'pascalprecht.translate',
   
     //###BEGIN### include generated files
 	'ljprojectbuilderApp.project',
-	'ljprojectbuilderApp.attribute',
 	'ljprojectbuilderApp.domain',
 	'ljprojectbuilderApp.generator',
 	//###END### include generated files
 	'ngRoute'
 ]);
 
-ljprojectbuilderApp.config(['$translateProvider', function($translateProvider) {
+angular.module('ljprojectbuilderApp').config(['$translateProvider', function($translateProvider) {
 	$translateProvider
 	.useStaticFilesLoader({
 		prefix: 'localization/translations-',
@@ -22,9 +21,14 @@ ljprojectbuilderApp.config(['$translateProvider', function($translateProvider) {
 		.useSanitizeValueStrategy('escaped') // Security for escaping variables
 		.usePostCompiling(true); // Post compiling angular filters
 }]);
-	
-ljprojectbuilderApp.factory('restConnectorFactory', restConnectorFactory);
 
-ljprojectbuilderApp.controller(projectControllers);
-ljprojectbuilderApp.controller(domainControllers);
-ljprojectbuilderApp.controller(generatorControllers);
+angular.module('ljprojectbuilderApp').controller('appController', appController);
+
+function appController($scope) {
+	$scope.$on('$routeChangeSuccess', function (scope, next, current) {
+		$scope.title=next.title;
+		$scope.subtitle=next.subtitle;
+	});
+}
+
+angular.module('ljprojectbuilderApp').factory('restConnectorFactory', restConnectorFactory);

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="<%= locale %>" ng-app="ljprojectbuilderApp" >
+<html lang="<%= locale %>" ng-app="ljprojectbuilderApp"  ng-controller="appController">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>ljprojectbuilderApp</title>
@@ -47,13 +47,13 @@
 	</header>
 	<div class="">
 	<ul class="w3-navbar w3-light-grey">
-	  <li ng-controller="maintainProjectController" ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
-	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
-	  <li ng-controller="maintainProjectController"><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
+	  <li ng-controller="projectSingleCtrl" ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
+	  <li ng-controller="projectSingleCtrl"><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
+	  <li ng-controller="projectSingleCtrl"><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
 	</ul>
 	
 		 <!-- Sidenav -->
-		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="loadProjectController">
+		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="projectAllCtrl">
 		  <a href="javascript:void(0)" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';" class="w3-closenav">Close</a>
 		  <a ng-repeat="project in projectAll" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';"  ng-click="gotoUpdateProject(project.id);">{{project.title}}</a>
 		</nav>
@@ -73,9 +73,11 @@
 	<script src="shared/restfacade/projectsetup.connector.factory.js"></script>
 	
 	<!-- ###BEGIN### generated scripts -->
-	<script src="shared/restfacade/project.connector.factory.js" type="application/javascript"></script>
-	<script src="viewcomponents/project/project.ctrl.js" type="application/javascript" ></script>
-	<script src="viewcomponents/project/project.routes.js" type="application/javascript" ></script>
+	<script src="shared/restfacade/project.connector.factory.js" type="application/javascript"></script>	
+	<script src="viewcomponents/project/project.module.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/project/project.routes.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/project/projectAllCtrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/project/projectSingleCtrl.js" type="application/javascript" ></script>
 
 	<script src="shared/restfacade/attribute.connector.factory.js" type="application/javascript"></script>
 	<script src="viewcomponents/attribute/attribute.ctrl.js" type="application/javascript" ></script>
