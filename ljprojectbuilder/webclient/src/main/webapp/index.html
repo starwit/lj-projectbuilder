@@ -14,42 +14,16 @@
 
 <body>
 
-<!-- ########################## dialogs ############################ -->
-	<div class="w3-modal" id="errordialog" style="display: none;">
-	  <div class="w3-modal-content w3-card-4  w3-animate-top">
-	    <header class="w3-container w3-red"> 
-	      <span class="w3-closebtn" onclick="document.getElementById('errordialog').style.display='none'">×</span>
-	      <h2>{{dialog.title | translate }}</h2>
-	    </header>
-	    <div class="w3-container">
-	      <p>{{dialog.text | translate }}</p>
-	    </div>
-	  </div>
-	</div>
-	
-	<div class="w3-modal" id="successdialog" style="display: none;" onclick="document.getElementById('successdialog').style.display='none'">
-	  <div class="w3-modal-content w3-card-4  w3-animate-top">
-	    <header class="w3-container w3-teal">
-	      <span class="w3-closebtn">×</span>
-	      <h2>{{dialog.title | translate }}</h2>
-	    </header>
-	    <div class="w3-container">
-	      <p>{{dialog.text | translate }}</p>
-	    </div>
-	  </div>
-	</div>
-<!-- ########################## dialogs ############################ -->
-
 	<header class="w3-container w3-theme w3-padding">
 		<div class="w3-center w3-half">
 			<div ng-include src="'menu.html'"></div>
 		</div>
 	</header>
 	<div class="">
-	<ul class="w3-navbar w3-light-grey">
-	  <li ng-controller="projectSingleCtrl" ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
-	  <li ng-controller="projectSingleCtrl"><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
-	  <li ng-controller="projectSingleCtrl"><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
+	<ul class="w3-navbar w3-light-grey" ng-controller="projectSingleCtrl" >
+	  <li ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
+	  <li><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
+	  <li><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
 	</ul>
 	
 		 <!-- Sidenav -->
@@ -79,17 +53,14 @@
 	<script src="viewcomponents/project/projectAllCtrl.js" type="application/javascript" ></script>
 	<script src="viewcomponents/project/projectSingleCtrl.js" type="application/javascript" ></script>
 
-	<script src="shared/restfacade/attribute.connector.factory.js" type="application/javascript"></script>
-	<script src="viewcomponents/attribute/attribute.ctrl.js" type="application/javascript" ></script>
-	<script src="viewcomponents/attribute/attribute.routes.js" type="application/javascript" ></script>
-
 	<script src="shared/restfacade/domain.connector.factory.js" type="application/javascript"></script>
 	<script src="viewcomponents/domain/domain.ctrl.js" type="application/javascript" ></script>
 	<script src="viewcomponents/domain/domain.routes.js" type="application/javascript" ></script>
 
 	<script src="shared/restfacade/generator.connector.factory.js"></script>
-	<script src="viewcomponents/generator/generator.ctrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/generator/generator.module.js" type="application/javascript" ></script>
 	<script src="viewcomponents/generator/generator.routes.js" type="application/javascript" ></script>
+	<script src="viewcomponents/generator/generatorCtrl.js" type="application/javascript" ></script>
 	
 	<script src="app.module.js"></script>
 	<script src="app.routes.js"></script>
