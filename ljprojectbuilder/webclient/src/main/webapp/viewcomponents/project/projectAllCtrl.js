@@ -7,7 +7,7 @@
 		
 		function init() {
 			$scope.projectAll = [];
-			projectConnectorFactory.getProjectAll().then(	setProjectAll, null);
+			projectConnectorFactory.getProjectAll().then(setProjectAll, null);
 			
 			$scope.gotoProject = gotoProject;
 			$scope.deleteProject = function(id) {projectConnectorFactory.deleteProject(id).then(projectConnectorFactory.getProjectAll(), null)};

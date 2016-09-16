@@ -4,21 +4,21 @@
 	angular.module('ljprojectbuilderApp.project').factory('gotoProject', gotoProject);
 	
 	function gotoProject($location) {
-			var factory = {};
-			factory.all = function() {
-		    	$location.path('/viewcomponents/project-all/');
-		    },
-		    factory.update = function(id) {
-		    	$location.path('/viewcomponents/project-maintain/update/' + id);
-		    },
-		    factory.create = function() {
-		    	$location.path('/viewcomponents/project-maintain/create/');
-		    },
-		    factory.back = function() {
-		    	$location.path('/');
-		    }
-			return factory;
-	    };
+		var factory = {};
+		factory.all = function() {
+	    	$location.path('/viewcomponents/project-all/');
+	    },
+	    factory.update = function(id) {
+	    	$location.path('/viewcomponents/project-maintain/update/' + id);
+	    },
+	    factory.create = function() {
+	    	$location.path('/viewcomponents/project-maintain/create/');
+	    },
+	    factory.back = function() {
+	    	$location.path('/');
+	    }
+		return factory;
+    };
 	
 	angular.module('ljprojectbuilderApp.project')
 	.config(['$routeProvider', function($routeProvider) {
