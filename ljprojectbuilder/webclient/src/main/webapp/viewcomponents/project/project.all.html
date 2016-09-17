@@ -5,13 +5,13 @@
 		</div>
 		<div class="w3-half">
 			<div class="w3-right w3-padding-top">
-				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="gotoProject.create();"><i class="fa fa-plus"></i> {{ 'button.add' | translate}}</button>
+				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="ctrl.gotoProject.create();"><i class="fa fa-plus"></i> {{ 'button.add' | translate}}</button>
 			</div>
 		</div>
 	</div>	
 	<div class="w3-row-padding">
-		<div ng-repeat="project in projectAll">
-			<button ng-dblclick="gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+		<div ng-repeat="project in ctrl.projectAll">
+			<button ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
 				<h3>{{project.title}}</h3>
 				<span>{{project.description}}</span>
 			</button>

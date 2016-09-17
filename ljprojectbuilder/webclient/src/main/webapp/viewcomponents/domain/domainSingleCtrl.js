@@ -2,18 +2,19 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainSingleCtrl', domainSingleCtrl);
 	
-	function domainSingleCtrl($scope, $routeParams, $location, domainConnectorFactory, $translate, gotoDomain) {
+	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, gotoDomain) {
+		var  ctrl = this;
 		init();
 		
 		function init() {
-			$scope.domain = {};
-			$scope.projectid = {};
+			ctrl.domain = {};
+			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				$scope.projectid = $routeParams.projectid;
-				$scope.domain.project = {};
-				$scope.domain.project.id = $scope.projectid;
+				ctrl.projectid = $routeParams.projectid;
+				ctrl.domain.project = {};
+				ctrl.domain.project.id = ctrl.projectid;
 
 				if ($routeParams.id != undefined) {
 					domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, null);
@@ -22,44 +23,44 @@
 		};
 		
 		function setDataTypes(response) {
-			$scope.dataTypes = response;
+			ctrl.dataTypes = response;
 		}
 		
 		function setDomain(response) {
-			$scope.domain = response;
+			ctrl.domain = response;
 		}
 		
-		$scope.doMaintain = function () {
-			if ($scope.domain != null && $scope.domain.id != null) {
-				domainConnectorFactory.updateDomain($scope.domain).then(
-						function(response) {gotoDomain.all(response.project.id);}, 
-						function(response) {gotoDomain.update($scope.domain.project.id, $scope.domain.id);});
+		ctrl.doMaintain = function () {
+			if (ctrl.domain != null && ctrl.domain.id != null) {
+				domainConnectorFactory.updateDomain(ctrl.domain).then(
+						function(response) {gotoDomain.all(ctrl.domain.project.id);}, 
+						function(response) {gotoDomain.update(ctrl.domain.project.id, ctrl.domain.id);});
 			} else {
-				domainConnectorFactory.createDomain($scope.domain).then(
-						function(response) {gotoDomain.all($scope.domain.project.id);}, 
-						function(response) {gotoDomain.create($scope.domain.project.id);});
+				domainConnectorFactory.createDomain(ctrl.domain).then(
+						function(response) {gotoDomain.all(ctrl.domain.project.id);}, 
+						function(response) {gotoDomain.create(ctrl.domain.project.id);});
 			}
 		};
 		
-		$scope.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain(id).then(
+		ctrl.deleteDomain = function(id) {	domainConnectorFactory.deleteDomain(id).then(
 				function(response) {
 					domainConnectorFactory.getDomainsByProject(id); 
 				}, null	);	
 		};
 		
-		$scope.addAttribute = function () {
-			if ($scope.domain.attributes == undefined) {
-				$scope.domain.attributes = [];
+		ctrl.addAttribute = function () {
+			if (ctrl.domain.attributes == undefined) {
+				ctrl.domain.attributes = [];
 			}
 			var attribute = {};
 			attribute.dataType = "String";
 			attribute.name = "attribute";
-			$scope.domain.attributes.push(attribute);
+			ctrl.domain.attributes.push(attribute);
 		};
 		
-		$scope.removeAttribute = function ($index) {
-			if ($scope.domain.attributes != undefined && $index > -1) {
-				$scope.domain.attributes.splice($index, 1);
+		ctrl.removeAttribute = function ($index) {
+			if (ctrl.domain.attributes != undefined && $index > -1) {
+				ctrl.domain.attributes.splice($index, 1);
 			}
 		};
 	};

@@ -2,7 +2,7 @@
  	<div class="w3-row-padding">
 	<form class="editForm" name="domainForm">   
 		<div class="w3-half"><h2>{{title | translate}}</h2></div>
-		<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doMaintain();"><i class="fa fa-save"></i>{{'button.save' | translate}}</button></div>
+		<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doMaintain();"><i class="fa fa-save"></i>{{'button.save' | translate}}</button></div>
 	
 			<div class="w3-container">
 				<div class="w3-group">
@@ -11,7 +11,7 @@
 	
 		<div class="w3-half w3-row-padding">
 			<div class="w3-group">
-				<input name="name" class="w3-input" id="name" type="text" ng-model="domain.name"  required />
+				<input name="name" class="w3-input" id="name" type="text" ng-model="ctrl.domain.name"  required />
 				<label class="w3-label w3-validate">{{'domain.name' | translate}}</label>
 				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.name.$error.required">{{'error.required' | translate}}</label>
 			</div>
@@ -19,7 +19,7 @@
 
 		<div class="w3-half w3-row-padding">
 			<div class="w3-group">
-				<input name="description" class="w3-input" id="description" type="text" ng-model="domain.description"  required />
+				<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required />
 				<label class="w3-label w3-validate">{{'domain.description' | translate}}</label>
 				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.description.$error.required">{{'error.required' | translate}}</label>
 			</div>
@@ -32,7 +32,7 @@
 			
 			<div class="w3-half w3-row-padding">
 				<div class="w3-right w3-padding-top">
-					<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="addAttribute();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
+					<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="ctrl.addAttribute();"><i class="fa fa-plus"></i> Hinzuf&uuml;gen</button>
 				</div>
 			</div>
 
@@ -53,7 +53,7 @@
 					</tr>	
 				</thead>
 				<tbody>
-					<tr ng-repeat="attribute in domain.attributes track by $index">
+					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
 						<td>
 							<input name="attributename" class="w3-input" id="attributename" type="text" ng-model="attribute.name"  required />
 						</td>

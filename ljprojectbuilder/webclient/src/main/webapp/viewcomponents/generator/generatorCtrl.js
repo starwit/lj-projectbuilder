@@ -3,49 +3,47 @@
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
 	function generatorCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
-
-		$scope.domainAll = [];
-		$scope.generatorDto = {};
-		$scope.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.id); };
+		var ctrl = this;
+		ctrl.domainAll = [];
+		ctrl.generatorDto = {};
+		ctrl.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.id); };
 	
 		init();
 		function init() {
 			//change title on view change
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				$scope.title=next.title;
-				$scope.subtitle=next.subtitle;
 				if ($routeParams.id != undefined) {
-					$scope.projectid = $routeParams.id;
+					ctrl.projectid = $routeParams.id;
 					domainConnectorFactory.getDomainsByProject($routeParams.id)
 						.then(function(response) {
-							$scope.domainAll = response;
+							ctrl.domainAll = response;
 						}, null);
 					
 					projectConnectorFactory.loadProject($routeParams.id)
 					.then(	
 						function(response) { 
-							$scope.generatorDto.project = response; 
+							ctrl.generatorDto.project = response; 
 						}, null
 					);
 				}
 			});
-			$scope.refresh();
+			ctrl.refresh();
 		}
 		
-		$scope.generate = function () {
-			$scope.generatorDto.domains = [];
-			if ($scope.domainAll != null) {
-				$scope.domainAll.forEach(function(domain) {
+		ctrl.generate = function () {
+			ctrl.generatorDto.domains = [];
+			if (ctrl.domainAll != null) {
+				ctrl.domainAll.forEach(function(domain) {
 					if (domain.selected) {
-						$scope.generatorDto.domains.push(domain);
+						ctrl.generatorDto.domains.push(domain);
 					}
 				});
-				generatorConnectorFactory.generate($scope.generatorDto);
+				generatorConnectorFactory.generate(ctrl.generatorDto);
 			}
 		};
 		
-		$scope.doProjectSetupAll = function () {
-			projectSetupConnectorFactory.projectSetupAll($scope.generatorDto.project);
+		ctrl.doProjectSetupAll = function () {
+			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project);
 		};
 	};
 })();

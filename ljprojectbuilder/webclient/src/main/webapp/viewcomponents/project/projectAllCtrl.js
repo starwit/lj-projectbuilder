@@ -2,20 +2,20 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectAllCtrl', projectAllCtrl);
 	
-	function projectAllCtrl($rootScope, $scope, $location, projectConnectorFactory, $translate, gotoProject) {
+	function projectAllCtrl(projectConnectorFactory, gotoProject) {
+		var  ctrl = this;
 		init();
 		
 		function init() {
-			$scope.projectAll = [];
+			ctrl.projectAll = [];
 			projectConnectorFactory.getProjectAll().then(setProjectAll, null);
 			
-			$scope.gotoProject = gotoProject;
-			$scope.deleteProject = function(id) {projectConnectorFactory.deleteProject(id).then(projectConnectorFactory.getProjectAll(), null)};
-			$scope.setSelected = function (idSelected) { $scope.idSelected = idSelected; };
+			ctrl.gotoProject = gotoProject;
+			ctrl.deleteProject = function(id) {projectConnectorFactory.deleteProject(id).then(projectConnectorFactory.getProjectAll(), null)};
 		}
 		
 		function setProjectAll(response) {
-			$scope.projectAll = response;		
+			ctrl.projectAll = response;		
 		}
 	};
 	

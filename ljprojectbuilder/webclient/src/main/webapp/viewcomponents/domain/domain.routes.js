@@ -1,6 +1,7 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('ljprojectbuilderApp.domain').factory('gotoDomain', gotoDomain);
+	angular.module('ljprojectbuilderApp.domain').factory('gotoDomain', gotoDomain);
 	function gotoDomain($location) {
 		var factory = {};
 		factory.all = function(projectid) {
@@ -18,24 +19,25 @@ angular.module('ljprojectbuilderApp.domain').factory('gotoDomain', gotoDomain);
 	    return factory;
 	};
 
-angular.module('ljprojectbuilderApp.domain').config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
-		controller : 'domainAllCtrl',
-		title : "domain.all.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/domain/domain.all.html"
-	}).when('/viewcomponents/domain-maintain/create/:projectid', {
-		controller : 'domainSingleCtrl',
-		title : "domain.create.title",
-		subtitle : "",
-		mode:"create",
-		templateUrl : "viewcomponents/domain/domain.single.html"
-	}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
-		controller : 'domainSingleCtrl',
-		title : "domain.update.title",
-		subtitle : "",
-		mode:"update",
-		templateUrl : "viewcomponents/domain/domain.single.html"
-	});
-}]);
-
+	angular.module('ljprojectbuilderApp.domain').config(['$routeProvider', function($routeProvider) {
+	  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
+			controller : 'domainAllCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.all.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.all.html"
+		}).when('/viewcomponents/domain-maintain/create/:projectid', {
+			controller : 'domainSingleCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.create.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.single.html"
+		}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
+			controller : 'domainSingleCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.update.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.single.html"
+		});
+	}]);
+})();

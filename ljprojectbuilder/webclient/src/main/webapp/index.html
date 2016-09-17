@@ -20,16 +20,16 @@
 		</div>
 	</header>
 	<div class="">
-	<ul class="w3-navbar w3-light-grey" ng-controller="projectSingleCtrl" >
-	  <li ><a href="#/viewcomponents/project-maintain/update/{{project.id}}">Details</a></li>
-	  <li><a href="#/viewcomponents/domain-byproject/{{project.id}}">Domainobjekte</a></li>
-	  <li><a href="#/viewcomponents/generator/generate/{{project.id}}">Generierung</a></li>
+	<ul class="w3-navbar w3-light-grey" ng-controller="projectSingleCtrl as ctrl" >
+	  <li ><a href="#/viewcomponents/project-maintain/update/{{ctrl.project.id}}">Details</a></li>
+	  <li><a href="#/viewcomponents/domain-byproject/{{ctrl.project.id}}">Domainobjekte</a></li>
+	  <li><a href="#/viewcomponents/generator/generate/{{ctrl.project.id}}">Generierung</a></li>
 	</ul>
 	
 		 <!-- Sidenav -->
-		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="projectAllCtrl">
+		<nav class="w3-sidenav w3-white w3-animate-left" style="display:none;z-index:4" id="projectSidenav" ng-controller="projectAllCtrl as ctrl">
 		  <a href="javascript:void(0)" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';" class="w3-closenav">Close</a>
-		  <a ng-repeat="project in projectAll" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';"  ng-click="gotoUpdateProject(project.id);">{{project.title}}</a>
+		  <a ng-repeat="project in ctrl.projectAll" onclick="document.getElementById('projectSidenav').style.display = 'none';document.getElementById('projectOverlay').style.display = 'none';"  ng-click="ctrl.gotoProject.update(project.id);">{{project.title}}</a>
 		</nav>
 		
 		<!-- Overlay -->

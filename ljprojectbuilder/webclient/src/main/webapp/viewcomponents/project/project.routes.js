@@ -24,16 +24,19 @@
 	.config(['$routeProvider', function($routeProvider) {
 		  $routeProvider.when('/viewcomponents/project-all/', {
 				controller : 'projectAllCtrl',
+				controllerAs : 'ctrl',
 				title : "project.all.title",
 				subtitle : "",
 				templateUrl : "viewcomponents/project/project.all.html"
 			}).when('/viewcomponents/project-maintain/create/', {
 				controller : 'projectSingleCtrl',
+				controllerAs : 'ctrl',
 				title : "project.create.title",
 				subtitle : "",
 				templateUrl : "viewcomponents/project/project.single.html"
 			}).when('/viewcomponents/project-maintain/update/:id', {
 				controller : 'projectSingleCtrl',
+				controllerAs : 'ctrl',
 				title : "project.update.title",
 				subtitle : "",
 				templateUrl : "viewcomponents/project/project.single.html"
