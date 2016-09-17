@@ -1,7 +1,5 @@
-(function() {
-	'use strict';
-	
-	projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory', function  ($http, $location, restConnectorFactory) {
+projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
+	function projectSetupConnectorFactory($http, $location, restConnectorFactory) {
 	    var factory = {
 	    		projectSetupAll: projectSetupAll,
 	    		projectSetup: projectSetup,
@@ -30,4 +28,3 @@
 				.then(function(response) { return response.data.metadata; }	);
 		};
 	}];
-})();

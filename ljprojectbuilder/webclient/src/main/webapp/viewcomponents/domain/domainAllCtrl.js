@@ -6,7 +6,8 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainAllCtrl', domainAllCtrl);
 	
-	domainAllCtrl = ['$routeParams', '$scope', 'domainConnectorFactory', 'gotoDomain', function ($routeParams, $scope, domainConnectorFactory, gotoDomain) {
+	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'gotoDomain'];
+	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, gotoDomain) {
 		var  ctrl = this;
 
 		ctrl.domainAll = [];
@@ -66,5 +67,5 @@
 		function setDomainAll(response) {
 			ctrl.domainAll = response;		
 		}
-	}];
+	};
 })();

@@ -1,7 +1,5 @@
-(function() {
-	'use strict';
-	
-	restConnectorFactory = ['$http', '$location', '$q', function  ($http, $location, $q) {
+restConnectorFactory = ['$http', '$location', '$q',
+	function restConnectorFactory($http, $location, $q) {
 	    var factory = {
 	    		handleResponseSuccess: handleResponseSuccess,
 	    		handleResponseError: handleResponseError,
@@ -33,4 +31,3 @@
 			}
 		};
 	}];
-})();

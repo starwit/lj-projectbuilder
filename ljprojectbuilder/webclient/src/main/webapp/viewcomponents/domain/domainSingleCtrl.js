@@ -5,7 +5,8 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainSingleCtrl', domainSingleCtrl);
 	
-	domainSingleCtrl = ['$scope', '$routeParams', 'domainConnectorFactory', 'gotoDomain', function ($scope, $routeParams, domainConnectorFactory, gotoDomain) {
+	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'gotoDomain'];
+	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, gotoDomain) {
 		var  ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
@@ -92,5 +93,5 @@
 		function setDomain(response) {
 			ctrl.domain = response;
 		}
-	}];
+	};
 })();	

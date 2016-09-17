@@ -6,8 +6,12 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectAllCtrl', projectAllCtrl);
 	
-	projectAllCtrl = ['projectConnectorFactory', 'gotoProject', function(projectConnectorFactory, gotoProject) {
+	projectAllCtrl.$inject = ['projectConnectorFactory', 'gotoProject'];
+	function projectAllCtrl(projectConnectorFactory, gotoProject) {
 		var  ctrl = this;
+		
+		ctrl.deleteProject = deleteProject;
+		ctrl.gotoProject = gotoProject;
 		init();
 		
 		/** 
@@ -16,10 +20,11 @@
 		function init() {
 			ctrl.projectAll = [];
 			projectConnectorFactory.getProjectAll().then(setProjectAll, null);
-			
-			ctrl.gotoProject = gotoProject;
-			ctrl.deleteProject = function(id) {projectConnectorFactory.deleteProject(id).then(projectConnectorFactory.getProjectAll(), null)};
 		}
+		
+		function deleteProject(id) {
+			projectConnectorFactory.deleteProject(id).then(projectConnectorFactory.getProjectAll(), null)
+		};
 		
 		/**
 		 * Used for setting the database result to the representation-object in the controller.
@@ -27,5 +32,5 @@
 		function setProjectAll(response) {
 			ctrl.projectAll = response;		
 		}
-	}];
+	};
 })();

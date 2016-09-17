@@ -5,8 +5,8 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
-	generatorCtrl = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory', 
-		function($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
+	generatorCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory'];
+	function generatorCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 		var ctrl = this;
 
 		ctrl.refresh = refresh;
@@ -77,5 +77,5 @@
 		function setDomainAll(response) {
 			ctrl.domainAll = response;
 		}
-	}];
+	};
 })();
