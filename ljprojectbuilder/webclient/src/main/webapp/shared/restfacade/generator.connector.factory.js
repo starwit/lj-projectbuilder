@@ -1,13 +1,18 @@
-generatorConnectorFactory = ['$http', '$location', 'restConnectorFactory', function  ($http, $location, restConnectorFactory) {
-	var factory = {};
+(function() {
+	'use strict';
 	
-	factory.generate = function(generatorinput) {
-		return $http.post('api/generator/generate', generatorinput)
-		.then(
-			restConnectorFactory.handleResponseSuccess,
-			restConnectorFactory.handleResponseError
-		);
-	};
-
-	return factory;
-}]
+	generatorConnectorFactory = ['$http', '$location', 'restConnectorFactory', function  ($http, $location, restConnectorFactory) {
+	    var factory = {
+	    		generate: generate
+	     };
+	    return factory;
+		
+		function generate(generatorinput) {
+			return $http.post('api/generator/generate', generatorinput)
+			.then(
+				restConnectorFactory.handleResponseSuccess,
+				restConnectorFactory.handleResponseError
+			);
+		};
+	}];
+})();

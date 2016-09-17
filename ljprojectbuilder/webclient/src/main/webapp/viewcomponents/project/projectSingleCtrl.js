@@ -5,7 +5,7 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectSingleCtrl', projectSingleCtrl);
 	
-	function projectSingleCtrl($scope, $routeParams, projectConnectorFactory, gotoProject) {
+	projectSingleCtrl = ['$scope', '$routeParams', 'projectConnectorFactory', 'gotoProject', function($scope, $routeParams, projectConnectorFactory, gotoProject) {
 		var ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
@@ -72,5 +72,5 @@
 		function saveError(response) {
 			showDialog("project.dialog.error.title", "project.save.error", 'errordialog');
 		};
-	};
+	}];
 })();

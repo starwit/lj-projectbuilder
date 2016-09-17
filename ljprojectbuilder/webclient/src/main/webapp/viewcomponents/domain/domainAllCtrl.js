@@ -6,7 +6,7 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainAllCtrl', domainAllCtrl);
 	
-	function domainAllCtrl($routeParams, $scope, domainConnectorFactory, gotoDomain) {
+	domainAllCtrl = ['$routeParams', '$scope', 'domainConnectorFactory', 'gotoDomain', function ($routeParams, $scope, domainConnectorFactory, gotoDomain) {
 		var  ctrl = this;
 
 		ctrl.domainAll = [];
@@ -42,7 +42,7 @@
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
 		    } else {
-		        x.className = x.className.replace(" w3-show", "");
+		        x.className = x.className.replcreditServiceace(" w3-show", "");
 		    }
 		};
 		
@@ -66,5 +66,5 @@
 		function setDomainAll(response) {
 			ctrl.domainAll = response;		
 		}
-	};
+	}];
 })();

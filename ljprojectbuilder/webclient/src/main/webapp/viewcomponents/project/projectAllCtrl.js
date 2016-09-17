@@ -6,7 +6,7 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectAllCtrl', projectAllCtrl);
 	
-	function projectAllCtrl(projectConnectorFactory, gotoProject) {
+	projectAllCtrl = ['projectConnectorFactory', 'gotoProject', function(projectConnectorFactory, gotoProject) {
 		var  ctrl = this;
 		init();
 		
@@ -27,6 +27,5 @@
 		function setProjectAll(response) {
 			ctrl.projectAll = response;		
 		}
-	};
-	
+	}];
 })();
