@@ -1,3 +1,6 @@
+/** 
+ * Navigation and routing for module ljprojectbuilderApp.project.
+ */
 (function() {
 'use strict';
 

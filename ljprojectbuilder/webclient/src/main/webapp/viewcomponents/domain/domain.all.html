@@ -11,7 +11,7 @@
 	</div>	
 	<div class="w3-row-padding">	
 		<div class="w3-accordion" ng-repeat="domain in ctrl.domainAll">
-			<button ng-click="showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+			<button ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
 				<h3>{{domain.name}}</h3>
 				<span>{{domain.description}}</span>
 			</button>

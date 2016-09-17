@@ -1,36 +1,29 @@
+/**
+ * Contains all functionality to create new projects and generate the CRUD operations for the domain objects.
+ */
 (function() {
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
 	function generatorCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 		var ctrl = this;
-		ctrl.domainAll = [];
-		ctrl.generatorDto = {};
-		ctrl.refresh = function() { domainConnectorFactory.getDomainsByProject($routeParams.id); };
-	
+
+		ctrl.refresh = refresh;
+		ctrl.generate = generate;
+		ctrl.doProjectSetupAll = doProjectSetupAll;
 		init();
-		function init() {
-			//change title on view change
-			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				if ($routeParams.id != undefined) {
-					ctrl.projectid = $routeParams.id;
-					domainConnectorFactory.getDomainsByProject($routeParams.id)
-						.then(function(response) {
-							ctrl.domainAll = response;
-						}, null);
-					
-					projectConnectorFactory.loadProject($routeParams.id)
-					.then(	
-						function(response) { 
-							ctrl.generatorDto.project = response; 
-						}, null
-					);
-				}
-			});
-			ctrl.refresh();
-		}
 		
-		ctrl.generate = function () {
+		/**
+		 * Refreshs the view from database.
+		 */
+		function refresh() { 
+			domainConnectorFactory.getDomainsByProject($routeParams.id); 
+		};
+		
+		/**
+		 * Generates CRUD-access for domain objects.
+		 */
+		function generate() {
 			ctrl.generatorDto.domains = [];
 			if (ctrl.domainAll != null) {
 				ctrl.domainAll.forEach(function(domain) {
@@ -42,8 +35,46 @@
 			}
 		};
 		
-		ctrl.doProjectSetupAll = function () {
+		/**
+		 * Creates a new project with the given setup from a template-project.
+		 */
+		function doProjectSetupAll() {
 			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project);
 		};
+		
+		/** 
+		 * Standard function for initialization.
+		 */
+		function init() {
+			ctrl.domainAll = [];
+			ctrl.generatorDto = {};
+			
+			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
+				if ($routeParams.id != undefined) {
+					ctrl.projectid = $routeParams.id;
+					
+					domainConnectorFactory.getDomainsByProject($routeParams.id)
+						.then(setDomainAll, null);
+					
+					projectConnectorFactory.loadProject($routeParams.id)
+						.then(	setGeneratorDto, null);
+				}
+			});
+			ctrl.refresh();
+		}
+		
+		/**
+		 * Used for setting the database result to the representation-object in the controller.
+		 */
+		function setGeneratorDto(response) {
+			ctrl.generatorDto.project = response; 
+		}
+		
+		/**
+		 * Used for setting the database result to the representation-object in the controller.
+		 */
+		function setDomainAll(response) {
+			ctrl.domainAll = response;
+		}
 	};
 })();
