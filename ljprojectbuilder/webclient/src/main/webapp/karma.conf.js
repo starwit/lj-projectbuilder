@@ -25,6 +25,7 @@ module.exports = function(config) {
         'shared/directives/global.directives.js',
         'shared/restfacade/rest.connector.factory.js',
         'shared/restfacade/projectsetup.connector.factory.js',
+        'shared/dialogs/dialog.service.js',
 
         'shared/restfacade/project.connector.factory.js',
         'viewcomponents/project/project.module.js',
@@ -86,7 +87,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chromium'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
