@@ -13,12 +13,14 @@
 	</div>	
 	<div class="w3-row-padding">
 		<div class="w3-accordion"  ng-repeat="project in ctrl.projectAll">
-			<button ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+			<div ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+				<div ng-click="$event.stopPropagation();ctrl.deleteProject(project.id);" class="w3-closebtn w3-padding">x</div>
 				<h3>{{project.title}}</h3>
 				<span>{{project.description}}</span>
-			</button>
+			</div>
+			
 			<div id="{{project.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="ctrl.gotoProject.update(project.id);" >
-			  	<span ng-click="ctrl.deleteProject(project.id);" class="w3-closebtn w3-padding">x</span>
+			  	
 				<table class="w3-table-all">
 					<thead>
 						<tr class="w3-theme-l3">

@@ -13,12 +13,12 @@
 	</div>	
 	<div class="w3-row-padding">	
 		<div class="w3-accordion" ng-repeat="domain in ctrl.domainAll">
-			<button ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+			<div ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+			  	<div ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);" class="w3-closebtn w3-padding">x</div>
 				<h3>{{domain.name}}</h3>
 				<span>{{domain.description}}</span>
-			</button>
+			</div>
 			<div id="{{domain.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
-			  	<span ng-click="ctrl.deleteDomain(domain.id);" class="w3-closebtn w3-padding">x</span>
 			    <h3>{{'attribute.all.title' | translate}}</h3>
 			    <table class="w3-table-all">
 					<thead >
@@ -32,7 +32,7 @@
 						</tr>	
 					</thead>
 					<tbody>
-						<tr ng-repeat="attribute in ctrl.domain.attributes">
+						<tr ng-repeat="attribute in domain.attributes">
 			
 							<td>{{attribute.name}}</td>
 							<td>{{attribute.description}}</td>

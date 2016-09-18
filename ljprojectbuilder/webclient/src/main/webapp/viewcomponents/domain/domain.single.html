@@ -60,7 +60,7 @@
 							<input name="attributename" class="w3-input" id="attributename" type="text" ng-model="attribute.name"  required />
 						</td>
 						<td><input name="attributedescription" class="w3-input" id="attributedescription" type="text" ng-model="attribute.description"/></td>
-						<td><select class="w3-select w3-border" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in dataTypes" required></select></td>
+						<td><select class="w3-select w3-border" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required></select></td>
 						<td><input name="attributepattern" class="w3-input" id="attributepattern" type="text" ng-model="attribute.pattern"/></td>
 						<td><input name="attributemax" class="w3-input" id="attributemax" type="text" ng-model="attribute.max"/></td>
 						<td><input name="attributemin" class="w3-input" id="attributemin" type="text" ng-model="attribute.min"/></td>

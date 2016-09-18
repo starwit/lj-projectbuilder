@@ -38,9 +38,9 @@
 		function init() {
 			ctrl.project = {};
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				if ($routeParams.id != undefined && $routeParams.id !== ctrl.project.id) {
-					ctrl.project.id = $routeParams.id;
-					projectConnectorFactory.loadProject($routeParams.id).then(setProject, loadError);
+				if ($routeParams.projectid != undefined && $routeParams.projectid !== ctrl.project.id) {
+					ctrl.project.id = $routeParams.projectid;
+					projectConnectorFactory.loadProject(ctrl.project.id).then(setProject, loadError);
 				}
 			});
 		};

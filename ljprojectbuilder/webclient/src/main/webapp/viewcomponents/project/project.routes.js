@@ -44,7 +44,7 @@
 	            	projectConnectorFactory: projectConnectorFactory,
 	            	dialogService: dialogService
 	             }
-			}).when('/viewcomponents/project-maintain/update/:id', {
+			}).when('/viewcomponents/project-maintain/update/:projectid', {
 				title : "project.update.title",
 				subtitle : "",
 				templateUrl : "viewcomponents/project/project.single.html",
