@@ -5,19 +5,20 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectSingleCtrl', projectSingleCtrl);
 	
-	projectSingleCtrl.$inject = ['$scope', '$routeParams', 'projectConnectorFactory', 'gotoProject'];
-	function projectSingleCtrl($scope, $routeParams, projectConnectorFactory, gotoProject) {
+	projectSingleCtrl.$inject = ['$scope', '$routeParams', 'projectConnectorFactory', 'dialogService', 'gotoProject'];
+	function projectSingleCtrl($scope, $routeParams, projectConnectorFactory, dialogService, gotoProject) {
 		var ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
 		ctrl.gotoProject = gotoProject;
+		ctrl.closeDialog = closeDialog;
+		ctrl.dialog = dialogService.dialog;
 		init();
 
 		/**
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintain() {
-			ctrl.dialog = {};
 			if (ctrl.project != null && ctrl.project.id != null) {
 				projectConnectorFactory.updateProject(ctrl.project).then(
 						saveSuccess, 
@@ -37,8 +38,9 @@
 		function init() {
 			ctrl.project = {};
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				if ($routeParams.id != undefined && ctrl.project.id == null) {
-					projectConnectorFactory.loadProject($routeParams.id).then(setProject, null);
+				if ($routeParams.id != undefined && $routeParams.id !== ctrl.project.id) {
+					ctrl.project.id = $routeParams.id;
+					projectConnectorFactory.loadProject($routeParams.id).then(setProject, loadError);
 				}
 			});
 		};
@@ -51,27 +53,29 @@
 		};
 		
 		/**
-		 * Display dialog after saving project configuration.
-		 */
-		function showDialog(dialogtitle, dialogtext, dialogid) {
-			ctrl.dialog.title = dialogtitle;
-			ctrl.dialog.text = dialogtext;
-			document.getElementById(dialogid).style.display = 'block';
-		};
-		
-		/**
 		 * Success message after saving.
 		 */
 		function saveSuccess(response) {
 			setProject(response);
-			showDialog("project.dialog.success.title", "project.save.success", 'successdialog');
+			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProject.all);
 		};
 		
 		/**
 		 * Error message after saving.
 		 */
 		function saveError(response) {
-			showDialog("project.dialog.error.title", "project.save.error", 'errordialog');
+			dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
 		};
+		
+		/**
+		 * Error message after loading the project.
+		 */
+		function loadError(response) {
+			dialogService.showDialog("project.dialog.error.title", "project.load.error", dialogService.dialog.id.error, gotoProject.all);
+		};
+		
+		function closeDialog(dialogid) {
+			dialogService.closeDialog(dialogid);
+		}
 	};
 })();

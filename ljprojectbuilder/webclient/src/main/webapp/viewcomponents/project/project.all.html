@@ -1,3 +1,5 @@
+<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+<div ng-include="'shared/dialogs/dialog.error.html'"></div>
 <div class="w3-row-padding w3-container">
 	<div class="w3-row-padding">
 		<div class="w3-half">
@@ -10,11 +12,42 @@
 		</div>
 	</div>	
 	<div class="w3-row-padding">
-		<div ng-repeat="project in ctrl.projectAll">
-			<button ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
+		<div class="w3-accordion"  ng-repeat="project in ctrl.projectAll">
+			<button ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
 				<h3>{{project.title}}</h3>
 				<span>{{project.description}}</span>
 			</button>
+			<div id="{{project.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="ctrl.gotoProject.update(project.id);" >
+			  	<span ng-click="ctrl.deleteProject(project.id);" class="w3-closebtn w3-padding">x</span>
+				<table class="w3-table-all">
+					<thead>
+						<tr class="w3-theme-l3">
+							<th></th>
+							<th>{{'project.template' | translate}}</th>
+							<th>{{'project.target' | translate}}</th>
+						</tr>	
+					</thead>
+					<tbody>
+						<tr>
+							<td class="w3-theme-l5">{{'project.templatelocation' | translate}}</td>
+							<td>{{project.templateLocation}}</td>
+							<td>{{project.targetPath}}</td>
+						</tr>
+						
+						<tr>
+							<td class="w3-theme-l5">{{'project.templatetitle' | translate}}</td>
+							<td>{{project.templateTitle}}</td>
+							<td>{{project.title}}</td>
+						</tr>
+						
+						<tr>
+							<td class="w3-theme-l5">{{'templatepackageprefix' | translate}}</td>
+							<td>{{project.templatePackagePrefix}}</td>
+							<td>{{project.packagePrefix}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>	
 	</div>
 </div>

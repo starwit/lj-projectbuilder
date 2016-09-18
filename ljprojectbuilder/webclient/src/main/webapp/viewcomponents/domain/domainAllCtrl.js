@@ -6,15 +6,17 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainAllCtrl', domainAllCtrl);
 	
-	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'gotoDomain'];
-	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, gotoDomain) {
+	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 
 		ctrl.domainAll = [];
 		ctrl.refresh = refresh;
 		ctrl.gotoDomain = gotoDomain;
 		ctrl.deleteDomain = deleteDomain;
+		ctrl.dialog = dialogService.dialog;
 		ctrl.showDetails = showDetails;
+		ctrl.closeDialog = closeDialog;
 	
 		init();
 		
@@ -22,17 +24,14 @@
 		 * refreshs the view from database.
 		 */
 		function refresh() { 
-			domainConnectorFactory.getDomainsByProject($routeParams.projectid); 
+			domainConnectorFactory.getDomainsByProject(ctrl.projectid).then(setDomainAll, loadError); 
 		};
 		
 		/**
 		 * Deletes the domain object with the given id.
 		 */
-		function deleteDomain(id) {
-			domainConnectorFactory.deleteDomain(id).then(
-				function(response) {
-					domainConnectorFactory.getDomainsByProject(id); 
-				}, null	);	
+		function deleteDomain(id) {	
+			domainConnectorFactory.deleteDomain(id).then(deleteSuccess, deleteError);
 		};
 		
 		/**
@@ -43,7 +42,7 @@
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
 		    } else {
-		        x.className = x.className.replcreditServiceace(" w3-show", "");
+		        x.className = x.className.replace(" w3-show", "");
 		    }
 		};
 		
@@ -55,8 +54,7 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined) {
 					ctrl.projectid = $routeParams.projectid;
-					domainConnectorFactory.getDomainsByProject($routeParams.projectid)
-					.then(setDomainAll, null);
+					refresh();
 				}
 			});
 		}
@@ -67,5 +65,36 @@
 		function setDomainAll(response) {
 			ctrl.domainAll = response;		
 		}
+				
+		/**
+		 * Success message after deleting.
+		 */
+		function deleteSuccess(response) {
+			refresh();
+			dialogService.showDialog("domain.dialog.success.title", "domain.delete.success", dialogService.dialog.id.success, gotoDomainAll);
+		};
+		
+		/**
+		 * Error message after deleting.
+		 */
+		function deleteError(response) {
+			refresh();
+			dialogService.showDialog("domain.dialog.error.title", "domain.delete.error", dialogService.dialog.id.error, gotoDomainAll);
+		};
+		
+		/**
+		 * Error message after loading domains for project.
+		 */
+		function loadError(response) {
+			dialogService.showDialog("domain.dialog.error.title", "domain.load.error", dialogService.dialog.id.error, gotoDomain.loaderror);
+		};
+		
+		function gotoDomainAll() {
+			gotoDomain.all(ctrl.projectid);
+		};
+		
+		function closeDialog(dialogid) {
+			dialogService.closeDialog(dialogid);
+		};
 	};
 })();

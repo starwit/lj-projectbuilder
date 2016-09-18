@@ -22,8 +22,8 @@
 	    factory.create = function(projectid) {
 	    	$location.path('/viewcomponents/domain-maintain/create/' + projectid);
 	    },
-	    factory.back = function() {
-	    	$location.path('/');
+	    factory.loaderror = function() {
+	    	$location.path('/viewcomponents/project-all/');
 	    }
 	    return factory;
 	};

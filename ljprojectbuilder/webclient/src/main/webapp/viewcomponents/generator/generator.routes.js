@@ -10,12 +10,6 @@
 		  templateUrl : "viewcomponents/generator/generator.html",
 		  controller : 'generatorCtrl',
 		  controllerAs : 'ctrl',
-          resolve: {
-        	  domainConnectorFactory: domainConnectorFactory,
-        	  projectConnectorFactory: projectConnectorFactory,
-        	  projectSetupConnectorFactory: projectSetupConnectorFactory,
-        	  generatorConnectorFactory: generatorConnectorFactory
-           }
 		});
 	}]);
 })();

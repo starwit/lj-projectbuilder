@@ -1,3 +1,5 @@
+<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+<div ng-include="'shared/dialogs/dialog.error.html'"></div>
 <div class="w3-row-padding w3-container">
  	<div class="w3-row-padding">
 	<form class="editForm" name="domainForm">   
@@ -45,7 +47,7 @@
 						<th>{{'attribute.description' | translate}}
 							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
 						</th>
-						<th>{{'attribute.dataType' | translate}}</th>
+						<th>{{'attribute.type' | translate}}</th>
 						<th>{{'attribute.pattern' | translate}}</th>
 						<th>{{'attribute.max' | translate}}</th>
 						<th>{{'attribute.min' | translate}}</th>

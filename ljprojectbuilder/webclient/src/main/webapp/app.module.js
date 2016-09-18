@@ -38,4 +38,5 @@
 	}
 	
 	angular.module('ljprojectbuilderApp').factory('restConnectorFactory', restConnectorFactory);
+	angular.module('ljprojectbuilderApp').factory('dialogService', dialogService);
 })();

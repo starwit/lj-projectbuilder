@@ -79,6 +79,9 @@ public abstract class AbstractRest<E extends AbstractEntity> {
 	public EntityResponse<E> getById(@PathParam("entityId") Long id) {
 		E entity = getService().findById(id);
 		EntityResponse<E> rw = new EntityResponse<E>(entity);
+		if (entity == null) {
+			rw.setMetadata(new ResponseMetadata(ResponseCode.NOT_FOUND, "response.notfound"));
+		}
 		return rw;
 	}
 	

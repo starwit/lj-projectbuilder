@@ -5,38 +5,26 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainSingleCtrl', domainSingleCtrl);
 	
-	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'gotoDomain'];
-	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, gotoDomain) {
+	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
-		ctrl.deleteDomain = deleteDomain;
 		ctrl.addAttribute = addAttribute;
 		ctrl.removeAttribute = removeAttribute;
+		ctrl.dialog = dialogService.dialog;
+		ctrl.closeDialog = closeDialog;
 		init();
 		
 		/**
 		 * Standard function to edit a domain object.
 		 */
 		function doMaintain() {
-			if (ctrl.domain != null && ctrl.domain.id != null) {
-				domainConnectorFactory.updateDomain(ctrl.domain).then(
-						function(response) {gotoDomain.all(ctrl.domain.project.id);}, 
-						function(response) {gotoDomain.update(ctrl.domain.project.id, ctrl.domain.id);});
+			if (ctrl.domain.id != null) {
+				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccess, saveError);
 			} else {
-				domainConnectorFactory.createDomain(ctrl.domain).then(
-						function(response) {gotoDomain.all(ctrl.domain.project.id);}, 
-						function(response) {gotoDomain.create(ctrl.domain.project.id);});
+				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccess, saveError)
 			}
-		};
-		
-		/**
-		 * Standard function to delete a domain object.
-		 */
-		function deleteDomain(id) {	domainConnectorFactory.deleteDomain(id).then(
-				function(response) {
-					domainConnectorFactory.getDomainsByProject(id); 
-				}, null	);	
 		};
 
 		/**
@@ -75,7 +63,7 @@
 				ctrl.domain.project.id = ctrl.projectid;
 
 				if ($routeParams.id != undefined) {
-					domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, null);
+					domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
 				}
 			});
 		};
@@ -93,5 +81,35 @@
 		function setDomain(response) {
 			ctrl.domain = response;
 		}
+		
+		/**
+		 * Success message after saving.
+		 */
+		function saveSuccess(response) {
+			setDomain(response);
+			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainAll);
+		};
+		
+		/**
+		 * Error message after saving.
+		 */
+		function saveError(response) {
+			dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+		};
+		
+		/**
+		 * Error message after loading the project.
+		 */
+		function loadError(response) {
+			dialogService.showDialog("domain.dialog.error.title", "domain.load.error", dialogService.dialog.id.error, gotoDomainAll);
+		};
+		
+		function closeDialog(dialogid) {
+			dialogService.closeDialog(dialogid);
+		};
+		
+		function gotoDomainAll() {
+			gotoDomain.all(ctrl.domain.project.id);
+		};
 	};
 })();	

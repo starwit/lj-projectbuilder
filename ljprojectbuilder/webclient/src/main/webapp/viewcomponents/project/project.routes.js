@@ -17,7 +17,7 @@
 	    factory.create = function() {
 	    	$location.path('/viewcomponents/project-maintain/create/');
 	    },
-	    factory.back = function() {
+	    factory.loaderror = function() {
 	    	$location.path('/');
 	    }
 		return factory;
@@ -30,19 +30,30 @@
 				controllerAs : 'ctrl',
 				title : "project.all.title",
 				subtitle : "",
-				templateUrl : "viewcomponents/project/project.all.html"
+				templateUrl : "viewcomponents/project/project.all.html",
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory
+	             }
 			}).when('/viewcomponents/project-maintain/create/', {
 				controller : 'projectSingleCtrl',
 				controllerAs : 'ctrl',
 				title : "project.create.title",
 				subtitle : "",
-				templateUrl : "viewcomponents/project/project.single.html"
+				templateUrl : "viewcomponents/project/project.single.html",
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory,
+	            	dialogService: dialogService
+	             }
 			}).when('/viewcomponents/project-maintain/update/:id', {
-				controller : 'projectSingleCtrl',
-				controllerAs : 'ctrl',
 				title : "project.update.title",
 				subtitle : "",
-				templateUrl : "viewcomponents/project/project.single.html"
+				templateUrl : "viewcomponents/project/project.single.html",
+				controller : 'projectSingleCtrl',
+				controllerAs : 'ctrl',
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory,
+	            	dialogService: dialogService
+	             }
 			});
 	}]);
 })();
