@@ -6,7 +6,14 @@ describe('projectConnectorFactory', function() {
     var projectConnectorFactory;
     var scope;
 
-    beforeEach(module('ljprojectbuilderApp'));
+    beforeEach(module('ljprojectbuilderApp', function ($translateProvider) {
+        /*
+            provide empty json for translation since asynchronous
+            loading of translation file fails in unit tests
+            https://angular-translate.github.io/docs/#/guide/22_unit-testing-with-angular-translate
+        */
+        $translateProvider.translations('de-DE', {});
+    }));
 
     beforeEach(module('ljprojectbuilderApp.project'));
 
@@ -16,6 +23,7 @@ describe('projectConnectorFactory', function() {
         restConnectorFactory = $injector.get('restConnectorFactory');
         projectConnectorFactory = $injector.get('projectConnectorFactory');
     }));
+
 
     it('should create a project object successfully', function() {
         var testProject = {
@@ -27,14 +35,9 @@ describe('projectConnectorFactory', function() {
             "targetPath" : "/testTarget"
         };
 
-        scope.$digest();
+        // TODO: test restService
         var resultPromise = projectConnectorFactory.createProject(testProject);
 
-        resultPromise.then(function(result) {
-            console.log(result);
-        });
-
-        scope.$digest();
     });
 
 });
