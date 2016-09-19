@@ -50,7 +50,6 @@
 		 * Standard function for initialization.
 		 */
 		function init() {
-			//change title on view change
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined) {
 					ctrl.projectid = $routeParams.projectid;
