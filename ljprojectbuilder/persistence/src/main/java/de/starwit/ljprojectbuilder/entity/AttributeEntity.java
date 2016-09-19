@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,7 +24,7 @@ public class AttributeEntity extends AbstractEntity {
 	
 	private String description;
 	
-	@NotBlank
+	@NotNull
 	private DataType dataType;
 	
 	private String pattern;

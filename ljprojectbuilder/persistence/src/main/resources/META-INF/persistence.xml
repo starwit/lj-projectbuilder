@@ -14,7 +14,7 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/> -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
            	<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
