@@ -1,34 +1,36 @@
 <div class="w3-row-padding w3-container">
 	<form id="projectForm" name="projectForm" class="w3-container"> 
 		<div class="w3-row-padding">
-			<div class="w3-half"><h2>Projektsetup</h2></div>
-			<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doProjectSetupAll();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
+			<div class="w3-half"><h2>{{title | translate}}</h2></div>
 		</div>
 		
 		<div class="w3-row-padding">
+		<div class="w3-half"><h3>{{'generator.title.projectsetup' | translate}}</h2></div>
+		<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="doProjectSetupAll();"><i class="fa fa-gear"></i> {{'generator.button.createproject' | translate}}</button></div>
+		
 			<table class="w3-table-all">
 				<thead>
 					<tr class="w3-theme-l3">
-						<th></th>
+						<th>{{'project.label' | translate}}</th>
 						<th>{{'project.template' | translate}}</th>
 						<th>{{'project.target' | translate}}</th>
 					</tr>	
 				</thead>
 				<tbody>
 					<tr>
-						<td class="w3-theme-l5">{{'project.templatelocation' | translate}}</td>
+						<td class="w3-theme-l5">{{'project.location' | translate}}</td>
 						<td>{{ctrl.generatorDto.project.templateLocation}}</td>
 						<td>{{ctrl.generatorDto.project.targetPath}}</td>
 					</tr>
 					
 					<tr>
-						<td class="w3-theme-l5">{{'project.templatetitle' | translate}}</td>
+						<td class="w3-theme-l5">{{'project.title' | translate}}</td>
 						<td>{{ctrl.generatorDto.project.templateTitle}}</td>
 						<td>{{ctrl.generatorDto.project.title}}</td>
 					</tr>
 					
 					<tr>
-						<td class="w3-theme-l5">{{'project.templatepackageprefix' | translate}}</td>
+						<td class="w3-theme-l5">{{'project.packageprefix' | translate}}</td>
 						<td>{{ctrl.generatorDto.project.templatePackagePrefix}}</td>
 						<td>{{ctrl.generatorDto.project.packagePrefix}}</td>
 					</tr>
@@ -38,37 +40,38 @@
 		
 		<div class="w3-padding-top" ng-if="ctrl.domainAll != null && ctrl.domainAll.length > 0">
 			<div class="w3-container w3-padding-top">
-				<div class="w3-half w3-padding-top"><h2>{{'project.domains' | translate}}</h2></div>
-				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.generate();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
+				<div class="w3-half w3-padding-top"><h3>{{'generator.title.domains' | translate}}</h3></div>
+				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.generate();"><i class="fa fa-gear"></i> {{'generator.button.generatedomains' | translate}}</button></div>
 			</div>
 					
 			<div class="w3-half w3-row-padding">
 				<div ng-repeat="domain in ctrl.domainAll">
 					<p />
-					<input class="w3-check" type="checkbox" checked="true" ng-model="domain.selected"/>{{domain.name}}
+					<input class="w3-check" type="checkbox" checked="true" ng-model="domain.selected"/>
+					<label class="w3-validate">{{domain.name}}</label>
 				</div>
 			</div>		
 				
 			<div class="w3-half w3-row-padding">
 				<p />
 				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateEntity">
-				<label class="w3-validate">Entity</label>
+				<label class="w3-validate">{{'generator.entity' | translate}}</label>
 				
 				<p />
 				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateService">
-				<label class="w3-validate">Backend Services</label>
+				<label class="w3-validate">{{'generator.backend' | translate}}</label>
 				
 				<p />
 				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateRest">
-				<label class="w3-validate">REST API</label>
+				<label class="w3-validate">{{'generator.rest' | translate}}</label>
 						
 				<p />
 				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateFrontend">
-				<label class="w3-validate">Frontend</label>
+				<label class="w3-validate">{{'generator.frontend' | translate}}</label>
 				
 				<p />
 				<input class="w3-check" type="checkbox" checked="false" ng-model="ctrl.generatorDto.generateTests">
-				<label class="w3-validate">Testdata</label>
+				<label class="w3-validate">{{'generator.testdata' | translate}}</label>
 			</div>	
 		</div>	
 	</form>	
