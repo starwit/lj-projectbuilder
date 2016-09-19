@@ -1,0 +1,11 @@
+	<div class="w3-modal" id="errordialog" style="display: none;" ng-click="ctrl.closeDialog('errordialog')">
+	  <div class="w3-modal-content w3-card-4  w3-animate-top">
+	    <header class="w3-container w3-red"> 
+	      <span class="w3-closebtn">×</span>
+	      <h2>{{ctrl.dialog.title | translate }}</h2>
+	    </header>
+	    <div class="w3-container">
+	      <p>{{ctrl.dialog.text | translate }}</p>
+	    </div>
+	  </div>
+	</div>

@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @XmlRootElement
 @Entity
 @Table(name="DOMAIN")
@@ -54,8 +56,9 @@ public class DomainEntity extends AbstractEntity {
 		this.description = description;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
+	@JsonIgnoreProperties({"templateLocation", "templateTitle", "templatePackagePrefix", "packagePrefix", "targetPath", "description", "title"})
 	public ProjectEntity getProject() {
 		return project;
 	}

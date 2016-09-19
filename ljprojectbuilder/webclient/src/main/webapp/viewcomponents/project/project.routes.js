@@ -1,40 +1,59 @@
+/** 
+ * Navigation and routing for module ljprojectbuilderApp.project.
+ */
+(function() {
 'use strict';
 
-angular.module('ljprojectbuilderApp.project', ['ngRoute','pascalprecht.translate']).value('gotoProject', {
-    all: function(location) {
-    	location.path('/viewcomponents/project-all/');
-    },
-    update: function(location, id) {
-    	location.path('/viewcomponents/project-maintain/update/' + id);
-    },
-    create: function(location) {
-    	location.path('/viewcomponents/project-maintain/create/');
-    },
-    back: function(location) {
-    	location.path('/');
-    }    
-})
-.controller(projectControllers)
-.factory('projectConnectorFactory', projectConnectorFactory)
-.factory('projectSetupConnectorFactory', projectSetupConnectorFactory)
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/viewcomponents/project-all/', {
-		controller : 'loadProjectController',
-		title : "project.all.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/project/project.all.html"
-	}).when('/viewcomponents/project-maintain/create/', {
-		controller : 'maintainProjectController',
-		title : "project.create.title",
-		subtitle : "",
-		mode:"create",
-		templateUrl : "viewcomponents/project/project.single.html"
-	}).when('/viewcomponents/project-maintain/update/:id', {
-		controller : 'maintainProjectController',
-		title : "project.update.title",
-		subtitle : "",
-		mode:"update",
-		templateUrl : "viewcomponents/project/project.single.html"
-	});
-}]);
+	angular.module('ljprojectbuilderApp.project').factory('gotoProject', gotoProject);
+	
+	function gotoProject($location) {
+		var factory = {};
+		factory.all = function() {
+	    	$location.path('/viewcomponents/project-all/');
+	    },
+	    factory.update = function(id) {
+	    	$location.path('/viewcomponents/project-maintain/update/' + id);
+	    },
+	    factory.create = function() {
+	    	$location.path('/viewcomponents/project-maintain/create/');
+	    },
+	    factory.loaderror = function() {
+	    	$location.path('/');
+	    }
+		return factory;
+    };
+	
+	angular.module('ljprojectbuilderApp.project')
+	.config(['$routeProvider', function($routeProvider) {
+		  $routeProvider.when('/viewcomponents/project-all/', {
+				controller : 'projectAllCtrl',
+				controllerAs : 'ctrl',
+				title : "project.all.title",
+				subtitle : "",
+				templateUrl : "viewcomponents/project/project.all.html",
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory
+	             }
+			}).when('/viewcomponents/project-maintain/create/', {
+				controller : 'projectSingleCtrl',
+				controllerAs : 'ctrl',
+				title : "project.create.title",
+				subtitle : "",
+				templateUrl : "viewcomponents/project/project.single.html",
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory,
+	            	dialogService: dialogService
+	             }
+			}).when('/viewcomponents/project-maintain/update/:projectid', {
+				title : "project.update.title",
+				subtitle : "",
+				templateUrl : "viewcomponents/project/project.single.html",
+				controller : 'projectSingleCtrl',
+				controllerAs : 'ctrl',
+	            resolve: {
+	            	projectConnectorFactory: projectConnectorFactory,
+	            	dialogService: dialogService
+	             }
+			});
+	}]);
+})();

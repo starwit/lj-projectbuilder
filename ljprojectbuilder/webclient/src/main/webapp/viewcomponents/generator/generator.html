@@ -17,33 +17,33 @@
 				<tbody>
 					<tr>
 						<td class="w3-theme-l5">{{'project.templatelocation' | translate}}</td>
-						<td>{{generatorDto.project.templateLocation}}</td>
-						<td>{{generatorDto.project.targetPath}}</td>
+						<td>{{ctrl.generatorDto.project.templateLocation}}</td>
+						<td>{{ctrl.generatorDto.project.targetPath}}</td>
 					</tr>
 					
 					<tr>
 						<td class="w3-theme-l5">{{'project.templatetitle' | translate}}</td>
-						<td>{{generatorDto.project.templateTitle}}</td>
-						<td>{{generatorDto.project.title}}</td>
+						<td>{{ctrl.generatorDto.project.templateTitle}}</td>
+						<td>{{ctrl.generatorDto.project.title}}</td>
 					</tr>
 					
 					<tr>
 						<td class="w3-theme-l5">{{'project.templatepackageprefix' | translate}}</td>
-						<td>{{generatorDto.project.templatePackagePrefix}}</td>
-						<td>{{generatorDto.project.packagePrefix}}</td>
+						<td>{{ctrl.generatorDto.project.templatePackagePrefix}}</td>
+						<td>{{ctrl.generatorDto.project.packagePrefix}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>	
 		
-		<div class="w3-padding-top" ng-if="domainAll != null && domainAll.length > 0">
+		<div class="w3-padding-top" ng-if="ctrl.domainAll != null && ctrl.domainAll.length > 0">
 			<div class="w3-container w3-padding-top">
 				<div class="w3-half w3-padding-top"><h2>{{'project.domains' | translate}}</h2></div>
-				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="generate();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
+				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.generate();"><i class="fa fa-gear"></i> {{'button.generate' | translate}}</button></div>
 			</div>
 					
 			<div class="w3-half w3-row-padding">
-				<div ng-repeat="domain in domainAll">
+				<div ng-repeat="domain in ctrl.domainAll">
 					<p />
 					<input class="w3-check" type="checkbox" checked="true" ng-model="domain.selected"/>{{domain.name}}
 				</div>
@@ -51,23 +51,23 @@
 				
 			<div class="w3-half w3-row-padding">
 				<p />
-				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateEntity">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateEntity">
 				<label class="w3-validate">Entity</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateService">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateService">
 				<label class="w3-validate">Backend Services</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateRest">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateRest">
 				<label class="w3-validate">REST API</label>
 						
 				<p />
-				<input class="w3-check" type="checkbox" checked="true" ng-model="generatorDto.generateFrontend">
+				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateFrontend">
 				<label class="w3-validate">Frontend</label>
 				
 				<p />
-				<input class="w3-check" type="checkbox" checked="false" ng-model="generatorDto.generateTests">
+				<input class="w3-check" type="checkbox" checked="false" ng-model="ctrl.generatorDto.generateTests">
 				<label class="w3-validate">Testdata</label>
 			</div>	
 		</div>	

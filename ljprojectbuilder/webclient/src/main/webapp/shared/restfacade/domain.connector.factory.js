@@ -1,7 +1,15 @@
-function domainConnectorFactory ($http, $location, restConnectorFactory) {
-	var factory = {};
+domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', 	function domainConnectorFactory($http, $location, restConnectorFactory) {
+    var factory = {
+    		getDomainsByProject: getDomainsByProject,
+    		loadDomain: loadDomain,
+    		createDomain: createDomain,
+    		updateDomain: updateDomain,
+    		deleteDomain: deleteDomain,
+    		getTypes: getTypes
+     };
+    return factory;
 	
-	factory.getDomainsByProject = function(projectId) {
+	function getDomainsByProject(projectId) {
 		return $http.get('api/domain/query/domainsbyproject/' + projectId)
 		.then(
 			restConnectorFactory.handleResponseSuccess,
@@ -9,51 +17,42 @@ function domainConnectorFactory ($http, $location, restConnectorFactory) {
 		);
 	};
 	
-	factory.getDomainAll = function($scope) {
-		$http.get('api/domain/query/all')
-		.then(function (response) {
-			content = response.data;
-			$scope.domainAll = content.result;		
-		});
-	};
-		
-	factory.loadDomain = function($scope, id) {
-		$http.get('api/domain/query/' + id)
-		.then(function (response) {
-			content = response.data;
-			$scope.domain = content.result;		
-		});
-	};
-		
-	factory.createDomain = function($scope, successPath, errorPath) {
-		$http.put('api/domain/', $scope.domain)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath,  errorPath);
-		});
-	};
-		
-	factory.updateDomain = function($scope, successPath, errorPath) {
-		$http.post('api/domain/', $scope.domain)
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath, errorPath);
-		});
-	};
-		
-	factory.deleteDomain = function($scope, id) {
-		$http.delete('api/domain/' + id)
-		.then(function(response) {
-			content = response.data;
-			$scope.protocol = content.result;
-			factory.getDomainAll($scope);
-		});
+	 function loadDomain(domainId) {
+		return $http.get('api/domain/query/' + domainId)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 	
-	factory.getTypes = function() {
+	function createDomain(domain) {
+		return $http.put('api/domain/', domain)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+		
+	function updateDomain(domain, projectid) {
+		return $http.post('api/domain/', domain)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+		
+	function deleteDomain(id) {
+		return $http.delete('api/domain/' + id)
+		.then(
+				restConnectorFactory.handleResponseSuccess,
+				restConnectorFactory.handleResponseError
+		);
+	};
+	
+	function getTypes() {
 		return $http.get('api/domain/query/types')
 		.then(function(response) {
 			return content = response.data;
 		});
 	};
-		
-	return factory;
-}
+}];

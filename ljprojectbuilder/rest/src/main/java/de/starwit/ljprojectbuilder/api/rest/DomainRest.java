@@ -13,10 +13,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
+import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.DataType;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.response.EntityListResponse;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
+import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 import de.starwit.ljprojectbuilder.validation.EntityValidator;
 
@@ -27,6 +30,9 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	
 	@Inject
 	protected DomainService service;
+	
+	@Inject
+	protected ProjectService projectService;
 	
 	@Override
 	protected DomainService getService() {
@@ -50,11 +56,19 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@Path("/query/domainsbyproject/{projectId}")
 	@GET
 	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathParam("projectId") Long projectId) {
-		List<DomainEntity> entities = getService().findAllDomainsByProject(projectId);
-		EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
-		ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
-		response.setMetadata(responseMetadata);
-		return response;
+		ProjectEntity projectEntity = projectService.findById(projectId);
+		if (projectEntity == null) {
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
+			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
+			response.setMetadata(responseMetadata);
+			return response;
+		} else {
+			List<DomainEntity> entities = getService().findAllDomainsByProject(projectId);
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
+			ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
+			response.setMetadata(responseMetadata);
+			return response;
+		}
 	}
 	
 	@Path("/query/types")

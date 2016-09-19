@@ -1,13 +1,14 @@
-function generatorConnectorFactory ($http, $location, restConnectorFactory) {
-	var factory = {};
+generatorConnectorFactory = ['$http', '$location', 'restConnectorFactory', function generatorConnectorFactory($http, $location, restConnectorFactory) {
+    var factory = {
+    		generate: generate
+     };
+    return factory;
 	
-	factory.generate = function(generatorinput) {
+	function generate(generatorinput) {
 		return $http.post('api/generator/generate', generatorinput)
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError
 		);
 	};
-
-	return factory;
-}
+}];

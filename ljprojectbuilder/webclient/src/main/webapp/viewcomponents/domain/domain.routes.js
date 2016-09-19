@@ -1,40 +1,55 @@
-'use strict';
+/** 
+ * Navigation and routing for module ljprojectbuilderApp.domain.
+ */
+(function() {
+	'use strict';
 
-angular.module('ljprojectbuilderApp.domain', ['ngRoute','pascalprecht.translate']).value('gotoDomain', {
-    all: function(location, projectid) {
-    	location.path('/viewcomponents/domain-byproject/' + projectid);
-    },
-    update: function(location, projectid, id) {
-    	location.path('/viewcomponents/domain-maintain/update/' + projectid + '/' + id);
-    },
-    create: function(location, projectid) {
-    	location.path('/viewcomponents/domain-maintain/create/' + projectid);
-    },
-    back: function(location) {
-    	location.path('/');
-    }    
-})
-.controller(domainControllers)
-.factory('domainConnectorFactory', domainConnectorFactory)
+	angular.module('ljprojectbuilderApp.domain').factory('gotoDomain', gotoDomain);
+	
+	/**
+	 * Navigation for module reachable in view.
+	 * @param $location - AngularJS location variable (injected).
+	 * @returns factory with all needed navigation paths.
+	 */
+	function gotoDomain($location) {
+		var factory = {};
+		factory.all = function(projectid) {
+			$location.path('/viewcomponents/domain-byproject/' + projectid);
+	    },
+	    factory.update = function(projectid, id) {
+	    	$location.path('/viewcomponents/domain-maintain/update/' + projectid + '/' + id);
+	    },
+	    factory.create = function(projectid) {
+	    	$location.path('/viewcomponents/domain-maintain/create/' + projectid);
+	    },
+	    factory.loaderror = function() {
+	    	$location.path('/viewcomponents/project-all/');
+	    }
+	    return factory;
+	};
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
-		controller : 'loadDomainController',
-		title : "domain.all.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/domain/domain.all.html"
-	}).when('/viewcomponents/domain-maintain/create/:projectid', {
-		controller : 'maintainDomainController',
-		title : "domain.create.title",
-		subtitle : "",
-		mode:"create",
-		templateUrl : "viewcomponents/domain/domain.single.html"
-	}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
-		controller : 'maintainDomainController',
-		title : "domain.update.title",
-		subtitle : "",
-		mode:"update",
-		templateUrl : "viewcomponents/domain/domain.single.html"
-	});
-}]);
-
+	/**
+	 * Routing for module.
+	 */
+	angular.module('ljprojectbuilderApp.domain').config(['$routeProvider', function($routeProvider) {
+	  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
+			controller : 'domainAllCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.all.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.all.html"
+		}).when('/viewcomponents/domain-maintain/create/:projectid', {
+			controller : 'domainSingleCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.create.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.single.html"
+		}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
+			controller : 'domainSingleCtrl',
+			controllerAs : 'ctrl',
+			title : "domain.update.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/domain/domain.single.html"
+		});
+	}]);
+})();
