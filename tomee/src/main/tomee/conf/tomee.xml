@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tomee>
   <!-- see http://tomee.apache.org/containers-and-resources.html -->
- <!--
-<Resource id="jdbc/lirejarp" type="DataSource">
-    DataSourceCreator = tomcat
-    JtaManaged=true
-    JdbcDriver = com.mysql.jdbc.Driver
-    JdbcUrl = jdbc:mysql://127.0.0.1:3306/lirejarp
-    UserName = lirejarp
-    Password = lirejarp
-</Resource>
--->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <!-- <Deployments dir="apps" /> -->
+  
+<!-- <Resource id="jdbc/lirejarp" type="DataSource"> -->
+<!--     DataSourceCreator = tomcat -->
+<!--     JtaManaged=true -->
+<!--     JdbcDriver = com.mysql.jdbc.Driver -->
+<!--     JdbcUrl = jdbc:mysql://127.0.0.1:3306/lirejarp -->
+<!--     UserName = lirejarp -->
+<!--     Password = lirejarp -->
+<!-- </Resource> -->
+
 <Resource id="jdbc/lirejarp" type="DataSource">
     accessToUnderlyingConnectionAllowed = false
     defaultAutoCommit = true
@@ -20,7 +23,4 @@
     password = 
     userName = sa
 </Resource>
-
-  <!-- activate next line to be able to deploy applications in apps -->
-  <!-- <Deployments dir="apps" /> -->
 </tomee>

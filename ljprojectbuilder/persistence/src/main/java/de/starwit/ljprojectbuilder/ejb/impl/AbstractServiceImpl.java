@@ -75,6 +75,7 @@ public class AbstractServiceImpl<E extends AbstractEntity> implements AbstractSe
 	
 	public List<E> findAll() {
 		Class<E> clazz = getParentClass();
+		System.out.println("************** " + getEntityManager() + "*************************************");
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<E> criteria = cb.createQuery(clazz);
 		Root<E> r = criteria.from(getParentClass());

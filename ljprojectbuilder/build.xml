@@ -6,7 +6,19 @@
 	<property name="src" location="webclient/src/main/webapp/" />
 	<property name="dest" location="target/ljprojectbuilder" />
 
+	<condition property="is_windows">
+    	<os family="windows"/>
+	</condition>
+
 	<target name="copy" description="copies web frontend">
+		<echo>copy web frontend from ${src} to ${dest}</echo>
+		<copy todir="${dest}">
+			<fileset dir="${src}" />
+		</copy>
+	</target>
+
+	<target name="build_copy" description="build and copies war">
+		<echo></echo>
 		<echo>copy web frontend from ${src} to ${dest}</echo>
 		<copy todir="${dest}">
 			<fileset dir="${src}" />

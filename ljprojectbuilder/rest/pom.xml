@@ -37,16 +37,5 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-jsr303</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-core</artifactId>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 </project>

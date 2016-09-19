@@ -29,11 +29,11 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.openejb.maven</groupId>
-					<artifactId>tomee-maven-plugin</artifactId>
-					<version>1.7.4</version>
+				    <groupId>org.apache.tomee.maven</groupId>
+				    <artifactId>tomee-maven-plugin</artifactId>
+				    <version>7.0.1</version>
 					<configuration>
-						<tomeeVersion>1.7.4</tomeeVersion>
+						<tomeeVersion>7.0.1</tomeeVersion>
 						<tomeeClassifier>plus</tomeeClassifier>
 						<config>${project.basedir}/src/main/tomee/conf</config>
 						<libs>
@@ -64,10 +64,11 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.openejb.maven</groupId>
-						<artifactId>tomee-maven-plugin</artifactId>
+				    <groupId>org.apache.tomee.maven</groupId>
+				    <artifactId>tomee-maven-plugin</artifactId>
+				    <version>7.0.1</version>
 						<configuration>
-							<tomeeVersion>1.7.1</tomeeVersion>
+							<tomeeVersion>7.0.1</tomeeVersion>
 							<tomeeClassifier>plus</tomeeClassifier>
 							<debug>false</debug>
 							<tomeeHttpPort>8080</tomeeHttpPort>
