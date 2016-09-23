@@ -5,6 +5,10 @@ describe('projectConnectorFactory', function() {
     var restConnectorFactory;
     var projectConnectorFactory;
     var scope;
+    var $httpBackend;
+
+    // beforeEach(angular.mock.http.init);
+    // afterEach(angular.mock.http.reset);
 
     beforeEach(module('ljprojectbuilderApp', function ($translateProvider) {
         /*
@@ -17,8 +21,9 @@ describe('projectConnectorFactory', function() {
 
     beforeEach(module('ljprojectbuilderApp.project'));
 
-    beforeEach(inject(function(_$injector_, $rootScope) {
+    beforeEach(inject(function(_$injector_, $rootScope, _$httpBackend_) {
         var $injector = _$injector_;
+        $httpBackend = _$httpBackend_;
         scope = $rootScope.$new();
         restConnectorFactory = $injector.get('restConnectorFactory');
         projectConnectorFactory = $injector.get('projectConnectorFactory');
@@ -26,6 +31,11 @@ describe('projectConnectorFactory', function() {
 
 
     it('should create a project object successfully', function() {
+
+        console.log($httpBackend.whenGET());
+
+        $httpBackend.whenGET('api/project/query/all').passThrough();
+
         var testProject = {
             "title":"testProject",
             "templateLocation" : "/test",
