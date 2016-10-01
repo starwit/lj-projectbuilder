@@ -1,27 +1,93 @@
-<project name="ljprojectbuilder" default="copy" basedir=".">
+<project name="ljprojectbuilder" default="copy_frontend_local" basedir=".">
 	<description>
-    does simple file copy, no building here
-  </description>
-	<!-- set global properties for this build -->
-	<property name="src" location="webclient/src/main/webapp/" />
-	<property name="dest" location="target/ljprojectbuilder" />
+    	ant script that can setup and run this project including maven calls
+  	</description>
 
-	<condition property="is_windows">
-    	<os family="windows"/>
-	</condition>
+	<property name="runtime_path" value="../tomee" /> <!-- TODO what about websphere liberty --> 
 
-	<target name="copy" description="copies web frontend">
+	<property name="ui_src" location="webclient/src/main/webapp/" />
+	<property name="warfile" value="target/ljprojectbuilder.war" />
+	<property name="ui_dest" value="${basedir}/target/ljprojectbuilder" />
+
+	<target name="setup_project" depends="stop_tomee,build_tomee,build_application,run_tomee"></target>
+	<target name="rebuild_application" depends="stop_tomee,build_application,run_tomee"></target>
+	<target name="clean_all" depends="stop_tomee,clean_tomee,clean_application"></target>
+
+	<target name="copy_frontend_local">
 		<echo>copy web frontend from ${src} to ${dest}</echo>
-		<copy todir="${dest}">
-			<fileset dir="${src}" />
+		<copy todir="${ui_dest}">
+			<fileset dir="${ui_src}" />
 		</copy>
 	</target>
 
-	<target name="build_copy" description="build and copies war">
-		<echo></echo>
-		<echo>copy web frontend from ${src} to ${dest}</echo>
-		<copy todir="${dest}">
-			<fileset dir="${src}" />
-		</copy>
+	<target name="build_copy" >
+		<echo>copy ${warfile} to local AS installation to ${local_as}</echo>
+		<copy todir="${local_as}" file="${basedir}/${warfile}"></copy>
 	</target>
+
+	<target name="build_application">
+		<echo>build war</echo>
+		<antcall target="call_maven">
+			<param name="exec_dir" value="."/>
+			<param name="mvn_command" value="clean package -Dmaven.test.skip=true"/>
+		</antcall>	
+	</target>
+
+	<target name="clean_application">
+		<antcall target="call_maven">
+			<param name="exec_dir" value="."/>
+			<param name="mvn_command" value="clean"/>
+		</antcall>		
+	</target>
+
+	<target name="build_tomee" description="build tomee">
+		<antcall target="call_maven">
+			<param name="exec_dir" value="${basedir}/${runtime_path}"/>
+			<param name="mvn_command" value="tomee:build"/>
+		</antcall>
+	</target>
+
+	<target name="clean_tomee" description="build tomee">
+		<antcall target="call_maven">
+			<param name="exec_dir" value="${basedir}/${runtime_path}"/>
+			<param name="mvn_command" value="clean"/>
+		</antcall>
+	</target>
+
+	<target name="run_tomee">
+		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="bash" os="Linux">
+			<arg value="startup.sh" />
+		</exec>
+		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="cmd" os="Windows">
+			<arg value="startup.bat" />
+		</exec>
+	</target>
+
+	<target name="stop_tomee" depends="check_tomee_exist" if="${tomee.path.exist}">
+		<echo>Try to stop a running TomEE instance...</echo>
+		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="bash" os="Linux" >
+			<arg value="shutdown.sh" />
+		</exec>
+		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="cmd" os="Windows" >
+			<arg value="shutdown.bat" />
+		</exec>
+	</target>
+
+	<!-- call maven on various operating systems -->
+	<target name="call_maven">
+		<echo>Running Maven in ${exec_dir} with ${mvn_command}</echo>
+		<exec dir="${exec_dir}" executable="bash" os="Linux">
+			<arg value="-c" />
+			<arg value="mvn ${mvn_command}" />
+		</exec>
+		<exec dir="${exec_dir}" executable="cmd" os="Windows">
+			<arg value="/C" />
+			<arg value="mvn ${mvn_command}" />
+		</exec>
+	</target>
+
+	<target name="check_tomee_exist">
+		<available property="tomee.path.exist" file="${runtime_path}/target/apache-tomee/bin/" type="dir" />
+	</target>
+
 </project>
