@@ -17,21 +17,18 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
-						<input type="url" class="w3-input" name="templatelocation" id="templatelocation" type="text" ng-model="ctrl.project.template.templateLocation" required />
-						<label class="w3-label w3-validate" for="templatelocation">{{'project.templatelocation' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right" ng-show="projectForm.templatelocation.$error.required">{{'error.required' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right" ng-show="projectForm.templatelocation.$error.url">{{'error.url' | translate}}</label>
+					<table>
+						<tr>
+							<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>
+						</tr>
+						<tr>
+							<td><label class="w3-label w3-validate" for="templatelocation">{{'project.templatelocation' | translate}}</label></td><td><span>{{ctrl.project.template.templateLocation}}</span></td>
+						</tr>
+						<tr>	
+							<td><label class="w3-label w3-validate" for="templatepackageprefix">{{'project.templatepackageprefix' | translate}}</label></td><td><span>{{ctrl.project.template.templatePackagePrefix}}</span></td>
+						</tr>
+					</table>
 					</div>	
-					<div class="w3-group">
-						<input class="w3-input" name="templatetitle" id="templatetitle" type="text" ng-model="ctrl.project.template.templateTitle" required />
-						<label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.templatetitle.$error.required">{{'error.required' | translate}}</label>
-					</div>	
-					<div class="w3-group">
-						<input class="w3-input" name="templatepackageprefix" id="templatepackageprefix" type="text" ng-model="ctrl.project.template.templatePackagePrefix" required  />
-						<label class="w3-label w3-validate" for="templatepackageprefix">{{'project.templatepackageprefix' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.templatepackageprefix.$error.required">{{'error.required' | translate}}</label>
-					</div>
 				</div>
 			</div>
 			
