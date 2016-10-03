@@ -10,7 +10,10 @@ projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
 		
 		function projectSetupAll(project) {
 			return $http.post('api/projectsetup/setupall', project)
-				.then(function(response) { return response.data.metadata; }	);
+				.then(
+						restConnectorFactory.handleResponseSuccess,
+						restConnectorFactory.handleResponseError
+				);
 		};
 		
 		function projectSetup(project) {

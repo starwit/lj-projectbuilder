@@ -17,6 +17,7 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
+					<select class="w3-select w3-border" name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.templatelocation for template in ctrl.templateAll track by template.id" required></select>
 					<table>
 						<tr>
 							<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>

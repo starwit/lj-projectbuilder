@@ -5,13 +5,15 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
-	generatorCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory'];
-	function generatorCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
+	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory'];
+	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 		var ctrl = this;
 
 		ctrl.refresh = refresh;
 		ctrl.generate = generate;
 		ctrl.doProjectSetupAll = doProjectSetupAll;
+		ctrl.dialog = dialogService.dialog;
+		ctrl.closeDialog = closeDialog;
 		init();
 		
 		/**
@@ -40,7 +42,7 @@
 		 * Creates a new project with the given setup from a template-project.
 		 */
 		function doProjectSetupAll() {
-			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project);
+			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project).then(setupSuccess, setupError);
 		};
 		
 		/** 
@@ -77,5 +79,24 @@
 		function setDomainAll(response) {
 			ctrl.domainAll = response;
 		}
+		
+		/**
+		 * Success message after saving.
+		 */
+		function setupSuccess(response) {
+			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, function(){});
+		};
+		
+		
+		/**
+		 * Error message after loading the project.
+		 */
+		function setupError(response) {
+			dialogService.showDialog("domain.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+		};
+		
+		function closeDialog(dialogid) {
+			dialogService.closeDialog(dialogid);
+		};
 	};
 })();
