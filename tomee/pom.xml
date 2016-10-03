@@ -39,8 +39,6 @@
 						<libs>
 							<lib>com.h2database:h2:1.3.175</lib>
 							<lib>remove:openjpa-</lib>
-							<lib>resteasy-jaxrs:3:0:17:Final</lib>
-							<lib>remove:jaxb-impl</lib>
 						</libs>
 					</configuration>
 				</plugin>
@@ -56,8 +54,7 @@
 	</build>
 	<profiles>
 		<profile>
-			<!-- This profile shall generate an execution environment as close as possible to production settings. -->
-			<id>prod</id>
+			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -70,11 +67,38 @@
 						<configuration>
 							<tomeeVersion>7.0.1</tomeeVersion>
 							<tomeeClassifier>plus</tomeeClassifier>
-							<debug>false</debug>
+							<debug>true</debug>
 							<tomeeHttpPort>8080</tomeeHttpPort>
 							<config>${project.basedir}/src/main/tomee/conf</config>
 							<libs>
 								<lib>com.h2database:h2:1.3.175</lib>
+								<lib>remove:openjpa-</lib>
+							</libs>
+							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+				    <groupId>org.apache.tomee.maven</groupId>
+				    <artifactId>tomee-maven-plugin</artifactId>
+				    <version>7.0.1</version>
+						<configuration>
+							<tomeeVersion>7.0.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+							<debug>false</debug>
+							<tomeeHttpPort>8080</tomeeHttpPort>
+							<config>${project.basedir}/src/main/dev</config>
+							<libs>
+								<lib>mysql:mysql-connector-java:6.0.4</lib>
 								<lib>remove:openjpa-</lib>
 							</libs>
 							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>

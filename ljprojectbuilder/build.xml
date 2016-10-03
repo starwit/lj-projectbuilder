@@ -8,6 +8,13 @@
 	<property name="ui_src" location="webclient/src/main/webapp/" />
 	<property name="warfile" value="target/ljprojectbuilder.war" />
 	<property name="ui_dest" value="${basedir}/target/ljprojectbuilder" />
+	
+	<property name="sql_create" value="
+			DROP DATABASE IF EXISTS ljprojectbuilder;
+			CREATE DATABASE ljprojectbuilder;" />
+	<property name="sql_user_create" value="
+			CREATE USER 'ljprojectbuilder'@'localhost' IDENTIFIED BY 'ljprojectbuilder';
+			GRANT ALL PRIVILEGES ON ljprojectbuilder.* TO 'ljprojectbuilder'@'localhost';" />
 
 	<target name="setup_project" depends="stop_tomee,build_tomee,build_application,run_tomee"></target>
 	<target name="rebuild_application" depends="stop_tomee,build_application,run_tomee"></target>
@@ -91,14 +98,24 @@
 	</target>
 
 	<!-- MySQL stuff -->
-	<!-- not working yet...
-	<target name="run-sql">
-		<echo>${sql.user} ${sql.password}</echo>
+	<target name="setup_database">
+		<echo>Create database</echo>
 		<exec executable="mysql" os="Linux">
-			<arg value="-u ${sql.user} " />
-			<arg value="-p${sql.password}" />
-			<arg value="-e 'show databases;'" />
+			<arg value="--user=${sql.user}" />
+			<arg value="--password=${sql.password}" />
+			<arg value="-e ${sql_create}" />
 		</exec>		
+		<echo>Try to drop user</echo>
+		<exec executable="mysql" os="Linux">
+			<arg value="--user=${sql.user}" />
+			<arg value="--password=${sql.password}" />
+			<arg value="-e drop user 'ljprojectbuilder'@'localhost';" />
+		</exec>
+		<echo>Create user with proper rights</echo>
+		<exec executable="mysql" os="Linux">
+			<arg value="--user=${sql.user}" />
+			<arg value="--password=${sql.password}" />
+			<arg value="-e ${sql_user_create}" />
+		</exec>
     </target>
-	-->
 </project>
