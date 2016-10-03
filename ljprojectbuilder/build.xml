@@ -90,4 +90,15 @@
 		<available property="tomee.path.exist" file="${runtime_path}/target/apache-tomee/bin/" type="dir" />
 	</target>
 
+	<!-- MySQL stuff -->
+	<!-- not working yet...
+	<target name="run-sql">
+		<echo>${sql.user} ${sql.password}</echo>
+		<exec executable="mysql" os="Linux">
+			<arg value="-u ${sql.user} " />
+			<arg value="-p${sql.password}" />
+			<arg value="-e 'show databases;'" />
+		</exec>		
+    </target>
+	-->
 </project>
