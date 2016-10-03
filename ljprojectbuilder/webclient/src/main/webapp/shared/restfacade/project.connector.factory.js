@@ -2,6 +2,7 @@ projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', functio
     var factory = {
     		getProjectAll: getProjectAll,
     		loadProject: loadProject,
+    		getTemplateAll: getTemplateAll,
     		createProject: createProject,
     		updateProject: updateProject,
     		deleteProject : deleteProject
@@ -18,6 +19,14 @@ projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', functio
 		
 	function loadProject(id) {
 		return $http.get('api/project/query/' + id)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+	
+	function getTemplateAll() {
+		return $http.get('api/template/query/all')
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError

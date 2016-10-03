@@ -12,6 +12,7 @@ import de.starwit.ljprojectbuilder.api.rest.DomainRest;
 import de.starwit.ljprojectbuilder.api.rest.GeneratorRest;
 import de.starwit.ljprojectbuilder.api.rest.ProjectRest;
 import de.starwit.ljprojectbuilder.api.rest.ProjectSetupRest;
+import de.starwit.ljprojectbuilder.api.rest.TemplateRest;
 
 
 @ApplicationPath("/api")
@@ -27,6 +28,7 @@ public class RestfulApplication extends Application {
 		classes.add(DomainRest.class);
 		classes.add(ProjectRest.class);
 		classes.add(GeneratorRest.class);
+		classes.add(TemplateRest.class);
 
 		return classes;
 	}

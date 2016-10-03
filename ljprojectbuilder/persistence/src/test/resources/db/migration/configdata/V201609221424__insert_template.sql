@@ -1,0 +1,1 @@
+INSERT INTO TEMPLATE (TEMPLATELOCATION, TEMPLATEPREFIX, TEMPLATE_TITLE) VALUES ('https://github.com/witchpou/lirejarp.git', 'starwit', 'lirejarp');

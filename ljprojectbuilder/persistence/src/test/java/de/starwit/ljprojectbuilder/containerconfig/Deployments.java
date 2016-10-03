@@ -28,7 +28,4 @@ public class Deployments {
 	                .addAsResource("META-INF/beans.xml", "META-INF/beans.xml")
 	                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
 	}
-	
-
-
 }

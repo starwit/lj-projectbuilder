@@ -2,9 +2,11 @@ package de.starwit.ljprojectbuilder.api.rest;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
@@ -22,6 +24,13 @@ public class ProjectRest extends AbstractRest<ProjectEntity> {
 	@Override
 	protected ProjectService getService() {
 		return service;
+	}
+	
+	@Path("/getnew")
+	@GET
+	public EntityResponse<ProjectEntity> getNew(@PathParam("entityId") Long id) {
+		EntityResponse<ProjectEntity> rw = new EntityResponse<ProjectEntity>(new ProjectEntity());
+		return rw;
 	}
 	
 	//Create

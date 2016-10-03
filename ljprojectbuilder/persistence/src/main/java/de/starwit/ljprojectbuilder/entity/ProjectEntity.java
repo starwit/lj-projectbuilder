@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,21 +25,12 @@ public class ProjectEntity extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@NotNull
-	@Size(max=100)
-	private String templateLocation;
-	
-	@NotNull
-	@Size(max=100)
-	private String templateTitle;
-	
-	@NotNull
-	@Size(max=100)
-	private String templatePackagePrefix;
+	private TemplateEntity template;
 	
 	@NotNull
 	@Size(max=100)
 	private String title;
-	
+
 	@NotNull
 	@Size(max=100)
 	private String packagePrefix;
@@ -50,22 +43,14 @@ public class ProjectEntity extends AbstractEntity {
 	
 	private List<DomainEntity> domains;
 	
-	@Column(name="TEMPLATE_TITLE", nullable=false, length=100)
-	public String getTemplateTitle() {
-		return templateTitle;
+	@ManyToOne
+	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
+	public TemplateEntity getTemplate() {
+		return template;
 	}
 
-	public void setTemplateTitle(String templateTitle) {
-		this.templateTitle = templateTitle;
-	}
-
-	@Column(name="TEMPLATEPREFIX", nullable=false, length=100)
-	public String getTemplatePackagePrefix() {
-		return templatePackagePrefix;
-	}
-
-	public void setTemplatePackagePrefix(String templatePackagePrefix) {
-		this.templatePackagePrefix = templatePackagePrefix;
+	public void setTemplate(TemplateEntity template) {
+		this.template = template;
 	}
 	
 	@Column(name="TITLE", nullable = false, length=100)
@@ -95,15 +80,6 @@ public class ProjectEntity extends AbstractEntity {
 		this.description = description;
 	}
 	
-	@Column(name="TEMPLATELOCATION", nullable = false, length=100)
-	public String getTemplateLocation() {
-		return templateLocation;
-	}
-
-	public void setTemplateLocation(String templateLocation) {
-		this.templateLocation = templateLocation;
-	}
-
 	@Column(name="TARGETPATH", nullable = false, length=100)
 	public String getTargetPath() {
 		return targetPath;
