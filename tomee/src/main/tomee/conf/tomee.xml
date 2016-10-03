@@ -14,11 +14,11 @@
 <!--     Password = lirejarp -->
 <!-- </Resource> -->
 
-<Resource id="jdbc/lirejarp" type="DataSource">
+<Resource id="jdbc/ljprojectbuilder" type="DataSource">
     accessToUnderlyingConnectionAllowed = false
     defaultAutoCommit = true
     jdbcDriver = org.h2.Driver
-    jdbcUrl = jdbc:h2:~/test
+    jdbcUrl = jdbc:h2:~/ljprojectbuilder;FILE_LOCK=NO
     jtaManaged = true
     password = 
     userName = sa

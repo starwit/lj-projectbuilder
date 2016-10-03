@@ -90,6 +90,7 @@ public class AttributeEntity extends AbstractEntity {
 		this.min = min;
 	}
 
+	@Column(name="NULLABLE")
 	public boolean isNullable() {
 		return nullable;
 	}

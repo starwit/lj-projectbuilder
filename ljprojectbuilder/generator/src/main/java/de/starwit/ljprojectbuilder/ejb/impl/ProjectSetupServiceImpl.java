@@ -38,7 +38,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 */
 	public ResponseMetadata copyProjectTemplate(ProjectEntity entity) {
 		
-		String srcDir = entity.getTemplateLocation();
+		String srcDir = entity.getTemplate().getTemplateLocation();
 		File destDir = new File(entity.getTargetPath());
 		
 		try {
@@ -66,11 +66,11 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @param properties
 	 */
 	public ResponseMetadata renameProject(ProjectEntity entity) {
-		LOG.info("Try to rename project " + entity.getTemplatePackagePrefix() + ".");
+		LOG.info("Try to rename project " + entity.getTemplate().getTemplatePackagePrefix() + ".");
 		
 		
 		File parentdirectory = new File(entity.getTargetPath());
-		String currentProjectName = entity.getTemplateTitle();
+		String currentProjectName = entity.getTemplate().getTemplateTitle();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
 		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
@@ -84,8 +84,8 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 		LOG.info("Try to rename package " + entity.getTitle() + ".");
 		File parentdirectory = new File(entity.getTargetPath());
 
-		renameDirectories(entity.getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
-		renameFiles(entity.getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameDirectories(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameFiles(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
 		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
 	}
 

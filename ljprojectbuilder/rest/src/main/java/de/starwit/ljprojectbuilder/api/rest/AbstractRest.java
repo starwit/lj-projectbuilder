@@ -85,8 +85,6 @@ public abstract class AbstractRest<E extends AbstractEntity> {
 		return rw;
 	}
 	
-
-	
 	//Delete
 	@Path("/{entityId}")
 	@DELETE
