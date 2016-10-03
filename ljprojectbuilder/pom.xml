@@ -168,25 +168,18 @@
 				<type>pom</type>
 			</dependency>
 
-<dependency>
-    <groupId>org.apache.tomee</groupId>
-    <artifactId>arquillian-openejb-embedded</artifactId>
-    <version>7.0.1</version>
-    <scope>test</scope>
-</dependency>
-
+			<dependency>
+			    <groupId>org.apache.tomee</groupId>
+			    <artifactId>arquillian-openejb-embedded</artifactId>
+			    <version>7.0.1</version>
+			    <scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>org.eu.ingwar.tools</groupId>
 				<artifactId>arquillian-suite-extension</artifactId>
 				<version>1.1.1</version>
 				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>com.miglayout</groupId>
-				<artifactId>miglayout-swing</artifactId>
-				<version>4.2</version>
 			</dependency>
 
 			<dependency>
@@ -199,12 +192,6 @@
 			    <groupId>org.apache.openwebbeans</groupId>
 			    <artifactId>openwebbeans-impl</artifactId>
 			    <version>1.7.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jdesktop</groupId>
-				<artifactId>beansbinding</artifactId>
-				<version>1.2.1</version>
 			</dependency>
 
 			<dependency>
