@@ -50,12 +50,6 @@
 			    <version>1.9.3</version>
 			</dependency>
 
-			<dependency>
-				<groupId>org.jboss.resteasy</groupId>
-				<artifactId>resteasy-jaxrs</artifactId>
-				<version>3.0.17.Final</version>
-			</dependency>
-
 			<!-- the core, which includes Streaming API, shared low-level abstractions 
 				(but NOT data-binding) -->
 			<dependency>
@@ -112,12 +106,6 @@
 				 <version>5.2.2.Final</version>
 			</dependency>
 			
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				 <version>5.2.2.Final</version>
-			</dependency>
-
 			<dependency>
 				<groupId>org.eclipse.jgit</groupId>
 				<artifactId>org.eclipse.jgit</artifactId>

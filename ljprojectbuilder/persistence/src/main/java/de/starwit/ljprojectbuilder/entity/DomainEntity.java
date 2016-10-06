@@ -59,7 +59,7 @@ public class DomainEntity extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
-	@JsonIgnoreProperties({"packagePrefix", "targetPath", "description", "title"})
+	@JsonIgnoreProperties({"packagePrefix", "targetPath", "description"})
 	public ProjectEntity getProject() {
 		return project;
 	}

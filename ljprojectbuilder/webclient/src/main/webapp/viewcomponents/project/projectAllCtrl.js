@@ -23,6 +23,7 @@
 		 */
 		function init() {
 			ctrl.projectAll = [];
+			ctrl.project = {};
 			projectConnectorFactory.getProjectAll().then(setProjectAll, null);
 		}
 		

@@ -6,11 +6,13 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainAllCtrl', domainAllCtrl);
 	
-	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'dialogService', 'gotoDomain'];
-	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, dialogService, gotoDomain) {
+	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 
 		ctrl.domainAll = [];
+		ctrl.projecttitle = "";
+		ctrl.projectid = 0;
 		ctrl.refresh = refresh;
 		ctrl.gotoDomain = gotoDomain;
 		ctrl.deleteDomain = deleteDomain;
@@ -53,9 +55,15 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined) {
 					ctrl.projectid = $routeParams.projectid;
+					projectConnectorFactory.loadProject($routeParams.projectid)
+					.then(	setProjectTitle, null);
 					refresh();
 				}
 			});
+		}
+		
+		function setProjectTitle(response) {
+			ctrl.projecttitle = response.title;		
 		}
 		
 		/**

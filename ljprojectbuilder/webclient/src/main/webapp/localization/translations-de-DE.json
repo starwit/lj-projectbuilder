@@ -11,6 +11,7 @@
 	"error.project.copytemplate.destinationnotfound" 	: "Das Zielverzeichnis konnte nicht gefunden werden.",
 	"error.project.copytemplate.exists" 				: "Das Zielverzeichnis existiert bereits.",
 	
+	"project" : "Projekt",
 	"project.dialog.error.title" 	: "Fehler",
 	"project.dialog.success.title" 	: "Aktion erfolgreich",
 	"project.save.success" 			: "Das Projekt wurde erfolgreich gespeichert.",
@@ -38,6 +39,7 @@
 	"generator.frontend"		: "Oberfläche erzeugen",
 	"generator.testdata"		: "Testdaten erzeugen",
 	"error.project.copytemplate.exists" : "Das Verzeichnis existiert bereits. Bitte geben Sie ein neues Verzeichnis ein.",
+	"error.domain.pattern"	: "Das Feld darf nicht leer sein, darf keine Sonderzeichen enthalten und muss mit einem Großbuchstaben beginnen.",
 		
 	"###BEGIN###" 			: "Generierung beginnt",
 	"attribute.name"				: "Name",
@@ -81,5 +83,9 @@
 	"button.update" 				: "bearbeiten",
 	"button.save" 					: "Speichern",
 	"button.generate" 				: "Generieren",
-	"button.add" 					: "Hinzufügen"
+	"button.add" 					: "Hinzufügen",
+	"button.savenext"			: "Speichern und weiter",
+	"button.next"					: "Weiter",
+	"button.back"					: "Zurück",
+	"button.domaincreate"	: "Weitere Domain hinzufügen"
 }

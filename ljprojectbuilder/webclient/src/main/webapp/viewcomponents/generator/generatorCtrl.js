@@ -9,6 +9,7 @@
 	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
 		var ctrl = this;
 
+		ctrl.projectid = 0;
 		ctrl.refresh = refresh;
 		ctrl.generate = generate;
 		ctrl.doProjectSetupAll = doProjectSetupAll;
@@ -55,7 +56,6 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.id != undefined) {
 					ctrl.projectid = $routeParams.id;
-					
 					domainConnectorFactory.getDomainsByProject($routeParams.id)
 						.then(setDomainAll, null);
 					
@@ -71,6 +71,7 @@
 		 */
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response; 
+			ctrl.projecttitle = response.title;
 		}
 		
 		/**
