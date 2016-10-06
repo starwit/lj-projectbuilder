@@ -19,6 +19,9 @@
 	"project.load.error"			: "Das Projekt konnte nicht geladen werden.",
 	"project.delete.success"	: "Das Projekt wurde gelöscht.",
 	"project.delete.error"			: "Das Projekt konnte nicht gelöscht werden.",
+	"projectsetup.dialog.success.title" 	: "Neues Project erzeugen",
+	"projectsetup.execute.success" : "Das Projekt wurde erfolgreich erstellt",
+	"projectsetup.dialog.error.title" : "Fehler beim Erzeugen eines Projektes",
 	
 	"domain.dialog.error.title" 	: "Fehler",
 	"domain.dialog.success.title" 	: "Aktion erfolgreich",
@@ -29,8 +32,8 @@
 	"domain.delete.error"	: "Das Domainobjekt konnte nicht gelöscht werden.",
 	
 	"generator.title" 				: "Neues Projekt erzeugen",
-	"generator.title.projectsetup" :  "Projektsetup",
-	"generator.title.domains" 	: "Konfiguration Domainobjekte",
+	"generator.title.projectsetup" :  "1. Neues Projekt erzeugen",
+	"generator.title.domains" 	: "2. Konfiguration Domainobjekte",
 	"generator.button.createproject" : "Projekt erzeugen",
 	"generator.button.generatedomains" : "Domainobjekte generieren",
 	"generator.entity"			: "Entity erzeugen",

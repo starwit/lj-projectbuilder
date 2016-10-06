@@ -85,7 +85,7 @@
 		 * Success message after saving.
 		 */
 		function setupSuccess(response) {
-			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, function(){});
+			dialogService.showDialog("projectsetup.dialog.success.title", "projectsetup.execute.success", dialogService.dialog.id.success, function(){});
 		};
 		
 		
@@ -93,7 +93,7 @@
 		 * Error message after loading the project.
 		 */
 		function setupError(response) {
-			dialogService.showDialog("domain.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+			dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
 		};
 		
 		function closeDialog(dialogid) {
