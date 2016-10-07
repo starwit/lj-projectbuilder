@@ -21,10 +21,14 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintain() {
-			if (ctrl.project != null && ctrl.project.id != null) {
-				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessAll, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.project != null && ctrl.project.id != null) {
+					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessAll, saveError);
+				} else {
+					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessAll, saveError);
+				}
 			} else {
-				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessAll, saveError);
+				gotoProject.all();
 			}
 		};
 		
@@ -32,10 +36,14 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainDomain() {
-			if (ctrl.project != null && ctrl.project.id != null) {
-				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessDomain, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.project != null && ctrl.project.id != null) {
+					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessDomain, saveError);
+				} else {
+					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessDomain, saveError);
+				}
 			} else {
-				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessDomain, saveError);
+				gotoProjectDomain();
 			}
 		};
 		
@@ -43,10 +51,14 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainGenerate() {
-			if (ctrl.project != null && ctrl.project.id != null) {
-				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessGenerate, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.project != null && ctrl.project.id != null) {
+					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessGenerate, saveError);
+				} else {
+					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessGenerate, saveError);
+				}
 			} else {
-				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessGenerate, saveError);
+				gotoProjectGenerate();
 			}
 		};
 		

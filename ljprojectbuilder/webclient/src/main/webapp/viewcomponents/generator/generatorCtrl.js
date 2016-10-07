@@ -15,6 +15,7 @@
 		ctrl.doProjectSetupAll = doProjectSetupAll;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.projectDownload = projectDownload;
 		init();
 		
 		/**
@@ -35,7 +36,7 @@
 						ctrl.generatorDto.domains.push(domain);
 					}
 				});
-				generatorConnectorFactory.generate(ctrl.generatorDto);
+				generatorConnectorFactory.generate(ctrl.generatorDto).then(setupSuccess, setupError);
 			}
 		};
 		
@@ -44,6 +45,13 @@
 		 */
 		function doProjectSetupAll() {
 			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project).then(setupSuccess, setupError);
+		};
+		
+		/**
+		 * Creates a new project with the given setup from a template-project.
+		 */
+		function projectDownload() {
+			projectSetupConnectorFactory.projectDownload(ctrl.generatorDto.project).then(function(){}, setupError);
 		};
 		
 		/** 
@@ -72,6 +80,7 @@
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response; 
 			ctrl.projecttitle = response.title;
+			ctrl.downloadlink="downloadproject?projectpath=" + response.targetPath + '&projectname=' + response.title;
 		}
 		
 		/**

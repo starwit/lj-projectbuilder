@@ -24,34 +24,50 @@
 		 * Standard function to edit a domain object.
 		 */
 		function doMaintain() {
-			if (ctrl.domain.id != null) {
-				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccess, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.domain.id != null) {
+					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccess, saveError);
+				} else {
+					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccess, saveError)
+				}
 			} else {
-				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccess, saveError)
+				gotoDomainAll();
 			}
 		};
 		
 		function doMaintainNext() {
-			if (ctrl.domain.id != null) {
-				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessNext, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.domain.id != null) {
+					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessNext, saveError);
+				} else {
+					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessNext, saveError)
+				}
 			} else {
-				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessNext, saveError)
+				gotoDomainNext();
 			}
 		};
 		
 		function doMaintainDetail() {
-			if (ctrl.domain.id != null) {
-				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.domain.id != null) {
+					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+				} else {
+					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+				}
 			} else {
-				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+				gotoDomainDetail();
 			}
 		};		
 		
 		function doMaintainGenerate() {
-			if (ctrl.domain.id != null) {
-				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+			if (ctrl.form.$dirty) {
+				if (ctrl.domain.id != null) {
+					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+				} else {
+					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+				}
 			} else {
-				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+				gotoDomainGenerate();
 			}
 		};		
 

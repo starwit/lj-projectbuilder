@@ -34,6 +34,7 @@
 	"generator.title" 				: "Neues Projekt erzeugen",
 	"generator.title.projectsetup" :  "1. Neues Projekt erzeugen",
 	"generator.title.domains" 	: "2. Konfiguration Domainobjekte",
+	"generator.title.projectdownload" : "3. Projekt herunterladen",
 	"generator.button.createproject" : "Projekt erzeugen",
 	"generator.button.generatedomains" : "Domainobjekte generieren",
 	"generator.entity"			: "Entity erzeugen",
@@ -43,6 +44,8 @@
 	"generator.testdata"		: "Testdaten erzeugen",
 	"error.project.copytemplate.exists" : "Das Verzeichnis existiert bereits. Bitte geben Sie ein neues Verzeichnis ein.",
 	"error.domain.pattern"	: "Das Feld darf nicht leer sein, darf keine Sonderzeichen enthalten und muss mit einem Großbuchstaben beginnen.",
+	"error.downloadproject" : "Der Download konnte nicht durchgeführt werden. Bitte erstellen Sie eine Fehlermeldung unter ",
+	"generator.button.downloadproject" : "Projekt herunterladen",
 		
 	"###BEGIN###" 			: "Generierung beginnt",
 	"attribute.name"				: "Name",
