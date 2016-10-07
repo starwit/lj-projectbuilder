@@ -1,10 +1,23 @@
+<div ng-include="'shared/menus/menu.project.html'"></div>
 <div ng-include="'shared/dialogs/dialog.success.html'"></div>
 <div ng-include="'shared/dialogs/dialog.error.html'"></div>
+
+<div class=" w3-light-grey">
+	<div class="w3-left w3-padding-right w3-padding-left w3-padding-top w3-padding-bottom"><button id="save" class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doMaintain(); "><i class="fa fa-chevron-left"></i> {{'button.back' | translate}}</button></div>
+	<div class="w3-padding-right w3-padding-left w3-right w3-padding-top w3-padding-bottom"><button id="save" class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doMaintainDomain(); sent=true;" title="{{'button.savenext' | translate}}"><i class="fa fa-chevron-right"></i> {{'button.next' | translate}}</button></div>
+	
+	<div class="w3-padding-top w3-padding-bottom">
+		<ul class="w3-navbar w3-light-grey">
+		  <li ><a class="w3-bp-green w3-round-xxlarge" href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">Details</a></li>
+		  <li><a class="w3-round-xxlarge" href="" ng-click="ctrl.doMaintainDomain();">Domainobjekte</a></li>
+		  <li><a class="w3-round-xxlarge" href="" ng-click="ctrl.doMaintainGenerate();">Generierung</a></li>
+		</ul>
+	</div>
+</div>
+
 <div class="w3-row-padding w3-container">
  	<div class="w3-row-padding">
 		<form id="projectForm" name="projectForm" ng-init="sent=true;"> 
-			<div class="w3-half"><h2>{{title | translate}}</h2></div>
-			<div class="w3-right w3-padding-top"><button id="save" class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doMaintain(); sent=true;"><i class="fa fa-save"></i> {{'button.save' | translate}}</button></div>
 		
 			<div class="w3-container">
 				<div class="w3-group">
@@ -17,17 +30,18 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
-					<table>
-						<tr>
-							<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>
-						</tr>
-						<tr>
-							<td><label class="w3-label w3-validate" for="templatelocation">{{'project.templatelocation' | translate}}</label></td><td><span>{{ctrl.project.template.templateLocation}}</span></td>
-						</tr>
-						<tr>	
-							<td><label class="w3-label w3-validate" for="templatepackageprefix">{{'project.templatepackageprefix' | translate}}</label></td><td><span>{{ctrl.project.template.templatePackagePrefix}}</span></td>
-						</tr>
-					</table>
+						<select class="w3-select w3-border" name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.templateLocation for template in ctrl.templateAll track by template.id" required></select>
+						<table>
+							<tr>
+								<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>
+							</tr>
+							<tr>
+								<td><label class="w3-label w3-validate" for="templatelocation">{{'project.templatelocation' | translate}}</label></td><td><span>{{ctrl.project.template.templateLocation}}</span></td>
+							</tr>
+							<tr>	
+								<td><label class="w3-label w3-validate" for="templatepackageprefix">{{'project.templatepackageprefix' | translate}}</label></td><td><span>{{ctrl.project.template.templatePackagePrefix}}</span></td>
+							</tr>
+						</table>
 					</div>	
 				</div>
 			</div>

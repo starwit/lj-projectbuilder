@@ -1,11 +1,26 @@
+<div ng-include="'shared/menus/menu.project.html'"></div>
+<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+
+<div class=" w3-light-grey">
+	<div class="w3-left w3-padding-right w3-padding-left w3-padding-top w3-padding-bottom">
+		<a class="w3-btn w3-pb-red w3-round-xxlarge" href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}"><i class="fa fa-chevron-left"></i> {{'button.back' | translate}}</a>
+	</div>
+	<div class="w3-padding-right w3-padding-left w3-right w3-padding-top w3-padding-bottom"><button id="next" class="w3-btn w3-pb-grey w3-round-xxlarge" ng-click="" title="{{'button.next' | translate}}"><i class="fa fa-chevron-right"></i> {{'button.next' | translate}}</button></div>
+	
+	<div class="w3-padding-top w3-padding-bottom">
+		<ul class="w3-navbar w3-light-grey">
+		  <li ><a class="w3-round-xxlarge" href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">Details</a></li>
+		  <li><a class="w3-round-xxlarge" href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}">Domainobjekte</a></li>
+		  <li><a class="w3-bp-green w3-round-xxlarge" href="">Generierung</a></li>
+		</ul>
+	</div>
+</div>
+
 <div class="w3-row-padding w3-container">
 	<form id="projectForm" name="projectForm" class="w3-container"> 
 		<div class="w3-row-padding">
-			<div class="w3-half"><h2>{{title | translate}}</h2></div>
-		</div>
-		
-		<div class="w3-row-padding">
-		<div class="w3-half"><h3>{{'generator.title.projectsetup' | translate}}</h2></div>
+		<div class="w3-half"><h3>{{'generator.title.projectsetup' | translate}}</h3></div>
 		<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doProjectSetupAll();"><i class="fa fa-gear"></i> {{'generator.button.createproject' | translate}}</button></div>
 		
 			<table class="w3-table-all">

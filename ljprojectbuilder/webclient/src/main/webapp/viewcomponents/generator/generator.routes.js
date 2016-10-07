@@ -6,7 +6,8 @@
 	
 	angular.module('ljprojectbuilderApp.generator').config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.when('/viewcomponents/generator/generate/:id', {
-		  title : "generator.title",
+		  title : "project",
+		  subtitle : "generator.title",
 		  templateUrl : "viewcomponents/generator/generator.html",
 		  controller : 'generatorCtrl',
 		  controllerAs : 'ctrl',

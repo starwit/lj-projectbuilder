@@ -10,6 +10,8 @@
 		var ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
+		ctrl.doMaintainDomain = doMaintainDomain;
+		ctrl.doMaintainGenerate = doMaintainGenerate;
 		ctrl.gotoProject = gotoProject;
 		ctrl.closeDialog = closeDialog;
 		ctrl.dialog = dialogService.dialog;
@@ -20,15 +22,31 @@
 		 */
 		function doMaintain() {
 			if (ctrl.project != null && ctrl.project.id != null) {
-				projectConnectorFactory.updateProject(ctrl.project).then(
-						saveSuccess, 
-						saveError
-				);
+				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessAll, saveError);
 			} else {
-				projectConnectorFactory.createProject(ctrl.project).then(
-						saveSuccess, 
-						saveError
-				);
+				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessAll, saveError);
+			}
+		};
+		
+		/**
+		 * Standard function to edit the project configuration.
+		 */
+		function doMaintainDomain() {
+			if (ctrl.project != null && ctrl.project.id != null) {
+				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessDomain, saveError);
+			} else {
+				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessDomain, saveError);
+			}
+		};
+		
+		/**
+		 * Standard function to edit the project configuration.
+		 */
+		function doMaintainGenerate() {
+			if (ctrl.project != null && ctrl.project.id != null) {
+				projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessGenerate, saveError);
+			} else {
+				projectConnectorFactory.createProject(ctrl.project).then(saveSuccessGenerate, saveError);
 			}
 		};
 		
@@ -42,7 +60,11 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined && $routeParams.projectid !== ctrl.project.id) {
 					ctrl.project.id = $routeParams.projectid;
+					ctrl.projectid = ctrl.project.id;
 					projectConnectorFactory.loadProject(ctrl.project.id).then(setProject, loadError);
+				}
+				if ($routeParams.projectid == null) {
+					ctrl.project = {};
 				}
 			});
 		};
@@ -52,6 +74,7 @@
 		 */
 		function setProject(response) {
 			ctrl.project = response;
+			ctrl.projecttitle = response.title;
 		};
 		
 		function setTemplateAll(response) {
@@ -62,9 +85,27 @@
 		/**
 		 * Success message after saving.
 		 */
-		function saveSuccess(response) {
+		function saveSuccessAll(response) {
 			setProject(response);
 			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProject.all);
+		};
+		
+		function saveSuccessDomain(response) {
+			setProject(response);
+			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectDomain);
+		};
+		
+		function saveSuccessGenerate(response) {
+			setProject(response);
+			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectGenerate);
+		};
+		
+		function gotoProjectDomain() {
+			gotoProject.domain(ctrl.project.id);
+		};
+		
+		function gotoProjectGenerate() {
+			gotoProject.generate(ctrl.project.id);
 		};
 		
 		/**
@@ -83,6 +124,6 @@
 		
 		function closeDialog(dialogid) {
 			dialogService.closeDialog(dialogid);
-		}
+		};
 	};
 })();

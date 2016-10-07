@@ -19,6 +19,12 @@
 	    },
 	    factory.loaderror = function() {
 	    	$location.path('/');
+	    },
+		factory.domain = function(id) {
+			$location.path('/viewcomponents/domain-byproject/' + id);
+	    },
+		factory.generate = function(id) {
+			$location.path('/viewcomponents/generator/generate/' + id);
 	    }
 		return factory;
     };
@@ -38,15 +44,15 @@
 				controller : 'projectSingleCtrl',
 				controllerAs : 'ctrl',
 				title : "project.create.title",
-				subtitle : "",
+				subtitle : "project.create.title",
 				templateUrl : "viewcomponents/project/project.single.html",
 	            resolve: {
 	            	projectConnectorFactory: projectConnectorFactory,
 	            	dialogService: dialogService
 	             }
 			}).when('/viewcomponents/project-maintain/update/:projectid', {
-				title : "project.update.title",
-				subtitle : "",
+				title : "project",
+				subtitle : "project.update.title",
 				templateUrl : "viewcomponents/project/project.single.html",
 				controller : 'projectSingleCtrl',
 				controllerAs : 'ctrl',

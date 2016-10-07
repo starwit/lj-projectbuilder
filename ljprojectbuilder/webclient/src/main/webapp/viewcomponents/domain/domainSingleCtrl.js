@@ -5,11 +5,15 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainSingleCtrl', domainSingleCtrl);
 	
-	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'dialogService', 'gotoDomain'];
-	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, dialogService, gotoDomain) {
+	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 		
+		ctrl.projectid = 0;
 		ctrl.doMaintain = doMaintain;
+		ctrl.doMaintainNext = doMaintainNext;
+		ctrl.doMaintainDetail = doMaintainDetail;
+		ctrl.doMaintainGenerate = doMaintainGenerate;
 		ctrl.addAttribute = addAttribute;
 		ctrl.removeAttribute = removeAttribute;
 		ctrl.dialog = dialogService.dialog;
@@ -26,6 +30,30 @@
 				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccess, saveError)
 			}
 		};
+		
+		function doMaintainNext() {
+			if (ctrl.domain.id != null) {
+				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessNext, saveError);
+			} else {
+				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessNext, saveError)
+			}
+		};
+		
+		function doMaintainDetail() {
+			if (ctrl.domain.id != null) {
+				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+			} else {
+				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessDetail, saveError);
+			}
+		};		
+		
+		function doMaintainGenerate() {
+			if (ctrl.domain.id != null) {
+				domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+			} else {
+				domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
+			}
+		};		
 
 		/**
 		 * Add an attribute to a domain.
@@ -61,12 +89,18 @@
 				ctrl.projectid = $routeParams.projectid;
 				ctrl.domain.project = {};
 				ctrl.domain.project.id = ctrl.projectid;
+				projectConnectorFactory.loadProject($routeParams.projectid)
+				.then(	setProjectTitle, null);
 
 				if ($routeParams.id != undefined) {
 					domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
 				}
 			});
 		};
+		
+		function setProjectTitle(response) {
+			ctrl.projecttitle = response.title;		
+		}
 		
 		/**
 		 * Used for setting the database result to the representation-object in the controller.
@@ -80,6 +114,7 @@
 		 */
 		function setDomain(response) {
 			ctrl.domain = response;
+			ctrl.projecttitle = ctrl.domain.project.title;
 		}
 		
 		/**
@@ -88,6 +123,30 @@
 		function saveSuccess(response) {
 			setDomain(response);
 			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainAll);
+		};
+		
+		/**
+		 * Success message after saving.
+		 */
+		function saveSuccessNext(response) {
+			setDomain(response);
+			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainNext);
+		};
+		
+		/**
+		 * Success message after saving.
+		 */
+		function saveSuccessDetail(response) {
+			setDomain(response);
+			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainDetail);
+		};
+		
+		/**
+		 * Success message after saving.
+		 */
+		function saveSuccessGenerate(response) {
+			setDomain(response);
+			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainGenerate);
 		};
 		
 		/**
@@ -110,6 +169,18 @@
 		
 		function gotoDomainAll() {
 			gotoDomain.all(ctrl.domain.project.id);
+		};
+		
+		function gotoDomainNext() {
+			gotoDomain.create(ctrl.domain.project.id);
+		};
+		
+		function gotoDomainDetail() {
+			gotoDomain.detail(ctrl.domain.project.id);
+		};
+		
+		function gotoDomainGenerate() {
+			gotoDomain.generate(ctrl.domain.project.id);
 		};
 	};
 })();	

@@ -24,6 +24,18 @@
 	    },
 	    factory.loaderror = function() {
 	    	$location.path('/viewcomponents/project-all/');
+	    },
+		factory.prev = function(projectid) {
+			$location.path('/viewcomponents/project-maintain/update/' + projectid);
+	    },
+		factory.detail = function(projectid) {
+	    	$location.path('/viewcomponents/project-maintain/update/' + projectid);
+	    },
+		factory.generate = function(projectid) {
+			$location.path('/viewcomponents/generator/generate/' + projectid);
+	    },
+		factory.next = function(projectid) {
+			$location.path('/viewcomponents/generator/generate/' + projectid);
 	    }
 	    return factory;
 	};
@@ -35,20 +47,20 @@
 	  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
 			controller : 'domainAllCtrl',
 			controllerAs : 'ctrl',
-			title : "domain.all.title",
-			subtitle : "",
+			title : "project",
+			subtitle : "domain.all.title",
 			templateUrl : "viewcomponents/domain/domain.all.html"
 		}).when('/viewcomponents/domain-maintain/create/:projectid', {
 			controller : 'domainSingleCtrl',
 			controllerAs : 'ctrl',
-			title : "domain.create.title",
-			subtitle : "",
+			title : "project",
+			subtitle : "domain.create.title",
 			templateUrl : "viewcomponents/domain/domain.single.html"
 		}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
 			controller : 'domainSingleCtrl',
 			controllerAs : 'ctrl',
-			title : "domain.update.title",
-			subtitle : "",
+			title : "project",
+			subtitle : "domain.update.title",
 			templateUrl : "viewcomponents/domain/domain.single.html"
 		});
 	}]);
