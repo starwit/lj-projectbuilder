@@ -22,11 +22,7 @@
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.project != null && ctrl.project.id != null) {
-					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessAll, saveError);
-				} else {
-					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessAll, saveError);
-				}
+				doMaintainThenGoto(gotoProject.all);
 			} else {
 				gotoProject.all();
 			}
@@ -37,11 +33,7 @@
 		 */
 		function doMaintainDomain() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.project != null && ctrl.project.id != null) {
-					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessDomain, saveError);
-				} else {
-					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessDomain, saveError);
-				}
+				doMaintainThenGoto(gotoProjectDomain);
 			} else {
 				gotoProjectDomain();
 			}
@@ -52,14 +44,19 @@
 		 */
 		function doMaintainGenerate() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.project != null && ctrl.project.id != null) {
-					projectConnectorFactory.updateProject(ctrl.project).then(saveSuccessGenerate, saveError);
-				} else {
-					projectConnectorFactory.createProject(ctrl.project).then(saveSuccessGenerate, saveError);
-				}
+				doMaintainThenGoto(gotoProjectGenerate);
 			} else {
 				gotoProjectGenerate();
 			}
+		}
+		
+		function doMaintainThenGoto(gotoDestination) {
+			var saveFunction = isUpdate() ? projectConnectorFactory.updateProject : projectConnectorFactory.createProject;
+			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+		}
+
+		function isUpdate() {
+			return ctrl.project != null && ctrl.project.id != null;
 		}
 		
 		/** 
@@ -97,19 +94,11 @@
 		/**
 		 * Success message after saving.
 		 */
-		function saveSuccessAll(response) {
-			setProject(response);
-			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProject.all);
-		}
-
-		function saveSuccessDomain(response) {
-			setProject(response);
-			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectDomain);
-		}
-		
-		function saveSuccessGenerate(response) {
-			setProject(response);
-			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectGenerate);
+		function saveSuccessCallbackThatGoesTo(gotoDestination) {
+			return function (response) {
+				setProject(response);
+				dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoDestination);
+			}
 		}
 		
 		function gotoProjectDomain() {
