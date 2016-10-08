@@ -30,7 +30,7 @@
 			} else {
 				gotoProject.all();
 			}
-		};
+		}
 		
 		/**
 		 * Standard function to edit the project configuration.
@@ -45,7 +45,7 @@
 			} else {
 				gotoProjectDomain();
 			}
-		};
+		}
 		
 		/**
 		 * Standard function to edit the project configuration.
@@ -60,7 +60,7 @@
 			} else {
 				gotoProjectGenerate();
 			}
-		};
+		}
 		
 		/** 
 		 * Standard function for initialization.
@@ -79,7 +79,7 @@
 					ctrl.project = {};
 				}
 			});
-		};
+		}
 		
 		/**
 		 * Used for setting the database result to the representation-object in the controller.
@@ -87,7 +87,7 @@
 		function setProject(response) {
 			ctrl.project = response;
 			ctrl.projecttitle = response.title;
-		};
+		}
 		
 		function setTemplateAll(response) {
 			ctrl.templateAll = response;
@@ -100,42 +100,42 @@
 		function saveSuccessAll(response) {
 			setProject(response);
 			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProject.all);
-		};
-		
+		}
+
 		function saveSuccessDomain(response) {
 			setProject(response);
 			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectDomain);
-		};
+		}
 		
 		function saveSuccessGenerate(response) {
 			setProject(response);
 			dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoProjectGenerate);
-		};
+		}
 		
 		function gotoProjectDomain() {
 			gotoProject.domain(ctrl.project.id);
-		};
+		}
 		
 		function gotoProjectGenerate() {
 			gotoProject.generate(ctrl.project.id);
-		};
+		}
 		
 		/**
 		 * Error message after saving.
 		 */
 		function saveError(response) {
 			dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
-		};
+		}
 		
 		/**
 		 * Error message after loading the project.
 		 */
 		function loadError(response) {
 			dialogService.showDialog("project.dialog.error.title", "project.load.error", dialogService.dialog.id.error, gotoProject.all);
-		};
+		}
 		
 		function closeDialog(dialogid) {
 			dialogService.closeDialog(dialogid);
-		};
-	};
+		}
+	}
 })();
