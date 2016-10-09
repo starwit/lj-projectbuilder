@@ -9,10 +9,8 @@
 		<jta-data-source>java:openejb/Resource/jdbc/ljprojectbuilder</jta-data-source>
 
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
            	<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-<!--  			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
 		</properties>
 	</persistence-unit>
 </persistence>
