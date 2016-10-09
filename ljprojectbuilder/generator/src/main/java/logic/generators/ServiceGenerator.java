@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.config.GeneratorConfig;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import freemarker.template.Template;

@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.config;
+package logic.generators;
 
 /**
  * Configuration of the code generator.
@@ -33,6 +33,13 @@ public enum GeneratorConfig {
 	public String suffix;
 	public String templateFile;
 	public String targetPath;
+	
+	//TODO: move to somwhere else
+	public final static String SRC_FRONTEND_PATH = "src/main/webapp/";
+	public final static String SRC_JAVA_PATH = "src/main/java/de/";
+	public final static String TEST_JAVA_PATH = "src/test/java/de/";
+	public final static String TEST_RESOURCES_PATH = "src/test/resources/";
+	
 	
 	private GeneratorConfig(String suffix, String templateFile, String targetPath) {
 		this.suffix = suffix;

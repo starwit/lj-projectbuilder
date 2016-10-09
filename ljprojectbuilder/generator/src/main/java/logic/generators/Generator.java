@@ -7,16 +7,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.config.GeneratorConfig;
+import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.generator.AbstractModule;
+import de.starwit.ljprojectbuilder.generator.TemplateDef;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -24,61 +27,66 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 
-public abstract class Generator {
+public abstract class Generator<E extends AbstractModule> {
 
 	public final static Logger LOG = Logger.getLogger(Generator.class);
-
-	public final static String SRC_FRONTEND_PATH = "src/main/webapp/";
-	public final static String SRC_JAVA_PATH = "src/main/java/de/";
-	public final static String TEST_JAVA_PATH = "src/test/java/de/";
-	public final static String TEST_RESOURCES_PATH = "src/test/resources/";
-
-	public abstract void generate(GeneratorDto setupBean);
-
-	protected void writeGeneratedFile(String filepath, Template template, Map<String, Object> data)
-			throws IOException, TemplateException {
-
-		// File output
-		File serviceInterface = new File(filepath);
-		if (!serviceInterface.exists()) {
-			Writer filewriter = new FileWriter(serviceInterface);
-			template.process(data, filewriter);
-			filewriter.flush();
-			filewriter.close();
-		}
+	
+	private E module;
+	
+	
+	@SuppressWarnings("unchecked")
+	public E getModule() {
+		return module;
 	}
 
-	protected void generate(GeneratorDto setupBean, String packagePath, GeneratorConfig generatorConfig) {
-		List<DomainEntity> domains = setupBean.getDomains();
 
-		for (DomainEntity domain : domains) {
-			// Build the data-model
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("domain", domain.getName());
-			data.put("domainLower", domain.getName().toLowerCase());
-			data.put("domainUpper", domain.getName().toUpperCase());
-			data.put("appName", setupBean.getProject().getTitle());
-			data.put("package", setupBean.getProject().getPackagePrefix());
-
-			generate(setupBean, domain.getName(), packagePath, data, generatorConfig);
-		}
-
-	}
-
-	protected void generate(GeneratorDto setupBean, String domainName, String packagePath, Map<String, Object> data,
-			GeneratorConfig generatorConfig) {
+	@SuppressWarnings("unchecked")
+	public void generate(GeneratorDto setupBean) {
 		try {
-			Template template = getTemplate(setupBean, generatorConfig);
-			String domain = domainName;
-			String name = domain + generatorConfig.suffix;
-			writeGeneratedFile(packagePath + "/" + generatorConfig.targetPath + "/" + name, template, data);
+			module = (E) ((Class<?>) ((ParameterizedType) this
+					.getClass().getGenericSuperclass())
+					.getActualTypeArguments()[0]).getDeclaredConstructor( GeneratorDto.class ).newInstance(setupBean);
+			
+			List<DomainEntity> domains = setupBean.getDomains();
+			for (DomainEntity domain : domains) {
+				Map<String, Object> data = fillTemplateParameter(setupBean, domain);
+				generate(setupBean, domain.getName(), data);
+				generateAdditionals(setupBean, domain.getName(), data);
+			}
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			LOG.error("Inherit class of AbstractEntity could not be resolved.");
+		}
+	}
+
+	protected void generateAdditionals(GeneratorDto setupBean, String domainName, Map<String, Object> data) {
+	}
+	
+	public abstract Map<String, Object> fillTemplateParameter(GeneratorDto setupBean, DomainEntity domain);
+
+	protected void generate(GeneratorDto setupBean, String domainName, Map<String, Object> data) {
+		try {
+			for (TemplateDef templateDef : getModule().getTemplates()) {
+				writeGeneratedFile(templateDef.getTargetFileUrl(domainName), templateDef.getTemplate(), data);
+			}
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
 		} catch (TemplateException e) {
 			LOG.error("Error generation Template:", e);
 		}
 	}
-
+	
+	protected void writeGeneratedFile(String filepath, Template template, Map<String, Object> data)
+			throws IOException, TemplateException {
+		// File output
+		File outputFile = new File(filepath);
+		if (!outputFile.exists()) {
+			Writer filewriter = new FileWriter(outputFile);
+			template.process(data, filewriter);
+			filewriter.flush();
+			filewriter.close();
+		}
+	}
+	
 	protected void generateInDomainFolder(GeneratorDto setupBean, String domainName, String packagePath, Map<String, Object> data,
 			GeneratorConfig generatorConfig) {
 		try {
@@ -90,7 +98,6 @@ public abstract class Generator {
 				String name = domain.toLowerCase() + generatorConfig.suffix;
 				writeGeneratedFile(viewPath + "/" + name, template, data);
 			}
-
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
 		} catch (TemplateException e) {
@@ -115,16 +122,14 @@ public abstract class Generator {
 			throws IOException, TemplateNotFoundException, MalformedTemplateNameException, ParseException {
 		@SuppressWarnings("deprecation")
 		Configuration cfg = new Configuration();
-		cfg.setDirectoryForTemplateLoading(new File(setupBean.getTemplatePath()));
+		cfg.setDirectoryForTemplateLoading(new File(Constants.TEMPLATE_PATH));
 		Template template = cfg.getTemplate(generatorConfig.templateFile);
 		return template;
 	}
 
 	protected void writeImportExportProterties(String domain, String packagePath, GeneratorConfig generatorConfig) {
-
 		Properties prop = new Properties();
 		final String configFileUrl = packagePath + "/" + generatorConfig.targetPath + "/" + "importExport.properties";
-
 		try {
 			File f = new File(configFileUrl);
 			FileInputStream is = new FileInputStream(f);
@@ -136,7 +141,6 @@ public abstract class Generator {
 			prop.setProperty("loadedEntities", loadedEntries);
 			OutputStream out = new FileOutputStream(configFileUrl);
 			prop.store(out, "This is an optional header comment string");
-
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
 		}

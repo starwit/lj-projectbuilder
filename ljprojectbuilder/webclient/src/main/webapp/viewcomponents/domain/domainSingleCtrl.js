@@ -24,7 +24,7 @@
 		 * Standard function to edit a domain object.
 		 */
 		function doMaintain() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty ||ctrl.form.$invalid ) {
 				if (ctrl.domain.id != null) {
 					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccess, saveError);
 				} else {
@@ -36,7 +36,7 @@
 		};
 		
 		function doMaintainNext() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty ||ctrl.form.$invalid ) {
 				if (ctrl.domain.id != null) {
 					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessNext, saveError);
 				} else {
@@ -48,7 +48,7 @@
 		};
 		
 		function doMaintainDetail() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty ||ctrl.form.$invalid ) {
 				if (ctrl.domain.id != null) {
 					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessDetail, saveError);
 				} else {
@@ -60,7 +60,7 @@
 		};		
 		
 		function doMaintainGenerate() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty ||ctrl.form.$invalid ) {
 				if (ctrl.domain.id != null) {
 					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
 				} else {

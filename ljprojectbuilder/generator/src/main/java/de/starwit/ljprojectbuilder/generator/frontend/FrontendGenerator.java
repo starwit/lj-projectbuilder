@@ -1,4 +1,4 @@
-package logic.generators;
+package de.starwit.ljprojectbuilder.generator.frontend;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,66 +13,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import freemarker.template.Template;
-
-import de.starwit.ljprojectbuilder.config.GeneratorConfig;
+import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import freemarker.template.Configuration;
+import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import logic.generators.Generator;
+import logic.generators.GeneratorConfig;
 
-public class FrontendGenerator extends Generator {
+public class FrontendGenerator extends Generator<FrontendModule> {
 	
 	private final static String BEGIN_GENERATION ="###BEGIN###";
 	private final static String END_GENERATION ="###END###";
-			
-
+	
 	@Override
-	public void generate(GeneratorDto setupBean) {
+	public Map<String, Object> fillTemplateParameter(GeneratorDto setupBean, DomainEntity domain) {
 		if (setupBean.getProject() == null) {
-			return;
+			return null;
 		}
-		
-		String packagePath = setupBean.getProject().getTargetPath() + "/" + setupBean.getProject().getTitle() + "/webclient/" + Generator.SRC_FRONTEND_PATH;
-		
-		List<DomainEntity> domains = setupBean.getDomains();
 		Map<String, Object> data = new HashMap<String, Object>();
-
 		data.put("appName", setupBean.getProject().getTitle());
 		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
 		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
 		data.put("package", setupBean.getProject().getPackagePrefix());
-		
-		for (DomainEntity domain : domains) {
-			data.put("domain", domain.getName());
-			data.put("attributes", domain.getAttributes());
-			generateInDomainFolder(setupBean, domain.getName(), packagePath, data, GeneratorConfig.ALL_UI);
-			generateInDomainFolder(setupBean, domain.getName(), packagePath, data, GeneratorConfig.MAINTAIN_UI);
-			
-			generateInDomainFolder(setupBean, domain.getName(), packagePath, data, GeneratorConfig.CONFIG_UI);
-			generateInDomainFolder(setupBean, domain.getName(), packagePath, data, GeneratorConfig.CONTROLLER_UI);
-			
-			generateWithLowercaseFilename(setupBean, domain.getName(), packagePath, data, GeneratorConfig.CONNECTOR_UI);
-			generateGeneralFile(setupBean, packagePath, data, GeneratorConfig.VIEWS_UI);
-			generateGeneralFile(setupBean, packagePath, data, GeneratorConfig.SCRIPT_BINDING);
-			generateGeneralFile(setupBean, packagePath, data, GeneratorConfig.MENU_UI);
-			
-			generateGeneralFile(setupBean, packagePath, data, GeneratorConfig.TRANSLATION_UI);
-		}
+		data.put("domain", domain.getName());
+		data.put("attributes", domain.getAttributes());
+		return data;
 	}
-	
-	private void generateWithLowercaseFilename(GeneratorDto setupBean, String domainName, String packagePath, Map<String, Object> data, GeneratorConfig config) {
-		try {
-			
-			Template template = getTemplate(setupBean, config);
-			String domain = domainName.toLowerCase();
-			String name = domain + config.suffix;
-			writeGeneratedFile(packagePath + "/" + config.targetPath + "/" + name, template, data);
-		} catch (IOException e) {
-			LOG.error("Error during file writing: ", e);
-		} catch (TemplateException e) {
-			LOG.error("Error generation Template:", e);
-		}
+
+	@Override
+	protected void generateAdditionals(GeneratorDto setupBean, String domainName, Map<String, Object> data) {
+		generateGeneralFile(setupBean, getModule().getSrcDir(), data, GeneratorConfig.VIEWS_UI);
+		generateGeneralFile(setupBean, getModule().getSrcDir(), data, GeneratorConfig.SCRIPT_BINDING);
+		generateGeneralFile(setupBean, getModule().getSrcDir(), data, GeneratorConfig.MENU_UI);
+		generateGeneralFile(setupBean, getModule().getSrcDir(), data, GeneratorConfig.TRANSLATION_UI);
 	}
 	
 	private void generateGeneralFile(GeneratorDto setupBean, String packagePath, Map<String, Object> data, GeneratorConfig config) {
@@ -93,7 +68,7 @@ public class FrontendGenerator extends Generator {
 			// Freemarker configuration object
 			@SuppressWarnings("deprecation")
 			Configuration cfg = new Configuration();
-			cfg.setDirectoryForTemplateLoading(new File(setupBean.getTemplatePath()));
+			cfg.setDirectoryForTemplateLoading(new File(Constants.TEMPLATE_PATH));
 			data.put("domainnames", domainnames);
 			
 			Template template = getTemplate(setupBean, config);
@@ -142,5 +117,4 @@ public class FrontendGenerator extends Generator {
 			Files.move(tempFile.toPath(), inputFile.toPath());
 		}
 	}
-
 }
