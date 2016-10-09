@@ -9,7 +9,6 @@ import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateNotFoundException;
-import logic.generators.GeneratorConfig;
 
 public class TemplateDef {
 	
@@ -19,6 +18,15 @@ public class TemplateDef {
 	private boolean createDomainDir = false;
 	private boolean upperCaseFirst = false;
 	private boolean lowerCase = false;
+	
+	public TemplateDef() {
+	};
+	
+	public TemplateDef(String targetPath, String suffix, String templateFile) {
+		this.targetPath = targetPath;
+		this.suffix = suffix;
+		this.templateFile = templateFile;
+	}
 
 	public String getTargetFileUrl(String domainname) {
 		String checkedDir = "";
@@ -35,6 +43,10 @@ public class TemplateDef {
 			return targetPath + Constants.FILE_SEP + domainname + suffix ;
 		}
 		return null;
+	}
+	
+	public String getTargetFileUrl() {
+		return targetPath + Constants.FILE_SEP + suffix ;
 	}
 
 	private String checkOrCreateDir(String domainDir) {

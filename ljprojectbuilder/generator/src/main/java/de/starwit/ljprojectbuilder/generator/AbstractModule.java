@@ -12,7 +12,8 @@ public abstract class AbstractModule {
 	
 	private SrcPathDef  paths = new SrcPathDef();
 	
-	private List<TemplateDef> templates = new ArrayList<>();
+	private List<TemplateDef> domainTemplates = new ArrayList<>();
+	private List<TemplateDef> globalTemplates = new ArrayList<>();
 	
 	private GeneratorDto setupBean;
 	
@@ -48,13 +49,18 @@ public abstract class AbstractModule {
 		return this.getModuleDir()
 				+ Constants.FILE_SEP + getPaths().getSource();
 	}
-
-	public List<TemplateDef> getTemplates() {
-		return templates;
+	
+	public String getTestDir() {
+		return this.getModuleDir()
+				+ Constants.FILE_SEP + getPaths().getTest();
 	}
 
-	public void setTemplates(List<TemplateDef> templates) {
-		this.templates = templates;
+	public List<TemplateDef> getDomainTemplates() {
+		return domainTemplates;
+	}
+
+	public void setDomainTemplates(List<TemplateDef> domainTemplates) {
+		this.domainTemplates = domainTemplates;
 	}
 
 	public GeneratorDto getSetupBean() {
@@ -63,6 +69,14 @@ public abstract class AbstractModule {
 
 	public void setSetupBean(GeneratorDto setupBean) {
 		this.setupBean = setupBean;
+	}
+
+	public List<TemplateDef> getGlobalTemplates() {
+		return globalTemplates;
+	}
+
+	public void setGlobalTemplates(List<TemplateDef> globalTemplates) {
+		this.globalTemplates = globalTemplates;
 	}
 	
 }

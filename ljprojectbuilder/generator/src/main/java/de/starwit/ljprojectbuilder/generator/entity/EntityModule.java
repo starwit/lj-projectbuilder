@@ -16,7 +16,7 @@ public class EntityModule extends AbstractModule {
 		entityT.setTargetPath(getSrcDir() + Constants.FILE_SEP  + "entity" + Constants.FILE_SEP);
 		entityT.setTemplateFile("entity" + Constants.FILE_SEP + "entity.ftl");
 		entityT.setUpperCaseFirst(true);
-		getTemplates().add(entityT);
+		getDomainTemplates().add(entityT);
 	}
 	
 	@Override

@@ -7,10 +7,11 @@ import org.apache.log4j.Logger;
 import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.GeneratorService;
+import de.starwit.ljprojectbuilder.generator.Generator;
 import de.starwit.ljprojectbuilder.generator.entity.EntityGenerator;
 import de.starwit.ljprojectbuilder.generator.frontend.FrontendGenerator;
 import de.starwit.ljprojectbuilder.generator.rest.RestGenerator;
-import logic.generators.ServiceGenerator;
+import de.starwit.ljprojectbuilder.generator.service.ServiceGenerator;
 
 @Stateless(name = "GeneratorService")
 public class GeneratorServiceImpl implements GeneratorService {
@@ -33,22 +34,22 @@ public class GeneratorServiceImpl implements GeneratorService {
 		
 		
 		if (setupBean.isGenerateEntity()) {
-			EntityGenerator entityGenerator = new EntityGenerator();
+			Generator entityGenerator = new EntityGenerator();
 			entityGenerator.generate(setupBean);
 		}
 		
 		if (setupBean.isGenerateService()) {
-			ServiceGenerator serviceGenerator = new ServiceGenerator();
+			Generator serviceGenerator = new ServiceGenerator();
 			serviceGenerator.generate(setupBean);
 		}
 		
 		if (setupBean.isGenerateRest()) {
-			RestGenerator restGenerator = new RestGenerator();
+			Generator restGenerator = new RestGenerator();
 			restGenerator.generate(setupBean);
 		}
 		
 		if (setupBean.isGenerateFrontend()) {
-			FrontendGenerator frontendGenerator = new FrontendGenerator();
+			Generator frontendGenerator = new FrontendGenerator();
 			frontendGenerator.generate(setupBean);
 		}
 		

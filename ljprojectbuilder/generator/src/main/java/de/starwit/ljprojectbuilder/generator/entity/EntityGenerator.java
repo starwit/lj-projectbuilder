@@ -11,25 +11,33 @@ import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.AttributeEntity;
 import de.starwit.ljprojectbuilder.entity.DataType;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import logic.generators.Generator;
+import de.starwit.ljprojectbuilder.generator.AbstractGenerator;
 
-public class EntityGenerator extends Generator<EntityModule> {
+public class EntityGenerator extends AbstractGenerator<EntityModule> {
 
 	public final static Logger LOG = Logger.getLogger(EntityGenerator.class);
-
+	
 	@Override
-	public Map<String, Object> fillTemplateParameter(GeneratorDto setupBean, DomainEntity domain) {
+	public Map<String, Object> fillTemplateGlobalParameter(GeneratorDto setupBean) {
 		if (setupBean.getProject() == null) {
 			return null;
 		}
+		// Build the data-model
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("appName", setupBean.getProject().getTitle());
+		data.put("package", setupBean.getProject().getPackagePrefix());
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
 		// Build the data-model
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain.getName());
 		data.put("domainLower", domain.getName().toLowerCase());
 		data.put("domainUpper", domain.getName().toUpperCase());
 		data.put("attributes", domain.getAttributes());
-		data.put("appName", setupBean.getProject().getTitle());
-		data.put("package", setupBean.getProject().getPackagePrefix());
+
 
 		Set<String> imports = new HashSet<String>();
 		if (domain.getAttributes() != null) {
