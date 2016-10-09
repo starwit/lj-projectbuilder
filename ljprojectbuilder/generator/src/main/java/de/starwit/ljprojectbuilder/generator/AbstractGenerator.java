@@ -42,8 +42,10 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 			
 			List<DomainEntity> domains = setupBean.getDomains();
 			for (DomainEntity domain : domains) {
-				data.putAll(fillTemplateDomainParameter(domain));
-				generateDomain(setupBean, domain.getName(), data);
+				if (domain.isSelected()) {
+					data.putAll(fillTemplateDomainParameter(domain));
+					generateDomain(setupBean, domain.getName(), data);
+				}
 			}
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			LOG.error("Inherit class of AbstractEntity could not be resolved.");
@@ -60,7 +62,8 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 	protected void generateDomain(GeneratorDto setupBean, String domainName, Map<String, Object> data) {
 		try {
 			for (TemplateDef templateDef : getModule().getDomainTemplates()) {
-				writeGeneratedFile(templateDef.getTargetFileUrl(domainName), templateDef.getTemplate(), data);
+				String targetFileUrl = templateDef.getTargetFileUrl(domainName);
+				writeGeneratedFile(targetFileUrl, templateDef.getTemplate(), data, false);
 			}
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
@@ -72,7 +75,7 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 	protected void generateGlobal(GeneratorDto setupBean, Map<String, Object> data) {
 		try {
 			for (TemplateDef templateDef : getModule().getGlobalTemplates()) {
-				writeGeneratedFile(templateDef.getTargetFileUrl(), templateDef.getTemplate(), data);
+				writeGeneratedFile(templateDef.getTargetFileUrl(), templateDef.getTemplate(), data, true);
 			}
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
@@ -81,11 +84,11 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 		}
 	}
 	
-	protected void writeGeneratedFile(String filepath, Template template, Map<String, Object> data)
+	protected void writeGeneratedFile(String filepath, Template template, Map<String, Object> data, boolean override)
 			throws IOException, TemplateException {
 		// File output
 		File outputFile = new File(filepath);
-		if (!outputFile.exists()) {
+		if (!outputFile.exists() || override) {
 			Writer filewriter = new FileWriter(outputFile);
 			template.process(data, filewriter);
 			filewriter.flush();

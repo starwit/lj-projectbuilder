@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.starwit.ljprojectbuilder.config.GeneratorConfig;
@@ -37,13 +38,19 @@ public class FrontendGenerator extends AbstractGenerator<FrontendModule> {
 		if (setupBean.getProject() == null) {
 			return null;
 		}
+		List<DomainEntity> domains = setupBean.getDomains();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appName", setupBean.getProject().getTitle());
 		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
 		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
 		data.put("package", setupBean.getProject().getPackagePrefix());
 		data.put("domainnames", getModule().getDomainnames() );
+		data.put("domains", domains);
 		return data;
+	}
+	
+	@Override
+	protected void generateGlobal(GeneratorDto setupBean, Map<String, Object> data) {
 	}
 
 	@Override

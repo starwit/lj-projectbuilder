@@ -1,6 +1,8 @@
-<#list (attributes) as attribute> 
-	"${domain?lower_case}.${attribute.name}": "${attribute.name}",
+<#list domains as domain>
+<#list (domain.attributes) as attribute> 
+	"${domain.name?lower_case}.${attribute.name}": "${attribute.name}",
 </#list>
-	"${domain?lower_case}.all.title": "${domain} anzeigen",
-	"${domain?lower_case}.create.title": "${domain} erfassen",
-	"${domain?lower_case}.update.title": "${domain} bearbeiten",
+	"${domain.name?lower_case}.all.title": "${domain.name} anzeigen",
+	"${domain.name?lower_case}.create.title": "${domain.name} erfassen",
+	"${domain.name?lower_case}.update.title": "${domain.name} bearbeiten",
+</#list>

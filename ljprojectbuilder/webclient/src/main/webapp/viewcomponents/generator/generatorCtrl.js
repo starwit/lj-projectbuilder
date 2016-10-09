@@ -32,9 +32,7 @@
 			ctrl.generatorDto.domains = [];
 			if (ctrl.domainAll != null) {
 				ctrl.domainAll.forEach(function(domain) {
-					if (domain.selected) {
-						ctrl.generatorDto.domains.push(domain);
-					}
+					ctrl.generatorDto.domains.push(domain);
 				});
 				generatorConnectorFactory.generate(ctrl.generatorDto).then(setupSuccess, setupError);
 			}

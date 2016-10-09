@@ -17,6 +17,7 @@ public class RestGenerator extends AbstractGenerator<RestModule> {
 	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain.getName());
+		data.put("domainLower", domain.getName().toLowerCase());
 		return data;
 	}
 	

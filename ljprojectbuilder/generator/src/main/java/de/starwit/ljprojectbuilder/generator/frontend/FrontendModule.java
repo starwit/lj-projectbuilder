@@ -17,29 +17,29 @@ public class FrontendModule extends AbstractModule {
 		getPaths().setSource(Constants.SOURCE_FRONTEND_PATH);
 		this.setModuleName("webclient");
 		
-		getDomainTemplates().add(configureTemplateDef("all"));
-		getDomainTemplates().add(configureTemplateDef("single"));
-		getDomainTemplates().add(configureTemplateDef("ctrl"));
-		getDomainTemplates().add(configureTemplateDef("routes"));
+		getDomainTemplates().add(configureTemplateDef("all", ".html"));
+		getDomainTemplates().add(configureTemplateDef("single", ".html"));
+		getDomainTemplates().add(configureTemplateDef("ctrl", ".js"));
+		getDomainTemplates().add(configureTemplateDef("routes", ".js"));
 		
 		TemplateDef frontendConnectorT = new TemplateDef();
 		frontendConnectorT.setSuffix(".connector.factory.js");
 		frontendConnectorT.setTargetPath(getSrcDir() + Constants.FILE_SEP  + "shared" + Constants.FILE_SEP + "restfacade"  + Constants.FILE_SEP);
-		frontendConnectorT.setTemplateFile("webclient" + Constants.FILE_SEP + "ctrl.ftl");
+		frontendConnectorT.setTemplateFile("webclient" + Constants.FILE_SEP + "connector.ftl");
 		frontendConnectorT.setCreateDomainDir(false);
 		frontendConnectorT.setLowerCase(true);
 		getDomainTemplates().add(frontendConnectorT);
 
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "webclient" + Constants.FILE_SEP + "scripts.ftl", "index.html"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "webclient" + Constants.FILE_SEP + "app.module.ftl", "app.module.js"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "webclient" + Constants.FILE_SEP + "menu.ftl", "menu.html"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "webclient" + Constants.FILE_SEP + "translation.ftl", "translations-de-DE.json"));
+		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "index.html", "webclient" + Constants.FILE_SEP + "scripts.ftl"));
+		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "app.module.js", "webclient" + Constants.FILE_SEP + "app.module.ftl"));
+		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "menu.html", "webclient" + Constants.FILE_SEP + "menu.ftl"));
+		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-de-DE.json", "webclient" + Constants.FILE_SEP + "translation.ftl"));
 	}
-	
-	private TemplateDef configureTemplateDef(String name) {
+
+	private TemplateDef configureTemplateDef(String name, String fileext) {
 		String targetPath = getSrcDir() + Constants.FILE_SEP  + "viewcomponents"  + Constants.FILE_SEP;
 		TemplateDef frontendT = new TemplateDef();
-		frontendT.setSuffix("." + name + ".js");
+		frontendT.setSuffix("." + name + fileext);
 		frontendT.setTargetPath(targetPath);
 		frontendT.setTemplateFile("webclient" + Constants.FILE_SEP + name + ".ftl");
 		frontendT.setCreateDomainDir(true);
@@ -50,22 +50,27 @@ public class FrontendModule extends AbstractModule {
 	public List<String> getDomainnames() {
 		List<DomainEntity> domains = getSetupBean().getDomains();
 		List<String> domainnames = new ArrayList<String>();
+		List<String> selecteddomainnames = new ArrayList<String>();
 		for (DomainEntity domain : domains) {
+			if (domain.isSelected()) {
+				selecteddomainnames.add(domain.getName().toLowerCase());
+			}
 			domainnames.add(domain.getName().toLowerCase());
 		}
 		
 		String targetPath = getSrcDir() + Constants.FILE_SEP  + "viewcomponents"  + Constants.FILE_SEP;
 		File folder = new File(targetPath);
 		File[] listOfFiles = folder.listFiles();
-		int l = listOfFiles.length;
-		List<String> domainnamesInFiles = new ArrayList<String>(l);
-		for (File file : listOfFiles) {
-			if (file.isDirectory()) {
-				domainnamesInFiles.add(file.getName());
-			}
+		if (listOfFiles == null) {
+			return selecteddomainnames;
 		}
 		
-		domainnames.retainAll(domainnamesInFiles);
-		return domainnames;
+		for (File file : listOfFiles) {
+			if (file.isDirectory() && domainnames.contains(file.getName())) {
+				if (!selecteddomainnames.contains(file.getName()))
+					selecteddomainnames.add(file.getName());
+			}
+		}
+		return selecteddomainnames;
 	}
 }

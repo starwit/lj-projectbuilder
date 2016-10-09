@@ -16,7 +16,7 @@ public class ServiceModule extends AbstractModule {
 		serviceInterfaceT.setUpperCaseFirst(true);
 		TemplateDef serviceImplT = new TemplateDef(getSrcDir() + "ejb" + FS + "impl" + FS, "ServiceImpl.java", "service" + FS + "serviceImpl.ftl");
 		serviceImplT.setUpperCaseFirst(true);
-		TemplateDef serviceTestT = new TemplateDef(getTestDir() + "ejb" + FS + "impl" + FS, "ServiceTest.java", "service" + FS + "serviceTest.ftl");
+		TemplateDef serviceTestT = new TemplateDef(getTestDir() + "ejb" + FS  + FS, "ServiceTest.java", "service" + FS + "serviceTest.ftl");
 		serviceTestT.setUpperCaseFirst(true);
 
 		getDomainTemplates().add(serviceInterfaceT);
@@ -27,7 +27,7 @@ public class ServiceModule extends AbstractModule {
 	@Override
 	public String getSrcDir() {
 		return this.getModuleDir()
-				+ FS + getPaths().getSource()
+				+ FS + getPaths().getSource() + FS + "de" + FS
 				+ getSetupBean().getProject().getPackagePrefix()
 				+ FS + getSetupBean().getProject().getTitle() + FS;
 	}
@@ -35,7 +35,7 @@ public class ServiceModule extends AbstractModule {
 	@Override
 	public String getTestDir() {
 		return this.getModuleDir()
-				+ FS + getPaths().getTest()
+				+ FS + getPaths().getTest() + FS + "de" + FS
 				+ getSetupBean().getProject().getPackagePrefix()
 				+ FS + getSetupBean().getProject().getTitle() + FS;
 	}

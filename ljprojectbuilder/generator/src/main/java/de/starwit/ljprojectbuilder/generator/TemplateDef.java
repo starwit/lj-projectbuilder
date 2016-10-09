@@ -29,7 +29,7 @@ public class TemplateDef {
 	}
 
 	public String getTargetFileUrl(String domainname) {
-		String checkedDir = "";
+		String checkedDir = targetPath;
 		if (createDomainDir) {
 			checkedDir = checkOrCreateDir(domainname.toLowerCase()) ;
 		}
@@ -40,7 +40,8 @@ public class TemplateDef {
 			domainname = domainname.toLowerCase();
 		}
 		if (checkedDir != null) {
-			return targetPath + Constants.FILE_SEP + domainname + suffix ;
+			String targetUrl = checkedDir  + domainname + suffix ;
+			return targetUrl ;
 		}
 		return null;
 	}
@@ -56,7 +57,7 @@ public class TemplateDef {
 			success = checkedDir.mkdirs();
 		}
 		if (success) {
-			return checkedDir.getPath();
+			return checkedDir.getPath() + Constants.FILE_SEP;
 		}
 		return null;
 	}
