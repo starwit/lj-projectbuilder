@@ -21,49 +21,35 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintain() {
-<<<<<<< HEAD
 			if (ctrl.form.$dirty) {
 				doMaintainThenGoto(gotoProject.all);
 			} else {
 				gotoProject.all();
 			}
-=======
-			doMaintainThenGoto(gotoProject.all);
->>>>>>> 0da3e473caec6fc78cf14a6248b05578cdae83c8
 		}
 		
 		/**
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainDomain() {
-<<<<<<< HEAD
 			if (ctrl.form.$dirty) {
 				doMaintainThenGoto(gotoProjectDomain);
 			} else {
 				gotoProjectDomain();
 			}
-=======
-			doMaintainThenGoto(gotoProjectDomain);
->>>>>>> 0da3e473caec6fc78cf14a6248b05578cdae83c8
 		}
 		
 		/**
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainGenerate() {
-<<<<<<< HEAD
 			if (ctrl.form.$dirty) {
 				doMaintainThenGoto(gotoProjectGenerate);
 			} else {
 				gotoProjectGenerate();
 			}
 		}
-		
-=======
-			doMaintainThenGoto(gotoProjectGenerate)
-		}
 
->>>>>>> 0da3e473caec6fc78cf14a6248b05578cdae83c8
 		function doMaintainThenGoto(gotoDestination) {
 			var saveFunction = isUpdate() ? projectConnectorFactory.updateProject : projectConnectorFactory.createProject;
 			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
@@ -114,11 +100,6 @@
 				dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoDestination);
 			}
 		}
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> 0da3e473caec6fc78cf14a6248b05578cdae83c8
 		function gotoProjectDomain() {
 			gotoProject.domain(ctrl.project.id);
 		}
