@@ -37,7 +37,7 @@ public class DataStartupService {
 		Flyway flyway = new Flyway();
 		flyway.setDataSource(dataSource);
 		flyway.setBaselineOnMigrate(true);
-		flyway.setBaselineVersion(MigrationVersion.fromVersion("201609221421"));
+		flyway.setBaselineVersion(MigrationVersion.fromVersion("201609221422"));
 		for (MigrationInfo i : flyway.info().all()) {
 			LOG.info("migrate task: " + i.getVersion() + " : "
 					+ i.getDescription() + " from file: " + i.getScript());

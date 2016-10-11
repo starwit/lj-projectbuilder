@@ -19,8 +19,14 @@ public class FrontendModule extends AbstractModule {
 		
 		getDomainTemplates().add(configureTemplateDef("all", ".html"));
 		getDomainTemplates().add(configureTemplateDef("single", ".html"));
-		getDomainTemplates().add(configureTemplateDef("ctrl", ".js"));
+		TemplateDef allCtrl = configureTemplateDef("AllCtrl", ".js");
+		allCtrl.setSuffix("AllCtrl.js");
+		getDomainTemplates().add(allCtrl);
+		TemplateDef singleCtrl = configureTemplateDef("SingleCtrl", ".js");
+		singleCtrl.setSuffix("SingleCtrl.js");
+		getDomainTemplates().add(singleCtrl);
 		getDomainTemplates().add(configureTemplateDef("routes", ".js"));
+		getDomainTemplates().add(configureTemplateDef("module", ".js"));
 		
 		TemplateDef frontendConnectorT = new TemplateDef();
 		frontendConnectorT.setSuffix(".connector.factory.js");

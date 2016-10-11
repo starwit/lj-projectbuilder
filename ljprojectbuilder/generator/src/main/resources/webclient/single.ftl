@@ -1,7 +1,7 @@
 <#compress>
 <div class="subPartTitle"><h1>{{title | translate}}</h1></div>
 <div class="subPart addressSingle">
-	<form class="editForm" name="${domain?lower_case}Form">   
+	<form class="editForm" name="ctrl.form">   
 			<div class="errorGlobal">
 				<b>{{message}}</b>
 				<ul>

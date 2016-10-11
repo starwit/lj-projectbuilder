@@ -5,7 +5,6 @@
 (function() {
 	'use strict';
 	angular.module('ljprojectbuilderApp.project').controller('projectAllCtrl', projectAllCtrl);
-	
 	projectAllCtrl.$inject = ['projectConnectorFactory', 'dialogService', 'gotoProject'];
 	function projectAllCtrl(projectConnectorFactory, dialogService, gotoProject) {
 		var  ctrl = this;
