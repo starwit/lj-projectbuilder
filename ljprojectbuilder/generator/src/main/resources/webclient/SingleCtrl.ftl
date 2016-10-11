@@ -3,14 +3,14 @@
  */
 (function() {
 	'use strict';
-	angular.module('${appName}App.'${domain?lower_case}').controller(''${domain?lower_case}SingleCtrl', '${domain?lower_case}SingleCtrl);
+	angular.module('${appName}App.${domain?lower_case}').controller('${domain?lower_case}SingleCtrl', ${domain?lower_case}SingleCtrl);
 	
 	${domain?lower_case}SingleCtrl.$inject = ['$scope', '$routeParams', '${domain?lower_case}ConnectorFactory', 'goto${domain}'];
-	function ${domain?lower_case}SingleCtrl($scope, $routeParams, ${domain?lower_case}ConnectorFactory, dialogService, goto${domain}) {
+	function ${domain?lower_case}SingleCtrl($scope, $routeParams, ${domain?lower_case}ConnectorFactory, goto${domain}) {
 		var ctrl = this;
 		
 		ctrl.doMaintain = doMaintain;
-		ctrl.goto'${domain} = goto'${domain};
+		ctrl.goto${domain} = goto${domain};
 		init();
 
 		/**
@@ -41,7 +41,7 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.id != undefined && $routeParams.id !== ctrl.${domain?lower_case}.id) {
 					ctrl.${domain?lower_case}.id = $routeParams.id;
-					${domain?lower_case}ConnectorFactory.loadProject(ctrl.${domain?lower_case}.id).then(set${domain}, function(){});
+					${domain?lower_case}ConnectorFactory.load${domain}(ctrl.${domain?lower_case}.id).then(set${domain}, function(){});
 				}
 				if ($routeParams.is == null) {
 					ctrl.${domain?lower_case} = {};

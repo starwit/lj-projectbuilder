@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import de.starwit.ljprojectbuilder.api.rest.AbstractRest;
 import de.starwit.ljprojectbuilder.api.rest.AttributeRest;
 import de.starwit.ljprojectbuilder.api.rest.DomainRest;
 import de.starwit.ljprojectbuilder.api.rest.GeneratorRest;
@@ -24,7 +23,6 @@ public class RestfulApplication extends Application {
 		final Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(AttributeRest.class);
 		classes.add(ProjectSetupRest.class);
-		classes.add(AbstractRest.class);
 		classes.add(DomainRest.class);
 		classes.add(ProjectRest.class);
 		classes.add(GeneratorRest.class);

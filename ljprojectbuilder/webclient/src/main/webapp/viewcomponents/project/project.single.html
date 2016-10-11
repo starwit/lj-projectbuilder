@@ -31,7 +31,11 @@
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
 						<select class="w3-select w3-border" name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.templateLocation for template in ctrl.templateAll track by template.id" required></select>
+<!-- 						<select class="w3-select w3-border" name="branchnames" id="branchnames" ng-model="ctrl.project.template.branch" ng-options="branch as branch for branch in ctrl.branchnames" required></select> -->
 						<table>
+							<tr>
+								<td><label class="w3-label w3-validate" for="branch">{{'project.templatebranch' | translate}}</label></td><td><span>{{ctrl.project.template.branch}}</span></td>
+							</tr>
 							<tr>
 								<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>
 							</tr>
@@ -40,6 +44,9 @@
 							</tr>
 							<tr>	
 								<td><label class="w3-label w3-validate" for="templatepackageprefix">{{'project.templatepackageprefix' | translate}}</label></td><td><span>{{ctrl.project.template.templatePackagePrefix}}</span></td>
+							</tr>
+							<tr>
+								<td><label class="w3-label w3-validate" for="templatetitle">{{'project.templatetitle' | translate}}</label></td><td><span>{{ctrl.project.template.templateTitle}}</span></td>
 							</tr>
 						</table>
 					</div>	

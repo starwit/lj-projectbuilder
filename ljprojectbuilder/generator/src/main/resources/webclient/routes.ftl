@@ -26,32 +26,32 @@
    	angular.module('${appName}App.${domain?lower_case}') 
    	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/viewcomponents/${domain?lower_case}-all/', {
-		controller : '${domain}AllCtrl',
-		controllerAs : 'ctrl',
-		title : "${domain?lower_case}.all.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateAll}"
-        resolve: {
-        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
-         }
-	}).when('/viewcomponents/${domain?lower_case}-maintain/create/', {
-		controller : '${domain}SingleCtrl',
-		controllerAs : 'ctrl',
-		title : "${domain?lower_case}.create.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
-		resolve: {
-        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
-         }		
-	}).when('/viewcomponents/${domain?lower_case}-maintain/update/:id', {
-		controller : '${domain}SingleCtrl',
-		controllerAs : 'ctrl',
-		title : "${domain?lower_case}.update.title",
-		subtitle : "",
-		templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
-        resolve: {
-        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
-         }		
-	});
-}]);
-
+			controller : '${domain?lower_case}AllCtrl',
+			controllerAs : 'ctrl',
+			title : "${domain?lower_case}.all.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateAll}",
+	        resolve: {
+	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	         }
+		}).when('/viewcomponents/${domain?lower_case}-maintain/create/', {
+			controller : '${domain?lower_case}SingleCtrl',
+			controllerAs : 'ctrl',
+			title : "${domain?lower_case}.create.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
+			resolve: {
+	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	         }		
+		}).when('/viewcomponents/${domain?lower_case}-maintain/update/:id', {
+			controller : '${domain?lower_case}SingleCtrl',
+			controllerAs : 'ctrl',
+			title : "${domain?lower_case}.update.title",
+			subtitle : "",
+			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
+	        resolve: {
+	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	         }		
+		});
+	}]);
+})();

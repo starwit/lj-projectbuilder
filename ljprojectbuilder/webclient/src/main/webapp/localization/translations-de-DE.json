@@ -83,6 +83,7 @@
 	"project.templatetitle" 		: "Templatename",
 	"project.templatelocation"		: "Git-Repository des Templates",
 	"project.templatepackageprefix"	: "Java-Package des Templates",
+	"project.templatebranch" : "Branch",
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",

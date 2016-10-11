@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 
@@ -42,11 +44,21 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 		File destDir = new File(entity.getTargetPath());
 		
 		try {
+			String branch = "master";
+			if (entity.getTemplate().getBranch() != null) {
+				branch = entity.getTemplate().getBranch();
+			}
+			List<String> branchesToClone = new ArrayList<>();
+			branchesToClone.add(branch);
 			if (!destDir.exists()) {
-				Git.cloneRepository()
+				Git git = Git.cloneRepository()
 						.setURI(srcDir)
 						.setDirectory(destDir)
+						.setCloneAllBranches( true )
+//						.setBranchesToClone(branchesToClone)
+						.setBranch(branch)
 						.call();
+				git.checkout();
 			} else {
 				return new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.exists");
 			}
@@ -129,6 +141,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @param directory current directory
 	 */
 	private void renameFiles(String oldProjectName, String newProjectName, File directory) {
+		@SuppressWarnings("unchecked")
 		Collection<File> files = FileUtils.listFiles(directory, EXT, true);
 		for (File file : files) {
 			LOG.info("FileName: " + file.getAbsolutePath());

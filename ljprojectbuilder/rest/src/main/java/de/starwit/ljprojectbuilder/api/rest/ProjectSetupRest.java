@@ -3,11 +3,10 @@ package de.starwit.ljprojectbuilder.api.rest;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
+import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
@@ -16,29 +15,10 @@ import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 @Path("/projectsetup")
 @Consumes("application/json")
 @Produces("application/json")
-public class ProjectSetupRest extends AbstractRest<ProjectEntity> {
+public class ProjectSetupRest {
 	
 	@Inject
-	protected ProjectService service;
-	
-	@Override
-	protected ProjectService getService() {
-		return service;
-	}
-	
-	//Create
-	@Path("/")
-	@PUT
-	public EntityResponse<ProjectEntity> create(ProjectEntity entity) {
-		return super.createGeneric(entity);
-	}
-
-	//Update
-	@Path("/")
-	@POST
-	public EntityResponse<ProjectEntity> update(ProjectEntity entity) {
-		return super.updateGeneric(entity);
-	}
+	protected ProjectSetupService service;
 	
 	@Path("/setup")
 	@POST

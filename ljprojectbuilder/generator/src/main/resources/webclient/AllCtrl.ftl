@@ -4,15 +4,20 @@
  */
 (function() {
 	'use strict';
-	angular.module('${appName}.${domain?lower_case}').controller('${domain?lower_case}AllCtrl', ${domain?lower_case}AllCtrl);
-	projectAllCtrl.$inject = ['${domain?lower_case}ConnectorFactory', 'goto${domain}'];
+	angular.module('${appName}App.${domain?lower_case}').controller('${domain?lower_case}AllCtrl', ${domain?lower_case}AllCtrl);
+	${domain?lower_case}AllCtrl.$inject = ['${domain?lower_case}ConnectorFactory', 'goto${domain}'];
 	function ${domain?lower_case}AllCtrl(${domain?lower_case}ConnectorFactory, goto${domain}) {
 		
 		var  ctrl = this;
 		ctrl.refresh = refresh;
 		ctrl.delete${domain} = delete${domain};
 		ctrl.goto${domain} = goto${domain};
+		ctrl.setSelected = setSelected;
 		init();
+		
+		function setSelected(idSelected) { 
+			ctrl.idSelected = idSelected; 
+		}
 		
 		/** 
 		 * Standard function for initialization.
@@ -20,6 +25,7 @@
 		function init() {
 			ctrl.${domain?lower_case}All = [];
 			ctrl.${domain?lower_case} = {};
+			ctrl.idSelected = null;
 			${domain?lower_case}ConnectorFactory.get${domain}All().then(set${domain}All, null);
 		}
 		
@@ -27,7 +33,7 @@
 			${domain?lower_case}ConnectorFactory.get${domain}All().then(set${domain}All, function() {});
 		};
 		
-		function deleteProject(id) {
+		function delete${domain}(id) {
 			${domain?lower_case}ConnectorFactory.delete${domain}(id).then(deleteSuccess, function() {})
 		};
 		
