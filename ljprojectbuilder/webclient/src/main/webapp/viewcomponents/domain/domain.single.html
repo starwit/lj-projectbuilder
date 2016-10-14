@@ -29,7 +29,8 @@
 			<div class="w3-group">
 				<input name="name" class="w3-input" id="name" type="text" ng-model="ctrl.domain.name"  required  ng-pattern="/^[A-Z][a-zA-Z0-9]*$/"/>
 				<label class="w3-label w3-validate">{{'domain.name' | translate}}</label>
-				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
+				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="ctrl.form.name.$error.required">{{'error.required' | translate}}</label>
+				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="ctrl.form.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
 			</div>
 		</div>	
 
@@ -37,7 +38,7 @@
 			<div class="w3-group">
 				<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required />
 				<label class="w3-label w3-validate">{{'domain.description' | translate}}</label>
-				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.description.$error.required">{{'error.required' | translate}}</label>
+				<label class="w3-label w3-validate w3-tiny w3-right" ng-show="ctrl.form.description.$error.required">{{'error.required' | translate}}</label>
 			</div>
 		</div>	
 		<br /><br /><br /><br /><br /><br />
@@ -56,10 +57,10 @@
 				<thead>
 					<tr class="w3-theme-l3">
 						<th>{{'attribute.name' | translate}}
-							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
+							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</label>
 						</th>
 						<th>{{'attribute.description' | translate}}
-							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</label>
+							<label class="w3-label w3-validate w3-tiny w3-right" ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</label>
 						</th>
 						<th>{{'attribute.type' | translate}}</th>
 						<th>{{'attribute.pattern' | translate}}</th>

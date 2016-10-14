@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.apache.log4j.Logger;
@@ -24,7 +22,6 @@ import de.starwit.ljprojectbuilder.response.EntityResponse;
 import de.starwit.ljprojectbuilder.response.ListResponse;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
-import de.starwit.ljprojectbuilder.validation.EntityValidator;
 
 @Path("/project")
 @Consumes("application/json")

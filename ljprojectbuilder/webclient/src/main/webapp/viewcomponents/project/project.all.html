@@ -34,7 +34,7 @@
 					<tbody>
 						<tr>
 							<td class="w3-theme-l5">{{'project.location' | translate}}</td>
-							<td>{{project.template.templateLocation}}</td>
+							<td>{{project.template.templateLocation}}, {{'project.templatebranch' | translate}}: {{project.template.branch}}</td>
 							<td>{{project.targetPath}}</td>
 						</tr>
 						
@@ -48,6 +48,15 @@
 							<td class="w3-theme-l5">{{'project.packageprefix' | translate}}</td>
 							<td>{{project.template.templatePackagePrefix}}</td>
 							<td>{{project.packagePrefix}}</td>
+						</tr>
+						
+						<tr>
+							<td class="w3-theme-l5">{{'project.domains' | translate}}</td>
+							<td colspan="2">
+								<div>
+									<span ng-repeat="domain in project.domains">{{domain.name}} </span>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -90,7 +90,6 @@
 		function setTemplateAll(response) {
 			ctrl.templateAll = response;
 			ctrl.project.template = response[0];
-//			projectConnectorFactory.getBranchnames(ctrl.project.template.templateLocation).then(setBranchnames, null);
 		}
 		
 		function setBranchnames(response) {

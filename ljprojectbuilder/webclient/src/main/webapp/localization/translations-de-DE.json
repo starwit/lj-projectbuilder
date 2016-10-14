@@ -43,7 +43,7 @@
 	"generator.frontend"		: "Oberfläche erzeugen",
 	"generator.testdata"		: "Testdaten erzeugen",
 	"error.project.copytemplate.exists" : "Das Verzeichnis existiert bereits. Bitte geben Sie ein neues Verzeichnis ein.",
-	"error.domain.pattern"	: "Das Feld darf nicht leer sein, darf keine Sonderzeichen enthalten und muss mit einem Großbuchstaben beginnen.",
+	"error.domain.pattern"	: "Das Feld darf keine Sonderzeichen enthalten und muss mit einem Großbuchstaben beginnen.",
 	"error.downloadproject" : "Der Download konnte nicht durchgeführt werden. Bitte erstellen Sie eine Fehlermeldung unter ",
 	"generator.button.downloadproject" : "Projekt herunterladen",
 		

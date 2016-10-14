@@ -15,5 +15,4 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml" };
 	final static Logger LOG = Logger.getLogger(ProjectServiceImpl.class);
-	
 }

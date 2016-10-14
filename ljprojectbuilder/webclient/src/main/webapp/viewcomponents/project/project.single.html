@@ -59,18 +59,18 @@
 					<div class="w3-group">
 						<input type="text" ng-pattern="/^[:\\/a-zA-Z0-9]*$/" class="w3-input w3-col" name="targetpath" id="targetpath" type="text" ng-model="ctrl.project.targetPath" required />
 						<label class="w3-label w3-validate" for="targetpath">{{'project.targetpath' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.targetpath.$error.required">{{'error.required' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.targetpath.$error.pattern">{{'error.pattern' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.targetpath.$error.required">{{'error.required' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.targetpath.$error.pattern">{{'error.pattern' | translate}}</label>
 					</div>
 					<div class="w3-group">
 						<input class="w3-input w3-col" name="title" id="title" type="text" ng-model="ctrl.project.title" required  />
 						<label class="w3-label w3-validate" for="title">{{'project.title' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.title.$error.required">{{'error.required' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
 					</div>
 					<div class="w3-group">
 						<input class="w3-input w3-col" name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.project.packagePrefix" required />
 						<label class="w3-label w3-validate" for="packageprefix">{{'project.packageprefix' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="projectForm.packageprefix.$error.required">{{'error.required' | translate}}</label>
+						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
 					</div>
 				</div>
 			</div>	
