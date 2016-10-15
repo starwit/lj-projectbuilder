@@ -13,13 +13,13 @@ public class GeneratorDto {
 	
 	private ProjectEntity project;
 	
-	private boolean generateEntity;
+	private boolean generateEntity = true;
 	
-	private boolean generateService;
+	private boolean generateService = true;
 	
-	private boolean generateRest;
+	private boolean generateRest = true;
 	
-	private boolean generateFrontend;
+	private boolean generateFrontend = true;
 	
 	private boolean generateTests;
 	

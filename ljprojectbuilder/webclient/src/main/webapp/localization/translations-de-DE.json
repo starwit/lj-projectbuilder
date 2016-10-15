@@ -10,6 +10,7 @@
 	"error.project.copytemplate.templatenotfound" 		: "Das Template konnte nicht kopiert werden. Bitte prüfen Sie, ob Sie das korrekte Verzeichnis angegeben haben.",
 	"error.project.copytemplate.destinationnotfound" 	: "Das Zielverzeichnis konnte nicht gefunden werden.",
 	"error.project.copytemplate.exists" 				: "Das Zielverzeichnis existiert bereits.",
+	"error.project.pattern" : "Es dürfen nur Zahlen und Buchstaben enthalten sein.",
 	
 	"project" : "Projekt",
 	"project.dialog.error.title" 	: "Fehler",

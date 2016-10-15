@@ -34,8 +34,8 @@
 				<tbody>
 					<tr>
 						<td class="w3-theme-l5">{{'project.location' | translate}}</td>
-						<td>{{ctrl.generatorDto.project.template.templateLocation}}</td>
-						<td>{{ctrl.generatorDto.project.targetPath}}, {{'project.templatebranch' | translate}}: {{ctrl.generatorDto.template.branch}}</td>
+						<td>{{ctrl.generatorDto.project.template.templateLocation}}, {{'project.templatebranch' | translate}}: {{ctrl.generatorDto.project.template.branch}}</td>
+						<td></td>
 					</tr>
 					
 					<tr>
@@ -80,10 +80,10 @@
 				<input class="w3-check" type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateFrontend">
 				<label class="w3-validate">{{'generator.frontend' | translate}}</label>
 				
-				<p />
-				<input class="w3-check" type="checkbox" checked="false" ng-model="ctrl.generatorDto.generateTests">
-				<label class="w3-validate">{{'generator.testdata' | translate}}</label>
-			</div>	
+<!-- 				<p /> -->
+<!-- 				<input class="w3-check" type="checkbox" checked="false" ng-model="ctrl.generatorDto.generateTests"> -->
+<!-- 				<label class="w3-validate">{{'generator.testdata' | translate}}</label> -->
+<!-- 			</div>	 -->
 		</div>	
 		<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
 	</form>	
