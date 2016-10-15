@@ -5,14 +5,12 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
-	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'generatorConnectorFactory'];
-	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, generatorConnectorFactory) {
+	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', ];
+	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory) {
 		var ctrl = this;
 
 		ctrl.projectid = 0;
 		ctrl.refresh = refresh;
-		ctrl.generate = generate;
-		ctrl.doProjectSetupAll = doProjectSetupAll;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
@@ -26,30 +24,14 @@
 		};
 		
 		/**
-		 * Generates CRUD-access for domain objects.
-		 */
-		function generate() {
-			ctrl.generatorDto.domains = [];
-			if (ctrl.domainAll != null) {
-				ctrl.domainAll.forEach(function(domain) {
-					ctrl.generatorDto.domains.push(domain);
-				});
-				generatorConnectorFactory.generate(ctrl.generatorDto).then(setupSuccess, setupError);
-			}
-		};
-		
-		/**
-		 * Creates a new project with the given setup from a template-project.
-		 */
-		function doProjectSetupAll() {
-			projectSetupConnectorFactory.projectSetupAll(ctrl.generatorDto.project).then(setupSuccess, setupError);
-		};
-		
-		/**
 		 * Creates a new project with the given setup from a template-project.
 		 */
 		function projectDownload() {
-			projectSetupConnectorFactory.projectDownload(ctrl.generatorDto.project).then(function(){}, setupError);
+			dialogService.showDialog(null, null, "loadingdialog", function(){});
+			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
+				document.getElementById('downloadlink').click();
+				ctrl.closeDialog('loadingdialog');
+			}, setupError);
 		};
 		
 		/** 
@@ -78,7 +60,7 @@
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response; 
 			ctrl.projecttitle = response.title;
-			ctrl.downloadlink="downloadproject?projectpath=" + response.targetPath + '&projectname=' + response.title;
+			ctrl.downloadlink="downloadproject?projectid=" + response.id;
 		}
 		
 		/**

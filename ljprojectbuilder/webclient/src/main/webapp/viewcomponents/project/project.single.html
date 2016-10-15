@@ -31,7 +31,6 @@
 					<h3>{{'project.template' | translate}}</h3>
 					<div class="w3-group">
 						<select class="w3-select w3-border" name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.templateLocation for template in ctrl.templateAll track by template.id" required></select>
-<!-- 						<select class="w3-select w3-border" name="branchnames" id="branchnames" ng-model="ctrl.project.template.branch" ng-options="branch as branch for branch in ctrl.branchnames" required></select> -->
 						<table>
 							<tr>
 								<td><label class="w3-label w3-validate" for="branch">{{'project.templatebranch' | translate}}</label></td><td><span>{{ctrl.project.template.branch}}</span></td>
@@ -57,10 +56,6 @@
 				<div class="w3-container w3-card-4">
 					<h3>{{'project.target' | translate}}</h3>
 					<div class="w3-group">
-						<input type="text" ng-pattern="/^[:\\/a-zA-Z0-9]*$/" class="w3-input w3-col" name="targetpath" id="targetpath" type="text" ng-model="ctrl.project.targetPath" required />
-						<label class="w3-label w3-validate" for="targetpath">{{'project.targetpath' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.targetpath.$error.required">{{'error.required' | translate}}</label>
-						<label class="w3-label w3-validate w3-tiny w3-right"  ng-show="ctrl.form.targetpath.$error.pattern">{{'error.pattern' | translate}}</label>
 					</div>
 					<div class="w3-group">
 						<input class="w3-input w3-col" name="title" id="title" type="text" ng-model="ctrl.project.title" required  />

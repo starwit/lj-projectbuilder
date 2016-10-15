@@ -1,6 +1,7 @@
 <div ng-include="'shared/menus/menu.project.html'"></div>
 <div ng-include="'shared/dialogs/dialog.success.html'"></div>
 <div ng-include="'shared/dialogs/dialog.error.html'"></div>
+<div ng-include="'shared/dialogs/dialog.loading.html'"></div>
 
 <div class=" w3-light-grey">
 	<div class="w3-left w3-padding-right w3-padding-left w3-padding-top w3-padding-bottom">
@@ -20,9 +21,8 @@
 <div class="w3-row-padding w3-container">
 	<form id="projectForm" name="ctrl.form" class="w3-container"> 
 		<div class="w3-row-padding">
-		<div class="w3-half"><h3>{{'generator.title.projectsetup' | translate}}</h3></div>
-		<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.doProjectSetupAll();"><i class="fa fa-gear"></i> {{'generator.button.createproject' | translate}}</button></div>
-		
+			<div class="w3-half"><h3>{{'generator.title.projectsetup' | translate}}</h3></div>
+			<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.projectDownload();"><i class="fa fa-gear"></i> {{'generator.button.downloadproject' | translate}}</button></div>
 			<table class="w3-table-all">
 				<thead>
 					<tr class="w3-theme-l3">
@@ -35,7 +35,7 @@
 					<tr>
 						<td class="w3-theme-l5">{{'project.location' | translate}}</td>
 						<td>{{ctrl.generatorDto.project.template.templateLocation}}</td>
-						<td>{{ctrl.generatorDto.project.targetPath}}</td>
+						<td>{{ctrl.generatorDto.project.targetPath}}, {{'project.templatebranch' | translate}}: {{ctrl.generatorDto.template.branch}}</td>
 					</tr>
 					
 					<tr>
@@ -54,11 +54,7 @@
 		</div>	
 		
 		<div class="w3-padding-top" ng-if="ctrl.domainAll != null && ctrl.domainAll.length > 0">
-			<div class="w3-container w3-padding-top">
-				<div class="w3-half w3-padding-top"><h3>{{'generator.title.domains' | translate}}</h3></div>
-				<div class="w3-right w3-padding-top"><button class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.generate();"><i class="fa fa-gear"></i> {{'generator.button.generatedomains' | translate}}</button></div>
-			</div>
-					
+			<div class=" w3-padding-top"><h3>{{'generator.title.domains' | translate}}</h3></div>
 			<div class="w3-half w3-row-padding">
 				<div ng-repeat="domain in ctrl.domainAll">
 					<p />
@@ -89,11 +85,6 @@
 				<label class="w3-validate">{{'generator.testdata' | translate}}</label>
 			</div>	
 		</div>	
-		<div class="w3-row-padding">
-			<div class="w3-half w3-padding-top"><h3>{{'generator.title.projectdownload' | translate}}</h3></div>
-			<div class="w3-right w3-padding-top">
-				<a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" ><i class="fa fa-file-archive-o"> </i> {{'generator.button.downloadproject' | translate}}</a>
-			</div>
-		</div>	
+		<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
 	</form>	
 </div>	

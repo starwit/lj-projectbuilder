@@ -39,7 +39,9 @@ public abstract class AbstractModule {
 	}
 	
 	public String getModuleDir() {
-		return setupBean.getProject().getTargetPath() 
+		return 
+				Constants.TMP_DIR 
+				+ Constants.FILE_SEP + 	setupBean.getProject().getTargetPath() 
 				+ Constants.FILE_SEP + setupBean.getProject().getTitle() 
 				+ Constants.FILE_SEP + getModuleName() 
 				+ Constants.FILE_SEP;
