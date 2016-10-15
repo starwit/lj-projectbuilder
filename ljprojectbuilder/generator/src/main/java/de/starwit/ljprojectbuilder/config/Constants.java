@@ -8,6 +8,7 @@ public class Constants {
 	/** file separator   */
 	public static final String FILE_SEP = System.getProperty("file.separator");
 	public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+	public static final String LJ_PREFIX = "LJ_";
 	
 	/** source paths */
 	public final static String SOURCE_PATH 	= "src" + FILE_SEP + "main" + FILE_SEP + "java" + FILE_SEP;

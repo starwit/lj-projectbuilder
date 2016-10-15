@@ -77,7 +77,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 				}
 			}
 			
-			destDir = Files.createTempDirectory(entity.getTitle());
+			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + entity.getTitle());
 			entity.setTargetPath(destDir.getFileName().toString());
 			projectService.update(entity);
 			return entity;

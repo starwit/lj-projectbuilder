@@ -53,5 +53,4 @@ public class DomainServiceTest extends AbstractServiceTest<DomainService, Domain
 		entity = getService().update(entity);
 		Assert.assertEquals("DomainChanged", entity.getName());
 	}
-
 }

@@ -43,18 +43,20 @@ public class ZipDownloadServlet extends HttpServlet {
 			Long projectid = Long.parseLong(projectid_string);
 
 			ProjectEntity entity = projectService.findById(projectid);
-			if(entity != null && entity.getTargetPath() != null) {
+			if (entity != null && entity.getTargetPath() != null) {
 				File directory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-				String[] files = directory.list();
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ZipOutputStream zos = new ZipOutputStream(baos);
-			    addDirToZipArchive(zos, directory, null);
-			    zos.flush();
-			    baos.flush();
-			    zos.close();
-			    baos.close();
-
-				if (files != null && files.length > 0) {
+				File[] files = directory.listFiles();
+				if(files != null && files.length > 0) {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					ZipOutputStream zos = new ZipOutputStream(baos);
+					for (File file : files) {
+						  addDirToZipArchive(zos, file, null);
+					}
+				    zos.flush();
+				    baos.flush();
+				    zos.close();
+				    baos.close();
+	
 					ServletOutputStream sos = response.getOutputStream();
 					response.setContentType("application/zip");
 					response.setHeader("Content-Disposition", "attachment; filename=\"" + entity.getTitle() + ".ZIP\"");
@@ -79,6 +81,10 @@ public class ZipDownloadServlet extends HttpServlet {
 	    }
 
 	    String zipEntryName = fileToZip.getName();
+	    if (".git".equals(zipEntryName) || ".gitignore".equals(zipEntryName)) {
+	    	return;
+	    }
+
 	    if (parrentDirectoryName!=null && !parrentDirectoryName.isEmpty()) {
 	        zipEntryName = parrentDirectoryName + "/" + fileToZip.getName();
 	    }
