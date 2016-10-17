@@ -38,4 +38,23 @@
 		</dependency>
 
 	</dependencies>
+	
+	<profiles>
+    <profile>
+    	<id>dev</id>
+    	<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+    	<dependencies>
+	    	<dependency>
+				<groupId>ljprojectbuilder</groupId>
+				<artifactId>dbautoinit</artifactId>
+				<type>jar</type>
+			</dependency>	
+    	</dependencies>
+    </profile>
+        <profile>
+    	<id>prod</id>
+    </profile>
+</profiles>
 </project>

@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.ejb.impl;
+package de.starwit.ljprojectbuilder.startup;
 
 import java.sql.SQLException;
 
