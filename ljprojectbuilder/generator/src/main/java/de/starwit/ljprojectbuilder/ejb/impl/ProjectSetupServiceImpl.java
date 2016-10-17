@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.GeneratorService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
+import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.exeptions.ProjectSetupException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
@@ -53,6 +55,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 		checkoutProjectTemplate(entity);
 		renameProject(entity);
 		renamePackage(entity);
+		dto.setProject(entity);
 		
 		generatorSerivce.generate(dto);
 	}
@@ -79,7 +82,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 			
 			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + entity.getTitle());
 			entity.setTargetPath(destDir.getFileName().toString());
-			projectService.update(entity);
+			entity = projectService.update(entity);
 			return entity;
 		} catch (IOException e) {
 			LOG.error("Error creating temporary folder for project", e);

@@ -28,6 +28,7 @@
 		 */
 		function projectDownload() {
 			dialogService.showDialog(null, null, "loadingdialog", function(){});
+			ctrl.generatorDto.domains = ctrl.domainAll;
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
 				ctrl.closeDialog('loadingdialog');
