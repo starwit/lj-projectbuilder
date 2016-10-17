@@ -46,7 +46,7 @@
 	<profiles>
 			<profile>
 				<!-- This profile shall generate an execution environment as close as possible to production settings. -->
-				<id>dev</id>
+				<id>devh2</id>
 				<activation>
 					<activeByDefault>true</activeByDefault>
 				</activation>
@@ -59,7 +59,7 @@
 								<tomeeVersion>7.0.1</tomeeVersion>
 								<tomeeClassifier>plus</tomeeClassifier>
 								<debug>false</debug>
-								<config>${project.basedir}/src/main/tomee/dev/conf</config>
+								<config>${project.basedir}/src/main/tomee/devh2/conf</config>
 									<libs>
 										<lib>com.h2database:h2:1.3.175</lib>
 										<lib>remove:openjpa-</lib>
@@ -75,7 +75,7 @@
 		
 		<profile>
 			<!-- This profile shall generate an execution environment as close as possible to production settings. -->
-			<id>prod</id>
+			<id>devmysql</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -88,7 +88,7 @@
 							<tomeeVersion>7.0.1</tomeeVersion>
 							<tomeeClassifier>plus</tomeeClassifier>
 							<debug>false</debug>
-							<config>${project.basedir}/src/main/tomee/prod/conf</config>
+							<config>${project.basedir}/src/main/tomee/devmysql/conf</config>
 								<libs>
 									<lib>org.mariadb.jdbc:mariadb-java-client:1.5.4</lib>
 									<lib>remove:openjpa-</lib>
