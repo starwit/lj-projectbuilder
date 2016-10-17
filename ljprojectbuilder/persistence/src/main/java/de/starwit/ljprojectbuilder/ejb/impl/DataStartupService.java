@@ -22,6 +22,8 @@ import org.flywaydb.core.api.MigrationVersion;
 public class DataStartupService {
 	
 	private final static Logger LOG =  Logger.getLogger("DataStartupService");
+	private static final String DB = System.getProperty("flyway.database");
+	private static final String FS = System.getProperty("file.separator");
 
 	@Resource(name = "jdbc/ljprojectbuilder")
 	private DataSource dataSource;
@@ -34,14 +36,20 @@ public class DataStartupService {
 					"no datasource found to execute the db migrations!");
 		}
  
+		String schema = "sql" + FS + "mysql";
+		if (DB != null) {
+			 schema = "sql" + FS + DB;
+		}
 		Flyway flyway = new Flyway();
 		flyway.setDataSource(dataSource);
 		flyway.setBaselineOnMigrate(true);
+		flyway.setLocations("sql" + FS + "configdata", schema);
 		flyway.setBaselineVersion(MigrationVersion.fromVersion("201609221422"));
 		for (MigrationInfo i : flyway.info().all()) {
 			LOG.info("migrate task: " + i.getVersion() + " : "
 					+ i.getDescription() + " from file: " + i.getScript());
 		}
+		flyway.repair();
 		flyway.migrate();
 	}
 }

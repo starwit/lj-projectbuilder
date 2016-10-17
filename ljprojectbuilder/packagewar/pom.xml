@@ -49,7 +49,6 @@
 						<warName>${project.parent.artifactId}</warName>
 					</configuration>
 				</plugin>
-				
 			</plugins>
 		</pluginManagement>
 	</build>

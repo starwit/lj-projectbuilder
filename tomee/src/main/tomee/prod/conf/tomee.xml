@@ -5,22 +5,13 @@
   <!-- activate next line to be able to deploy applications in apps -->
   <!-- <Deployments dir="apps" /> -->
   
-<!-- <Resource id="jdbc/lirejarp" type="DataSource"> -->
-<!--     DataSourceCreator = tomcat -->
-<!--     JtaManaged=true -->
-<!--     JdbcDriver = com.mysql.jdbc.Driver -->
-<!--     JdbcUrl = jdbc:mysql://127.0.0.1:3306/lirejarp -->
-<!--     UserName = lirejarp -->
-<!--     Password = lirejarp -->
-<!-- </Resource> -->
-
 <Resource id="jdbc/ljprojectbuilder" type="DataSource">
-    accessToUnderlyingConnectionAllowed = false
-    defaultAutoCommit = true
-    jdbcDriver = org.h2.Driver
-    jdbcUrl = jdbc:h2:~/ljprojectbuilder;FILE_LOCK=NO
-    jtaManaged = true
-    password = 
-    userName = sa
+    DataSourceCreator = tomcat
+    JtaManaged=true
+    JdbcDriver = org.mariadb.jdbc.Driver
+    JdbcUrl = jdbc:mysql://127.0.0.1:3306/ljprojectbuilder
+    UserName = ljprojectbuilder
+    Password = ljprojectbuilder
 </Resource>
+
 </tomee>

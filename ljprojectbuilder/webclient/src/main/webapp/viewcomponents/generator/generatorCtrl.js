@@ -58,7 +58,12 @@
 		 * Used for setting the database result to the representation-object in the controller.
 		 */
 		function setGeneratorDto(response) {
-			ctrl.generatorDto.project = response; 
+			ctrl.generatorDto.project = response;
+			ctrl.generatorDto.generateEntity = true;
+			ctrl.generatorDto.generateService = true;
+			ctrl.generatorDto.generateRest = true;
+			ctrl.generatorDto.generateFrontend = true;
+			
 			ctrl.projecttitle = response.title;
 			ctrl.downloadlink="downloadproject?projectid=" + response.id;
 		}
