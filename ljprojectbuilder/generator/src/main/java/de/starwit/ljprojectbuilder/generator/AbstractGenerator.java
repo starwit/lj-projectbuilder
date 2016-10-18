@@ -1,11 +1,15 @@
 package de.starwit.ljprojectbuilder.generator;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +23,9 @@ import freemarker.template.TemplateException;
 public abstract class AbstractGenerator<E extends AbstractModule> implements Generator {
 
 	public final static Logger LOG = Logger.getLogger(AbstractGenerator.class);
+	
+	private final static String BEGIN_GENERATION ="###BEGIN###";
+	private final static String END_GENERATION ="###END###";
 	
 	private E module;
 	
@@ -38,7 +45,7 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 			
 			Map<String, Object> data = fillTemplateGlobalParameter(setupBean);
 			generateGlobal(setupBean, data);
-			generateAdditionals(data);
+			generateAdditionalContent(data);
 			
 			List<DomainEntity> domains = setupBean.getDomains();
 			for (DomainEntity domain : domains) {
@@ -50,9 +57,6 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			LOG.error("Inherit class of AbstractEntity could not be resolved.");
 		}
-	}
-
-	protected void generateAdditionals(Map<String, Object> data) {
 	}
 	
 	public abstract Map<String, Object> fillTemplateDomainParameter(DomainEntity domain);
@@ -93,6 +97,58 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 			template.process(data, filewriter);
 			filewriter.flush();
 			filewriter.close();
+		}
+	}
+
+	protected void generateAdditionalContent(Map<String, Object> data) {
+		addContentToFiles(data);
+	}
+	
+	private void addContentToFiles(Map<String, Object> data) {
+		try {
+			for (TemplateDef templateDef : getModule().getAdditionalContentTemplates()) {
+				addLinesToFile(templateDef.getTargetFileUrl(), templateDef.getTemplate(), data);
+			}
+		} catch (IOException e) {
+			LOG.error("Error during file writing: ", e);
+		} catch (TemplateException e) {
+			LOG.error("Error generation Template:", e);
+		}
+	}
+	
+	private void addLinesToFile(String inputFilename, Template template, Map<String, Object> data)
+			throws IOException, TemplateException {
+
+		File inputFile = new File(inputFilename);
+		File tempFile = new File(inputFilename + "_tmp");
+		if (inputFile.exists() && inputFile.isFile()) {
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+			Writer writer = new BufferedWriter(new FileWriter(tempFile));
+
+			String currentLine;
+
+			boolean copyContentFromFile = true;
+
+			while ((currentLine = reader.readLine()) != null) {
+				if (null != currentLine) {
+					if (currentLine.contains(END_GENERATION)) {
+						copyContentFromFile = true;
+					}
+					if (copyContentFromFile) {
+						writer.write(currentLine + System.getProperty("line.separator"));
+					}
+					if (currentLine.contains(BEGIN_GENERATION)) {
+						copyContentFromFile = false;
+						template.process(data, writer);
+						writer.write(System.getProperty("line.separator"));
+					}
+				}
+			}
+			writer.flush();
+			writer.close();
+			reader.close();
+			inputFile.delete();
+			Files.move(tempFile.toPath(), inputFile.toPath());
 		}
 	}
 }

@@ -36,10 +36,10 @@ public class FrontendModule extends AbstractModule {
 		frontendConnectorT.setLowerCase(true);
 		getDomainTemplates().add(frontendConnectorT);
 
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "index.html", "webclient" + Constants.FILE_SEP + "scripts.ftl"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "app.module.js", "webclient" + Constants.FILE_SEP + "app.module.ftl"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "menu.html", "webclient" + Constants.FILE_SEP + "menu.ftl"));
-		getGlobalTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-de-DE.json", "webclient" + Constants.FILE_SEP + "translation.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "index.html", "webclient" + Constants.FILE_SEP + "scripts.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "app.module.js", "webclient" + Constants.FILE_SEP + "app.module.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "menu.html", "webclient" + Constants.FILE_SEP + "menu.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-de-DE.json", "webclient" + Constants.FILE_SEP + "translation.ftl"));
 	}
 
 	private TemplateDef configureTemplateDef(String name, String fileext) {

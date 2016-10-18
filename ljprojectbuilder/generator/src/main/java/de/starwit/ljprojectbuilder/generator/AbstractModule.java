@@ -14,6 +14,7 @@ public abstract class AbstractModule {
 	
 	private List<TemplateDef> domainTemplates = new ArrayList<>();
 	private List<TemplateDef> globalTemplates = new ArrayList<>();
+	private List<TemplateDef> additionalContentTemplates = new ArrayList<>();
 	
 	private GeneratorDto setupBean;
 	
@@ -79,6 +80,14 @@ public abstract class AbstractModule {
 
 	public void setGlobalTemplates(List<TemplateDef> globalTemplates) {
 		this.globalTemplates = globalTemplates;
+	}
+
+	public List<TemplateDef> getAdditionalContentTemplates() {
+		return additionalContentTemplates;
+	}
+
+	public void setAdditionalContentTemplates(List<TemplateDef> additionalContentTemplates) {
+		this.additionalContentTemplates = additionalContentTemplates;
 	}
 	
 }

@@ -26,6 +26,7 @@ public class EntityGenerator extends AbstractGenerator<EntityModule> {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appName", setupBean.getProject().getTitle());
 		data.put("package", setupBean.getProject().getPackagePrefix());
+		data.put("classes", getModule().getEntityClasses());
 		return data;
 	}
 
