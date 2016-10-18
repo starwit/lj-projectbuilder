@@ -1,51 +1,52 @@
-<div ng-include="'shared/menus/menu.project.html'"></div>
-<div ng-include="'shared/dialogs/dialog.success.html'"></div>
-<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+<div id="headerBox" ng-include="'shared/menus/menu.project.html'"></div>
 
-<div class=" w3-light-grey">
-	<div class="w3-left w3-padding-right w3-padding-left w3-padding-top w3-padding-bottom"><button id="prev" class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.gotoDomain.prev(ctrl.projectid);"><i class="fa fa-chevron-left"></i> {{'button.back' | translate}}</button></div>
-	<div class="w3-padding-right w3-padding-left w3-right w3-padding-top w3-padding-bottom"><button id="next" class="w3-btn w3-pb-red w3-round-xxlarge" ng-click="ctrl.gotoDomain.next(ctrl.projectid);" title="{{'button.next' | translate}}"><i class="fa fa-chevron-right"></i> {{'button.next' | translate}}</button></div>
-	
-	<div class="w3-padding-top w3-padding-bottom">
-		<ul class="w3-navbar w3-light-grey">
-		  <li ><a class="w3-round-xxlarge" href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">Details</a></li>
-		  <li><a class="w3-bp-green w3-round-xxlarge" href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}">Domainobjekte</a></li>
-		  <li><a class="w3-round-xxlarge" href="#/viewcomponents/generator/generate/{{ctrl.projectid}}">Generierung</a></li>
-		</ul>
+<div id="subheaderBox">
+	<div class="top">
+		<span class="navBar">
+			<ul>
+			  <li class="step1 act"><a href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">Details</a></li>
+			  <li class="step2 act"><a href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}" ng-click="ctrl.doMaintainDomain();">Domainobjekte</a></li>
+			  <li class="step3"><a href="#/viewcomponents/generator/generate/{{ctrl.projectid}}" ng-click="ctrl.doMaintainGenerate();">Generierung</a></li>
+			  <li class="clearer"></li>
+			</ul>
+		</span>
+		<button class="icon back hint" ng-click="ctrl.gotoDomain.prev(ctrl.projectid);"><span>{{'button.back' | translate}}</span></button>
+		<button class="icon next right hint" ng-click="ctrl.gotoDomain.next(ctrl.projectid);" title="{{'button.next' | translate}}"><span>{{'button.next' | translate}}</span></button>
+		<div class="clearer"></div>
+	</div>
+	<div class="bottom aCenter">
+		<span class="button add"><a ng-click="ctrl.gotoDomain.create(ctrl.projectid);">+ Domain {{'button.add' | translate}}</a></span>
 	</div>
 </div>
 
-
-<div class="w3-row-padding w3-container">
-	<div class="w3-row-padding">
-		<div class="w3-half">
-			<h2></h2>
-		</div>
-		<div class="w3-half">
-			<div class="w3-right w3-padding-top">
-				<button class="w3-btn w3-theme w3-round-xxlarge " ng-click="ctrl.gotoDomain.create(ctrl.projectid);"><i class="fa fa-plus"></i> {{'button.add' | translate}}</button>
-			</div>
-		</div>
-	</div>	
-	<div class="w3-row-padding">	
-		<div class="w3-accordion" ng-repeat="domain in ctrl.domainAll">
-			<div ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
-			  	<div ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);" class="w3-closebtn w3-padding">x</div>
-				<h3>{{domain.name}}</h3>
-				<span>{{domain.description}}</span>
-			</div>
-			<div id="{{domain.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
-			    <h3>{{'attribute.all.title' | translate}}</h3>
-			    <table class="w3-table-all">
-					<thead >
-						<tr class="w3-theme-l3">
+<div id="bodyBox">
+	<div class="contain">
+		<ul class="itemList">
+			<li class="odd" ng-repeat="domain in ctrl.domainAll">
+				<span class="rulerAfter" ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
+					<h3>{{domain.name}}</h3>
+					<p>{{domain.description}}</p>
+				</span>
+				<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);">x</a></span>
+				<h3>{{'attribute.all.title' | translate}}</h3>
+				<table id="{{domain.id}}" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
+			    	<colgroup>
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    	</colgroup>
+			    	<thead>
+						<tr>
 							<th>{{'attribute.name' | translate}}</th>
 							<th>{{'attribute.description' | translate}}</th>
 							<th>{{'attribute.type' | translate}}</th>
 							<th>{{'attribute.pattern' | translate}}</th>
 							<th>{{'attribute.max' | translate}}</th>
 							<th>{{'attribute.min' | translate}}</th>
-						</tr>	
+						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="attribute in domain.attributes">
@@ -58,7 +59,16 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</div>	
+			</li>
+		</ul>
 	</div>
+</div>
+
+<div id="footerBox">
+	<p>&copy; LireJarp</p>
+</div>
+
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
 </div>

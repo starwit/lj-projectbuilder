@@ -1,0 +1,102 @@
+/* --- ROUNDED --- */
+
+.rounded input[type="text"],.rounded input[type="password"],.rounded input[type="submit"],.rounded textarea,.rounded select,.button{-moz-border-radius:5px;-webkit-border-radius:5px;-o-border-radius:5px;-ms-border-radius:4px;border-radius:5px}
+.rounded button,.rounded .button a,.rounded button span{-moz-border-radius:7px;-webkit-border-radius:7px;-o-border-radius:7px;-ms-border-radius:7px;border-radius:7px}
+.rounded button span{-moz-border-radius:7px 7px 7px 0;-webkit-border-radius:7px 7px 7px 0;-o-border-radius:7px 7px 7px 0;-ms-border-radius:7px 7px 7px 0;border-radius:7px 7px 7px 0}
+.rounded button.right span{-moz-border-radius:7px 7px 0 7px;-webkit-border-radius:7px 7px 0 7px;-o-border-radius:7px 7px 0 7px;-ms-border-radius:7px 7px 0 7px;border-radius:7px 7px 0 7px}
+.rounded #dialogBox .msg{-moz-border-radius:15px;-webkit-border-radius:15px;-o-border-radius:15px;-ms-border-radius:15px;border-radius:15px}
+.rounded .navBar ul li:first-child a{-moz-border-radius:7px 0 0 7px;-webkit-border-radius:7px 0 0 7px;-o-border-radius:7px 0 0 7px;-ms-border-radius:7px 0 0 7px;border-radius:7px 0 0 7px}
+
+/* --- SHADOWS --- */
+
+.shadow,.shadows button,.shadows .button a{-moz-box-shadow:0 0 7px #8f8f8f;-webkit-box-shadow:0 0 7px #8f8f8f;-o-box-shadow:0 0 7px #8f8f8f;-ms-box-shadow:0 0 7px #8f8f8f;box-shadow:0 0 7px #8f8f8f}
+.noShadow,.shadow:hover,.shadows button:hover,.shadows .button a:hover{-moz-box-shadow:0 0 2px #3f3f3f;-webkit-box-shadow:0 0 2px #3f3f3f;-o-box-shadow:0 0 2px #3f3f3f;-ms-box-shadow:0 0 2px #3f3f3f;box-shadow:0 0 2px #3f3f3f}
+.shadows .button{padding-bottom:7px}
+.shadows td .button{padding-bottom:0}
+
+/* --- GREY --- */
+
+#page .navBar ul li a{color:#000}
+#page .navBar ul li.act a{color:#fff}
+#page .navBar ul li.step1 a{background-color:#bfbfbf}
+#page .navBar ul li.step2 a{background-color:#cfcfcf}
+#page .navBar ul li.step3 a{background-color:#dfdfdf}
+#page .navBar ul li.step1 a::after{border-color:transparent transparent transparent #bfbfbf}
+#page .navBar ul li.step2 a::after{border-color:transparent transparent transparent #cfcfcf}
+#page .navBar ul li.step3 a::after{border-color:transparent transparent transparent #dfdfdf}
+
+.odd{background-color:#dfdfdf}
+.even{background-color:#f0f0f0}
+
+#page .button.grey a{background-color:#8f8f8f}
+#page .button.grey a:hover{background-color:#5f5f5f}
+
+/* --- GREEN --- */
+
+#green{background:#c0d6ce}
+#green #headerBox,#green button,#green .button a{color:#fff;background-color:#027850}
+#green #footerBox p{color:#027850}
+
+#green .navBar ul li.step1.act a{background-color:#1d5443}
+#green .navBar ul li.step2.act a{background-color:#3d7463}
+#green .navBar ul li.step3.act a{background-color:#5d9483}
+#green .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #1d5443}
+#green .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #3d7463}
+#green .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #5d9483}
+
+/* --- RED --- */
+
+#red{background:#fef0ec}
+#red #headerBox,#red button,#red .button a{color:#fff;background-color:#B82907}
+#red #footerBox p{color:#B82907}
+
+#red .navBar ul li.step1.act a{background-color:#7f1d05}
+#red .navBar ul li.step2.act a{background-color:#9f3d25}
+#red .navBar ul li.step3.act a{background-color:#bf5d45}
+#red .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #7f1d05}
+#red .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #9f3d25}
+#red .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #bf5d45}
+
+/* --- YELLOW --- */
+
+#yellow{background:#f2cf40}
+#yellow #headerBox,#yellow button,#yellow .button a{color:#fff;background-color:#ffa100}
+#yellow #footerBox p{color:#e28f00}
+
+#yellow .navBar ul li.step1.act a{background-color:#e28f00}
+#yellow .navBar ul li.step2.act a{background-color:#f2af20}
+#yellow .navBar ul li.step3.act a{background-color:#f2cf40}
+#yellow .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #e28f00}
+#yellow .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #f2af20}
+#yellow .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #f2cf40}
+
+/* --- BLUE --- */
+
+#blue{background:#e8f5ff}
+#blue #headerBox,#blue button,#blue .button a{color:#fff;background-color:#00477e}
+#blue #footerBox p{color:#00477e}
+
+#blue .navBar ul li.step1.act a{background-color:#002b4d}
+#blue .navBar ul li.step2.act a{background-color:#204b6d}
+#blue .navBar ul li.step3.act a{background-color:#406b8d}
+#blue .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #002b4d}
+#blue .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #204b6d}
+#blue .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #406b8d}
+
+/* --- WHITE ---*/
+
+#page .button.delete a{color:#7f7f7f!important;background-color:#fff!important}
+#page .button.delete a:hover{color:#000!important}
+
+#page #dialogBox .button.delete a{color:#fff!important;background-color:transparent!important;-moz-box-shadow:none;-webkit-box-shadow:none;-o-box-shadow:none;-ms-box-shadow:none;box-shadow:none}
+
+/* --- EFFECTS / TRANSITION --- */
+
+button:hover,.button:hover,a:hover,img:hover{transition: background-color 0.3s ease 0s, color 0.15s ease 0s, box-shadow 0.3s ease 0s, opacity 0.3s ease 0s}
+
+.box{-moz-box-shadow:none!important;-webkit-box-shadow:none!important;-o-box-shadow:none!important;-ms-box-shadow:none!important;box-shadow:none!important;filter:none!important}
+.box{-moz-border-radius:0!important;-webkit-border-radius:0!important;-o-border-radius:0!important;-ms-border-radius:0!important;border-radius:0!important;filter:none!important}
+.box{-moz-opacity:1!important;-webkit-opacity:1!important;-o-opacity:1!important;-ms-opacity:1!important;opacity:1!important;filter:none!important}
+.box{-moz-transition:none!important;-webkit-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}
+
+#page #dialogBox .button.delete a:hover{-moz-box-shadow:none!important;-webkit-box-shadow:none!important;-o-box-shadow:none!important;-ms-box-shadow:none!important;filter:none!important;box-shadow:none!important;-moz-border-radius:0!important;-webkit-border-radius:0!important;-o-border-radius:0!important;-ms-border-radius:0!important;border-radius:0!important;-moz-opacity:1!important;-webkit-opacity:1!important;-o-opacity:1!important;-ms-opacity:1!important;opacity:1!important;-moz-transition:none!important;-webkit-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important;filter:none!important}

@@ -2,21 +2,19 @@
 <html lang="<%= locale %>" ng-app="ljprojectbuilderApp"  ng-controller="appController">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>ljprojectbuilderApp</title>
+	<title>LJProjectbuilder</title>
 	<meta name="keywords" content="ljprojectbuilderApp" jee, java, architecture" />
 	<meta name="description" content="Lightweight REST JEE Arch Pattern" />
 
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link href="res/css/w3c.css" rel="stylesheet" type="text/css" />	
-	<link href="res/css/w3-theme.css" rel="stylesheet" type="text/css" />
-	<link href="res/css/w3-theme-color.css" rel="stylesheet" type="text/css" />	
+	<link href="res/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/elements.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/themes.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/viewports.css" rel="stylesheet" type="text/css" />
 </head>
-
-<body>
-	<div class="">
+<body id="{{ 'theme.color' | translate}}">
+	<div id="page" class="rows{{ 'theme.rows' | translate}} cols{{ 'theme.columns' | translate}} {{ 'theme.properties' | translate}}">
 		<div ng-view></div>
 	</div>
-
 	<script src="res/lib/angular.js" type="application/javascript"></script>
 	<script src="res/lib/angular-route.js" type="application/javascript"></script>
 	<script src="res/lib/angular-translate.min.js" type="application/javascript"></script>
@@ -48,6 +46,5 @@
 	<script src="app.module.js"></script>
 	<script src="app.routes.js"></script>
 	<!-- ###END### generated scripts -->
-
 </body>
 </html>
