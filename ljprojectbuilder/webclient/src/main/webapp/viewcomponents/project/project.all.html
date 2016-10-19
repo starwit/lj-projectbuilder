@@ -1,66 +1,86 @@
-<div ng-include="'shared/menus/menu.project.all.html'"></div>
-<div ng-include="'shared/dialogs/dialog.success.html'"></div>
-<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+<div id="headerBox" ng-include="'shared/menus/menu.project.all.html'"></div>
 
-<div class="w3-row-padding w3-container">
-	<div class="w3-row-padding">
-		<div class="w3-half">
-			<h2></h2>
-		</div>
-		<div class="w3-half">
-			<div class="w3-right w3-padding-top">
-				<button class="w3-btn w3-theme w3-round-xxlarge" ng-click="ctrl.gotoProject.create();"><i class="fa fa-plus"></i> {{ 'button.add' | translate}}</button>
-			</div>
-		</div>
-	</div>	
-	<div class="w3-row-padding">
-		<div class="w3-accordion"  ng-repeat="project in ctrl.projectAll">
-			<div ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);" class="w3-margin-top w3-border w3-btn-block w3-left-align w3-theme-l4 w3-card-4">
-				<div id="delete" ng-click="$event.stopPropagation();ctrl.deleteProject(project.id);" class="w3-closebtn w3-padding">x</div>
-				<h3>{{project.title}}</h3>
-				<span>{{project.description}}</span>
-			</div>
-			
-			<div id="{{project.id}}" class="w3-accordion-content w3-padding-16 w3-card-4 w3-hoverable" ng-dblclick="ctrl.gotoProject.update(project.id);" >
-			  	
-				<table class="w3-table-all">
+<div id="subheaderBox" class="aCenter">
+	<div class="bottom">
+		<span class="button add"><a ng-click="ctrl.gotoProject.create();">+ Projekt {{ 'button.add' | translate}}</a></span>
+		<div class="clearer"></div>
+	</div>
+</div>
+<div id="bodyBox">
+	<div class="contain">
+		<ul class="itemList">
+			<li class="odd" ng-repeat="project in ctrl.projectAll">
+				<table class="acc" id="{{project.id}}" ng-dblclick="ctrl.gotoProject.update(project.id);">
+			    	<colgroup>
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    	</colgroup>
 					<thead>
-						<tr class="w3-theme-l3">
-							<th>{{'project.label' | translate}}</th>
-							<th>{{'project.template' | translate}}</th>
-							<th>{{'project.target' | translate}}</th>
-						</tr>	
+						<tr>
+							<td><h3>{{project.title}} | {{project.description}}</h3></td>
+							<td class="aCenter">
+								<span class="button"><a ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);">Details | Bearbeiten</a></span>
+							</td>
+							<td class="aRight">
+								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteProject(project.id);">x</a></span>
+							</td>
+						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="w3-theme-l5">{{'project.location' | translate}}</td>
-							<td>{{project.template.templateLocation}}, {{'project.templatebranch' | translate}}: {{project.template.branch}}</td>
-							<td></td>
-						</tr>
-						
-						<tr>
-							<td class="w3-theme-l5">{{'project.title' | translate}}</td>
-							<td>{{project.template.templateTitle}}</td>
-							<td>{{project.title}}</td>
-						</tr>
-						
-						<tr>
-							<td class="w3-theme-l5">{{'project.packageprefix' | translate}}</td>
-							<td>{{project.template.templatePackagePrefix}}</td>
-							<td>{{project.packagePrefix}}</td>
-						</tr>
-						
-						<tr>
-							<td class="w3-theme-l5">{{'project.domains' | translate}}</td>
-							<td colspan="2">
-								<div>
-									<span ng-repeat="domain in project.domains">{{domain.name}} </span>
-								</div>
+							<td>
+								<table>
+									<tr>
+										<td colspan="2"><h4>{{'project.template' | translate}}</h4></td>
+									</tr>
+									<tr>
+										<th>{{'project.location' | translate}}:</th>
+										<td>{{project.template.templateLocation}}</td>
+									</tr>
+									<tr>
+										<th>{{'project.title' | translate}}:</th>
+										<td>{{project.template.templateTitle}}</td>
+									</tr>
+									<tr>
+										<th>{{'project.packageprefix' | translate}}:</th>
+										<td>{{project.template.templatePackagePrefix}}</td>
+									</tr>
+								</table>
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								<table>
+									<tr>
+										<td colspan="2"><h4>{{'project.target' | translate}}</h4></td>
+									</tr>
+									<tr>
+										<th>{{'project.location' | translate}}:</th>
+										<td>{{project.targetPath}}</td>
+									</tr>
+									<tr>
+										<th>{{'project.title' | translate}}:</th>
+										<td>{{project.title}}</td>
+									</tr>
+									<tr>
+										<th>{{'project.packageprefix' | translate}}:</th>
+										<td>{{project.packagePrefix}}</td>
+									</tr>
+								</table>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</div>	
+			</li>
+		</ul>
 	</div>
+</div>
+
+<div id="footerBox">
+	<p>&copy; LireJarp</p>
+</div>
+
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
 </div>

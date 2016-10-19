@@ -126,4 +126,20 @@
 			<arg value="-e ${sql_user_create}" />
 		</exec>
     </target>
+	
+	<target name="info">
+		<echo>Provides various scripts to build and run application. Most stuff should run on Linux + Windows</echo>
+		<echo>Targets available:</echo>
+		<echo>setup_project: 		download tomee, build app, start tomee</echo>
+		<echo>rebuild_application: 	stop tomee, build app, start tomee</echo>
+		<echo>clean_all: 			stop tomee, clean app, clean tomee</echo>
+		<echo>copy_frontend_local: 	copies web frontend into local deployment folder (designer shortcut ;))</echo>
+		<echo>build_copy: 		build app, copy to a given tomee folder </echo>
+		<echo>build_application: 		clean + build application</echo>
+		<echo>clean_application: 		clean application</echo>
+		
+		<echo>stop_tomee: 		stop tomee</echo>
+		<echo>run_tomee: 			start tomee</echo>
+		<echo>clean_tomee: 		start tomee</echo>
+	</target>
 </project>

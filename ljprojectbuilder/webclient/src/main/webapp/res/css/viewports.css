@@ -1,0 +1,51 @@
+@media (min-width:200px) and (max-width:1000px) {
+html,body{font-size:14px}
+h1{font-size:26px}
+h2{font-size:22px}
+h3{font-size:20px}
+h4{font-size:18px}
+h5{font-size:16px}
+h6{font-size:14px}
+#headerBox td:first-child img{width:90%!important}
+.navBar ul li a::after{border-width:29px 0 28px 30px}
+}
+
+@media (min-width:521px) and (max-width:850px) {
+#bodyBox{padding-top:1%}
+.navBar{position:static;margin:0 0 15px 0}
+.navBar ul{display:block;width:96%}
+button.icon{padding:15px 0;width:45%;background:none transparent}
+button span,button.hint:hover span{display:block;position:static;padding:0;background-color:transparent}
+}
+
+@media (max-width:520px) {
+#headerBox,#page table,#page thead,#page tbody,#page tr,#page th,#page td,#headerBox ul,fieldset table,fieldset tbody,fieldset tr,fieldset th,fieldset td{display:block;width:100%!important;height:auto;text-align:center!important}
+#headerBox{padding:15px 0!important}
+#subheaderBox,#footerBox{padding-top:15px!important}
+#headerBox td:first-child img{width:70%!important}
+#headerBox .imgLink{display:none}
+#headerBox td:first-child .imgLink{display:block}
+#headerBox ul{padding:10px 0 20px 0}
+
+#subheaderBox .navBar{display:none}
+#subheaderBox .top+.middle,#subheaderBox .top+.bottom,#subheaderBox .middle+.bottom{margin-top:25px}
+
+#bodyBox{padding:10px 0 15px 0!important}
+#bodyBox ul.itemList li{margin-top:15px}
+#bodyBox ul.itemList li:first-child{margin:0}
+#bodyBox thead td{padding:15px 0}
+#bodyBox td{padding:7px 0}
+#bodyBox td:first-child{padding-top:15px}
+#bodyBox td:last-child{padding-bottom:15px}
+#bodyBox table.acc tbody{display:none}
+#bodyBox table.acc.w3-show tbody{display:block}
+#bodyBox table.acc thead td{margin:15px 0;padding:0}
+#bodyBox table.acc tbody th,#bodyBox table.acc tbody td{padding:7px 0!important;width:auto!important;font-size:10px;text-align:left!important;vertical-align:top}
+
+#dialogBox .msg{top:50px;width:80%}
+
+fieldset{margin-bottom:15px}
+fieldset:last-child{margin-bottom:0}
+input[type="text"],select{width:100%}
+button.hint:hover span{display:none}
+}
