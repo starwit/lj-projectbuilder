@@ -18,6 +18,10 @@
 	"error.project.copytemplate.exists" 				: "Das Zielverzeichnis existiert bereits.",
 	"error.project.pattern" : "Es dürfen nur Zahlen und Buchstaben enthalten sein.",
 	
+	"navnbar.projectdetails"	: "Allgemein",
+	"navnbar.domainobjects"	: "Domainobjekte",
+	"navnbar.generate" : "Projekt erstellen und herunterladen",
+	
 	"project"						: "Projekt",
 	"project.dialog.error.title" 	: "Fehler",
 	"project.dialog.success.title" 	: "Aktion erfolgreich",
@@ -53,6 +57,8 @@
 	"error.domain.pattern"	: "Das Feld darf keine Sonderzeichen enthalten und muss mit einem Großbuchstaben beginnen.",
 	"error.downloadproject" : "Der Download konnte nicht durchgeführt werden. Bitte erstellen Sie eine Fehlermeldung unter ",
 	"generator.button.downloadproject" : "Projekt herunterladen",
+	"generator.loading.title"			: "Projekterstellung",
+	"generator.loading.msg"	: "Das Projekt wird erstellt und zum Downlaad vorbereitet. Bitte warten Sie.",
 		
 	"###BEGIN###" 					: "Generierung beginnt",
 	"attribute.name"				: "Name",
@@ -89,8 +95,8 @@
 	"project.template" 				: "Templateprojekt",
 	"project.templateselect" 		: "Templateauswahl",
 	"project.templatetitle" 		: "Templatename",
-	"project.templatelocation"		: "Git-Repository des Templates",
-	"project.templatepackageprefix"	: "Java-Package des Templates",
+	"project.templatelocation"		: "Git-Repository",
+	"project.templatepackageprefix"	: "Java-Package",
 	"project.templatebranch" : "Branch",
 	"###END###" 					: "Genererierung endet",
 	

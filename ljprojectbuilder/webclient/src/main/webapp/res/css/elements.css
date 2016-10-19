@@ -1,13 +1,13 @@
 /* --- FORMS --- */
 
 form{display:block}
-fieldset{display:block;margin:0 0 2% 0;padding:2%;border:none}
+fieldset{display:block;margin:0 0 1% 0;padding:1%;border:none}
 fieldset:last-child{margin:0}
 legend{display:block;paddi;padding:0;padding:0line-block;padding:2%}
 
 input[type="checkbox"],input[type="radio"]{padding:0}
 input[type="search"]{box-sizing:content-box}
-input[type="text"],select{display:inline-block;padding:2%;width:96%}
+input[type="text"],select{display:inline-block;padding:1%;width:96%}
 td:last-child input[type="text"],td:last-child select{width:100%}
 input,select,textarea{font:inherit;margin:0;border:1px solid #a0a0a0}
 input:focus,select:focus,textarea:focus{border:1px solid #3f3f3f}
@@ -15,8 +15,9 @@ textarea{overflow:auto}
 select{cursor:pointer}
 
 label{display:block;padding:0 0 7px 0;width:100%;font-weight:normal;color:#7f7f7f}
+span{padding:0 0 2% 0;width:100%;font-weight:normal;}
 
-:required{border:1px solid red}
+ng-invalid{border:1px solid red}
 
 /* --- BUTTONS --- */
 
@@ -65,8 +66,9 @@ table,th,td{border:medium none}
 table{table-layout:fixed;border-collapse:collapse;border-spacing:0;width:100%}
 #bodyBox tbody tr:first-child{border-top:1px solid #afafaf}
 #bodyBox tbody table tr{border:none!important}
-th,td{padding:.5% 0;text-align:left;vertical-align:middle}
-tbody,thead+tbody tr:first-child th,thead+tbody tr:first-child td{padding-top:1%}
+th,td{padding:.5% 0;text-align:left;vertical-align:top}
+tbody,thead+tbody tr:first-child th,thead+tbody tr:first-child td{padding-top:0.5%}
+tbody tr th, tbody tr td{padding-top:0.5%; padding-left: 0.5%; padding-right: 0.5%;}
 
 table.acc thead{border:none}
 table.acc tbody tr{display:none}
@@ -84,10 +86,12 @@ table.acc.w3-show thead td{padding-bottom:1%}
 #headerBox img:hover{-moz-opacity:.6;-webkit-opacity:.6;-o-opacity:.6;-ms-opacity:.6;opacity:.6}
 
 form table{height:auto}
-form table table td{padding:0 0 2% 0}
+form table table td{padding:0 0 0 0}
 form table table tr:last-child td{padding:0}
 
 #dialogBox td{text-align:center;vertical-align:middle}
+.clickBox{vertical-align:middle; padding:1%}
+.clickBox span{vertical-align:middle; padding:1%}
 
 /* --- LISTS, MENUES --- */
 
@@ -101,13 +105,13 @@ form table table tr:last-child td{padding:0}
 #headerBox ul li:hover span.hidden{display:block;position:absolute;z-index:999;top:110%;left:20px;white-space:nowrap}
 
 #bodyBox ul.itemList{list-style:none;margin:0;padding:0;width:100%}
-#bodyBox ul.itemList li{position:relative;list-style:none;margin-top:2%;padding:2%;padding-bottom:1.5%}
+#bodyBox ul.itemList li{position:relative;list-style:none;margin-top:1%;padding:1%;padding-bottom:1%}
 #bodyBox ul.itemList li:first-child{margin:0}
 
 .navBar{position:absolute;z-index:1;top:0;left:0;display:block;margin-top:2%;width:100%;text-align:center}
 .navBar ul{display:inline-block;list-style:none;margin:0;padding:0;width:70%;vertical-align:top}
 .navBar ul li{float:left;position:relative;width:33.3%;list-style:none}
-.navBar ul li a{display:block;padding:18px 2%;width:100%;cursor:not-allowed}
+.navBar ul li a{display:block;padding:18px 2%;width:100%;}
 .navBar ul li.act a{cursor:pointer}
 .navBar ul li a::after{position:absolute;top:0;right:-30px;content:' ';width:0;height:0;border-width:30px 0 30px 30px;border-style:solid;-webkit-transform:rotate(360deg)}
 .navBar ul li.step1 a:after,.navBar ul li.step1:hover{z-index:30}
