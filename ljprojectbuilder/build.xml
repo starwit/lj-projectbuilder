@@ -32,6 +32,14 @@
 			<param name="mvn_command" value="clean package -Dmaven.test.skip=true"/>
 		</antcall>	
 	</target>
+	
+	<target name="build_application_with_tests">
+		<echo>build war</echo>
+		<antcall target="call_maven">
+			<param name="exec_dir" value="."/>
+			<param name="mvn_command" value="clean package"/>
+		</antcall>	
+	</target>
 
 	<target name="clean_application">
 		<antcall target="call_maven">
