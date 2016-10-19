@@ -33,6 +33,13 @@
 
 			<dependency>
 				<groupId>ljprojectbuilder</groupId>
+				<artifactId>dbautoinit</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+			
+			<dependency>
+				<groupId>ljprojectbuilder</groupId>
 				<artifactId>persistence</artifactId>
 				<version>${project.version}</version>
 				<type>jar</type>
@@ -196,12 +203,31 @@
 
 		</dependencies>
 	</dependencyManagement>
-	
-	<modules>
-		<module>persistence</module>
-		<module>generator</module>
-		<module>rest</module>
-		<module>webclient</module>
-		<module>packagewar</module>
-	</modules>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>persistence</module>
+				<module>dbautoinit</module>
+				<module>generator</module>
+				<module>rest</module>
+				<module>webclient</module>
+				<module>packagewar</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<modules>
+				<module>persistence</module>
+				<module>generator</module>
+				<module>rest</module>
+				<module>webclient</module>
+				<module>packagewar</module>
+			</modules>
+		</profile>
+	</profiles> 
 </project>

@@ -4,14 +4,14 @@
 	<div class="contain">
 		<span class="navBar">
 			<ul>
-			  <li class="step1 act"><a ng-click="ctrl.doMaintainDetail();">Details</a></li>
-			  <li class="step2 act"><a ng-click="ctrl.doMaintainDomain();">Domainobjekte</a></li>
-			  <li class="step3"><a ng-click="ctrl.doMaintainGenerate();">Generierung</a></li>
+			  <li class="step1 act"><a ng-click="ctrl.doMaintainDetail();">{{'navnbar.projectdetails' | translate}}</a></li>
+			  <li class="step2 act"><a ng-click="ctrl.doMaintain();">{{'navnbar.domainobjects' | translate}}</a></li>
+			  <li class="step3"><a ng-click="ctrl.doMaintainGenerate();">{{'navnbar.generate' | translate}}</a></li>
 			  <li class="clearer"></li>
 			</ul>
 		</span>
 		<button class="icon back hint" ng-click="ctrl.doMaintain();"><span>{{'button.back' | translate}}</span></button>
-		<button class="icon save right hint" ng-click="ctrl.doMaintainNext();" title="{{'button.domaincreate' | translate}}"><span>{{'button.domaincreate' | translate}}</span></button>
+		<button class="icon next right hint" ng-click="ctrl.doMaintainNext();" title="{{'button.domaincreate' | translate}}"><span>{{'button.domaincreate' | translate}}</span></button>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -36,12 +36,13 @@
 						<td>
 							<label>{{'domain.name' | translate}}</label>
 							<input name="name" id="name" type="text" ng-model="ctrl.domain.name"  required  ng-pattern="/^[A-Z][a-zA-Z0-9]*$/"/>
-							<label ng-show="domainForm.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
+							<label ng-show="ctrl.form.name.$error.required">{{'error.required' | translate}}</label>							
+							<label ng-show="ctrl.form.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
 						</td>
 						<td>
 							<label>{{'domain.description' | translate}}</label>
 							<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required />
-							<label ng-show="domainForm.description.$error.required">{{'error.required' | translate}}</label>
+							<label ng-show="ctrl.form.description.$error.required">{{'error.required' | translate}}</label>
 						</td>
 					</tr>
 				</tbody>
@@ -72,11 +73,11 @@
 					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
 						<td>
 							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required />
-							<span ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</span>
+							<span ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</span>
 						</td>
 						<td>
 							<input placeholder="{{'attribute.description' | translate}}" name="attributedescription" id="attributedescription" type="text" ng-model="attribute.description"/>
-							<span ng-show="domainForm.attributename.$error.required">{{'error.required' | translate}}</span>
+							<span ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</span>
 						</td>
 						<td>
 							<select placeholder="{{'attribute.type' | translate}}" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required></select>
@@ -98,10 +99,6 @@
 			</table>
 		</fieldset>	
 	</form>
-</div>
-
-<div id="footerBox">
-	<p>&copy; LireJarp</p>
 </div>
 
 <div id="dialogBox">

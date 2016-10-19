@@ -27,15 +27,19 @@
 
 .odd{background-color:#dfdfdf}
 .even{background-color:#f0f0f0}
+ .list{background-color:#dfdfdf}
+ .listcontent{background-color:#f0f0f0}
 
 #page .button.grey a{background-color:#8f8f8f}
 #page .button.grey a:hover{background-color:#5f5f5f}
 
 /* --- GREEN --- */
 
-#green{background:#c0d6ce}
+#green{background:#f2f6f1;}
 #green #headerBox,#green button,#green .button a{color:#fff;background-color:#027850}
-#green #footerBox p{color:#027850}
+#green #footerBox p{color:#027850; background-color:#c0d6ce;}
+#green #footerBox{color:#027850; background-color:#c0d6ce;}
+#green #subheaderBox, #green #bodyBox {background-color:#f2f6f1}
 
 #green .navBar ul li.step1.act a{background-color:#1d5443}
 #green .navBar ul li.step2.act a{background-color:#3d7463}
@@ -43,6 +47,10 @@
 #green .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #1d5443}
 #green .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #3d7463}
 #green .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #5d9483}
+#green .odd{background-color:#f2f6f1}
+#green .even{background-color:#f2f6f1}
+#green .list{background-color:#dfdfdf}
+#green .listcontent{background-color:#f0f0f0}
 
 /* --- RED --- */
 

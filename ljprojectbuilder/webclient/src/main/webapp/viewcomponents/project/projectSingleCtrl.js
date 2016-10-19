@@ -65,6 +65,7 @@
 		function init() {
 			ctrl.project = {};
 			ctrl.templateAll = [];
+			ctrl.branchnames = [];
 			projectConnectorFactory.getTemplateAll().then(setTemplateAll, null);
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined && $routeParams.projectid !== ctrl.project.id) {
@@ -89,6 +90,13 @@
 		function setTemplateAll(response) {
 			ctrl.templateAll = response;
 			ctrl.project.template = response[0];
+		}
+		
+		function setBranchnames(response) {
+			ctrl.branchnames = response;
+			if (ctrl.project.template.branch == null) {
+				ctrl.project.template.branch = response[0];
+			}
 		}
 		
 		/**

@@ -4,9 +4,9 @@
 	<div class="top">
 		<span class="navBar">
 			<ul>
-			  <li class="step1 act"><a href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">Details</a></li>
-			  <li class="step2 act"><a href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}" ng-click="ctrl.doMaintainDomain();">Domainobjekte</a></li>
-			  <li class="step3"><a href="#/viewcomponents/generator/generate/{{ctrl.projectid}}" ng-click="ctrl.doMaintainGenerate();">Generierung</a></li>
+			  <li class="step1 act"><a href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">{{'navnbar.projectdetails' | translate}}</a></li>
+			  <li class="step2 act"><a href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}" ng-click="ctrl.doMaintainDomain();">{{'navnbar.domainobjects' | translate}}</a></li>
+			  <li class="step3"><a href="#/viewcomponents/generator/generate/{{ctrl.projectid}}" ng-click="ctrl.doMaintainGenerate();">{{'navnbar.generate' | translate}}</a></li>
 			  <li class="clearer"></li>
 			</ul>
 		</span>
@@ -22,40 +22,65 @@
 <div id="bodyBox">
 	<div class="contain">
 		<ul class="itemList">
-			<li class="odd" ng-repeat="domain in ctrl.domainAll">
-				<span class="rulerAfter" ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
-					<h3>{{domain.name}}</h3>
-					<p>{{domain.description}}</p>
-				</span>
-				<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);">x</a></span>
-				<h3>{{'attribute.all.title' | translate}}</h3>
-				<table id="{{domain.id}}" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
-			    	<colgroup>
-			    		<col class="">
-			    		<col class="">
-			    		<col class="">
-			    		<col class="">
-			    		<col class="">
-			    		<col class="">
-			    	</colgroup>
-			    	<thead>
+			<li class="list" ng-repeat="domain in ctrl.domainAll" ng-click="ctrl.showDetails(domain.id);" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
+				<table class="acc" id="{{domain.id}}" >
+					<colgroup>
+				    	<col class="">
+				    	<col class="">
+				    	<col class="">
+				    </colgroup>
+					<thead>
 						<tr>
-							<th>{{'attribute.name' | translate}}</th>
-							<th>{{'attribute.description' | translate}}</th>
-							<th>{{'attribute.type' | translate}}</th>
-							<th>{{'attribute.pattern' | translate}}</th>
-							<th>{{'attribute.max' | translate}}</th>
-							<th>{{'attribute.min' | translate}}</th>
+							<td class="aLeft">
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.showDetails(domain.id);">Details</a></span>
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoDomain.update(ctrl.projectid, domain.id)">Bearbeiten</a></span>
+							</td>
+							<td class="aCenter">
+								<h3>{{domain.name}}</h3>
+								<p>{{domain.description}}</p>
+							</td>
+							<td class="aRight">
+								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);">x</a></span>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="attribute in domain.attributes">
-							<td>{{attribute.name}}</td>
-							<td>{{attribute.description}}</td>
-							<td>{{attribute.dataType}}</td>
-							<td>{{attribute.pattern}}</td>
-							<td>{{attribute.max}}</td>
-							<td>{{attribute.min}}</td>
+						<tr>
+							<td colspan="3" class="listcontent">
+								<table id="{{domain.id}}" ng-dblclick="ctrl.gotoDomain.update(ctrl.projectid, domain.id);">
+									<colgroup>
+								    	<col class="">
+								    	<col class="">
+								    	<col class="">
+								    	<col class="">
+								    	<col class="">
+								    	<col class="">
+								    </colgroup>
+								    <thead>
+								    									<tr>
+										<th colspan="6"><h4>{{'attribute.all.title' | translate}}</h4></th>
+									</tr>
+										<tr>
+											<th>{{'attribute.name' | translate}}</th>
+											<th>{{'attribute.description' | translate}}</th>
+											<th>{{'attribute.type' | translate}}</th>
+											<th>{{'attribute.pattern' | translate}}</th>
+											<th>{{'attribute.max' | translate}}</th>
+											<th>{{'attribute.min' | translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="attribute in domain.attributes">
+											<td>{{attribute.name}}</td>
+											<td>{{attribute.description}}</td>
+											<td>{{attribute.dataType}}</td>
+											<td>{{attribute.pattern}}</td>
+											<td>{{attribute.max}}</td>
+											<td>{{attribute.min}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -63,11 +88,6 @@
 		</ul>
 	</div>
 </div>
-
-<div id="footerBox">
-	<p>&copy; LireJarp</p>
-</div>
-
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
 	<div ng-include="'shared/dialogs/dialog.error.html'"></div>

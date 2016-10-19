@@ -4,16 +4,13 @@ import java.io.Serializable;
 
 import javax.ejb.Local;
 
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
+import de.starwit.ljprojectbuilder.dto.GeneratorDto;
+import de.starwit.ljprojectbuilder.exeptions.ProjectSetupException;
 
 @Local
 public interface ProjectSetupService extends Serializable {
-	
-	public ResponseMetadata copyProjectTemplate(ProjectEntity entity);
-	public ResponseMetadata renameProject(ProjectEntity entity);
-	public ResponseMetadata renamePackage(ProjectEntity entity);
 
+	void setupAndGenerateProject(GeneratorDto dto) throws ProjectSetupException;
 }
 
 

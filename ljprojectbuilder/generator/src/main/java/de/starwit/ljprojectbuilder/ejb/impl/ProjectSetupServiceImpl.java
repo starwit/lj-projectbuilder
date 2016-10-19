@@ -11,15 +11,23 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
 
+import de.starwit.ljprojectbuilder.config.Constants;
+import de.starwit.ljprojectbuilder.dto.GeneratorDto;
+import de.starwit.ljprojectbuilder.ejb.GeneratorService;
+import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
+import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.starwit.ljprojectbuilder.exeptions.ProjectSetupException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
@@ -28,65 +36,117 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private ProjectService projectService;
+	
+	@Inject
+	private GeneratorService generatorSerivce;
+	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml" };
 	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
 	
+	/**
+	 * 
+	 */
+	@Override
+	public void setupAndGenerateProject(GeneratorDto dto) throws ProjectSetupException {
+		ProjectEntity entity = findProjectById(dto.getProject().getId());
+		entity = createProjectFolder(entity);
+		checkoutProjectTemplate(entity);
+		renameProject(entity);
+		renamePackage(entity);
+		dto.setProject(entity);
+		
+		generatorSerivce.generate(dto);
+	}
+
+	private ProjectEntity findProjectById(Long projectid) throws ProjectSetupException {
+		ProjectEntity entity = projectService.findById(projectid);
+		if (entity == null) {
+			LOG.error("Error setup project for generation. Project with id " + projectid + " could not be found.");
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.projectnotfound");
+			throw new ProjectSetupException(data);
+		}
+		return entity;
+	}
+	
+	private ProjectEntity createProjectFolder(ProjectEntity entity) throws ProjectSetupException {
+		try {
+			Path destDir = null;
+			if (entity != null && entity.getTargetPath() != null) {
+				File oldDestDir = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
+				if (oldDestDir.exists()) {
+					oldDestDir.delete();
+				}
+			}
+			
+			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + entity.getTitle());
+			entity.setTargetPath(destDir.getFileName().toString());
+			entity = projectService.update(entity);
+			return entity;
+		} catch (IOException e) {
+			LOG.error("Error creating temporary folder for project", e);
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.createprojectfolder");
+			throw new ProjectSetupException(data);
+		}
+	}
 	
 	/**
 	 * Copies the project template and tomee to an new project location.
-	 * @param properties
+	 * @param entity
+	 * @return 
+	 * @throws ProjectSetupException 
 	 */
-	public ResponseMetadata copyProjectTemplate(ProjectEntity entity) {
+	private void checkoutProjectTemplate(ProjectEntity entity)  throws ProjectSetupException {
 		
+		File destDir = new File (Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		String srcDir = entity.getTemplate().getTemplateLocation();
-		File destDir = new File(entity.getTargetPath());
-		
-		try {
-			if (!destDir.exists()) {
-				Git.cloneRepository()
-						.setURI(srcDir)
-						.setDirectory(destDir)
-						.call();
-			} else {
-				return new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.exists");
-			}
+		String branch = "master";
+		if (entity.getTemplate().getBranch() != null) {
+			branch = entity.getTemplate().getBranch();
+		}
 
+		try {
+			Git git = Git.cloneRepository()
+					.setURI(srcDir)
+					.setDirectory(destDir)
+					.setCloneAllBranches( true )
+					.setBranch(branch)
+					.call();
+			git.checkout();
+			
 		} catch (Exception e) {
 			LOG.error("Error copying files for project template.", e);
-			if (destDir.exists()) {
-				destDir.delete();
-			}
-			return new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.templatenotfound");
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.project.copytemplate.templatenotfound");
+			throw new ProjectSetupException(data);
 		}
-		return new ResponseMetadata(ResponseCode.OK, "project.copytemplate.success");
 	}
 	
 	/**
 	 * This is used for renaming the whole project. Renames all occurences of the project name with a new project name.
 	 * @param properties
 	 */
-	public ResponseMetadata renameProject(ProjectEntity entity) {
+	private void renameProject(ProjectEntity entity) throws ProjectSetupException {
 		LOG.info("Try to rename project " + entity.getTemplate().getTemplatePackagePrefix() + ".");
-		
-		
-		File parentdirectory = new File(entity.getTargetPath());
+
+		File parentdirectory;
+		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		String currentProjectName = entity.getTemplate().getTemplateTitle();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
-		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
-	}	
+	}
 	
 	/**
 	 * This is used for renaming a package structure.
 	 * @param properties
 	 */
-	public ResponseMetadata renamePackage(ProjectEntity entity) {
+	private void renamePackage(ProjectEntity entity) throws ProjectSetupException {
 		LOG.info("Try to rename package " + entity.getTitle() + ".");
-		File parentdirectory = new File(entity.getTargetPath());
 
+		File parentdirectory;
+		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		renameDirectories(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
 		renameFiles(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
-		return new ResponseMetadata(ResponseCode.OK, "project.rename.success");
 	}
 
 	/**
@@ -95,7 +155,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @param newProjectName new project name
 	 * @param currentdirectory - current directory
 	 */
-	private void renameDirectories(String oldProjectName, String newProjectName, File currentdirectory) {
+	private void renameDirectories(String oldProjectName, String newProjectName, File currentdirectory) throws ProjectSetupException {
 		File[] childfiles = currentdirectory.listFiles(new FilenameFilter() {
 			public boolean accept(File childfiles, String name) {
 				return new File(childfiles, name).isDirectory();
@@ -115,9 +175,9 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 					renameDirectories(oldProjectName, newProjectName, childdirectory);
 				}
 			} catch (IOException e) {
-				LOG.error("Problems moving file with name " + childdirectory.getName());
-				LOG.error(e.getMessage());
-				renameDirectories(oldProjectName, newProjectName, childdirectory);
+				LOG.error("Problems moving file with name " + childdirectory.getName(), e);
+				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.renamedirectories");
+				throw new ProjectSetupException(data);
 			}
 		}
 	}
@@ -128,16 +188,12 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @param newProjectName - new project name
 	 * @param directory current directory
 	 */
-	private void renameFiles(String oldProjectName, String newProjectName, File directory) {
+	private void renameFiles(String oldProjectName, String newProjectName, File directory) throws ProjectSetupException {
+		@SuppressWarnings("unchecked")
 		Collection<File> files = FileUtils.listFiles(directory, EXT, true);
 		for (File file : files) {
 			LOG.info("FileName: " + file.getAbsolutePath());
-			try {
-				renameFileContent(oldProjectName, newProjectName, file);
-			} catch (IOException e) {
-				LOG.error("Problems rename file with name " + file.getName());
-				LOG.error(e.getMessage());
-			}
+			renameFileContent(oldProjectName, newProjectName, file);
 		}
 	}
 
@@ -148,26 +204,44 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @param fileIn
 	 * @throws IOException
 	 */
-	private void renameFileContent(String oldProjectName, String newProjectName, File fileIn) throws IOException {
+	private void renameFileContent(String oldProjectName, String newProjectName, File fileIn) throws ProjectSetupException {
 		Path filePath = fileIn.toPath();
-		Path moved = Files.move(filePath, new File(fileIn.getName() + "_OLD").toPath());
-		File fileOut = Files.createFile(filePath).toFile();
-		File fileOld = moved.toFile();
-
-		BufferedReader reader = new BufferedReader(new FileReader(fileOld));
-		PrintWriter writer = new PrintWriter(new FileWriter(fileOut));
+		Path moved = null;
+		File fileOut = null;
+		File fileOld = null;
+		BufferedReader reader = null;
+		PrintWriter writer = null;
 
 		try {
+			moved = Files.move(filePath, new File(fileIn.getName() + "_OLD").toPath());
+			fileOut = Files.createFile(filePath).toFile();
+			fileOld = moved.toFile();
+
+			reader = new BufferedReader(new FileReader(fileOld));
+			 writer = new PrintWriter(new FileWriter(fileOut));
 			String line = null;
-			while ((line = reader.readLine()) != null)
+			while ((line = reader.readLine()) != null) {
 				writer.println(line.replaceAll(oldProjectName, newProjectName));
+			}
+			
 		} catch (IOException e) {
 			LOG.error("Error processing file with name " + fileIn.getName());
-			LOG.error(e.getMessage());
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.renamefilecontent");
+			throw new ProjectSetupException(data);
 		} finally {
-			reader.close();
-			writer.close();
-			moved.toFile().delete();
+			try {
+				if (reader != null) {
+					reader.close();
+				}
+				if (writer != null) {
+					writer.close();
+				}
+				if (moved != null && moved.toFile().exists()) {
+					moved.toFile().delete();
+				}
+			} catch(IOException e) {
+				LOG.error("Error closing reader and writer", e);
+			}
 		}
 	}
 }

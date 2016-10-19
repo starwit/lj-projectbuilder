@@ -10,29 +10,22 @@ import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 
 @XmlRootElement
 public class GeneratorDto {
-
+	
 	private ProjectEntity project;
 	
-	private String templatePath;
+	private boolean generateEntity = true;
 	
-	private boolean generateEntity;
+	private boolean generateService = true;
 	
-	private boolean generateService;
+	private boolean generateRest = true;
 	
-	private boolean generateRest;
-	
-	private boolean generateFrontend;
+	private boolean generateFrontend = true;
 	
 	private boolean generateTests;
 	
 	private List<DomainEntity> domains = new ArrayList<DomainEntity>();
-
 	
 	/********************* GETTER, SETTER **************************/
-	
-	public GeneratorDto() {
-		this.templatePath = this.getClass().getClassLoader().getResource("").getPath().toString() + "../../../../generator/src/main/resources";
-	}
 	
 	public ProjectEntity getProject() {
 		return project;
@@ -40,14 +33,6 @@ public class GeneratorDto {
 
 	public void setProject(ProjectEntity project) {
 		this.project = project;
-	}
-
-	public String getTemplatePath() {
-		return templatePath;
-	}
-
-	public void setTemplatePath(String templatePath) {
-		this.templatePath = templatePath;
 	}
 
 	public boolean isGenerateEntity() {

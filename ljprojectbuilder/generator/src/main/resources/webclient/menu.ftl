@@ -1,3 +1,3 @@
-<#list (domainnames) as name>
-<li><a href="#/viewcomponents/${name?lower_case}-all/" name="${name?lower_case}">{{'${name?lower_case}.all.title' | translate}}</a></li>
+<#list domains as domain>
+<li><a href="#/viewcomponents/${domain.name?lower_case}-all/" name="${domain.name?lower_case}">{{'${domain.name?lower_case}.all.title' | translate}}</a></li>
 </#list>

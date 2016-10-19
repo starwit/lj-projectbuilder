@@ -1,52 +1,50 @@
-function ${domain?uncap_first}ConnectorFactory ($http, $location, restConnectorFactory) {
-	var factory = {};
+${domain?lower_case}ConnectorFactory = ['$http', '$location', 'restConnectorFactory', function ${domain?lower_case}ConnectorFactory ($http, $location, restConnectorFactory) {
+    var factory = {
+    		get${domain}All: get${domain}All,
+    		load${domain}: load${domain},
+    		create${domain}: create${domain},
+    		update${domain}: update${domain},
+    		delete${domain} : delete${domain}
+     };
+    return factory;
 	
-	factory.get${domain}All = function($scope) {
-		$http.get('api/${domain?lower_case}/query/all')
-		.then(function (response) {
-			content = response.data;
-			$scope.${domain?lower_case}All = content.result;		
-		});
+	function get${domain}All() {
+		return $http.get('api/${domain?lower_case}/query/all')
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.load${domain} = function($scope, id) {
-		$http.get('api/${domain?lower_case}/query/' + id)
-		.then(function (response) {
-			content = response.data;
-			$scope.${domain?lower_case} = content.result;		
-		});
+	function load${domain}(id) {
+		return $http.get('api/${domain?lower_case}/query/' + id)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.create${domain} = function($scope, successPath, errorPath) {
-		$http.put('api/${domain?lower_case}/', $scope.${domain?lower_case})
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath,  errorPath);
-		});
+	function create${domain}(${domain?lower_case}) {
+		return $http.put('api/${domain?lower_case}/', ${domain?lower_case})
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.update${domain} = function($scope, successPath, errorPath) {
-		$http.post('api/${domain?lower_case}/', $scope.${domain?lower_case})
-		.then(function(response) {
-			restConnectorFactory.handleResponse($scope, response, successPath, errorPath);
-		});
+	function update${domain}(${domain?lower_case}) {
+		return $http.post('api/project/', ${domain?lower_case})
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
 		
-	factory.delete${domain} = function($scope, id) {
-		$http.delete('api/${domain?lower_case}/' + id)
-		.then(function(response) {
-			content = response.data;
-			$scope.protocol = content.result;
-			factory.get${domain}All($scope);
-		});
+	function delete${domain}(id) {
+		return $http.delete('api/${domain?lower_case}/' + id)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
 	};
-	
-	factory.getAllowedFields = function($scope) {
-		$http.get('api/${domain?lower_case}/query/allowedvalues')
-		.then(function(response) {
-			content = response.data;
-			restConnectorFactory.getAllowedFields($scope, content);
-		});
-	};
-		
-	return factory;
-}
+}];

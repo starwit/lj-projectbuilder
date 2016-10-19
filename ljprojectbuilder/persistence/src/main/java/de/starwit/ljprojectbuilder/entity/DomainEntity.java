@@ -37,7 +37,7 @@ public class DomainEntity extends AbstractEntity {
 	
 	private List<AttributeEntity> attributes;
 	
-	private boolean selected = false;
+	private boolean selected = true;
 
 	@Column(name="NAME", nullable = false)
 	public String getName() {

@@ -6,15 +6,19 @@
 	<meta name="keywords" content="ljprojectbuilderApp" jee, java, architecture" />
 	<meta name="description" content="Lightweight REST JEE Arch Pattern" />
 
+	<link href="res/css/themes.css" rel="stylesheet" type="text/css" />
 	<link href="res/css/basic.css" rel="stylesheet" type="text/css" />
 	<link href="res/css/elements.css" rel="stylesheet" type="text/css" />
-	<link href="res/css/themes.css" rel="stylesheet" type="text/css" />
 	<link href="res/css/viewports.css" rel="stylesheet" type="text/css" />
 </head>
 <body id="{{ 'theme.color' | translate}}">
 	<div id="page" class="rows{{ 'theme.rows' | translate}} cols{{ 'theme.columns' | translate}} {{ 'theme.properties' | translate}}">
-		<div ng-view></div>
+			<div ng-view></div>
+				<div id="footerBox">
+		<p>&copy; LireJarp</p>
 	</div>
+	</div>
+
 	<script src="res/lib/angular.js" type="application/javascript"></script>
 	<script src="res/lib/angular-route.js" type="application/javascript"></script>
 	<script src="res/lib/angular-translate.min.js" type="application/javascript"></script>
@@ -38,7 +42,6 @@
 	<script src="viewcomponents/domain/domainAllCtrl.js" type="application/javascript" ></script>
 	<script src="viewcomponents/domain/domainSingleCtrl.js" type="application/javascript" ></script>
 
-	<script src="shared/restfacade/generator.connector.factory.js"></script>
 	<script src="viewcomponents/generator/generator.module.js" type="application/javascript" ></script>
 	<script src="viewcomponents/generator/generator.routes.js" type="application/javascript" ></script>
 	<script src="viewcomponents/generator/generatorCtrl.js" type="application/javascript" ></script>

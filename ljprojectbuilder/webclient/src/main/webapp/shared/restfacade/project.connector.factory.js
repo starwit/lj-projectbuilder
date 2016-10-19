@@ -5,7 +5,8 @@ projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', functio
     		getTemplateAll: getTemplateAll,
     		createProject: createProject,
     		updateProject: updateProject,
-    		deleteProject : deleteProject
+    		deleteProject : deleteProject,
+    		getBranchnames : getBranchnames
      };
     return factory;
 	
@@ -19,6 +20,14 @@ projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', functio
 		
 	function loadProject(id) {
 		return $http.get('api/project/query/' + id)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
+	
+	function getBranchnames(remoteLocation) {
+		return $http.post('api/project/branchnames/', remoteLocation)
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError

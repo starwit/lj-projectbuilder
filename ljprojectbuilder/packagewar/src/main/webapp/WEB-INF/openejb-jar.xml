@@ -1,4 +1,4 @@
-<openejb-jar>
+<openejb-jar  xmlns=" http://www.openejb.org/xml/ns/openejb-jar-2.1">
 	<pojo-deployment class-name="de.starwit.ljprojectbuilder.api.rest.RestfulApplication">
 		<properties>
 			cxf.jaxrs.providers = com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider

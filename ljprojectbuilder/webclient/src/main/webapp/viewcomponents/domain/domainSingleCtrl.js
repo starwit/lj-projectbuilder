@@ -21,27 +21,19 @@
 		init();
 		
 		/**
-		 * Standard function to edit a domain object.
+		 * Standard function to edit the project configuration.
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.domain.id != null) {
-					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccess, saveError);
-				} else {
-					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccess, saveError)
-				}
+				doMaintainThenGoto(gotoDomain.all);
 			} else {
 				gotoDomainAll();
 			}
-		};
+		}
 		
 		function doMaintainNext() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.domain.id != null) {
-					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessNext, saveError);
-				} else {
-					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessNext, saveError)
-				}
+				doMaintainThenGoto(gotoDomainNext);
 			} else {
 				gotoDomainNext();
 			}
@@ -49,11 +41,7 @@
 		
 		function doMaintainDetail() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.domain.id != null) {
-					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessDetail, saveError);
-				} else {
-					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessDetail, saveError);
-				}
+				doMaintainThenGoto(gotoDomainDetail);
 			} else {
 				gotoDomainDetail();
 			}
@@ -61,15 +49,37 @@
 		
 		function doMaintainGenerate() {
 			if (ctrl.form.$dirty) {
-				if (ctrl.domain.id != null) {
-					domainConnectorFactory.updateDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
-				} else {
-					domainConnectorFactory.createDomain(ctrl.domain).then(saveSuccessGenerate, saveError);
-				}
+				doMaintainThenGoto(gotoDomainGenerate);
 			} else {
 				gotoDomainGenerate();
 			}
 		};		
+
+		function doMaintainThenGoto(gotoDestination) {
+			var saveFunction = isUpdate() ? domainConnectorFactory.updateDomain : domainConnectorFactory.createDomain;
+			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+		}
+
+		function isUpdate() {
+			return ctrl.domain != null && ctrl.domain.id != null;
+		}
+		
+		/**
+		 * Success message after saving.
+		 */
+		function saveSuccessCallbackThatGoesTo(gotoDestination) {
+			return function (response) {
+				setDomain(response);
+				dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDestination);
+			}
+		}
+		
+		/**
+		 * Error message after saving.
+		 */
+		function saveError(response) {
+			dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+		};
 
 		/**
 		 * Add an attribute to a domain.
@@ -101,17 +111,21 @@
 			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 
-			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				ctrl.projectid = $routeParams.projectid;
-				ctrl.domain.project = {};
-				ctrl.domain.project.id = ctrl.projectid;
-				projectConnectorFactory.loadProject($routeParams.projectid)
-				.then(	setProjectTitle, null);
-
-				if ($routeParams.id != undefined) {
-					domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
-				}
+			$scope.$on('$routeChangeSuccess', function(scope, next, current) {
+				initinit();
 			});
+		};
+		
+		function initinit() {
+			ctrl.projectid = $routeParams.projectid;
+			ctrl.domain.project = {};
+			ctrl.domain.project.id = ctrl.projectid;
+			projectConnectorFactory.loadProject($routeParams.projectid)
+			.then(	setProjectTitle, null);
+
+			if ($routeParams.id != undefined) {
+				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
+			}
 		};
 		
 		function setProjectTitle(response) {
@@ -134,45 +148,6 @@
 		}
 		
 		/**
-		 * Success message after saving.
-		 */
-		function saveSuccess(response) {
-			setDomain(response);
-			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainAll);
-		};
-		
-		/**
-		 * Success message after saving.
-		 */
-		function saveSuccessNext(response) {
-			setDomain(response);
-			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainNext);
-		};
-		
-		/**
-		 * Success message after saving.
-		 */
-		function saveSuccessDetail(response) {
-			setDomain(response);
-			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainDetail);
-		};
-		
-		/**
-		 * Success message after saving.
-		 */
-		function saveSuccessGenerate(response) {
-			setDomain(response);
-			dialogService.showDialog("domain.dialog.success.title", "domain.save.success", dialogService.dialog.id.success, gotoDomainGenerate);
-		};
-		
-		/**
-		 * Error message after saving.
-		 */
-		function saveError(response) {
-			dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
-		};
-		
-		/**
 		 * Error message after loading the project.
 		 */
 		function loadError(response) {
@@ -188,6 +163,10 @@
 		};
 		
 		function gotoDomainNext() {
+			ctrl.domain = {};
+			ctrl.projectid = {};
+			domainConnectorFactory.getTypes().then(setDataTypes, null);
+			initinit();
 			gotoDomain.create(ctrl.domain.project.id);
 		};
 		

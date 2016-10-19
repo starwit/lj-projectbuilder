@@ -1,3 +1,3 @@
-<#list (domainnames) as name>
-	'${appName}App.${name?lower_case}',
+<#list domains as domain>
+	'${appName}App.${domain.name?lower_case}',
 </#list>

@@ -9,8 +9,8 @@
 <div id="bodyBox">
 	<div class="contain">
 		<ul class="itemList">
-			<li class="odd" ng-repeat="project in ctrl.projectAll">
-				<table class="acc" id="{{project.id}}" ng-dblclick="ctrl.gotoProject.update(project.id);">
+			<li class="list" ng-repeat="project in ctrl.projectAll"  ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);">
+				<table class="acc" id="{{project.id}}" >
 			    	<colgroup>
 			    		<col class="">
 			    		<col class="">
@@ -18,16 +18,20 @@
 			    	</colgroup>
 					<thead>
 						<tr>
-							<td><h3>{{project.title}} | {{project.description}}</h3></td>
+							<td class="aLeft">
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.showDetails(project.id);">Details</a></span>
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoProject.update(project.id);">Bearbeiten</a></span>
+							</td>
 							<td class="aCenter">
-								<span class="button"><a ng-click="ctrl.showDetails(project.id);" ng-dblclick="ctrl.gotoProject.update(project.id);">Details | Bearbeiten</a></span>
+								<h3>{{project.title}}</h3>
+								<span>{{project.description}}</span>
 							</td>
 							<td class="aRight">
 								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteProject(project.id);">x</a></span>
 							</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="listcontent">
 						<tr>
 							<td>
 								<table>
@@ -35,17 +39,21 @@
 										<td colspan="2"><h4>{{'project.template' | translate}}</h4></td>
 									</tr>
 									<tr>
-										<th>{{'project.location' | translate}}:</th>
-										<td>{{project.template.templateLocation}}</td>
-									</tr>
-									<tr>
-										<th>{{'project.title' | translate}}:</th>
+										<th>{{'project.templatetitle' | translate}}:</th>
 										<td>{{project.template.templateTitle}}</td>
 									</tr>
 									<tr>
-										<th>{{'project.packageprefix' | translate}}:</th>
+										<th>{{'project.templatepackageprefix' | translate}}:</th>
 										<td>{{project.template.templatePackagePrefix}}</td>
 									</tr>
+									<tr>
+										<th>{{'project.templatelocation' | translate}}:</th>
+										<td>{{project.template.templateLocation}}</td>
+									</tr>		
+									<tr>
+										<th>{{'project.templatebranch' | translate}}:</th>
+										<td>{{project.template.branch}}</td>
+									</tr>																				
 								</table>
 							</td>
 							<td>&nbsp;</td>
@@ -53,10 +61,6 @@
 								<table>
 									<tr>
 										<td colspan="2"><h4>{{'project.target' | translate}}</h4></td>
-									</tr>
-									<tr>
-										<th>{{'project.location' | translate}}:</th>
-										<td>{{project.targetPath}}</td>
 									</tr>
 									<tr>
 										<th>{{'project.title' | translate}}:</th>
@@ -75,11 +79,6 @@
 		</ul>
 	</div>
 </div>
-
-<div id="footerBox">
-	<p>&copy; LireJarp</p>
-</div>
-
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
 	<div ng-include="'shared/dialogs/dialog.error.html'"></div>

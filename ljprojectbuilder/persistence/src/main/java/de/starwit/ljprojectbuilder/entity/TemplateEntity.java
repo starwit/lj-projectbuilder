@@ -1,19 +1,11 @@
 package de.starwit.ljprojectbuilder.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement
 @Entity
@@ -34,7 +26,10 @@ public class TemplateEntity extends AbstractEntity {
 	@Size(max=100)
 	private String templatePackagePrefix = "starwit";
 	
-	@Column(name="TEMPLATE_TITLE", nullable=false, length=100)
+	@Size(max=100)
+	private String branch = "master";
+	
+	@Column(name="TITLE", nullable=false, length=100)
 	public String getTemplateTitle() {
 		return templateTitle;
 	}
@@ -43,7 +38,7 @@ public class TemplateEntity extends AbstractEntity {
 		this.templateTitle = templateTitle;
 	}
 
-	@Column(name="TEMPLATEPREFIX", nullable=false, length=100)
+	@Column(name="PREFIX", nullable=false, length=100)
 	public String getTemplatePackagePrefix() {
 		return templatePackagePrefix;
 	}
@@ -52,12 +47,21 @@ public class TemplateEntity extends AbstractEntity {
 		this.templatePackagePrefix = templatePackagePrefix;
 	}
 	
-	@Column(name="TEMPLATELOCATION", nullable = false, length=100)
+	@Column(name="LOCATION", nullable = false, length=100)
 	public String getTemplateLocation() {
 		return templateLocation;
 	}
 
 	public void setTemplateLocation(String templateLocation) {
 		this.templateLocation = templateLocation;
+	}
+
+	@Column(name="BRANCH", length=100)
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
 	}
 }

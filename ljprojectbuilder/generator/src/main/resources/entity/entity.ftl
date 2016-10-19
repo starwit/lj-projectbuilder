@@ -99,7 +99,7 @@ public class ${domain}Entity extends AbstractEntity {
 		this.${attribute.name} = ${attribute.name};
 	}
 	<#else>
-		public void set${attribute.name?cap_first}(${attribute.dataType} ${attribute.name}) {
+	public void set${attribute.name?cap_first}(${attribute.dataType} ${attribute.name}) {
 		this.${attribute.name} = ${attribute.name};
 	}
 	</#if>
