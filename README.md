@@ -1,5 +1,7 @@
 # Project Builder
 
+![screenshot project builder](https://wp.starwit.de/wp-content/uploads/2016/10/projectbuilder.png)
+
 ## Motivation
 Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner.
 
