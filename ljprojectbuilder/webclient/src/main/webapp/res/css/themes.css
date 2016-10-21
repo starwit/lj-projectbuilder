@@ -54,7 +54,7 @@
 
 /* --- RED --- */
 
-#red{background:#fef0ec}
+#red{background:#fff}
 #red #headerBox,#red button,#red .button a{color:#fff;background-color:#B82907}
 #red #footerBox p{color:#B82907}
 
@@ -67,7 +67,7 @@
 
 /* --- YELLOW --- */
 
-#yellow{background:#f2cf40}
+#yellow{background:#fff}
 #yellow #headerBox,#yellow button,#yellow .button a{color:#fff;background-color:#ffa100}
 #yellow #footerBox p{color:#e28f00}
 
@@ -80,7 +80,7 @@
 
 /* --- BLUE --- */
 
-#blue{background:#e8f5ff}
+#blue{background:#fff}
 #blue #headerBox,#blue button,#blue .button a{color:#fff;background-color:#00477e}
 #blue #footerBox p{color:#00477e}
 
@@ -90,6 +90,25 @@
 #blue .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #002b4d}
 #blue .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #204b6d}
 #blue .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #406b8d}
+
+/* --- CAPUT-YELLOW --- */
+
+#caput{background:#fdfdf1}
+#caput #headerBox,#caput button,#caput .button a{color:#fff;background-color:#4c0f20}
+#caput #footerBox p{color:#834c5c}
+#caput #subheaderBox, #caput #bodyBox {background-color:#fdfdf1}
+
+#caput .navBar ul li.step1.act a{background-color:#4c0f20}
+#caput .navBar ul li.step2.act a{background-color:#682a3c}
+#caput .navBar ul li.step3.act a{background-color:#834c5c}
+#caput .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #4c0f20}
+#caput .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #682a3c}
+#caput .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #834c5c}
+
+#caput .odd{background-color:#f9f9da}
+#caput .even{background-color:#fbfbe3}
+#caput .list{background-color:#f9f9da}
+#caput .listcontent{background-color:#fbfbe3}
 
 /* --- WHITE ---*/
 

@@ -58,7 +58,7 @@
 	"error.downloadproject" : "Der Download konnte nicht durchgeführt werden. Bitte erstellen Sie eine Fehlermeldung unter ",
 	"generator.button.downloadproject" : "Projekt herunterladen",
 	"generator.loading.title"			: "Projekterstellung",
-	"generator.loading.msg"	: "Das Projekt wird erstellt und zum Downlaad vorbereitet. Bitte warten Sie.",
+	"generator.loading.msg"	: "Das Projekt wird erstellt. Bitte warten Sie.",
 		
 	"###BEGIN###" 					: "Generierung beginnt",
 	"attribute.name"				: "Name",
