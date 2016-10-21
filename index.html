@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Lj-projectbuilder : Build a project using lirejarp example">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Lj-projectbuilder</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/witchpou/lj-projectbuilder">View on GitHub</a>
+
+          <h1 id="project_title">Lj-projectbuilder</h1>
+          <h2 id="project_tagline">Build a project using lirejarp example</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/witchpou/lj-projectbuilder/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/witchpou/lj-projectbuilder/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="project-builder" class="anchor" href="#project-builder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Builder</h1>
+
+<p><img src="https://wp.starwit.de/wp-content/uploads/2016/10/projectbuilder.png" alt="screenshot project builder"></p>
+
+<h2>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h2>
+
+<p>Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner.</p>
+
+<p>Yet still a lot of boiler plate code needs to be written and creating JEE application quickly remains a challenge. Therefore approach described in this article shall provide a guide in how to setup an architecture implementing persistence and a RESTful interface layer. To do that properly a (reusable) pattern of inheritance + generic data types is proposed. This (yet unnamed) pattern is applied in persistence, Enterprise Java Beans and in RESTful web service implementation and therefore proved to be quite flexible.</p>
+
+<p>A fully working example application of this pattern can be found is the <a href="https://github.com/witchpou/lirejarp">lirejarp template</a>. Besides using described pattern it also contains an Javascript based client application that serves a UI to the Java based back end. This rigorous separation of UI is also intended as it helps to demonstrate architecture approach without mixing with UI issues.</p>
+
+<p>This is a tool that helps you create a new project based on the <a href="https://github.com/witchpou/lirejarp">lirejarp template</a>. Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp is modified and enhanced accordingly. </p>
+
+<h2>
+<a id="prequisites" class="anchor" href="#prequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prequisites</h2>
+
+<p>To start the software, the following stuff have to be installed:</p>
+
+<ul>
+<li>Java 8 JDK or higher</li>
+<li>Maven 3.0.5 or higher</li>
+<li>ant 1.9.3 or higher</li>
+</ul>
+
+<h2>
+<a id="start-project-builder" class="anchor" href="#start-project-builder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Project Builder</h2>
+
+<p>You can build and start the Project Builder in only three steps:</p>
+
+<ol>
+<li>Clone <a href="https://github.com/witchpou/lj-projectbuilder">Lirejarp Project Builder</a> with git clone <a href="https://github.com/witchpou/lj-projectbuilder">https://github.com/witchpou/lj-projectbuilder</a>
+</li>
+<li>go to directory lj-projectbuilder/ljprojectbuilder and open command line</li>
+<li>execute <code>ant setup_project</code> on commandline</li>
+</ol>
+
+<p>Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Lj-projectbuilder maintained by <a href="https://github.com/witchpou">witchpou</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
