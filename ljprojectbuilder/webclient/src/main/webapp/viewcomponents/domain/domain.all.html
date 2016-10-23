@@ -32,7 +32,7 @@
 					<thead>
 						<tr>
 							<td class="aLeft">
-								<span class="button"><a ng-click="$event.stopPropagation();ctrl.showDetails(domain.id);">Details</a></span>
+								<span class="button show"><a ng-click="$event.stopPropagation();ctrl.showDetails(domain.id);"><b>{{ctrl.detailsign}}</b></a></span>
 								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoDomain.update(ctrl.projectid, domain.id)">Bearbeiten</a></span>
 							</td>
 							<td class="aCenter">

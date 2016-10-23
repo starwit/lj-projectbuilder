@@ -23,6 +23,7 @@
 		function init() {
 			ctrl.projectAll = [];
 			ctrl.project = {};
+			ctrl.detailsign='+';
 			projectConnectorFactory.getProjectAll().then(setProjectAll, null);
 		}
 		
@@ -41,8 +42,10 @@
 		    var x = document.getElementById(projectid);
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
+		        ctrl.detailsign = '-';
 		    } else {
 		        x.className = x.className.replace(" w3-show", "");
+		        ctrl.detailsign = '+';
 		    }
 		    
 		};

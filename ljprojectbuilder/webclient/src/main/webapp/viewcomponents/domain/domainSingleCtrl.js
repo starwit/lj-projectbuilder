@@ -14,6 +14,7 @@
 		ctrl.doMaintainNext = doMaintainNext;
 		ctrl.doMaintainDetail = doMaintainDetail;
 		ctrl.doMaintainGenerate = doMaintainGenerate;
+		ctrl.gotoDomainGenerate = gotoDomainGenerate;
 		ctrl.addAttribute = addAttribute;
 		ctrl.removeAttribute = removeAttribute;
 		ctrl.dialog = dialogService.dialog;

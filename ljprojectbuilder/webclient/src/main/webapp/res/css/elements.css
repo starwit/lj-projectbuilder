@@ -30,6 +30,7 @@ button{display:inline-block;padding:30px;overflow:visible;line-height:100%;verti
 button.icon{position:relative;z-index:2;float:left;display:block;background-size:70%;background-position:center center;background-repeat:no-repeat}
 button.icon+button.icon{margin-left:10px}
 button.icon+button.next{margin-right:10px;margin-left:0}
+button.icon+button.add{margin-right: 10px;margin-left:0}
 .aCenter button.add{float:none;display:inline-block}
 button.right{float:right}
 

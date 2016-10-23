@@ -7,20 +7,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-
+/**
+ * Contains all configuration for project setup and generator.
+ * @author Anett Huebner
+ *
+ */
 @XmlRootElement
 public class GeneratorDto {
 	
 	private ProjectEntity project;
 	
+	/**
+	 * Enables or disables the generation of the database access layer
+	 */
 	private boolean generateEntity = true;
 	
+	/**
+	 * Enables or disables the generation of the service layer to generate CRUD-services
+	 */
 	private boolean generateService = true;
 	
+	/**
+	 * Enables or disables the generation of the REST API
+	 */
 	private boolean generateRest = true;
 	
+	/**
+	 * Enables or disables the generation of the frontend module
+	 */
 	private boolean generateFrontend = true;
 	
+	/**
+	 * Enables or disables the generation of the testdata
+	 */
 	private boolean generateTests;
 	
 	private List<DomainEntity> domains = new ArrayList<DomainEntity>();

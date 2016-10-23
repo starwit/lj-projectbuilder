@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,7 +24,6 @@ import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.GeneratorService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.exeptions.ProjectSetupException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
@@ -46,7 +44,14 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
 	
 	/**
-	 * 
+	 * Executes all functions needed to setup the new project. These are:
+	 *  - checkout template-project from git-repository
+	 *  - rename the project as configured in generatorDto.project
+	 *  - rename the "starwit" package as configured in generatorDto.project
+	 *  - generate CRUD-Operations for the several layers (Database access, REST API and frontend)
+	 * @param dto - configuration for project setup
+	 * @return
+	 * @throws ProjectSetupException
 	 */
 	@Override
 	public void setupAndGenerateProject(GeneratorDto dto) throws ProjectSetupException {
@@ -60,6 +65,12 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 		generatorSerivce.generate(dto);
 	}
 
+	/**
+	 * Loads the project from database.
+	 * @param projectid
+	 * @return
+	 * @throws ProjectSetupException
+	 */
 	private ProjectEntity findProjectById(Long projectid) throws ProjectSetupException {
 		ProjectEntity entity = projectService.findById(projectid);
 		if (entity == null) {

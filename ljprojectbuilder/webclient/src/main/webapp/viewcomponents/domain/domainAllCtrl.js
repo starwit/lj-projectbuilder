@@ -43,8 +43,10 @@
 		    var x = document.getElementById(domainid);
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
+		        ctrl.detailsign = '-';
 		    } else {
 		        x.className = x.className.replace(" w3-show", "");
+		        ctrl.detailsign = '+';
 		    }
 		};
 		
@@ -55,6 +57,7 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined) {
 					ctrl.projectid = $routeParams.projectid;
+					ctrl.detailsign = '+';
 					projectConnectorFactory.loadProject($routeParams.projectid)
 					.then(	setProjectTitle, null);
 					refresh();

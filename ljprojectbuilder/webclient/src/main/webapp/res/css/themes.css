@@ -51,6 +51,7 @@
 #green .even{background-color:#f2f6f1}
 #green .list{background-color:#dfdfdf}
 #green .listcontent{background-color:#f0f0f0}
+#page .button.show a{color:#7f7f7f!important;background-color:#dfdfdf!important;box-shadow: 0 0 0 #8f8f8f;}
 
 /* --- RED --- */
 
