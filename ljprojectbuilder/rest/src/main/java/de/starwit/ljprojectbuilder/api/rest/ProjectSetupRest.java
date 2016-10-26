@@ -36,6 +36,7 @@ public class ProjectSetupRest {
 			return response;
 		//TODO: handle exception
 		} catch (Exception ex) {
+			LOG.error(ex.getMessage(), ex);
 			Response<Boolean> response = new Response<>(false);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.ERROR, "generator.error");
 			response.setMetadata(responseMetadata);

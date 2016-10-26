@@ -10,7 +10,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -179,7 +184,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 			LOG.info("FileName: " + childdirectory.getAbsolutePath());
 			try {
 				if (oldProjectName.equals(childdirectory.getName())) {
-					File renamedChildDirectory = new File(childdirectory.getParent() + "/" + newProjectName);
+					File renamedChildDirectory = new File(childdirectory.getParent() + Constants.FILE_SEP + newProjectName.toLowerCase());
 					Files.move(childdirectory.toPath(), renamedChildDirectory.toPath());
 					renameDirectories(oldProjectName, newProjectName, renamedChildDirectory);
 				} else {
@@ -217,18 +222,32 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 */
 	private void renameFileContent(String oldProjectName, String newProjectName, File fileIn) throws ProjectSetupException {
 		Path filePath = fileIn.toPath();
-		Path moved = null;
+		File old = null;
 		File fileOut = null;
-		File fileOld = null;
 		BufferedReader reader = null;
 		PrintWriter writer = null;
 
 		try {
-			moved = Files.move(filePath, new File(fileIn.getName() + "_OLD").toPath());
-			fileOut = Files.createFile(filePath).toFile();
-			fileOld = moved.toFile();
+		    Set<PosixFilePermission> perms = new HashSet<>();
+		    // add permission as rw-r--r-- 644
+		    perms.add(PosixFilePermission.OWNER_WRITE);
+		    perms.add(PosixFilePermission.OWNER_READ);
+		    perms.add(PosixFilePermission.GROUP_READ);
+		    perms.add(PosixFilePermission.OTHERS_READ);
+		    perms.add(PosixFilePermission.OWNER_EXECUTE);
+		    FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions.asFileAttribute(perms);
+			
+		    old = new File(filePath.getParent() + Constants.FILE_SEP + "OLD_" + fileIn.getName());
+		    old.setWritable(true);
+		    old.setReadable(true);
+		    old.createNewFile();
+		    FileUtils.copyFile(filePath.toFile(), old);
+		    FileUtils.forceDelete(filePath.toFile());
+			fileOut = Files.createFile(filePath, fileAttributes).toFile();
+			fileOut.setReadable(true);
+			fileOut.setWritable(true);
 
-			reader = new BufferedReader(new FileReader(fileOld));
+			reader = new BufferedReader(new FileReader(old));
 			 writer = new PrintWriter(new FileWriter(fileOut));
 			String line = null;
 			while ((line = reader.readLine()) != null) {
@@ -236,7 +255,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 			}
 			
 		} catch (IOException e) {
-			LOG.error("Error processing file with name " + fileIn.getName());
+			LOG.error("Error processing file with name " + fileIn.getName(), e);
 			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.renamefilecontent");
 			throw new ProjectSetupException(data);
 		} finally {
@@ -247,8 +266,8 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 				if (writer != null) {
 					writer.close();
 				}
-				if (moved != null && moved.toFile().exists()) {
-					moved.toFile().delete();
+				if (old != null && old.exists()) {
+					old.delete();
 				}
 			} catch(IOException e) {
 				LOG.error("Error closing reader and writer", e);

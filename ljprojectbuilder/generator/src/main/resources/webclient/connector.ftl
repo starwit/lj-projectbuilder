@@ -33,7 +33,7 @@ ${domain?lower_case}ConnectorFactory = ['$http', '$location', 'restConnectorFact
 	};
 		
 	function update${domain}(${domain?lower_case}) {
-		return $http.post('api/project/', ${domain?lower_case})
+		return $http.post('api/${domain?lower_case}/', ${domain?lower_case})
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import de.starwit.ljprojectbuilder.config.Constants;
+import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -66,7 +67,7 @@ public class TemplateDef {
 			throws IOException, TemplateNotFoundException, MalformedTemplateNameException, ParseException {
 		@SuppressWarnings("deprecation")
 		Configuration cfg = new Configuration();
-		cfg.setDirectoryForTemplateLoading(new File(Constants.TEMPLATE_PATH));
+		cfg.setClassForTemplateLoading(FindClass.class, ".." + Constants.FILE_SEP);
 		Template template = cfg.getTemplate(templateFile);
 		return template;
 	}
