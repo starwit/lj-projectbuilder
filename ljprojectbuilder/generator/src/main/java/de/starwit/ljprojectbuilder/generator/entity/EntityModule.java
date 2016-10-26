@@ -31,8 +31,8 @@ public class EntityModule extends AbstractModule {
 	public String getSrcDir() {
 		return this.getModuleDir()
 				+ getPaths().getSource() + Constants.FILE_SEP + "de" + Constants.FILE_SEP
-				+ getSetupBean().getProject().getPackagePrefix()
-				+ Constants.FILE_SEP + getSetupBean().getProject().getTitle()
+				+ getSetupBean().getProject().getPackagePrefix().toLowerCase()
+				+ Constants.FILE_SEP + getSetupBean().getProject().getTitle().toLowerCase()
 				+ Constants.FILE_SEP;
 	}
 	

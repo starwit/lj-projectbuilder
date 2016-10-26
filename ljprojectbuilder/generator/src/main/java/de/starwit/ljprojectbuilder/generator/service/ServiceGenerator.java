@@ -28,8 +28,8 @@ public class ServiceGenerator extends AbstractGenerator<ServiceModule> {
 			return null;
 		}
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put("appName", setupBean.getProject().getTitle());
-		data.put("package", setupBean.getProject().getPackagePrefix());
+        data.put("appName", setupBean.getProject().getTitle().toLowerCase());
+		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
 		return data;
 	}
 }

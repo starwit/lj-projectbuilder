@@ -28,16 +28,16 @@ public class ServiceModule extends AbstractModule {
 	public String getSrcDir() {
 		return this.getModuleDir()
 				+ FS + getPaths().getSource() + FS + "de" + FS
-				+ getSetupBean().getProject().getPackagePrefix()
-				+ FS + getSetupBean().getProject().getTitle() + FS;
+				+ getSetupBean().getProject().getPackagePrefix().toLowerCase()
+				+ FS + getSetupBean().getProject().getTitle().toLowerCase() + FS;
 	}
 	
 	@Override
 	public String getTestDir() {
 		return this.getModuleDir()
 				+ FS + getPaths().getTest() + FS + "de" + FS
-				+ getSetupBean().getProject().getPackagePrefix()
-				+ FS + getSetupBean().getProject().getTitle() + FS;
+				+ getSetupBean().getProject().getPackagePrefix().toLowerCase()
+				+ FS + getSetupBean().getProject().getTitle().toLowerCase() + FS;
 	}
 
 }

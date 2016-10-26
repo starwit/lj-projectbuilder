@@ -26,10 +26,10 @@ public class FrontendGenerator extends AbstractGenerator<FrontendModule> {
 		}
 		List<DomainEntity> domains = setupBean.getDomains();
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("appName", setupBean.getProject().getTitle());
+		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
 		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
 		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
-		data.put("package", setupBean.getProject().getPackagePrefix());
+		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
 		data.put("domainnames", getModule().getDomainnames() );
 		data.put("domains", domains);
 		return data;

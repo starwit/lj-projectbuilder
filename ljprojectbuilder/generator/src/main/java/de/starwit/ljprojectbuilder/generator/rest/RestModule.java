@@ -36,8 +36,8 @@ public class RestModule extends AbstractModule {
 	public String getSrcDir() {
 		return this.getModuleDir()
 				+ Constants.FILE_SEP + getPaths().getSource() + Constants.FILE_SEP + "de" + Constants.FILE_SEP
-				+ getSetupBean().getProject().getPackagePrefix()
-				+ Constants.FILE_SEP + getSetupBean().getProject().getTitle();
+				+ getSetupBean().getProject().getPackagePrefix().toLowerCase()
+				+ Constants.FILE_SEP + getSetupBean().getProject().getTitle().toLowerCase();
 	}
 	
 	public List<String> getRestClassnames() {
