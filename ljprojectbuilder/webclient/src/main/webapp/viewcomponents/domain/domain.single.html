@@ -73,12 +73,14 @@
 				<tbody>
 					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
 						<td>
-							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required />
-							<span ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</span>
+						<div name="innerForm" ng-form>
+							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required ng-pattern="/^[a-z][a-zA-Z0-9]*$/"/>
+							<label ng-show="innerForm.attributename.$error.required" >{{'error.required' | translate}}</label>
+							<label ng-show="innerForm.attributename.$error.pattern">{{'error.attribute.pattern' | translate}}</label>
+						</div>
 						</td>
 						<td>
 							<input placeholder="{{'attribute.description' | translate}}" name="attributedescription" id="attributedescription" type="text" ng-model="attribute.description"/>
-							<span ng-show="ctrl.form.attributename.$error.required">{{'error.required' | translate}}</span>
 						</td>
 						<td>
 							<select placeholder="{{'attribute.type' | translate}}" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required></select>

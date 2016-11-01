@@ -43,15 +43,21 @@
 							<th>{{'project.target' | translate}}</th>
 						</tr>
 						<tr>
-							<th>{{'project.location' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.templateLocation}}</td>
-							<td></td>
-						</tr>
-						<tr>
 							<th>{{'project.title' | translate}}</th>
 							<td>{{ctrl.generatorDto.project.template.templateTitle}}</td>
 							<td>{{ctrl.generatorDto.project.title}}</td>
 						</tr>
+						<tr>
+							<th>{{'project.location' | translate}}</th>
+							<td>{{ctrl.generatorDto.project.template.templateLocation}}</td>
+							<td></td>
+						</tr>	
+						<tr>
+							<th>{{'project.templatebranch' | translate}}</th>
+							<td>{{ctrl.project.template.branch}}</td>
+							<td></td>
+						</tr>					
+
 						<tr>
 							<th>{{'project.packageprefix' | translate}}</th>
 							<td>{{ctrl.generatorDto.project.template.templatePackagePrefix}}</td>
