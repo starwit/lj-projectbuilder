@@ -1,12 +1,24 @@
-<div class="subPart personAll">
-	<div class="subPartTitle"><h1>{{title | translate}}</h1></div>
-	<div class="editMenu">
-		<button class="buttonLarge grey floating" ng-click="ctrl.goto${domain}.create();">erstellen</button>
-		<button class="buttonLarge grey floating" ng-click="ctrl.idSelected != null && ctrl.goto${domain}.update(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">bearbeiten</button>
-		<button class="buttonLarge grey floating" ng-click="ctrl.idSelected != null && ctrl.delete${domain}(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">l&ouml;schen</button>
+<div id="headerBox" ng-include="'menu.html'"></div>
+
+<div id="subheaderBox" class="aCenter">
+	<div class="bottom">
+		<span class="button add"><a ng-click="ctrl.goto${domain}.create();">+ {{'button.add' | translate}}</a></span>
+		<span class="button"><a ng-click="ctrl.idSelected != null && ctrl.goto${domain}.update(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">+ {{'button.update' | translate}}</a></span>
+		<span class="button"><a ng-click="ctrl.idSelected != null && ctrl.delete${domain}(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">+ {{'button.delete' | translate}}</a></span>
+		<div class="clearer"></div>
 	</div>
-	<div class="resultTable">
-		<table>
+</div>
+
+<div id="bodyBox">
+	<div class="contain">
+		<table class="acc" id="{{${domain?lower_case} id}}" >
+			<colgroup>
+				<#list attributes> 
+				<#items as attribute>
+	    		<col class="">
+	    		</#items>
+	    		</#list>
+	    	</colgroup>
 		<thead>
 			<#list attributes> 
 			<tr>
@@ -30,6 +42,5 @@
 		</tbody>
 		<tfoot></tfoot>
 		</table>
-		</div>	
-	</div>
+	</div>	
 </div>
