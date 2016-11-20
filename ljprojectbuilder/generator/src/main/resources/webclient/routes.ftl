@@ -1,5 +1,5 @@
 /** 
- * Navigation and routing for module ljprojectbuilderApp.project.
+ * Navigation and routing for module '${appName}App..${domain?lower_case}.
  */
 (function() {
 'use strict';

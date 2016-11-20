@@ -2,16 +2,16 @@
 
 <div id="subheaderBox" class="aCenter">
 	<div class="bottom">
-		<span class="button add"><a ng-click="ctrl.goto${domain}.create();">+ {{'button.add' | translate}}</a></span>
+		<span class="button add"><a ng-click="ctrl.goto${domain}.create();">* {{'button.add' | translate}}</a></span>
 		<span class="button"><a ng-click="ctrl.idSelected != null && ctrl.goto${domain}.update(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">+ {{'button.update' | translate}}</a></span>
-		<span class="button"><a ng-click="ctrl.idSelected != null && ctrl.delete${domain}(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">+ {{'button.delete' | translate}}</a></span>
+		<span class="button"><a ng-click="ctrl.idSelected != null && ctrl.delete${domain}(ctrl.idSelected);" ng-disabled="ctrl.idSelected == null">- {{'button.delete' | translate}}</a></span>
 		<div class="clearer"></div>
 	</div>
 </div>
 
 <div id="bodyBox">
 	<div class="contain">
-		<table class="acc" id="{{${domain?lower_case} id}}" >
+		<table>
 			<colgroup>
 				<#list attributes> 
 				<#items as attribute>
