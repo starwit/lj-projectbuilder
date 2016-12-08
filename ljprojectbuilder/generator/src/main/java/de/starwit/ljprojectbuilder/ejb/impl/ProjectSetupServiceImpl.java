@@ -40,7 +40,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	@Inject
 	private GeneratorService generatorSerivce;
 	
-	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml" };
+	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md" };
 	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
 	
 	/**

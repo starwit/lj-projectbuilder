@@ -18,7 +18,7 @@ public class ${domain}Entity extends AbstractEntity {
 	//domain attributes
 	
 	<#list (attributes) as attribute> 
-		<#if attribute.pattern??>
+		<#if attribute.pattern?? && attribute.pattern?length &gt; 0 && attribute.dataType == "String">
 	@Pattern(regexp = "${attribute.pattern}")
 		</#if>	
 		<#if attribute.dataType == "String">

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -97,5 +98,14 @@ public class AttributeEntity extends AbstractEntity {
 
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
+	}
+	
+	@Transient
+	public boolean isRequired() {
+		return !nullable;
+	}
+
+	public void setRequired(boolean required) {
+		this.nullable = !required;
 	}
 }

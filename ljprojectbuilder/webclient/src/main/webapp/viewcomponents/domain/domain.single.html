@@ -58,11 +58,12 @@
 		    		<col class="">
 		    		<col class="">
 		    		<col class="">
+		    		<col class="">
 		    		<col class="w5">
 		    	</colgroup>
 		    	<thead>
 					<tr>
-						<td colspan="4">
+						<td colspan="5">
 							<h3>Attribute erfassen</h3>
 						</td>
 						<td colspan="3" class="aRight">
@@ -71,6 +72,15 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+							<th>{{'attribute.name' | translate}}</th>
+							<th>{{'attribute.description' | translate}}</th>
+							<th>{{'attribute.type' | translate}}</th>
+							<th>{{'attribute.pattern' | translate}}</th>
+							<th>{{'attribute.max' | translate}}</th>
+							<th>{{'attribute.min' | translate}}</th>
+							<th>{{'attribute.nullable' | translate}}</th>
+					</tr>
 					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
 						<td>
 						<div name="innerForm" ng-form>
@@ -93,6 +103,9 @@
 						</td>
 						<td>
 							<input placeholder="{{'attribute.min' | translate}}" name="attributemin" id="attributemin" type="text" ng-model="attribute.min"/>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.nullable' | translate}}" name="attributenullable" id="attributenullable" type="checkbox" ng-model="attribute.required"/>
 						</td>
 						<td class="aRight">
 							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span>

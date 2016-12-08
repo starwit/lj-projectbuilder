@@ -67,6 +67,7 @@
 											<th>{{'attribute.pattern' | translate}}</th>
 											<th>{{'attribute.max' | translate}}</th>
 											<th>{{'attribute.min' | translate}}</th>
+											<th>{{'attribute.nullable' | translate}}</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -77,6 +78,9 @@
 											<td>{{attribute.pattern}}</td>
 											<td>{{attribute.max}}</td>
 											<td>{{attribute.min}}</td>
+											<td>
+												<input placeholder="{{'attribute.nullable' | translate}}" name="attributenullable" id="attributenullable" type="checkbox" ng-model="attribute.required" disabled="true"/>
+											</td>
 										</tr>
 									</tbody>
 								</table>

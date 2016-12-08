@@ -9,7 +9,7 @@
 			<#if attribute.dataType == "String"> 
 			<label for="${attribute.name?lower_case}">{{'${domain?lower_case}.${attribute.name}' | translate}}:</label>
 			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" type="text" ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" 
-				<#if attribute.pattern??> ng-pattern="${attribute.pattern}"</#if>	
+				<#if attribute.pattern?? && attribute.pattern?length &gt; 0 > ng-pattern="/${attribute.pattern}/"</#if>	
 				<#if attribute.min??> ng-minlength="${attribute.min}"</#if>
 				<#if attribute.max??> ng-maxlength="${attribute.max}"</#if>
 				<#if !attribute.nullable> required</#if>
@@ -18,9 +18,9 @@
 			
 			<#if attribute.dataType == "Integer"> 
 			<label for="${attribute.name?lower_case}">{{'${domain?lower_case}.${attribute.name}' | translate}}:</label>
-			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" type="text" ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" numberinput='' ng-pattern="/^[0-9]+$/"	
-				<#if attribute.min??> ng-minlength="${attribute.min}"</#if>
-				<#if attribute.max??> ng-maxlength="${attribute.max}"</#if>
+			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" type="number" ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" numberinput='' ng-pattern="/^[0-9]+$/"	
+				<#if attribute.min??> min="${attribute.min}"</#if>
+				<#if attribute.max??> max="${attribute.max}"</#if>
 				<#if !attribute.nullable> required</#if>
 			/>
 			<label ng-show="ctrl.form.${attribute.name?lower_case}.$error.pattern">{{'error.number' | translate}}</label>
