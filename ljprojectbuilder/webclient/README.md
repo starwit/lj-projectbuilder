@@ -60,5 +60,5 @@ In index.html, you will find `<html lang="<%= locale %>" ng-app="ljprojectbuilde
 `ng-app="ljprojectbuilderApp"` is added. *ng-app* is a **directive**. The module 'ljprojectbuilderApp' will be available in the `<html>` tag and defines the application scope.
 
 ### add contoller appController to the page
-The directive `ng-controller="appController"` adds the controller *appController* (defined in app.module.js) to the page. The controller has an own scope. Hence, all properties attached to $scope in appController are avaiable in the html-tag in which the controller is defined. Because the controller is defined in `<html>`-tag, the scope is available in the whole page. E.g. to access $scope.title, we use *{{title}}*. {{title}} is an *expression*. Expressions are used to display values on the page.
+The directive `ng-controller="appController"` adds the controller *appController* (defined in app.module.js) to the page. The controller has an own scope. Hence, all properties attached to $scope in appController are avaiable in the html-tag in which the controller is defined. Because the controller is defined in `<html>`-tag, the scope is available in the whole page. E.g. to access $scope.title, we use *{{title}}*. {{title}} is an **expression**. Expressions are used to display values on the page.
 
