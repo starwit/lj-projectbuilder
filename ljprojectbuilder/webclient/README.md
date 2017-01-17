@@ -27,7 +27,7 @@ angular.module('ljprojectbuilderApp', [
 
 ### global controller definition
 
-To handle global stuff in the app, a **controller named appController** is defined. A contollers manage the data of your app.
+To handle global stuff in the app, a **controller** named *appController* is defined. A contollers manage the data of your app.
 
 
 ```
@@ -53,8 +53,12 @@ This controller is added to the module *ljprojectbuilderApp*:
 ```
 ## index.html
 
-In index.html, you will find `<html lang="<%= locale %>" ng-app="ljprojectbuilderApp"  ng-controller="appController">` as first line. That means:
+In index.html, you will find `<html lang="<%= locale %>" ng-app="ljprojectbuilderApp"  ng-controller="appController">` as first line. This line will be explained in the following text.
 
-1. ng-app="ljprojectbuilderApp" is added. 'ng-app' is a *directive*. The module 'ljprojectbuilderApp' will be available in the `<html>` tag and defines the application scope.
-2. The directive ng-controller="appController" adds the controller *appController* (defined in app.module.js) to the page. The controller has an own scope. Hence, all properties attached to $scope in appController are avaiable in the html-tag in which the controller is defined. Because the controller is defined in `<html>`-tag, the scope is available in the whole page. E.g. to access $scope.title, we use *{{title}}*. {{title}} is an *expression*. Expressions are used to display values on the page.
+### add a angular module as app to the page
+
+`ng-app="ljprojectbuilderApp"` is added. *ng-app* is a **directive**. The module 'ljprojectbuilderApp' will be available in the `<html>` tag and defines the application scope.
+
+### add a contoller in a page
+2. The directive `ng-controller="appController"` adds the controller *appController* (defined in app.module.js) to the page. The controller has an own scope. Hence, all properties attached to $scope in appController are avaiable in the html-tag in which the controller is defined. Because the controller is defined in `<html>`-tag, the scope is available in the whole page. E.g. to access $scope.title, we use *{{title}}*. {{title}} is an *expression*. Expressions are used to display values on the page.
 
