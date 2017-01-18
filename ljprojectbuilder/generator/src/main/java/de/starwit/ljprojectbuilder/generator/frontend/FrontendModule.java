@@ -39,7 +39,8 @@ public class FrontendModule extends AbstractModule {
 		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "index.html", "webclient" + Constants.FILE_SEP + "scripts.ftl"));
 		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "app.module.js", "webclient" + Constants.FILE_SEP + "app.module.ftl"));
 		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP, "menu.html", "webclient" + Constants.FILE_SEP + "menu.ftl"));
-		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-de-DE.json", "webclient" + Constants.FILE_SEP + "translation.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-de-DE.json", "webclient" + Constants.FILE_SEP + "translations-de-DE.ftl"));
+		getAdditionalContentTemplates().add(new TemplateDef(getSrcDir() + Constants.FILE_SEP + "localization" + Constants.FILE_SEP, "translations-en-US.json", "webclient" + Constants.FILE_SEP + "translations-en-US.ftl"));
 	}
 
 	private TemplateDef configureTemplateDef(String name, String fileext) {

@@ -48,6 +48,24 @@
 			<label ng-show="ctrl.form.${attribute.name?lower_case}.$error.pattern">{{'error.number' | translate}}</label>
 			</#if>
 			
+			<#if attribute.dataType == "Date"> 
+			<label for="${attribute.name?lower_case}">{{'${domain?lower_case}.${attribute.name}' | translate}}:</label>
+			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" 
+				type="text" moment-picker="ctrl.${domain?lower_case}${attribute.name?uncap_first}formated" ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" ng-value="ctrl.${domain?lower_case}.${attribute.name?uncap_first} | formatLocalDate"
+			<#if !attribute.nullable> required</#if>	
+			/>
+			</#if>
+			
+			<#if attribute.dataType == "Timestamp"> 
+			<label for="${attribute.name?lower_case}">{{'${domain?lower_case}.${attribute.name}' | translate}}:</label>
+			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" 
+				type="text" moment-picker="ctrl.${domain?lower_case}${attribute.name?uncap_first}formated"
+				ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" ng-value="ctrl.${domain?lower_case}.${attribute.name?uncap_first} | formatLocalTime"
+				format="LLL" min-view="month" max-view="minute" start-view="month"
+			<#if !attribute.nullable> required</#if>	
+			/>
+			</#if>
+			
 			<#if attribute.min??><label  ng-show="ctrl.form.${attribute.name?lower_case}.$error.minlength">{{'error.minlength' | translate}}</label></#if>
 			<#if attribute.max??><label  ng-show="ctrl.form.${attribute.name?lower_case}.$error.maxlength">{{'error.maxlength' | translate}}</label></#if>
 			<#if !attribute.nullable><label  ng-show="ctrl.form.${attribute.name?lower_case}.$error.required">{{'error.required' | translate}}</label></#if>

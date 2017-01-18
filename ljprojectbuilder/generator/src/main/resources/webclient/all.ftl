@@ -35,7 +35,7 @@
 
 				<#list attributes> 
 				<#items as attribute>
-				<td>{{${domain?lower_case}.${attribute.name}}}</td>
+				<td>{{${domain?lower_case}.${attribute.name} <#if attribute.dataType == "Date"> | formatLocalDate </#if> <#if attribute.dataType == "Timestamp"> | formatLocalTime </#if> }}</td>
 				</#items>
 				</#list>
 			</tr>
