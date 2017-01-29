@@ -30,7 +30,7 @@
 						<tr>
 							<td>
 								<label for="projecttemplates">{{'project.templateselect' | translate}}</label>
-								<select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.templateLocation for template in ctrl.templateAll track by template.id"></select>
+								<select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.branch for template in ctrl.templateAll track by template.id"></select>
 							</td>
 							<td>
 								<label for="description">{{'project.description' | translate}}</label>

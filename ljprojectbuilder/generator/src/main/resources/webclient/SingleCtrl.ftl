@@ -43,7 +43,7 @@
 					ctrl.${domain?lower_case}.id = $routeParams.id;
 					${domain?lower_case}ConnectorFactory.load${domain}(ctrl.${domain?lower_case}.id).then(set${domain}, function(){});
 				}
-				if ($routeParams.is == null) {
+				if ($routeParams.id == null) {
 					ctrl.${domain?lower_case} = {};
 				}
 			});
