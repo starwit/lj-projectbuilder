@@ -1,11 +1,13 @@
 # Project Builder
 
 ## Links: 
-description of architecture: https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md
+* ![architecture description for developer](https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md)
+* ![frontend description for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/webdesign.md)
+
+## Motivation
 
 ![screenshot project builder](https://wp.starwit.de/wp-content/uploads/2016/10/projectbuilder.png)
 
-## Motivation
 Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner.
 
 Yet still a lot of boiler plate code needs to be written and creating JEE application quickly remains a challenge. Therefore approach described in this article shall provide a guide in how to setup an architecture implementing persistence and a RESTful interface layer. To do that properly a (reusable) pattern of inheritance + generic data types is proposed. This (yet unnamed) pattern is applied in persistence, Enterprise Java Beans and in RESTful web service implementation and therefore proved to be quite flexible.
