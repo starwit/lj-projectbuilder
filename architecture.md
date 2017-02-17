@@ -1,4 +1,4 @@
-# Archtictur
+# Architectur
 
 ## Abstract
 Yet still a lot of boiler plate code needs to be written and creating JEE application quickly remains a challenge. Therefore approach described here shall provide a guide in how to setup an architecture implementing persistence and a RESTful interface layer. To do that properly a (reusable) pattern of inheritance + generic data types is proposed. This (yet unnamed) pattern is applied in persistence, Enterprise Java Beans and in RESTful web service implementation and therefore proved to be quite flexible. If you want to build an web-application, Project Builder provides you a platform to fulfill your ideas. Nevertheless, you have all flexibility to change your application. If you want to have a software which is easy to implement and easy to change, you should use standards. You will find these standards in the lirejarp project template.
@@ -20,6 +20,8 @@ The UI logic is placed in the webclient project. HTML, CSS and Javascript (Angul
 ### packagewar
 The deployment of the project is done via war-file. It contains the projects persistence and rest as jar-files and the webclient. The project packagewar is resonsible for the build.
 
+![Component Diagram LireJarp](https://wp.starwit.de/ljprojectbuilder/wp-content/uploads/sites/7/2017/02/komponentendiagrammPS-LireJarp.png)
+
 ## Additional projects in lirejarp project builder
 In lirejarp project builder, two additional projects are implemented:
 
@@ -28,6 +30,8 @@ The generator project contains all logik to generate projects configured with th
 
 ### dbautoinit
 In this project, all database scripts are placed. Throught flyway, these scripts are executed automatically in the DEV-mode. Two databases are supported: h2 and mysql. In system.properties of the tomee-configuration, you can configure, which database is used: flyway.database=h2 lirejarp project puilder with the additional subprojects.
+
+![Component Diagram LireJarp Project Builder](https://wp.starwit.de/ljprojectbuilder/wp-content/uploads/sites/7/2017/02/komponentendiagrammPS.png)
 
 ## About implementing data access
 
