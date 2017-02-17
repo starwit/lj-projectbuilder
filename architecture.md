@@ -41,7 +41,7 @@ The architecture presented here goes further and uses this pattern through all l
 
 The following class-diagram provides an overview of the architecture. The description afterwards is given a better understanding of the diagramm.
 
-classdiagramm
+![classdiagramm](https://wp.starwit.de/wp-content/uploads/2016/10/classDiagramm-1.png)
 
 ### Entities for data access
 The lirejarp template uses JPA for data access. Hence, database table definitions and validation is defined in the entities.
