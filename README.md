@@ -1,5 +1,8 @@
 # Project Builder
 
+## Links: 
+description of architecture: https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md
+
 ![screenshot project builder](https://wp.starwit.de/wp-content/uploads/2016/10/projectbuilder.png)
 
 ## Motivation
