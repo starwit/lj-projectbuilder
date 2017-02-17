@@ -2,7 +2,7 @@
 
 ## Links: 
 * ![architecture description for developer](https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md)
-* ![frontend description for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/webdesign.md)
+* ![introduction for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/webdesign.md)
 
 ## Motivation
 
