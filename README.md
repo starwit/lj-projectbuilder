@@ -3,7 +3,7 @@
 ## Links: 
 * ![architecture description for developer](https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md)
 * ![introduction for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/webdesign.md)
-* ![article in german](https://wp.starwit.de/wp-content/uploads/2017/02/03-2016-Java-aktuell-Anett-Hübner_Java-Enterprise-Anwendungen-effizient-...-4.pdf)
+* [article in german](https://wp.starwit.de/wp-content/uploads/2017/02/03-2016-Java-aktuell-Anett-Hübner_Java-Enterprise-Anwendungen-effizient-...-4.pdf)
 
 ## Motivation
 
