@@ -54,8 +54,8 @@ The User Interface should be changeable easily and without additional deployment
 ### Code generation
 Code generation via freemarker enables publishing of an entire running application via lirejarp project builder. The intend is to help doing the first step and using a standardized way to implement standard functionality. So, you will just generate once and change the code in the way you want. This pragmatic approach avoids a complex code generation.
 
-### Advantage
+## Advantage
 You are really fast on creating or extending the backend of small JEE-applications. You avoid to write boiler-plate code because you do not have to implement general functionality in each part of the architecture. You just have to implement additional stuff like special queries. For instance you have an News Entity and you want to diplay all news of the day. Because it is implement only once, all methods doing the same have the same names. Class-casts form abstract to concrete classes are prevented by using Generics.
 
-### Disadvantage
+## Disadvantage
 Everywhere abstract classes are used, the risk of deep class hirarchies occures. This can be avoided by using composition or transfer logic in sperate classes.
