@@ -3,10 +3,11 @@
     	ant script that can setup and run this project including maven calls
   	</description>
 
-	<property name="runtime_path" value="../tomee" /> <!-- TODO what about websphere liberty --> 
+	<property name="tomee_path" value="tomee" /> <!-- TODO what about websphere liberty --> 
+	<property name="app_path" value="ljprojectbuilder" />
 
-	<property name="ui_src" location="webclient/src/main/webapp/" />
-	<property name="warfile" value="target/ljprojectbuilder.war" />
+	<property name="ui_src" location="${app_path}/webclient/src/main/webapp/" />
+	<property name="warfile" value="${app_path}/target/ljprojectbuilder.war" />
 	<property name="ui_dest" value="${basedir}/target/ljprojectbuilder" />
 	
 	<property name="sql_create" value="
@@ -35,7 +36,7 @@
 	<target name="build_application">
 		<echo>build war</echo>
 		<antcall target="call_maven">
-			<param name="exec_dir" value="."/>
+			<param name="exec_dir" value="${basedir}/${app_path}"/>
 			<param name="mvn_command" value="clean package -Dmaven.test.skip=true"/>
 		</antcall>	
 	</target>
@@ -43,7 +44,7 @@
 	<target name="build_application_with_tests">
 		<echo>build war</echo>
 		<antcall target="call_maven">
-			<param name="exec_dir" value="."/>
+			<param name="exec_dir" value="${basedir}/${app_path}"/>
 			<param name="mvn_command" value="clean package"/>
 		</antcall>	
 	</target>
@@ -57,33 +58,33 @@
 
 	<target name="build_tomee" description="build tomee">
 		<antcall target="call_maven">
-			<param name="exec_dir" value="${basedir}/${runtime_path}"/>
+			<param name="exec_dir" value="${basedir}/${tomee_path}"/>
 			<param name="mvn_command" value="tomee:build"/>
 		</antcall>
 	</target>
 
 	<target name="clean_tomee" description="build tomee">
 		<antcall target="call_maven">
-			<param name="exec_dir" value="${basedir}/${runtime_path}"/>
+			<param name="exec_dir" value="${basedir}/${tomee_path}"/>
 			<param name="mvn_command" value="clean"/>
 		</antcall>
 	</target>
 
 	<target name="run_tomee">
-		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="bash" os="Linux">
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux">
 			<arg value="startup.sh" />
 		</exec>
-		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="cmd" os="Windows">
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="Windows">
 			<arg value="startup.bat" />
 		</exec>
 	</target>
 
 	<target name="stop_tomee" depends="check_tomee_exist" if="${tomee.path.exist}">
 		<echo>Try to stop a running TomEE instance...</echo>
-		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="bash" os="Linux" >
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux" >
 			<arg value="shutdown.sh" />
 		</exec>
-		<exec dir="${runtime_path}/target/apache-tomee/bin/" executable="cmd" os="Windows" >
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="Windows" >
 			<arg value="shutdown.bat" />
 		</exec>
 	</target>
@@ -102,7 +103,7 @@
 	</target>
 
 	<target name="check_tomee_exist">
-		<available property="tomee.path.exist" file="${runtime_path}/target/apache-tomee/bin/" type="dir" />
+		<available property="tomee.path.exist" file="${tomee_path}/target/apache-tomee/bin/" type="dir" />
 	</target>
 
 	<!-- MySQL stuff -->
