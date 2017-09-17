@@ -47,18 +47,18 @@ public abstract class AbstractRest<E extends AbstractEntity> {
 		response.setMetadata(responseMetadata);
 		
 		if (!ResponseCode.NOT_VALID.equals(responseMetadata.getResponseCode())) {
-			E interalEntity;
+			E interalEntity = entity;
 			LOG.debug("************ FrontendService for " + getService().getClass().getSimpleName());
 			
 			switch (editMode) {
 				case CREATE :
-					interalEntity = getService().create(entity);
+					//interalEntity = getService().create(entity);
 					break;
 				case UPDATE :
-					interalEntity = getService().update(entity);
+					//interalEntity = getService().update(entity);
 					break;
 				default :
-					interalEntity = getService().update(entity);
+					//interalEntity = getService().update(entity);
 			}
 			
 			response.setResult(interalEntity);
@@ -92,14 +92,14 @@ public abstract class AbstractRest<E extends AbstractEntity> {
 		EntityResponse<E> response = new EntityResponse<E>();
 		ResponseMetadata responseMetadata = new ResponseMetadata();
 		
-		try {
-			getService().delete(id);
+//		try {
+//			getService().delete(id);
+//			responseMetadata.setResponseCode(ResponseCode.OK);
+//			responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
+//		} catch (EntityNotFoundException e) {
 			responseMetadata.setResponseCode(ResponseCode.OK);
-			responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
-		} catch (EntityNotFoundException e) {
-			responseMetadata.setResponseCode(ResponseCode.NOT_DELETE);
-			responseMetadata.setMessage("Der Eintrag konnte nicht gelöscht werden. " + e.getMessage());
-		}
+			responseMetadata.setMessage("Der Eintrag konnte nicht gelöscht werden. ");
+//		}
 
 		response.setMetadata(responseMetadata);
 		return response;

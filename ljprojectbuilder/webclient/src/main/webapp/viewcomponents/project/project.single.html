@@ -30,18 +30,18 @@
 						<tr>
 							<td>
 								<label for="projecttemplates">{{'project.templateselect' | translate}}</label>
-								<select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.branch for template in ctrl.templateAll track by template.id"></select>
+								<select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-disabled="ctrl.readonly" ng-options="template as template.branch for template in ctrl.templateAll track by template.id"></select>
 							</td>
 							<td>
 								<label for="description">{{'project.description' | translate}}</label>
-								<input name="description" id="description" type="text" ng-model="ctrl.project.description" />
+								<input name="description" id="description" type="text" ng-model="ctrl.project.description" ng-disabled="ctrl.readonly"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<table>
 									<tr>
-										<td><span><strong>{{'project.templatetitle' | translate}}:</strong></span></td>
+										<td><span><strong>{{'project.templatetitle' | translate}}</strong></span></td>
 										<td><span>{{ctrl.project.template.templateTitle}}</span></td>
 									</tr>
 									<tr>
@@ -74,14 +74,14 @@
 						<tr>
 							<td>
 								<label for="title">{{'project.title' | translate}}</label>
-								<input class="w3-input w3-col" name="title" id="title" type="text" ng-model="ctrl.project.title" required ng-pattern="/^[a-zA-Z0-9]*$/" />
+								<input class="w3-input w3-col" name="title" id="title" type="text" ng-model="ctrl.project.title" required ng-pattern="/^[a-zA-Z0-9]*$/" ng-disabled="ctrl.readonly"/>
 								<label  ng-show="ctrl.form.title.$error == null"></label>
 								<label  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
 								<label ng-show="ctrl.form.title.$error.pattern">{{'error.project.pattern' | translate}}</label>
 							</td>
 							<td>
 								<label for="packageprefix">{{'project.packageprefix' | translate}}</label>
-								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.project.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/" />
+								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.project.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/" ng-disabled="ctrl.readonly"/>
 								<label ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
 								<label ng-show="ctrl.form.packageprefix.$error.pattern">{{'error.project.pattern' | translate}}</label>
 							</td>
