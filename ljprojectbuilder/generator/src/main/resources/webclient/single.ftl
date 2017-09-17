@@ -38,7 +38,7 @@
 			</#if>
 			
 			<#if attribute.dataType == "Double"> 
-			<span class="error" ng-show="ctrl.form..${attribute.name?lower_case}.$error.pattern">{{'error.number' | translate}}</span><div class="clear"></div>
+			<span class="error" ng-show="ctrl.form.${attribute.name?lower_case}.$error.pattern">{{'error.number' | translate}}</span><div class="clear"></div>
 			<label for="${attribute.name?lower_case}">{{'${domain?lower_case}.${attribute.name}' | translate}}:</label>
 			<input name="${attribute.name?lower_case}" id="${attribute.name?lower_case}" type="text" placeholder="_,_" ng-model="ctrl.${domain?lower_case}.${attribute.name?uncap_first}" numberinput='' ng-pattern="/^\d{1,4}(\.\d{0,4})?$/"
 				<#if attribute.min??> ng-minlength="${attribute.min}"</#if>
