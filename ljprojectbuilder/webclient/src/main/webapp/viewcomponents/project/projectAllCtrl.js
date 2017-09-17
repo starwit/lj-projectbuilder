@@ -15,6 +15,7 @@
 		ctrl.showDetails = showDetails;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.readonly = true;
 		init();
 		
 		/** 

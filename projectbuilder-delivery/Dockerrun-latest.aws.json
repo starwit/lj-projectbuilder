@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "witchpou/ljprojectbuilder:latest",
+    "Update": "true"
+  },
+ "Ports": [
+    {
+      "ContainerPort": "8081"
+    }
+  ]
+}

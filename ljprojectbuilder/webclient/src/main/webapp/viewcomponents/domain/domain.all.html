@@ -15,7 +15,7 @@
 		<div class="clearer"></div>
 	</div>
 	<div class="bottom aCenter">
-		<span class="button add"><a ng-click="ctrl.gotoDomain.create(ctrl.projectid);">+ Domain {{'button.add' | translate}}</a></span>
+		<span class="button grey add"><a class="disabled" ng-click="ctrl.gotoDomain.create(ctrl.projectid);">+ Domain {{'button.add' | translate}}</a></span>
 	</div>
 </div>
 
@@ -40,7 +40,7 @@
 								<p>{{domain.description}}</p>
 							</td>
 							<td class="aRight">
-								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);">x</a></span>
+								<span class="button delete"><a class="disabled" ng-click="$event.stopPropagation();ctrl.deleteDomain(domain.id);">x</a></span>
 							</td>
 						</tr>
 					</thead>

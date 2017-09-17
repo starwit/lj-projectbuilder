@@ -36,13 +36,13 @@
 					<tr>
 						<td>
 							<label>{{'domain.name' | translate}}</label>
-							<input name="name" id="name" type="text" ng-model="ctrl.domain.name"  required  ng-pattern="/^[A-Z][a-zA-Z0-9]*$/"/>
+							<input name="name" id="name" type="text" ng-model="ctrl.domain.name"  required  ng-pattern="/^[A-Z][a-zA-Z0-9]*$/" ng-disabled="ctrl.readonly"/>
 							<label ng-show="ctrl.form.name.$error.required">{{'error.required' | translate}}</label>							
 							<label ng-show="ctrl.form.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
 						</td>
 						<td>
 							<label>{{'domain.description' | translate}}</label>
-							<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required />
+							<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required ng-disabled="ctrl.readonly"/>
 							<label ng-show="ctrl.form.description.$error.required">{{'error.required' | translate}}</label>
 						</td>
 					</tr>
@@ -84,31 +84,31 @@
 					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
 						<td>
 						<div name="innerForm" ng-form>
-							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required ng-pattern="/^[a-z][a-zA-Z0-9]*$/"/>
+							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required ng-pattern="/^[a-z][a-zA-Z0-9]*$/" ng-disabled="ctrl.readonly"/>
 							<label ng-show="innerForm.attributename.$error.required" >{{'error.required' | translate}}</label>
 							<label ng-show="innerForm.attributename.$error.pattern">{{'error.attribute.pattern' | translate}}</label>
 						</div>
 						</td>
 						<td>
-							<input placeholder="{{'attribute.description' | translate}}" name="attributedescription" id="attributedescription" type="text" ng-model="attribute.description"/>
+							<input placeholder="{{'attribute.description' | translate}}" name="attributedescription" id="attributedescription" type="text" ng-model="attribute.description" ng-disabled="ctrl.readonly"/>
 						</td>
 						<td>
-							<select placeholder="{{'attribute.type' | translate}}" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required></select>
+							<select placeholder="{{'attribute.type' | translate}}" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required disabled="ctrl.readonly"></select>
 						</td>
 						<td>
-							<input placeholder="{{'attribute.pattern' | translate}}" name="attributepattern" id="attributepattern" type="text" ng-model="attribute.pattern"/>
+							<input placeholder="{{'attribute.pattern' | translate}}" name="attributepattern" id="attributepattern" type="text" ng-model="attribute.pattern" ng-disabled="ctrl.readonly"/>
 						</td>
 						<td>
-							<input placeholder="{{'attribute.max' | translate}}" name="attributemax" id="attributemax" type="text" ng-model="attribute.max"/>
+							<input placeholder="{{'attribute.max' | translate}}" name="attributemax" id="attributemax" type="text" ng-model="attribute.max" ng-disabled="ctrl.readonly"/>
 						</td>
 						<td>
-							<input placeholder="{{'attribute.min' | translate}}" name="attributemin" id="attributemin" type="text" ng-model="attribute.min"/>
+							<input placeholder="{{'attribute.min' | translate}}" name="attributemin" id="attributemin" type="text" ng-model="attribute.min" ng-disabled="ctrl.readonly"/>
 						</td>
 						<td>
-							<input placeholder="{{'attribute.nullable' | translate}}" name="attributenullable" id="attributenullable" type="checkbox" ng-model="attribute.required"/>
+							<input placeholder="{{'attribute.nullable' | translate}}" name="attributenullable" id="attributenullable" type="checkbox" ng-model="attribute.required" ng-disabled="ctrl.readonly"/>
 						</td>
 						<td class="aRight">
-							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span>
+							<span class="button grey"><a class="disabled" ng-click="ctrl.removeAttribute($index);">x</a></span>
 						</td>
 					</tr>
 				</tbody>

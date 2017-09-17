@@ -15,6 +15,7 @@
 		ctrl.gotoProject = gotoProject;
 		ctrl.closeDialog = closeDialog;
 		ctrl.dialog = dialogService.dialog;
+		ctrl.readonly = true;
 		init();
 
 		/**

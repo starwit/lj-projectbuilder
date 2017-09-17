@@ -24,6 +24,7 @@ ng-invalid{border:1px solid red}
 button{font:inherit;margin:0}
 button,html input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer}
 button[disabled],html input[disabled]{cursor:default}
+a.disabled {pointer-events: none;}
 button::-moz-focus-inner,input::-moz-focus-inner{border:none;padding:0}
 
 button{display:inline-block;padding:30px;overflow:visible;line-height:100%;vertical-align:top;border:none}

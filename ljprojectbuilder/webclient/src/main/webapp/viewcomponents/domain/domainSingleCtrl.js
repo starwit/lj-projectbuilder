@@ -19,6 +19,7 @@
 		ctrl.removeAttribute = removeAttribute;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.readonly = true;
 		init();
 		
 		/**
