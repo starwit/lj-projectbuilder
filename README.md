@@ -30,7 +30,7 @@ To start the software, the following stuff have to be installed:
 You can build and start the Project Builder in only three steps:
 
 1. Clone [Lirejarp Project Builder](https://github.com/witchpou/lj-projectbuilder) with git clone https://github.com/witchpou/lj-projectbuilder
-2. go to directory lj-projectbuilder/ljprojectbuilder and open command line
+2. go to directory lj-projectbuilder and open command line
 3. execute `ant setup_project` on commandline
 
 Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
