@@ -4,7 +4,7 @@ public enum DataType {
 
 	String("string"),
 	Integer("int"),
-	Doulbe("doulbe"),
+	Double("double"),
 	Date("date"),
 	Time("time"),
 	Timestamp("timestamp"),
