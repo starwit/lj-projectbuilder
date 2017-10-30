@@ -40,7 +40,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	@Inject
 	private GeneratorService generatorSerivce;
 	
-	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md" };
+	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md","log" };
 	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
 	
 	/**
@@ -246,7 +246,8 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 				if (toLowerCase 
 						|| (!line.contains("appBase=")
 						&& !line.contains("<webappDir>")
-						&& !line.contains("<artifactId>"))) {
+						&& !line.contains("<artifactId>")
+						&& !line.contains("app_path"))) {
 					writer.println(line.replaceAll(oldProjectName, newProjectName.toLowerCase()));
 				} else {
 					writer.println(line.replaceAll(oldProjectName, newProjectName));
