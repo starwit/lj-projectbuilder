@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.generator;
+package de.starwit.generator.generator;
 
 import java.util.HashSet;
 import java.util.Set;

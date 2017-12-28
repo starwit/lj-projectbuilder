@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.exeptions;
+package de.starwit.generator.exeptions;
 
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 

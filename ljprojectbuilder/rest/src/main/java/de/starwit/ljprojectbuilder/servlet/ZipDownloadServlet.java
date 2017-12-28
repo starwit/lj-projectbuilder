@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.config.Constants;
+import de.starwit.generator.config.Constants;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 

@@ -1,9 +1,8 @@
-package de.starwit.ljprojectbuilder.generator;
+package de.starwit.generator.config;
 
 import java.io.File;
 import java.io.IOException;
 
-import de.starwit.ljprojectbuilder.config.Constants;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;

@@ -1,6 +1,6 @@
-package de.starwit.ljprojectbuilder.generator;
+package de.starwit.generator.generator;
 
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
+import de.starwit.generator.dto.GeneratorDto;
 
 /**
  * The generator starts generation and hides the details of generation.

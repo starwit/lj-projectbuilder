@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
+import de.starwit.generator.dto.GeneratorDto;
+import de.starwit.generator.services.ProjectSetupService;
 import de.starwit.ljprojectbuilder.response.Response;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;

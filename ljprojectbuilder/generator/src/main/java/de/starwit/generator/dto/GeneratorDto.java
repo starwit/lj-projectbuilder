@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.dto;
+package de.starwit.generator.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

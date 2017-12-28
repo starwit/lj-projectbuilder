@@ -7,6 +7,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import de.starwit.generator.services.ProjectSetupService;
+
 @RunWith(Arquillian.class)
 public class ProjectSetupServiceTest {
 	

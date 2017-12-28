@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.config;
+package de.starwit.generator.config;
 
 public class Constants {
 

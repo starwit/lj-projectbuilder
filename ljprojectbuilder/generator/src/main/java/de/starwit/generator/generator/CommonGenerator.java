@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.generator;
+package de.starwit.generator.generator;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,8 +16,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import de.starwit.generator.config.TemplateDef;
+import de.starwit.generator.dto.GeneratorDto;
+import de.starwit.generator.modules.AbstractModule;
 import de.starwit.ljprojectbuilder.config.GeneratorConfig;
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import freemarker.template.Template;

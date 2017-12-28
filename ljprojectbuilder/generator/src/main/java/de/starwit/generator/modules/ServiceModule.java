@@ -1,9 +1,8 @@
-package de.starwit.ljprojectbuilder.generator.service;
+package de.starwit.generator.modules;
 
-import de.starwit.ljprojectbuilder.config.Constants;
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.generator.AbstractModule;
-import de.starwit.ljprojectbuilder.generator.TemplateDef;
+import de.starwit.generator.config.Constants;
+import de.starwit.generator.config.TemplateDef;
+import de.starwit.generator.dto.GeneratorDto;
 
 public class ServiceModule extends AbstractModule {
 	private final static String FS = Constants.FILE_SEP;

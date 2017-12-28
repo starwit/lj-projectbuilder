@@ -1,10 +1,12 @@
-package de.starwit.ljprojectbuilder.generator;
+package de.starwit.generator.modules;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.starwit.ljprojectbuilder.config.Constants;
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
+import de.starwit.generator.config.Constants;
+import de.starwit.generator.config.SrcPathDef;
+import de.starwit.generator.config.TemplateDef;
+import de.starwit.generator.dto.GeneratorDto;
 
 public abstract class AbstractModule {
 	

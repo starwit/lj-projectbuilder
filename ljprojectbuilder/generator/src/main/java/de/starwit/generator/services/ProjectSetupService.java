@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.ejb.impl;
+package de.starwit.generator.services;
 
 
 import java.io.BufferedReader;
@@ -8,10 +8,12 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -19,18 +21,21 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
 
-import de.starwit.ljprojectbuilder.config.Constants;
-import de.starwit.ljprojectbuilder.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.ejb.GeneratorService;
+import de.starwit.generator.config.Constants;
+import de.starwit.generator.dto.GeneratorDto;
+import de.starwit.generator.exeptions.ProjectSetupException;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.ejb.ProjectSetupService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exeptions.ProjectSetupException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
-
+/**
+ * Class for processeing the whole project setup. A newly configured project is created an can be used.
+ * @author Anett Huebner
+ *
+ */
+@Local
 @Stateless(name = "ProjectSetupService")
-public class ProjectSetupServiceImpl implements ProjectSetupService {
+public class ProjectSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -41,7 +46,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	private GeneratorService generatorSerivce;
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md","log" };
-	final static Logger LOG = Logger.getLogger(ProjectSetupServiceImpl.class);
+	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
 	
 	/**
 	 * Executes all functions needed to setup the new project. These are:
@@ -53,7 +58,6 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	 * @return
 	 * @throws ProjectSetupException
 	 */
-	@Override
 	public void setupAndGenerateProject(GeneratorDto dto) throws ProjectSetupException {
 		ProjectEntity entity = findProjectById(dto.getProject().getId());
 		entity = createProjectFolder(entity);

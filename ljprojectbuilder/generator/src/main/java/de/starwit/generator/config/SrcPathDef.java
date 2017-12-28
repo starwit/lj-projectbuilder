@@ -1,6 +1,4 @@
-package de.starwit.ljprojectbuilder.generator;
-
-import de.starwit.ljprojectbuilder.config.Constants;
+package de.starwit.generator.config;
 
 public class SrcPathDef {
 	
