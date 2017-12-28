@@ -28,7 +28,7 @@
 		 */
 		function projectDownload() {
 			dialogService.showDialog(null, null, "loadingdialog", function(){});
-			ctrl.generatorDto.domains = ctrl.domainAll;
+			ctrl.generatorDto.project.domains = ctrl.domainAll;
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
 				ctrl.closeDialog('loadingdialog');
@@ -49,7 +49,7 @@
 						.then(setDomainAll, null);
 					
 					projectConnectorFactory.loadProject($routeParams.id)
-						.then(	setGeneratorDto, null);
+						.then(setGeneratorDto, null);
 				}
 			});
 			ctrl.refresh();

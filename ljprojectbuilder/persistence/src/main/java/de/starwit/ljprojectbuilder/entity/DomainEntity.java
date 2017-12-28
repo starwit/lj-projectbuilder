@@ -67,7 +67,7 @@ public class DomainEntity extends AbstractEntity {
 	public void setProject(ProjectEntity project) {
 		this.project = project;
 	}
-	
+
 	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
 	public List<AttributeEntity> getAttributes() {
 		return attributes;

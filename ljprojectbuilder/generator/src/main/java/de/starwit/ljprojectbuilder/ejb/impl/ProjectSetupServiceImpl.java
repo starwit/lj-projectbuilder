@@ -213,7 +213,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 	}
 
 	/**
-	 * Renames all occurences of the project name in the project name in the file.
+	 * Renames all occurences of the project name in the file.
 	 * @param oldProjectName - current project name
 	 * @param newProjectName - new project name
 	 * @param fileIn
@@ -226,13 +226,10 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 		BufferedReader reader = null;
 		PrintWriter writer = null;
 		String filename = fileIn.getName();
-		boolean toLowerCase = false;
 
 		try {
-			if (!"pom.xml".equals(filename) && !"server.xml".equals(filename) && !"build.xml".equals(filename)  ) {
-				toLowerCase = true;
-			}
-			
+
+			boolean toLowerCase = true;
 		    old = new File(filePath.getParent() + Constants.FILE_SEP + "OLD_" + filename);
 		    old.createNewFile();
 		    FileUtils.copyFile(filePath.toFile(), old);
@@ -242,12 +239,18 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 			reader = new BufferedReader(new FileReader(old));
 			 writer = new PrintWriter(new FileWriter(fileOut));
 			String line = null;
+			boolean lineToLowerCase;
 			while ((line = reader.readLine()) != null) {
-				if (toLowerCase 
-						|| (!line.contains("appBase=")
-						&& !line.contains("<webappDir>")
-						&& !line.contains("<artifactId>")
-						&& !line.contains("name=\"app_path\""))) {
+				
+				lineToLowerCase = toLowerCase;
+				if (line.contains("appBase=")
+						|| line.contains("<webappDir>") 
+						|| line.contains("<artifactId>")
+						|| line.contains("name=\"app_path\"")) {
+					lineToLowerCase  = false;
+				}
+				
+				if (lineToLowerCase) {
 					writer.println(line.replaceAll(oldProjectName, newProjectName.toLowerCase()));
 				} else {
 					writer.println(line.replaceAll(oldProjectName, newProjectName));

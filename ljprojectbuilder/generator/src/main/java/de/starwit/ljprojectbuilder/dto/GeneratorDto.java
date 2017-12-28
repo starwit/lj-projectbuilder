@@ -1,11 +1,7 @@
 package de.starwit.ljprojectbuilder.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 /**
  * Contains all configuration for project setup and generator.
@@ -41,8 +37,6 @@ public class GeneratorDto {
 	 * Enables or disables the generation of the testdata
 	 */
 	private boolean generateTests;
-	
-	private List<DomainEntity> domains = new ArrayList<DomainEntity>();
 	
 	/********************* GETTER, SETTER **************************/
 	
@@ -92,13 +86,5 @@ public class GeneratorDto {
 
 	public void setGenerateTests(boolean generateTests) {
 		this.generateTests = generateTests;
-	}
-
-	public List<DomainEntity> getDomains() {
-		return domains;
-	}
-
-	public void setDomains(List<DomainEntity> domains) {
-		this.domains = domains;
 	}
 }

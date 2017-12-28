@@ -22,7 +22,7 @@ public class EntityGenerator extends AbstractGenerator<EntityModule> {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
 		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
-		data.put("classes", getModule().getEntityClasses());
+		data.put("domains", getModule().getSetupBean().getProject().getSelectedDomains());
 		return data;
 	}
 

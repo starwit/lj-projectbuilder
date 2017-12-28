@@ -1,6 +1,8 @@
 package de.starwit.ljprojectbuilder.entity;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -43,6 +47,8 @@ public class ProjectEntity extends AbstractEntity {
 	private String description;
 	
 	private List<DomainEntity> domains;
+
+	private Set<DomainEntity> selectedDomains;
 	
 	@ManyToOne
 	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
@@ -90,7 +96,7 @@ public class ProjectEntity extends AbstractEntity {
 		this.targetPath = targetPath;
 	}
 
-	@JsonIgnoreProperties({"project", "description", "attributes", "selected"})
+	@JsonIgnoreProperties({"project", "description"})
 	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval=true, mappedBy="project")
 	public List<DomainEntity> getDomains() {
 		return domains;
@@ -99,5 +105,15 @@ public class ProjectEntity extends AbstractEntity {
 	public void setDomains(List<DomainEntity> domains) {
 		this.domains = domains;
 	}
-
+	
+	@XmlTransient
+	@Transient
+	public Set<DomainEntity> getSelectedDomains() {
+		if (selectedDomains == null && domains != null) {
+			selectedDomains =  domains.stream()                // convert list to stream
+                .filter(domain -> domain.isSelected())     // we only want selected domains
+                .collect(Collectors.toSet());
+		}
+		return selectedDomains;
+	}
 }

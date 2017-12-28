@@ -10,7 +10,7 @@ import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.Files;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -24,8 +24,7 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 
 	public final static Logger LOG = Logger.getLogger(AbstractGenerator.class);
 	
-	private final static String BEGIN_GENERATION ="###BEGIN###";
-	private final static String END_GENERATION ="###END###";
+	private final static String GENERATION ="###GENERATION###";
 	
 	private E module;
 	
@@ -47,12 +46,10 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 			generateGlobal(setupBean, data);
 			generateAdditionalContent(data);
 			
-			List<DomainEntity> domains = setupBean.getDomains();
+			Collection<DomainEntity> domains = setupBean.getProject().getSelectedDomains();
 			for (DomainEntity domain : domains) {
-				if (domain.isSelected()) {
 					data.putAll(fillTemplateDomainParameter(domain));
 					generateDomain(setupBean, domain.getName(), data);
-				}
 			}
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			LOG.error("Inherit class of AbstractEntity could not be resolved.");
@@ -122,26 +119,18 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 		File inputFile = new File(inputFilename);
 		File tempFile = new File(inputFilename + "_tmp");
 		if (inputFile.exists() && inputFile.isFile()) {
+
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			Writer writer = new BufferedWriter(new FileWriter(tempFile));
-
 			String currentLine;
-
-			boolean copyContentFromFile = true;
-
+			boolean generationDone = false;
 			while ((currentLine = reader.readLine()) != null) {
 				if (null != currentLine) {
-					if (currentLine.contains(END_GENERATION)) {
-						copyContentFromFile = true;
-					}
-					if (copyContentFromFile) {
-						writer.write(currentLine + System.getProperty("line.separator"));
-					}
-					if (currentLine.contains(BEGIN_GENERATION)) {
-						copyContentFromFile = false;
+					if (currentLine.contains(GENERATION)) {
 						template.process(data, writer);
 						writer.write(System.getProperty("line.separator"));
 					}
+					writer.write(currentLine + System.getProperty("line.separator"));
 				}
 			}
 			writer.flush();

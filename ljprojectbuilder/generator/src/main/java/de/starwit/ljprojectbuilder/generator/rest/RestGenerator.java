@@ -28,7 +28,7 @@ public class RestGenerator extends AbstractGenerator<RestModule> {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
 		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
-		data.put("classnames", getModule().getRestClassnames());
+		data.put("domains", getModule().getSetupBean().getProject().getSelectedDomains());
 		return data;
 	}
 }

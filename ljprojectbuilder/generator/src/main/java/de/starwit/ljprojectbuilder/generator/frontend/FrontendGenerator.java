@@ -1,7 +1,7 @@
 package de.starwit.ljprojectbuilder.generator.frontend;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.starwit.ljprojectbuilder.config.GeneratorConfig;
@@ -23,13 +23,12 @@ public class FrontendGenerator extends AbstractGenerator<FrontendModule> {
 		if (setupBean.getProject() == null) {
 			return null;
 		}
-		List<DomainEntity> domains = setupBean.getDomains();
+		Collection<DomainEntity> domains = setupBean.getProject().getSelectedDomains();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
 		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
 		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
 		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
-		data.put("domainnames", getModule().getDomainnames() );
 		data.put("domains", domains);
 		return data;
 	}

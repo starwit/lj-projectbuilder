@@ -1,12 +1,7 @@
 package de.starwit.ljprojectbuilder.generator.frontend;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.generator.AbstractModule;
 import de.starwit.ljprojectbuilder.generator.TemplateDef;
 
@@ -54,30 +49,4 @@ public class FrontendModule extends AbstractModule {
 		return frontendT;
 	}
 	
-	public List<String> getDomainnames() {
-		List<DomainEntity> domains = getSetupBean().getDomains();
-		List<String> domainnames = new ArrayList<String>();
-		List<String> selecteddomainnames = new ArrayList<String>();
-		for (DomainEntity domain : domains) {
-			if (domain.isSelected()) {
-				selecteddomainnames.add(domain.getName().toLowerCase());
-			}
-			domainnames.add(domain.getName().toLowerCase());
-		}
-		
-		String targetPath = getSrcDir() + Constants.FILE_SEP  + "viewcomponents"  + Constants.FILE_SEP;
-		File folder = new File(targetPath);
-		File[] listOfFiles = folder.listFiles();
-		if (listOfFiles == null) {
-			return selecteddomainnames;
-		}
-		
-		for (File file : listOfFiles) {
-			if (file.isDirectory() && domainnames.contains(file.getName())) {
-				if (!selecteddomainnames.contains(file.getName()))
-					selecteddomainnames.add(file.getName());
-			}
-		}
-		return selecteddomainnames;
-	}
 }

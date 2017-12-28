@@ -39,34 +39,4 @@ public class RestModule extends AbstractModule {
 				+ getSetupBean().getProject().getPackagePrefix().toLowerCase()
 				+ Constants.FILE_SEP + getSetupBean().getProject().getTitle().toLowerCase();
 	}
-	
-	public List<String> getRestClassnames() {
-		List<DomainEntity> domains = getSetupBean().getDomains();
-		List<String> domainnames = new ArrayList<String>();
-		List<String> selecteddomainnames = new ArrayList<String>();
-		for (DomainEntity domain : domains) {
-			if (domain.isSelected()) {
-				selecteddomainnames.add(Constants.upperCaseFirst(domain.getName()) + "Rest");
-			}
-			domainnames.add(Constants.upperCaseFirst(domain.getName()) + "Rest");
-		}
-		
-		File folder = new File(restDir);
-		File[] listOfFiles = folder.listFiles();
-	
-		if (listOfFiles == null) {
-			return selecteddomainnames;
-		}
-		
-		for (File file : listOfFiles) {
-			if (file.isFile()) {
-				String value = file.getName().replace(".java", "");
-				if (domainnames.contains(value)) {
-					if (!selecteddomainnames.contains(value))
-						selecteddomainnames.add(value);
-				}
-			}
-		}
-		return selecteddomainnames;
-	}
 }
