@@ -1,21 +1,21 @@
 /** 
- * Navigation and routing for module '${appName}App..${domain?lower_case}.
+ * Navigation and routing for module '${appName}App..${domain.name?lower_case}.
  */
 (function() {
 'use strict';
 
-	angular.module('${appName}App.${domain?lower_case}').factory('goto${domain}', goto${domain});
+	angular.module('${appName}App.${domain.name?lower_case}').factory('goto${domain.name}', goto${domain.name});
 
-	function goto${domain}($location) {
+	function goto${domain.name}($location) {
 		var factory = {};
 		factory.all = function() {
-	    	$location.path('/viewcomponents/${domain?lower_case}-all/');
+	    	$location.path('/viewcomponents/${domain.name?lower_case}-all/');
 	    },
 	    factory.update = function(id) {
-	    	$location.path('/viewcomponents/${domain?lower_case}-maintain/update/' + id);
+	    	$location.path('/viewcomponents/${domain.name?lower_case}-maintain/update/' + id);
 	    },
 	    factory.create = function() {
-	    	$location.path('/viewcomponents/${domain?lower_case}-maintain/create/');
+	    	$location.path('/viewcomponents/${domain.name?lower_case}-maintain/create/');
 	    },
 	    factory.loaderror = function() {
 	    	$location.path('/');
@@ -23,34 +23,34 @@
 		return factory;
     };
     
-   	angular.module('${appName}App.${domain?lower_case}') 
+   	angular.module('${appName}App.${domain.name?lower_case}') 
    	.config(['$routeProvider', function($routeProvider) {
-		$routeProvider.when('/viewcomponents/${domain?lower_case}-all/', {
-			controller : '${domain?lower_case}AllCtrl',
+		$routeProvider.when('/viewcomponents/${domain.name?lower_case}-all/', {
+			controller : '${domain.name?lower_case}AllCtrl',
 			controllerAs : 'ctrl',
-			title : "${domain?lower_case}.all.title",
+			title : "${domain.name?lower_case}.all.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateAll}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateAll}",
 	        resolve: {
-	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }
-		}).when('/viewcomponents/${domain?lower_case}-maintain/create/', {
-			controller : '${domain?lower_case}SingleCtrl',
+		}).when('/viewcomponents/${domain.name?lower_case}-maintain/create/', {
+			controller : '${domain.name?lower_case}SingleCtrl',
 			controllerAs : 'ctrl',
-			title : "${domain?lower_case}.create.title",
+			title : "${domain.name?lower_case}.create.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateSingle}",
 			resolve: {
-	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }		
-		}).when('/viewcomponents/${domain?lower_case}-maintain/update/:id', {
-			controller : '${domain?lower_case}SingleCtrl',
+		}).when('/viewcomponents/${domain.name?lower_case}-maintain/update/:id', {
+			controller : '${domain.name?lower_case}SingleCtrl',
 			controllerAs : 'ctrl',
-			title : "${domain?lower_case}.update.title",
+			title : "${domain.name?lower_case}.update.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain?lower_case}/${domain?lower_case}${templateSingle}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateSingle}",
 	        resolve: {
-	        	${domain?lower_case}ConnectorFactory: ${domain?lower_case}ConnectorFactory
+	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }		
 		});
 	}]);

@@ -247,7 +247,7 @@ public class ProjectSetupServiceImpl implements ProjectSetupService {
 						|| (!line.contains("appBase=")
 						&& !line.contains("<webappDir>")
 						&& !line.contains("<artifactId>")
-						&& !line.contains("app_path"))) {
+						&& !line.contains("name=\"app_path\""))) {
 					writer.println(line.replaceAll(oldProjectName, newProjectName.toLowerCase()));
 				} else {
 					writer.println(line.replaceAll(oldProjectName, newProjectName));

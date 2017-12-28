@@ -1,17 +1,17 @@
 /**
- * This controller facilitates the ${domain?lower_case}.all.html - view to display all ${domain?lower_case}s. 
+ * This controller facilitates the ${domain.name?lower_case}.all.html - view to display all ${domain.name?lower_case}s. 
  * It provides all needed functions for this view.
  */
 (function() {
 	'use strict';
-	angular.module('${appName}App.${domain?lower_case}').controller('${domain?lower_case}AllCtrl', ${domain?lower_case}AllCtrl);
-	${domain?lower_case}AllCtrl.$inject = ['${domain?lower_case}ConnectorFactory', 'goto${domain}'];
-	function ${domain?lower_case}AllCtrl(${domain?lower_case}ConnectorFactory, goto${domain}) {
+	angular.module('${appName}App.${domain.name?lower_case}').controller('${domain.name?lower_case}AllCtrl', ${domain.name?lower_case}AllCtrl);
+	${domain.name?lower_case}AllCtrl.$inject = ['${domain.name?lower_case}ConnectorFactory', 'goto${domain.name}'];
+	function ${domain.name?lower_case}AllCtrl(${domain.name?lower_case}ConnectorFactory, goto${domain.name}) {
 		
 		var  ctrl = this;
 		ctrl.refresh = refresh;
-		ctrl.delete${domain} = delete${domain};
-		ctrl.goto${domain} = goto${domain};
+		ctrl.delete${domain.name} = delete${domain.name};
+		ctrl.goto${domain.name} = goto${domain.name};
 		ctrl.setSelected = setSelected;
 		init();
 		
@@ -23,25 +23,25 @@
 		 * Standard function for initialization.
 		 */
 		function init() {
-			ctrl.${domain?lower_case}All = [];
-			ctrl.${domain?lower_case} = {};
+			ctrl.${domain.name?lower_case}All = [];
+			ctrl.${domain.name?lower_case} = {};
 			ctrl.idSelected = null;
-			${domain?lower_case}ConnectorFactory.get${domain}All().then(set${domain}All, null);
+			${domain.name?lower_case}ConnectorFactory.get${domain.name}All().then(set${domain.name}All, null);
 		}
 		
 		function refresh() {
-			${domain?lower_case}ConnectorFactory.get${domain}All().then(set${domain}All, function() {});
+			${domain.name?lower_case}ConnectorFactory.get${domain.name}All().then(set${domain.name}All, function() {});
 		};
 		
-		function delete${domain}(id) {
-			${domain?lower_case}ConnectorFactory.delete${domain}(id).then(deleteSuccess, function() {})
+		function delete${domain.name}(id) {
+			${domain.name?lower_case}ConnectorFactory.delete${domain.name}(id).then(deleteSuccess, function() {})
 		};
 		
 		/**
 		 * Used for setting the database result to the representation-object in the controller.
 		 */
-		function set${domain}All(response) {
-			ctrl.${domain?lower_case}All = response;		
+		function set${domain.name}All(response) {
+			ctrl.${domain.name?lower_case}All = response;		
 		}
 		
 		/**
@@ -49,7 +49,7 @@
 		 */
 		function deleteSuccess(response) {
 			refresh();
-			goto${domain}.all();
+			goto${domain.name}.all();
 		};
 	};
 })();

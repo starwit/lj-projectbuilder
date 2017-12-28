@@ -14,8 +14,7 @@ public class FrontendGenerator extends AbstractGenerator<FrontendModule> {
 	@Override
 	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("domain", domain.getName());
-		data.put("attributes", domain.getAttributes());
+		data.put("domain", domain);
 		return data;
 	}
 	
