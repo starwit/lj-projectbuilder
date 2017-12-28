@@ -1,12 +1,7 @@
 package de.starwit.ljprojectbuilder.generator.rest;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.generator.AbstractModule;
 import de.starwit.ljprojectbuilder.generator.TemplateDef;
 
