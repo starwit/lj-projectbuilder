@@ -16,8 +16,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import de.starwit.ljprojectbuilder.config.GeneratorConfig;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -48,14 +50,14 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 					.getClass().getGenericSuperclass())
 					.getActualTypeArguments()[0]).getDeclaredConstructor( GeneratorDto.class ).newInstance(setupBean);
 			
-			Map<String, Object> data = fillTemplateGlobalParameter(setupBean);
-			generateGlobal(setupBean, data);
-			generateAdditionalContent(data);
+			Map<String, Object> templateData = fillTemplateGlobalParameter(setupBean.getProject());
+			generateGlobal(templateData);
+			generateAdditionalContent(templateData);
 			
 			Collection<DomainEntity> domains = setupBean.getProject().getSelectedDomains();
 			for (DomainEntity domain : domains) {
-					data.putAll(fillTemplateDomainParameter(domain));
-					generateDomain(setupBean, domain.getName(), data);
+					templateData.putAll(fillTemplateDomainParameter(domain));
+					generateDomain(setupBean, domain.getName(), templateData);
 			}
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			LOG.error("Inherit class of AbstractEntity could not be resolved.");
@@ -67,15 +69,9 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 	 * @param setupBean - project data and generation configuration.
 	 * @return parameter for freemarker
 	 */
-	public Map<String, Object> fillTemplateGlobalParameter(GeneratorDto setupBean) {
-		if (setupBean.getProject() == null) {
-			return null;
-		}
-		// Build the data-model
+	public Map<String, Object> fillTemplateGlobalParameter(ProjectEntity project) {
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
-		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
-		data.put("domains", getModule().getSetupBean().getProject().getSelectedDomains());
+		data.put("project", project);
 		return data;
 	}
 
@@ -89,6 +85,8 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain);
 		data.put("imports", EntityImports.gatherEntityImports(domain));
+		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
+		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
 		return data;
 	}
 	
@@ -105,7 +103,7 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 		}
 	}
 	
-	protected void generateGlobal(GeneratorDto setupBean, Map<String, Object> data) {
+	protected void generateGlobal(Map<String, Object> data) {
 		try {
 			for (TemplateDef templateDef : getModule().getGlobalTemplates()) {
 				writeGeneratedFile(templateDef.getTargetFileUrl(), templateDef.getTemplate(), data, true);

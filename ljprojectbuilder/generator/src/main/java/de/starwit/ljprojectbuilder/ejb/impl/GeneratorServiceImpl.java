@@ -10,7 +10,7 @@ import de.starwit.ljprojectbuilder.ejb.GeneratorService;
 import de.starwit.ljprojectbuilder.generator.CommonGenerator;
 import de.starwit.ljprojectbuilder.generator.Generator;
 import de.starwit.ljprojectbuilder.generator.entity.EntityModule;
-import de.starwit.ljprojectbuilder.generator.frontend.FrontendGenerator;
+import de.starwit.ljprojectbuilder.generator.frontend.FrontendModule;
 import de.starwit.ljprojectbuilder.generator.rest.RestModule;
 import de.starwit.ljprojectbuilder.generator.service.ServiceModule;
 
@@ -50,7 +50,7 @@ public class GeneratorServiceImpl implements GeneratorService {
 		}
 		
 		if (setupBean.isGenerateFrontend()) {
-			Generator frontendGenerator = new FrontendGenerator();
+			Generator frontendGenerator = new CommonGenerator<FrontendModule>();
 			frontendGenerator.generate(setupBean);
 		}
 		

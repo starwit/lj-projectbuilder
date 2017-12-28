@@ -3,7 +3,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('${appName}App.${domain.name?lower_case}').controller('${domain.name?lower_case}SingleCtrl', ${domain.name?lower_case}SingleCtrl);
+	angular.module('${project.title?lower_case}App.${domain.name?lower_case}').controller('${domain.name?lower_case}SingleCtrl', ${domain.name?lower_case}SingleCtrl);
 	
 	${domain.name?lower_case}SingleCtrl.$inject = ['$scope', '$routeParams', '${domain.name?lower_case}ConnectorFactory', 'goto${domain.name}'];
 	function ${domain.name?lower_case}SingleCtrl($scope, $routeParams, ${domain.name?lower_case}ConnectorFactory, goto${domain.name}) {
