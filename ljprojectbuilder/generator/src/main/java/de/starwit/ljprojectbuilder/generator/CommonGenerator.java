@@ -21,6 +21,12 @@ import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+/**
+ * The generator connects configuration with templates and starts generation.
+ * @author anett
+ *
+ * @param <E> different configuration for frontend, backend and business
+ */
 public class CommonGenerator<E extends AbstractModule> implements Generator {
 
 	public final static Logger LOG = Logger.getLogger(CommonGenerator.class);
@@ -33,7 +39,6 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 	public E getModule() {
 		return module;
 	}
-
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -57,6 +62,11 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 		}
 	}
 	
+	/**
+	 * Adds parameter for generations based on project data.
+	 * @param setupBean - project data and generation configuration.
+	 * @return parameter for freemarker
+	 */
 	public Map<String, Object> fillTemplateGlobalParameter(GeneratorDto setupBean) {
 		if (setupBean.getProject() == null) {
 			return null;
@@ -69,6 +79,11 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 		return data;
 	}
 
+	/**
+	 * Adds parameter for domain specific generations.
+	 * @param domain - basic for entities
+	 * @return
+	 */
 	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
 		// Build the data-model
 		Map<String, Object> data = new HashMap<String, Object>();

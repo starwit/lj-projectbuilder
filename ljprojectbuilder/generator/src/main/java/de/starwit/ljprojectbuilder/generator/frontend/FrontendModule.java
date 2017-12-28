@@ -13,13 +13,17 @@ public class FrontendModule extends AbstractModule {
 		this.setModuleName("webclient");
 		
 		getDomainTemplates().add(configureTemplateDef("all", ".html"));
-		getDomainTemplates().add(configureTemplateDef("single", ".html"));
+
 		TemplateDef allCtrl = configureTemplateDef("AllCtrl", ".js");
 		allCtrl.setSuffix("AllCtrl.js");
 		getDomainTemplates().add(allCtrl);
+		
+		getDomainTemplates().add(configureTemplateDef("single", ".html"));
+		
 		TemplateDef singleCtrl = configureTemplateDef("SingleCtrl", ".js");
 		singleCtrl.setSuffix("SingleCtrl.js");
 		getDomainTemplates().add(singleCtrl);
+		
 		getDomainTemplates().add(configureTemplateDef("routes", ".js"));
 		getDomainTemplates().add(configureTemplateDef("module", ".js"));
 		
