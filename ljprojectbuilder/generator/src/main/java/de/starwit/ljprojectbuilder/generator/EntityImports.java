@@ -1,4 +1,4 @@
-package de.starwit.ljprojectbuilder.generator.entity;
+package de.starwit.ljprojectbuilder.generator;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,12 +7,22 @@ import de.starwit.ljprojectbuilder.entity.AttributeEntity;
 import de.starwit.ljprojectbuilder.entity.DataType;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 
+/**
+ * 
+ * @author anett
+ *
+ */
 public class EntityImports {
-	
+	/**
+	 * Imports for Java-Entities Bean Validation and DataTypes for EntityGeneration. 
+	 * @param domain - definition of domain.
+	 * @return Set of Java imports
+	 */
 	public static Set<String> gatherEntityImports(DomainEntity domain) {
 		Set<String> imports = new HashSet<String>();
 		if (domain.getAttributes() != null) {
 			for (AttributeEntity attr : domain.getAttributes()) {
+				
 				if (DataType.String.equals(attr.getDataType())) {
 					if (attr.getMax() != null || attr.getMin() != null) {
 						imports.add("import javax.validation.constraints.Size;");

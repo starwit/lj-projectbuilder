@@ -33,11 +33,6 @@ public class GeneratorDto {
 	 */
 	private boolean generateFrontend = true;
 	
-	/**
-	 * Enables or disables the generation of the testdata
-	 */
-	private boolean generateTests;
-	
 	/********************* GETTER, SETTER **************************/
 	
 	public ProjectEntity getProject() {
@@ -78,13 +73,5 @@ public class GeneratorDto {
 
 	public void setGenerateFrontend(boolean generateFrontend) {
 		this.generateFrontend = generateFrontend;
-	}
-
-	public boolean isGenerateTests() {
-		return generateTests;
-	}
-
-	public void setGenerateTests(boolean generateTests) {
-		this.generateTests = generateTests;
 	}
 }

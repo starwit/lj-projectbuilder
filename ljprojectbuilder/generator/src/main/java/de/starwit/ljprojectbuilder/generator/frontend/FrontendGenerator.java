@@ -7,9 +7,9 @@ import java.util.Map;
 import de.starwit.ljprojectbuilder.config.GeneratorConfig;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.generator.AbstractGenerator;
+import de.starwit.ljprojectbuilder.generator.CommonGenerator;
 
-public class FrontendGenerator extends AbstractGenerator<FrontendModule> {
+public class FrontendGenerator extends CommonGenerator<FrontendModule> {
 	
 	@Override
 	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {

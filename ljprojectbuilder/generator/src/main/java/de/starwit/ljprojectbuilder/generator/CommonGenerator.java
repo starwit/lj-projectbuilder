@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.Files;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -20,9 +21,9 @@ import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public abstract class AbstractGenerator<E extends AbstractModule> implements Generator {
+public class CommonGenerator<E extends AbstractModule> implements Generator {
 
-	public final static Logger LOG = Logger.getLogger(AbstractGenerator.class);
+	public final static Logger LOG = Logger.getLogger(CommonGenerator.class);
 	
 	private final static String GENERATION ="###GENERATION###";
 	
@@ -56,9 +57,25 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 		}
 	}
 	
-	public abstract Map<String, Object> fillTemplateDomainParameter(DomainEntity domain);
-	public abstract Map<String, Object> fillTemplateGlobalParameter(GeneratorDto setupBean);
+	public Map<String, Object> fillTemplateGlobalParameter(GeneratorDto setupBean) {
+		if (setupBean.getProject() == null) {
+			return null;
+		}
+		// Build the data-model
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("appName", setupBean.getProject().getTitle().toLowerCase());
+		data.put("package", setupBean.getProject().getPackagePrefix().toLowerCase());
+		data.put("domains", getModule().getSetupBean().getProject().getSelectedDomains());
+		return data;
+	}
 
+	public Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
+		// Build the data-model
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("domain", domain);
+		data.put("imports", EntityImports.gatherEntityImports(domain));
+		return data;
+	}
 	
 	protected void generateDomain(GeneratorDto setupBean, String domainName, Map<String, Object> data) {
 		try {
@@ -123,7 +140,6 @@ public abstract class AbstractGenerator<E extends AbstractModule> implements Gen
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			Writer writer = new BufferedWriter(new FileWriter(tempFile));
 			String currentLine;
-			boolean generationDone = false;
 			while ((currentLine = reader.readLine()) != null) {
 				if (null != currentLine) {
 					if (currentLine.contains(GENERATION)) {

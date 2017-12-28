@@ -7,11 +7,12 @@ import org.apache.log4j.Logger;
 import de.starwit.ljprojectbuilder.config.Constants;
 import de.starwit.ljprojectbuilder.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.GeneratorService;
+import de.starwit.ljprojectbuilder.generator.CommonGenerator;
 import de.starwit.ljprojectbuilder.generator.Generator;
-import de.starwit.ljprojectbuilder.generator.entity.EntityGenerator;
+import de.starwit.ljprojectbuilder.generator.entity.EntityModule;
 import de.starwit.ljprojectbuilder.generator.frontend.FrontendGenerator;
-import de.starwit.ljprojectbuilder.generator.rest.RestGenerator;
-import de.starwit.ljprojectbuilder.generator.service.ServiceGenerator;
+import de.starwit.ljprojectbuilder.generator.rest.RestModule;
+import de.starwit.ljprojectbuilder.generator.service.ServiceModule;
 
 @Stateless(name = "GeneratorService")
 public class GeneratorServiceImpl implements GeneratorService {
@@ -34,17 +35,17 @@ public class GeneratorServiceImpl implements GeneratorService {
 		
 		
 		if (setupBean.isGenerateEntity()) {
-			Generator entityGenerator = new EntityGenerator();
+			Generator entityGenerator = new CommonGenerator<EntityModule>();
 			entityGenerator.generate(setupBean);
 		}
 		
 		if (setupBean.isGenerateService()) {
-			Generator serviceGenerator = new ServiceGenerator();
+			Generator serviceGenerator = new CommonGenerator<ServiceModule>();
 			serviceGenerator.generate(setupBean);
 		}
 		
 		if (setupBean.isGenerateRest()) {
-			Generator restGenerator = new RestGenerator();
+			Generator restGenerator = new CommonGenerator<RestModule>();
 			restGenerator.generate(setupBean);
 		}
 		
