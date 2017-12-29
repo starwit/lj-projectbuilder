@@ -14,6 +14,12 @@
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
+		ctrl.createRepository = createRepository;
+		ctrl.createBuildJob = createBuildJob;
+		ctrl.checkInCode = checkInCode;
+		ctrl.createRuntimeEnv = createRuntimeEnv;
+		ctrl.deployApplication = deployApplication;
+
 		init();
 		
 		/**
@@ -94,5 +100,52 @@
 		function closeDialog(dialogid) {
 			dialogService.closeDialog(dialogid);
 		};
+
+		// ci/cd stuff
+
+		function createRepository() {
+			projectSetupConnectorFactory.createRepository().then(
+				function(result) {
+					console.log("called createRepository " + result);
+				}, ciError
+			);
+		}
+
+		function checkInCode() {
+			projectSetupConnectorFactory.checkInCode().then(
+				function(result) {
+					console.log("called checkInCode " + result);
+				}, ciError
+			);
+		}
+
+		function createBuildJob() {
+			projectSetupConnectorFactory.createBuildJob().then(
+				function(result) {
+					console.log("called createBuildJob " + result);
+				}, ciError
+			);
+		}
+
+		function createRuntimeEnv() {
+			projectSetupConnectorFactory.createRuntimeEnv().then(
+				function(result) {
+					console.log("called createRuntimeEnv " + result);
+				}, ciError
+			);
+		}
+
+		function deployApplication() {
+			projectSetupConnectorFactory.deployApplication().then(
+				function(result) {
+					console.log("called deployApplication " + result);
+				}, ciError
+			);
+		}
+
+		function ciError() {
+			console.log("called");
+			dialogService.showDialog("projectsetup.dialog.error.title", "Stuff didn't work :(", dialogService.dialog.id.error, function(){});
+		}
 	};
 })();

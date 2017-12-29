@@ -1,7 +1,12 @@
 projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
 	function projectSetupConnectorFactory($http, $location, restConnectorFactory) {
 	    var factory = {
-	    		projectSetup: projectSetup
+				projectSetup: projectSetup,
+				createRepository: createRepository,
+				checkInCode: checkInCode,
+				createBuildJob: createBuildJob,
+				createRuntimeEnv: createRuntimeEnv,
+				deployApplication: deployApplication
 	     };
 	    return factory;
 	    
@@ -12,4 +17,44 @@ projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
 						restConnectorFactory.handleResponseError
 				);
 		};
+
+		function createRepository() {
+			return $http.put('api/projectsetup/ci/createrepo',)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);
+		}
+
+		function checkInCode() {
+			return $http.put('api/projectsetup/ci/checkincode',)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);
+		}
+
+		function createBuildJob() {
+			return $http.put('api/projectsetup/ci/createbuildjob',)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);
+		}
+
+		function createRuntimeEnv() {
+			return $http.put('api/projectsetup/ci/createruntimeenv',)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);
+		}
+
+		function deployApplication() {
+			return $http.put('api/projectsetup/ci/deployapp',)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);
+		}
 	}];
