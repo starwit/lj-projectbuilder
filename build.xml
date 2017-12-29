@@ -8,7 +8,7 @@
 
 	<property name="ui_src" location="${app_path}/webclient/src/main/webapp/" />
 	<property name="warfile" value="${app_path}/target/ljprojectbuilder.war" />
-	<property name="ui_dest" value="${basedir}/target/ljprojectbuilder" />
+	<property name="ui_dest" value="${app_path}/target/ljprojectbuilder" />
 	
 	<property name="os.windows" value="windows" />
 	

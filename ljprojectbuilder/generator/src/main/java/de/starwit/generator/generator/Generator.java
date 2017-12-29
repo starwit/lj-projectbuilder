@@ -1,15 +1,15 @@
 package de.starwit.generator.generator;
 
-import de.starwit.generator.dto.GeneratorDto;
+import de.starwit.generator.modules.AbstractModule;
 
 /**
  * The generator starts generation and hides the details of generation.
  * @author anett
  */
-public interface Generator {
+public interface Generator<E extends AbstractModule> {
 
 	/**
 	 * Starts genereation.
 	 */
-	public void generate(GeneratorDto setupBean);
+	public void generate(E module);
 }

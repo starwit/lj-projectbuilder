@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import javax.ejb.Local;
 
-import de.starwit.ljprojectbuilder.entity.TemplateEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 
 @Local
-public interface TemplateService extends Serializable, AbstractService<TemplateEntity> {
+public interface TemplateService extends Serializable, AbstractService<ProjectTemplateEntity> {
 }
 
 

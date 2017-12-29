@@ -8,6 +8,3 @@ import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity
 public interface ${domain.name}Service extends Serializable, AbstractService<${domain.name}Entity> {
 
 }
-
-
-    

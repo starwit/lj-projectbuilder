@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.entity.TemplateEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 
 @RunWith(Arquillian.class)
 public class DomainServiceTest extends AbstractServiceTest<DomainService, DomainEntity> {
@@ -28,10 +28,10 @@ public class DomainServiceTest extends AbstractServiceTest<DomainService, Domain
 	public void testCreate() {
 		ProjectEntity pentity = new ProjectEntity();
 		pentity.setTargetPath("D:/tmp/test/");
-		TemplateEntity template = new TemplateEntity();
-		template.setTemplateLocation("http://test");
-		template.setTemplateTitle("testproject");
-		template.setTemplatePackagePrefix("test");
+		ProjectTemplateEntity template = new ProjectTemplateEntity();
+		template.setLocation("http://test");
+		template.setTitle("testproject");
+		template.setPackagePrefix("test");
 		templateService.create(template);
 		pentity.setTitle("lirejarp");
 		pentity.setPackagePrefix("lirejarp");

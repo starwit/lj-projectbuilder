@@ -41,23 +41,23 @@ public class GeneratorService {
 		
 		
 		if (setupBean.isGenerateEntity()) {
-			Generator entityGenerator = new CommonGenerator<EntityModule>();
-			entityGenerator.generate(setupBean);
+			Generator<EntityModule> entityGenerator = new CommonGenerator<EntityModule>();
+			entityGenerator.generate(new EntityModule(setupBean));
 		}
 		
 		if (setupBean.isGenerateService()) {
-			Generator serviceGenerator = new CommonGenerator<ServiceModule>();
-			serviceGenerator.generate(setupBean);
+			Generator<ServiceModule> serviceGenerator = new CommonGenerator<ServiceModule>();
+			serviceGenerator.generate(new ServiceModule(setupBean));
 		}
 		
 		if (setupBean.isGenerateRest()) {
-			Generator restGenerator = new CommonGenerator<RestModule>();
-			restGenerator.generate(setupBean);
+			Generator<RestModule> restGenerator = new CommonGenerator<RestModule>();
+			restGenerator.generate(new RestModule(setupBean));
 		}
 		
 		if (setupBean.isGenerateFrontend()) {
-			Generator frontendGenerator = new CommonGenerator<FrontendModule>();
-			frontendGenerator.generate(setupBean);
+			Generator<FrontendModule> frontendGenerator = new CommonGenerator<FrontendModule>();
+			frontendGenerator.generate(new FrontendModule(setupBean));
 		}
 		
 	}

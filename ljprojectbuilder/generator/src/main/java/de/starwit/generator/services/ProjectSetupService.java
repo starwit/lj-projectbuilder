@@ -115,7 +115,7 @@ public class ProjectSetupService implements Serializable {
 	private void checkoutProjectTemplate(ProjectEntity entity)  throws ProjectSetupException {
 		
 		File destDir = new File (Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		String srcDir = entity.getTemplate().getTemplateLocation();
+		String srcDir = entity.getTemplate().getLocation();
 		String branch = "master";
 		if (entity.getTemplate().getBranch() != null) {
 			branch = entity.getTemplate().getBranch();
@@ -142,11 +142,11 @@ public class ProjectSetupService implements Serializable {
 	 * @param properties
 	 */
 	private void renameProjectTitle(ProjectEntity entity) throws ProjectSetupException {
-		LOG.info("Try to rename project " + entity.getTemplate().getTemplatePackagePrefix() + ".");
+		LOG.info("Try to rename project " + entity.getTemplate().getPackagePrefix() + ".");
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		String currentProjectName = entity.getTemplate().getTemplateTitle();
+		String currentProjectName = entity.getTemplate().getTitle();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory, false);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
 	}
@@ -160,8 +160,8 @@ public class ProjectSetupService implements Serializable {
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		renameDirectories(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory, true);
-		renameFiles(entity.getTemplate().getTemplatePackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameDirectories(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory, true);
+		renameFiles(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory);
 	}
 
 	/**

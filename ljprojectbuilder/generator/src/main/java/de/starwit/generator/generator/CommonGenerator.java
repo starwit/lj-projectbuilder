@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,7 +29,7 @@ import freemarker.template.TemplateException;
  *
  * @param <E> different configuration for frontend, backend and business
  */
-public class CommonGenerator<E extends AbstractModule> implements Generator {
+public class CommonGenerator<E extends AbstractModule> implements Generator<E> {
 
 	public final static Logger LOG = Logger.getLogger(CommonGenerator.class);
 	
@@ -45,24 +43,17 @@ public class CommonGenerator<E extends AbstractModule> implements Generator {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public void generate(GeneratorDto setupBean) {
-		try {
-			module = (E) ((Class<?>) ((ParameterizedType) this
-					.getClass().getGenericSuperclass())
-					.getActualTypeArguments()[0]).getDeclaredConstructor( GeneratorDto.class ).newInstance(setupBean);
-			
-			Map<String, Object> templateData = fillTemplateGlobalParameter(setupBean.getProject());
-			generateGlobal(templateData);
-			generateAdditionalContent(templateData);
-			
-			Collection<DomainEntity> domains = setupBean.getProject().getSelectedDomains();
-			for (DomainEntity domain : domains) {
-					templateData.putAll(fillTemplateDomainParameter(domain));
-					generateDomain(setupBean, domain.getName(), templateData);
-			}
-		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-			LOG.error("Inherit class of AbstractEntity could not be resolved.");
+	public void generate(E module) {
+		this.module = module;
+
+		Map<String, Object> templateData = fillTemplateGlobalParameter(this.module.getSetupBean().getProject());
+		generateGlobal(templateData);
+		generateAdditionalContent(templateData);
+
+		Collection<DomainEntity> domains = this.module.getSetupBean().getProject().getSelectedDomains();
+		for (DomainEntity domain : domains) {
+			templateData.putAll(fillTemplateDomainParameter(domain));
+			generateDomain(this.module.getSetupBean(), domain.getName(), templateData);
 		}
 	}
 	

@@ -9,51 +9,51 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@Table(name="TEMPLATE")
-public class TemplateEntity extends AbstractEntity {
+@Table(name="PROJECTTEMPLATE")
+public class ProjectTemplateEntity extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	@Size(max=100)
-	private String templateLocation = "https://github.com/witchpou/lirejarp.git";
+	private String location = "https://github.com/witchpou/lirejarp.git";
 	
 	@NotNull
 	@Size(max=100)
-	private String templateTitle = "lirejarp";
+	private String title = "lirejarp";
 	
 	@NotNull
 	@Size(max=100)
-	private String templatePackagePrefix = "starwit";
+	private String packagePrefix = "starwit";
 	
 	@Size(max=100)
 	private String branch = "master";
 	
 	@Column(name="TITLE", nullable=false, length=100)
-	public String getTemplateTitle() {
-		return templateTitle;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTemplateTitle(String templateTitle) {
-		this.templateTitle = templateTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Column(name="PREFIX", nullable=false, length=100)
-	public String getTemplatePackagePrefix() {
-		return templatePackagePrefix;
+	public String getPackagePrefix() {
+		return packagePrefix;
 	}
 
-	public void setTemplatePackagePrefix(String templatePackagePrefix) {
-		this.templatePackagePrefix = templatePackagePrefix;
+	public void setPackagePrefix(String packagePrefix) {
+		this.packagePrefix = packagePrefix;
 	}
 	
 	@Column(name="LOCATION", nullable = false, length=100)
-	public String getTemplateLocation() {
-		return templateLocation;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setTemplateLocation(String templateLocation) {
-		this.templateLocation = templateLocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	@Column(name="BRANCH", length=100)

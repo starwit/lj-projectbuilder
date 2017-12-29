@@ -29,7 +29,7 @@ public class ProjectEntity extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@NotNull
-	private TemplateEntity template;
+	private ProjectTemplateEntity template;
 	
 	@NotNull
 	@Pattern(regexp="^[A-Za-z0-9]*$")
@@ -52,11 +52,11 @@ public class ProjectEntity extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
-	public TemplateEntity getTemplate() {
+	public ProjectTemplateEntity getTemplate() {
 		return template;
 	}
 
-	public void setTemplate(TemplateEntity template) {
+	public void setTemplate(ProjectTemplateEntity template) {
 		this.template = template;
 	}
 	
@@ -96,8 +96,9 @@ public class ProjectEntity extends AbstractEntity {
 		this.targetPath = targetPath;
 	}
 
-	@JsonIgnoreProperties({"project", "description"})
-	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval=true, mappedBy="project")
+	@JsonIgnoreProperties({"project", "description", "attributes", "selected"})
+	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval=true)
+	@JoinColumn(name = "PROJECT_ID")
 	public List<DomainEntity> getDomains() {
 		return domains;
 	}

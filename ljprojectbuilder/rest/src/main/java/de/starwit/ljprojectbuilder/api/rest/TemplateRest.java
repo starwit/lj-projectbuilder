@@ -9,13 +9,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import de.starwit.ljprojectbuilder.ejb.TemplateService;
-import de.starwit.ljprojectbuilder.entity.TemplateEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
 
 @Path("/template")
 @Consumes("application/json")
 @Produces("application/json")
-public class TemplateRest extends AbstractRest<TemplateEntity> {
+public class TemplateRest extends AbstractRest<ProjectTemplateEntity> {
 	
 	@Inject
 	protected TemplateService service;
@@ -28,14 +28,14 @@ public class TemplateRest extends AbstractRest<TemplateEntity> {
 	//Create
 	@Path("/")
 	@PUT
-	public EntityResponse<TemplateEntity> create(TemplateEntity entity) {
+	public EntityResponse<ProjectTemplateEntity> create(ProjectTemplateEntity entity) {
 		return super.createGeneric(entity);
 	}
 
 	//Update
 	@Path("/")
 	@POST
-	public EntityResponse<TemplateEntity> update(TemplateEntity entity) {
+	public EntityResponse<ProjectTemplateEntity> update(ProjectTemplateEntity entity) {
 		return super.updateGeneric(entity);
 	}
 }

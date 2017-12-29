@@ -13,10 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlRootElement
 @Entity
@@ -32,6 +31,7 @@ public class DomainEntity extends AbstractEntity {
 	
 	private String description;
 	
+	@XmlTransient
 	@NotNull
 	private ProjectEntity project;
 	
@@ -59,7 +59,6 @@ public class DomainEntity extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
-	@JsonIgnoreProperties({"packagePrefix", "targetPath", "description"})
 	public ProjectEntity getProject() {
 		return project;
 	}
