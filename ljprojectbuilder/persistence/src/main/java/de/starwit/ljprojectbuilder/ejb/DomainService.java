@@ -10,7 +10,7 @@ import de.starwit.ljprojectbuilder.entity.DomainEntity;
 public interface DomainService extends Serializable, AbstractService<DomainEntity> {
 	
 	List<DomainEntity> findAllDomainsByProject(Long projectId);
-
+	void setDomainSelected(Long domainId, boolean selected);
 }
 
 

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlRootElement
+@JsonIgnoreProperties({"domains","selectedDomains"})
 @Entity
 @Table(name="PROJECT")
 public class ProjectEntity extends AbstractEntity {
@@ -96,8 +96,8 @@ public class ProjectEntity extends AbstractEntity {
 		this.targetPath = targetPath;
 	}
 
-	@JsonIgnoreProperties({"project", "description", "attributes", "selected"})
-	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval=true)
+	@XmlTransient
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name = "PROJECT_ID")
 	public List<DomainEntity> getDomains() {
 		return domains;
@@ -110,8 +110,8 @@ public class ProjectEntity extends AbstractEntity {
 	@XmlTransient
 	@Transient
 	public Set<DomainEntity> getSelectedDomains() {
-		if (selectedDomains == null && domains != null) {
-			selectedDomains =  domains.stream()                // convert list to stream
+		if (selectedDomains == null && getDomains() != null) {
+			selectedDomains =  getDomains().stream()                // convert list to stream
                 .filter(domain -> domain.isSelected())     // we only want selected domains
                 .collect(Collectors.toSet());
 		}

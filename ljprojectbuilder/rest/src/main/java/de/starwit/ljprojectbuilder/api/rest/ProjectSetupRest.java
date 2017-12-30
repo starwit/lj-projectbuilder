@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.generator.services.ProjectSetupService;
+import de.starwit.ljprojectbuilder.exception.NotificationException;
 import de.starwit.ljprojectbuilder.response.Response;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
@@ -35,7 +36,11 @@ public class ProjectSetupRest {
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.OK, "generator.success");
 			response.setMetadata(responseMetadata);
 			return response;
-		//TODO: handle exception
+		} catch (NotificationException nex) {
+			LOG.error(nex.getMessage());
+			Response<Boolean> response = new Response<>(false);
+			response.setMetadata(nex.getResponseMetadata());
+			return response;
 		} catch (Exception ex) {
 			LOG.error(ex.getMessage(), ex);
 			Response<Boolean> response = new Response<>(false);
