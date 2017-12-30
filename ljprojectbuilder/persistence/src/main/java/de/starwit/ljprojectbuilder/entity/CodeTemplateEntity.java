@@ -162,7 +162,7 @@ public class CodeTemplateEntity extends AbstractEntity {
 	}
 	
 	private String checkOrCreateDir(String domainDir) {
-		File checkedDir = new File(targetPath + domainDir);
+		File checkedDir = new File(concreteTargetPath + domainDir);
 		boolean success = true;
 		if (!checkedDir.exists()) {
 			success = checkedDir.mkdirs();

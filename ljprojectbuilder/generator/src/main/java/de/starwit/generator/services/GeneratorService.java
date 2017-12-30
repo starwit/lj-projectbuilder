@@ -60,8 +60,8 @@ public class GeneratorService {
 	public void generate(Long projectId) {
 		ProjectEntity project = projectService.findById(projectId);
 		List<CodeTemplateEntity> codeTemplates = codeTempateService.findAllCodeTemplatesByProject(projectId);
-		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
 		Collection<DomainEntity> domains = project.getSelectedDomains();
+		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
 		
 		for (CodeTemplateEntity codeTemplate : codeTemplates) {
 			generatePath(templateData, codeTemplate);
@@ -131,7 +131,8 @@ public class GeneratorService {
 	
 	protected void generateGlobal(Map<String, Object> data, CodeTemplateEntity codeTemplate) {
 		try {
-			writeGeneratedFile(codeTemplate.getConcreteTargetPath(), getTemplate(codeTemplate.getTemplatePath()), data, true);
+			String targetFileUrl = codeTemplate.getTargetFileUrl("");
+			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getTemplatePath()), data, true);
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e);
 		} catch (TemplateException e) {
