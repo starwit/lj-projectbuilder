@@ -4,6 +4,7 @@ package de.starwit.ljprojectbuilder.ejb.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
@@ -23,9 +24,15 @@ public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> impleme
 		
 		return query.getResultList();
 	}
-
+	
+	@Override
+	public void setDomainSelected(Long domainId, boolean selected) {
+		String queryStr = "update DomainEntity domain set domain.selected = :selected where domain.id = :domainId";
+		
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setParameter("domainId", domainId);
+		query.setParameter("selected", selected);
+		
+		query.executeUpdate();
+	}
 }
-
-
-
-    

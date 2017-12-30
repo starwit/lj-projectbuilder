@@ -1,13 +1,13 @@
-package de.starwit.generator.exeptions;
+package de.starwit.ljprojectbuilder.exception;
 
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-public class ProjectSetupException extends Exception {
-
+public class NotificationException extends Exception  {
+	
 	private static final long serialVersionUID = 1L;
 	private ResponseMetadata responseMetadata;
-
-	public ProjectSetupException(ResponseMetadata responseMetadata) {
+	
+	public NotificationException(ResponseMetadata responseMetadata) {
 		super("Error during project setup or generation.");
 		this.responseMetadata = responseMetadata;
 	}
@@ -20,5 +20,5 @@ public class ProjectSetupException extends Exception {
 		this.responseMetadata = responseMetadata;
 	}
 	
-	
+
 }

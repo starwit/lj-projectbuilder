@@ -43,6 +43,7 @@ public class DataStartupService {
 		Flyway flyway = new Flyway();
 		flyway.setDataSource(dataSource);
 		flyway.setBaselineOnMigrate(true);
+		flyway.setPlaceholderPrefix("%{");
 		flyway.setLocations("sql" + FS + "configdata", schema);
 		flyway.setBaselineVersion(MigrationVersion.fromVersion("201609221422"));
 		for (MigrationInfo i : flyway.info().all()) {

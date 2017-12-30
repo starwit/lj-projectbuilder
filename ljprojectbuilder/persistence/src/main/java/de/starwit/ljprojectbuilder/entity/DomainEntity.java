@@ -1,6 +1,6 @@
 package de.starwit.ljprojectbuilder.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -31,11 +30,10 @@ public class DomainEntity extends AbstractEntity {
 	
 	private String description;
 	
-	@XmlTransient
 	@NotNull
 	private ProjectEntity project;
 	
-	private List<AttributeEntity> attributes;
+	private Set<AttributeEntity> attributes;
 	
 	private boolean selected = true;
 
@@ -57,6 +55,7 @@ public class DomainEntity extends AbstractEntity {
 		this.description = description;
 	}
 
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
 	public ProjectEntity getProject() {
@@ -68,15 +67,15 @@ public class DomainEntity extends AbstractEntity {
 	}
 
 	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
-	public List<AttributeEntity> getAttributes() {
+	public Set<AttributeEntity> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<AttributeEntity> attributes) {
+	public void setAttributes(Set<AttributeEntity> attributes) {
 		this.attributes = attributes;
 	}
 	
-	@Transient
+	@Column(name="SELECTED", nullable = false)
 	public boolean isSelected() {
 		return selected;
 	}

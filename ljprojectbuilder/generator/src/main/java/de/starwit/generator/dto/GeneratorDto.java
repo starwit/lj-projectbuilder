@@ -1,7 +1,10 @@
 package de.starwit.generator.dto;
 
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 /**
  * Contains all configuration for project setup and generator.
@@ -32,6 +35,8 @@ public class GeneratorDto {
 	 * Enables or disables the generation of the frontend module
 	 */
 	private boolean generateFrontend = true;
+	
+	private Set<DomainEntity> selectedDomains;
 	
 	/********************* GETTER, SETTER **************************/
 	
@@ -73,5 +78,13 @@ public class GeneratorDto {
 
 	public void setGenerateFrontend(boolean generateFrontend) {
 		this.generateFrontend = generateFrontend;
+	}
+
+	public Set<DomainEntity> getSelectedDomains() {
+		return selectedDomains;
+	}
+
+	public void setSelectedDomains(Set<DomainEntity> selectedDomains) {
+		this.selectedDomains = selectedDomains;
 	}
 }

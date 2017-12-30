@@ -28,12 +28,16 @@
 		 */
 		function projectDownload() {
 			dialogService.showDialog(null, null, "loadingdialog", function(){});
-			ctrl.generatorDto.project.domains = ctrl.domainAll;
+			getSelectedDomainIds();
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
 				ctrl.closeDialog('loadingdialog');
 			}, setupError);
 		};
+		
+		function getSelectedDomainIds() {
+			ctrl.generatorDto.selectedDomains = ctrl.domainAll;
+		}
 		
 		/** 
 		 * Standard function for initialization.
