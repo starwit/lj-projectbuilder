@@ -63,7 +63,6 @@
 									<libs>
 										<lib>com.h2database:h2:1.3.175</lib>
 										<lib>remove:openjpa-</lib>
-										<lib>org.jboss.resteasy:resteasy-jaxrs:3.0.19.Final</lib>
 										<lib>remove:jaxb-impl</lib>
 									</libs>
 								<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
@@ -92,7 +91,6 @@
 								<libs>
 									<lib>org.mariadb.jdbc:mariadb-java-client:1.5.4</lib>
 									<lib>remove:openjpa-</lib>
-									<lib>org.jboss.resteasy:resteasy-jaxrs:3.0.19.Final</lib>
 									<lib>remove:jaxb-impl</lib>
 								</libs>
 							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>

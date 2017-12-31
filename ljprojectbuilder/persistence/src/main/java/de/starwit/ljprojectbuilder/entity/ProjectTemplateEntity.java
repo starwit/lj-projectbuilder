@@ -1,7 +1,11 @@
 package de.starwit.ljprojectbuilder.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -35,6 +39,8 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	@Size(max=100)
 	@Pattern(regexp="^[A-Za-z0-9]*$")
 	private String branch = "master";
+	
+	private Set<CodeTemplateEntity> codeTemplates;
 	
 	@Column(name="DESCRIPTION", length=250)
 	public String getDescription() {
@@ -79,5 +85,14 @@ public class ProjectTemplateEntity extends AbstractEntity {
 
 	public void setBranch(String branch) {
 		this.branch = branch;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "projectTemplate")
+	public Set<CodeTemplateEntity> getCodeTemplates() {
+		return codeTemplates;
+	}
+
+	public void setCodeTemplates(Set<CodeTemplateEntity> codeTemplates) {
+		this.codeTemplates = codeTemplates;
 	}
 }

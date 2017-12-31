@@ -11,6 +11,8 @@ import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
 public interface CodeTemplateService extends Serializable, AbstractService<CodeTemplateEntity> {
 	
 	List<CodeTemplateEntity> findAllCodeTemplatesByProject(Long projectId);
+	
+	List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId);
 }
 
 

@@ -27,4 +27,15 @@ public class CodeTemplateServiceImpl extends AbstractServiceImpl<CodeTemplateEnt
 		
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId) {
+		String queryStr = "select ct from CodeTemplateEntity ct where ct.projectTemplate.id = :projectTemplateId";
+		
+		//test
+		TypedQuery<CodeTemplateEntity> query = getEntityManager().createQuery(queryStr, CodeTemplateEntity.class);
+		query.setParameter("projectTemplateId", projectTemplateId);
+		
+		return query.getResultList();
+	}
 }

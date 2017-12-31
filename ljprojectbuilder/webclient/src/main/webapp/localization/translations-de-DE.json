@@ -110,6 +110,10 @@
 	"projecttemplate.rename.success": "Die Umbenennung war erfolgreich.",
 	
 	"codetemplate"							: "Quellcodetemplates",
+	"codetemplate.filenamesuffix"		: "Dateiname oder Suffix für den Dateinamen",
+	"codetemplate.templatepath"		: "Speicherort des Templates",
+	"codetemplate.targetpath"			: "Zielpfad für Quellcodedatei",	
+	"codetemplate.type"					: "Templatetyp",
 	
 	"projecttemplate.dialog.error.title" 	: "Fehler",
 	"projecttemplate.dialog.success.title" 	: "Aktion erfolgreich",

@@ -58,6 +58,20 @@
 		}
 		
 		/**
+		 * refreshs the view from database.
+		 */
+		function refresh() { 
+			projecttemplateConnectorFactory.getCodeTemplateByProjectTemplate(ctrl.projecttemplateid).then(setCodeTemplatesAll, loadError); 
+		};
+		
+		/**
+		 * Used for setting the database result to the representation-object in the controller.
+		 */
+		function setCodeTemplatesAll(response) {
+			ctrl.codeTemplatesAll = response;		
+		}
+		
+		/**
 		 * Used for setting the database result to the representation-object in the controller.
 		 */
 		function setProjectTemplate(response) {

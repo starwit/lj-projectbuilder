@@ -1,5 +1,6 @@
 projecttemplateConnectorFactory = ['$http', '$location', 'restConnectorFactory', function projecttemplateConnectorFactory ($http, $location, restConnectorFactory) {
     var factory = {
+    		getCodeTemplateByProjectTemplate: getCodeTemplateByProjectTemplate,
     		getProjectTemplateAll: getProjectTemplateAll,
     		loadProjectTemplate: loadProjectTemplate,
     		createProjectTemplate: createProjectTemplate,
@@ -7,6 +8,14 @@ projecttemplateConnectorFactory = ['$http', '$location', 'restConnectorFactory',
     		deleteProjectTemplate : deleteProjectTemplate
      };
     return factory;
+    
+	function getCodeTemplateByProjectTemplate(projecttemplateId) {
+		return $http.get('api/codetemplate/query/byprojecttemplate/' + projecttemplateId)
+		.then(
+			restConnectorFactory.handleResponseSuccess,
+			restConnectorFactory.handleResponseError
+		);
+	};
 	
 	function getProjectTemplateAll() {
 		return $http.get('api/projecttemplate/query/all')

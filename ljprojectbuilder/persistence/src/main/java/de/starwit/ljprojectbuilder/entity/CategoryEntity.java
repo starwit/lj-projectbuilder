@@ -11,12 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * Entity implementation class for Entity: CategoryEntity
  *
  */
 @XmlRootElement
+@JsonIgnoreProperties("templates")
 @Entity
 @Table(name="CATEGORY")
 public class CategoryEntity extends AbstractEntity {
