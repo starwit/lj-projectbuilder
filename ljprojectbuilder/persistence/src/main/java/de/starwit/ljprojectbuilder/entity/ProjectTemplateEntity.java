@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -19,6 +20,7 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	private String location = "https://github.com/witchpou/lirejarp.git";
 	
 	@NotNull
+	@Pattern(regexp="^[A-Za-z0-9]*$")
 	@Size(max=100)
 	private String title = "lirejarp";
 	
@@ -26,10 +28,12 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	private String description;
 	
 	@NotNull
+	@Pattern(regexp="^[A-Za-z0-9]*$")
 	@Size(max=100)
 	private String packagePrefix = "starwit";
 	
 	@Size(max=100)
+	@Pattern(regexp="^[A-Za-z0-9]*$")
 	private String branch = "master";
 	
 	@Column(name="DESCRIPTION", length=250)

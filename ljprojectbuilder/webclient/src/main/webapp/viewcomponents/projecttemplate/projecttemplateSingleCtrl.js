@@ -71,7 +71,7 @@
 		function saveSuccessCallbackThatGoesTo(gotoDestination) {
 			return function (response) {
 				setProjectTemplate(response);
-				dialogService.showDialog("project.dialog.success.title", "project.save.success", dialogService.dialog.id.success, gotoDestination);
+				dialogService.showDialog("projecttemplate.dialog.success.title", "projecttemplate.save.success", dialogService.dialog.id.success, gotoDestination);
 			}
 		}
 		
@@ -79,14 +79,14 @@
 		 * Error message after saving.
 		 */
 		function saveError(response) {
-			dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
+			dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
 		}
 		
 		/**
 		 * Error message after loading the project.
 		 */
 		function loadError(response) {
-			dialogService.showDialog("project.dialog.error.title", "project.load.error", dialogService.dialog.id.error, gotoProjectTemplate.all);
+			dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.load.error", dialogService.dialog.id.error, gotoProjectTemplate.all);
 		}
 		
 		function closeDialog(dialogid) {

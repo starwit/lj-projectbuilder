@@ -111,6 +111,14 @@
 	
 	"codetemplate"							: "Quellcodetemplates",
 	
+	"projecttemplate.dialog.error.title" 	: "Fehler",
+	"projecttemplate.dialog.success.title" 	: "Aktion erfolgreich",
+	"projecttemplate.save.success" 			: "Das Projekttemplate  wurde erfolgreich gespeichert.",
+	"projecttemplate.save.error"				: "Das Projekttemplate konnte nicht gespeichert werden.",
+	"projecttemplate.load.error"				: "Das Projekttemplate konnte nicht geladen werden.",
+	"projecttemplate.delete.success"			: "Das Projekttemplate wurde gelöscht.",
+	"projecttemplate.delete.error"			: "Das Projekttemplate konnte nicht gelöscht werden.",	
+	
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",

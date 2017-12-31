@@ -26,20 +26,26 @@
 						<tr>						
 							<td>
 								<label for="location">{{'projecttemplate.location' | translate}}</label>
-								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" />
+								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" required />
+								<label  ng-show="ctrl.form.location.$error.required">{{'error.required' | translate}}</label>
 							</td>
 							<td>
 								<label for="branch">{{'projecttemplate.branch' | translate}}</label>
-								<input name="branch" id="branch" type="text" ng-model="ctrl.projecttemplate.branch" />
+								<input name="branch" id="branch" type="text" placeholder="master" ng-model="ctrl.projecttemplate.branch" ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label ng-show="ctrl.form.branch.$error.pattern">{{'error.project.pattern' | translate}}</label>
 							</td>							
 						<tr>
 						<tr><td>&nbsp;</td></tr>					
 						<tr>
 							<td>
 								<label for="title">{{'projecttemplate.title' | translate}}</label>
-								<input name="title" id="title" type="text" ng-model="ctrl.projecttemplate.title" />
+								<input name="title" id="title" type="text" ng-model="ctrl.projecttemplate.title" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.title.$error.pattern">{{'error.project.pattern' | translate}}</label>		
 								<label for="packageprefix">{{'projecttemplate.packageprefix' | translate}}</label>
-								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.projecttemplate.packagePrefix" />
+								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.projecttemplate.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label  ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.packageprefix.$error.pattern">{{'error.project.pattern' | translate}}</label>			
 							</td>
 							<td>
 								<label for="description">{{'projecttemplate.description' | translate}}</label>
