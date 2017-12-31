@@ -11,9 +11,14 @@
 		
 		ctrl.doMaintain = doMaintain;
 		ctrl.gotoProjectTemplate = gotoProjectTemplate;
+		ctrl.doGotoProjectTemplateAll = doGotoProjectTemplateAll;
 		ctrl.closeDialog = closeDialog;
 		ctrl.dialog = dialogService.dialog;
 		init();
+		
+		function doGotoProjectTemplateAll() {
+			gotoProjectTemplate.all();
+		}
 
 		/**
 		 * Standard function to edit the projecttemplate configuration.

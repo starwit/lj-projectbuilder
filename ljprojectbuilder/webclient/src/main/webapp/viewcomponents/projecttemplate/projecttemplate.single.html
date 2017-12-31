@@ -5,12 +5,56 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-
+<div id="subheaderBox">
+	<div class="contain">
+		<button class="icon back hint" ng-click="ctrl.doGotoProjectTemplateAll(); "><span>{{'button.back' | translate}}</span></button>
+		<button class="icon save right hint" ng-click="ctrl.doMaintain(); sent=true;" title="{{'button.save' | translate}}"><span>{{'button.save' | translate}}</span></button>
+		<div class="clearer"></div>
+	</div>
+</div>
 <div id="bodyBox">
 	<div class="contain">
 		<form name="ctrl.form" ng-init="sent=true;"> 
 			<fieldset class="odd">
+				<table>
+					<thead>
+						<tr>
+							<td><h3>{{'projecttemplate.details' | translate}}</h3></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>						
+							<td>
+								<label for="location">{{'projecttemplate.location' | translate}}</label>
+								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" />
+							</td>
+							<td>
+								<label for="branch">{{'projecttemplate.branch' | translate}}</label>
+								<input name="branch" id="branch" type="text" ng-model="ctrl.projecttemplate.branch" />
+							</td>							
+						<tr>
+						<tr><td>&nbsp;</td></tr>					
+						<tr>
+							<td>
+								<label for="title">{{'projecttemplate.title' | translate}}</label>
+								<input name="title" id="title" type="text" ng-model="ctrl.projecttemplate.title" />
+								<label for="packageprefix">{{'projecttemplate.packageprefix' | translate}}</label>
+								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.projecttemplate.packagePrefix" />
+							</td>
+							<td>
+								<label for="description">{{'projecttemplate.description' | translate}}</label>
+								<textarea rows="3" name="description" id="description" type="text" ng-model="ctrl.projecttemplate.description">
+								</textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</fieldset>
+					<thead>
+						<tr>
+							<td><h3>{{'codetemplate' | translate}}</h3></td>
+						</tr>
+					</thead>
 			<fieldset class="even">
 			</fieldset>	
 		</form>

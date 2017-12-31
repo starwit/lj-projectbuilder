@@ -96,21 +96,25 @@
 	"project.template" 				: "Templateprojekt",
 	"project.templateselect" 		: "Templateauswahl",
 
-	
-	"projecttemplate.all.title"					: "Übersicht Projekttemplates",
-	"projecttemplate.title"						: "Templatename",	
-	"projecttemplate.location"		: "Git-Repository",
+	"projecttemplate"						: "Projekttemplate",
+	"projecttemplate.details"				: "Projekttemplate Details",
+	"projecttemplate.all.title"				: "Übersicht Projekttemplates",
+	"projecttemplate.title"					: "Templatename",	
+	"projecttemplate.location"			: "Git-Repository",
 	"projecttemplate.packageprefix"	: "Java-Package",
-	"projecttemplate.branch" : "Branch",
+	"projecttemplate.branch" 			: "Branch",
+	"projecttemplate.description" 		: "Beschreibung",	
 	
-	"projecttemplate.create.title"			: "Projekttemplate erfassen",	
-	"projecttemplate.update.title"			: "Projekttemplate bearbeiten",
-	"projecttemplate.rename.success"		: "Die Umbenennung war erfolgreich.",
+	"projecttemplate.create.title"		: "Projekttemplate erfassen",	
+	"projecttemplate.update.title"		: "Projekttemplate bearbeiten",
+	"projecttemplate.rename.success": "Die Umbenennung war erfolgreich.",
+	
+	"codetemplate"							: "Quellcodetemplates",
 	
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",
-	"button.update" 				: "bearbeiten",
+	"button.update" 				: "Bearbeiten",
 	"button.save" 					: "Speichern",
 	"button.generate" 				: "Generieren",
 	"button.add" 					: "Hinzufügen",
