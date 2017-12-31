@@ -13,7 +13,7 @@ import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 public class ProjectServiceTest extends AbstractServiceTest<ProjectService, ProjectEntity> {
 	
 	@Inject
-	private TemplateService templateService;
+	private ProjectTemplateService templateService;
 	
 	@Override
 	public void setService(ProjectService service) {

@@ -93,13 +93,20 @@
 	"project.packageprefix"			: "Java-Package-Name",
 	"project.description"			: "Beschreibung",
 	"project.domains"				: "Domainobjekte",
-	
 	"project.template" 				: "Templateprojekt",
 	"project.templateselect" 		: "Templateauswahl",
-	"project.templatetitle" 		: "Templatename",
-	"project.templatelocation"		: "Git-Repository",
-	"project.templatepackageprefix"	: "Java-Package",
-	"project.templatebranch" : "Branch",
+
+	
+	"projecttemplate.all.title"					: "Übersicht Projekttemplates",
+	"projecttemplate.title"						: "Templatename",	
+	"projecttemplate.location"		: "Git-Repository",
+	"projecttemplate.packageprefix"	: "Java-Package",
+	"projecttemplate.branch" : "Branch",
+	
+	"projecttemplate.create.title"			: "Projekttemplate erfassen",	
+	"projecttemplate.update.title"			: "Projekttemplate bearbeiten",
+	"projecttemplate.rename.success"		: "Die Umbenennung war erfolgreich.",
+	
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",

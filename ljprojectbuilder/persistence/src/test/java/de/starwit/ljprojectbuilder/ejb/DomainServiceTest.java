@@ -14,7 +14,7 @@ import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 public class DomainServiceTest extends AbstractServiceTest<DomainService, DomainEntity> {
 	
 	@Inject
-	private TemplateService templateService;
+	private ProjectTemplateService templateService;
 	
 	@Inject
 	private ProjectService projectService;

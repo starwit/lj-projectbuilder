@@ -22,12 +22,24 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	@Size(max=100)
 	private String title = "lirejarp";
 	
+	@Size(max=250)
+	private String description;
+	
 	@NotNull
 	@Size(max=100)
 	private String packagePrefix = "starwit";
 	
 	@Size(max=100)
 	private String branch = "master";
+	
+	@Column(name="DESCRIPTION", length=250)
+	public String getDescription() {
+		return title;
+	}
+
+	public void setDescription(String title) {
+		this.title = title;
+	}
 	
 	@Column(name="TITLE", nullable=false, length=100)
 	public String getTitle() {

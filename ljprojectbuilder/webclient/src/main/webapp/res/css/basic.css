@@ -98,7 +98,7 @@ h1,h2,h3,h4,h5,h6{font-weight:500;margin:20px 0}
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0; margin-bottom:1%}
 td h1,td h2,td h3,td h4,td h5,td h6{margin:0}
 #dialogBox td h1,#dialogBox td h2,#dialogBox td h3,#dialogBox td h4,#dialogBox td h5,#dialogBox td h6{margin-bottom:20px}
-#headerBox td h1,#headerBox td h2,#headerBox td h3,#headerBox td h4,#headerBox td h5,#headerBox td h6{font-size:40px;font-variant:small-caps;line-height:120%}
+#headerBox td h1,#headerBox td h2,#headerBox td h3,#headerBox td h4,#headerBox td h5,#headerBox td h6{font-size:30px;font-variant:small-caps;line-height:120%}
 h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit}
 h1.indexTitle{float:left;margin:25px 0 0 0}
 td h4:first-child{margin:10px 0;font-size:20px;font-variant:small-caps;color:#7f7f7f}

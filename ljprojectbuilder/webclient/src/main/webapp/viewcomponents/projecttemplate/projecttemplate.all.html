@@ -1,0 +1,63 @@
+<div id="headerBox" ng-include="'shared/menus/menu.project.all.html'"></div>
+
+<div id="subheaderBox" class="aCenter">
+	<div class="bottom">
+		<span class="button add"><a ng-click="ctrl.gotoProjectTemplate.create();">+ Projekttemplate {{ 'button.add' | translate}}</a></span>
+		<div class="clearer"></div>
+	</div>
+</div>
+<div id="bodyBox">
+	<div class="contain">
+		<ul class="itemList">
+			<li class="list" ng-repeat="projecttemplate in ctrl.projecttemplateAll"  ng-click="ctrl.showDetails(projecttemplate.id);" ng-dblclick="ctrl.gotoProjectTemplate.update(projecttemplate.id);">
+				<table class="acc" id="{{projecttemplate.id}}" >
+			    	<colgroup>
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    	</colgroup>
+					<thead>
+						<tr>
+							<td class="aLeft">
+								<span class="button show"><a ng-click="$event.stopPropagation();ctrl.showDetails(projecttemplate.id);"><b>{{ctrl.detailsign}}</b></a></span>
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoProjectTemplate.update(projecttemplate.id);">Bearbeiten</a></span>
+							</td>
+							<td class="aCenter">
+								<h3>{{projecttemplate.title}}</h3>
+								<span>{{projecttemplate.branch}}</span>
+							</td>
+							<td class="aRight">
+								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteProjectTemplate(projecttemplate.id);">x</a></span>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="listcontent">
+									<tr>
+										<td colspan="3"><h4>{{'project.template' | translate}}</h4></td>
+									</tr>
+									<tr>
+										<th>{{'projecttemplate.title' | translate}}:</th>
+										<td colspan=2 >{{projecttemplate.title}}</td>
+									</tr>
+									<tr>
+										<th>{{'projecttemplate.packageprefix' | translate}}:</th>
+										<td colspan=2 >{{projecttemplate.packagePrefix}}</td>
+									</tr>
+									<tr>
+										<th>{{'projecttemplate.location' | translate}}:</th>
+										<td colspan=2 >{{projecttemplate.location}}</td>
+									</tr>		
+									<tr>
+										<th>{{'projecttemplate.branch' | translate}}:</th>
+										<td colspan=2 >{{projecttemplate.branch}}</td>
+									</tr>																				
+					</tbody>
+				</table>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+</div>
