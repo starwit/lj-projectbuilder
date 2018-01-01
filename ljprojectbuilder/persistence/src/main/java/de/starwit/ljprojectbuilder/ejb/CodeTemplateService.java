@@ -13,6 +13,8 @@ public interface CodeTemplateService extends Serializable, AbstractService<CodeT
 	List<CodeTemplateEntity> findAllCodeTemplatesByProject(Long projectId);
 	
 	List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId);
+	
+	List<Long> findAllCodeTemplateIdsByProjectTemplate(Long projectTemplateId);	
 }
 
 

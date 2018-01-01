@@ -34,6 +34,8 @@ public class CodeTemplateEntity extends AbstractEntity {
 	@NotNull
 	private String templatePath = "";
 	
+	private String concreteTemplatePath = "";
+	
 	@NotNull
 	private String targetPath = "";
 	
@@ -208,5 +210,14 @@ public class CodeTemplateEntity extends AbstractEntity {
 
 	public void setConcreteTargetPath(String concreteTargetPath) {
 		this.concreteTargetPath = concreteTargetPath;
+	}
+
+	@Transient
+	public String getConcreteTemplatePath() {
+		return concreteTemplatePath;
+	}
+
+	public void setConcreteTemplatePath(String concreteTemplatePath) {
+		this.concreteTemplatePath = concreteTemplatePath;
 	}
 }

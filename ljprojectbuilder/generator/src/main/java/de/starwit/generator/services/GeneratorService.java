@@ -12,8 +12,8 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -24,11 +24,13 @@ import org.apache.log4j.Logger;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
 import de.starwit.ljprojectbuilder.config.GeneratorConfig;
-import de.starwit.ljprojectbuilder.ejb.CodeTemplateService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.starwit.ljprojectbuilder.exception.NotificationException;
+import de.starwit.ljprojectbuilder.response.ResponseCode;
+import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -52,14 +54,11 @@ public class GeneratorService {
 	private final static String GENERATION ="###GENERATION###";
 	
 	@Inject
-	private CodeTemplateService codeTempateService;
-	
-	@Inject
 	private ProjectService projectService;
 
-	public void generate(Long projectId) {
+	public void generate(Long projectId) throws NotificationException {
 		ProjectEntity project = projectService.findById(projectId);
-		List<CodeTemplateEntity> codeTemplates = codeTempateService.findAllCodeTemplatesByProject(projectId);
+		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
 		Collection<DomainEntity> domains = project.getSelectedDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
 		
@@ -112,52 +111,57 @@ public class GeneratorService {
 		return data;
 	}
 	
-	protected void generatePath(Map<String, Object> data, CodeTemplateEntity codeTemplate) {
+	protected void generatePath(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
 		try {
 			@SuppressWarnings("deprecation")
-			Template t = new Template("codeTemplate", new StringReader(codeTemplate.getTargetPath()),
+			Template codeTemplateTargetPath = new Template("codeTemplateTargetPath", new StringReader(codeTemplate.getTargetPath()),
 		               new Configuration());
 	        StringWriter output = new StringWriter();
-	        t.process(data, output);
- 		codeTemplate.setConcreteTargetPath(output.toString());
-		} catch (IOException e) {
+	        codeTemplateTargetPath.process(data, output);
+	        codeTemplate.setConcreteTargetPath(output.toString());
+	        
+			@SuppressWarnings("deprecation")
+			Template codeTemplateTemplatePath = new Template("codeTemplateTemplatePath", new StringReader(codeTemplate.getTemplatePath()),
+		               new Configuration());
+	        output = new StringWriter();
+	        codeTemplateTemplatePath.process(data, output);
+	        codeTemplate.setConcreteTemplatePath(output.toString());
+		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-			throw new RuntimeException(e);
-		} catch (TemplateException e) {
-			LOG.error("Error generation Template:", e);
-			throw new RuntimeException(e);
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generatepath");
+			throw new NotificationException(errorResponse);
 		}
 	}
 	
-	protected void generateGlobal(Map<String, Object> data, CodeTemplateEntity codeTemplate) {
+	protected void generateGlobal(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
 		try {
 			String targetFileUrl = codeTemplate.getTargetFileUrl("");
-			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getTemplatePath()), data, true);
-		} catch (IOException e) {
+			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, true);
+		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-		} catch (TemplateException e) {
-			LOG.error("Error generation Template:", e);
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateglobal");
+			throw new NotificationException(errorResponse);
 		}
 	}
 	
-	protected void generateAdditionalContent(Map<String, Object> data, CodeTemplateEntity codeTemplate) {
+	protected void generateAdditionalContent(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
 		try {
-			addLinesToFile(codeTemplate.getConcreteTargetPath() + Constants.FILE_SEP + codeTemplate.getFileNameSuffix(), getTemplate(codeTemplate.getTemplatePath()), data);
-		} catch (IOException e) {
+			addLinesToFile(codeTemplate.getConcreteTargetPath() + Constants.FILE_SEP + codeTemplate.getFileNameSuffix(), getTemplate(codeTemplate.getConcreteTemplatePath()), data);
+		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-		} catch (TemplateException e) {
-			LOG.error("Error generation Template:", e);
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateadditionalcontent");
+			throw new NotificationException(errorResponse);
 		}
 	}
 	
-	protected void generateDomain(String domainName, Map<String, Object> data, CodeTemplateEntity codeTemplate) {
+	protected void generateDomain(String domainName, Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
 		try {
 			String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
-			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getTemplatePath()), data, false);
-		} catch (IOException e) {
+			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
+		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-		} catch (TemplateException e) {
-			LOG.error("Error generation Template:", e);
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generatedomain");
+			throw new NotificationException(errorResponse);
 		}
 	}
 	
@@ -165,7 +169,12 @@ public class GeneratorService {
 			throws IOException, TemplateNotFoundException, MalformedTemplateNameException, ParseException {
 		@SuppressWarnings("deprecation")
 		Configuration cfg = new Configuration();
-		cfg.setClassForTemplateLoading(FindClass.class, ".." + Constants.FILE_SEP);
+		if (templatePath.startsWith("classpath:")) {
+			cfg.setClassForTemplateLoading(FindClass.class, ".." + Constants.FILE_SEP);
+			templatePath = templatePath.replace("classpath:", "");
+		} else {
+			cfg.setDirectoryForTemplateLoading(new File(templatePath));			
+		}
 		Template template = cfg.getTemplate(templatePath);
 		return template;
 	}

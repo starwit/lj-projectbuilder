@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ValidationException;
 
+import org.apache.log4j.Logger;
+
 import de.starwit.ljprojectbuilder.ejb.CategoryService;
 import de.starwit.ljprojectbuilder.ejb.ProjectTemplateService;
 import de.starwit.ljprojectbuilder.entity.CategoryEntity;
@@ -17,11 +19,13 @@ import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTemplateEntity> implements ProjectTemplateService {
 	
 	private static final long serialVersionUID = 1L;
+	public final static Logger LOG = Logger.getLogger(ProjectTemplateServiceImpl.class);
 	
 	@Inject
 	private CategoryService categoryService;
 	
 	public ProjectTemplateEntity update(ProjectTemplateEntity entity) throws ValidationException {
+		
 		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
 		
 		//CodeTemplateEntity might be not filled completely
@@ -33,6 +37,7 @@ public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTempl
 				CodeTemplateEntity oldEntity = getEntityManager().find(CodeTemplateEntity.class, codeTemplateEntity.getId());
 				codeTemplateEntity.setProjects(oldEntity.getProjects());
 				codeTemplateEntity.setProjectTemplate(entity);
+//				existingCodeTemplateIds.remove(codeTemplateEntity.getId());
 			}
 			
 			//set default category
@@ -48,12 +53,10 @@ public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTempl
 				codeTemplateEntity.setCategory(ce);
 			}
 		}
-		
 		entity = getEntityManager().merge(entity);
 		getEntityManager().flush();
 		return entity;
 	}
-
 }
 
 

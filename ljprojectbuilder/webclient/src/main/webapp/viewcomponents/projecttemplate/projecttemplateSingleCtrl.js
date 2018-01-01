@@ -110,6 +110,7 @@
 			codetemplate.category = {};
 			codetemplate.category.name = "ENTITY";
 			ctrl.projecttemplate.codeTemplates.unshift(codetemplate);
+			ctrl.form.$dirty = true;
 		};
 		
 		/**
@@ -118,6 +119,7 @@
 		function removeCodeTemplate($index) {
 			if (ctrl.projecttemplate.codeTemplates != undefined && $index > -1) {
 				ctrl.projecttemplate.codeTemplates.splice($index, 1);
+				ctrl.form.$dirty = true;
 			}
 		};
 		

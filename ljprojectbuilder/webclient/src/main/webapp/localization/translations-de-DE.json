@@ -116,7 +116,7 @@
 	"codetemplate.templatepath"		: "Speicherort des Templates",
 	"codetemplate.targetpath"			: "Zielpfad für Quellcodedatei",	
 	"codetemplate.type"					: "Templatetyp",
-	"codetemplate.category"				: "ENTITY",
+	"codetemplate.category"				: "Kategorie",
 	
 	"projecttemplate.dialog.error.title" 	: "Fehler",
 	"projecttemplate.dialog.success.title" 	: "Aktion erfolgreich",
