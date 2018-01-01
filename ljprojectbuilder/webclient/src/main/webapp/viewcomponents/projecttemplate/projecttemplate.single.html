@@ -74,35 +74,56 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-							<th>{{'attribute.name' | translate}}</th>
-							<th  width="10%">{{'attribute.description' | translate}}</th>
-							<th></th>
-					</tr>
-					<tr ng-repeat="ct in ctrl.projecttemplate.codeTemplates track by $index">
+						<tr>
+							<th>
+								<table>
+									<tr class="even">
+										<td>{{'codetemplate.filenamesuffix' | translate}}</td>
+										<td>{{'codetemplate.templatepath' | translate}}</td>
+										<td>{{'codetemplate.type' | translate}}</td>
+									</tr>
+								</table>
+								{{'codetemplate.targetpath' | translate}}
+							</th>
+						</tr>
+						<tr ng-repeat="ct in ctrl.projecttemplate.codeTemplates track by $index">
 						<td>
-							<label for="title">{{'codetemplate.filenamesuffix' | translate}}</label>
-							<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
-							<label for="title">{{'codetemplate.templatepath' | translate}}</label>
-							<input placeholder="{{'codetemplate.templatepath' | translate}}" name="cttemplatePath" id="cttemplatePath" type="text" ng-model="ct.templatePath"/>
-							<label for="title">{{'codetemplate.targetpath' | translate}}</label>
-							<input placeholder="{{'codetemplate.targetpath' | translate}}" name="cttargetpath" id="cttargetpath" type="text"  ng-model="ct.targetPath" />
-							<label for="title">{{'codetemplate.type' | translate}}</label>
-							<input placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" type="text" ng-model="ct.type"/>
+							<div>
+							<table>
+								<tr>
+									<td>
+										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
+									</td>
+									<td>
+										<input placeholder="{{'codetemplate.templatepath' | translate}}" name="cttemplatePath" id="cttemplatePath" type="text" ng-model="ct.templatePath"/>
+									</td>
+									<td>	
+										<input placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" type="text" ng-model="ct.type"/>
+									</td>
+								</tr>
+							</table>
+							</div>
+							<div>
+							<table>
+								<tr>
+									<td>
+										<input placeholder="{{'codetemplate.targetpath' | translate}}" name="cttargetpath" id="cttargetpath" type="text" ng-model="ct.targetPath" />
+									</td>
+								</tr>
+							</table>
+							</div>
 							<br />
-							<br />
-						</td>
-<!-- 						<td> -->
-<!-- 							<input placeholder="{{'codetemplate.category' | translate}}" name="ctcategory" id="ctcategory" type="text" ng-model="ct.category.name" readonly/> -->
-<!-- 						</td> -->
+							</td>
+	<!-- 						<td> -->
+	<!-- 							<input placeholder="{{'codetemplate.category' | translate}}" name="ctcategory" id="ctcategory" type="text" ng-model="ct.category.name" readonly/> -->
+	<!-- 						</td> -->
 						<td>
 							<input placeholder="{{'codetemplate.lowercase' | translate}}" name="ctlowercase" id="ctlowercase" type="checkbox" ng-model="ct.lowerCase"/>
 							<input placeholder="{{'codetemplate.createdomaindir' | translate}}" name="ctcreatedomaindir" id="ctcreatedomaindir" type="checkbox" ng-model="ct.createDomainDir"/>
 							<input placeholder="{{'codetemplate.uppercasefirst' | translate}}" name="ctuppercasefirst" id="ctuppercasefirst" type="checkbox" ng-model="ct.upperCaseFirst"/>
 						</td>
-		
 						<td class="aRight">x
-<!-- 							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span> -->
+	<!-- 							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span> -->
 						</td>
 					</tr>
 				</tbody>

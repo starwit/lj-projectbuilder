@@ -57,7 +57,6 @@ public class CodeTemplateEntity extends AbstractEntity {
 	private Set<ProjectEntity> projects;
 	
 	@XmlTransient
-	@NotNull
 	private ProjectTemplateEntity projectTemplate;
 
 	@Column(name="FILE_NAME_SUFFIX", nullable = false, length=100)

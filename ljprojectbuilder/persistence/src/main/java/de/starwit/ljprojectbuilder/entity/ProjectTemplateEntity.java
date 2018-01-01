@@ -2,10 +2,12 @@ package de.starwit.ljprojectbuilder.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -87,7 +89,8 @@ public class ProjectTemplateEntity extends AbstractEntity {
 		this.branch = branch;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "projectTemplate")
+	@OrderBy("category, fileNameSuffix asc")
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy = "projectTemplate")
 	public Set<CodeTemplateEntity> getCodeTemplates() {
 		return codeTemplates;
 	}
