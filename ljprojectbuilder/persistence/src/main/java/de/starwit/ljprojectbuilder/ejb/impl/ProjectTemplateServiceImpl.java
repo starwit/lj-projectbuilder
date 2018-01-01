@@ -4,9 +4,12 @@ package de.starwit.ljprojectbuilder.ejb.impl;
 import java.util.Set;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.validation.ValidationException;
 
+import de.starwit.ljprojectbuilder.ejb.CategoryService;
 import de.starwit.ljprojectbuilder.ejb.ProjectTemplateService;
+import de.starwit.ljprojectbuilder.entity.CategoryEntity;
 import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 
@@ -15,13 +18,37 @@ public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTempl
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private CategoryService categoryService;
+	
 	public ProjectTemplateEntity update(ProjectTemplateEntity entity) throws ValidationException {
 		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
+		
+		//CodeTemplateEntity might be not filled completely
 		for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
-			CodeTemplateEntity oldEntity = getEntityManager().find(CodeTemplateEntity.class, codeTemplateEntity.getId());
-			codeTemplateEntity.setProjects(oldEntity.getProjects());
-			codeTemplateEntity.setProjectTemplate(entity);
+			if (codeTemplateEntity.getId() == null) {
+				codeTemplateEntity.setProjectTemplate(entity);
+			} else {
+				//Add properties not got from outside
+				CodeTemplateEntity oldEntity = getEntityManager().find(CodeTemplateEntity.class, codeTemplateEntity.getId());
+				codeTemplateEntity.setProjects(oldEntity.getProjects());
+				codeTemplateEntity.setProjectTemplate(entity);
+			}
+			
+			//set default category
+			if (codeTemplateEntity.getCategory() == null) {
+				CategoryEntity ce = categoryService.findByName(CategoryEntity.DEFAULT_CATEGORY);
+				codeTemplateEntity.setCategory(ce);
+			}
+			//set category by provided name
+			else if (codeTemplateEntity.getCategory().getId() == null) {
+				String categoryName = codeTemplateEntity.getCategory().getName();
+				categoryName = categoryName == null ? CategoryEntity.DEFAULT_CATEGORY : categoryName;
+				CategoryEntity ce = categoryService.findByName(categoryName);
+				codeTemplateEntity.setCategory(ce);
+			}
 		}
+		
 		entity = getEntityManager().merge(entity);
 		getEntityManager().flush();
 		return entity;

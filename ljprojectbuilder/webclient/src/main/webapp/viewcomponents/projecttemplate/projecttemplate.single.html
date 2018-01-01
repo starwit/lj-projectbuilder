@@ -69,7 +69,7 @@
 							<h3>{{'codetemplate' | translate}}</h3>
 						</td>
 						<td colspan="2" class="aRight">
-							<span class="button"><a ng-click="">+ {{'attribute.all.title' | translate}} {{'button.add' | translate}}</a><span>
+							<span class="button"><a ng-click="ctrl.addCodeTemplate();">+ {{'button.add' | translate}}</a><span>
 						</td>
 					</tr>
 				</thead>
@@ -78,6 +78,7 @@
 							<th>
 								<table>
 									<tr class="even">
+										<td>{{'codetemplate.categroy' | translate}} </td>
 										<td>{{'codetemplate.filenamesuffix' | translate}}</td>
 										<td>{{'codetemplate.templatepath' | translate}}</td>
 										<td>{{'codetemplate.type' | translate}}</td>
@@ -91,6 +92,9 @@
 							<div>
 							<table>
 								<tr>
+									<td>
+										<select placeholder="{{'codetemplate.category' | translate}}" name="category" id="category" ng-model="ct.category" ng-options="category as category.name for category in ctrl.categoryAll track by category.id"></select>
+									</td>								
 									<td>
 										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
 									</td>
@@ -122,8 +126,8 @@
 							<input placeholder="{{'codetemplate.createdomaindir' | translate}}" name="ctcreatedomaindir" id="ctcreatedomaindir" type="checkbox" ng-model="ct.createDomainDir"/>
 							<input placeholder="{{'codetemplate.uppercasefirst' | translate}}" name="ctuppercasefirst" id="ctuppercasefirst" type="checkbox" ng-model="ct.upperCaseFirst"/>
 						</td>
-						<td class="aRight">x
-	<!-- 							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span> -->
+						<td class="aRight">
+								<span class="button grey"><a ng-click="ctrl.removeCodeTemplate($index);">x</a></span>
 						</td>
 					</tr>
 				</tbody>

@@ -3,7 +3,7 @@
 form{display:block}
 fieldset{display:block;margin:0 0 1% 0;padding:1%;border:none}
 fieldset:last-child{margin:0}
-legend{display:block;paddi;padding:0;padding:0line-block;padding:2%}
+legend{display:block;padding:0;padding:0line-block;padding:2%}
 
 input[type="checkbox"],input[type="radio"],input[type="text"]{padding:2px}
 input[type="search"]{box-sizing:content-box}
@@ -13,7 +13,7 @@ td:last-child input[type="text"],td:last-child select{width:100%}
 input,select,textarea{font:inherit;margin:0;border:1px solid #a0a0a0}
 input:focus,select:focus,textarea:focus{border:1px solid #3f3f3f}
 textarea{overflow:auto}
-select{cursor:pointer}
+select{cursor:pointer; padding:0px; background: #ffffff}
 
 label{display:block;padding:0 0 7px 0;width:100%;font-weight:normal;color:#7f7f7f}
 span{padding:0 0 2% 0;width:100%;font-weight:normal;}

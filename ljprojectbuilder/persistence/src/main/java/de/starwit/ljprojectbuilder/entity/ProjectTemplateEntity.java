@@ -39,7 +39,6 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	private String packagePrefix = "starwit";
 	
 	@Size(max=100)
-	@Pattern(regexp="^[A-Za-z0-9]*$")
 	private String branch = "master";
 	
 	private Set<CodeTemplateEntity> codeTemplates;

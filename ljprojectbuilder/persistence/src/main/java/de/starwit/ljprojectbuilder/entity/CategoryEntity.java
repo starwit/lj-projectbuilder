@@ -26,9 +26,11 @@ public class CategoryEntity extends AbstractEntity {
 
 	
 	private static final long serialVersionUID = 1L;
+	
+	public static final String DEFAULT_CATEGORY = "ENTITY";
 
 	@NotNull
-	private String name;
+	private String name = DEFAULT_CATEGORY;
 	
 	private List<CodeTemplateEntity> templates;
 

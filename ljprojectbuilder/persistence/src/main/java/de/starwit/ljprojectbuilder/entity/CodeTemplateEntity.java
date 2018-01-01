@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlRootElement
@@ -53,10 +54,10 @@ public class CodeTemplateEntity extends AbstractEntity {
 	@NotNull
 	private CategoryEntity category;
 
-	@XmlTransient
+	@JsonIgnore
 	private Set<ProjectEntity> projects;
 	
-	@XmlTransient
+	@JsonIgnore
 	private ProjectTemplateEntity projectTemplate;
 
 	@Column(name="FILE_NAME_SUFFIX", nullable = false, length=100)
@@ -133,7 +134,6 @@ public class CodeTemplateEntity extends AbstractEntity {
 		this.category = category;
 	}
 	
-	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "PROJECTTEMPLATE_ID", nullable = false)
 	public ProjectTemplateEntity getProjectTemplate() {
@@ -144,7 +144,6 @@ public class CodeTemplateEntity extends AbstractEntity {
 		this.projectTemplate = projectTemplate;
 	}
 	
-	@XmlTransient
     @ManyToMany
     @JoinTable(name="CODETEMPLATE_PROJECT",
         joinColumns=

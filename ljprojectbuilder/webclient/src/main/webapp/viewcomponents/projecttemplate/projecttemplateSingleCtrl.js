@@ -14,6 +14,8 @@
 		ctrl.doGotoProjectTemplateAll = doGotoProjectTemplateAll;
 		ctrl.closeDialog = closeDialog;
 		ctrl.dialog = dialogService.dialog;
+		ctrl.addCodeTemplate = addCodeTemplate;
+		ctrl.removeCodeTemplate = removeCodeTemplate;
 		init();
 		
 		function doGotoProjectTemplateAll() {
@@ -50,6 +52,7 @@
 					ctrl.projecttemplate.id = $routeParams.projecttemplateid;
 					ctrl.projecttemplateid = ctrl.projecttemplate.id;
 					projecttemplateConnectorFactory.loadProjectTemplate(ctrl.projecttemplate.id).then(setProjectTemplate, loadError);
+					getCategories();
 				}
 				if ($routeParams.projecttemplateid == null) {
 					ctrl.projecttemplate = {};
@@ -60,15 +63,15 @@
 		/**
 		 * refreshs the view from database.
 		 */
-		function refresh() { 
-			projecttemplateConnectorFactory.getCodeTemplateByProjectTemplate(ctrl.projecttemplateid).then(setCodeTemplatesAll, loadError); 
+		function getCategories() { 
+			projecttemplateConnectorFactory.getCategoryAll().then(setCategoryAll, loadError); 
 		};
 		
 		/**
 		 * Used for setting the database result to the representation-object in the controller.
 		 */
-		function setCodeTemplatesAll(response) {
-			ctrl.codeTemplatesAll = response;		
+		function setCategoryAll(response) {
+			ctrl.categoryAll = response;		
 		}
 		
 		/**
@@ -95,6 +98,28 @@
 		function saveError(response) {
 			dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
 		}
+		
+		/**
+		 * Add an attribute to a domain.
+		 */
+		function addCodeTemplate() {
+			if (ctrl.projecttemplate.codeTemplates == undefined) {
+				ctrl.projecttemplate.codeTemplates = [];
+			}
+			var codetemplate = {};
+			codetemplate.category = {};
+			codetemplate.category.name = "ENTITY";
+			ctrl.projecttemplate.codeTemplates.unshift(codetemplate);
+		};
+		
+		/**
+		 * Remove an attribute to a domain.
+		 */
+		function removeCodeTemplate($index) {
+			if (ctrl.projecttemplate.codeTemplates != undefined && $index > -1) {
+				ctrl.projecttemplate.codeTemplates.splice($index, 1);
+			}
+		};
 		
 		/**
 		 * Error message after loading the project.

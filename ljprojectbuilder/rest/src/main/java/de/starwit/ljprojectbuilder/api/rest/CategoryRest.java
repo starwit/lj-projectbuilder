@@ -8,36 +8,36 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.starwit.ljprojectbuilder.ejb.ProjectTemplateService;
-import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
+import de.starwit.ljprojectbuilder.ejb.CategoryService;
+import de.starwit.ljprojectbuilder.entity.CategoryEntity;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
 
-@Path("/projecttemplate")
+@Path("/category")
 @Consumes("application/json")
 @Produces("application/json")
-public class ProjectTemplateRest extends AbstractRest<ProjectTemplateEntity> {
+public class CategoryRest extends AbstractRest<CategoryEntity> {
 	
 	@Inject
-	protected ProjectTemplateService service;
+	protected CategoryService service;
 	
 
 	
 	@Override
-	protected ProjectTemplateService getService() {
+	protected CategoryService getService() {
 		return service;
 	}
 	
 	//Create
 	@Path("/")
 	@PUT
-	public EntityResponse<ProjectTemplateEntity> create(ProjectTemplateEntity entity) {
+	public EntityResponse<CategoryEntity> create(CategoryEntity entity) {
 		return super.createGeneric(entity);
 	}
 
 	//Update
 	@Path("/")
 	@POST
-	public EntityResponse<ProjectTemplateEntity> update(ProjectTemplateEntity entity) {
+	public EntityResponse<CategoryEntity> update(CategoryEntity entity) {
 		return super.updateGeneric(entity);
 	}
 }
