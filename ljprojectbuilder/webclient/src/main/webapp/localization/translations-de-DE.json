@@ -104,6 +104,10 @@
 	"projecttemplate.packageprefix"	: "Java-Package",
 	"projecttemplate.branch" 			: "Branch",
 	"projecttemplate.description" 		: "Beschreibung",	
+	"codetemplate.uppercasefirst"	: "großschreiben",
+	"codetemplate.lowercase"			: "alles klein",
+	"codetemplate.createdomaindir"	: "Domainorder erstellen",
+	
 	
 	"projecttemplate.create.title"		: "Projekttemplate erfassen",	
 	"projecttemplate.update.title"		: "Projekttemplate bearbeiten",

@@ -82,7 +82,7 @@
 							</th>
 						</tr>
 						<tr ng-repeat="ct in ctrl.projecttemplate.codeTemplates track by $index">
-						<td>
+						<td>{{$index}} 
 							<div>
 							<table>
 								<tr>
@@ -110,15 +110,15 @@
 								</tr>
 							</table>
 							</div>
-							<br />
 							</td>
 	<!-- 						<td> -->
 	<!-- 							<input placeholder="{{'codetemplate.category' | translate}}" name="ctcategory" id="ctcategory" type="text" ng-model="ct.category.name" readonly/> -->
 	<!-- 						</td> -->
 						<td>
-							<input placeholder="{{'codetemplate.lowercase' | translate}}" name="ctlowercase" id="ctlowercase" type="checkbox" ng-model="ct.lowerCase"/>
-							<input placeholder="{{'codetemplate.createdomaindir' | translate}}" name="ctcreatedomaindir" id="ctcreatedomaindir" type="checkbox" ng-model="ct.createDomainDir"/>
-							<input placeholder="{{'codetemplate.uppercasefirst' | translate}}" name="ctuppercasefirst" id="ctuppercasefirst" type="checkbox" ng-model="ct.upperCaseFirst"/>
+							<br />
+							<div><input placeholder="{{'codetemplate.lowercase' | translate}}" name="ctlowercase" id="ctlowercase" type="checkbox" ng-model="ct.lowerCase"/>{{'codetemplate.lowercase' | translate}}</div>
+							<div><input placeholder="{{'codetemplate.createdomaindir' | translate}}" name="ctcreatedomaindir" id="ctcreatedomaindir" type="checkbox" ng-model="ct.createDomainDir"/>{{'codetemplate.createdomaindir' | translate}}</div>
+							<input placeholder="{{'codetemplate.uppercasefirst' | translate}}" name="ctuppercasefirst" id="ctuppercasefirst" type="checkbox" ng-model="ct.upperCaseFirst"/>{{'codetemplate.uppercasefirst' | translate}} 
 						</td>
 						<td class="aRight">
 								<span class="button grey"><a ng-click="ctrl.removeCodeTemplate($index);">x</a></span>
