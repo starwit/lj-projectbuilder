@@ -30,7 +30,6 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	@Size(max=100)
 	private String title = "lirejarp";
 	
-	@Size(max=250)
 	private String description;
 	
 	@NotNull
@@ -43,13 +42,13 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	
 	private Set<CodeTemplateEntity> codeTemplates;
 	
-	@Column(name="DESCRIPTION", length=250)
+	@Column(name="DESCRIPTION")
 	public String getDescription() {
-		return title;
+		return description;
 	}
 
-	public void setDescription(String title) {
-		this.title = title;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	@Column(name="TITLE", nullable=false, length=100)

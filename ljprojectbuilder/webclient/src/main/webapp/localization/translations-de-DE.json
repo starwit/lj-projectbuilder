@@ -129,6 +129,7 @@
 	"###END###" 					: "Genererierung endet",
 	
 	"button.create" 				: "erstellen",
+	"button.copy" 				: "kopieren",
 	"button.update" 				: "Bearbeiten",
 	"button.save" 					: "Speichern",
 	"button.generate" 				: "Generieren",

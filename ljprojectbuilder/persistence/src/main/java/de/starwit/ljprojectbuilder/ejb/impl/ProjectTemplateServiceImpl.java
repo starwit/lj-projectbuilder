@@ -57,6 +57,19 @@ public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTempl
 		getEntityManager().flush();
 		return entity;
 	}
+	
+	public ProjectTemplateEntity create(ProjectTemplateEntity entity) throws ValidationException {
+		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
+		entity.setCodeTemplates(null);
+		getEntityManager().persist(entity);
+		for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
+			codeTemplateEntity.setProjectTemplate(entity);
+		}
+		entity.setCodeTemplates(codeTemplates);
+		getEntityManager().persist(entity);
+		getEntityManager().flush();
+		return entity;
+	}
 }
 
 

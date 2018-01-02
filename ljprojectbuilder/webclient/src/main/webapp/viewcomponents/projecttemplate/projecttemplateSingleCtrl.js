@@ -51,12 +51,13 @@
 				if ($routeParams.projecttemplateid != undefined && $routeParams.projecttemplateid !== ctrl.projecttemplate.id) {
 					ctrl.projecttemplate.id = $routeParams.projecttemplateid;
 					ctrl.projecttemplateid = ctrl.projecttemplate.id;
-					projecttemplateConnectorFactory.loadProjectTemplate(ctrl.projecttemplate.id).then(setProjectTemplate, loadError);
-					getCategories();
+					ctrl.copy = $routeParams.copy;
+					projecttemplateConnectorFactory.loadProjectTemplate(ctrl.projecttemplate.id).then(setProjectTemplateInit, loadError);
 				}
 				if ($routeParams.projecttemplateid == null) {
 					ctrl.projecttemplate = {};
 				}
+				getCategories();
 			});
 		}
 		
@@ -72,6 +73,24 @@
 		 */
 		function setCategoryAll(response) {
 			ctrl.categoryAll = response;		
+		}
+		
+		/**
+		 * Used for setting the database result to the representation-object in the controller.
+		 */
+		function setProjectTemplateInit(response) {
+			ctrl.projecttemplate = response;
+			ctrl.projecttemplatetitle = response.title;
+			if (ctrl.copy) {
+				ctrl.projecttemplate.id = null;
+				var codetemplates = [];
+		        angular.forEach(ctrl.projecttemplate.codeTemplates, function (value, key) {
+		        	value.id = null;
+		        	codetemplates.push(value);
+		        });
+		        ctrl.projecttemplate.codeTemplates = codetemplates;
+	        	ctrl.form.$dirty = true;
+			}
 		}
 		
 		/**

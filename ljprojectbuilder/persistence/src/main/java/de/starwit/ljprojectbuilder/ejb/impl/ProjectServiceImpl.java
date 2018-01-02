@@ -29,4 +29,12 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 		}
 		return entity;
 	}
+
+	@Override
+	public ProjectEntity update(ProjectEntity entity) {
+		if (entity != null) {
+			entity.setDomains(findById(entity.getId()).getDomains());
+		}
+		return super.update(entity);
+	}
 }

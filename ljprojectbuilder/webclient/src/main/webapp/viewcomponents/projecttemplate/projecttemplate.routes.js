@@ -12,7 +12,10 @@
 	    	$location.path('/viewcomponents/projecttemplate-all/');
 	    },
 	    factory.update = function(id) {
-	    	$location.path('/viewcomponents/projecttemplate-maintain/update/' + id);
+	    	$location.path('/viewcomponents/projecttemplate-maintain/update/' + id + '/' + false);
+	    },
+	    factory.copy = function(id) {
+	    	$location.path('/viewcomponents/projecttemplate-maintain/update/' + id + '/' + true);
 	    },
 	    factory.create = function() {
 	    	$location.path('/viewcomponents/projecttemplate-maintain/create/');
@@ -44,7 +47,7 @@
 	            	projecttemplateConnectorFactory: projecttemplateConnectorFactory,
 	            	dialogService: dialogService
 	             }
-			}).when('/viewcomponents/projecttemplate-maintain/update/:projecttemplateid', {
+			}).when('/viewcomponents/projecttemplate-maintain/update/:projecttemplateid/:copy', {
 				title : "projecttemplate.update.title",
 				subtitle : "projecttemplate.update.title",
 				templateUrl : "viewcomponents/projecttemplate/projecttemplate.single.html",
@@ -54,6 +57,6 @@
 	            	projecttemplateConnectorFactory: projecttemplateConnectorFactory,
 	            	dialogService: dialogService
 	             }
-			});
+			})
 	}]);
 })();
