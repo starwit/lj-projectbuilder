@@ -7,10 +7,10 @@ import org.junit.runner.RunWith;
 import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 
 @RunWith(Arquillian.class)
-public class TemplateServiceTest extends AbstractServiceTest<TemplateService, ProjectTemplateEntity> {
+public class ProjectTemplateServiceTest extends AbstractServiceTest<ProjectTemplateService, ProjectTemplateEntity> {
 	
 	@Override
-	public void setService(TemplateService service) {
+	public void setService(ProjectTemplateService service) {
 		this.service = service;
 	}
 

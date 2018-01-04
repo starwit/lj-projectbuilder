@@ -1,0 +1,136 @@
+<div id="headerBox" ng-include="'shared/menus/menu.projecttemplate.html'"></div>
+<div id="subheaderBox">
+	<div class="contain">
+		<button class="icon back hint" ng-click="ctrl.doGotoProjectTemplateAll(); "><span>{{'button.back' | translate}}</span></button>
+		<button class="icon save right hint" ng-click="ctrl.doMaintain(); sent=true;" title="{{'button.save' | translate}}"><span>{{'button.save' | translate}}</span></button>
+		<div class="clearer"></div>
+	</div>
+</div>
+<div id="bodyBox">
+	<div class="contain">
+		<form name="ctrl.form" ng-init="sent=true;"> 
+			<fieldset class="odd">
+				<table>
+					<thead>
+						<tr>
+							<td><h3>{{'projecttemplate.details' | translate}}</h3></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>						
+							<td>
+								<label for="location">{{'projecttemplate.location' | translate}}</label>
+								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" required />
+								<label  ng-show="ctrl.form.location.$error.required">{{'error.required' | translate}}</label>
+							</td>
+							<td>
+								<label for="branch">{{'projecttemplate.branch' | translate}}</label>
+								<input name="branch" id="branch" type="text" placeholder="master" ng-model="ctrl.projecttemplate.branch" ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label ng-show="ctrl.form.branch.$error.pattern">{{'error.project.pattern' | translate}}</label>
+							</td>							
+						<tr>
+						<tr><td>&nbsp;</td></tr>					
+						<tr>
+							<td>
+								<label for="title">{{'projecttemplate.title' | translate}}</label>
+								<input name="title" id="title" type="text" ng-model="ctrl.projecttemplate.title" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.title.$error.pattern">{{'error.project.pattern' | translate}}</label>		
+								<label for="packageprefix">{{'projecttemplate.packageprefix' | translate}}</label>
+								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.projecttemplate.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<label  ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.packageprefix.$error.pattern">{{'error.project.pattern' | translate}}</label>			
+							</td>
+							<td>
+								<label for="description">{{'projecttemplate.description' | translate}}</label>
+								<textarea rows="3" name="description" id="description" type="text" ng-model="ctrl.projecttemplate.description">
+								</textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
+			<fieldset class="even">
+				 <table>
+		    	<colgroup>
+		    		<col class="">
+		    		<col class="w10">
+		    		<col class="w3">
+		    	</colgroup>
+		    	<thead>
+					<tr>
+						<td>
+							<h3>{{'codetemplate' | translate}}</h3>
+						</td>
+						<td colspan="2" class="aRight">
+							<span class="button"><a ng-click="ctrl.addCodeTemplate();">+ {{'button.add' | translate}}</a><span>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+						<tr>
+							<th>
+								<table>
+									<tr class="even">
+										<td>{{'codetemplate.category' | translate}} </td>
+										<td>{{'codetemplate.filenamesuffix' | translate}}</td>
+										<td>{{'codetemplate.templatepath' | translate}}</td>
+										<td>{{'codetemplate.type' | translate}}</td>
+									</tr>
+								</table>
+								{{'codetemplate.targetpath' | translate}}
+							</th>
+						</tr>
+						<tr ng-repeat="ct in ctrl.projecttemplate.codeTemplates track by $index">
+						<td>{{$index}} 
+							<div>
+							<table>
+								<tr>
+									<td>
+										<select placeholder="{{'codetemplate.category' | translate}}" name="category" id="category" ng-model="ct.category" ng-options="category as category.name for category in ctrl.categoryAll track by category.id"></select>
+									</td>								
+									<td>
+										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
+									</td>
+									<td>
+										<input placeholder="{{'codetemplate.templatepath' | translate}}" name="cttemplatePath" id="cttemplatePath" type="text" ng-model="ct.templatePath"/>
+									</td>
+									<td>	
+										<input placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" type="text" ng-model="ct.type"/>
+									</td>
+								</tr>
+							</table>
+							</div>
+							<div>
+							<table>
+								<tr>
+									<td>
+										<input placeholder="{{'codetemplate.targetpath' | translate}}" name="cttargetpath" id="cttargetpath" type="text" ng-model="ct.targetPath" />
+									</td>
+								</tr>
+							</table>
+							</div>
+							</td>
+	<!-- 						<td> -->
+	<!-- 							<input placeholder="{{'codetemplate.category' | translate}}" name="ctcategory" id="ctcategory" type="text" ng-model="ct.category.name" readonly/> -->
+	<!-- 						</td> -->
+						<td>
+							<br />
+							<div><input placeholder="{{'codetemplate.lowercase' | translate}}" name="ctlowercase" id="ctlowercase" type="checkbox" ng-model="ct.lowerCase"/>{{'codetemplate.lowercase' | translate}}</div>
+							<div><input placeholder="{{'codetemplate.createdomaindir' | translate}}" name="ctcreatedomaindir" id="ctcreatedomaindir" type="checkbox" ng-model="ct.createDomainDir"/>{{'codetemplate.createdomaindir' | translate}}</div>
+							<input placeholder="{{'codetemplate.uppercasefirst' | translate}}" name="ctuppercasefirst" id="ctuppercasefirst" type="checkbox" ng-model="ct.upperCaseFirst"/>{{'codetemplate.uppercasefirst' | translate}} 
+						</td>
+						<td class="aRight">
+								<span class="button grey"><a ng-click="ctrl.removeCodeTemplate($index);">x</a></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</fieldset>	
+		</form>
+	</div>
+</div>  
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+</div>

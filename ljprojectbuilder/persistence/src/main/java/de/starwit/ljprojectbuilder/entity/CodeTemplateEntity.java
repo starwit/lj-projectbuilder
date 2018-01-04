@@ -17,7 +17,11 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @XmlRootElement
+@JsonIgnoreProperties("projectTemplate, projects")
 @Entity
 @Table(name = "CODETEMPLATE")
 public class CodeTemplateEntity extends AbstractEntity {
@@ -29,6 +33,8 @@ public class CodeTemplateEntity extends AbstractEntity {
 	
 	@NotNull
 	private String templatePath = "";
+	
+	private String concreteTemplatePath = "";
 	
 	@NotNull
 	private String targetPath = "";
@@ -50,7 +56,11 @@ public class CodeTemplateEntity extends AbstractEntity {
 	@NotNull
 	private CategoryEntity category;
 
+	@JsonIgnore
 	private Set<ProjectEntity> projects;
+	
+	@JsonIgnore
+	private ProjectTemplateEntity projectTemplate;
 
 	@Column(name="FILE_NAME_SUFFIX", nullable = false, length=100)
 	public String getFileNameSuffix() {
@@ -126,6 +136,16 @@ public class CodeTemplateEntity extends AbstractEntity {
 		this.category = category;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "PROJECTTEMPLATE_ID", nullable = false)
+	public ProjectTemplateEntity getProjectTemplate() {
+		return projectTemplate;
+	}
+
+	public void setProjectTemplate(ProjectTemplateEntity projectTemplate) {
+		this.projectTemplate = projectTemplate;
+	}
+	
     @ManyToMany
     @JoinTable(name="CODETEMPLATE_PROJECT",
         joinColumns=
@@ -162,7 +182,7 @@ public class CodeTemplateEntity extends AbstractEntity {
 	}
 	
 	private String checkOrCreateDir(String domainDir) {
-		File checkedDir = new File(targetPath + domainDir);
+		File checkedDir = new File(concreteTargetPath + domainDir);
 		boolean success = true;
 		if (!checkedDir.exists()) {
 			success = checkedDir.mkdirs();
@@ -190,5 +210,14 @@ public class CodeTemplateEntity extends AbstractEntity {
 
 	public void setConcreteTargetPath(String concreteTargetPath) {
 		this.concreteTargetPath = concreteTargetPath;
+	}
+
+	@Transient
+	public String getConcreteTemplatePath() {
+		return concreteTemplatePath;
+	}
+
+	public void setConcreteTemplatePath(String concreteTemplatePath) {
+		this.concreteTemplatePath = concreteTemplatePath;
 	}
 }

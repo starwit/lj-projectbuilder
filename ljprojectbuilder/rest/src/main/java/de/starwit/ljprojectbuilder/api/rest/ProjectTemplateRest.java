@@ -8,20 +8,22 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.starwit.ljprojectbuilder.ejb.TemplateService;
+import de.starwit.ljprojectbuilder.ejb.ProjectTemplateService;
 import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 import de.starwit.ljprojectbuilder.response.EntityResponse;
 
-@Path("/template")
+@Path("/projecttemplate")
 @Consumes("application/json")
 @Produces("application/json")
-public class TemplateRest extends AbstractRest<ProjectTemplateEntity> {
+public class ProjectTemplateRest extends AbstractRest<ProjectTemplateEntity> {
 	
 	@Inject
-	protected TemplateService service;
+	protected ProjectTemplateService service;
+	
+
 	
 	@Override
-	protected TemplateService getService() {
+	protected ProjectTemplateService getService() {
 		return service;
 	}
 	
