@@ -30,11 +30,16 @@
 	 * @param $scope
 	 * @returns
 	 */
-	function appController($scope) {
+	function appController($scope, $http) {
 		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 			$scope.title=next.title;
 			$scope.subtitle=next.subtitle;
 		});
+		
+		$http.get('/ljprojectbuilder/HasUserToken').then(
+				function(result){
+					console.log('User has token: ' + result.data.hasToken)
+				});
 	}
 	
 	angular.module('ljprojectbuilderApp').factory('restConnectorFactory', restConnectorFactory);
