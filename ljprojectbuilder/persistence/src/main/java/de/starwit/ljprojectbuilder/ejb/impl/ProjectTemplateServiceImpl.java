@@ -62,11 +62,13 @@ public class ProjectTemplateServiceImpl extends AbstractServiceImpl<ProjectTempl
 		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
 		entity.setCodeTemplates(null);
 		getEntityManager().persist(entity);
-		for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
-			codeTemplateEntity.setProjectTemplate(entity);
+		if (codeTemplates != null) {
+			for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
+				codeTemplateEntity.setProjectTemplate(entity);
+			}
+			entity.setCodeTemplates(codeTemplates);
+			getEntityManager().persist(entity);
 		}
-		entity.setCodeTemplates(codeTemplates);
-		getEntityManager().persist(entity);
 		getEntityManager().flush();
 		return entity;
 	}

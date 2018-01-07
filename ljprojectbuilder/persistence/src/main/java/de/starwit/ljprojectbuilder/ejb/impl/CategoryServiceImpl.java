@@ -26,8 +26,8 @@ public class CategoryServiceImpl extends AbstractServiceImpl<CategoryEntity> imp
 		query.setParameter("name", name);
 		List<CategoryEntity> result = query.getResultList();
 		
-		if (result != null) {
-			return query.getResultList().get(0);
+		if (result != null && result.size() > 0) {
+			return result.get(0);
 		}
 		return null;
 	}
