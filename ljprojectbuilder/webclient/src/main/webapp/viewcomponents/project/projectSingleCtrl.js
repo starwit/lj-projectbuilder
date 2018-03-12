@@ -32,7 +32,7 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainDomain() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty || $routeParams.projectid == null) {
 				doMaintainThenGoto(gotoProjectDomain);
 			} else {
 				gotoProjectDomain();
@@ -65,16 +65,12 @@
 		function init() {
 			ctrl.project = {};
 			ctrl.templateAll = [];
-			ctrl.branchnames = [];
 			projectConnectorFactory.getTemplateAll().then(setTemplateAll, null);
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined && $routeParams.projectid !== ctrl.project.id) {
 					ctrl.project.id = $routeParams.projectid;
 					ctrl.projectid = ctrl.project.id;
 					projectConnectorFactory.loadProject(ctrl.project.id).then(setProject, loadError);
-				}
-				if ($routeParams.projectid == null) {
-					ctrl.project = {};
 				}
 			});
 		}
@@ -89,13 +85,8 @@
 		
 		function setTemplateAll(response) {
 			ctrl.templateAll = response;
-			ctrl.project.template = response[0];
-		}
-		
-		function setBranchnames(response) {
-			ctrl.branchnames = response;
-			if (ctrl.project.template.branch == null) {
-				ctrl.project.template.branch = response[0];
+			if ($routeParams.projectid == null) {
+				ctrl.project.template = response[0];
 			}
 		}
 		

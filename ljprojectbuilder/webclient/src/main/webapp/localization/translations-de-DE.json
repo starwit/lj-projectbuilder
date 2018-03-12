@@ -23,6 +23,7 @@
 	"navnbar.generate" : "Projekt erstellen und herunterladen",
 	
 	"project"						: "Projekt",
+	"project.templatebranch" : "Branch",
 	"project.dialog.error.title" 	: "Fehler",
 	"project.dialog.success.title" 	: "Aktion erfolgreich",
 	"project.save.success" 			: "Das Projekt wurde erfolgreich gespeichert.",
