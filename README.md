@@ -33,5 +33,5 @@ You can build and start the Project Builder in only three steps:
 2. go to directory lj-projectbuilder and open command line
 3. execute `ant setup_project` on commandline
 
-Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
+Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/. 
 
