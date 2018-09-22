@@ -4,6 +4,10 @@
 # you can delete this line if you're not using Docker
 image: busybox:latest
 
+cache:
+  paths:
+    - .m2/repository
+
 before_script:
   - echo "Before script section"
   - echo "For example you might run an update here or install a build dependency"
@@ -16,7 +20,14 @@ after_script:
 build1:
   stage: build
   script:
-    - echo "Do your build here"
+    - 'mvn clean install'
+  only:
+    - master
+  # Archive up the built documentation site.
+  artifacts:
+    paths:
+    - target/staging
+  image: maven:3.3.9-jdk-8  
    
 test1:
   stage: test
