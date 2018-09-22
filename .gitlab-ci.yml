@@ -28,23 +28,23 @@ build1:
   # Archive up the built documentation site.
   artifacts:
     paths:
-    - target/staging
+    - target
   image: maven:3.3.9-jdk-8  
    
-test1:
-  stage: test
-  script: 
-    - echo "Do a test here"
-    - echo "For example run a test suite"
+#test1:
+#  stage: test
+#  script: 
+#    - echo "Do a test here"
+#    - echo "For example run a test suite"
    
-test2:
-  stage: test
-  script: 
-    - echo "Do another parallel test here"
-    - echo "For example run a lint test"
+#test2:
+#  stage: test
+#  script: 
+#    - echo "Do another parallel test here"
+#    - echo "For example run a lint test"
    
-deploy1:
-  stage: deploy
-  script:
-    - echo "deploy"
+#deploy1:
+#  stage: deploy
+#  script:
+#    - echo "deploy"
  
