@@ -21,6 +21,15 @@ build1:
   stage: build
   script:
     - echo "For example run a build"
+    - 'cd ljprojectbuilder'
+    - 'mvn clean install'
+  only:
+    - master
+  # Archive up the built documentation site.
+  artifacts:
+    paths:
+    - target/staging
+  image: maven:3.3.9-jdk-8  
    
 test1:
   stage: test
@@ -37,11 +46,5 @@ test2:
 deploy1:
   stage: deploy
   script:
-    - 'mvn clean install'
-  only:
-    - master
-  # Archive up the built documentation site.
-  artifacts:
-    paths:
-    - target/staging
-  image: maven:3.3.9-jdk-8  
+    - echo "deploy"
+ 
