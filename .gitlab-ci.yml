@@ -20,14 +20,7 @@ after_script:
 build1:
   stage: build
   script:
-    - 'mvn clean install'
-  only:
-    - master
-  # Archive up the built documentation site.
-  artifacts:
-    paths:
-    - target/staging
-  image: maven:3.3.9-jdk-8  
+    - echo "For example run a build"
    
 test1:
   stage: test
@@ -44,4 +37,11 @@ test2:
 deploy1:
   stage: deploy
   script:
-    - echo "Do your deploy here"
+    - 'mvn clean install'
+  only:
+    - master
+  # Archive up the built documentation site.
+  artifacts:
+    paths:
+    - target/staging
+  image: maven:3.3.9-jdk-8  
