@@ -6,7 +6,8 @@
 
 cache:
   paths:
-    - .m2/repository
+    - .m2/repository/
+    - target/
 
 before_script:
   - echo "Before script section"
@@ -23,13 +24,13 @@ build1:
   script:
     - echo "For example run a build"
     - 'cd ljprojectbuilder'
-    - 'mvn clean install'
+    - 'mvn clean package'
   only:
     - master
   # Archive up the built documentation site.
   artifacts:
     paths:
-    - target/ljprojectbuilder.war
+    - ljprojectbuilder/target/ljprojectbuilder.war
    
 #test1:
 #  stage: test
