@@ -29,7 +29,7 @@ build1:
   # Archive up the built documentation site.
   artifacts:
     paths:
-    - target/lj-projectbuilder.war
+    - target/ljprojectbuilder.war
    
 #test1:
 #  stage: test
