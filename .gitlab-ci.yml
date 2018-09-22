@@ -2,7 +2,7 @@
 # see https://docs.gitlab.com/ce/ci/yaml/README.html for all available options
 
 # you can delete this line if you're not using Docker
-image: busybox:latest
+#image: busybox:latest
 
 cache:
   paths:
@@ -19,6 +19,7 @@ after_script:
    
 build1:
   stage: build
+  image: maven:3.3.9-jdk-8  
   script:
     - echo "For example run a build"
     - 'cd ljprojectbuilder'
@@ -28,8 +29,7 @@ build1:
   # Archive up the built documentation site.
   artifacts:
     paths:
-    - target
-  image: maven:3.3.9-jdk-8  
+    - target/lj-projectbuilder.war
    
 #test1:
 #  stage: test
