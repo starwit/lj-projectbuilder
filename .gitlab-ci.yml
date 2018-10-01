@@ -13,6 +13,7 @@ before_script:
   - echo "Before script section"
   - echo "For example you might run an update here or install a build dependency"
   - echo "Or perhaps you might print out some debugging details"
+  - docker info
    
 after_script:
   - echo "After script section"
@@ -31,7 +32,10 @@ build1:
   artifacts:
     paths:
     - ljprojectbuilder/target/ljprojectbuilder.war
-   
+
+build_image:
+  script:
+    - docker build -t ljprojectbuilder .  
 #test1:
 #  stage: test
 #  script: 
