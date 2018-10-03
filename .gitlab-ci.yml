@@ -20,7 +20,7 @@ compile_java:
   stage: compile
   image: maven:3.3.9-jdk-8  
   script:
-    - echo "For example run a build"
+    - echo "building war"
     - 'cd ljprojectbuilder'
     - 'mvn clean package'
   only:
@@ -28,6 +28,19 @@ compile_java:
   artifacts:
     paths:
     - ljprojectbuilder/target/ljprojectbuilder.war
+
+package_tomee:
+  stage: compile
+  image: maven:3.3.9-jdk-8
+  script:
+    - echo "building tomee"
+    - 'cd tomee'
+    - 'mvn tomee:build'
+  only:
+    - master
+  artifacts:
+    paths:
+    - tomee/target/apache-tomee
 
 package_docker:
   stage: package
