@@ -7,6 +7,7 @@ stages:
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
 
 services:
   - docker:dind
@@ -15,7 +16,11 @@ cache:
   paths:
     - .m2/repository/
     - ljprojectbuilder/target/
-   
+    - tomee/target/
+  
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+
 compile_java:
   stage: compile
   image: maven:3.3.9-jdk-8  
@@ -45,6 +50,7 @@ package_tomee:
 package_docker:
   stage: package
   script:
-    - docker build -t ljprojectbuilder .  
-
+    - docker build -t ljprojectbuilder --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .  
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - docker push $CONTAINER_IMAGE:latest
  
