@@ -32,7 +32,6 @@ compile_java:
 package_docker:
   stage: package
   script:
-    - 'cd ljprojectbuilder'
     - docker build -t ljprojectbuilder .  
 
  
