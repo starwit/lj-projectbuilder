@@ -3,16 +3,14 @@
 
 # you can delete this line if you're not using Docker
 #image: busybox:latest
+image: docker:stable
 
 cache:
   paths:
     - .m2/repository/
-    - target/
+    - ljprojectbuilder/target/
 
 before_script:
-  - echo "Before script section"
-  - echo "For example you might run an update here or install a build dependency"
-  - echo "Or perhaps you might print out some debugging details"
   - docker info
    
 after_script:
