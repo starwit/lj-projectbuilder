@@ -9,9 +9,6 @@ cache:
   paths:
     - .m2/repository/
     - ljprojectbuilder/target/
-
-before_script:
-  - docker info
    
 after_script:
   - echo "After script section"
@@ -31,23 +28,8 @@ build1:
     paths:
     - ljprojectbuilder/target/ljprojectbuilder.war
 
-build_image:
+build1:
   script:
     - docker build -t ljprojectbuilder .  
-#test1:
-#  stage: test
-#  script: 
-#    - echo "Do a test here"
-#    - echo "For example run a test suite"
-   
-#test2:
-#  stage: test
-#  script: 
-#    - echo "Do another parallel test here"
-#    - echo "For example run a lint test"
-   
-#deploy1:
-#  stage: deploy
-#  script:
-#    - echo "deploy"
+
  
