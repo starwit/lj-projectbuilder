@@ -37,7 +37,7 @@ package_tomee:
   script:
     - echo "building tomee"
     - 'cd tomee'
-    - 'mvn tomee:build'
+    - 'mvn tomee:build -Pdevh2-docker'
   only:
     - master
   artifacts:
