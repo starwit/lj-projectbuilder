@@ -1,5 +1,6 @@
 #java-oracle:jdk_8 image is used
-FROM isuper/java-oracle:jdk_8 
+#FROM isuper/java-oracle:jdk_8 
+FROM openjdk:8-jre-alpine 
 
 
 #copy content of host directory to docker directory
@@ -19,7 +20,7 @@ ENV CATALINA_HOME /usr/local/tomee
 #set working directory
 WORKDIR $CATALINA_HOME 
 
-#set port which is available for host system
+#set port which is available for host system - for docker containers only!
 EXPOSE 8080 
 
 #execute command
