@@ -38,6 +38,8 @@ package_tomee:
     - echo "building tomee"
     - 'cd tomee'
     - 'mvn tomee:build -Pdevh2-docker'
+    - 'cd target/apache-tomee'
+    - 'chmod g+w logs/ temp/ webapps/ work/'
   only:
     - master
   artifacts:
