@@ -6,6 +6,8 @@ FROM openjdk:8-jre-alpine
 #copy content of host directory to docker directory
 ADD tomee/target/apache-tomee /usr/local/tomee 
 
+RUN chmod g+w /usr/local/tomee
+
 #copy application of host directory to docker directory
 ADD ljprojectbuilder/target/ljprojectbuilder.war /usr/local/tomee/webapps/ljprojectbuilder.war
 
