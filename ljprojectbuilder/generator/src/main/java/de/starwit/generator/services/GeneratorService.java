@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
-import de.starwit.ljprojectbuilder.config.GeneratorConfig;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
@@ -63,17 +62,19 @@ public class GeneratorService {
 		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
 		
 		for (CodeTemplateEntity codeTemplate : codeTemplates) {
-			generatePath(templateData, codeTemplate);
     		switch (codeTemplate.getType()) {
 			case GLOBAL:
+				generatePath(templateData, codeTemplate);
 				generateGlobal(templateData, codeTemplate);
 				break;
 			case ADDITIONAL_CONTENT:
+				generatePath(templateData, codeTemplate);
 				generateAdditionalContent(templateData, codeTemplate);
 				break;
 			case DOMAIN: {
 				for (DomainEntity domain : domains) {
 					templateData.putAll(fillTemplateDomainParameter(domain));
+					generatePath(templateData, codeTemplate);
 					generateDomain(domain.getName(), templateData, codeTemplate);
 				}
 				break;
@@ -106,8 +107,6 @@ public class GeneratorService {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain);
 		data.put("imports", EntityImports.gatherEntityImports(domain));
-		data.put("templateSingle", GeneratorConfig.MAINTAIN_UI.suffix);
-		data.put("templateAll", GeneratorConfig.ALL_UI.suffix);
 		return data;
 	}
 	
@@ -160,7 +159,7 @@ public class GeneratorService {
 			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generatedomain");
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, e.getMessage());
 			throw new NotificationException(errorResponse);
 		}
 	}
@@ -186,6 +185,9 @@ public class GeneratorService {
 			throws IOException, TemplateException {
 		// File output
 		File outputFile = new File(filepath);
+		if (!outputFile.getParentFile().exists()) {
+			outputFile.getParentFile().mkdirs();
+		}
 		if (!outputFile.exists() || override) {
 			Writer filewriter = new FileWriter(outputFile);
 			template.process(data, filewriter);
