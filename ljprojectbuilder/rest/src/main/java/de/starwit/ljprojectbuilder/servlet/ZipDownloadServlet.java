@@ -50,7 +50,9 @@ public class ZipDownloadServlet extends HttpServlet {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ZipOutputStream zos = new ZipOutputStream(baos);
 					for (File file : files) {
+						if (!Constants.TEMPLATE_DIR.equals(file.getName())) {
 						  addDirToZipArchive(zos, file, null);
+						}
 					}
 				    zos.flush();
 				    baos.flush();

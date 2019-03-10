@@ -173,7 +173,10 @@ public class GeneratorService {
 			cfg.setClassForTemplateLoading(FindClass.class, ".." + Constants.FILE_SEP);
 			templatePath = templatePath.replace("classpath:", "");
 		} else {
-			cfg.setDirectoryForTemplateLoading(new File(templatePath));			
+			File templateFile = new File(templatePath);
+			File cfgDir = templateFile.getParentFile();
+			cfg.setDirectoryForTemplateLoading(cfgDir);	
+			templatePath = templateFile.getName();
 		}
 		Template template = cfg.getTemplate(templatePath);
 		return template;

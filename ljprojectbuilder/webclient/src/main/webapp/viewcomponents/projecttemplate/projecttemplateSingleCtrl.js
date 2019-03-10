@@ -81,7 +81,7 @@
 		function setProjectTemplateInit(response) {
 			ctrl.projecttemplate = response;
 			ctrl.projecttemplatetitle = response.title;
-			if (ctrl.copy) {
+			if (ctrl.copy == "true") {
 				ctrl.projecttemplate.id = null;
 				var codetemplates = [];
 		        angular.forEach(ctrl.projecttemplate.codeTemplates, function (value, key) {
