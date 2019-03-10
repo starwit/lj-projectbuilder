@@ -33,7 +33,7 @@ domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', 	functio
 		);
 	};
 		
-	function updateDomain(domain, projectid) {
+	function updateDomain(domain) {
 		return $http.post('api/domain/', domain)
 		.then(
 			restConnectorFactory.handleResponseSuccess,

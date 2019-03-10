@@ -38,14 +38,12 @@
 		/**
 		 * Shows the details of a project.
 		 */
-		function showDetails(projectid) {
-		    var x = document.getElementById(projectid);
+		function showDetails(projectId) {
+		    var x = document.getElementById(projectId);
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
-		        ctrl.detailsign = '-';
 		    } else {
 		        x.className = x.className.replace(" w3-show", "");
-		        ctrl.detailsign = '+';
 		    }
 		    
 		};

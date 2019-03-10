@@ -43,6 +43,8 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@Path("/")
 	@PUT
 	public EntityResponse<DomainEntity> create(DomainEntity entity) {
+		entity.setProject(new ProjectEntity());
+		entity.getProject().setId(entity.getProjectId());
 		return super.createGeneric(entity);
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,6 +37,8 @@ public class DomainEntity extends AbstractEntity {
 	private Set<AttributeEntity> attributes;
 	
 	private boolean selected = true;
+	
+	private Long projectId;
 
 	@Column(name="NAME", nullable = false)
 	public String getName() {
@@ -82,5 +85,14 @@ public class DomainEntity extends AbstractEntity {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	@Transient
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 }
