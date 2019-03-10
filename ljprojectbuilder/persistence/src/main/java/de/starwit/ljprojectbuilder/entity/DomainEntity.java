@@ -37,8 +37,6 @@ public class DomainEntity extends AbstractEntity {
 	private Set<AttributeEntity> attributes;
 	
 	private boolean selected = true;
-	
-	private Long projectId;
 
 	@Column(name="NAME", nullable = false)
 	public String getName() {
@@ -85,14 +83,5 @@ public class DomainEntity extends AbstractEntity {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-	}
-
-	@Transient
-	public Long getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
 	}
 }

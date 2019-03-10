@@ -111,7 +111,7 @@
 			ctrl.domain = {};
 			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
-			initinit();
+
 			$scope.$on('$routeChangeSuccess', function(scope, next, current) {
 				initinit();
 			});
@@ -121,14 +121,16 @@
 			ctrl.projectid = $routeParams.projectid;
 			ctrl.domain.project = {};
 			ctrl.domain.project.id = ctrl.projectid;
+			projectConnectorFactory.loadProject($routeParams.projectid)
+			.then(	setProjectTitle, null);
+
 			if ($routeParams.id != undefined) {
 				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
 			}
 		};
 		
 		function setProjectTitle(response) {
-			ctrl.projecttitle = response.title;
-			ctrl.domain.projectId = response.id;
+			ctrl.projecttitle = response.title;		
 		}
 		
 		/**
@@ -143,7 +145,7 @@
 		 */
 		function setDomain(response) {
 			ctrl.domain = response;
-			projectConnectorFactory.loadProject($routeParams.projectid).then(setProjectTitle, null);
+			ctrl.projecttitle = ctrl.domain.project.title;
 		}
 		
 		/**
@@ -165,6 +167,7 @@
 			ctrl.domain = {};
 			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
+			initinit();
 			gotoDomain.create(ctrl.domain.project.id);
 		};
 		
