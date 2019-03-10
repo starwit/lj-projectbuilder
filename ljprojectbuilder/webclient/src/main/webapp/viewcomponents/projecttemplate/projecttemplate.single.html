@@ -90,8 +90,8 @@
 									<td>
 										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
 									</td>
-									<td>	
-										<input placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" type="text" ng-model="ct.type"/>
+									<td>
+										<select placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" ng-model="ct.type" ng-options="type for type in ctrl.templateTypes"></select>	
 									</td>
 								</tr>
 							</table>

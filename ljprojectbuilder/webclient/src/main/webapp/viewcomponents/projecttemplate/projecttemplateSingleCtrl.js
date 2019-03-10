@@ -16,6 +16,7 @@
 		ctrl.dialog = dialogService.dialog;
 		ctrl.addCodeTemplate = addCodeTemplate;
 		ctrl.removeCodeTemplate = removeCodeTemplate;
+		ctrl.templateTypes = [	"GLOBAL","DOMAIN","ADDITIONAL_CONTENT"];
 		init();
 		
 		function doGotoProjectTemplateAll() {
