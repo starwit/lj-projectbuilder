@@ -93,6 +93,51 @@
 					</tbody>
 				</table>	
 			</fieldset>
+			<fieldset class="odd">
+				<table>
+					<colgroup>
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+					</colgroup>
+					<thead>
+						<tr>
+							<td>
+								<h3>{{'generator.login' | translate}}</h3>
+							</td>
+							<td>&nbsp;</td>
+							<td class="aRight">
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span>{{'generator.username' | translate}}: </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.generatorDto.username"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.password' | translate}}: </span>
+							</td>
+							<td>
+								<input type="password" ng-model="ctrl.generatorDto.password"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</fieldset>
 		</form>
 	</div>
 </div>

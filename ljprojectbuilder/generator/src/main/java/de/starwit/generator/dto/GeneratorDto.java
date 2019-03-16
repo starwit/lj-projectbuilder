@@ -15,9 +15,14 @@ import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 public class GeneratorDto {
 	
 	private ProjectEntity project;
+
 	
 	private Set<DomainEntity> selectedDomains;
 	
+	private String username;
+
+	private String password;
+
 	/********************* GETTER, SETTER **************************/
 	
 	public ProjectEntity getProject() {
@@ -34,5 +39,21 @@ public class GeneratorDto {
 
 	public void setSelectedDomains(Set<DomainEntity> selectedDomains) {
 		this.selectedDomains = selectedDomains;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

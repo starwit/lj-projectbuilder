@@ -61,6 +61,9 @@
 	"generator.button.downloadproject" : "Projekt herunterladen",
 	"generator.loading.title"			: "Projekterstellung",
 	"generator.loading.msg"	: "Das Projekt wird erstellt. Bitte warten Sie.",
+	"generator.login"		: "Login",
+	"generator.username"	: "Benutzername",
+	"generator.password"	: "Passwort",
 		
 	"###BEGIN###" 					: "Generierung beginnt",
 	"attribute.name"				: "Name",

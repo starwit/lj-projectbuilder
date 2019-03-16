@@ -12,9 +12,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import de.starwit.generator.config.Constants;
+import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.exception.NotificationException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
@@ -72,7 +75,8 @@ public class ProjectCheckout {
 	 * @return 
 	 * @throws NotificationException 
 	 */
-	public void checkoutProjectTemplate(ProjectEntity entity)  throws NotificationException {
+	public void checkoutProjectTemplate(GeneratorDto dto)  throws NotificationException {
+		ProjectEntity entity = dto.getProject();
 		File destDir = new File (Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		String srcDir = entity.getTemplate().getLocation();
 		String branch = "master";
@@ -81,12 +85,15 @@ public class ProjectCheckout {
 		}
 
 		try {
-			Git git = Git.cloneRepository()
+			CloneCommand cloneCommand = Git.cloneRepository()
 					.setURI(srcDir)
 					.setDirectory(destDir)
 					.setCloneAllBranches( true )
-					.setBranch(branch)
-					.call();
+					.setBranch(branch);
+			if (dto.getUsername() != null) {
+				cloneCommand = cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(dto.getUsername(), dto.getPassword()));
+			}
+			Git git = cloneCommand.call();
 			git.checkout();
 			
 		} catch (Exception e) {
