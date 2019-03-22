@@ -27,4 +27,3 @@ EXPOSE 8080
 
 #execute command
 CMD ["catalina.sh", "run"]
-

@@ -1,0 +1,74 @@
+image: docker:stable
+
+stages:
+  - compile
+  - package
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+
+services:
+  - docker:dind
+
+cache:
+  paths:
+    - .m2/repository/
+    - ljprojectbuilder/target/
+    - tomee/target/
+
+compile_java:
+  stage: compile
+  image: maven:3.3.9-jdk-8  
+  script:
+    - echo "building war"
+    - 'cd ljprojectbuilder'
+    - 'mvn clean package'
+  only:
+    - master
+  artifacts:
+    paths:
+    - ljprojectbuilder/target/ljprojectbuilder.war
+
+package_tomee:
+  stage: compile
+  image: maven:3.3.9-jdk-8
+  script:
+    - echo "building tomee"
+    - 'cd tomee'
+    - 'mvn tomee:build -Pdevh2-docker'
+    - 'cd target'
+    - 'chmod g+w apache-tomee'
+    - 'cd apache-tomee'
+    - 'chmod g+w logs/ temp/ webapps/ work/'
+  only:
+    - master
+  artifacts:
+    paths:
+    - tomee/target/apache-tomee
+
+package_docker:
+  stage: package
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker build -t ljprojectbuilder --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .  
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+    - docker push $CONTAINER_IMAGE:latest
+
+k8s-deploy:
+  image: google/cloud-sdk
+  stage: deploy
+  script:
+  - echo "$GOOGLE_KEY" > key.json
+  - gcloud auth activate-service-account --key-file key.json
+  - gcloud config set compute/zone europe-west1-b
+  - gcloud config set project ljprojectbuilder
+  - gcloud config set container/use_client_certificate True
+  - gcloud container clusters get-credentials dev-projectbuilder
+ # - kubectl delete secret registry.gitlab.com
+ # - kubectl create secret docker-registry registry.gitlab.com --docker-server=https://registry.gitlab.com --docker-username=ztarbug --docker-password=$REGISTRY_PASSWD --docker-email=markus.zarbock@gmx.de
+  - kubectl apply -f deployment.yml
+
+ 

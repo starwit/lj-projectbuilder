@@ -15,7 +15,7 @@ Yet still a lot of boiler plate code needs to be written and creating JEE applic
 
 A fully working example application of this pattern can be found is the [lirejarp template](https://github.com/witchpou/lirejarp). Besides using described pattern it also contains an Javascript based client application that serves a UI to the Java based back end. This rigorous separation of UI is also intended as it helps to demonstrate architecture approach without mixing with UI issues.
 
-This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/witchpou/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp is modified and enhanced accordingly. 
+This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/witchpou/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp is modified and enhanced accordingly.
 
 ## Prequisites
 
