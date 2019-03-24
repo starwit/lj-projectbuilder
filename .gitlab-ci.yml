@@ -52,23 +52,24 @@ package_tomee:
 package_docker:
   stage: package
   script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
     - docker build -t ljprojectbuilder --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .  
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
     - docker push $CONTAINER_IMAGE:latest
 
-k8s-deploy:
-  image: google/cloud-sdk
-  stage: deploy
-  script:
-  - echo "$GOOGLE_KEY" > key.json
-  - gcloud auth activate-service-account --key-file key.json
-  - gcloud config set compute/zone europe-west1-b
-  - gcloud config set project ljprojectbuilder
-  - gcloud config set container/use_client_certificate True
-  - gcloud container clusters get-credentials dev-projectbuilder
+#k8s-deploy:
+#  image: google/cloud-sdk
+#  stage: deploy
+#  script:
+#  - echo "$GOOGLE_KEY" > key.json
+#  - gcloud auth activate-service-account --key-file key.json
+#  - gcloud config set compute/zone europe-west1-b
+#  - gcloud config set project ljprojectbuilder
+#  - gcloud config set container/use_client_certificate True
+#  - gcloud container clusters get-credentials dev-projectbuilder
  # - kubectl delete secret registry.gitlab.com
  # - kubectl create secret docker-registry registry.gitlab.com --docker-server=https://registry.gitlab.com --docker-username=ztarbug --docker-password=$REGISTRY_PASSWD --docker-email=markus.zarbock@gmx.de
-  - kubectl apply -f deployment.yml
+#  - kubectl apply -f deployment.yml
 
  
