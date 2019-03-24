@@ -52,8 +52,8 @@ package_tomee:
 package_docker:
   stage: package
   script:
-#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+    - docker login -u gitlab-ci-token -p $REG_TOKEN registry.gitlab.com
+#    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
     - docker build -t ljprojectbuilder --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .  
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
     - docker push $CONTAINER_IMAGE:latest
