@@ -38,7 +38,7 @@ package_tomee:
   script:
     - echo "building tomee"
     - 'cd tomee'
-    - 'mvn tomee:build -Pdevh2-docker'
+    - 'mvn tomee:build -Pmysql-kubernetes'
     - 'cd target'
     - 'chmod g+w apache-tomee'
     - 'cd apache-tomee'

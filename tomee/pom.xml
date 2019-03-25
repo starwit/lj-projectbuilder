@@ -127,5 +127,33 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<!-- mysql/mariadb on Docker/Kubernetes -->
+			<id>mysql-kubernetes</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+				    <groupId>org.apache.tomee.maven</groupId>
+				    <artifactId>tomee-maven-plugin</artifactId>
+						<configuration>
+							<tomeeVersion>7.0.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+							<debug>false</debug>
+							<config>${project.basedir}/src/main/tomee/mysql-kubernetes/conf</config>
+								<libs>
+									<lib>org.mariadb.jdbc:mariadb-java-client:1.5.4</lib>
+									<lib>remove:openjpa-</lib>
+									<lib>remove:jaxb-impl</lib>
+								</libs>
+							<webappDir>webapps</webappDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>		
 	</profiles>
 </project>
