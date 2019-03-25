@@ -12,6 +12,10 @@
     JdbcUrl = ${DB-URL}
     UserName=${DB-USER}
     Password=${DB-PASSWORD}
+    testWhileIdle = true
+    testOnBorrow = true
+    maxIdle=30
+    validationQuery=SELECT 1
 </Resource>
 
 </tomee>
