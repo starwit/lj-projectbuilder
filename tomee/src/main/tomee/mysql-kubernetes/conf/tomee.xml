@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <!-- <Deployments dir="apps" /> -->
+  
+<Resource id="jdbc/ljprojectbuilder" type="DataSource">
+    DataSourceCreator = tomcat
+    JtaManaged=true
+    JdbcDriver = org.mariadb.jdbc.Driver
+    JdbcUrl = ${DB-URL}
+    UserName=${DB-USER}
+    Password=${DB-PASSWORD}
+</Resource>
+
+</tomee>
