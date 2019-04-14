@@ -1,3 +1,8 @@
 /ljprojectbuilder/generator/.settings
 /target/
 /projectbuilder-delivery/
+
+**/.settings
+**/.project
+
+**/.vscode
