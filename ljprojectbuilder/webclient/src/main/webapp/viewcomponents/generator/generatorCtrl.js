@@ -14,6 +14,8 @@
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
+		ctrl.checkTargetRepo = checkTargetRepo;
+		ctrl.createTargetRepo = createTargetRepo;
 		init();
 		
 		/**
@@ -35,16 +37,34 @@
 			}, setupError);
 		};
 		
+		function checkTargetRepo() {
+			var targetRepoData = ctrl.targetRepoData;
+			console.log(targetRepoData);
+			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
+				projectSetupConnectorFactory.checkIfRepoServerWorks(ctrl.targetRepoData).then(function(data) {
+					ctrl.repos = data;
+					ctrl.targetRepoLoaded = true;
+				});				
+			} else {
+				//TODO error message
+			}
+
+		}
+		
+		function createTargetRepo() {
+			console.log("clicked");
+		}
+		
 		function getSelectedDomainIds() {
 			ctrl.generatorDto.selectedDomains = ctrl.domainAll;
 		}
 		
-		/** 
-		 * Standard function for initialization.
-		 */
 		function init() {
 			ctrl.domainAll = [];
 			ctrl.generatorDto = {};
+			ctrl.targetRepoData = {};
+			ctrl.repos = {};
+			ctrl.targetRepoLoaded = false;
 			
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.id != undefined) {

@@ -138,6 +138,92 @@
 				</table>
 				
 			</fieldset>
+			<fieldset class="even">
+				<table>
+					<colgroup>
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+					</colgroup>
+					<thead>
+						<tr>
+							<td>
+								<h3>{{'generator.targetLogin' | translate}}</h3>
+							</td>
+							<td>&nbsp;</td>
+							<td class="aRight">
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span>{{'generator.baseurl' | translate}}* </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.baseURL"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.target.projectname' | translate}} </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.projectName"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.username' | translate}}* </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.username"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.password' | translate}}* </span>
+							</td>
+							<td>
+								<input type="password" ng-model="ctrl.targetRepoData.password"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="button add"><a href="" ng-click="ctrl.checkTargetRepo();">{{'button.list.target.repo' | translate}}</a></span>
+							</td>
+							<td>
+								<span class="button add"><a href="" ng-click="ctrl.createTargetRepo();">{{'button.create.target.repo' | translate}}</a></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table ng-show="ctrl.targetRepoLoaded">
+					<thead>
+						<tr>
+							<td>Name</td>
+							<td>is public?</td>
+							<td>SSH Link</td>
+							<td>HTTP Link</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="repo in ctrl.repos">
+							<td>{{repo.name}}</td>
+							<td>{{repo.public}}</td>
+							<td>{{repo.sshCloneURL}}</td>
+							<td>{{repo.httpCloneURL}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
 		</form>
 	</div>
 </div>

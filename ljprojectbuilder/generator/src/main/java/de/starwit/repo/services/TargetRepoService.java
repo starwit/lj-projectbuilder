@@ -60,6 +60,10 @@ public class TargetRepoService {
     	List<RepoData> repoDatas = new ArrayList<>();
     	try {
 			JsonNode jsonNode = new ObjectMapper().readTree(jsonData);
+			if(jsonNode.get("errors") != null) {
+				return null;
+			}
+			
 			JsonNode values = jsonNode.get("values");
 			if(values.isArray()) {
 				for(final JsonNode repoNode : values) {

@@ -59,13 +59,22 @@ public class ProjectSetupRest {
 	
 	@Path("/currentrepos")
 	@POST
-	public List<RepoData> listCurrentRepos(RepoServerData data) {
+	public Response<List<RepoData>> listCurrentRepos(RepoServerData data) {
+		Response<List<RepoData>> response = new Response<>();
+		
 		if("".equals(data.getProjectName())) {
 			data.setProjectName(null);
 		}
         
 		targetRepoService.setRepoServerData(data);
 		List<RepoData> repoData = targetRepoService.listRepos();
-		return repoData;
+		if (repoData == null) {
+			response.setMetadata(new ResponseMetadata(ResponseCode.ERROR, "generator.target.test.error"));
+		} else {
+			response.setMetadata(new ResponseMetadata(ResponseCode.OK, "generator.target.test.success"));
+			response.setResult(repoData);
+		}
+		
+		return response;
 	}
 }
