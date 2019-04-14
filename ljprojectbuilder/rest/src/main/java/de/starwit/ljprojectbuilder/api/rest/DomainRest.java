@@ -43,6 +43,10 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@Path("/")
 	@PUT
 	public EntityResponse<DomainEntity> create(DomainEntity entity) {
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+		}
 		return super.createGeneric(entity);
 	}
 
@@ -50,6 +54,10 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@Path("/")
 	@POST
 	public EntityResponse<DomainEntity> update(DomainEntity entity) {
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+		}
 		return super.updateGeneric(entity);
 	}
 	
