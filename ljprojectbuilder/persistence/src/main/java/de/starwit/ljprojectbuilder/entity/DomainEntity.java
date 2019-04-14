@@ -24,6 +24,8 @@ public class DomainEntity extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private Long projectId;
+	
 	//domain attributes
 	
 	@NotBlank
@@ -83,5 +85,14 @@ public class DomainEntity extends AbstractEntity {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	@Transient
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 }
