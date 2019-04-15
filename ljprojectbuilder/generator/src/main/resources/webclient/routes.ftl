@@ -30,7 +30,7 @@
 			controllerAs : 'ctrl',
 			title : "${domain.name?lower_case}.all.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateAll}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}.all.html",
 	        resolve: {
 	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }
@@ -39,7 +39,7 @@
 			controllerAs : 'ctrl',
 			title : "${domain.name?lower_case}.create.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateSingle}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}.single.html",
 			resolve: {
 	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }		
@@ -48,7 +48,7 @@
 			controllerAs : 'ctrl',
 			title : "${domain.name?lower_case}.update.title",
 			subtitle : "",
-			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}${templateSingle}",
+			templateUrl : "viewcomponents/${domain.name?lower_case}/${domain.name?lower_case}.single.html",
 	        resolve: {
 	        	${domain.name?lower_case}ConnectorFactory: ${domain.name?lower_case}ConnectorFactory
 	         }		

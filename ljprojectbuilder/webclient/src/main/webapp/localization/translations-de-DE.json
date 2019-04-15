@@ -62,6 +62,7 @@
 	"generator.loading.title"			: "Projekterstellung",
 	"generator.loading.msg"	: "Das Projekt wird erstellt. Bitte warten Sie.",
 	"generator.login"		: "Login",
+	"generator.targetLogin"		: "Login Zielrepo",
 	"generator.username"	: "Benutzername",
 	"generator.password"	: "Passwort",
 		
@@ -145,5 +146,7 @@
 	"button.savenext"				: "Speichern und weiter",
 	"button.next"					: "Weiter",
 	"button.back"					: "Zurück",
-	"button.domaincreate"	: "Weitere Domain hinzufügen"
+	"button.domaincreate"	: "Weitere Domain hinzufügen",
+	"button.list.target.repo" : "Prüfe Ziel-Repository",
+	"button.create.target.repo" : "Ziel-Repository erzeugen"
 }

@@ -57,6 +57,7 @@
 		};		
 
 		function doMaintainThenGoto(gotoDestination) {
+			ctrl.domain.projectId = ctrl.projectid;
 			var saveFunction = isUpdate() ? domainConnectorFactory.updateDomain : domainConnectorFactory.createDomain;
 			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
 		}

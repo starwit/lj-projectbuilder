@@ -45,6 +45,10 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	public EntityResponse<DomainEntity> create(DomainEntity entity) {
 		System.out.println("*************************** -  create");
 		System.out.println(entity);
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+		}
 		return super.createGeneric(entity);
 	}
 
@@ -54,6 +58,10 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	public EntityResponse<DomainEntity> update(DomainEntity entity) {
 		System.out.println("*************************** -  update");
 		System.out.println(entity);
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+		}
 		return super.updateGeneric(entity);
 	}
 	

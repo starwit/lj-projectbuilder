@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 
 @Stateless(name = "DomainService")
 public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> implements DomainService {
@@ -34,5 +35,21 @@ public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> impleme
 		query.setParameter("selected", selected);
 		
 		query.executeUpdate();
+	}
+	
+	@Override
+	public DomainEntity update(DomainEntity entity) {
+		if (entity != null) {
+			entity.setProject(getEntityManager().find(ProjectEntity.class, entity.getProject().getId()));
+		}
+		return super.update(entity);
+	}
+	
+	@Override
+	public DomainEntity create(DomainEntity entity) {
+		if (entity != null) {
+			entity.setProject(getEntityManager().find(ProjectEntity.class, entity.getProject().getId()));
+		}
+		return super.create(entity);
 	}
 }
