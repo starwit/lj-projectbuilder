@@ -49,6 +49,7 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 			ProjectEntity projectEntity = new ProjectEntity();
 			projectEntity.setId(entity.getProjectId());
 		}
+		System.out.println("***** " + entity.getProject().getId());
 		return super.createGeneric(entity);
 	}
 
