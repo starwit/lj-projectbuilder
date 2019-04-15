@@ -44,10 +44,12 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@PUT
 	public EntityResponse<DomainEntity> create(DomainEntity entity) {
 		System.out.println("*************************** -  create");
+		System.out.println("*************************** " + entity.getProjectId());
 		System.out.println(entity);
 		if (entity.getProject() == null) {
 			ProjectEntity projectEntity = new ProjectEntity();
 			projectEntity.setId(entity.getProjectId());
+			entity.setProject(projectEntity);
 		}
 		System.out.println("***** " + entity.getProject().getId());
 		return super.createGeneric(entity);
