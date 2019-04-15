@@ -65,6 +65,9 @@
 	"generator.targetLogin"		: "Login Zielrepo",
 	"generator.username"	: "Benutzername",
 	"generator.password"	: "Passwort",
+	"generator.baseurl"		: "URL Bitbucket",
+	"generator.target.repo.name"	: "Name Zielrepo",
+	"generator.target.projectname"	: "Projekt Bitbucket",
 		
 	"###BEGIN###" 					: "Generierung beginnt",
 	"attribute.name"				: "Name",

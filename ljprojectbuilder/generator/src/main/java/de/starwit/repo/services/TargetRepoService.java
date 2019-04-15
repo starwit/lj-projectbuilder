@@ -52,8 +52,8 @@ public class TargetRepoService {
         Invocation.Builder invocationBuilder = buildRequester(repoServerData);
         Response response = invocationBuilder.get();   
         String output = response.readEntity(String.class);
+        prettyPrintJSON(output);
         return deserializeRepoList(output);
-        //prettyPrintJSON(output);
     }
     
     private List<RepoData> deserializeRepoList(String jsonData) {
@@ -88,11 +88,12 @@ public class TargetRepoService {
     	return repoDatas;
     }
 
-    public boolean createTargetRepo(String name) {
+    public boolean createTargetRepo() {
     	Invocation.Builder invocationBuilder = buildRequester(repoServerData);
-    	String repoData = "{\"name\":\"testRepo\"}";
-        
+    	String repoData = "{\"name\":\""+ repoServerData.getRepoName()  + "\"}";
+
         String postResponse = invocationBuilder.post(Entity.entity(repoData, MediaType.APPLICATION_JSON), String.class);
+
         prettyPrintJSON(postResponse);
     	
         return false;

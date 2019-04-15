@@ -56,7 +56,6 @@ public class AbstractServiceImpl<E extends AbstractEntity> implements AbstractSe
 	public E create(E entity) {
 		getEntityManager().persist(entity);
 		getEntityManager().flush();
-		System.out.println("********** persisted entity " + entity.getId());
 		return entity;
 	}
 

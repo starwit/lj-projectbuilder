@@ -2,7 +2,8 @@ projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
 	function projectSetupConnectorFactory($http, $location, restConnectorFactory) {
 	    var factory = {
 	    		projectSetup: projectSetup,
-	    		checkIfRepoServerWorks: checkIfRepoServerWorks
+	    		checkIfRepoServerWorks: checkIfRepoServerWorks,
+	    		createTargetRepo: createTargetRepo
 	     };
 	    return factory;
 	    
@@ -16,6 +17,14 @@ projectSetupConnectorFactory = ['$http', '$location', 'restConnectorFactory',
 		
 		function checkIfRepoServerWorks(dto) {
 			return $http.post('api/projectsetup/currentrepos', dto)
+			.then(
+					restConnectorFactory.handleResponseSuccess,
+					restConnectorFactory.handleResponseError
+			);			
+		};
+		
+		function createTargetRepo(dto) {
+			return $http.post('api/projectsetup/createtargetrepo', dto)
 			.then(
 					restConnectorFactory.handleResponseSuccess,
 					restConnectorFactory.handleResponseError

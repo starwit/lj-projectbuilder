@@ -39,7 +39,6 @@
 		
 		function checkTargetRepo() {
 			var targetRepoData = ctrl.targetRepoData;
-			console.log(targetRepoData);
 			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
 				projectSetupConnectorFactory.checkIfRepoServerWorks(ctrl.targetRepoData).then(function(data) {
 					ctrl.repos = data;
@@ -52,7 +51,15 @@
 		}
 		
 		function createTargetRepo() {
-			console.log("clicked");
+			var targetRepoData = ctrl.targetRepoData;
+			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
+				projectSetupConnectorFactory.createTargetRepo(ctrl.targetRepoData).then(function(data) {
+					ctrl.repos = data;
+
+				});				
+			} else {
+				//TODO error message
+			}
 		}
 		
 		function getSelectedDomainIds() {

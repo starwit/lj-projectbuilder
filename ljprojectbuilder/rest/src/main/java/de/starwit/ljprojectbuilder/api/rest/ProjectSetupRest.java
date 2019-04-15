@@ -77,4 +77,21 @@ public class ProjectSetupRest {
 		
 		return response;
 	}
+	
+	@Path("/createtargetrepo")
+	@POST
+	public Response<Boolean> createTargetRepo(RepoServerData data) {
+		boolean result = false;
+		targetRepoService.setRepoServerData(data);
+		result = targetRepoService.createTargetRepo();
+		Response<Boolean> response = new Response<>(result);
+		if(result) {
+			response.setMetadata(new ResponseMetadata(ResponseCode.OK, "generator.target.create.success"));
+		} else {
+			response.setMetadata(new ResponseMetadata(ResponseCode.ERROR, "generator.target.create.error"));
+		}
+		
+		return response;
+	}
+	
 }

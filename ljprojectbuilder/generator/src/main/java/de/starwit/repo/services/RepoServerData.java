@@ -9,10 +9,17 @@ public class RepoServerData {
 
 	private String username;
 	private String password;
+	
+	private String repoName;
 
+	/**
+	 * Bitbucket specific implementation for request url. 
+	 * It's either a user or a project repo.
+	 * @return
+	 */
 	public String getRepoRequestURL() {
 		String requestUrl = baseURL;
-		if (projectName == null) {
+		if (projectName == null || "".equals(projectName)) {
 			requestUrl += "users/" + username + "/repos";
 		} else {
 			requestUrl += "projects/" + projectName + "/repos";
@@ -20,13 +27,6 @@ public class RepoServerData {
 		return requestUrl;
 	}
 	
-	
-/*
-	public RepoServerData(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}*/
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -57,5 +57,13 @@ public class RepoServerData {
 
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+
+	public String getRepoName() {
+		return repoName;
+	}
+
+	public void setRepoName(String repoName) {
+		this.repoName = repoName;
 	}
 }
