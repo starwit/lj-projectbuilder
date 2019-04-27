@@ -4,5 +4,7 @@
 
 **/.settings
 **/.project
+**/.classpath
+**/target
 
 **/.vscode
