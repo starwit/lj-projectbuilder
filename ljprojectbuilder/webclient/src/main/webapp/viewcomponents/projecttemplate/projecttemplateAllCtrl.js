@@ -5,16 +5,18 @@
 (function() {
 	'use strict';
 	angular.module('ljprojectbuilderApp.projecttemplate').controller('projecttemplateAllCtrl', projecttemplateAllCtrl);
-	projecttemplateAllCtrl.$inject = ['projecttemplateConnectorFactory', 'dialogService', 'gotoProjectTemplate'];
-	function projecttemplateAllCtrl(projecttemplateConnectorFactory, dialogService, gotoProjectTemplate) {
+	projecttemplateAllCtrl.$inject = ['projecttemplateConnectorFactory', 'dialogService', 'gotoProjectTemplate', 'FileSaver', '$window'];
+	function projecttemplateAllCtrl(projecttemplateConnectorFactory, dialogService, gotoProjectTemplate, FileSaver, $window) {
 		var  ctrl = this;
-		
+
 		ctrl.refresh = refresh;
 		ctrl.deleteProjectTemplate = deleteProjectTemplate;
 		ctrl.gotoProjectTemplate = gotoProjectTemplate;
 		ctrl.showDetails = showDetails;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.exportProjectTemplate = exportProjectTemplate;
+		ctrl.importProjectTemplate = importProjectTemplate;
 		init();
 		
 		/** 
@@ -83,5 +85,54 @@
 		function closeDialog(dialogid) {
 			dialogService.closeDialog(dialogid);
 		};
+
+		/**
+		 * Export a loaded template
+		 * @param {loaded template} template 
+		 */
+		function exportProjectTemplate(template) {
+			let filename = template.title + ".json";
+
+			let toDownload = Object.assign({}, template);
+			delete toDownload.id;
+			delete toDownload["$$hashKey"];
+
+			toDownload.codeTemplates = toDownload.codeTemplates.map(codeTemplate => {
+				let codeTemplateCopy = Object.assign({}, codeTemplate);
+				delete codeTemplateCopy.id;
+				return codeTemplateCopy;
+			})
+
+			let filteToSave = new Blob([angular.toJson(toDownload, true)], {
+				type: 'application/json',
+				name: filename
+			})
+			FileSaver.saveAs(filteToSave, filename);
+			
+		}
+
+		/**
+		 * Import a template previously chosen in the file input
+		 */
+		function importProjectTemplate() {
+			let importInput = $window.document.getElementById("import");
+
+			if (importInput.files.length > 0) {
+				var reader = new FileReader();
+				reader.addEventListener("loadend", uploadProjectTemplate)
+				reader.readAsText(importInput.files[0]);
+			}
+		}  
+
+		/**
+		 * Uploads the loaded template to the server
+		 * @param {loadend event of a FileReader instance} event 
+		 */
+		function uploadProjectTemplate(event) {
+			let importTemplate = angular.fromJson(event.originalTarget.result)
+			console.log(importTemplate);
+			projecttemplateConnectorFactory.createProjectTemplate(importTemplate);
+
+		}
 	};
 })();
