@@ -149,6 +149,8 @@
 	"button.savenext"				: "Speichern und weiter",
 	"button.next"					: "Weiter",
 	"button.back"					: "Zurück",
+	"button.import"					: "importieren",
+	"button.export"					: "export",
 	"button.domaincreate"	: "Weitere Domain hinzufügen",
 	"button.list.target.repo" : "Prüfe Ziel-Repository",
 	"button.create.target.repo" : "Ziel-Repository erzeugen"
