@@ -103,11 +103,11 @@
 				return codeTemplateCopy;
 			})
 
-			let filteToSave = new Blob([angular.toJson(toDownload, true)], {
+			let fileToSave = new Blob([angular.toJson(toDownload, true)], {
 				type: 'application/json',
 				name: filename
 			})
-			FileSaver.saveAs(filteToSave, filename);
+			FileSaver.saveAs(fileToSave, filename);
 			
 		}
 
@@ -130,7 +130,6 @@
 		 */
 		function uploadProjectTemplate(event) {
 			let importTemplate = angular.fromJson(event.originalTarget.result)
-			console.log(importTemplate);
 			projecttemplateConnectorFactory.createProjectTemplate(importTemplate);
 
 		}
