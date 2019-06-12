@@ -129,7 +129,7 @@
 		 * @param {loadend event of a FileReader instance} event 
 		 */
 		function uploadProjectTemplate(event) {
-			let importTemplate = angular.fromJson(event.originalTarget.result)
+			let importTemplate = angular.fromJson(event.target.result)
 			projecttemplateConnectorFactory.createProjectTemplate(importTemplate);
 
 		}
