@@ -24,7 +24,7 @@ public class ProjectServiceImpl extends AbstractServiceImpl<ProjectEntity> imple
 		ProjectEntity entity = findById(projectid);
 		if (entity == null) {
 			LOG.error("Error setup project for generation. Project with id " + projectid + " could not be found.");
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.projectnotfound");
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectservice.findprojectbyid.projectnotfound");
 			throw new NotificationException(data);
 		}
 		return entity;

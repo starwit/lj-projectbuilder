@@ -86,7 +86,7 @@ public class ProjectRenamer {
 				}
 			} catch (IOException e) {
 				LOG.error("Problems moving file with name " + childdirectory.getName(), e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.renamedirectories");
+				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectrenamer.renamedirectories");
 				throw new NotificationException(data);
 			}
 		}
@@ -154,7 +154,7 @@ public class ProjectRenamer {
 			
 		} catch (IOException e) {
 			LOG.error("Error processing file with name " + newProjectName, e);
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.renamefilecontent");
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectrenamer.renamefilecontent");
 			throw new NotificationException(data);
 		} finally {
 			try {

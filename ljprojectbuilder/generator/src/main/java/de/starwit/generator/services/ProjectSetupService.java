@@ -60,9 +60,10 @@ public class ProjectSetupService implements Serializable {
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
-		
-		projectCheckout.deleteOldProject(Constants.TMP_DIR + Constants.FILE_SEP + project.getTargetPath());
-		String newProjectFolder = projectCheckout.createNewProjectDirectory(project);
+		String destDirString = Constants.TMP_DIR + project.getTargetPath();
+		projectCheckout.deleteTempProject(destDirString);
+
+		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
 		project = projectService.update(project);
 		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
@@ -73,7 +74,6 @@ public class ProjectSetupService implements Serializable {
 		GeneratorDto checkoutDto = dto;
 		checkoutDto.setProject(project);
 		projectCheckout.checkoutProjectTemplate(dto);
-		
 		projectRenamer.renameProjectTitle(project);
 		projectRenamer.renamePackage(project);
 		dto.setProject(project);

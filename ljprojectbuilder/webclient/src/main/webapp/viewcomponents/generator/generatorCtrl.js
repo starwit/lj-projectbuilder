@@ -33,8 +33,8 @@
 			getSelectedDomainIds();
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
-				ctrl.closeDialog('loadingdialog');
-			}, setupError);
+				dialogService.closeDialog('loadingdialog');
+			}, setupDownloadError);
 		};
 		
 		function checkTargetRepo() {
@@ -113,8 +113,13 @@
 		/**
 		 * Error message after loading the project.
 		 */
-		function setupError(response) {
-			dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+		function setupDownloadError(response) {
+			dialogService.closeDialog('loadingdialog');
+			if (response == 'NOT_AUTHORIZED') {
+				dialogService.showDialog(null, null, "authenticationdialog", function(){});
+			} else {
+				dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+			}
 		};
 		
 		function closeDialog(dialogid) {

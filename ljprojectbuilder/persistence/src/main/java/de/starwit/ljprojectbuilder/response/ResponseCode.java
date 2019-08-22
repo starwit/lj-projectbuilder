@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public enum ResponseCode {
-	OK("200"), EMPTY("204"), NOT_FOUND("404"), NOT_VALID("451"), ERROR("500"), NOT_DELETE("205"), NOT_IMPLEMENTED("501");
+	OK("200"), EMPTY("204"), NOT_FOUND("404"), NOT_VALID("451"), ERROR("500"), NOT_DELETE("205"), NOT_IMPLEMENTED("501"), NOT_AUTHORIZED("401");
 	
 	private String msgCode;
 	

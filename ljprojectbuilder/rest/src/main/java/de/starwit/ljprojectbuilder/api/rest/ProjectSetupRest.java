@@ -51,7 +51,7 @@ public class ProjectSetupRest {
 		} catch (Exception ex) {
 			LOG.error(ex.getMessage(), ex);
 			Response<Boolean> response = new Response<>(false);
-			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.ERROR, "generator.error");
+			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.ERROR, "error.projectsetup.downloadproject");
 			response.setMetadata(responseMetadata);
 			return response;
 		}

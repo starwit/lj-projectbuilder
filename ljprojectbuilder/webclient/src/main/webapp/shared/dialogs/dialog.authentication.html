@@ -1,0 +1,58 @@
+<div class="msgBox" id="authenticationdialog" style="display:none">
+	<table>
+		<tr>
+			<td>
+				<span class="msg success">
+					<span class="button delete" ng-click="ctrl.closeDialog('authenticationdialog')"><a href="">x</a></span>
+					<h2>{{ctrl.dialog.title | translate }}</h2>
+					<table>
+						<colgroup>
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+							<col class="">
+						</colgroup>
+						<thead>
+							<tr>
+								<td>
+									<h3>{{'generator.login' | translate}}</h3>
+								</td>
+								<td>&nbsp;</td>
+								<td class="aRight">
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<span>{{'generator.username' | translate}}: </span>
+								</td>
+								<td>
+									<input type="string" ng-model="ctrl.generatorDto.username"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>{{'generator.password' | translate}}: </span>
+								</td>
+								<td>
+									<input type="password" ng-model="ctrl.generatorDto.password"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="bottom aCenter">
+						<span class="button add"><a href="" ng-click="ctrl.closeDialog('authenticationdialog');ctrl.projectDownload();">{{'generator.button.downloadproject' | translate}}</a></span>
+						<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
+					</div>
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>
