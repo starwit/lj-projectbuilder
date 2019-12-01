@@ -22,6 +22,9 @@
 								<label for="location">{{'projecttemplate.location' | translate}}</label>
 								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" required />
 								<label  ng-show="ctrl.form.location.$error.required">{{'error.required' | translate}}</label>
+								<br />
+								<label for="credentialsRequired">{{'projecttemplate.credentials' | translate}}</label>
+								<input name="credentialsRequired" type="checkbox" ng-model="ctrl.projecttemplate.credentialsRequired" />
 							</td>
 							<td>
 								<label for="branch">{{'projecttemplate.branch' | translate}}</label>

@@ -118,6 +118,7 @@
 	"projecttemplate.location"			: "Git-Repository",
 	"projecttemplate.packageprefix"	: "Java-Package",
 	"projecttemplate.branch" 			: "Branch",
+	"projecttemplate.credentials"		: "Mit Authentifizierung",
 	"projecttemplate.description" 		: "Beschreibung",	
 	"codetemplate.uppercasefirst"	: "großschreiben",
 	"codetemplate.lowercase"			: "alles klein",

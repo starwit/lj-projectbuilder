@@ -40,6 +40,8 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	@Size(max=100)
 	private String branch = "master";
 	
+	private boolean credentialsRequired = false;
+	
 	private Set<CodeTemplateEntity> codeTemplates;
 	
 	@Column(name="DESCRIPTION")
@@ -85,6 +87,15 @@ public class ProjectTemplateEntity extends AbstractEntity {
 
 	public void setBranch(String branch) {
 		this.branch = branch;
+	}
+	
+	@Column(name="CREDENTIALS_REQUIRED")
+	public boolean isCredentialsRequired() {
+		return credentialsRequired;
+	}
+
+	public void setCredentialsRequired(boolean credentialsRequired) {
+		this.credentialsRequired = credentialsRequired;
 	}
 
 	@OrderBy("category, fileNameSuffix asc")
