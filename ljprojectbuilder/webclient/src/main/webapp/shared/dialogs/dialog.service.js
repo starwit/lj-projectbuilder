@@ -3,14 +3,17 @@ dialogService = [function dialogService() {
 	    		dialog : {
 	    			id : {
 	    				success: 'successdialog', 
-	    				error: 'errordialog'
+	    				error: 'errordialog',
+	    				fileimport: 'importdialog'
 	    			},
 	    			title: 'dialog.title',
 	    			text: 'dialog.text',
+	    			validationErrors: null,
 	    			gotoAfter: null
 	    		},
 	    		showDialog : showDialog,
-	    		closeDialog: closeDialog
+	    		closeDialog: closeDialog,
+	    		showValidationDialog: showValidationDialog
 	     };
 	    return dialogService;
 	    
@@ -20,6 +23,17 @@ dialogService = [function dialogService() {
 		function showDialog(dialogtitle, dialogtext, dialogid, gotoAfter) {
 			dialogService.dialog.title = dialogtitle;
 			dialogService.dialog.text = dialogtext;
+			dialogService.dialog.gotoAfter = gotoAfter;
+			document.getElementById(dialogid).style.display = 'block';
+		};
+
+		/**
+		 * Display dialog after saving project configuration.
+		 */
+		function showValidationDialog(dialogtitle, dialogtext, validationErrors, dialogid, gotoAfter) {
+			dialogService.dialog.title = dialogtitle;
+			dialogService.dialog.text = dialogtext;
+			dialogService.dialog.validationErrors = validationErrors;
 			dialogService.dialog.gotoAfter = gotoAfter;
 			document.getElementById(dialogid).style.display = 'block';
 		};

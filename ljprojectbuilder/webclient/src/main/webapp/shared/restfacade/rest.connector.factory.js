@@ -12,6 +12,8 @@ restConnectorFactory = ['$http', '$location', '$q',
 				return response.data.result;
 			} else if (response.data.metadata.responseCode == 'NOT_AUTHORIZED') {
 				return $q.reject(response.data.metadata.responseCode);
+			} else if (response.data.metadata.responseCode == 'NOT_VALID') {
+				return $q.reject(response.data.metadata);
 			} else {
 				return $q.reject(response.data.metadata.message);
 			}

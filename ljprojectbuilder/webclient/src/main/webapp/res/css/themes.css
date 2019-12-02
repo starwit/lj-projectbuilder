@@ -117,6 +117,7 @@
 #page .button.delete a:hover{color:#000!important}
 
 #page #dialogBox .button.delete a{color:#fff!important;background-color:transparent!important;-moz-box-shadow:none;-webkit-box-shadow:none;-o-box-shadow:none;-ms-box-shadow:none;box-shadow:none}
+#page #dialogBox .button.delete.dark a{color:#444!important;background-color:transparent!important;-moz-box-shadow:none;-webkit-box-shadow:none;-o-box-shadow:none;-ms-box-shadow:none;box-shadow:none}
 
 /* --- EFFECTS / TRANSITION --- */
 

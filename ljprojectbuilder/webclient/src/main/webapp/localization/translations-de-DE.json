@@ -4,13 +4,14 @@
 	"theme.rows"					: "4",
 	"theme.properties"				: "rounded shadows",
 
+	"validation.error"				: "Es sind folgende Fehler aufgetreten: ",
 	"error.number"					: "Der eingegebene Wert muss eine Zahl sein.",
 	"error.minlength"				: "Der eingegebene Wert ist zu kurz.",
 	"error.maxlength"				: "Der eingegebene Wert ist zu lang.",
 	"error.required"				: "Das Feld darf nicht leer sein.",
 	"error.pattern"					: "Die Eingabe ist nicht korrekt.",
 	"error.url"						: "Der URL muss gültig sein.",
-	"error.pattern"					: "Der Pfad muss gültig sein.",
+	"error.pattern"                 : "Der Pfad muss gültig sein.",
 	"error.patternmsg"				: "Der Pfad muss gültig sein.",
 	"project.copytemplate.success" 	: "Das Projekt konnte erfolgreich kopiert werden.",
 	"error.projectsetup.downloadproject" : "Fehler beim Download des Projektes. Bitte kontaktieren Sie Ihren Administrator und lassen Sie die Server-Logs prüfen.",
@@ -41,6 +42,7 @@
 	"projectsetup.dialog.success.title" 	: "Neues Projekt erzeugen",
 	"projectsetup.execute.success"	 : "Das Projekt wurde erfolgreich erstellt",
 	"projectsetup.dialog.error.title" : "Fehler beim Erzeugen eines Projektes",
+	"import.dialog.button.import"	: "Importieren",
 	
 	"domain.dialog.error.title" 	: "Fehler",
 	"domain.dialog.success.title" 	: "Aktion erfolgreich",
@@ -139,6 +141,8 @@
 	"codetemplate.category"				: "Kategorie",
 	
 	"projecttemplate.dialog.error.title" 	: "Fehler",
+	"projecttemplate.dialog.import.title"	: "Projekttemplate importieren",
+	"projecttemplate.dialog.import.text"	: "Wählen Sie eine Datei aus",
 	"projecttemplate.dialog.success.title" 	: "Aktion erfolgreich",
 	"projecttemplate.save.success" 			: "Das Projekttemplate  wurde erfolgreich gespeichert.",
 	"projecttemplate.save.error"				: "Das Projekttemplate konnte nicht gespeichert werden.",
@@ -148,8 +152,8 @@
 	
 	"###END###" 					: "Genererierung endet",
 	
-	"button.create" 				: "erstellen",
-	"button.copy" 				: "kopieren",
+	"button.create" 				: "Erstellen",
+	"button.copy" 				: "Kopieren",
 	"button.update" 				: "Bearbeiten",
 	"button.save" 					: "Speichern",
 	"button.generate" 				: "Generieren",
@@ -157,8 +161,9 @@
 	"button.savenext"				: "Speichern und weiter",
 	"button.next"					: "Weiter",
 	"button.back"					: "Zurück",
-	"button.import"					: "importieren",
-	"button.export"					: "export",
+	"button.import"					: "Importieren",
+	"button.export"					: "Exportieren",
+	"button.cancel"					: "Abbrechen",
 	"button.domaincreate"	: "Weitere Domain hinzufügen",
 	"button.list.target.repo" : "Prüfe Ziel-Repository",
 	"button.create.target.repo" : "Ziel-Repository erzeugen"

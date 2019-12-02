@@ -1,11 +1,9 @@
 <div id="headerBox" ng-include="'shared/menus/menu.project.all.html'"></div>
 
-<div id="subheaderBox" class="aCenter">
-	<div class="bottom">
-		<span class="button add"><a ng-click="ctrl.gotoProjectTemplate.create();">+ {{'projecttemlate' | translate}} {{ 'button.add' | translate}}</a></span>
-		<input id="import" type="file" accept=".json,.txt">
-			<span class="button add"><a ng-click="ctrl.importProjectTemplate();">+ {{'projecttemlate' | translate}} {{ 'button.import' | translate}}</a></span>
-		</input>
+<div id="subheaderBox">
+	<div class="container">
+		<button class="icon import right hint" ng-click="ctrl.showImportDialog();" title="{{'button.import' | translate}}"><span>{{'button.import' | translate}}</span></button>
+		<button class="icon add right hint" ng-click="ctrl.gotoProjectTemplate.create();" title="{{'button.add' | translate}}"><span>{{'button.add' | translate}}</span></button>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -65,4 +63,5 @@
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
 	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.import.html'"></div>
 </div>

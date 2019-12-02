@@ -14,6 +14,7 @@
 		ctrl.gotoProjectTemplate = gotoProjectTemplate;
 		ctrl.showDetails = showDetails;
 		ctrl.dialog = dialogService.dialog;
+		ctrl.showImportDialog = showImportDialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.exportProjectTemplate = exportProjectTemplate;
 		ctrl.importProjectTemplate = importProjectTemplate;
@@ -85,6 +86,19 @@
 		function closeDialog(dialogid) {
 			dialogService.closeDialog(dialogid);
 		};
+		
+		function showImportDialog() {
+			dialogService.showDialog("projecttemplate.dialog.import.title", "projecttemplate.dialog.import.text", dialogService.dialog.id.fileimport, gotoProjectTemplate.all);
+		};
+		
+		function importError(response) {
+			dialogService.showValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoProjectTemplate.all);
+		};
+		
+		function importSuccess() {
+			refresh();
+			dialogService.closeDialog('importdialog');
+		}
 
 		/**
 		 * Export a loaded template
@@ -116,7 +130,6 @@
 		 */
 		function importProjectTemplate() {
 			let importInput = $window.document.getElementById("import");
-
 			if (importInput.files.length > 0) {
 				var reader = new FileReader();
 				reader.addEventListener("loadend", uploadProjectTemplate)
@@ -130,7 +143,7 @@
 		 */
 		function uploadProjectTemplate(event) {
 			let importTemplate = angular.fromJson(event.target.result)
-			projecttemplateConnectorFactory.createProjectTemplate(importTemplate);
+			projecttemplateConnectorFactory.createProjectTemplate(importTemplate).then(importSuccess, importError);
 
 		}
 	};

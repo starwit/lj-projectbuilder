@@ -16,7 +16,7 @@ textarea{overflow:auto}
 select{cursor:pointer; padding:0px; background: #ffffff}
 
 label{display:block;padding:0 0 7px 0;width:100%;font-weight:normal;color:#7f7f7f}
-span{padding:0 0 2% 0;width:100%;font-weight:normal;}
+span{padding:0 0 2% 0;width:170%;font-weight:normal;}
 
 ng-invalid{border:1px solid red}
 
@@ -28,6 +28,7 @@ button[disabled],html input[disabled]{cursor:default}
 button::-moz-focus-inner,input::-moz-focus-inner{border:none;padding:0}
 
 button{display:inline-block;padding:30px;overflow:visible;line-height:100%;vertical-align:top;border:none}
+button.thin{padding:10px}
 button.icon{position:relative;z-index:2;float:left;display:block;background-size:70%;background-position:center center;background-repeat:no-repeat}
 button.icon+button.icon{margin-left:10px}
 button.icon+button.next{margin-right:10px;margin-left:0}
@@ -39,6 +40,7 @@ button.add{background-image:url(../img/icons/add.png)}
 button.back{background-image:url(../img/icons/back.png)}
 button.next{background-image:url(../img/icons/next.png)}
 button.save{background-image:url(../img/icons/save.png)}
+button.import{background-image:url(../img/icons/import.png)}
 
 button.hint{position:relative}
 button span{display:none}

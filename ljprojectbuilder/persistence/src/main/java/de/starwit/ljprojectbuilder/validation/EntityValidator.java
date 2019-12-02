@@ -23,11 +23,14 @@ public class EntityValidator {
 
 		if(!constraintViolations.isEmpty()) {
 			List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+			String interpolatedMessage = "";
 			for (ConstraintViolation<AbstractEntity> constraintViolation : constraintViolations) {
-				ValidationError ve = new ValidationError(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage());
+				ValidationError ve = new ValidationError(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage().replace("{fieldname}", constraintViolation.getPropertyPath().toString()));
 				validationErrors.add(ve);
+				interpolatedMessage = interpolatedMessage + "\r\n" + ve.getMessage();
 			}
-			return new ResponseMetadata(ResponseCode.NOT_VALID, "Folgende Fehler sind aufgetreten:", validationErrors);
+			
+			return new ResponseMetadata(ResponseCode.NOT_VALID, "validation.error" , validationErrors);
 		} 
 		else return new ResponseMetadata(ResponseCode.OK, "Die Validierung war erfolgreich.");
 	}
