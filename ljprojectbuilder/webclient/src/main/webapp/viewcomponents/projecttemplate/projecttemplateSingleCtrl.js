@@ -29,6 +29,8 @@
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
 				doMaintainThenGoto(gotoProjectTemplate.all);
+			} else if (ctrl.form.$invalid) {
+				return;
 			} else {
 				gotoProjectTemplate.all();
 			}
@@ -116,7 +118,11 @@
 		 * Error message after saving.
 		 */
 		function saveError(response) {
-			dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+			if (response.responseCode == 'NOT_VALID') {
+				dialogService.showValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
+			} else {
+				dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+			}
 		}
 		
 		/**

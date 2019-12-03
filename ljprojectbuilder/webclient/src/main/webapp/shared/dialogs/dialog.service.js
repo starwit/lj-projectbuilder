@@ -28,7 +28,7 @@ dialogService = [function dialogService() {
 		};
 
 		/**
-		 * Display dialog after saving project configuration.
+		 * Display dialog with errors after saving failed.
 		 */
 		function showValidationDialog(dialogtitle, dialogtext, validationErrors, dialogid, gotoAfter) {
 			dialogService.dialog.title = dialogtitle;

@@ -47,8 +47,9 @@ public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> impleme
 	
 	@Override
 	public DomainEntity create(DomainEntity entity) {
+		ProjectEntity project = getEntityManager().find(ProjectEntity.class, entity.getProject().getId());
 		if (entity != null) {
-			entity.setProject(getEntityManager().find(ProjectEntity.class, entity.getProject().getId()));
+			entity.setProject(project);
 		}
 		return super.create(entity);
 	}

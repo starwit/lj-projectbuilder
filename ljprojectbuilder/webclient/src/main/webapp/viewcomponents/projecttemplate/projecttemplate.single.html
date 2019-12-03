@@ -20,7 +20,7 @@
 						<tr>						
 							<td>
 								<label for="location">{{'projecttemplate.location' | translate}}</label>
-								<input name="location" id="location" type="text" ng-model="ctrl.projecttemplate.location" required />
+								<input name="location" id="location" type="text" placeholder="https://github.com/witchpou/lirejarp.git" ng-model="ctrl.projecttemplate.location" required />
 								<label  ng-show="ctrl.form.location.$error.required">{{'error.required' | translate}}</label>
 								<br />
 								<label for="credentialsRequired">{{'projecttemplate.credentials' | translate}}</label>
@@ -36,11 +36,11 @@
 						<tr>
 							<td>
 								<label for="title">{{'projecttemplate.title' | translate}}</label>
-								<input name="title" id="title" type="text" ng-model="ctrl.projecttemplate.title" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<input name="title" id="title" type="text" placeholder="lirejarp" ng-model="ctrl.projecttemplate.title" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
 								<label  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
 								<label ng-show="ctrl.form.title.$error.pattern">{{'error.project.pattern' | translate}}</label>		
 								<label for="packageprefix">{{'projecttemplate.packageprefix' | translate}}</label>
-								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.projecttemplate.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+								<input name="packageprefix" id="packageprefix" type="text" placeholder="starwit" ng-model="ctrl.projecttemplate.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/"/>
 								<label  ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
 								<label ng-show="ctrl.form.packageprefix.$error.pattern">{{'error.project.pattern' | translate}}</label>			
 							</td>

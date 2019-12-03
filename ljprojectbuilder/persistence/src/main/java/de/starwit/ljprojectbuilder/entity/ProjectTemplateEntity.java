@@ -23,19 +23,19 @@ public class ProjectTemplateEntity extends AbstractEntity {
 
 	@NotNull
 	@Size(max=100)
-	private String location = "https://github.com/witchpou/lirejarp.git";
+	private String location;
 	
 	@NotNull
 	@Pattern(regexp="^[A-Za-z0-9]*$")
 	@Size(max=100)
-	private String title = "lirejarp";
+	private String title;
 	
 	private String description;
 	
 	@NotNull
 	@Pattern(regexp="^[A-Za-z0-9]*$")
 	@Size(max=100)
-	private String packagePrefix = "starwit";
+	private String packagePrefix;
 	
 	@Size(max=100)
 	private String branch = "master";
