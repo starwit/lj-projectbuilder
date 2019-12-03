@@ -16,6 +16,7 @@
 		ctrl.projectDownload = projectDownload;
 		ctrl.checkTargetRepo = checkTargetRepo;
 		ctrl.createTargetRepo = createTargetRepo;
+		ctrl.checkAuthentication = checkAuthentication;
 		init();
 		
 		/**
@@ -35,6 +36,14 @@
 				document.getElementById('downloadlink').click();
 				dialogService.closeDialog('loadingdialog');
 			}, setupDownloadError);
+		};
+		
+		function checkAuthentication() {
+			if (ctrl.generatorDto.project.template.credentialsRequired) {
+				dialogService.showDialog(null, null, "authenticationdialog", function(){});
+			} else {
+				projectDownload();
+			}
 		};
 		
 		function checkTargetRepo() {
@@ -115,10 +124,9 @@
 		 */
 		function setupDownloadError(response) {
 			dialogService.closeDialog('loadingdialog');
+			dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
 			if (response == 'NOT_AUTHORIZED') {
-				dialogService.showDialog(null, null, "authenticationdialog", function(){});
-			} else {
-				dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+				//is this needed?
 			}
 		};
 		

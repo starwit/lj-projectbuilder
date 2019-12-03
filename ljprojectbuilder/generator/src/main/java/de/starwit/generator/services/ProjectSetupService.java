@@ -62,7 +62,6 @@ public class ProjectSetupService implements Serializable {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		String destDirString = Constants.TMP_DIR + project.getTargetPath();
 		projectCheckout.deleteTempProject(destDirString);
-
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
 		project = projectService.update(project);

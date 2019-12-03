@@ -14,7 +14,7 @@ import javax.inject.Named;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import de.starwit.generator.config.Constants;
@@ -41,7 +41,7 @@ public class ProjectCheckout {
 		}
 	}
 	
-	public void deleteTempProject(String oldDestDirUrl) throws NotificationException {
+	public void deleteTempProject(String oldDestDirUrl) {
 			File oldDestDir = new File(oldDestDirUrl);
 			if (!oldDestDir.exists()) {
 				return;
@@ -51,15 +51,15 @@ public class ProjectCheckout {
 				Files.walkFileTree(oldDestDirPath, new DeleteFileVisitor());
 			} catch (IOException e) {
 				LOG.error("Error deleting temporary folder for project", e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.deletetempprojectfolder");
-				throw new NotificationException(data);
 			}
 	}
 	
 	private class DeleteFileVisitor extends SimpleFileVisitor<Path> {
 		@Override
 		public FileVisitResult visitFile(Path file, BasicFileAttributes attributes) throws IOException {
-			Files.deleteIfExists(file); // this will work because it's always a File
+			File file1 = new File(file.toUri());
+			file1.setWritable(true);
+			Files.deleteIfExists(file);
 			return FileVisitResult.CONTINUE;
 		}
 
@@ -76,6 +76,7 @@ public class ProjectCheckout {
 	 * @return 
 	 * @throws NotificationException 
 	 */
+	@SuppressWarnings("unused")
 	public void checkoutProjectTemplate(GeneratorDto dto)  throws NotificationException {
 		ProjectEntity entity = dto.getProject();
 		String destDirString = Constants.TMP_DIR + entity.getTargetPath();
@@ -85,8 +86,9 @@ public class ProjectCheckout {
 		if (entity.getTemplate().getBranch() != null) {
 			branch = entity.getTemplate().getBranch();
 		}
-
+		
 		try {
+
 			CloneCommand cloneCommand = Git.cloneRepository()
 					.setURI(srcDir)
 					.setDirectory(destDir)
@@ -95,18 +97,27 @@ public class ProjectCheckout {
 			if (dto.getProject().getTemplate().isCredentialsRequired()) {
 				cloneCommand = cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(dto.getUsername(), dto.getPassword()));
 			}
-			Git git = cloneCommand.call();
-			git.checkout();
-		} catch (TransportException e) {
-			this.deleteTempProject(destDirString);
-			LOG.error("Error copying files for project template.", e);
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.NOT_AUTHORIZED, "error.projectcheckout.checkoutprojecttemplate.transport");
-			throw new NotificationException(data);
+			
+			Git git = null;
+			try {
+				git = cloneCommand.call();
+				git.checkout();
+				git.close();
+			} catch (GitAPIException e) {
+				if (git != null) {
+					git.close();
+				}
+				this.deleteTempProject(destDirString);
+				LOG.error("Error copying files for project template.", e);
+				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.default");
+				throw new NotificationException(data);
+			}
 		} catch (Exception e) {
 			this.deleteTempProject(destDirString);
 			LOG.error("Error copying files for project template.", e);
 			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.default");
 			throw new NotificationException(data);
 		}
+
 	}
 }
