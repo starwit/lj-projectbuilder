@@ -92,7 +92,7 @@ public class ProjectCheckout {
 					.setDirectory(destDir)
 					.setCloneAllBranches( true )
 					.setBranch(branch);
-			if (dto.getUsername() != null) {
+			if (dto.getProject().getTemplate().isCredentialsRequired()) {
 				cloneCommand = cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(dto.getUsername(), dto.getPassword()));
 			}
 			Git git = cloneCommand.call();

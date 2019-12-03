@@ -83,7 +83,7 @@ public class ZipDownloadServlet extends HttpServlet {
 	    }
 
 	    String zipEntryName = fileToZip.getName();
-	    if (".git".equals(zipEntryName) || ".gitignore".equals(zipEntryName)) {
+	    if (".git".equals(zipEntryName)) {
 	    	return;
 	    }
 

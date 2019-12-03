@@ -20,7 +20,7 @@ import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.exception.NotificationException;
 /**
- * Class for processeing the whole project setup. A newly configured project is created an can be used.
+ * Class for processing the whole project setup. A newly configured project is created an can be used.
  * @author Anett Huebner
  *
  */
