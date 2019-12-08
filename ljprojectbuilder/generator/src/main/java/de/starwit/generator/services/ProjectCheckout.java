@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import de.starwit.generator.config.Constants;
@@ -103,6 +104,11 @@ public class ProjectCheckout {
 				git = cloneCommand.call();
 				git.checkout();
 				git.close();
+			} catch (TransportException e) {
+				this.deleteTempProject(destDirString);
+				LOG.error("Error copying files for project template.", e);
+				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.transport");
+				throw new NotificationException(data);
 			} catch (GitAPIException e) {
 				if (git != null) {
 					git.close();

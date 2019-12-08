@@ -40,7 +40,7 @@
 		
 		function checkAuthentication() {
 			if (ctrl.generatorDto.project.template.credentialsRequired) {
-				dialogService.showDialog(null, null, "authenticationdialog", function(){});
+				dialogService.showDialog("generator.login", null, "authenticationdialog", function(){});
 			} else {
 				projectDownload();
 			}
