@@ -1,22 +1,20 @@
 package de.starwit.generator.services;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Locale;
 
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jgit.api.CloneCommand;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.TransportException;
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
@@ -88,42 +86,63 @@ public class ProjectCheckout {
 			branch = entity.getTemplate().getBranch();
 		}
 		
+		if (dto.getProject().getTemplate().isCredentialsRequired()) {
+			dto.setPassword(dto.getPassword().replaceAll("@", "%40"));
+			srcDir = srcDir.replaceAll("://", "://" + dto.getUsername() + ":" + dto.getPassword() + "@");
+		}
+		
+		gitCloneCommand(srcDir, destDirString, branch);
+	}
+
+	public void gitCloneCommand(String srcDir, String destDirString, String branch) throws NotificationException {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		processBuilder.directory(new File(destDirString));
+		String OS = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
+		if (OS.indexOf("win") >= 0) {
+			// Run a windows command
+			processBuilder.command("cmd.exe", "/c", "git clone -b " + branch + " " + srcDir);
+		} else {
+			// Run a shell command
+			processBuilder.command("bash", "-c", "git clone -b " + branch + " " + srcDir);
+		}
+
 		try {
 
-			CloneCommand cloneCommand = Git.cloneRepository()
-					.setURI(srcDir)
-					.setDirectory(destDir)
-					.setCloneAllBranches( true )
-					.setBranch(branch);
-			if (dto.getProject().getTemplate().isCredentialsRequired()) {
-				cloneCommand = cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(dto.getUsername(), dto.getPassword()));
+			Process process = processBuilder.start();
+			StringBuilder output = new StringBuilder();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				output.append(line + "\n");
 			}
-			
-			Git git = null;
-			try {
-				git = cloneCommand.call();
-				git.checkout();
-				git.close();
-			} catch (TransportException e) {
+
+			int exitVal = process.waitFor();
+			if (exitVal == 0) {
+				LOG.info("git clone SUCCESS with directory " + srcDir);
+			} else {
+				process.destroy();
 				this.deleteTempProject(destDirString);
-				LOG.error("Error copying files for project template.", e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.transport");
-				throw new NotificationException(data);
-			} catch (GitAPIException e) {
-				if (git != null) {
-					git.close();
-				}
-				this.deleteTempProject(destDirString);
-				LOG.error("Error copying files for project template.", e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.default");
+				LOG.error("Error copying files for project template.");
+				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+						"error.projectcheckout.checkoutprojecttemplate.transport");
 				throw new NotificationException(data);
 			}
-		} catch (Exception e) {
+
+		} catch (IOException e) {
 			this.deleteTempProject(destDirString);
 			LOG.error("Error copying files for project template.", e);
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.projectcheckout.checkoutprojecttemplate.default");
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+					"error.projectcheckout.checkoutprojecttemplate.transport");
+			throw new NotificationException(data);
+		} catch (InterruptedException e) {
+			this.deleteTempProject(destDirString);
+			LOG.error("Error copying files for project template.", e);
+			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+					"error.projectcheckout.checkoutprojecttemplate.transport");
 			throw new NotificationException(data);
 		}
 
 	}
+
 }
