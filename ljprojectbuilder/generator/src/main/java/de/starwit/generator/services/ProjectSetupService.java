@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
@@ -60,7 +59,7 @@ public class ProjectSetupService implements Serializable {
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
-		String destDirString = Constants.TMP_DIR + project.getTargetPath();
+		String destDirString = project.getTargetPath();
 		projectCheckout.deleteTempProject(destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
