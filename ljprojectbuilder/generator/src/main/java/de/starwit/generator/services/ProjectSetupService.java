@@ -1,7 +1,9 @@
 package de.starwit.generator.services;
 
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.ejb.Local;
@@ -60,8 +62,8 @@ public class ProjectSetupService implements Serializable {
 	@TransactionAttribute(TransactionAttributeType.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
-		String destDirString = project.getTargetPath();
-		projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
+		//String destDirString = project.getTargetPath();
+		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
 		project = projectService.update(project);
@@ -78,5 +80,18 @@ public class ProjectSetupService implements Serializable {
 		dto.setProject(project);
 		
 		generatorSerivce.generate(project.getId());
+		findFilesAndDelete();
+	}
+	
+	private void findFilesAndDelete() {
+		File oldDestDir = new File(Constants.TMP_DIR);
+		final File[] files = oldDestDir.listFiles((File pathname) -> pathname.getName().startsWith("LJ_"));
+		for (File file : files) {
+			long diff = new Date().getTime() - file.lastModified();
+
+			if (diff > 1 * 60 * 1000) {
+				projectCheckout.deleteTempProject(file.getAbsolutePath().toString());
+			}
+		}
 	}
 }

@@ -19,14 +19,13 @@ import org.apache.log4j.Logger;
 @Singleton
 @Startup
 public class StartupShutdownService {
+	final static Logger LOG = Logger.getLogger(StartupShutdownService.class);
  
     @PostConstruct
     private void startup() {
     	findFilesAndDelete();
     }
     
-	final static Logger LOG = Logger.getLogger(StartupShutdownService.class);
- 
     @PreDestroy
     private void shutdown() {
     	findFilesAndDelete();
