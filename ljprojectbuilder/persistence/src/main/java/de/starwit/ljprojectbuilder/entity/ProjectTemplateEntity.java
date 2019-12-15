@@ -26,14 +26,14 @@ public class ProjectTemplateEntity extends AbstractEntity {
 	private String location;
 	
 	@NotNull
-	@Pattern(regexp="^[A-Za-z0-9]*$")
+	@Pattern(regexp="^([a-zA-Z_0-9]|-)*$")
 	@Size(max=100)
 	private String title;
 	
 	private String description;
 	
 	@NotNull
-	@Pattern(regexp="^[A-Za-z0-9]*$")
+	@Pattern(regexp="^([a-zA-Z_0-9]|-)*$")
 	@Size(max=100)
 	private String packagePrefix;
 	

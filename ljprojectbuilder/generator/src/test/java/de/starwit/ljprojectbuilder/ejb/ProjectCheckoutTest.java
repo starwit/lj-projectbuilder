@@ -23,21 +23,21 @@ public class ProjectCheckoutTest {
 
 	@Test
 	public void cloneGitRepoWithoutAuthTest() throws NotificationException, IOException, InterruptedException {
-		final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
-		String dir = destDir.toString();
-		LOG.info("Path is " + dir);
+		final Path destDir = this.createDirectory(Constants.TMP_DIR + "tmplirejarp").toPath();
+		String file = destDir.getFileName().toString();
+		LOG.info("Path is " + destDir.toString());
 		Git.gitClone(destDir, "https://github.com/witchpou/lirejarp.git", "master");
 
 		String[] dirContent = destDir.toFile().list();
 		assertTrue("Cloning repository results in an empty directory.", (dirContent != null && dirContent.length > 0));
-		checkout.deleteTempProject(dir);
+		checkout.deleteTempProject(Constants.TMP_DIR + file);
 	}
 
 	private File createDirectory(final String location) {
 		final File file = new File(location);
 		if (file.exists()) {
 			checkout.deleteTempProject(location);
-			fail("Directory " + location + "should not exist.");
+			fail("Directory " + location + " should not exist.");
 		}
 		final boolean iscreated = file.mkdir();
 		assertTrue(iscreated);

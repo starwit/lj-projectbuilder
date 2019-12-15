@@ -92,7 +92,7 @@ public class ProjectCheckout {
 		try {
 			Git.gitClone(destDir.toPath(), srcDir, branch);
 		} catch (IOException | InterruptedException e) {
-			this.deleteTempProject(destDirString);
+			this.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for project template.", e);
 			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
 					"error.projectcheckout.checkoutprojecttemplate.transport");
