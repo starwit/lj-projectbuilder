@@ -36,7 +36,7 @@ public class ProjectRenamer {
 		LOG.info("Try to rename project " + entity.getTemplate().getPackagePrefix() + ".");
 
 		File parentdirectory;
-		parentdirectory = new File(entity.getTargetPath());
+		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		String currentProjectName = entity.getTemplate().getTitle();
 		renameDirectories(currentProjectName, entity.getTitle(), parentdirectory, false);
 		renameFiles(currentProjectName, entity.getTitle(), parentdirectory);
@@ -50,7 +50,7 @@ public class ProjectRenamer {
 		LOG.info("Try to rename package " + entity.getTitle() + ".");
 
 		File parentdirectory;
-		parentdirectory = new File(entity.getTargetPath());
+		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		renameDirectories(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory, true);
 		renameFiles(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory);
 	}

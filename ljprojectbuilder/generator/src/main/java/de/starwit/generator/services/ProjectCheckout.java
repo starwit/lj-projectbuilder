@@ -29,7 +29,7 @@ public class ProjectCheckout {
 		try {
 			Path destDir = null;
 			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + project.getTitle());
-			return destDir.toString();
+			return destDir.getFileName().toString();
 		} catch (final IOException e) {
 			LOG.error("Error creating temporary folder for project", e);
 			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
@@ -76,7 +76,7 @@ public class ProjectCheckout {
 	 */
 	public void checkoutProjectTemplate(final GeneratorDto dto) throws NotificationException {
 		final ProjectEntity entity = dto.getProject();
-		final String destDirString = entity.getTargetPath();
+		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath();
 		final File destDir = new File(destDirString);
 		String srcDir = entity.getTemplate().getLocation();
 		String branch = Constants.DEFAULT_BRANCH;
