@@ -21,14 +21,17 @@ ENV PATH /usr/local/tomee/bin:$PATH
 #add variable CATALINA_HOME
 ENV CATALINA_HOME /usr/local/tomee 
 
+#activate usage of proxy yes/no
+ENV USE_PROXY no
+
 #add http proxy
-ENV HTTP_PROXY
+ENV HTTP_PROXY set_proxy
 
 #set proxy for git
-RUN git config --global http.proxy $HTTP_PROXY
+RUN if [ "$USE_PROXY" = "yes" ]; then git config --global http.proxy $HTTP_PROXY; fi
 
 #set proxy for git
-RUN git config --global https.proxy $HTTP_PROXY
+RUN if [ "$USE_PROXY" = "yes" ]; then git config --global https.proxy $HTTP_PROXY; fi
 
 #set working directory
 WORKDIR $CATALINA_HOME 
