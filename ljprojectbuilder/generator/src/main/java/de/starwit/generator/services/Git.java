@@ -28,11 +28,11 @@ public class Git {
 	}
 
 	public static void gitClone(Path directory, String originUrl) throws IOException, InterruptedException {
-		runCommand(directory, "git", "clone", originUrl);
+		runCommand(directory, "git", "clone", originUrl, ".");
     }
     
     public static void gitClone(Path directory, String originUrl, String branch) throws IOException, InterruptedException {
-		runCommand(directory, "git", "clone", "-b", branch, originUrl);
+		runCommand(directory, "git", "clone", "-b", branch, originUrl, ".");
 	}
 
 	public static void runCommand(Path directory, String... command) throws IOException, InterruptedException {
