@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
+import de.starwit.ljprojectbuilder.entity.AttributeEntity;
 import de.starwit.ljprojectbuilder.entity.DataType;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
@@ -58,7 +59,18 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 		if (entity.getProject() == null) {
 			ProjectEntity projectEntity = new ProjectEntity();
 			projectEntity.setId(entity.getProjectId());
+			entity.setProject(projectEntity);
 		}
+		
+		for (AttributeEntity attribute : entity.getAttributes()) {
+			ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
+			if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
+				EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
+				response.setMetadata(responseMetadata);
+				return response;
+			}
+		}
+
 		return super.updateGeneric(entity);
 	}
 	

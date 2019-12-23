@@ -80,9 +80,13 @@
 		 * Error message after saving.
 		 */
 		function saveError(response) {
-			dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
-		};
-
+			if (response.responseCode == 'NOT_VALID') {
+				dialogService.showValidationDialog("domain.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
+			} else {
+				dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+			}
+		}
+		
 		/**
 		 * Add an attribute to a domain.
 		 */
@@ -123,7 +127,7 @@
 			ctrl.domain.project = {};
 			ctrl.domain.project.id = ctrl.projectid;
 			projectConnectorFactory.loadProject($routeParams.projectid)
-			.then(	setProjectTitle, null);
+			.then(setProjectTitle, null);
 
 			if ($routeParams.id != undefined) {
 				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
@@ -146,7 +150,6 @@
 		 */
 		function setDomain(response) {
 			ctrl.domain = response;
-			ctrl.projecttitle = ctrl.domain.project.title;
 		}
 		
 		/**
@@ -161,7 +164,7 @@
 		};
 		
 		function gotoDomainAll() {
-			gotoDomain.all(ctrl.domain.project.id);
+			gotoDomain.all(ctrl.projectid);
 		};
 		
 		function gotoDomainNext() {
@@ -169,15 +172,15 @@
 			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 			initinit();
-			gotoDomain.create(ctrl.domain.project.id);
+			gotoDomain.create(ctrl.projectid);
 		};
 		
 		function gotoDomainDetail() {
-			gotoDomain.detail(ctrl.domain.project.id);
+			gotoDomain.detail(ctrl.projectid);
 		};
 		
 		function gotoDomainGenerate() {
-			gotoDomain.generate(ctrl.domain.project.id);
+			gotoDomain.generate(ctrl.projectid);
 		};
 	};
 })();	

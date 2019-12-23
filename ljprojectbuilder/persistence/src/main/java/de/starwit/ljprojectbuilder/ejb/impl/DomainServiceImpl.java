@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.validation.ValidationException;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
@@ -38,15 +39,12 @@ public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> impleme
 	}
 	
 	@Override
-	public DomainEntity update(DomainEntity entity) {
-		if (entity != null) {
-			entity.setProject(getEntityManager().find(ProjectEntity.class, entity.getProject().getId()));
-		}
+	public DomainEntity update(DomainEntity entity) throws ValidationException {
 		return super.update(entity);
 	}
 	
 	@Override
-	public DomainEntity create(DomainEntity entity) {
+	public DomainEntity create(DomainEntity entity) throws ValidationException {
 		ProjectEntity project = getEntityManager().find(ProjectEntity.class, entity.getProject().getId());
 		if (entity != null) {
 			entity.setProject(project);
