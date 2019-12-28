@@ -17,6 +17,7 @@
 		ctrl.checkTargetRepo = checkTargetRepo;
 		ctrl.createTargetRepo = createTargetRepo;
 		ctrl.checkAuthentication = checkAuthentication;
+		ctrl.resetAuth = resetAuth;
 		init();
 		
 		/**
@@ -36,7 +37,13 @@
 				document.getElementById('downloadlink').click();
 				dialogService.closeDialog('loadingdialog');
 			}, setupDownloadError);
+			resetAuth();
 		};
+		
+		function resetAuth() {
+			ctrl.generatorDto.username="";
+			ctrl.generatorDto.password="";
+		}
 		
 		function checkAuthentication() {
 			if (ctrl.generatorDto.project.template.credentialsRequired) {
@@ -81,6 +88,7 @@
 			ctrl.targetRepoData = {};
 			ctrl.repos = {};
 			ctrl.targetRepoLoaded = false;
+			ctrl.resetAuth();
 			
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.id != undefined) {
