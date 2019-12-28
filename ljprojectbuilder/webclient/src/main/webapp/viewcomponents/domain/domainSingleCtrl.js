@@ -19,6 +19,10 @@
 		ctrl.removeAttribute = removeAttribute;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;
+		ctrl.showValidationDialog = dialogService.showValidationDialog;
+		
 		init();
 		
 		/**
@@ -26,7 +30,7 @@
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
-				doMaintainThenGoto(gotoDomain.all);
+				doMaintainThenGoto(gotoDomainAll);
 			} else {
 				gotoDomainAll();
 			}
@@ -59,7 +63,7 @@
 		function doMaintainThenGoto(gotoDestination) {
 			ctrl.domain.projectId = ctrl.projectid;
 			var saveFunction = isUpdate() ? domainConnectorFactory.updateDomain : domainConnectorFactory.createDomain;
-			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
 
 		function isUpdate() {
@@ -79,11 +83,13 @@
 		/**
 		 * Error message after saving.
 		 */
-		function saveError(response) {
-			if (response.responseCode == 'NOT_VALID') {
-				dialogService.showValidationDialog("domain.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
-			} else {
-				dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+		function saveError(gotoDestination) {
+			return function (response) {
+				if (response.responseCode == 'NOT_VALID') {
+					dialogService.showValidationDialog("domain.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+				}
 			}
 		}
 		

@@ -13,6 +13,8 @@ dialogService = [function dialogService() {
 	    		},
 	    		showDialog : showDialog,
 	    		closeDialog: closeDialog,
+	    		closeDialogWithErrors: closeDialogWithErrors,
+	    		resetAndContinue: resetAndContinue,
 	    		showValidationDialog: showValidationDialog
 	     };
 	    return dialogService;
@@ -42,6 +44,21 @@ dialogService = [function dialogService() {
 		 * Closes the dialog configured in showDialog.
 		 */
 		function closeDialog(dialogid) {
+			document.getElementById(dialogid).style.display = 'none';
+			dialogService.dialog.gotoAfter();
+		};
+		
+		/**
+		 * Closes error dialog
+		 */
+		function closeDialogWithErrors(dialogid) {
+			document.getElementById(dialogid).style.display = 'none';
+		};
+		
+		/**
+		 * Reset changes, close dialog and continue.
+		 */
+		function resetAndContinue(dialogid) {
 			document.getElementById(dialogid).style.display = 'none';
 			dialogService.dialog.gotoAfter();
 		};

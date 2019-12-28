@@ -3,6 +3,8 @@ package de.starwit.ljprojectbuilder.validation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -15,22 +17,26 @@ import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 public class EntityValidator {
 	
+	public static ResourceBundle RES = ResourceBundle.getBundle("ValidationMessages", Locale.GERMAN);
 	
 	public static ResponseMetadata validate(AbstractEntity entity) {
 		
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		Set<ConstraintViolation<AbstractEntity>> constraintViolations = validator.validate(entity);
+		
+		String entityname = entity.getClass().getSimpleName();
 
 		if(!constraintViolations.isEmpty()) {
 			List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 			String interpolatedMessage = "";
 			for (ConstraintViolation<AbstractEntity> constraintViolation : constraintViolations) {
-				ValidationError ve = new ValidationError(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage().replace("{fieldname}", constraintViolation.getPropertyPath().toString()));
+				String attributeName = RES.getString(constraintViolation.getPropertyPath().toString());
+				ValidationError ve = new ValidationError(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage().replace("{fieldname}", attributeName));
 				validationErrors.add(ve);
 				interpolatedMessage = interpolatedMessage + "\r\n" + ve.getMessage();
 			}
 			
-			return new ResponseMetadata(ResponseCode.NOT_VALID, "validation.error" , validationErrors);
+			return new ResponseMetadata(ResponseCode.NOT_VALID, "validation.error." + entityname, validationErrors);
 		} 
 		else return new ResponseMetadata(ResponseCode.OK, "Die Validierung war erfolgreich.");
 	}

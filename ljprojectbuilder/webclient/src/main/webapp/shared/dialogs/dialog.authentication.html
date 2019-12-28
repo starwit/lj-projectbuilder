@@ -4,19 +4,19 @@
 		<tr>
 			<td>
 				<div class="input aCenter">
-					<span class="button delete dark" ng-click="ctrl.closeDialog('authenticationdialog')"><a href="">x</a></span>
+					<span class="button delete dark" ng-click="ctrl.closeDialog('authenticationdialog');ctrl.inputdialogform.$setPristine();"><a href="">x</a></span>
 					<h2>{{ctrl.dialog.title | translate }}</h2>
 						<p>
 							<label class="aLeft" for="username">{{'generator.username' | translate}}</label>
-							<input class="w3-input w3-col" name="username" id="username" type="text" ng-model="ctrl.generatorDto.username"/>
-							<label class="aLeft" ng-show="ctrl.form.title.$error == null"></label>
-							<label class="aLeft" ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
+							<input class="w3-input w3-col" name="username" id="username" type="text" ng-model="ctrl.generatorDto.username" required/>
+							<label class="aLeft" ng-show="ctrl.inputdialogform.username.$error == null">asdfafasdfasfd</label>
+							<label class="aLeft" ng-show="ctrl.inputdialogform.username.$error.required">{{'error.required' | translate}}</label>
 							<label class="aLeft" for="password">{{'generator.password' | translate}}</label>
-							<input class="w3-input w3-col" name="password" id="password" type="password" ng-model="ctrl.generatorDto.password" />
-							<label class="aLeft" ng-show="ctrl.form.title.$error == null"></label>
-							<label class="aLeft" ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>	
+							<input class="w3-input w3-col" name="password" id="password" type="password" ng-model="ctrl.generatorDto.password" required/>
+							<label class="aLeft" ng-show="ctrl.inputdialogform.password.$error == null"></label>
+							<label class="aLeft" ng-show="ctrl.inputdialogform.password.$error.required">{{'error.required' | translate}}</label>	
 						</p>
-						<button class="thin" type="submit" ng-click="ctrl.closeDialog('authenticationdialog');ctrl.projectDownload();">{{'generator.button.downloadproject' | translate}}</button>
+						<button class="thin" type="submit" ng-click="ctrl.closeDialog('authenticationdialog');ctrl.projectDownload();ctrl.inputdialogform.$setPristine();" ng-disabled="ctrl.inputdialogform.$invalid">{{'generator.button.downloadproject' | translate}}</button>
 						<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
 					</div>
 			</td>

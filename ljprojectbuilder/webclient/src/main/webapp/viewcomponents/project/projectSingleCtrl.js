@@ -111,7 +111,11 @@
 		 * Error message after saving.
 		 */
 		function saveError(response) {
-			dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
+			if (response.responseCode == 'NOT_VALID') {
+				dialogService.showValidationDialog("project.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
+			} else {
+				dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
+			}
 		}
 		
 		/**

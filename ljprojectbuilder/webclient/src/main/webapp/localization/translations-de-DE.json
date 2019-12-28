@@ -4,7 +4,12 @@
 	"theme.rows"					: "4",
 	"theme.properties"				: "rounded shadows",
 
-	"validation.error"				: "Es sind folgende Fehler aufgetreten: ",
+	"validation.error.DomainEntity"				: "Speichern der Domain nicht möglich: ",
+	"validation.error.AttributeEntity"				: "Speichern der Domain nicht möglich, Fehler im Abschnitt Attribute: ",
+	"validation.error.CodeTemplateEntity"		: "Speichern des CodeTemplates nicht möglich: ",
+	"validation.error.ProjectEntity"					: "Speichern des Projekts nicht möglich: ",
+	"validation.error.ProjectTemplateEntity"	: "Speichern des Projekttemplates nicht möglich: ",	
+		
 	"error.number"					: "Der eingegebene Wert muss eine Zahl sein.",
 	"error.minlength"				: "Der eingegebene Wert ist zu kurz.",
 	"error.maxlength"				: "Der eingegebene Wert ist zu lang.",
@@ -14,7 +19,7 @@
 	"error.pattern"                 : "Der Pfad muss gültig sein.",
 	"error.patternmsg"				: "Der Pfad muss gültig sein.",
 	"project.copytemplate.success" 	: "Das Projekt konnte erfolgreich kopiert werden.",
-	"error.projectsetup.downloadproject" : "Fehler beim Download des Projektes. Bitte kontaktieren Sie Ihren Administrator und lassen Sie die Server-Logs prüfen.",
+	"error.projectsetup.downloadproject" : "Der Download konnte nicht durchgeführt werden. Bitte überprüfen Sie Benutzername/Passwort und das Projekttemplate.",
 	"error.projectservice.findprojectbyid.projectnotfound" : "Das Projekt konnte nicht gefunden werden.",
 	"error.projectrenamer.renamedirectories" : "Beim Umbenennen der Template-Verzeichnisse mit dem Projektnamen ist ein Fehler aufgetreten. Bitte überprüfen Sie Templatenamen (Projekttemplate) und Projektnamen (Projekt).",
 	"error.projectrenamer.renamefilecontent" : "Beim Ersetzen des Templatenamens mit dem Projektnamen ist ein Fehler aufgetreten. Bitte überprüfen Sie Templatenamen (Projekttemplate) und Projektnamen (Projekt).",
@@ -25,6 +30,8 @@
 	"error.project.copytemplate.destinationnotfound" 	: "Das Zielverzeichnis konnte nicht gefunden werden.",
 	"error.project.copytemplate.exists" 				: "Das Zielverzeichnis existiert bereits.",
 	"error.project.pattern" : "Es dürfen nur Zahlen und Buchstaben enthalten sein.",
+	"error.dialog.continue": "Weiter ohne Speichern >",
+	"error.dialog.correct": " Fehler beheben",	
 	
 	"navnbar.projectdetails"	: "Allgemein",
 	"navnbar.domainobjects"	: "Domainobjekte",
@@ -41,7 +48,7 @@
 	"project.delete.error"			: "Das Projekt konnte nicht gelöscht werden.",
 	"projectsetup.dialog.success.title" 	: "Neues Projekt erzeugen",
 	"projectsetup.execute.success"	 : "Das Projekt wurde erfolgreich erstellt",
-	"projectsetup.dialog.error.title" : "Fehler beim Erzeugen eines Projektes",
+	"projectsetup.dialog.error.title" : "Fehler",
 	"import.dialog.button.import"	: "Importieren",
 	
 	"domain.dialog.error.title" 	: "Fehler",

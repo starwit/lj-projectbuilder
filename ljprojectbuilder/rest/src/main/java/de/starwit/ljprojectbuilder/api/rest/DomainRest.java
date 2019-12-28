@@ -49,6 +49,18 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 			projectEntity.setId(entity.getProjectId());
 			entity.setProject(projectEntity);
 		}
+		
+		if (entity.getAttributes() != null) {
+			for (AttributeEntity attribute : entity.getAttributes()) {
+				ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
+				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
+					EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
+					response.setMetadata(responseMetadata);
+					return response;
+				}
+			}
+		}
+		
 		return super.createGeneric(entity);
 	}
 

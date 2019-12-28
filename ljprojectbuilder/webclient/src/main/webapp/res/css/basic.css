@@ -42,6 +42,10 @@ img,a img{border:none}
     width: 40%;
 }
 
+ .error button {
+	background-color: #f22 !important;
+}
+
 .rows2 .subheaderBox,.rows2 #footerBox,.rows3 #footerBox{display:none} 
 
 #subheaderBox .top+.middle,#subheaderBox .top+.bottom,#subheaderBox .middle+.bottom{margin-top:2%}
