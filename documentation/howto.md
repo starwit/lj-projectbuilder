@@ -1,30 +1,39 @@
+
+- [How to Create a Template](#how-to-create-a-template)
+- [How to Configure Projecttemplates](#how-to-configure-projecttemplates)
+  * [project](#project)
+  * [domain](#domain)
+  * [attribute](#attribute)
+- [Links](#links)
+
+
 # How to Create a Template
 
-## 1. Create Project and Push it to Git
+#### 1. Create Project and Push it to Git
 
 For creating a template, you need a project saved into a git repository. The generator with substitude all occurrences of the name in the projecttemplate later on.
 
-## 2. Start ProjectBuilder
+#### 2. Start ProjectBuilder
 
 Next, you have to download and start projectbuilder. You can build your own projecttemplates by using the so called site in the projectBuilder. 
 
-## 3. Configure Projecttemplate
+#### 3. Configure Projecttemplate
 
 You can configure your codetemplates via [Freemarker](https://freemarker.apache.org/). It is used as templating language for configuring the path to code templates as well as in the template files itself. Use the properties in the [Template Configuration](#template-configuration) section to find out which properties you can use in the templates.
 
-## 4. Create a Project
+#### 4. Create a Project
 
 The next step is the creation of the project itself. Create an new project in ProjectBuilder and choose your git-project and projecttemplate and enter a name and description.
 
-## 5. Add Domains and Attributes
+#### 5. Add Domains and Attributes
 
 After successfully saving the general project settings, you can add your domain objects and attributes to the project. 
 
-## 6. Download your Project
+#### 6. Download your Project
 
 Now, everything is prepared and you can download your new project.
 
-# Template Configuration
+# How to Configure Projecttemplates
 
 ### **project** 
 
