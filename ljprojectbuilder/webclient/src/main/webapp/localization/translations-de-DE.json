@@ -32,6 +32,10 @@
 	"error.project.pattern" : "Es dürfen nur Zahlen und Buchstaben enthalten sein.",
 	"error.dialog.continue": "Weiter ohne Speichern >",
 	"error.dialog.correct": " Fehler beheben",	
+	"error.dialog.generation.close": "Schließen",
+	"error.dialog.generation.showtemplate": "Projektemplate anpassen",
+	"error.generation.templatemissing": "Die Templatedatei konnte nicht gefunden werden.",
+	"error.generation.codetemplate": "Der Speicherort des Templates sollte mit ${projecthome}/${project.targetPath}/generator-templates/ beginnen",
 	
 	"navnbar.projectdetails"	: "Allgemein",
 	"navnbar.domainobjects"	: "Domainobjekte",

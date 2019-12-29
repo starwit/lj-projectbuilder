@@ -17,6 +17,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,26 +31,24 @@ public class CodeTemplateEntity extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
-	private String fileNameSuffix = ".java";
+	@Length(max=100)
+	@NotBlank
+	private String fileNameSuffix;
 	
-	@NotNull
-	private String templatePath = "";
+	@NotBlank
+	private String templatePath;
 	
 	private String concreteTemplatePath = "";
 	
-	@NotNull
-	private String targetPath = "";
+	@NotBlank
+	private String targetPath;
 	
 	private String concreteTargetPath = "";
 	
-	@NotNull
 	private boolean createDomainDir = false;
 	
-	@NotNull
 	private boolean upperCaseFirst = false;
 	
-	@NotNull
 	private boolean lowerCase = false;
 	
 	@NotNull

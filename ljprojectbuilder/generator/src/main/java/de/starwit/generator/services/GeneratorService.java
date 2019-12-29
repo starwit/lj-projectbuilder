@@ -10,8 +10,10 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +32,7 @@ import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 import de.starwit.ljprojectbuilder.exception.NotificationException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
+import de.starwit.ljprojectbuilder.validation.ValidationError;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -155,10 +158,20 @@ public class GeneratorService {
 	
 	protected void generateDomain(String domainName, Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
 		try {
-			String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
-			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
+			File targetPath = new File(codeTemplate.getConcreteTemplatePath());
+			if (targetPath.exists()) {
+				String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
+				writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
+			} else {
+				List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+				ValidationError ve = new ValidationError(codeTemplate.getTargetPath(), "error.generation.codetemplate");
+				validationErrors.add(ve);
+				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.NOT_VALID, "error.generation.templatemissing", validationErrors);
+				throw new NotificationException(errorResponse);
+			}
+
 		} catch (IOException | TemplateException e) {
-			LOG.error("Error during file writing: ", e);
+			LOG.error("Error during file writing: ", e.fillInStackTrace());
 			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, e.getMessage());
 			throw new NotificationException(errorResponse);
 		}

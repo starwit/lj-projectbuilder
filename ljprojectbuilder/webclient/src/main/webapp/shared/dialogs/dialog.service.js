@@ -8,6 +8,8 @@ dialogService = [function dialogService() {
 	    			},
 	    			title: 'dialog.title',
 	    			text: 'dialog.text',
+	    			cancel: 'error.dialog.correct',
+	    			refresh: 'error.dialog.continue',
 	    			validationErrors: null,
 	    			gotoAfter: null
 	    		},
@@ -15,7 +17,8 @@ dialogService = [function dialogService() {
 	    		closeDialog: closeDialog,
 	    		closeDialogWithErrors: closeDialogWithErrors,
 	    		resetAndContinue: resetAndContinue,
-	    		showValidationDialog: showValidationDialog
+	    		showValidationDialog: showValidationDialog,
+	    		showGeneratorValidationDialog: showGeneratorValidationDialog
 	     };
 	    return dialogService;
 	    
@@ -36,6 +39,16 @@ dialogService = [function dialogService() {
 			dialogService.dialog.title = dialogtitle;
 			dialogService.dialog.text = dialogtext;
 			dialogService.dialog.validationErrors = validationErrors;
+			dialogService.dialog.gotoAfter = gotoAfter;
+			document.getElementById(dialogid).style.display = 'block';
+		};
+		
+		function showGeneratorValidationDialog(dialogtitle, dialogtext, validationErrors, dialogid, gotoAfter) {
+			dialogService.dialog.title = dialogtitle;
+			dialogService.dialog.text = dialogtext;
+			dialogService.dialog.validationErrors = validationErrors;
+			dialogService.dialog.cancel = 'error.dialog.generation.close';
+			dialogService.dialog.refresh = 'error.dialog.generation.showtemplate',
 			dialogService.dialog.gotoAfter = gotoAfter;
 			document.getElementById(dialogid).style.display = 'block';
 		};

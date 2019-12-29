@@ -14,6 +14,8 @@
 		ctrl.doMaintainGenerate = doMaintainGenerate;
 		ctrl.gotoProject = gotoProject;
 		ctrl.closeDialog = closeDialog;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;		
 		ctrl.dialog = dialogService.dialog;
 		init();
 
@@ -52,7 +54,7 @@
 
 		function doMaintainThenGoto(gotoDestination) {
 			var saveFunction = isUpdate() ? projectConnectorFactory.updateProject : projectConnectorFactory.createProject;
-			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
 
 		function isUpdate() {
@@ -110,11 +112,13 @@
 		/**
 		 * Error message after saving.
 		 */
-		function saveError(response) {
-			if (response.responseCode == 'NOT_VALID') {
-				dialogService.showValidationDialog("project.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
-			} else {
-				dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
+		function saveError(gotoDestination) {
+			return function (response) {
+				if (response.responseCode == 'NOT_VALID') {
+					dialogService.showValidationDialog("project.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showDialog("project.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+				}
 			}
 		}
 		

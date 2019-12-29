@@ -17,7 +17,7 @@ import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
 public class EntityValidator {
 	
-	public static ResourceBundle RES = ResourceBundle.getBundle("ValidationMessages", Locale.GERMAN);
+	public static ResourceBundle RES = ResourceBundle.getBundle("ValidationMessages", Locale.getDefault());
 	
 	public static ResponseMetadata validate(AbstractEntity entity) {
 		

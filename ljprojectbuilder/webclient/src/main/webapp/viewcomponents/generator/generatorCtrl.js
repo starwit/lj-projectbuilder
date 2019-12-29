@@ -5,12 +5,13 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
-	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', ];
-	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory) {
+	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'gotoGenProjectTemplate',];
+	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, gotoGenProjectTemplate) {
 		var ctrl = this;
 
 		ctrl.projectid = 0;
 		ctrl.refresh = refresh;
+		ctrl.gotoGenProjectTemplate = gotoGenProjectTemplate;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
@@ -18,6 +19,8 @@
 		ctrl.createTargetRepo = createTargetRepo;
 		ctrl.checkAuthentication = checkAuthentication;
 		ctrl.resetAuth = resetAuth;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;
 		init();
 		
 		/**
@@ -36,13 +39,17 @@
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
 				dialogService.closeDialog('loadingdialog');
-			}, setupDownloadError);
+			}, setupDownloadError(gotoTemplate));
 			resetAuth();
 		};
 		
 		function resetAuth() {
 			ctrl.generatorDto.username="";
 			ctrl.generatorDto.password="";
+		};
+		
+		function gotoTemplate() {
+			gotoGenProjectTemplate.update(ctrl.generatorDto.project.template.id);
 		}
 		
 		function checkAuthentication() {
@@ -130,11 +137,14 @@
 		/**
 		 * Error message after loading the project.
 		 */
-		function setupDownloadError(response) {
-			dialogService.closeDialog('loadingdialog');
-			dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
-			if (response == 'NOT_AUTHORIZED') {
-				//is this needed?
+		function setupDownloadError(gotoDestination) {
+			return function (response) {
+				dialogService.closeDialog('loadingdialog');
+				if (response == 'NOT_AUTHORIZED') {
+					dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+				} else {
+					dialogService.showGeneratorValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				}
 			}
 		};
 		

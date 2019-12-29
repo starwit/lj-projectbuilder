@@ -50,18 +50,24 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 			entity.setProject(projectEntity);
 		}
 		
+		EntityResponse<DomainEntity> response = validateAttibutes(entity);
+		return response == null ? super.updateGeneric(entity) : response;
+	}
+
+	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
+		
 		if (entity.getAttributes() != null) {
 			for (AttributeEntity attribute : entity.getAttributes()) {
 				ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
 				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
-					EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
 					response.setMetadata(responseMetadata);
 					return response;
 				}
 			}
 		}
 		
-		return super.createGeneric(entity);
+		return null;
 	}
 
 	//Update
@@ -74,16 +80,8 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 			entity.setProject(projectEntity);
 		}
 		
-		for (AttributeEntity attribute : entity.getAttributes()) {
-			ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
-			if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
-				EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
-				response.setMetadata(responseMetadata);
-				return response;
-			}
-		}
-
-		return super.updateGeneric(entity);
+		EntityResponse<DomainEntity> response = validateAttibutes(entity);
+		return response == null ? super.updateGeneric(entity) : response;
 	}
 	
 	@Path("/query/domainsbyproject/{projectId}")

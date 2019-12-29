@@ -88,10 +88,11 @@
 							<table>
 								<tr>
 									<td>
-										<select placeholder="{{'codetemplate.category' | translate}}" name="category" id="category" ng-model="ct.category" ng-options="category as category.name for category in ctrl.categoryAll track by category.id"></select>
+										<select name="category" id="category" ng-model="ct.category" ng-options="category as category.name for category in ctrl.categoryAll track by category.id"></select>
 									</td>								
 									<td>
-										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix"/>
+										<input placeholder="{{'codetemplate.filenamesuffix' | translate}}" name="ctfilenamesuffix" id="ctfilenamesuffix" type="text" ng-model="ct.fileNameSuffix" required/>
+										<label ng-show="ctrl.form.ctfilenamesuffix.$error.required">{{'error.required' | translate}}</label>
 									</td>
 									<td>
 										<select placeholder="{{'codetemplate.type' | translate}}" name="cttype" id="cttype" ng-model="ct.type" ng-options="type for type in ctrl.templateTypes"></select>	
@@ -104,21 +105,20 @@
 								<tr>
 									<th>{{'codetemplate.templatepath' | translate}}:</th>
 									<td colspan=2>
-										<input placeholder="{{'codetemplate.templatepath' | translate}}" name="cttemplatePath" id="cttemplatePath" type="text" ng-model="ct.templatePath"/>
+										<input placeholder="{{'codetemplate.templatepath' | translate}}" name="cttemplatePath" id="cttemplatePath" type="text" ng-model="ct.templatePath" required/>
+										<label ng-show="ctrl.form.cttemplatePath.$error.required">{{'error.required' | translate}}</label>
 									</td>
 								</tr>
 								<tr>
 									<th>{{'codetemplate.targetpath' | translate}}:</th>
 									<td colspan=2>
-										<input placeholder="{{'codetemplate.targetpath' | translate}}" name="cttargetpath" id="cttargetpath" type="text" ng-model="ct.targetPath" />
+										<input placeholder="{{'codetemplate.targetpath' | translate}}" name="cttargetpath" id="cttargetpath" type="text" ng-model="ct.targetPath" required/>
+										<label ng-show="ctrl.form.cttargetpath.$error.required">{{'error.required' | translate}}</label>
 									</td>
 								</tr>
 							</table>
 							</div>
 							</td>
-	<!-- 						<td> -->
-	<!-- 							<input placeholder="{{'codetemplate.category' | translate}}" name="ctcategory" id="ctcategory" type="text" ng-model="ct.category.name" readonly/> -->
-	<!-- 						</td> -->
 						<td>
 							<br />
 							<div><input placeholder="{{'codetemplate.lowercase' | translate}}" name="ctlowercase" id="ctlowercase" type="checkbox" ng-model="ct.lowerCase"/>{{'codetemplate.lowercase' | translate}}</div>
@@ -137,5 +137,5 @@
 </div>  
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
-	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.ext.html'"></div>
 </div>

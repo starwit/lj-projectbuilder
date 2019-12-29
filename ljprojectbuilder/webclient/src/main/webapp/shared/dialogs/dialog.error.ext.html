@@ -5,14 +5,13 @@
 				<span class="msg error">
 					<span class="button delete"><a href="">x</a></span>
 					<h2>{{ctrl.dialog.title | translate }}</h2>
-					<p>{{ctrl.dialog.text | translate }}
-					<ul>
-						<li ng-repeat="error in ctrl.dialog.validationErrors">{{error.message}}</li>
+					<p class="aLeft">{{ctrl.dialog.text | translate }}</p>
+					<ul class="aLeft">
+						<li ng-repeat="error in ctrl.dialog.validationErrors">{{error.message | translate}}</li>
 					</ul>
-					</p>				
 					<div class="bottom aCenter">
-						<button class="thin error" ng-click="ctrl.closeDialogWithErrors('errordialog')">{{'error.dialog.correct' | translate}}</button>
-						<button class="thin error" ng-click="ctrl.resetAndContinue('errordialog')">{{'error.dialog.continue' | translate}}</button>
+						<button class="thin error" ng-click="ctrl.closeDialogWithErrors('errordialog')">{{ctrl.dialog.cancel | translate}}</button>
+						<button class="thin error" ng-click="ctrl.resetAndContinue('errordialog')">{{ctrl.dialog.refresh | translate}}</button>
 					</div>
 				</span>
 			</td>

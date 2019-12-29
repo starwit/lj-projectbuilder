@@ -16,6 +16,8 @@
 		ctrl.dialog = dialogService.dialog;
 		ctrl.addCodeTemplate = addCodeTemplate;
 		ctrl.removeCodeTemplate = removeCodeTemplate;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;
 		ctrl.templateTypes = [	"GLOBAL","DOMAIN","ADDITIONAL_CONTENT"];
 		init();
 		
@@ -38,7 +40,7 @@
 		
 		function doMaintainThenGoto(gotoDestination) {
 			var saveFunction = isUpdate() ? projecttemplateConnectorFactory.updateProjectTemplate : projecttemplateConnectorFactory.createProjectTemplate;
-			saveFunction(ctrl.projecttemplate).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+			saveFunction(ctrl.projecttemplate).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
 
 		function isUpdate() {
@@ -59,6 +61,9 @@
 				}
 				if ($routeParams.projecttemplateid == null) {
 					ctrl.projecttemplate = {};
+					ctrl.projecttemplate.location = "https://gitlab.com/witchpou/lirejarp";
+					ctrl.projecttemplate.title = "lirejarp";
+					ctrl.projecttemplate.packagePrefix = "starwit";
 				}
 				getCategories();
 			});
@@ -113,34 +118,39 @@
 				dialogService.showDialog("projecttemplate.dialog.success.title", "projecttemplate.save.success", dialogService.dialog.id.success, gotoDestination);
 			}
 		}
-		
+
 		/**
 		 * Error message after saving.
 		 */
-		function saveError(response) {
-			if (response.responseCode == 'NOT_VALID') {
-				dialogService.showValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, function(){});
-			} else {
-				dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+		function saveError(gotoDestination) {
+			return function (response) {
+				if (response.responseCode == 'NOT_VALID') {
+					dialogService.showValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+				}
 			}
 		}
 		
 		/**
-		 * Add an attribute to a domain.
+		 * Add an codetemplate to a projecttemplate.
 		 */
 		function addCodeTemplate() {
 			if (ctrl.projecttemplate.codeTemplates == undefined) {
 				ctrl.projecttemplate.codeTemplates = [];
 			}
 			var codetemplate = {};
-			codetemplate.category = {};
-			codetemplate.category.name = "ENTITY";
+			codetemplate.category = ctrl.categoryAll[0];
+			codetemplate.type = ctrl.templateTypes[1];
+			codetemplate.fileNameSuffix = "Entity.java"
+			codetemplate.templatePath = "${projecthome}/${project.targetPath}/generator-templates/entity/entity.ftl";
+			codetemplate.targetPath = "${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/entity/";	
 			ctrl.projecttemplate.codeTemplates.unshift(codetemplate);
 			ctrl.form.$dirty = true;
 		};
 		
 		/**
-		 * Remove an attribute to a domain.
+		 * Remove an codetemplate from a projecttemplate.
 		 */
 		function removeCodeTemplate($index) {
 			if (ctrl.projecttemplate.codeTemplates != undefined && $index > -1) {
@@ -150,7 +160,7 @@
 		};
 		
 		/**
-		 * Error message after loading the project.
+		 * Error message after loading the projecttemplate.
 		 */
 		function loadError(response) {
 			dialogService.showDialog("projecttemplate.dialog.error.title", "projecttemplate.load.error", dialogService.dialog.id.error, gotoProjectTemplate.all);

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -23,6 +24,7 @@ public class StartupShutdownService {
  
     @PostConstruct
     private void startup() {
+    	Locale.setDefault(Locale.GERMAN);
     	findFilesAndDelete();
     }
     
