@@ -1,9 +1,7 @@
 package de.starwit.generator.services;
 
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 import javax.ejb.Local;
@@ -14,7 +12,6 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
@@ -80,18 +77,6 @@ public class ProjectSetupService implements Serializable {
 		dto.setProject(project);
 		
 		generatorSerivce.generate(project.getId());
-		findFilesAndDelete();
-	}
-	
-	private void findFilesAndDelete() {
-		File oldDestDir = new File(Constants.TMP_DIR);
-		final File[] files = oldDestDir.listFiles((File pathname) -> pathname.getName().startsWith("LJ_"));
-		for (File file : files) {
-			long diff = new Date().getTime() - file.lastModified();
-
-			if (diff > 1 * 60 * 1000) {
-				projectCheckout.deleteTempProject(file.getAbsolutePath().toString());
-			}
-		}
+		projectCheckout.findFilesAndDelete();
 	}
 }

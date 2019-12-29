@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Date;
 
 import javax.inject.Named;
 
@@ -38,16 +39,34 @@ public class ProjectCheckout {
 		}
 	}
 
-	public void deleteTempProject(final String oldDestDirUrl) {
+	public void deleteTempURLProject(final String oldDestDirUrl) {
 		final File oldDestDir = new File(oldDestDirUrl);
+		deleteTempProject(oldDestDir);
+	}
+	
+	private void deleteTempProject(final File oldDestDir) {
 		if (!oldDestDir.exists()) {
 			return;
 		}
-		final Path oldDestDirPath = Paths.get(oldDestDirUrl);
+		final Path oldDestDirPath = oldDestDir.toPath();
 		try {
 			Files.walkFileTree(oldDestDirPath, new DeleteFileVisitor());
 		} catch (final IOException e) {
 			LOG.error("Error deleting temporary folder for project", e);
+		}
+	}
+	
+	/**
+	 * Deletes all temp files created during git clone / checkout.
+	 */
+	public void findFilesAndDelete() {
+		File oldDestDir = new File(Constants.TMP_DIR);
+		final File[] files = oldDestDir.listFiles((File pathname) -> pathname	.getName().startsWith(Constants.LJ_PREFIX));
+		for (File file : files) {
+			long diff = new Date().getTime() - file.lastModified();
+			if (diff > Constants.MILLISECONDS_UNTIL_DELETION) {
+				deleteTempProject(file);
+			}
 		}
 	}
 
@@ -62,7 +81,7 @@ public class ProjectCheckout {
 
 		@Override
 		public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
-			Files.deleteIfExists(dir); // this will work because Files in the directory are already deleted
+			Files.deleteIfExists(dir);
 			return FileVisitResult.CONTINUE;
 		}
 	}
@@ -92,7 +111,7 @@ public class ProjectCheckout {
 		try {
 			Git.gitClone(destDir.toPath(), srcDir, branch);
 		} catch (IOException | InterruptedException e) {
-			this.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
+			this.deleteTempURLProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for project template.", e);
 			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
 					"error.projectcheckout.checkoutprojecttemplate.transport");
