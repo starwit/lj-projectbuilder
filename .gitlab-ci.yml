@@ -1,6 +1,7 @@
 image: docker:stable
 
 stages:
+  - pre
   - compile
   - package
   - deploy
