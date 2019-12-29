@@ -72,4 +72,8 @@ package_docker:
  # - kubectl create secret docker-registry registry.gitlab.com --docker-server=https://registry.gitlab.com --docker-username=ztarbug --docker-password=$REGISTRY_PASSWD --docker-email=markus.zarbock@gmx.de
 #  - kubectl apply -f deployment.yml
 
+include:
+  template: License-Management.gitlab-ci.yml
+
+
  
