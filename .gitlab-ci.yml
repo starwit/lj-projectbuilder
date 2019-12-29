@@ -9,6 +9,7 @@ variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
   CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  LICENSE_MANAGEMENT_SETUP_CMD: ''  # If needed, specify a command to setup your environment with a custom package manager.
 
 services:
   - docker:dind
@@ -18,6 +19,29 @@ cache:
     - .m2/repository/
     - ljprojectbuilder/target/
     - tomee/target/
+
+license_management:
+  stage: pre
+  image:
+    name: "registry.gitlab.com/gitlab-org/security-products/license-management:$CI_SERVER_VERSION_MAJOR-$CI_SERVER_VERSION_MINOR-stable"
+    entrypoint: [""]
+  variables:
+    SETUP_CMD: $LICENSE_MANAGEMENT_SETUP_CMD
+  allow_failure: true
+  script:
+    - /run.sh analyze .
+  artifacts:
+    reports:
+      license_management: gl-license-management-report.json
+  dependencies: []
+  only:
+    refs:
+      - branches
+    variables:
+      - $GITLAB_FEATURES =~ /\blicense_management\b/
+  except:
+    variables:
+      - $LICENSE_MANAGEMENT_DISABLED
 
 compile_java:
   stage: compile
