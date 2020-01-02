@@ -6,6 +6,9 @@
   * [attribute](#attribute)
 - [Links](#links)
 
+# How to use the Default Template
+
+# How to load existing Template
 
 # How to Create a Template
 
