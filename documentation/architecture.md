@@ -19,7 +19,7 @@ The UI logic is placed in the webclient project. HTML, CSS and Javascript (Angul
 ### packagewar
 The deployment of the project is done via war-file. It contains the projects persistence and rest as jar-files and the webclient. The project packagewar is resonsible for the build.
 
-![Component Diagram LireJarp](https://gitlab.com/-/ide/project/witchpou/lj-projectbuilder/blob/master/-/documentation/diagrams/lirejartTemplate.png)
+![Component Diagram LireJarp](diagrams/lireparpTemplate.png)
 
 ## Additional projects in lirejarp project builder
 In lirejarp project builder, two additional projects are implemented:
