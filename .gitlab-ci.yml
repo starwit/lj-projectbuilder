@@ -48,7 +48,7 @@ export_drawio:
   stage: compile
   image: fjudith/draw.io:latest  
   script:
-    - 'draw.io -x -f png -o documentation/diagrams/lirejarpTemplate_G.png documentation/diagrams/lirejarpTemplate.drawio'
+    - '/opt/draw.io/drawio -x -f png -o documentation/diagrams/lirejarpTemplate_G.png documentation/diagrams/lirejarpTemplate.drawio'
   only:
     - master
 
