@@ -1,4 +1,4 @@
-# Architectur
+# Architecture
 
 ## Abstract
 Yet still a lot of boiler plate code needs to be written and creating JEE application quickly remains a challenge. Therefore approach described here shall provide a guide in how to setup an architecture implementing persistence and a RESTful interface layer. To do that properly a (reusable) pattern of inheritance + generic data types is proposed. This (yet unnamed) pattern is applied in persistence, Enterprise Java Beans and in RESTful web service implementation and therefore proved to be quite flexible. If you want to build an web-application, Project Builder provides you a platform to fulfill your ideas. Nevertheless, you have all flexibility to change your application. If you want to have a software which is easy to implement and easy to change, you should use standards. You will find these standards in the lirejarp project template.
