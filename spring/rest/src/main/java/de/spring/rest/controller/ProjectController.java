@@ -81,31 +81,31 @@ public class ProjectController {
   }
 
   // Custom endpoints
-  @PostMapping(value = "/branchnames")
-  public ListResponse<String> getBranchnames(String remoteLocation) {
-    List<String> branchnames = new ArrayList<>();
-    Collection<Ref> refs = null;
-    ListResponse<String> response = new ListResponse<String>(branchnames);
-    try {
-      refs = Git.lsRemoteRepository().setHeads(true).setTags(true).setRemote(remoteLocation).call();
+  // @PostMapping(value = "/branchnames")
+  // public ListResponse<String> getBranchnames(String remoteLocation) {
+  //   List<String> branchnames = new ArrayList<>();
+  //   Collection<Ref> refs = null;
+  //   ListResponse<String> response = new ListResponse<String>(branchnames);
+  //   try {
+  //     refs = Git.lsRemoteRepository().setHeads(true).setTags(true).setRemote(remoteLocation).call();
 
-      for (Ref ref : refs) {
-        String[] parts = ref.getName().split("/");
-        int l = parts.length;
-        if (l > 0) {
-          branchnames.add(parts[l - 1]);
-        }
-      }
-    } catch (GitAPIException e) {
-      LOG.error("Error getting branches");
-    }
-    response = new ListResponse<String>(branchnames);
-    if (branchnames.isEmpty()) {
-      branchnames.add("master");
-    }
-    ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.OK, "getbranchnames.ok");
-    response.setMetadata(responseMetadata);
-    return response;
-  }
+  //     for (Ref ref : refs) {
+  //       String[] parts = ref.getName().split("/");
+  //       int l = parts.length;
+  //       if (l > 0) {
+  //         branchnames.add(parts[l - 1]);
+  //       }
+  //     }
+  //   } catch (GitAPIException e) {
+  //     LOG.error("Error getting branches");
+  //   }
+  //   response = new ListResponse<String>(branchnames);
+  //   if (branchnames.isEmpty()) {
+  //     branchnames.add("master");
+  //   }
+  //   ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.OK, "getbranchnames.ok");
+  //   response.setMetadata(responseMetadata);
+  //   return response;
+  // }
 
 }

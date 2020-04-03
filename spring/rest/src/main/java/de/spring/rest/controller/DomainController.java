@@ -128,15 +128,15 @@ public class DomainController {
   private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
     EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
 
-    if (entity.getDomains() != null) {
-      for (DomainEntity domain : entity.getDomains()) {
-        ResponseMetadata responseMetadata = EntityValidator.validate(domain);
-        if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
-          response.setMetadata(responseMetadata);
-          return response;
-        }
-      }
-    }
+    // if (entity.getDomains() != null) {
+    //   for (DomainEntity domain : entity.getDomains()) {
+    //     ResponseMetadata responseMetadata = EntityValidator.validate(domain);
+    //     if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
+    //       response.setMetadata(responseMetadata);
+    //       return response;
+    //     }
+    //   }
+    // }
 
     return null;
   }
