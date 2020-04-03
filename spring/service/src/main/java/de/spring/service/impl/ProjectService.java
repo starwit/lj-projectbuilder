@@ -46,7 +46,7 @@ public class ProjectService {
 		return this.projectRepository.save(entity);
 	}
 
-	public void delete(final Long id) throws EntityNotFoundException {
+	public void delete(final ProjectEntity entity) {
 		// this.projectRepository.delete(arg0);
 
 		/*
@@ -57,5 +57,17 @@ public class ProjectService {
 		 * domains) { getEntityManager().remove(domainEntity); }
 		 * getEntityManager().flush(); getEntityManager().remove(entity);
 		 */
+	}
+
+	public ProjectEntity saveOrUpdate(ProjectEntity entity) {
+		return this.projectRepository.save(entity);
+	}
+
+	public ProjectEntity findById(Long id) {
+		return this.projectRepository.findById(id).orElse(null);
+	}
+
+	public List<ProjectEntity> findAll() {
+		return this.projectRepository.findAll();
 	}
 }

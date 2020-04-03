@@ -1,15 +1,15 @@
 package de.spring.rest.controller;
 
 import de.spring.persistence.entity.CodeTemplateEntity;
+import de.spring.persistence.entity.ProjectTemplateEntity;
 import de.spring.persistence.response.EntityListResponse;
 import de.spring.persistence.response.EntityResponse;
-<<<<<<< HEAD
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
-=======
->>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.CodeTemplateService;
+import de.spring.service.impl.ProjectTemplateService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +29,8 @@ public class CodeTemplateController {
     @Autowired
     private CodeTemplateService codeTemplateService;
 
+    @Autowired
+    private ProjectTemplateService projectTemplateService;
 
     @GetMapping
     public EntityListResponse<CodeTemplateEntity> findAll() {
@@ -52,14 +54,14 @@ public class CodeTemplateController {
     @PutMapping
     public EntityResponse<CodeTemplateEntity> save(@RequestBody CodeTemplateEntity codeTemplate) {
       EntityResponse response = new EntityResponse();
-      repsone.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
+      response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
       return response;
     }
 
     @PostMapping
     public EntityResponse<CodeTemplateEntity> update(@RequestBody CodeTemplateEntity codeTemplate) {
       EntityResponse response = new EntityResponse();
-      repsone.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
+      response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
       return response;
     }
 
@@ -72,6 +74,7 @@ public class CodeTemplateController {
       responseMetadata.setResponseCode(ResponseCode.OK);
       responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
       
+      EntityResponse response = new EntityResponse();
       response.setMetadata(responseMetadata);
 
       return response;
@@ -80,7 +83,7 @@ public class CodeTemplateController {
     @GetMapping(value = "/query/byprojecttemplate/{projecttemplateId}")
     public EntityListResponse<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(
       @PathVariable("projecttemplateId") Long projecttemplateId) {
-      ProjectTemplate projectTemplate = projectTemplateService.findById(projecttemplateId);
+      ProjectTemplateEntity projectTemplate = projectTemplateService.findById(projecttemplateId);
       if (projectTemplate == null) {
         EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(null);
         ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");

@@ -1,5 +1,6 @@
 package de.spring.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ValidationException;
@@ -78,4 +79,16 @@ public class ProjectTemplateService {
 		this.projectTemplateRepository.flush();
 		return entity;
 	}
-}
+
+	public List<ProjectTemplateEntity> findAll() {
+		return this.projectTemplateRepository.findAll();
+	}
+
+	public ProjectTemplateEntity findById(Long id) {
+		return this.projectTemplateRepository.findById(id).orElse(null);
+	}
+
+	public ProjectTemplateEntity saveOrUpdate(ProjectTemplateEntity entity) {
+		return this.projectTemplateRepository.save(entity);
+	}
+ }

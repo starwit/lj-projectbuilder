@@ -1,5 +1,7 @@
 package de.spring.service.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.slf4j.Logger;
@@ -26,4 +28,15 @@ public class CategoryService {
 		return this.categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 
+	public List<CategoryEntity> findAll() {
+		return this.categoryRepository.findAll();
+	}
+
+	public void saveOrUpdate(CategoryEntity entity) {
+		this.categoryRepository.save(entity);
+	}
+
+	public void delete(CategoryEntity entity) {
+		this.categoryRepository.delete(entity);
+	}
 }
