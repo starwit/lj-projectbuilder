@@ -1,0 +1,123 @@
+<div id="headerBox" ng-include="'shared/menus/menu.project.html'"></div>
+
+<div id="subheaderBox">
+	<div class="contain">
+		<span class="navBar">
+			<ul>
+			  <li class="step1 act"><a ng-click="ctrl.doMaintainDetail();">{{'navnbar.projectdetails' | translate}}</a></li>
+			  <li class="step2 act"><a ng-click="ctrl.doMaintain();">{{'navnbar.domainobjects' | translate}}</a></li>
+			  <li class="step3"><a ng-click="ctrl.doMaintainGenerate();">{{'navnbar.generate' | translate}}</a></li>
+			  <li class="clearer"></li>
+			</ul>
+		</span>
+		<button class="icon back hint" ng-click="ctrl.doMaintain();"><span>{{'button.back' | translate}}</span></button>
+		<button class="icon next right" ng-click="ctrl.doMaintainGenerate();" title="{{'button.next' | translate}}"><span>{{'button.next' | translate}}</span></button>
+		<button class="icon add right" ng-click="ctrl.doMaintainNext();" title="{{'button.domaincreate' | translate}}"><span>{{'button.domaincreate' | translate}}</span></button>
+		<div class="clearer"></div>
+	</div>
+</div>
+
+<div id="bodyBox">
+	<form class="editForm" name="ctrl.form">   
+		<fieldset class="odd">
+			<table>
+		    	<colgroup>
+		    		<col class="">
+		    		<col class="">
+		    	</colgroup>
+				<thead>
+					<tr>
+						<td colspan="2">
+							<h3>{{subtitle | translate}}</h3>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<label>{{'domain.name' | translate}}</label>
+							<input name="name" id="name" type="text" ng-model="ctrl.domain.name"  required  ng-pattern="/^[A-Z][a-zA-Z0-9]*$/"/>
+							<label ng-show="ctrl.form.name.$error.required">{{'error.required' | translate}}</label>							
+							<label ng-show="ctrl.form.name.$error.pattern">{{'error.domain.pattern' | translate}}</label>
+						</td>
+						<td>
+							<label>{{'domain.description' | translate}}</label>
+							<input name="description" class="w3-input" id="description" type="text" ng-model="ctrl.domain.description"  required />
+							<label ng-show="ctrl.form.description.$error.required">{{'error.required' | translate}}</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<fieldset class="even">
+		    <table>
+		    	<colgroup>
+		    		<col class="">
+		    		<col class="">
+		    		<col class="">
+		    		<col class="">
+		    		<col class="">
+		    		<col class="">
+		    		<col class="">
+		    		<col class="w5">
+		    	</colgroup>
+		    	<thead>
+					<tr>
+						<td colspan="5">
+							<h3>Attribute erfassen</h3>
+						</td>
+						<td colspan="3" class="aRight">
+							<span class="button"><a ng-click="ctrl.addAttribute();">+ {{'attribute.all.title' | translate}} {{'button.add' | translate}}</a><span>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+							<th>{{'attribute.name' | translate}}</th>
+							<th>{{'attribute.description' | translate}}</th>
+							<th>{{'attribute.type' | translate}}</th>
+							<th>{{'attribute.pattern' | translate}}</th>
+							<th>{{'attribute.max' | translate}}</th>
+							<th>{{'attribute.min' | translate}}</th>
+							<th>{{'attribute.nullable' | translate}}</th>
+					</tr>
+					<tr ng-repeat="attribute in ctrl.domain.attributes track by $index">
+						<td>
+						<div name="innerForm" ng-form>
+							<input placeholder="{{'attribute.name' | translate}}" name="attributename" id="attributename" type="text" ng-model="attribute.name" required ng-pattern="/^[a-z][a-zA-Z0-9]*$/"/>
+							<label ng-show="innerForm.attributename.$error.required" >{{'error.required' | translate}}</label>
+							<label ng-show="innerForm.attributename.$error.pattern">{{'error.attribute.pattern' | translate}}</label>
+						</div>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.description' | translate}}" name="attributedescription" id="attributedescription" type="text" ng-model="attribute.description"/>
+						</td>
+						<td>
+							<select placeholder="{{'attribute.type' | translate}}" name="dataTypes" id="dataTypes" ng-model="attribute.dataType" ng-options="dataType as dataType for dataType in ctrl.dataTypes" required></select>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.pattern' | translate}}" name="attributepattern" id="attributepattern" type="text" ng-model="attribute.pattern"/>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.max' | translate}}" name="attributemax" id="attributemax" type="text" ng-model="attribute.max"/>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.min' | translate}}" name="attributemin" id="attributemin" type="text" ng-model="attribute.min"/>
+						</td>
+						<td>
+							<input placeholder="{{'attribute.nullable' | translate}}" name="attributenullable" id="attributenullable" type="checkbox" ng-model="attribute.required"/>
+						</td>
+						<td class="aRight">
+							<span class="button grey"><a ng-click="ctrl.removeAttribute($index);">x</a></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>	
+	</form>
+</div>
+
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.ext.html'"></div>
+</div>

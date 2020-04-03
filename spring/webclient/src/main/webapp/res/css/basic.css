@@ -1,0 +1,143 @@
+/* --- GENERAL --- */
+
+*{box-sizing:border-box; padding-bottom: 10px;}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow-x:hidden}
+/* #page,#page>.ng-scope,#green,#red,#yellow,#blue,#caput,table,tbody,tr,th,td{height:100%} */
+table table,table table,table table tr,table table th,table table td{height:auto}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+abbr[title]{border-bottom:1px dotted}
+dfn{font-style:italic}
+mark{background:#ff0 none repeat scroll 0 0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+svg:not(:root){overflow:hidden}
+figure{margin:1em 40px}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+pre{overflow:auto}
+hr{box-sizing:content-box;-moz-border-bottom-colors:none;-moz-border-left-colors:none;-moz-border-right-colors:none;-moz-border-top-colors:none;border-color:#eee -moz-use-text-color -moz-use-text-color;border-image:none;border-style:solid none none;border-width:1px 0 0;height:0;margin:20px 0}
+img,a img{border:none}
+
+/* --- DIMENSIONS BOXES --- */
+
+#headerBox{position:relative;padding:.5% 2%;height:auto}
+#subheaderBox,#bodyBox{position:relative;padding:2%;background-color:#fff}
+#subheaderBox{padding-bottom:0}
+#footerBox{ bottom: 0;    padding: 0.7em;position: fixed; text-align: center; width: 100%;}
+#bodyBox{padding:1%;}
+
+#dialogBox .msgBox{position:fixed;z-index:999;top:0;left:0;width:100%;height:100%;color:#fff;background-color:rgba(0,0,0,.8)}
+#dialogBox .input{position:relative;display:inline-block;padding:1%;width:30%;border:1px solid #dfdfdf;color:#444;background-color:rgba(255,255,255,.9);border-radius:5px}
+#dialogBox .msg{position:relative;display:inline-block;padding:5%;width:40%;border:1px solid #dfdfdf;background-color:rgba(0,0,0,.5)}
+#dialogBox .error {
+    background-color: rgba(50, 0, 0, 0.5);
+    border: 1px solid #992222;
+    display: inline-block;
+    padding: 1%;
+    position: relative;
+    width: 40%;
+}
+
+ .error button {
+	background-color: #f22 !important;
+}
+
+.rows2 .subheaderBox,.rows2 #footerBox,.rows3 #footerBox{display:none} 
+
+#subheaderBox .top+.middle,#subheaderBox .top+.bottom,#subheaderBox .middle+.bottom{margin-top:2%}
+
+/* --- DIMENSION VARS --- */
+#page { margin-bottom: 4%; }
+#page .contain{width:100%;height:100%}
+
+#page .w100{width:100%}
+#page .w90{width:90%}
+#page .w80{width:80%}
+#page .w70{width:70%}
+#page .w60{width:60%}
+#page .w50{width:50%}
+#page .w40{width:40%}
+#page .w30{width:30%}
+#page .w20{width:20%}
+#page .w15{width:15%}
+#page .w10{width:10%}
+#page .w5{width:5%}
+#page .w4{width:4%}
+#page .w3{width:3%}
+#page .w2{width:2%}
+#page .w1{width:1%}
+
+#page .h100{height:100%}
+#page .h90{height:90%}
+#page .h80{height:80%}
+#page .h70{height:70%}
+#page .h60{height:60%}
+#page .h50{height:50%}
+#page .h40{height:40%}
+#page .h30{height:30%}
+#page .h20{height:20%}
+#page .h15{height:15%}
+#page .h10{height:10%}
+#page .h5{height:5%}
+#page .h4{height:4%}
+#page .h3{height:3%}
+#page .h2{height:2%}
+#page .h1{height:1%}
+
+/* --- FONT DIMENSIONS --- */
+
+html,body{font-family:arial,helvetica,sans-serif;font-size:16px;line-height:150%}
+.serif{font-family:"Times New Roman",Times,serif}
+
+h1{font-size:36px}
+h2{font-size:30px}
+h3{font-size:24px}
+h4{font-size:20px}
+h5{font-size:18px}
+h6{font-size:16px}
+h1,h2,h3,h4,h5,h6{font-weight:500;margin:20px 0}
+h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0; margin-bottom:1%}
+td h1,td h2,td h3,td h4,td h5,td h6{margin:0}
+#dialogBox td h1,#dialogBox td h2,#dialogBox td h3,#dialogBox td h4,#dialogBox td h5,#dialogBox td h6{margin-bottom:20px}
+#headerBox td h1,#headerBox td h2,#headerBox td h3,#headerBox td h4,#headerBox td h5,#headerBox td h6{font-size:30px;font-variant:small-caps;line-height:120%}
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit}
+h1.indexTitle{float:left;margin:25px 0 0 0}
+td h4:first-child{margin:10px 0;font-size:20px;font-variant:small-caps;color:#7f7f7f}
+
+p,p a{font-size:16px}
+p{margin:0 0 20px 0}
+p:last-child{margin:0}
+
+a,a:active,a:hover{text-decoration:none;color:inherit;background-color:transparent}
+a:active,a:hover{outline:0 none}
+#headerBox ul li a,.button a{font-size:20px;font-variant:small-caps}
+#subheaderBox ul li a{font-size:16px}
+td .button a{font-size:14px;font-variant:none}
+
+.button.delete a{font-weight:bold;font-variant:none}
+#dialogBox .button.delete a{font-size:30px}
+
+.wide{letter-spacing:1px}
+.wideL{letter-spacing:2px}
+.wideXL{letter-spacing:3px}
+
+/* --- MISC --- */
+
+.rulerBefore{display:block;margin-top:20px;padding-top:20px;border-top:1px solid #afafaf}
+.rulerAfter{display:block;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #afafaf}
+
+.aLeft{text-align:Left}
+.aRight{text-align:right}
+.aCenter{text-align:center}
+
+.vTop{vertical-align:top}
+.vMiddle{vertical-align:middle}
+.vBottom{vertical-align:bottom}
+
+.floatLeft{float:left}
+.floatRight{float:right}
+.floatNone{float:none}

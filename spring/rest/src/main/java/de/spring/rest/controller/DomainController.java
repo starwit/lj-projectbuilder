@@ -1,6 +1,6 @@
 package de.spring.rest.controller;
 
-import de.spring.persistence.entity.Domain;
+import de.spring.persistence.entity.DomainEntity;
 import de.spring.service.impl.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Domain RestController
+ * DomainEntity RestController
  * Have a look at the RequestMapping!!!!!!
  */
 @RestController
@@ -23,24 +23,33 @@ public class DomainController {
     private ProjectService projectService;
 
     @GetMapping
-    public List<Domain> findAll() {
-        return this.domainService.findAll();
+    public EntityListResponse<DomainEntity> findAll() {
+      List<DomainEntity> entities = this.domainService.findAll();
+      EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
+      ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
+      response.setMetadata(responseMetadata);
+      return response;
     }
 
     @GetMapping(value = "/{id}")
-    public Domain findById(@PathVariable("id") Long id) {
-        return this.domainService.findById(id);
+    public DomainEntity findById(@PathVariable("id") Long id) {
+      DomainEntity entity = this.domainService.findById(id);
+      EntityResponse<DomainEntity> rw = new EntityResponse<DomainEntity>(entity);
+      if (entity == null) {
+        rw.setMetadata(new ResponseMetadata(ResponseCode.NOT_FOUND, "response.notfound"));
+      }
+      return rw;
     }
 
     @PutMapping
-    public EntityResponse<Domain> save(@RequestBody Domain domain) {
+    public EntityResponse<DomainEntity> save(@RequestBody DomainEntity domain) {
       if (domain.getProject() == null) {
         Project project = new Project();
         project.setId(domain.getProjectId());
         domain.setProject(project);
       }
 
-      EntityResponse<Domain> response = validateAttibutes(domain);
+      EntityResponse<DomainEntity> response = validateAttibutes(domain);
       if (response == null) {
         response.setResult(domainService.saveOrUpdate(domain));
       }
@@ -48,7 +57,7 @@ public class DomainController {
     }
 
     @PostMapping
-    public EntityResponse<Domain> update(@RequestBody Domain domain) {
+    public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
       repsone.setResult(this.domainService.saveOrUpdate(domain));
 
       if (domain.getProject() == null) {
@@ -57,7 +66,7 @@ public class DomainController {
         domain.setProject(projectEntity);
       }
       
-      EntityResponse<Domain> response = validateAttibutes(domain);
+      EntityResponse<DomainEntity> response = validateAttibutes(domain);
 
       if (response == null) {
         response.setResult(domainService.saveOrUpdate(domain));
@@ -66,8 +75,8 @@ public class DomainController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public EntityResponse<Domain> delete(@PathVariable("id") Long id) {
-      Domain toBeDeleted = this.domainService.findById(id);
+    public EntityResponse<DomainEntity> delete(@PathVariable("id") Long id) {
+      DomainEntity toBeDeleted = this.domainService.findById(id);
       this.domainService.delete(toBeDeleted);
 
       ResponseMetadata responseMetadata = new ResponseMetadata();
@@ -81,16 +90,16 @@ public class DomainController {
 
     // Custom Endpoints
     @GetMapping(value "/query/domainsbyproject/{projectId}")
-    public EntityListResponse<Domain> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
+    public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
       Project project = projectService.findById(projectId);
       if (project == null) {
-        EntityListResponse<Domain> response = new EntityListResponse<Domain>(null);
+        EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
         ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
         response.setMetadata(responseMetadata);
         return response;
       } else {
-        List<Domain> entities = getService().findAllDomainsByProject(projectId);
-        EntityListResponse<Domain> response = new EntityListResponse<Domain>(entities);
+        List<DomainEntity> entities = getService().findAllDomainsByProject(projectId);
+        EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
         ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
         response.setMetadata(responseMetadata);
         return response;
@@ -104,11 +113,11 @@ public class DomainController {
     }
 
     //helper functions
-    private EntityResponse<Domain> validateAttibutes(Domain entity) {
-      EntityResponse<Domain> response = new EntityResponse<Domain>();
+    private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+      EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
       
       if (entity.getDomains() != null) {
-        for (Domain domain : entity.getDomains()) {
+        for (DomainEntity domain : entity.getDomains()) {
           ResponseMetadata responseMetadata = EntityValidator.validate(domain);	
           if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
             response.setMetadata(responseMetadata);
