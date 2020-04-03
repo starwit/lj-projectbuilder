@@ -28,6 +28,10 @@
       <groupId>de.starwit</groupId>
       <artifactId>persistence</artifactId>
     </dependency>
+    <dependency>
+      <groupId>de.starwit</groupId>
+      <artifactId>service</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.commons</groupId>

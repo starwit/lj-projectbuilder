@@ -17,21 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import de.starwit.generator.config.Constants;
-import de.starwit.generator.generator.EntityImports;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
-import de.starwit.ljprojectbuilder.response.ResponseCode;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
-import de.starwit.ljprojectbuilder.validation.ValidationError;
-import find.FindClass;
+import de.spring.persistence.entity.ProjectEntity;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -55,7 +46,7 @@ public class GeneratorService {
 	@Autowired
 	private ProjectService projectService;
 
-	public void generate(Long projectId) throws NotificationException {
+	public void generate(Long projectId) throws de.spring.persistence.exception.NotificationException {
 		ProjectEntity project = projectService.findById(projectId);
 		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
 		Collection<DomainEntity> domains = project.getSelectedDomains();
