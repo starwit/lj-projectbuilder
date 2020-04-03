@@ -22,7 +22,6 @@
     </properties>
 
     <modules>
-        <module>webclient</module>
         <module>application</module>
         <module>rest</module>
         <module>service</module>
