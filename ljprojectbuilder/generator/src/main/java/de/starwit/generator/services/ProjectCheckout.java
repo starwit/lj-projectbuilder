@@ -5,26 +5,23 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.inject.Named;
-
-import org.apache.log4j.Logger;
-
+import de.spring.persistence.entity.ProjectEntity;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
-import de.starwit.ljprojectbuilder.response.ResponseCode;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-@Named("ProjectCheckout")
+
+@Component("ProjectCheckout")
 public class ProjectCheckout {
 
-	public final static Logger LOG = Logger.getLogger(ProjectCheckout.class);
+	public final static Logger LOG = LoggerFactory.getLogger(ProjectCheckout.class);
 
 	public String createTempProjectDirectory(final ProjectEntity project) throws NotificationException {
 		try {

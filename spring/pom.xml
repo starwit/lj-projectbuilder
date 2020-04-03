@@ -26,6 +26,7 @@
         <module>rest</module>
         <module>service</module>
         <module>persistence</module>
+        <module>generator</module>
     </modules>
 
     <dependencyManagement>

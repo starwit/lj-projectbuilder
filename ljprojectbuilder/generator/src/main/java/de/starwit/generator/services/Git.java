@@ -1,15 +1,17 @@
 package de.starwit.generator.services;
 
-import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /** Class for running git commands. */
 public class Git {
 
-	private final static Logger LOG =  Logger.getLogger("Git");
+	private final static Logger LOG =  LoggerFactory.getLogger("Git");
 
 	public static void gitInit(Path directory) throws IOException, InterruptedException {
 		runCommand(directory, "git", "init");
