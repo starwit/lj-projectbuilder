@@ -54,7 +54,7 @@
                                     <outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>${project.parent.basedir}/webclient/app/build</directory>
+                                            <directory>${project.parent.basedir}/webclient/src/main/webapp</directory>
                                         </resource>
                                     </resources>
                                 </configuration>

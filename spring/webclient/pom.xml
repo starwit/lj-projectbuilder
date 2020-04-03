@@ -3,42 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>ljprojectbuilder</groupId>
-		<artifactId>ljprojectbuilder</artifactId>
-		<version>1</version>
-	</parent>
+    <parent>
+        <groupId>de.test</groupId>
+        <artifactId>Test</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
 	<artifactId>webclient</artifactId>
 	<packaging>pom</packaging>
-
-	<dependencies>
-
-	</dependencies>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>com.github.greengerong</groupId>
-					<artifactId>maven-ng-protractor</artifactId>
-					<version>0.0.2</version>
-					<configuration>
-						<protractor>protractor</protractor>
-						<configFile>src/main/webapp/test/e2e/protractor.conf.js</configFile>
-					</configuration>
-					<executions>
-							<execution>
-									<id>ng-protractor</id>
-									<phase>test</phase>
-									<goals>
-											<goal>run</goal>
-									</goals>
-							</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 
 </project>
