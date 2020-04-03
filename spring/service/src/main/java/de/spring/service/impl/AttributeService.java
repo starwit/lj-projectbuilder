@@ -14,6 +14,18 @@ public class AttributeService {
         return this.attributeRepository.findAll();
     }
 
+    public AttributeEntity findById(Long id) {
+        return this.attributeRepository.findById(id);
+    }
+
+    public AttributeEntity saveOrUpdate(AttributeEntity entity) {
+        return this.attributeRepository.saveOrUpdate(entity);
+    }
+
+    public void delete(AttributeEntity entity) {
+        this.attributeRepository.delete(entity);
+    }
+
 }
 
 

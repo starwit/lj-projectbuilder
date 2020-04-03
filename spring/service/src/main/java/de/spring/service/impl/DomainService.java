@@ -2,8 +2,6 @@ package de.spring.service.impl;
 
 import java.util.List;
 
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +42,21 @@ public class DomainService {
 		}
 		return this.domainRepository.save(entity);
 	}
+
+	public List<DomainEntity> findAll() {
+		return this.domainRepository.findAll();
+	}
+
+	public DomainEntity findById(Long id) {
+		return this.domainRepository.findById(id).orElse(null);
+	}
+
+	public DomainEntity saveOrUpdate(DomainEntity entity) {
+		return this.domainRepository.save(entity);
+	}
+
+	public void delete(DomainEntity entity) {
+		this.domainRepository.delete(entity);
+	}
+
 }

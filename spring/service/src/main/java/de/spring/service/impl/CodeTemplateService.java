@@ -35,4 +35,17 @@ public class CodeTemplateService {
 	public CodeTemplateEntity findById(Long id) {
 		return this.codeTemplateRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
+
+	public List<CodeTemplateEntity> findAll() {
+		return this.codeTemplateRepository.findAll();
+	}
+
+	public CodeTemplateEntity saveOrUpdate(CodeTemplateEntity entity) {
+		return this.codeTemplateRepository.save(entity);
+	}
+
+	public void delete(CodeTemplateEntity entity) {
+		this.codeTemplateRepository.delete(entity);
+	}
 }
+
