@@ -1,5 +1,9 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
+import de.spring.persistence.response.ListResponse;
 import de.spring.service.impl.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +33,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public ProjectEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<ProjectEntity> findById(@PathVariable("id") Long id) {
       ProjectEntity entity = this.projectService.findById(id);
       EntityResponse<ProjectEntity> rw = new EntityResponse<ProjectEntity>(entity);
       if (entity == null) {
@@ -67,8 +71,7 @@ public class ProjectController {
     }
 
     //Custom endpoints
-    @Path("/branchnames")
-    @POST
+    @PostMapping(value = "/branchnames")
     public ListResponse<String> getBranchnames(String remoteLocation) {
       List<String> branchnames = new ArrayList<>();
       Collection<Ref> refs = null;

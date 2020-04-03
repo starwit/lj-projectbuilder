@@ -1,7 +1,9 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.DataType;
 import de.spring.persistence.entity.DomainEntity;
 import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
 import de.spring.service.impl.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,7 @@ public class DomainController {
     }
 
     @GetMapping(value = "/{id}")
-    public DomainEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
       DomainEntity entity = this.domainService.findById(id);
       EntityResponse<DomainEntity> rw = new EntityResponse<DomainEntity>(entity);
       if (entity == null) {

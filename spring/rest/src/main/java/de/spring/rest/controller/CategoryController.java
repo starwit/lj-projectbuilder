@@ -1,5 +1,8 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.CategoryEntity;
+import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
 import de.spring.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +32,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{id}")
-    public CategoryEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<CategoryEntity> findById(@PathVariable("id") Long id) {
       CategoryEntity entity = this.categoryService.findById(id);
       EntityResponse<CategoryEntity> rw = new EntityResponse<CategoryEntity>(entity);
       if (entity == null) {
