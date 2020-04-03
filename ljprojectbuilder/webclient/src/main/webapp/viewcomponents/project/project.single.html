@@ -11,7 +11,7 @@
 			</ul>
 		</span>
 		<button class="icon back hint" ng-click="ctrl.doMaintain(); "><span>{{'button.back' | translate}}</span></button>
-		<button class="icon next right hint" ng-click="ctrl.doMaintainDomain(); sent=true;" title="{{'button.savenext' | translate}}"><span>{{'button.save' | translate}} | {{'button.next' | translate}}</span></button>
+		<button class="icon next right hint" ng-click="ctrl.doMaintainDomain(); sent=true;" title="{{'button.savenext' | translate}}"><span>{{'button.next' | translate}}</span></button>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -30,7 +30,7 @@
 						<tr>
 							<td>
 								<label for="projecttemplates">{{'project.templateselect' | translate}}</label>
-								<select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.branch for template in ctrl.templateAll track by template.id"></select>
+								 <select name="projecttemplates" id="projecttemplates" ng-model="ctrl.project.template" ng-options="template as template.title + ' - Repo: ' + template.location + ' - Branch: '  + template.branch for template in ctrl.templateAll track by template.id"></select>
 							</td>
 							<td>
 								<label for="description">{{'project.description' | translate}}</label>
@@ -41,21 +41,25 @@
 							<td>
 								<table>
 									<tr>
-										<td><span><strong>{{'project.templatetitle' | translate}}:</strong></span></td>
-										<td><span>{{ctrl.project.template.templateTitle}}</span></td>
+										<td><span><strong>{{'projecttemplate.title' | translate}}:</strong></span></td>
+										<td><span>{{ctrl.project.template.title}}</span></td>
 									</tr>
 									<tr>
-										<td><span><strong>{{'project.templatelocation' | translate}}</strong></span></td>
-										<td><span>{{ctrl.project.template.templateLocation}}</span></td>
+										<td><span><strong>{{'projecttemplate.location' | translate}}</strong></span></td>
+										<td><span>{{ctrl.project.template.location}}</span></td>
 									</tr>
 									<tr>
-										<td><span><strong>{{'project.templatebranch' | translate}}</strong></span></td>
+										<td><span><strong>{{'projecttemplate.branch' | translate}}</strong></span></td>
 										<td><span>{{ctrl.project.template.branch}}</span></td>
 									</tr>
 									<tr>	
-										<td><span><strong>{{'project.templatepackageprefix' | translate}}</strong></span></td>
-										<td><span>{{ctrl.project.template.templatePackagePrefix}}</span></td>
+										<td><span><strong>{{'projecttemplate.packageprefix' | translate}}</strong></span></td>
+										<td><span>{{ctrl.project.template.packagePrefix}}</span></td>
 									</tr>
+									<tr>	
+										<td><span><strong>{{'projecttemplate.description' | translate}}</strong></span></td>
+										<td><span>{{ctrl.project.template.description}}</span></td>
+									</tr>									
 								</table>
 							</td>
 							<td>&nbsp;</td>
@@ -94,5 +98,5 @@
 </div>  
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
-	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.ext.html'"></div>
 </div>

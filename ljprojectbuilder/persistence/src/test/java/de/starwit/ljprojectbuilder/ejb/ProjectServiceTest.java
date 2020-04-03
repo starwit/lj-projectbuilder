@@ -7,13 +7,13 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.entity.TemplateEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity;
 
 @RunWith(Arquillian.class)
 public class ProjectServiceTest extends AbstractServiceTest<ProjectService, ProjectEntity> {
 	
 	@Inject
-	private TemplateService templateService;
+	private ProjectTemplateService templateService;
 	
 	@Override
 	public void setService(ProjectService service) {
@@ -27,10 +27,10 @@ public class ProjectServiceTest extends AbstractServiceTest<ProjectService, Proj
 		entity.setTitle("Test");
 		entity.setTargetPath("test");
 
-		TemplateEntity template = new TemplateEntity();
-		template.setTemplateLocation("http://test");
-		template.setTemplateTitle("testproject");
-		template.setTemplatePackagePrefix("test");
+		ProjectTemplateEntity template = new ProjectTemplateEntity();
+		template.setLocation("http://test");
+		template.setTitle("testproject");
+		template.setPackagePrefix("test");
 		templateService.create(template);
 		entity.setTemplate(template);
 		entity = getService().create(entity);

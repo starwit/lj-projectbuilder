@@ -1,8 +1,9 @@
 # Project Builder
 
 ## Links: 
-* ![architecture description for developer](https://github.com/witchpou/lj-projectbuilder/blob/master/architecture.md)
-* ![introduction for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/webdesign.md)
+* [How to create templates](https://gitlab.com/witchpou/lj-projectbuilder/blob/master/documentation/howto.md)
+* [architecture description for developer](https://gitlab.com/witchpou/lj-projectbuilder/blob/master/documentation/architecture.md)
+* [introduction for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/documentation/webdesign.md)
 * [article in german](https://wp.starwit.de/wp-content/uploads/2017/02/03-2016-Java-aktuell-Anett-Hübner_Java-Enterprise-Anwendungen-effizient-...-4.pdf)
 
 ## Motivation
@@ -15,7 +16,7 @@ Yet still a lot of boiler plate code needs to be written and creating JEE applic
 
 A fully working example application of this pattern can be found is the [lirejarp template](https://github.com/witchpou/lirejarp). Besides using described pattern it also contains an Javascript based client application that serves a UI to the Java based back end. This rigorous separation of UI is also intended as it helps to demonstrate architecture approach without mixing with UI issues.
 
-This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/witchpou/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp is modified and enhanced accordingly. 
+This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/witchpou/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp is modified and enhanced accordingly.
 
 ## Prequisites
 

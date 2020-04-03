@@ -5,15 +5,22 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.generator').controller('generatorCtrl', generatorCtrl);
 
-	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', ];
-	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory) {
+	generatorCtrl.$inject = ['$scope', '$routeParams', 'dialogService', 'domainConnectorFactory', 'projectConnectorFactory', 'projectSetupConnectorFactory', 'gotoGenProjectTemplate',];
+	function generatorCtrl($scope, $routeParams, dialogService, domainConnectorFactory, projectConnectorFactory, projectSetupConnectorFactory, gotoGenProjectTemplate) {
 		var ctrl = this;
 
 		ctrl.projectid = 0;
 		ctrl.refresh = refresh;
+		ctrl.gotoGenProjectTemplate = gotoGenProjectTemplate;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
+		ctrl.checkTargetRepo = checkTargetRepo;
+		ctrl.createTargetRepo = createTargetRepo;
+		ctrl.checkAuthentication = checkAuthentication;
+		ctrl.resetAuth = resetAuth;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;
 		init();
 		
 		/**
@@ -27,20 +34,71 @@
 		 * Creates a new project with the given setup from a template-project.
 		 */
 		function projectDownload() {
+			ctrl.generatorDto.user = ctrl.generatorDto.username; 
+			ctrl.generatorDto.pass = ctrl.generatorDto.password;
 			dialogService.showDialog(null, null, "loadingdialog", function(){});
-			ctrl.generatorDto.domains = ctrl.domainAll;
+			getSelectedDomainIds();
+			
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
-				ctrl.closeDialog('loadingdialog');
-			}, setupError);
+				dialogService.closeDialog('loadingdialog');
+			}, setupDownloadError(gotoTemplate));
+			resetAuth();
 		};
 		
-		/** 
-		 * Standard function for initialization.
-		 */
+		function resetAuth() {
+			ctrl.generatorDto.username="";
+			ctrl.generatorDto.password="";
+		};
+		
+		function gotoTemplate() {
+			gotoGenProjectTemplate.update(ctrl.generatorDto.project.template.id);
+		}
+		
+		function checkAuthentication() {
+			if (ctrl.generatorDto.project.template.credentialsRequired) {
+				dialogService.showDialog("generator.login", null, "authenticationdialog", function(){});
+			} else {
+				projectDownload();
+			}
+		};
+		
+		function checkTargetRepo() {
+			var targetRepoData = ctrl.targetRepoData;
+			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
+				projectSetupConnectorFactory.checkIfRepoServerWorks(ctrl.targetRepoData).then(function(data) {
+					ctrl.repos = data;
+					ctrl.targetRepoLoaded = true;
+				});				
+			} else {
+				//TODO error message
+			}
+
+		}
+		
+		function createTargetRepo() {
+			var targetRepoData = ctrl.targetRepoData;
+			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
+				projectSetupConnectorFactory.createTargetRepo(ctrl.targetRepoData).then(function(data) {
+					ctrl.repos = data;
+
+				});				
+			} else {
+				//TODO error message
+			}
+		}
+		
+		function getSelectedDomainIds() {
+			ctrl.generatorDto.selectedDomains = ctrl.domainAll;
+		}
+		
 		function init() {
 			ctrl.domainAll = [];
 			ctrl.generatorDto = {};
+			ctrl.targetRepoData = {};
+			ctrl.repos = {};
+			ctrl.targetRepoLoaded = false;
+			ctrl.resetAuth();
 			
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.id != undefined) {
@@ -49,7 +107,7 @@
 						.then(setDomainAll, null);
 					
 					projectConnectorFactory.loadProject($routeParams.id)
-						.then(	setGeneratorDto, null);
+						.then(setGeneratorDto, null);
 				}
 			});
 			ctrl.refresh();
@@ -60,11 +118,6 @@
 		 */
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response;
-			ctrl.generatorDto.generateEntity = true;
-			ctrl.generatorDto.generateService = true;
-			ctrl.generatorDto.generateRest = true;
-			ctrl.generatorDto.generateFrontend = true;
-			
 			ctrl.projecttitle = response.title;
 			ctrl.downloadlink="downloadproject?projectid=" + response.id;
 		}
@@ -87,8 +140,15 @@
 		/**
 		 * Error message after loading the project.
 		 */
-		function setupError(response) {
-			dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+		function setupDownloadError(gotoDestination) {
+			return function (response) {
+				dialogService.closeDialog('loadingdialog');
+				if (response == 'NOT_AUTHORIZED') {
+					dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
+				} else {
+					dialogService.showGeneratorValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				}
+			}
 		};
 		
 		function closeDialog(dialogid) {

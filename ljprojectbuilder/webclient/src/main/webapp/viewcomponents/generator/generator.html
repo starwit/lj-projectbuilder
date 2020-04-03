@@ -14,7 +14,7 @@
 		<div class="clearer"></div>
 	</div>
 	<div class="bottom aCenter">
-		<span class="button add"><a href="" ng-click="ctrl.projectDownload();">{{'generator.button.downloadproject' | translate}}</a></span>
+		<span class="button add"><a href="" ng-click="ctrl.checkAuthentication();">{{'generator.button.downloadproject' | translate}}</a></span>
 		<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
 	</div>
 </div>
@@ -44,12 +44,12 @@
 						</tr>
 						<tr>
 							<th>{{'project.title' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.templateTitle}}</td>
+							<td>{{ctrl.generatorDto.project.template.title}}</td>
 							<td>{{ctrl.generatorDto.project.title}}</td>
 						</tr>
 						<tr>
 							<th>{{'project.location' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.templateLocation}}</td>
+							<td>{{ctrl.generatorDto.project.template.location}}</td>
 							<td></td>
 						</tr>	
 						<tr>
@@ -57,10 +57,9 @@
 							<td>{{ctrl.generatorDto.project.template.branch}}</td>
 							<td></td>
 						</tr>					
-
 						<tr>
 							<th>{{'project.packageprefix' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.templatePackagePrefix}}</td>
+							<td>{{ctrl.generatorDto.project.template.packagePrefix}}</td>
 							<td>{{ctrl.generatorDto.project.packagePrefix}}</td>
 						</tr>
 					</tbody>
@@ -90,33 +89,113 @@
 									<input type="checkbox" checked="true" ng-model="domain.selected"/><span>{{domain.name}}</span>
 								</div>
 							</td>
-							<td colspan="2">
-							<div class="clickBox" >
-									<input type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateEntity">
-									<span class="w3-validate">{{'generator.entity' | translate}}</span>
-								</div>
-								<div class="clickBox" >
-									<input type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateService">
-									<span>{{'generator.backend' | translate}}</span>
-								</div>
-								<div class="clickBox" >
-									<input type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateRest">
-									<span>{{'generator.rest' | translate}}</span>
-								</div>
-								<div class="clickBox" >
-									<input type="checkbox" checked="true" ng-model="ctrl.generatorDto.generateFrontend">
-									<span>{{'generator.frontend' | translate}}</span>
-								</div>
-							</td>
 						</tr>
 					</tbody>
 				</table>	
 			</fieldset>
+
+<!-- 
+			<fieldset class="odd">
+				<table>
+					<colgroup>
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+						<col class="">
+					</colgroup>
+					<thead>
+						<tr>
+							<td>
+								<h3>{{'generator.targetLogin' | translate}}</h3>
+							</td>
+							<td>&nbsp;</td>
+							<td class="aRight">
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span>{{'generator.target.repo.name' | translate}}* </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.repoName"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.baseurl' | translate}}* </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.baseURL"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.target.projectname' | translate}} </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.projectName"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.username' | translate}}* </span>
+							</td>
+							<td>
+								<input type="string" ng-model="ctrl.targetRepoData.username"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>{{'generator.password' | translate}}* </span>
+							</td>
+							<td>
+								<input type="password" ng-model="ctrl.targetRepoData.password"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="button add"><a href="" ng-click="ctrl.checkTargetRepo();">{{'button.list.target.repo' | translate}}</a></span>
+							</td>
+							<td>
+								<span class="button add"><a href="" ng-click="ctrl.createTargetRepo();">{{'button.create.target.repo' | translate}}</a></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table ng-show="ctrl.targetRepoLoaded">
+					<thead>
+						<tr>
+							<td>Name</td>
+							<td>is public?</td>
+							<td>SSH Link</td>
+							<td>HTTP Link</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="repo in ctrl.repos">
+							<td>{{repo.name}}</td>
+							<td>{{repo.public}}</td>
+							<td>{{repo.sshCloneURL}}</td>
+							<td>{{repo.httpCloneURL}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset> 
+-->
 		</form>
 	</div>
 </div>
 <div id="dialogBox">
 	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
-	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.ext.html'"></div>
 	<div ng-include="'shared/dialogs/dialog.loading.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.authentication.html'"></div>	
 </div>

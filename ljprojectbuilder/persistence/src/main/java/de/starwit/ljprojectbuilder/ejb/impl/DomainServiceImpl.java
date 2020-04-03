@@ -4,10 +4,13 @@ package de.starwit.ljprojectbuilder.ejb.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.validation.ValidationException;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 
 @Stateless(name = "DomainService")
 public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> implements DomainService {
@@ -23,9 +26,29 @@ public class DomainServiceImpl extends AbstractServiceImpl<DomainEntity> impleme
 		
 		return query.getResultList();
 	}
-
+	
+	@Override
+	public void setDomainSelected(Long domainId, boolean selected) {
+		String queryStr = "update DomainEntity domain set domain.selected = :selected where domain.id = :domainId";
+		
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setParameter("domainId", domainId);
+		query.setParameter("selected", selected);
+		
+		query.executeUpdate();
+	}
+	
+	@Override
+	public DomainEntity update(DomainEntity entity) throws ValidationException {
+		return super.update(entity);
+	}
+	
+	@Override
+	public DomainEntity create(DomainEntity entity) throws ValidationException {
+		ProjectEntity project = getEntityManager().find(ProjectEntity.class, entity.getProject().getId());
+		if (entity != null) {
+			entity.setProject(project);
+		}
+		return super.create(entity);
+	}
 }
-
-
-
-    

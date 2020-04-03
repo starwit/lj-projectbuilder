@@ -8,7 +8,28 @@
 
 	<property name="ui_src" location="${app_path}/webclient/src/main/webapp/" />
 	<property name="warfile" value="${app_path}/target/ljprojectbuilder.war" />
-	<property name="ui_dest" value="${basedir}/target/ljprojectbuilder" />
+	<property name="ui_dest" value="${app_path}/target/ljprojectbuilder" />
+	
+	<property name="os.windows" value="windows" />
+	
+	<condition property="isWindows">
+		<os family="windows" />
+	</condition>
+	
+	<scriptdef name="propertyreset" language="javascript"
+		description="Allows to assign @{property} new value">
+		<attribute name="name"/>
+		<attribute name="value"/>
+			project.setProperty(attributes.get("name"), attributes.get("value"));
+	</scriptdef>
+	
+	<target name="check_windows_os" if="isWindows">
+		<propertyreset  name="os.windows" value="${os.name}" />
+		<echo message="OS family is:         ${os.windows}" />
+        <echo message="OS Name is:         ${os.name}" />
+        <echo message="OS Architecture is: ${os.arch}" />
+        <echo message="OS Version is:      ${os.version}" />
+	</target>
 	
 	<property name="sql_create" value="
 			DROP DATABASE IF EXISTS ljprojectbuilder;
@@ -22,7 +43,7 @@
 	<target name="clean_all" depends="stop_tomee,clean_tomee,clean_application"></target>
 
 	<target name="copy_frontend_local">
-		<echo>copy web frontend from ${src} to ${dest}</echo>
+		<echo>copy web frontend from ${ui_src} to ${ui_dest}</echo>
 		<copy todir="${ui_dest}">
 			<fileset dir="${ui_src}" />
 		</copy>
@@ -57,6 +78,7 @@
 	</target>
 
 	<target name="build_tomee" description="build tomee">
+		<echo>call mvn tomee:build in ${basedir}/${tomee_path}</echo>
 		<antcall target="call_maven">
 			<param name="exec_dir" value="${basedir}/${tomee_path}"/>
 			<param name="mvn_command" value="tomee:build"/>
@@ -70,33 +92,37 @@
 		</antcall>
 	</target>
 
-	<target name="run_tomee">
+	<target name="run_tomee" depends="check_windows_os">
+	
+	<echo message="OS family is:         ${os.windows}" />
 		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux">
 			<arg value="startup.sh" />
 		</exec>
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="Windows">
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="${os.windows}">
+			<arg value="/C" />
 			<arg value="startup.bat" />
 		</exec>
 	</target>
 
-	<target name="stop_tomee" depends="check_tomee_exist" if="${tomee.path.exist}">
+	<target name="stop_tomee" depends="check_windows_os,check_tomee_exist" if="${tomee.path.exist}">
 		<echo>Try to stop a running TomEE instance...</echo>
 		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux" >
 			<arg value="shutdown.sh" />
 		</exec>
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="Windows" >
+		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="${os.windows}" >
+			<arg value="/C" />
 			<arg value="shutdown.bat" />
 		</exec>
 	</target>
 
 	<!-- call maven on various operating systems -->
-	<target name="call_maven">
+	<target name="call_maven" depends="check_windows_os">
 		<echo>Running Maven in ${exec_dir} with ${mvn_command}</echo>
 		<exec dir="${exec_dir}" executable="bash" os="Linux">
 			<arg value="-c" />
 			<arg value="mvn ${mvn_command}" />
 		</exec>
-		<exec dir="${exec_dir}" executable="cmd" os="Windows">
+		<exec dir="${exec_dir}" executable="cmd" os="${os.windows}">
 			<arg value="/C" />
 			<arg value="mvn ${mvn_command}" />
 		</exec>
@@ -107,7 +133,7 @@
 	</target>
 
 	<!-- MySQL stuff -->
-	<target name="setup_database">
+	<target name="setup_database" depends="check_windows_os">
 		<echo>Create database</echo>
 		<exec executable="mysql" os="Linux">
 			<arg value="--user=${sql.user}" />

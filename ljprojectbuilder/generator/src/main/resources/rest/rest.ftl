@@ -1,4 +1,4 @@
-package de.${package}.${appName?lower_case}.api.rest;
+package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.rest;
 
 
 import javax.inject.Inject;
@@ -8,34 +8,34 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.${package}.${appName?lower_case}.api.rest.response.EntityResponse;
-import de.${package}.${appName?lower_case}.ejb.${domain}Service;
-import de.${package}.${appName?lower_case}.entity.${domain}Entity;
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.rest.response.EntityResponse;
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.ejb.${domain.name}Service;
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity;
 
-@Path("/${domainLower}")
+@Path("/${domain.name?lower_case}")
 @Consumes("application/json")
 @Produces("application/json")
-public class ${domain}Rest extends AbstractRest<${domain}Entity> {
+public class ${domain.name}Rest extends AbstractRest<${domain.name}Entity> {
 	
 	@Inject
-	protected ${domain}Service service;
+	protected ${domain.name}Service service;
 	
 	@Override
-	protected ${domain}Service getService() {
+	protected ${domain.name}Service getService() {
 		return service;
 	}
 	
 	//Create
 	@Path("/")
 	@PUT
-	public EntityResponse<${domain}Entity> create(${domain}Entity entity) {
+	public EntityResponse<${domain.name}Entity> create(${domain.name}Entity entity) {
 		return super.createGeneric(entity);
 	}
 
 	//Update
 	@Path("/")
 	@POST
-	public EntityResponse<${domain}Entity> update(${domain}Entity entity) {
+	public EntityResponse<${domain.name}Entity> update(${domain.name}Entity entity) {
 		return super.updateGeneric(entity);
 	}
 }

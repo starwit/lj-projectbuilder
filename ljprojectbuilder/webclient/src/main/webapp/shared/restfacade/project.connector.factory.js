@@ -35,7 +35,7 @@ projectConnectorFactory = ['$http', '$location', 'restConnectorFactory', functio
 	};
 	
 	function getTemplateAll() {
-		return $http.get('api/template/query/all')
+		return $http.get('api/projecttemplate/query/all')
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError

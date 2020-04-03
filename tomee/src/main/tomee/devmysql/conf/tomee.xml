@@ -10,8 +10,8 @@
     JtaManaged=true
     JdbcDriver = org.mariadb.jdbc.Driver
     JdbcUrl = jdbc:mysql://127.0.0.1:3306/ljprojectbuilder
-    UserName = ljprojectbuilder
-    Password = ljprojectbuilder
+    UserName=ljprojectbuilder
+    Password=ljprojectbuilder
 </Resource>
 
 </tomee>

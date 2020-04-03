@@ -19,7 +19,7 @@
 					<thead>
 						<tr>
 							<td class="aLeft">
-								<span class="button show"><a ng-click="$event.stopPropagation();ctrl.showDetails(project.id);"><b>{{ctrl.detailsign}}</b></a></span>
+								<span class="button show"><a ng-click="$event.stopPropagation();ctrl.showDetails(project.id);"><b></b></a></span>
 								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoProject.update(project.id);">Bearbeiten</a></span>
 							</td>
 							<td class="aCenter">
@@ -39,19 +39,19 @@
 										<td colspan="2"><h4>{{'project.template' | translate}}</h4></td>
 									</tr>
 									<tr>
-										<th>{{'project.templatetitle' | translate}}:</th>
-										<td>{{project.template.templateTitle}}</td>
+										<th>{{'projecttemplate.title' | translate}}:</th>
+										<td>{{project.template.title}}</td>
 									</tr>
 									<tr>
-										<th>{{'project.templatepackageprefix' | translate}}:</th>
-										<td>{{project.template.templatePackagePrefix}}</td>
+										<th>{{'projecttemplate.packageprefix' | translate}}:</th>
+										<td>{{project.template.packagePrefix}}</td>
 									</tr>
 									<tr>
-										<th>{{'project.templatelocation' | translate}}:</th>
-										<td>{{project.template.templateLocation}}</td>
+										<th>{{'projecttemplate.location' | translate}}:</th>
+										<td>{{project.template.location}}</td>
 									</tr>		
 									<tr>
-										<th>{{'project.templatebranch' | translate}}:</th>
+										<th>{{'projecttemplate.branch' | translate}}:</th>
 										<td>{{project.template.branch}}</td>
 									</tr>																				
 								</table>

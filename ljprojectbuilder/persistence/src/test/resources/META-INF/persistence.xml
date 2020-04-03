@@ -6,11 +6,13 @@
              version="2.1">
 	<persistence-unit name="MeineJpaPU" transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<jta-data-source>java:openejb/Resource/jdbc/ljprojectbuilder</jta-data-source>
+		<jta-data-source>java:openejb/Resource/jdbc/ljprojectbuilderTest</jta-data-source>
 		<class>de.starwit.ljprojectbuilder.entity.AttributeEntity</class>
 		<class>de.starwit.ljprojectbuilder.entity.DomainEntity</class>
 		<class>de.starwit.ljprojectbuilder.entity.ProjectEntity</class>
-		<class>de.starwit.ljprojectbuilder.entity.TemplateEntity</class>
+		<class>de.starwit.ljprojectbuilder.entity.ProjectTemplateEntity</class>
+		<class>de.starwit.ljprojectbuilder.entity.CodeTemplateEntity</class>
+		<class>de.starwit.ljprojectbuilder.entity.CategoryEntity</class>
 
 		<properties>
            	<property name="hibernate.show_sql" value="true" />

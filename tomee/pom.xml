@@ -31,7 +31,7 @@
 				<plugin>
 				    <groupId>org.apache.tomee.maven</groupId>
 				    <artifactId>tomee-maven-plugin</artifactId>
-				    <version>7.0.1</version>
+				    <version>7.0.3</version>
 				</plugin>
 
 				<plugin>
@@ -44,34 +44,61 @@
 		</pluginManagement>
 	</build>
 	<profiles>
-			<profile>
-				<!-- This profile shall generate an execution environment as close as possible to production settings. -->
-				<id>devh2</id>
-				<activation>
-					<activeByDefault>true</activeByDefault>
-				</activation>
-				<build>
-					<plugins>
-						<plugin>
-					    <groupId>org.apache.tomee.maven</groupId>
-					    <artifactId>tomee-maven-plugin</artifactId>
-							<configuration>
-								<tomeeVersion>7.0.1</tomeeVersion>
-								<tomeeClassifier>plus</tomeeClassifier>
-								<debug>false</debug>
-								<config>${project.basedir}/src/main/tomee/devh2/conf</config>
-									<libs>
-										<lib>com.h2database:h2:1.3.175</lib>
-										<lib>remove:openjpa-</lib>
-										<lib>org.jboss.resteasy:resteasy-jaxrs:3.0.19.Final</lib>
-										<lib>remove:jaxb-impl</lib>
-									</libs>
-								<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
-							</configuration>
-						</plugin>
-					</plugins>
-				</build>
-			</profile>
+		<profile>
+			<!-- dev profile with in memory -->
+			<id>devh2</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+					<groupId>org.apache.tomee.maven</groupId>
+					<artifactId>tomee-maven-plugin</artifactId>
+						<configuration>
+							<tomeeVersion>7.0.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+							<debug>false</debug>
+							<config>${project.basedir}/src/main/tomee/devh2/conf</config>
+								<libs>
+									<lib>com.h2database:h2:1.3.175</lib>
+									<lib>remove:openjpa-</lib>
+									<lib>remove:jaxb-impl</lib>
+								</libs>
+							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- dev H2 environment to use with docker/kubernetes -->
+			<id>devh2-docker</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+					<groupId>org.apache.tomee.maven</groupId>
+					<artifactId>tomee-maven-plugin</artifactId>
+						<configuration>
+							<tomeeVersion>7.0.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+							<debug>false</debug>
+							<config>${project.basedir}/src/main/tomee/devh2-docker/conf</config>
+								<libs>
+									<lib>com.h2database:h2:1.3.175</lib>
+									<lib>remove:openjpa-</lib>
+									<lib>remove:jaxb-impl</lib>
+								</libs>
+							<webappDir>webapps</webappDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		
 		<profile>
 			<!-- This profile shall generate an execution environment as close as possible to production settings. -->
@@ -92,7 +119,6 @@
 								<libs>
 									<lib>org.mariadb.jdbc:mariadb-java-client:1.5.4</lib>
 									<lib>remove:openjpa-</lib>
-									<lib>org.jboss.resteasy:resteasy-jaxrs:3.0.19.Final</lib>
 									<lib>remove:jaxb-impl</lib>
 								</libs>
 							<webappDir>${project.basedir}/../ljprojectbuilder/target</webappDir>
@@ -101,5 +127,33 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<!-- mysql/mariadb on Docker/Kubernetes -->
+			<id>mysql-kubernetes</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+				    <groupId>org.apache.tomee.maven</groupId>
+				    <artifactId>tomee-maven-plugin</artifactId>
+						<configuration>
+							<tomeeVersion>7.0.1</tomeeVersion>
+							<tomeeClassifier>plus</tomeeClassifier>
+							<debug>false</debug>
+							<config>${project.basedir}/src/main/tomee/mysql-kubernetes/conf</config>
+								<libs>
+									<lib>org.mariadb.jdbc:mariadb-java-client:1.5.4</lib>
+									<lib>remove:openjpa-</lib>
+									<lib>remove:jaxb-impl</lib>
+								</libs>
+							<webappDir>webapps</webappDir>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>		
 	</profiles>
 </project>

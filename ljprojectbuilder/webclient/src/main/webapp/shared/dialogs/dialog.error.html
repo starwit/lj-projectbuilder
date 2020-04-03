@@ -5,7 +5,11 @@
 				<span class="msg error">
 					<span class="button delete"><a href="">x</a></span>
 					<h2>{{ctrl.dialog.title | translate }}</h2>
-					<p>{{ctrl.dialog.text | translate }}</p>
+					<p>{{ctrl.dialog.text | translate }}
+					<ul>
+						<li ng-repeat="error in ctrl.dialog.validationErrors">{{error.message}}</li>
+					</ul>
+					</p>				
 				</span>
 			</td>
 		</tr>

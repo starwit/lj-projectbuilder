@@ -1,13 +1,10 @@
-package de.${package}.${appName?lower_case}.ejb;
+package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.ejb;
 
 import java.io.Serializable;
 import javax.ejb.Local;
-import de.${package}.${appName?lower_case}.entity.${domain}Entity;
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity;
 
 @Local
-public interface ${domain}Service extends Serializable, AbstractService<${domain}Entity> {
+public interface ${domain.name}Service extends Serializable, AbstractService<${domain.name}Entity> {
 
 }
-
-
-    

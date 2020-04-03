@@ -10,6 +10,10 @@ restConnectorFactory = ['$http', '$location', '$q',
 		function handleResponseSuccess(response) {
 			if (response.data.metadata.responseCode == 'OK' || response.data.metadata.responseCode == 'EMPTY') {
 				return response.data.result;
+			} else if (response.data.metadata.responseCode == 'NOT_AUTHORIZED') {
+				return $q.reject(response.data.metadata.responseCode);
+			} else if (response.data.metadata.responseCode == 'NOT_VALID') {
+				return $q.reject(response.data.metadata);
 			} else {
 				return $q.reject(response.data.metadata.message);
 			}

@@ -1,4 +1,4 @@
-package de.${package}.${appName?lower_case}.entity;
+package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +10,13 @@ ${import}
 
 @XmlRootElement
 @Entity
-@Table(name="${domainUpper}")
-public class ${domain}Entity extends AbstractEntity {
+@Table(name="${domain.name?upper_case}")
+public class ${domain.name}Entity extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
 	//domain attributes
-	
-	<#list (attributes) as attribute> 
+	<#list (domain.getAttributes()) as attribute> 
 		<#if attribute.pattern?? && attribute.pattern?length &gt; 0 && attribute.dataType == "String">
 	@Pattern(regexp = "${attribute.pattern}")
 		</#if>	
@@ -53,7 +52,7 @@ public class ${domain}Entity extends AbstractEntity {
 	
 	</#list>
 	
-	<#list (attributes) as attribute> 
+	<#list (domain.getAttributes()) as attribute> 
 
 	<#if attribute.dataType == "String"> 
 	@Column(name="${attribute.name?upper_case}"<#if !attribute.nullable>, nullable = false</#if><#if attribute.max??>, length=${attribute.max}</#if>)

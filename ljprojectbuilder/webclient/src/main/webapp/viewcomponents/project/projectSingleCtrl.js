@@ -14,6 +14,8 @@
 		ctrl.doMaintainGenerate = doMaintainGenerate;
 		ctrl.gotoProject = gotoProject;
 		ctrl.closeDialog = closeDialog;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;		
 		ctrl.dialog = dialogService.dialog;
 		init();
 
@@ -32,7 +34,7 @@
 		 * Standard function to edit the project configuration.
 		 */
 		function doMaintainDomain() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty || $routeParams.projectid == null) {
 				doMaintainThenGoto(gotoProjectDomain);
 			} else {
 				gotoProjectDomain();
@@ -52,7 +54,7 @@
 
 		function doMaintainThenGoto(gotoDestination) {
 			var saveFunction = isUpdate() ? projectConnectorFactory.updateProject : projectConnectorFactory.createProject;
-			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+			saveFunction(ctrl.project).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
 
 		function isUpdate() {
@@ -65,16 +67,12 @@
 		function init() {
 			ctrl.project = {};
 			ctrl.templateAll = [];
-			ctrl.branchnames = [];
 			projectConnectorFactory.getTemplateAll().then(setTemplateAll, null);
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined && $routeParams.projectid !== ctrl.project.id) {
 					ctrl.project.id = $routeParams.projectid;
 					ctrl.projectid = ctrl.project.id;
 					projectConnectorFactory.loadProject(ctrl.project.id).then(setProject, loadError);
-				}
-				if ($routeParams.projectid == null) {
-					ctrl.project = {};
 				}
 			});
 		}
@@ -89,13 +87,8 @@
 		
 		function setTemplateAll(response) {
 			ctrl.templateAll = response;
-			ctrl.project.template = response[0];
-		}
-		
-		function setBranchnames(response) {
-			ctrl.branchnames = response;
-			if (ctrl.project.template.branch == null) {
-				ctrl.project.template.branch = response[0];
+			if ($routeParams.projectid == null) {
+				ctrl.project.template = response[0];
 			}
 		}
 		
@@ -119,8 +112,14 @@
 		/**
 		 * Error message after saving.
 		 */
-		function saveError(response) {
-			dialogService.showDialog("project.dialog.error.title", "project.save.error", dialogService.dialog.id.error, function(){});
+		function saveError(gotoDestination) {
+			return function (response) {
+				if (response.responseCode == 'NOT_VALID') {
+					dialogService.showValidationDialog("project.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showDialog("project.dialog.error.title", "projecttemplate.save.error", dialogService.dialog.id.error, function(){});
+				}
+			}
 		}
 		
 		/**

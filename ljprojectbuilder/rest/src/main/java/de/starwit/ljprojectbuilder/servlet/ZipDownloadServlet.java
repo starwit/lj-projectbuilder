@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.starwit.ljprojectbuilder.config.Constants;
+import de.starwit.generator.config.Constants;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 
@@ -50,7 +50,9 @@ public class ZipDownloadServlet extends HttpServlet {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ZipOutputStream zos = new ZipOutputStream(baos);
 					for (File file : files) {
+						if (!Constants.TEMPLATE_DIR.equals(file.getName())) {
 						  addDirToZipArchive(zos, file, null);
+						}
 					}
 				    zos.flush();
 				    baos.flush();
@@ -81,7 +83,7 @@ public class ZipDownloadServlet extends HttpServlet {
 	    }
 
 	    String zipEntryName = fileToZip.getName();
-	    if (".git".equals(zipEntryName) || ".gitignore".equals(zipEntryName)) {
+	    if (".git".equals(zipEntryName)) {
 	    	return;
 	    }
 

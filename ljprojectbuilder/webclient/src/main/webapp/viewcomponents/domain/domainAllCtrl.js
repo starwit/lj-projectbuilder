@@ -39,14 +39,12 @@
 		/**
 		 * Shows the details (e.g. attributes) of a domain object.
 		 */
-		function showDetails(domainid) {
-		    var x = document.getElementById(domainid);
+		function showDetails(domainId) {
+		    var x = document.getElementById(domainId);
 		    if (x.className.indexOf("w3-show") == -1) {
 		        x.className += " w3-show";
-		        ctrl.detailsign = '-';
 		    } else {
 		        x.className = x.className.replace(" w3-show", "");
-		        ctrl.detailsign = '+';
 		    }
 		};
 		
@@ -57,7 +55,6 @@
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 				if ($routeParams.projectid != undefined) {
 					ctrl.projectid = $routeParams.projectid;
-					ctrl.detailsign = '+';
 					projectConnectorFactory.loadProject($routeParams.projectid)
 					.then(	setProjectTitle, null);
 					refresh();

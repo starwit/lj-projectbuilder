@@ -19,6 +19,10 @@
 		ctrl.removeAttribute = removeAttribute;
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
+		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
+		ctrl.resetAndContinue = dialogService.resetAndContinue;
+		ctrl.showValidationDialog = dialogService.showValidationDialog;
+		
 		init();
 		
 		/**
@@ -26,7 +30,7 @@
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
-				doMaintainThenGoto(gotoDomain.all);
+				doMaintainThenGoto(gotoDomainAll);
 			} else {
 				gotoDomainAll();
 			}
@@ -57,8 +61,9 @@
 		};		
 
 		function doMaintainThenGoto(gotoDestination) {
+			ctrl.domain.projectId = ctrl.projectid;
 			var saveFunction = isUpdate() ? domainConnectorFactory.updateDomain : domainConnectorFactory.createDomain;
-			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError);
+			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
 
 		function isUpdate() {
@@ -78,10 +83,16 @@
 		/**
 		 * Error message after saving.
 		 */
-		function saveError(response) {
-			dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
-		};
-
+		function saveError(gotoDestination) {
+			return function (response) {
+				if (response.responseCode == 'NOT_VALID') {
+					dialogService.showValidationDialog("domain.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showDialog("domain.dialog.error.title", "domain.save.error", dialogService.dialog.id.error, function(){});
+				}
+			}
+		}
+		
 		/**
 		 * Add an attribute to a domain.
 		 */
@@ -122,7 +133,7 @@
 			ctrl.domain.project = {};
 			ctrl.domain.project.id = ctrl.projectid;
 			projectConnectorFactory.loadProject($routeParams.projectid)
-			.then(	setProjectTitle, null);
+			.then(setProjectTitle, null);
 
 			if ($routeParams.id != undefined) {
 				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
@@ -145,7 +156,6 @@
 		 */
 		function setDomain(response) {
 			ctrl.domain = response;
-			ctrl.projecttitle = ctrl.domain.project.title;
 		}
 		
 		/**
@@ -160,7 +170,7 @@
 		};
 		
 		function gotoDomainAll() {
-			gotoDomain.all(ctrl.domain.project.id);
+			gotoDomain.all(ctrl.projectid);
 		};
 		
 		function gotoDomainNext() {
@@ -168,15 +178,15 @@
 			ctrl.projectid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 			initinit();
-			gotoDomain.create(ctrl.domain.project.id);
+			gotoDomain.create(ctrl.projectid);
 		};
 		
 		function gotoDomainDetail() {
-			gotoDomain.detail(ctrl.domain.project.id);
+			gotoDomain.detail(ctrl.projectid);
 		};
 		
 		function gotoDomainGenerate() {
-			gotoDomain.generate(ctrl.domain.project.id);
+			gotoDomain.generate(ctrl.projectid);
 		};
 	};
 })();	

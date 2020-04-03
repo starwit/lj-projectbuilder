@@ -1,12 +1,12 @@
-package de.${package}.${appName?lower_case}.api.restapp;
+package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.restapp;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-<#list (classnames) as name>
-import de.${package}.${appName?lower_case}.api.rest.${name};
+<#list (project.selectedDomains) as domain>
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.rest.${domain.name}Rest;
 </#list>
 
 
@@ -17,8 +17,8 @@ public class RestfulApplication extends Application {
 	public Set<Class<?>> getClasses() {
 		final Set<Class<?>> classes = new HashSet<Class<?>>();
 		// register root resource
-		<#list (classnames) as name>
-		classes.add(${name}.class);
+		<#list (project.selectedDomains) as domain>
+		classes.add(${domain.name}Rest.class);
 		</#list>
 
 		return classes;

@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 
 import de.starwit.ljprojectbuilder.ejb.DomainService;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
+import de.starwit.ljprojectbuilder.entity.AttributeEntity;
 import de.starwit.ljprojectbuilder.entity.DataType;
 import de.starwit.ljprojectbuilder.entity.DomainEntity;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
@@ -43,14 +44,44 @@ public class DomainRest extends AbstractRest<DomainEntity> {
 	@Path("/")
 	@PUT
 	public EntityResponse<DomainEntity> create(DomainEntity entity) {
-		return super.createGeneric(entity);
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+			entity.setProject(projectEntity);
+		}
+		
+		EntityResponse<DomainEntity> response = validateAttibutes(entity);
+		return response == null ? super.updateGeneric(entity) : response;
+	}
+
+	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
+		
+		if (entity.getAttributes() != null) {
+			for (AttributeEntity attribute : entity.getAttributes()) {
+				ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
+				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
+					response.setMetadata(responseMetadata);
+					return response;
+				}
+			}
+		}
+		
+		return null;
 	}
 
 	//Update
 	@Path("/")
 	@POST
 	public EntityResponse<DomainEntity> update(DomainEntity entity) {
-		return super.updateGeneric(entity);
+		if (entity.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+			entity.setProject(projectEntity);
+		}
+		
+		EntityResponse<DomainEntity> response = validateAttibutes(entity);
+		return response == null ? super.updateGeneric(entity) : response;
 	}
 	
 	@Path("/query/domainsbyproject/{projectId}")

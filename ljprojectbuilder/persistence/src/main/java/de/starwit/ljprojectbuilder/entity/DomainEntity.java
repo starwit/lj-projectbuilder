@@ -1,6 +1,6 @@
 package de.starwit.ljprojectbuilder.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,10 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlRootElement
 @Entity
@@ -24,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class DomainEntity extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private Long projectId;
 	
 	//domain attributes
 	
@@ -35,7 +36,7 @@ public class DomainEntity extends AbstractEntity {
 	@NotNull
 	private ProjectEntity project;
 	
-	private List<AttributeEntity> attributes;
+	private Set<AttributeEntity> attributes;
 	
 	private boolean selected = true;
 
@@ -57,9 +58,9 @@ public class DomainEntity extends AbstractEntity {
 		this.description = description;
 	}
 
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
-	@JsonIgnoreProperties({"packagePrefix", "targetPath", "description"})
 	public ProjectEntity getProject() {
 		return project;
 	}
@@ -67,22 +68,31 @@ public class DomainEntity extends AbstractEntity {
 	public void setProject(ProjectEntity project) {
 		this.project = project;
 	}
-	
+
 	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
-	public List<AttributeEntity> getAttributes() {
+	public Set<AttributeEntity> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<AttributeEntity> attributes) {
+	public void setAttributes(Set<AttributeEntity> attributes) {
 		this.attributes = attributes;
 	}
 	
-	@Transient
+	@Column(name="SELECTED", nullable = false)
 	public boolean isSelected() {
 		return selected;
 	}
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	@Transient
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 }

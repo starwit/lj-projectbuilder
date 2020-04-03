@@ -1,22 +1,22 @@
-package de.${package}.${appName?lower_case}.ejb;
+package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.ejb;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
-import de.${package}.${appName?lower_case}.entity.${domain}Entity;
+import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity;
 
 @RunWith(Arquillian.class)
-public class ${domain}ServiceTest extends AbstractServiceTest<${domain}Service, ${domain}Entity> {
+public class ${domain.name}ServiceTest extends AbstractServiceTest<${domain.name}Service, ${domain.name}Entity> {
 	
 	@Override
-	public void setService(${domain}Service service) {
+	public void setService(${domain.name}Service service) {
 		this.service = service;
 	}
 
 	@Override
 	public void testCreate() {
-		entity = new ${domain}Entity();
+		entity = new ${domain.name}Entity();
 		entity = getService().create(entity);
 		ID = entity.getId();
 		Assert.assertNotNull(entity.getId());

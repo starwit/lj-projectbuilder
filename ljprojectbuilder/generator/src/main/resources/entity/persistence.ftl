@@ -1,3 +1,3 @@
-<#list (classes) as class> 
-<class>de.${package}.${appName?lower_case}.entity.${class}</class>
+<#list (project.selectedDomains) as domain> 
+		<class>de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity</class>
 </#list>
