@@ -55,8 +55,9 @@ public class DomainService {
 		return this.domainRepository.save(entity);
 	}
 
-	public void delete(DomainEntity entity) {
-		this.domainRepository.delete(entity);
-	}
+	public DomainEntity delete(DomainEntity entity) {
+    this.domainRepository.delete(entity);
+    return entity;
+  }
 
 }

@@ -26,8 +26,9 @@ public class AttributeService {
         return this.attributeRepository.save(entity);
     }
 
-    public void delete(AttributeEntity entity) {
+    public AttributeEntity delete(AttributeEntity entity) {
         this.attributeRepository.delete(entity);
+        return entity;
     }
 
 }

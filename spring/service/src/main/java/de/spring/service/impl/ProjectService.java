@@ -46,8 +46,9 @@ public class ProjectService {
 		return this.projectRepository.save(entity);
 	}
 
-	public void delete(final ProjectEntity entity) {
-		// this.projectRepository.delete(arg0);
+	public ProjectEntity delete(final ProjectEntity entity) {
+    this.projectRepository.delete(entity);
+    return entity;
 
 		/*
 		 * ProjectEntity entity = getEntityManager().find(getParentClass(), id); if

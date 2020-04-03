@@ -36,7 +36,8 @@ public class CategoryService {
 		return this.categoryRepository.save(entity);
 	}
 
-	public void delete(CategoryEntity entity) {
-		this.categoryRepository.delete(entity);
+	public CategoryEntity delete(CategoryEntity entity) {
+    this.categoryRepository.delete(entity);
+    return entity;
 	}
 }

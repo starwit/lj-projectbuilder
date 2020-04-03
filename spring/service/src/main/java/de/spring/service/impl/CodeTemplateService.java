@@ -44,8 +44,9 @@ public class CodeTemplateService {
 		return this.codeTemplateRepository.save(entity);
 	}
 
-	public void delete(CodeTemplateEntity entity) {
-		this.codeTemplateRepository.delete(entity);
+	public CodeTemplateEntity delete(CodeTemplateEntity entity) {
+    this.codeTemplateRepository.delete(entity);
+    return entity;
 	}
 }
 
