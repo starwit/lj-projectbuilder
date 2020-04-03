@@ -1,6 +1,6 @@
 package de.spring.rest.controller;
 
-import de.spring.service.impl.DomainService;
+import de.spring.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
