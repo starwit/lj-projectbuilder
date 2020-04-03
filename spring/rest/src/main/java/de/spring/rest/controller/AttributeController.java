@@ -46,15 +46,15 @@ public class AttributeController {
 
     @PutMapping
     public EntityResponse<AttributeEntity> save(@RequestBody AttributeEntity attribute) {
-      EntityResponse response = new EntityResponse();
-      repsone.setResult(this.attributeService.saveOrUpdate(attribute));
+      EntityResponse<AttributeEntity> response = new EntityResponse<AttributeEntity>();
+      response.setResult(this.attributeService.saveOrUpdate(attribute));
       return response;
     }
 
     @PostMapping
     public EntityResponse<AttributeEntity> update(@RequestBody AttributeEntity attribute) {
-      EntityResponse response = new EntityResponse();
-      repsone.setResult(this.attributeService.saveOrUpdate(attribute));
+      EntityResponse<AttributeEntity> response = new EntityResponse<AttributeEntity>();
+      response.setResult(this.attributeService.saveOrUpdate(attribute));
       return response;
     }
 
@@ -67,7 +67,7 @@ public class AttributeController {
       responseMetadata.setResponseCode(ResponseCode.OK);
       responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
       
-      EntityResponse response = new EntityResponse();
+      EntityResponse<AttributeEntity> response = new EntityResponse<AttributeEntity>();
       response.setMetadata(responseMetadata);
 
       return response;

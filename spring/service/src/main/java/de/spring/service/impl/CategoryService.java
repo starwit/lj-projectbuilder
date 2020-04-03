@@ -32,8 +32,8 @@ public class CategoryService {
 		return this.categoryRepository.findAll();
 	}
 
-	public void saveOrUpdate(CategoryEntity entity) {
-		this.categoryRepository.save(entity);
+	public CategoryEntity saveOrUpdate(CategoryEntity entity) {
+		return this.categoryRepository.save(entity);
 	}
 
 	public void delete(CategoryEntity entity) {

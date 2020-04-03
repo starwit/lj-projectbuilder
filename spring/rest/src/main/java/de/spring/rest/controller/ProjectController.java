@@ -8,11 +8,11 @@ import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
 import de.spring.service.impl.ProjectService;
+import de.starwit.generator.services.Git;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Git;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,14 +53,14 @@ public class ProjectController {
 
   @PutMapping
   public EntityResponse<ProjectEntity> save(@RequestBody ProjectEntity project) {
-    EntityResponse response = new EntityResponse();
+    EntityResponse<ProjectEntity> response = new EntityResponse<ProjectEntity>();
     response.setResult(this.projectService.saveOrUpdate(project));
     return response;
   }
 
   @PostMapping
   public EntityResponse<ProjectEntity> update(@RequestBody ProjectEntity project) {
-    EntityResponse response = new EntityResponse();
+    EntityResponse<ProjectEntity> response = new EntityResponse<ProjectEntity>();
     response.setResult(this.projectService.saveOrUpdate(project));
     return response;
   }
@@ -74,7 +74,7 @@ public class ProjectController {
     responseMetadata.setResponseCode(ResponseCode.OK);
     responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
 
-    EntityResponse response = new EntityResponse();
+    EntityResponse<ProjectEntity> response = new EntityResponse<ProjectEntity>();
     response.setMetadata(responseMetadata);
 
     return response;

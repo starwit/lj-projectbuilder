@@ -69,7 +69,7 @@ public class DomainController {
   @PostMapping
   public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
 
-    // repsone.setResult(this.domainService.saveOrUpdate(domain));
+    // response.setResult(this.domainService.saveOrUpdate(domain));
 
     if (domain.getProject() == null) {
       ProjectEntity projectEntity = new ProjectEntity();
@@ -94,7 +94,7 @@ public class DomainController {
     responseMetadata.setResponseCode(ResponseCode.OK);
     responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
 
-    EntityResponse response = new EntityResponse();
+    EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
     response.setMetadata(responseMetadata);
 
     return response;

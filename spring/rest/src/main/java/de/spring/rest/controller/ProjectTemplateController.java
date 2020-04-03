@@ -47,7 +47,7 @@ public class ProjectTemplateController {
 
     @PutMapping
     public EntityResponse<ProjectTemplateEntity> save(@RequestBody ProjectTemplateEntity projectTemplate) {
-      EntityResponse response = validateCodeTemplates(projectTemplate);
+      EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(projectTemplate);
       if (response == null) {
         response.setResult(projectTemplateService.saveOrUpdate(projectTemplate));
       }
@@ -56,7 +56,7 @@ public class ProjectTemplateController {
 
     @PostMapping
     public EntityResponse<ProjectTemplateEntity> update(@RequestBody ProjectTemplateEntity projectTemplate) {
-      EntityResponse response = validateCodeTemplates(projectTemplate);
+      EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(projectTemplate);
       if (response == null) {
         response.setResult(projectTemplateService.saveOrUpdate(projectTemplate));
       }
@@ -72,7 +72,7 @@ public class ProjectTemplateController {
       responseMetadata.setResponseCode(ResponseCode.OK);
       responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
       
-      EntityResponse response = new EntityResponse();
+      EntityResponse<ProjectTemplateEntity> response = new EntityResponse();
       response.setMetadata(responseMetadata);
 
       return response;

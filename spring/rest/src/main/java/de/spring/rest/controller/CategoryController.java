@@ -44,15 +44,15 @@ public class CategoryController {
 
   @PutMapping
   public EntityResponse<CategoryEntity> save(@RequestBody CategoryEntity category) {
-    EntityResponse response = new EntityResponse();
-    repsone.setResult(this.categoryService.saveOrUpdate(category));
+    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
+    response.setResult(this.categoryService.saveOrUpdate(category));
     return response;
   }
 
   @PostMapping
   public EntityResponse<CategoryEntity> update(@RequestBody CategoryEntity category) {
-    EntityResponse response = new EntityResponse();
-    repsone.setResult(this.categoryService.saveOrUpdate(category));
+    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
+    response.setResult(this.categoryService.saveOrUpdate(category));
     return response;
   }
 
@@ -65,7 +65,7 @@ public class CategoryController {
     responseMetadata.setResponseCode(ResponseCode.OK);
     responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
 
-    EntityResponse response = new EntityResponse();
+    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
     response.setMetadata(responseMetadata);
 
     return response;

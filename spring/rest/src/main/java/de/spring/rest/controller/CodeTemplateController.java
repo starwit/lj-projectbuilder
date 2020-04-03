@@ -53,14 +53,14 @@ public class CodeTemplateController {
 
     @PutMapping
     public EntityResponse<CodeTemplateEntity> save(@RequestBody CodeTemplateEntity codeTemplate) {
-      EntityResponse response = new EntityResponse();
+      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
       response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
       return response;
     }
 
     @PostMapping
     public EntityResponse<CodeTemplateEntity> update(@RequestBody CodeTemplateEntity codeTemplate) {
-      EntityResponse response = new EntityResponse();
+      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
       response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
       return response;
     }
@@ -74,7 +74,7 @@ public class CodeTemplateController {
       responseMetadata.setResponseCode(ResponseCode.OK);
       responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
       
-      EntityResponse response = new EntityResponse();
+      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
       response.setMetadata(responseMetadata);
 
       return response;
