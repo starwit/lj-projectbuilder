@@ -4,20 +4,20 @@ package de.starwit.generator.services;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.EntityNotFoundException;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.service.impl.DomainService;
+import de.spring.service.impl.ProjectService;
 import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.ejb.DomainService;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
 /**
- * Class for processing the whole project setup. A newly configured project is created an can be used.
+ * Class for processing the whole project setup. A newly configured project is created and can be used.
  * @author Anett Huebner
  *
  */
@@ -52,8 +52,8 @@ public class ProjectSetupService implements Serializable {
 	 * @return
 	 * @throws NotificationException
 	 */
-	@TransactionAttribute(TransactionAttributeType.NEVER)
-	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
+	// @TransactionAttribute(TransactionAttributeType.NEVER)
+	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		//String destDirString = project.getTargetPath();
 		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);

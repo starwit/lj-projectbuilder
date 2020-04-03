@@ -12,11 +12,13 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 
-@Startup
+
 @Component
 public class StartupShutdownService {
   final static Logger LOG = LoggerFactory.getLogger(StartupShutdownService.class);

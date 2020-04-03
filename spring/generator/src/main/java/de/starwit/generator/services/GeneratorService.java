@@ -22,7 +22,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.spring.persistence.entity.CodeTemplateEntity;
+import de.spring.persistence.entity.DomainEntity;
 import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
+import de.spring.persistence.validation.ValidationError;
+import de.spring.service.impl.ProjectService;
+import de.starwit.generator.config.Constants;
+import de.starwit.generator.generator.EntityImports;
+import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
