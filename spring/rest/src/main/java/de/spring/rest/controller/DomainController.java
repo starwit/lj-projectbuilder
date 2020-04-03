@@ -1,6 +1,7 @@
 package de.spring.rest.controller;
 
 import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.response.EntityListResponse;
 import de.spring.service.impl.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
