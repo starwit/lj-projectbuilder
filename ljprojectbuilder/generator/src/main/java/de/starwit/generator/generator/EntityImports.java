@@ -3,9 +3,9 @@ package de.starwit.generator.generator;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.starwit.ljprojectbuilder.entity.AttributeEntity;
-import de.starwit.ljprojectbuilder.entity.DataType;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
+import de.spring.persistence.entity.AttributeEntity;
+import de.spring.persistence.entity.DataType;
+import de.spring.persistence.entity.DomainEntity;
 
 /**
  * 

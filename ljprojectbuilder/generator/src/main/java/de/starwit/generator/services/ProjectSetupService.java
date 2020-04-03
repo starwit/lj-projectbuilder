@@ -4,44 +4,41 @@ package de.starwit.generator.services;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.apache.log4j.Logger;
-
+import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.service.impl.DomainService;
 import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.ejb.DomainService;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
+
 /**
  * Class for processing the whole project setup. A newly configured project is created an can be used.
  * @author Anett Huebner
  *
  */
-@Local
-@Stateless(name = "ProjectSetupService")
+@Component("ProjectSetupService")
 public class ProjectSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
+	@Autowired
 	private DomainService domainService;
 	
-	@Inject
+	@Autowired
 	private ProjectService projectService;
 	
-	@Inject
+	@Autowired
 	private GeneratorService generatorSerivce;
 	
-	@Inject
+	@Autowired
 	private ProjectCheckout projectCheckout;
 	
-	@Inject
+	@Autowired
 	private ProjectRenamer projectRenamer;
 	
 	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
@@ -56,7 +53,7 @@ public class ProjectSetupService implements Serializable {
 	 * @return
 	 * @throws NotificationException
 	 */
-	@TransactionAttribute(TransactionAttributeType.NEVER)
+	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		//String destDirString = project.getTargetPath();
