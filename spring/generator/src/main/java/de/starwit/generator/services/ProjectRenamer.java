@@ -14,7 +14,6 @@ import java.util.Collection;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
@@ -22,11 +21,11 @@ import de.starwit.ljprojectbuilder.exception.NotificationException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-@Named("ProjectRenamer")
+@Service
 public class ProjectRenamer {
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md","log" };
-	final static Logger LOG = Logger.getLogger(ProjectRenamer.class);
+  final static Logger LOG = LoggerFactory.getLogger(ProjectRenamer.class);
 	
 	/**
 	 * This is used for renaming the whole project. Renames all occurrences of the project name with a new project name.

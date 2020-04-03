@@ -8,9 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
+import javax.inject.Autowired;
 
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.ejb.DomainService;
@@ -23,29 +21,27 @@ import de.starwit.ljprojectbuilder.exception.NotificationException;
  * @author Anett Huebner
  *
  */
-@Local
-@Stateless(name = "ProjectSetupService")
+@Service
 public class ProjectSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
+	@Autowired
 	private DomainService domainService;
 	
-	@Inject
+	@Autowired
 	private ProjectService projectService;
 	
-	@Inject
+	@Autowired
 	private GeneratorService generatorSerivce;
 	
-	@Inject
+	@Autowired
 	private ProjectCheckout projectCheckout;
 	
-	@Inject
+	@Autowired
 	private ProjectRenamer projectRenamer;
 	
-	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
-	
+  final static Logger LOG = LoggerFactory.getLogger(ProjectSetupService.class);
 	/**
 	 * Executes all functions needed to setup the new project. These are:
 	 *  - checkout template-project from git-repository
