@@ -10,10 +10,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
 
-import javax.inject.Named;
-
-import org.apache.log4j.Logger;
-
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.ljprojectbuilder.entity.ProjectEntity;
@@ -21,10 +17,10 @@ import de.starwit.ljprojectbuilder.exception.NotificationException;
 import de.starwit.ljprojectbuilder.response.ResponseCode;
 import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-@Named("ProjectCheckout")
+@Service
 public class ProjectCheckout {
 
-	public final static Logger LOG = Logger.getLogger(ProjectCheckout.class);
+  final static Logger LOG = LoggerFactory.getLogger(ProjectCheckout.class);
 
 	public String createTempProjectDirectory(final ProjectEntity project) throws NotificationException {
 		try {

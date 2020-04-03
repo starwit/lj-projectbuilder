@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.starwit.generator.config.Constants;
@@ -21,7 +20,7 @@ public class ProjectCheckoutTest {
 	protected ProjectCheckout checkout = new ProjectCheckout();
 	protected StartupShutdownService startup = new StartupShutdownService();
 
-	private final static Logger LOG =  Logger.getLogger("ProjectCheckoutTest");
+  final static Logger LOG = LoggerFactory.getLogger(ProjectCheckoutTest.class);
 
 	@Test
 	public void cloneGitRepoWithoutAuthTest() throws NotificationException, IOException, InterruptedException {

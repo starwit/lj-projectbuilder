@@ -21,8 +21,6 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
-
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
 import de.starwit.ljprojectbuilder.ejb.ProjectService;
@@ -47,15 +45,14 @@ import freemarker.template.TemplateNotFoundException;
  *
  * @param <E> different configuration for frontend, backend and business
  */
-@Local
-@Stateless(name = "GeneratorService")
+@Service
 public class GeneratorService {
 
-	public final static Logger LOG = Logger.getLogger(GeneratorService.class);
+  final static Logger LOG = LoggerFactory.getLogger(GeneratorService.class);
 	
 	private final static String GENERATION ="###GENERATION###";
 	
-	@Inject
+	@Autowired
 	private ProjectService projectService;
 
 	public void generate(Long projectId) throws NotificationException {

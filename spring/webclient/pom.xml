@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.test</groupId>
-        <artifactId>Test</artifactId>
+        <groupId>de.starwit</groupId>
+        <artifactId>ljprojectbuilder</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

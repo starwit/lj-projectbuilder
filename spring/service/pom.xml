@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>de.test</groupId>
-        <artifactId>Test</artifactId>
+        <groupId>de.starwit</groupId>
+        <artifactId>ljprojectbuilder</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -20,7 +20,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.test</groupId>
+            <groupId>de.starwit</groupId>
             <artifactId>persistence</artifactId>
         </dependency>
     </dependencies>
