@@ -1,10 +1,20 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
+import de.spring.persistence.response.ListResponse;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
+import de.spring.persistence.validation.EntityValidator;
 import de.spring.service.impl.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Git;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -67,8 +77,7 @@ public class ProjectController {
     }
 
     //Custom endpoints
-    @Path("/branchnames")
-    @POST
+    @PostMapping("/branchnames")
     public ListResponse<String> getBranchnames(String remoteLocation) {
       List<String> branchnames = new ArrayList<>();
       Collection<Ref> refs = null;

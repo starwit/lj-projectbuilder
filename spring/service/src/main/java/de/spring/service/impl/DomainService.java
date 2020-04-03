@@ -1,49 +1,47 @@
 package de.spring.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.validation.ValidationException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * 
- * Domain Service class
- *
- */
+import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.persistence.repository.DomainRepository;
+
 @Service
 public class DomainService {
+	
+	@Autowired
+	private ProjectService projectService;
 
-    /**
-     * @return
-     */
-    public List<String> findAll() {
-        // return this.domainRepository.findAll();
-        return new ArrayList<>();
-    }
+	@Autowired
+	private DomainRepository domainRepository;
 
-    /**
-     * @param id
-     * @return
-     */
-    public String findById(Long id) {
-        //return this.domainRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        return "";
-    }
 
-    /**
-     * @param domain
-     * @return
-     */
-    public String saveOrUpdate(String domain) {
-        //this.domainRepository.save(domain);
-        return domain;
-    }
-
-    /**
-     * @param domain
-     */
-    public void delete(String domain) {
-        //this.domainRepository.delete(domain);
-    }
-
+	public List<DomainEntity> findAllDomainsByProject(Long projectId) {
+		return this.domainRepository.findAllDomainsByProject(projectId);
+	}
+	
+	public void setDomainSelected(Long domainId, boolean selected) {
+		this.domainRepository.setDomainSelected(domainId, selected);
+	}
+	
+	public DomainEntity update(DomainEntity entity) throws ValidationException {
+		return this.domainRepository.save(entity);
+	}
+	
+	
+	public DomainEntity create(DomainEntity entity) throws ValidationException, NotificationException {
+		ProjectEntity project = this.projectService.findProjectByIdOrThrowExeption(entity.getProjectId());
+		if (entity != null) {
+			entity.setProject(project);
+		}
+		return this.domainRepository.save(entity);
+	}
 }

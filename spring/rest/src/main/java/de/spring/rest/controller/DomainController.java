@@ -1,8 +1,16 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.DataType;
 import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
 import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
+import de.spring.persistence.validation.EntityValidator;
 import de.spring.service.impl.DomainService;
+import de.spring.service.impl.ProjectService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -92,7 +100,7 @@ public class DomainController {
     // Custom Endpoints
     @GetMapping(value = "/query/domainsbyproject/{projectId}")
     public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
-      Project project = projectService.findById(projectId);
+      ProjectEntity project = projectService.findById(projectId);
       if (project == null) {
         EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
         ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");

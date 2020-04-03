@@ -1,6 +1,9 @@
 package de.spring.service;
 
+import de.spring.persistence.repository.DomainRepository;
 import de.spring.service.impl.DomainService;
+import de.spring.service.impl.ProjectService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +31,7 @@ public class DomainServiceTest {
     /**
      * <pre>
      * To check the Service class, we need to have an instance of Service class created and available as a
-     * @Bean so that we can @Autowire it in our test class.
+     * &#64;Bean so that we can @Autowire it in our test class.
      * This configuration is achieved by using the @TestConfiguration annotation.
      * </pre>
      */
@@ -44,15 +47,21 @@ public class DomainServiceTest {
     @Autowired
     private DomainService domainService;
 
+    @MockBean
+    private ProjectService projectService;
+
+    @MockBean
+    private DomainRepository domainRepository;
+
     @Before
     public void setUp() {
-        //TODO: setup objects for each test
+        // TODO: setup objects for each test
     }
 
-    //implement tests here
+    // implement tests here
     @Test
     public void someTest() {
-        
+
     }
 
 }

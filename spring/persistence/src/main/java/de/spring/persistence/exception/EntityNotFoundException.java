@@ -1,5 +1,9 @@
+
 package de.spring.persistence.exception;
 
+/*
+ * TODO DH: use spring EntityNotFoundException
+ */
 public class EntityNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 4644643097889433029L;

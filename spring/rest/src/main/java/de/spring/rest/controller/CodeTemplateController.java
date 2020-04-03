@@ -1,11 +1,19 @@
 package de.spring.rest.controller;
 
+import de.spring.persistence.entity.CodeTemplateEntity;
+import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
+import de.spring.persistence.validation.EntityValidator;
 import de.spring.service.impl.CodeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 /**
  * Domain RestController

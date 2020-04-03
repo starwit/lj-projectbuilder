@@ -17,6 +17,6 @@ public interface CodeTemplateRepository extends JpaRepository<CodeTemplateEntity
 	@Query("SELECT c FROM CodeTemplateEntity c WHERE c.projectTemplate.id = ?1")
 	List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId);
 
-	@Query("SELECT c.id FROM CodeTemplateEntity c WHERE c.projectTemplate.id = ?1")
+	@Query("SELECT c FROM CodeTemplateEntity c WHERE c.projectTemplate.id = ?1")
 	List<Long> findAllCodeTemplateIdsByProjectTemplate(Long projectTemplateId);
 }
