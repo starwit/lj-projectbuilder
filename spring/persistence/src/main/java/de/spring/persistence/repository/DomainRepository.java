@@ -3,14 +3,19 @@ package de.spring.persistence.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import de.spring.persistence.entity.DomainEntity;
 
-// @Repository
-// public interface DomainRepository extends JpaRepository<DomainEntity, Long> {
+@Repository
+public interface DomainRepository extends JpaRepository<DomainEntity, Long> {
 
-// 	List<DomainEntity> findAllDomainsByProject(Long projectId);
+	@Query("SELECT d FROM DomainEntity d WHERE d.project.id = ?1")
+	List<DomainEntity> findAllDomainsByProject(Long projectId);
 
-// 	void setDomainSelected(Long domainId, boolean selected);
-// }
+	@Modifying
+	@Query("UPDATE DomainEntity d SET d.selected = ?2 WHERE d.id = ?1")
+	void setDomainSelected(Long domainId, boolean selected);
+}
