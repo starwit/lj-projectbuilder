@@ -89,7 +89,7 @@ public class DomainController {
     }
 
     // Custom Endpoints
-    @GetMapping(value "/query/domainsbyproject/{projectId}")
+    @GetMapping(value = "/query/domainsbyproject/{projectId}")
     public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
       Project project = projectService.findById(projectId);
       if (project == null) {
@@ -106,8 +106,7 @@ public class DomainController {
       }
     }
     
-    @Path("/query/types")
-    @GET
+    @GetMapping(value = "/query/types")
     public DataType[] getTypes() {
       return DataType.values();
     }
