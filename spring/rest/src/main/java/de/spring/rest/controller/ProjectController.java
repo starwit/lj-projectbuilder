@@ -4,9 +4,12 @@ import de.spring.persistence.entity.ProjectEntity;
 import de.spring.persistence.response.EntityListResponse;
 import de.spring.persistence.response.EntityResponse;
 import de.spring.persistence.response.ListResponse;
+<<<<<<< HEAD
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
+=======
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Git;
@@ -39,7 +42,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public ProjectEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<ProjectEntity> findById(@PathVariable("id") Long id) {
       ProjectEntity entity = this.projectService.findById(id);
       EntityResponse<ProjectEntity> rw = new EntityResponse<ProjectEntity>(entity);
       if (entity == null) {
@@ -77,7 +80,11 @@ public class ProjectController {
     }
 
     //Custom endpoints
+<<<<<<< HEAD
     @PostMapping("/branchnames")
+=======
+    @PostMapping(value = "/branchnames")
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
     public ListResponse<String> getBranchnames(String remoteLocation) {
       List<String> branchnames = new ArrayList<>();
       Collection<Ref> refs = null;

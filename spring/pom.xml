@@ -22,10 +22,12 @@
     </properties>
 
     <modules>
+        <module>webclient</module>
         <module>application</module>
         <module>rest</module>
         <module>service</module>
         <module>persistence</module>
+        <module>generator</module>
     </modules>
 
     <dependencyManagement>

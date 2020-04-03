@@ -4,8 +4,10 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
+import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
+
+
 /**
  * Contains all configuration for project setup and generator.
  * @author Anett Huebner

@@ -3,9 +3,12 @@ package de.spring.rest.controller;
 import de.spring.persistence.entity.AttributeEntity;
 import de.spring.persistence.response.EntityListResponse;
 import de.spring.persistence.response.EntityResponse;
+<<<<<<< HEAD
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
+=======
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.AttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +38,7 @@ public class AttributeController {
     }
 
     @GetMapping(value = "/{id}")
-    public AttributeEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<AttributeEntity> findById(@PathVariable("id") Long id) {
       AttributeEntity entity = this.attributeService.findById(id);
       EntityResponse<AttributeEntity> rw = new EntityResponse<AttributeEntity>(entity);
       if (entity == null) {

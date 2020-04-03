@@ -5,9 +5,12 @@ import de.spring.persistence.entity.DomainEntity;
 import de.spring.persistence.entity.ProjectEntity;
 import de.spring.persistence.response.EntityListResponse;
 import de.spring.persistence.response.EntityResponse;
+<<<<<<< HEAD
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
+=======
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.DomainService;
 import de.spring.service.impl.ProjectService;
 
@@ -41,7 +44,7 @@ public class DomainController {
     }
 
     @GetMapping(value = "/{id}")
-    public DomainEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
       DomainEntity entity = this.domainService.findById(id);
       EntityResponse<DomainEntity> rw = new EntityResponse<DomainEntity>(entity);
       if (entity == null) {

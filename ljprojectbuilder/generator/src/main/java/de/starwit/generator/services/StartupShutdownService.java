@@ -12,15 +12,19 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-@Singleton
-@Startup
+@Component
+@Order(1)
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class StartupShutdownService {
-	final static Logger LOG = Logger.getLogger(StartupShutdownService.class);
+	final static Logger LOG = LoggerFactory.getLogger(StartupShutdownService.class);
  
     @PostConstruct
     private void startup() {

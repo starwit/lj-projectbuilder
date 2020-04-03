@@ -3,9 +3,12 @@ package de.spring.rest.controller;
 import de.spring.persistence.entity.CodeTemplateEntity;
 import de.spring.persistence.response.EntityListResponse;
 import de.spring.persistence.response.EntityResponse;
+<<<<<<< HEAD
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
+=======
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.CodeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +40,7 @@ public class CodeTemplateController {
     }
 
     @GetMapping(value = "/{id}")
-    public CodeTemplateEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<CodeTemplateEntity> findById(@PathVariable("id") Long id) {
       CodeTemplateEntity entity = this.codeTemplateService.findById(id);
       EntityResponse<CodeTemplateEntity> rw = new EntityResponse<CodeTemplateEntity>(entity);
       if (entity == null) {
@@ -76,7 +79,7 @@ public class CodeTemplateController {
 
     @GetMapping(value = "/query/byprojecttemplate/{projecttemplateId}")
     public EntityListResponse<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(
-      @PathParam("projecttemplateId") Long projecttemplateId) {
+      @PathVariable("projecttemplateId") Long projecttemplateId) {
       ProjectTemplate projectTemplate = projectTemplateService.findById(projecttemplateId);
       if (projectTemplate == null) {
         EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(null);

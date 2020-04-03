@@ -17,22 +17,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import org.apache.log4j.Logger;
-
+import de.spring.persistence.entity.CodeTemplateEntity;
+import de.spring.persistence.entity.DomainEntity;
+import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
+import de.spring.persistence.validation.ValidationError;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
-import de.starwit.ljprojectbuilder.response.ResponseCode;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
-import de.starwit.ljprojectbuilder.validation.ValidationError;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -47,15 +45,14 @@ import freemarker.template.TemplateNotFoundException;
  *
  * @param <E> different configuration for frontend, backend and business
  */
-@Local
-@Stateless(name = "GeneratorService")
+@Service("GeneratorService")
 public class GeneratorService {
 
-	public final static Logger LOG = Logger.getLogger(GeneratorService.class);
+	public final static Logger LOG = LoggerFactory.getLogger(GeneratorService.class);
 	
 	private final static String GENERATION ="###GENERATION###";
 	
-	@Inject
+	@Autowired
 	private ProjectService projectService;
 
 	public void generate(Long projectId) throws NotificationException {

@@ -1,5 +1,6 @@
 package de.spring.rest.controller;
 
+<<<<<<< HEAD
 import de.spring.persistence.entity.CodeTemplateEntity;
 import de.spring.persistence.entity.ProjectTemplateEntity;
 import de.spring.persistence.response.EntityListResponse;
@@ -7,6 +8,11 @@ import de.spring.persistence.response.EntityResponse;
 import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.spring.persistence.validation.EntityValidator;
+=======
+import de.spring.persistence.entity.ProjectTemplateEntity;
+import de.spring.persistence.response.EntityListResponse;
+import de.spring.persistence.response.EntityResponse;
+>>>>>>> 9b579aff297dd66bd66597a3968e536ce24a599f
 import de.spring.service.impl.ProjectTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +42,7 @@ public class ProjectTemplateController {
     }
 
     @GetMapping(value = "/{id}")
-    public ProjectTemplateEntity findById(@PathVariable("id") Long id) {
+    public EntityResponse<ProjectTemplateEntity> findById(@PathVariable("id") Long id) {
       ProjectTemplateEntity entity = this.projectTemplateService.findById(id);
       EntityResponse<ProjectTemplateEntity> rw = new EntityResponse<ProjectTemplateEntity>(entity);
       if (entity == null) {
