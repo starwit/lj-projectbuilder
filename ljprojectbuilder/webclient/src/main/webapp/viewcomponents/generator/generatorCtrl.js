@@ -34,8 +34,11 @@
 		 * Creates a new project with the given setup from a template-project.
 		 */
 		function projectDownload() {
+			ctrl.generatorDto.user = ctrl.generatorDto.username; 
+			ctrl.generatorDto.pass = ctrl.generatorDto.password;
 			dialogService.showDialog(null, null, "loadingdialog", function(){});
 			getSelectedDomainIds();
+			
 			projectSetupConnectorFactory.projectSetup(ctrl.generatorDto).then(function(){
 				document.getElementById('downloadlink').click();
 				dialogService.closeDialog('loadingdialog');

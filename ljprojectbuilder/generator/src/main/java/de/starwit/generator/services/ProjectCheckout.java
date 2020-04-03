@@ -104,8 +104,9 @@ public class ProjectCheckout {
 		}
 
 		if (dto.getProject().getTemplate().isCredentialsRequired()) {
-			dto.setPassword(dto.getPassword().replaceAll("@", "%40"));
-			srcDir = srcDir.replaceAll("://", "://" + dto.getUsername() + ":" + dto.getPassword() + "@");
+			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
+			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
+			System.out.println(srcDir);
 		}
 
 		try {

@@ -23,6 +23,9 @@ public class GeneratorDto {
 
 	private String password;
 
+	private String user;
+	private String pass;
+
 	/********************* GETTER, SETTER **************************/
 	
 	public ProjectEntity getProject() {
@@ -55,5 +58,21 @@ public class GeneratorDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }
