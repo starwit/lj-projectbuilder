@@ -1,0 +1,1 @@
+INSERT INTO TEMPLATE (LOCATION,PREFIX,TITLE,BRANCH) VALUES ('https://github.com/witchpou/lirejarp.git','starwit','lirejarp','ljpb_v1.0');

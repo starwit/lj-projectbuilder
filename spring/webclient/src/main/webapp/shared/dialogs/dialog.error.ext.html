@@ -1,0 +1,20 @@
+<div class="msgBox" id="errordialog" style="display:none;z-index: 1000" ng-click="ctrl.closeDialogWithErrors('errordialog')">
+	<table>
+		<tr>
+			<td>
+				<span class="msg error">
+					<span class="button delete"><a href="">x</a></span>
+					<h2>{{ctrl.dialog.title | translate }}</h2>
+					<p class="aLeft">{{ctrl.dialog.text | translate }}</p>
+					<ul class="aLeft">
+						<li ng-repeat="error in ctrl.dialog.validationErrors">{{error.message | translate}}</li>
+					</ul>
+					<div class="bottom aCenter">
+						<button class="thin error" ng-click="ctrl.closeDialogWithErrors('errordialog')">{{ctrl.dialog.cancel | translate}}</button>
+						<button class="thin error" ng-click="ctrl.resetAndContinue('errordialog')">{{ctrl.dialog.refresh | translate}}</button>
+					</div>
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>
