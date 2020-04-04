@@ -14,7 +14,7 @@ import java.util.Collection;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import de.spring.persistence.entity.ProjectEntity;
 import de.spring.persistence.exception.NotificationException;
@@ -22,11 +22,12 @@ import de.spring.persistence.response.ResponseCode;
 import de.spring.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 
-@Service
+
+@Component("ProjectRenamer")
 public class ProjectRenamer {
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md","log" };
-  final static Logger LOG = LoggerFactory.getLogger(ProjectRenamer.class);
+	final static Logger LOG = LoggerFactory.getLogger(ProjectRenamer.class);
 	
 	/**
 	 * This is used for renaming the whole project. Renames all occurrences of the project name with a new project name.

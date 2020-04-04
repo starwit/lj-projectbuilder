@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,6 +15,7 @@ import de.spring.persistence.entity.DomainEntity;
 import de.spring.persistence.entity.ProjectEntity;
 import de.spring.persistence.exception.NotificationException;
 import de.spring.service.impl.DomainService;
+import de.spring.service.impl.ProjectService;
 import de.starwit.generator.dto.GeneratorDto;
 
 /**
@@ -41,7 +43,7 @@ public class ProjectSetupService implements Serializable {
 	@Autowired
 	private ProjectRenamer projectRenamer;
 	
-	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
+	final static Logger LOG = LoggerFactory.getLogger(ProjectSetupService.class);
 	
 	/**
 	 * Executes all functions needed to setup the new project. These are:

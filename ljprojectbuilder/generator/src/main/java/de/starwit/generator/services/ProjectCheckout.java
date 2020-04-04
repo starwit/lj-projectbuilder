@@ -8,12 +8,15 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
 

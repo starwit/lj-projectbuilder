@@ -15,9 +15,11 @@ import org.apache.logging.log4j.core.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import de.spring.persistence.entity.ProjectEntity;
+import de.spring.persistence.exception.NotificationException;
+import de.spring.persistence.response.ResponseCode;
+import de.spring.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 
 
