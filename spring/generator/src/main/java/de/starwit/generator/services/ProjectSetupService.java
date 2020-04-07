@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.spring.persistence.entity.DomainEntity;
-import de.spring.persistence.entity.ProjectEntity;
-import de.spring.persistence.exception.EntityNotFoundException;
-import de.spring.persistence.exception.NotificationException;
-import de.spring.service.impl.DomainService;
-import de.spring.service.impl.ProjectService;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.EntityNotFoundException;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 import de.starwit.generator.dto.GeneratorDto;
 /**
  * Class for processing the whole project setup. A newly configured project is created and can be used.

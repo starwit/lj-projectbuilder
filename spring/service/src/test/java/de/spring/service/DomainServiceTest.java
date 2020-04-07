@@ -1,8 +1,8 @@
-package de.spring.service;
+package de.starwit.service;
 
-import de.spring.persistence.repository.DomainRepository;
-import de.spring.service.impl.DomainService;
-import de.spring.service.impl.ProjectService;
+import de.starwit.persistence.repository.DomainRepository;
+import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 
 import org.junit.Before;
 import org.junit.Test;

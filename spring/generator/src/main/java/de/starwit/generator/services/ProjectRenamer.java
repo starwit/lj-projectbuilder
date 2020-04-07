@@ -16,10 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import de.spring.persistence.entity.ProjectEntity;
-import de.spring.persistence.exception.NotificationException;
-import de.spring.persistence.response.ResponseCode;
-import de.spring.persistence.response.ResponseMetadata;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 
 

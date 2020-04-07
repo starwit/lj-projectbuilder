@@ -134,50 +134,6 @@
         <version>1.9.3</version>
       </dependency>
 
-      <!-- the core, which includes Streaming API, shared low-level abstractions 
-				(but NOT data-binding) -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
-      <!-- Just the annotations; use this dependency if you want to attach annotations 
-				to classes without connecting them to the code. -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
-      <!-- databinding; ObjectMapper, JsonNode and related classes are here -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
-      <!-- smile (binary JSON). Other artifacts in this group do other formats. -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.dataformat</groupId>
-        <artifactId>jackson-dataformat-smile</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
-      <!-- JAX-RS provider -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.jaxrs</groupId>
-        <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
-      <!-- Support for JAX-B annotations as additional configuration -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.module</groupId>
-        <artifactId>jackson-module-jaxb-annotations</artifactId>
-        <version>${jackson-2-version}</version>
-      </dependency>
-
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-io</artifactId>
