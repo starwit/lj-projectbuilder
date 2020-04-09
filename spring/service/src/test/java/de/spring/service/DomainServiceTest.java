@@ -1,26 +1,17 @@
 package de.spring.service;
 
-import de.spring.persistence.repository.DomainRepository;
-import de.spring.service.impl.DomainService;
-import de.spring.service.impl.ProjectService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import de.spring.persistence.repository.DomainRepository;
+import de.spring.service.impl.DomainService;
+import de.spring.service.impl.ProjectService;
 
 /**
  * Tests for DomainService
