@@ -2,8 +2,8 @@ package de.starwit.generator.dto;
 
 import java.util.Set;
 
-import de.spring.persistence.entity.DomainEntity;
-import de.spring.persistence.entity.ProjectEntity;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
 
 /**
  * Contains all configuration for project setup and generator.

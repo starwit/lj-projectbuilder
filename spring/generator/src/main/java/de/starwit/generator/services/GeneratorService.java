@@ -22,14 +22,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.spring.persistence.entity.CodeTemplateEntity;
-import de.spring.persistence.entity.DomainEntity;
-import de.spring.persistence.entity.ProjectEntity;
-import de.spring.persistence.exception.NotificationException;
-import de.spring.persistence.response.ResponseCode;
-import de.spring.persistence.response.ResponseMetadata;
-import de.spring.persistence.validation.ValidationError;
-import de.spring.service.impl.ProjectService;
+import de.starwit.persistence.entity.CodeTemplateEntity;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
+import de.starwit.persistence.validation.ValidationError;
+import de.starwit.service.impl.ProjectService;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
 import find.FindClass;
@@ -56,7 +56,7 @@ public class GeneratorService {
 	@Autowired
 	private ProjectService projectService;
 
-	public void generate(Long projectId) throws de.spring.persistence.exception.NotificationException {
+	public void generate(Long projectId) throws de.starwit.persistence.exception.NotificationException {
 		ProjectEntity project = projectService.findById(projectId);
 		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
 		Collection<DomainEntity> domains = project.getSelectedDomains();
