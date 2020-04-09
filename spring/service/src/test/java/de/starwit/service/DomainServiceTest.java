@@ -1,12 +1,5 @@
 package de.starwit.service;
 
-<<<<<<< HEAD:spring/service/src/test/java/de/spring/service/DomainServiceTest.java
-=======
-import de.starwit.persistence.repository.DomainRepository;
-import de.starwit.service.impl.DomainService;
-import de.starwit.service.impl.ProjectService;
-
->>>>>>> 7e8480f44deaf6ab38266f83e4d7edd401f0908b:spring/service/src/test/java/de/starwit/service/DomainServiceTest.java
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +9,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.spring.persistence.repository.DomainRepository;
-import de.spring.service.impl.DomainService;
-import de.spring.service.impl.ProjectService;
+import de.starwit.persistence.repository.DomainRepository;
+import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 
 /**
  * Tests for DomainService

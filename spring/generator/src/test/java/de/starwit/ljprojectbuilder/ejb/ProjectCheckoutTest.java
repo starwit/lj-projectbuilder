@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.spring.persistence.exception.NotificationException;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.services.Git;
 import de.starwit.generator.services.ProjectCheckout;
 import de.starwit.generator.services.StartupShutdownService;
+import de.starwit.persistence.exception.NotificationException;
 
 
 
