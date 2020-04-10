@@ -1,5 +1,17 @@
 package de.starwit.rest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.entity.ProjectTemplateEntity;
 import de.starwit.persistence.response.EntityListResponse;
@@ -8,11 +20,6 @@ import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.ProjectTemplateService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Domain RestController
@@ -26,7 +33,7 @@ public class ProjectTemplateController {
     private ProjectTemplateService projectTemplateService;
 
 
-    @GetMapping
+    @GetMapping("/query/all")
     public EntityListResponse<ProjectTemplateEntity> findAll() {
       List<ProjectTemplateEntity> entities = this.projectTemplateService.findAll();
       EntityListResponse<ProjectTemplateEntity> response = new EntityListResponse<ProjectTemplateEntity>(entities);
@@ -35,7 +42,7 @@ public class ProjectTemplateController {
       return response;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/query/{id}")
     public EntityResponse<ProjectTemplateEntity> findById(@PathVariable("id") Long id) {
       ProjectTemplateEntity entity = this.projectTemplateService.findById(id);
       EntityResponse<ProjectTemplateEntity> rw = new EntityResponse<ProjectTemplateEntity>(entity);
@@ -48,7 +55,7 @@ public class ProjectTemplateController {
     @PutMapping
     public EntityResponse<ProjectTemplateEntity> save(@RequestBody ProjectTemplateEntity projectTemplate) {
       EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(projectTemplate);
-      if (response == null) {
+      if (response != null) {
         response.setResult(projectTemplateService.saveOrUpdate(projectTemplate));
       }
       return response;
@@ -57,7 +64,7 @@ public class ProjectTemplateController {
     @PostMapping
     public EntityResponse<ProjectTemplateEntity> update(@RequestBody ProjectTemplateEntity projectTemplate) {
       EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(projectTemplate);
-      if (response == null) {
+      if (response != null) {
         response.setResult(projectTemplateService.saveOrUpdate(projectTemplate));
       }
       return response;
@@ -72,7 +79,7 @@ public class ProjectTemplateController {
       responseMetadata.setResponseCode(ResponseCode.OK);
       responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
       
-      EntityResponse<ProjectTemplateEntity> response = new EntityResponse();
+      EntityResponse<ProjectTemplateEntity> response = new EntityResponse<ProjectTemplateEntity>();
       response.setMetadata(responseMetadata);
 
       return response;

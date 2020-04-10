@@ -1,5 +1,17 @@
 package de.starwit.rest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.entity.ProjectTemplateEntity;
 import de.starwit.persistence.response.EntityListResponse;
@@ -9,14 +21,6 @@ import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.CodeTemplateService;
 import de.starwit.service.impl.ProjectTemplateService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 /**
  * Domain RestController
@@ -32,7 +36,7 @@ public class CodeTemplateController {
     @Autowired
     private ProjectTemplateService projectTemplateService;
 
-    @GetMapping
+    @GetMapping("/query/all")
     public EntityListResponse<CodeTemplateEntity> findAll() {
       List<CodeTemplateEntity> entities = this.codeTemplateService.findAll();
       EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(entities);
@@ -41,7 +45,7 @@ public class CodeTemplateController {
       return response;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/query/{id}")
     public EntityResponse<CodeTemplateEntity> findById(@PathVariable("id") Long id) {
       CodeTemplateEntity entity = this.codeTemplateService.findById(id);
       EntityResponse<CodeTemplateEntity> rw = new EntityResponse<CodeTemplateEntity>(entity);

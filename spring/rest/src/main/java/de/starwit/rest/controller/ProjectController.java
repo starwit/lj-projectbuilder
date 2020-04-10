@@ -1,24 +1,26 @@
 package de.starwit.rest.controller;
 
-import de.starwit.persistence.entity.ProjectEntity;
-import de.starwit.persistence.response.EntityListResponse;
-import de.starwit.persistence.response.EntityResponse;
-import de.starwit.persistence.response.ListResponse;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
-import de.starwit.persistence.validation.EntityValidator;
-import de.starwit.service.impl.ProjectService;
-import de.starwit.generator.services.Git;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.response.EntityListResponse;
+import de.starwit.persistence.response.EntityResponse;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
+import de.starwit.persistence.validation.EntityValidator;
+import de.starwit.service.impl.ProjectService;
 
 /**
  * Domain RestController Have a look at the RequestMapping!!!!!!
@@ -32,7 +34,7 @@ public class ProjectController {
   @Autowired
   private ProjectService projectService;
 
-  @GetMapping
+  @GetMapping("/query/all")
   public EntityListResponse<ProjectEntity> findAll() {
     List<ProjectEntity> entities = this.projectService.findAll();
     EntityListResponse<ProjectEntity> response = new EntityListResponse<ProjectEntity>(entities);
@@ -41,7 +43,7 @@ public class ProjectController {
     return response;
   }
 
-  @GetMapping(value = "/{id}")
+  @GetMapping(value = "/query/{id}")
   public EntityResponse<ProjectEntity> findById(@PathVariable("id") Long id) {
     ProjectEntity entity = this.projectService.findById(id);
     EntityResponse<ProjectEntity> rw = new EntityResponse<ProjectEntity>(entity);

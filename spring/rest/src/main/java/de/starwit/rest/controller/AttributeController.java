@@ -1,5 +1,17 @@
 package de.starwit.rest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
@@ -7,12 +19,6 @@ import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.AttributeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.KeyStore.Entry.Attribute;
-import java.util.List;
 
 /**
  * Domain RestController
@@ -25,7 +31,7 @@ public class AttributeController {
     @Autowired
     private AttributeService attributeService;
 
-    @GetMapping
+    @GetMapping("/query/all")
     public EntityListResponse<AttributeEntity> findAll() {
       List<AttributeEntity> entities = this.attributeService.findAll();
       EntityListResponse<AttributeEntity> response = new EntityListResponse<AttributeEntity>(entities);
@@ -34,7 +40,7 @@ public class AttributeController {
       return response;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/query/{id}")
     public EntityResponse<AttributeEntity> findById(@PathVariable("id") Long id) {
       AttributeEntity entity = this.attributeService.findById(id);
       EntityResponse<AttributeEntity> rw = new EntityResponse<AttributeEntity>(entity);

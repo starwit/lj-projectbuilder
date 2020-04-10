@@ -40,7 +40,7 @@ public class EntityValidator {
 		else return new ResponseMetadata(ResponseCode.OK, "Die Validierung war erfolgreich.");
 	}
 	
-	public static ResponseMetadata savedResultExists(AbstractEntity result) {
+	public static ResponseMetadata savedResultExists(AbstractEntity<?> result) {
 		ResponseMetadata state = new ResponseMetadata();
 		
 		if (result == null || result.getId() == null) {
@@ -53,7 +53,7 @@ public class EntityValidator {
 		return state;
 	}
 	
-	public static ResponseMetadata found(AbstractEntity result) {
+	public static ResponseMetadata found(AbstractEntity<?> result) {
 		
 		ResponseMetadata state = new ResponseMetadata();
 		
@@ -66,13 +66,13 @@ public class EntityValidator {
 		return state;
 	}
 
-	public static ResponseMetadata isNotEmpty(Collection<? extends AbstractEntity> result) {
+	public static ResponseMetadata isNotEmpty(Collection<? extends AbstractEntity<?>> result) {
 		ResponseMetadata wrapper = new ResponseMetadata();
 		wrapper = checkNotEmpty(result, wrapper);
 		return wrapper;
 	}
 
-	public static ResponseMetadata isNotEmpty(AbstractEntity result, Collection<? extends AbstractEntity> children) {
+	public static ResponseMetadata isNotEmpty(AbstractEntity<?> result, Collection<? extends AbstractEntity<?>> children) {
 		ResponseMetadata wrapper = found(result);
 		if (ResponseCode.OK.equals(wrapper.getResponseCode())) {
 			wrapper = checkNotEmpty(children, wrapper);
@@ -81,7 +81,7 @@ public class EntityValidator {
 		return wrapper;
 	}
 	
-	private static ResponseMetadata checkNotEmpty(Collection<? extends AbstractEntity> result,
+	private static ResponseMetadata checkNotEmpty(Collection<? extends AbstractEntity<?>> result,
 			ResponseMetadata wrapper) {
 		if (result == null || result.size() == 0) {
 			wrapper.setResponseCode(ResponseCode.EMPTY);

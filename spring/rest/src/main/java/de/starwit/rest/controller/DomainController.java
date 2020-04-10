@@ -1,5 +1,17 @@
 package de.starwit.rest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
@@ -11,12 +23,6 @@ import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.DomainService;
 import de.starwit.service.impl.ProjectService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * DomainEntity RestController Have a look at the RequestMapping!!!!!!
@@ -31,7 +37,7 @@ public class DomainController {
   @Autowired
   private ProjectService projectService;
 
-  @GetMapping
+  @GetMapping("/query/all")
   public EntityListResponse<DomainEntity> findAll() {
     List<DomainEntity> entities = this.domainService.findAll();
     EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
@@ -40,7 +46,7 @@ public class DomainController {
     return response;
   }
 
-  @GetMapping(value = "/{id}")
+  @GetMapping(value = "/query/{id}")
   public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
     DomainEntity entity = this.domainService.findById(id);
     EntityResponse<DomainEntity> rw = new EntityResponse<DomainEntity>(entity);
@@ -60,7 +66,7 @@ public class DomainController {
     }
 
     EntityResponse<DomainEntity> response = validateAttibutes(domain);
-    if (response == null) {
+    if (response != null) {
       response.setResult(domainService.saveOrUpdate(domain));
     }
     return response;

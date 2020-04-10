@@ -1,5 +1,17 @@
 package de.starwit.rest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import de.starwit.persistence.entity.CategoryEntity;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
@@ -7,11 +19,6 @@ import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Domain RestController Have a look at the RequestMapping!!!!!!
@@ -23,7 +30,7 @@ public class CategoryController {
   @Autowired
   private CategoryService categoryService;
 
-  @GetMapping
+  @GetMapping("/query/all")
   public EntityListResponse<CategoryEntity> findAll() {
     List<CategoryEntity> entities = this.categoryService.findAll();
     EntityListResponse<CategoryEntity> response = new EntityListResponse<CategoryEntity>(entities);
@@ -32,7 +39,7 @@ public class CategoryController {
     return response;
   }
 
-  @GetMapping(value = "/{id}")
+  @GetMapping(value = "/query/{id}")
   public EntityResponse<CategoryEntity> findById(@PathVariable("id") Long id) {
     CategoryEntity entity = this.categoryService.findById(id);
     EntityResponse<CategoryEntity> rw = new EntityResponse<CategoryEntity>(entity);
