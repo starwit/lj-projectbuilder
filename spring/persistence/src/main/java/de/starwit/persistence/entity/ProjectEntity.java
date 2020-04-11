@@ -59,6 +59,10 @@ public class ProjectEntity extends AbstractEntity<Long> {
 	@Transient
 	private Set<DomainEntity> selectedDomains;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+	
 	public ProjectTemplateEntity getTemplate() {
 		return template;
 	}
@@ -115,4 +119,5 @@ public class ProjectEntity extends AbstractEntity<Long> {
 		}
 		return selectedDomains;
 	}
+
 }

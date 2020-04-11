@@ -2,6 +2,8 @@ package de.starwit.rest.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
@@ -31,119 +34,96 @@ import de.starwit.service.impl.ProjectService;
 @RequestMapping("${rest.base-path}/domain")
 public class DomainController {
 
-  @Autowired
-  private DomainService domainService;
+	@Autowired
+	private DomainService domainService;
 
-  @Autowired
-  private ProjectService projectService;
+	@Autowired
+	private ProjectService projectService;
 
-  @GetMapping("/query/all")
-  public EntityListResponse<DomainEntity> findAll() {
-    List<DomainEntity> entities = this.domainService.findAll();
-    EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
-    ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
-    response.setMetadata(responseMetadata);
-    return response;
-  }
+	private GenericController<DomainEntity> genericController;
 
-  @GetMapping(value = "/query/{id}")
-  public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
-    DomainEntity entity = this.domainService.findById(id);
-    EntityResponse<DomainEntity> rw = new EntityResponse<DomainEntity>(entity);
-    if (entity == null) {
-      rw.setMetadata(new ResponseMetadata(ResponseCode.NOT_FOUND, "response.notfound"));
-    }
-    return rw;
-  }
+	@PostConstruct
+	public void init() {
+		genericController = new GenericController<DomainEntity>();
+		genericController.setService(domainService);
+	}
 
-  @PutMapping
-  public EntityResponse<DomainEntity> save(@RequestBody DomainEntity domain) {
-    if (domain.getProject() == null) {
-      ProjectEntity project = new ProjectEntity();
-      // TODO DH: auto created.
-      // project.setId(domain.getProjectId());
-      domain.setProject(project);
-    }
+	@GetMapping("/query/all")
+	public EntityListResponse<DomainEntity> findAll() {
+		return genericController.findAll();
+	}
 
-    EntityResponse<DomainEntity> response = validateAttibutes(domain);
-    if (response != null) {
-      response.setResult(domainService.saveOrUpdate(domain));
-    }
-    return response;
-  }
+	@GetMapping(value = "/query/{id}")
+	public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
+		return genericController.findById(id);
+	}
 
-  @PostMapping
-  public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
+	@PutMapping
+	public EntityResponse<DomainEntity> save(@RequestBody DomainEntity domain) {
+		if (domain.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(domain.getProjectId());
+			domain.setProject(projectEntity);
+		}
+		
+		EntityResponse<DomainEntity> response = validateAttibutes(domain);
+		return response == null ? genericController.editGeneric(domain) : response;
+	}
 
-    // response.setResult(this.domainService.saveOrUpdate(domain));
+	@PostMapping
+	public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
+		if (domain.getProject() == null) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(domain.getProjectId());
+			domain.setProject(projectEntity);
+		}
+		
+		EntityResponse<DomainEntity> response = validateAttibutes(domain);
+		return response == null ? genericController.editGeneric(domain) : response;
+	}
 
-    if (domain.getProject() == null) {
-      ProjectEntity projectEntity = new ProjectEntity();
-      // projectEntity.setId(entity.getProjectId());
-      domain.setProject(projectEntity);
-    }
+	@DeleteMapping(value = "/{id}")
+	public EntityResponse<DomainEntity> delete(@PathVariable("id") Long id) {
+		return this.genericController.delete(id);
+	}
 
-    EntityResponse<DomainEntity> response = validateAttibutes(domain);
+	// Custom Endpoints
+	@GetMapping(value = "/query/domainsbyproject/{projectId}")
+	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
+			throws NotificationException {
+		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(projectId);
+		if (project == null) {
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
+			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
+			response.setMetadata(responseMetadata);
+			return response;
+		} else {
+			List<DomainEntity> entities = this.domainService.findAllDomainsByProject(projectId);
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
+			ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
+			response.setMetadata(responseMetadata);
+			return response;
+		}
+	}
 
-    if (response == null) {
-      // response.setResult(domainService.saveOrUpdate(domain));
-    }
-    return response;
-  }
-
-  @DeleteMapping(value = "/{id}")
-  public EntityResponse<DomainEntity> delete(@PathVariable("id") Long id) {
-    DomainEntity toBeDeleted = this.domainService.findById(id);
-    this.domainService.delete(toBeDeleted);
-
-    ResponseMetadata responseMetadata = new ResponseMetadata();
-    responseMetadata.setResponseCode(ResponseCode.OK);
-    responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
-
-    EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
-    response.setMetadata(responseMetadata);
-
-    return response;
-  }
-
-  // Custom Endpoints
-  @GetMapping(value = "/query/domainsbyproject/{projectId}")
-  public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
-      throws NotificationException {
-    ProjectEntity project = projectService.findProjectByIdOrThrowExeption(projectId);
-    if (project == null) {
-      EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
-      ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
-      response.setMetadata(responseMetadata);
-      return response;
-    } else {
-      List<DomainEntity> entities = this.domainService.findAllDomainsByProject(projectId);
-      EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
-      ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
-      response.setMetadata(responseMetadata);
-      return response;
-    }
-  }
-
-  @GetMapping(value = "/query/types")
-  public DataType[] getTypes() {
-    return DataType.values();
-  }
-
-  // helper functions
-  private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
-    EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
-
-    // if (entity.getDomains() != null) {
-    //   for (DomainEntity domain : entity.getDomains()) {
-    //     ResponseMetadata responseMetadata = EntityValidator.validate(domain);
-    //     if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
-    //       response.setMetadata(responseMetadata);
-    //       return response;
-    //     }
-    //   }
-    // }
-
-    return null;
-  }
+	@GetMapping(value = "/query/types")
+	public DataType[] getTypes() {
+		return DataType.values();
+	}
+	
+	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
+		
+		if (entity.getAttributes() != null) {
+			for (AttributeEntity attribute : entity.getAttributes()) {
+				ResponseMetadata responseMetadata = EntityValidator.validate(attribute);	
+				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
+					response.setMetadata(responseMetadata);
+					return response;
+				}
+			}
+		}
+		
+		return null;
+	}
 }

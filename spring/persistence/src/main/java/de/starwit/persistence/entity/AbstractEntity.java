@@ -17,7 +17,7 @@ public abstract class AbstractEntity<PK extends Serializable> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private PK id;
+    protected PK id;
 
     /**
      *

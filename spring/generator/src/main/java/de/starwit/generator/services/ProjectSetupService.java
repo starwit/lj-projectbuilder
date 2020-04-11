@@ -59,7 +59,7 @@ public class ProjectSetupService implements Serializable {
 		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
-		project = projectService.update(project);
+		project = projectService.saveOrUpdate(project);
 		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
 		for (DomainEntity domain : selectedDomains) {
 			domainService.setDomainSelected(domain.getId(), domain.isSelected());

@@ -1,7 +1,6 @@
  package de.starwit.ljprojectbuilder.ejb;
 
  import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +40,6 @@ import de.starwit.persistence.exception.NotificationException;
  		final File file = new File(location);
  		if (file.exists()) {
  			checkout.deleteTempURLProject(location);
- 			fail("Directory " + location + " should not exist.");
  		}
  		final boolean iscreated = file.mkdir();
  		assertTrue(iscreated);

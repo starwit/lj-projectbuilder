@@ -2,6 +2,8 @@ package de.starwit.rest.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,55 +37,40 @@ public class CodeTemplateController {
 
     @Autowired
     private ProjectTemplateService projectTemplateService;
+    
+	private GenericController<CodeTemplateEntity> genericController;
 
-    @GetMapping("/query/all")
-    public EntityListResponse<CodeTemplateEntity> findAll() {
-      List<CodeTemplateEntity> entities = this.codeTemplateService.findAll();
-      EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(entities);
-      ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
-      response.setMetadata(responseMetadata);
-      return response;
-    }
+	@PostConstruct
+	public void init() {
+		genericController = new GenericController<CodeTemplateEntity>();
+		genericController.setService(codeTemplateService);
+	}
+	
+	@GetMapping("/query/all")
+	public EntityListResponse<CodeTemplateEntity> findAll() {
+		return genericController.findAll();
+	}
 
-    @GetMapping(value = "/query/{id}")
-    public EntityResponse<CodeTemplateEntity> findById(@PathVariable("id") Long id) {
-      CodeTemplateEntity entity = this.codeTemplateService.findById(id);
-      EntityResponse<CodeTemplateEntity> rw = new EntityResponse<CodeTemplateEntity>(entity);
-      if (entity == null) {
-        rw.setMetadata(new ResponseMetadata(ResponseCode.NOT_FOUND, "response.notfound"));
-      }
-      return rw;
-    }
+	@GetMapping(value = "/query/{id}")
+	public EntityResponse<CodeTemplateEntity> findById(@PathVariable("id") Long id) {
+		return genericController.findById(id);
+	}
 
-    @PutMapping
-    public EntityResponse<CodeTemplateEntity> save(@RequestBody CodeTemplateEntity codeTemplate) {
-      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
-      response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
-      return response;
-    }
+	@PutMapping
+	public EntityResponse<CodeTemplateEntity> save(@RequestBody CodeTemplateEntity category) {
+		return genericController.editGeneric(category);
+	}
 
-    @PostMapping
-    public EntityResponse<CodeTemplateEntity> update(@RequestBody CodeTemplateEntity codeTemplate) {
-      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
-      response.setResult(this.codeTemplateService.saveOrUpdate(codeTemplate));
-      return response;
-    }
+	@PostMapping
+	public EntityResponse<CodeTemplateEntity> update(@RequestBody CodeTemplateEntity category) {
+		return genericController.editGeneric(category);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public EntityResponse<CodeTemplateEntity> delete(@PathVariable("id") Long id) {
-      CodeTemplateEntity toBeDeleted = this.codeTemplateService.findById(id);
-      this.codeTemplateService.delete(toBeDeleted);
-
-      ResponseMetadata responseMetadata = new ResponseMetadata();
-      responseMetadata.setResponseCode(ResponseCode.OK);
-      responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
-      
-      EntityResponse<CodeTemplateEntity> response = new EntityResponse<CodeTemplateEntity>();
-      response.setMetadata(responseMetadata);
-
-      return response;
-    }
-
+	@DeleteMapping(value = "/{id}")
+	public EntityResponse<CodeTemplateEntity> delete(@PathVariable("id") Long id) {
+		return genericController.delete(id);
+	}
+	
     @GetMapping(value = "/query/byprojecttemplate/{projecttemplateId}")
     public EntityListResponse<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(
       @PathVariable("projecttemplateId") Long projecttemplateId) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  *
  */
 @XmlRootElement
-@JsonIgnoreProperties("templates")
+@JsonIgnoreProperties(value = { "templates" })
 @Entity
 @Table(name = "CATEGORY")
 public class CategoryEntity extends AbstractEntity<Long> {
@@ -30,7 +31,7 @@ public class CategoryEntity extends AbstractEntity<Long> {
 
 	@JsonIgnore
 	@XmlTransient
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<CodeTemplateEntity> templates;
 
 	@Column(name = "NAME", nullable = false, unique = true)

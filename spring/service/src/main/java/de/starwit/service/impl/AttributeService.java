@@ -9,26 +9,29 @@ import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.repository.AttributeRepository;
 
 @Service
-public class AttributeService {
+public class AttributeService implements AbstractServiceInterface<AttributeEntity> {
     
     @Autowired
     private AttributeRepository attributeRepository;
 
+    @Override
     public List<AttributeEntity> findAll() {
         return this.attributeRepository.findAll();
     }
 
+    @Override
     public AttributeEntity findById(Long id) {
         return this.attributeRepository.findById(id).orElse(null);
     }
 
+    @Override
     public AttributeEntity saveOrUpdate(AttributeEntity entity) {
         return this.attributeRepository.save(entity);
     }
 
-    public AttributeEntity delete(AttributeEntity entity) {
-        this.attributeRepository.delete(entity);
-        return entity;
+    @Override
+    public void delete(Long id) {
+        this.attributeRepository.deleteById(id);
     }
 
 }

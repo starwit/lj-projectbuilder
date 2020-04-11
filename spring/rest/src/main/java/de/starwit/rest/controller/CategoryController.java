@@ -1,6 +1,6 @@
 package de.starwit.rest.controller;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.CategoryEntity;
+import de.starwit.dto.CategoryDto;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
-import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.CategoryService;
 
 /**
@@ -27,55 +24,40 @@ import de.starwit.service.impl.CategoryService;
 @RequestMapping("${rest.base-path}/category")
 public class CategoryController {
 
-  @Autowired
-  private CategoryService categoryService;
+	@Autowired
+	private CategoryService categoryService;
 
-  @GetMapping("/query/all")
-  public EntityListResponse<CategoryEntity> findAll() {
-    List<CategoryEntity> entities = this.categoryService.findAll();
-    EntityListResponse<CategoryEntity> response = new EntityListResponse<CategoryEntity>(entities);
-    ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
-    response.setMetadata(responseMetadata);
-    return response;
-  }
+	private GenericController<CategoryDto> genericController;
 
-  @GetMapping(value = "/query/{id}")
-  public EntityResponse<CategoryEntity> findById(@PathVariable("id") Long id) {
-    CategoryEntity entity = this.categoryService.findById(id);
-    EntityResponse<CategoryEntity> rw = new EntityResponse<CategoryEntity>(entity);
-    if (entity == null) {
-      rw.setMetadata(new ResponseMetadata(ResponseCode.NOT_FOUND, "response.notfound"));
-    }
-    return rw;
-  }
+	@PostConstruct
+	public void init() {
+		genericController = new GenericController<CategoryDto>();
+		genericController.setService(categoryService);
+	}
 
-  @PutMapping
-  public EntityResponse<CategoryEntity> save(@RequestBody CategoryEntity category) {
-    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
-    response.setResult(this.categoryService.saveOrUpdate(category));
-    return response;
-  }
+	@GetMapping("/query/all")
+	public EntityListResponse<CategoryDto> findAll() {
+		return genericController.findAll();
+	}
 
-  @PostMapping
-  public EntityResponse<CategoryEntity> update(@RequestBody CategoryEntity category) {
-    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
-    response.setResult(this.categoryService.saveOrUpdate(category));
-    return response;
-  }
+	@GetMapping(value = "/query/{id}")
+	public EntityResponse<CategoryDto> findById(@PathVariable("id") Long id) {
+		return genericController.findById(id);
+	}
 
-  @DeleteMapping(value = "/{id}")
-  public EntityResponse<CategoryEntity> delete(@PathVariable("id") Long id) {
-    CategoryEntity toBeDeleted = this.categoryService.findById(id);
-    this.categoryService.delete(toBeDeleted);
+	@PutMapping
+	public EntityResponse<CategoryDto> save(@RequestBody CategoryDto category) {
+		return genericController.editGeneric(category);
+	}
 
-    ResponseMetadata responseMetadata = new ResponseMetadata();
-    responseMetadata.setResponseCode(ResponseCode.OK);
-    responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
+	@PostMapping
+	public EntityResponse<CategoryDto> update(@RequestBody CategoryDto category) {
+		return genericController.editGeneric(category);
+	}
 
-    EntityResponse<CategoryEntity> response = new EntityResponse<CategoryEntity>();
-    response.setMetadata(responseMetadata);
-
-    return response;
-  }
+	@DeleteMapping(value = "/{id}")
+	public EntityResponse<CategoryDto> delete(@PathVariable("id") Long id) {
+		return genericController.delete(id);
+	}
 
 }
