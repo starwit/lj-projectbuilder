@@ -26,6 +26,7 @@ import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.ValidationError;
@@ -54,10 +55,10 @@ public class GeneratorService {
 	private final static String GENERATION ="###GENERATION###";
 	
 	@Autowired
-	private ProjectService projectService;
+	private ProjectRepository projectRepository;
 
 	public void generate(Long projectId) throws de.starwit.persistence.exception.NotificationException {
-		ProjectEntity project = projectService.findById(projectId);
+		ProjectEntity project = projectRepository.findById(projectId).orElseThrow();
 		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
 		Collection<DomainEntity> domains = project.getSelectedDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(project);

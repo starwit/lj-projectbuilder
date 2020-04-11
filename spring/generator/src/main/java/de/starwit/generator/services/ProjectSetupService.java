@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.service.impl.DomainService;
-import de.starwit.service.impl.ProjectService;
-import de.starwit.generator.dto.GeneratorDto;
 /**
  * Class for processing the whole project setup. A newly configured project is created and can be used.
  * @author Anett Huebner
@@ -30,7 +30,7 @@ public class ProjectSetupService implements Serializable {
 	private DomainService domainService;
 	
 	@Autowired
-	private ProjectService projectService;
+	private ProjectRepository projectRepository;
 	
 	@Autowired
 	private GeneratorService generatorSerivce;
@@ -54,12 +54,12 @@ public class ProjectSetupService implements Serializable {
 	 */
 	// @TransactionAttribute(TransactionAttributeType.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
-		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
+		ProjectEntity project = projectRepository.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		//String destDirString = project.getTargetPath();
 		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
-		project = projectService.saveOrUpdate(project);
+		project = projectRepository.save(project);
 		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
 		for (DomainEntity domain : selectedDomains) {
 			domainService.setDomainSelected(domain.getId(), domain.isSelected());

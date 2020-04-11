@@ -19,13 +19,13 @@ import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.DomainService;
-import de.starwit.service.impl.ProjectService;
 
 /**
  * DomainEntity RestController Have a look at the RequestMapping!!!!!!
@@ -38,7 +38,7 @@ public class DomainController {
 	private DomainService domainService;
 
 	@Autowired
-	private ProjectService projectService;
+	private ProjectRepository projectRepository;
 
 	private GenericController<DomainEntity> genericController;
 
@@ -91,7 +91,7 @@ public class DomainController {
 	@GetMapping(value = "/query/domainsbyproject/{projectId}")
 	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
 			throws NotificationException {
-		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(projectId);
+		ProjectEntity project = projectRepository.findProjectByIdOrThrowExeption(projectId);
 		if (project == null) {
 			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");

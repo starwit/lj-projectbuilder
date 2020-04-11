@@ -14,12 +14,13 @@ import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.DomainRepository;
+import de.starwit.persistence.repository.ProjectRepository;
 
 @Service
 public class DomainService implements AbstractServiceInterface<DomainEntity> {
 
 	@Autowired
-	private ProjectService projectService;
+	private ProjectRepository projectRepository;
 
 	@Autowired
 	private DomainRepository domainRepository;
@@ -45,7 +46,7 @@ public class DomainService implements AbstractServiceInterface<DomainEntity> {
 	}
 
 	public DomainEntity saveOrUpdateThrowException(DomainEntity entity) throws ValidationException, NotificationException {
-		ProjectEntity project = this.projectService.findProjectByIdOrThrowExeption(entity.getProjectId());
+		ProjectEntity project = this.projectRepository.findProjectByIdOrThrowExeption(entity.getProjectId());
 		if (entity != null) {
 			entity.setProject(project);
 		}
