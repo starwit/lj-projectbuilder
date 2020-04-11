@@ -1,49 +1,38 @@
-package de.starwit.persistence.entity;
+package de.starwit.dto;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.entity.AttributeEntity;
 
 @XmlRootElement
 @Entity
 @Table(name = "DOMAIN")
-public class DomainEntity extends AbstractEntity<Long> {
+public class DomainDto extends AbstractEntity<Long> {
 
-	@Transient
+	@NotNull
 	private Long projectId;
 
 	// domain attributes
 
 	@NotBlank
-	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@NotNull
-	@XmlTransient
-	@ManyToOne
-	@JoinColumn(name = "PROJECT_ID")
-	private ProjectEntity project;
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<AttributeEntity> attributes;
 
-	@Column(name = "SELECTED", nullable = false)
 	private boolean selected = true;
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -59,14 +48,6 @@ public class DomainEntity extends AbstractEntity<Long> {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public ProjectEntity getProject() {
-		return project;
-	}
-
-	public void setProject(ProjectEntity project) {
-		this.project = project;
 	}
 
 	public Set<AttributeEntity> getAttributes() {
@@ -92,8 +73,4 @@ public class DomainEntity extends AbstractEntity<Long> {
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
