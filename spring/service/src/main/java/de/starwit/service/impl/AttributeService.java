@@ -9,7 +9,7 @@ import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.repository.AttributeRepository;
 
 @Service
-public class AttributeService implements AbstractServiceInterface<AttributeEntity> {
+public class AttributeService implements ServiceInterface<AttributeEntity> {
     
     @Autowired
     private AttributeRepository attributeRepository;

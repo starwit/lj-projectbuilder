@@ -18,8 +18,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
@@ -61,17 +62,18 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 	@Column(name = "TEMPLATE_TYPE", nullable = false)
 	private TemplateType type = TemplateType.DOMAIN;
 
+	@JsonManagedReference
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "CATEGORY_ID")
 	private CategoryEntity category;
 
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "CODETEMPLATE_PROJECT", joinColumns = @JoinColumn(name = "CODETEMPLATE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))
 	private Set<ProjectEntity> projects;
 
-	@JsonIgnore
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "PROJECTTEMPLATE_ID")
 	private ProjectTemplateEntity projectTemplate;

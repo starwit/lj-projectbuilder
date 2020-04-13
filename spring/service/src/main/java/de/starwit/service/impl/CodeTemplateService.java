@@ -14,7 +14,7 @@ import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.repository.CodeTemplateRepository;
 
 @Service
-public class CodeTemplateService implements AbstractServiceInterface<CodeTemplateEntity> {
+public class CodeTemplateService implements ServiceInterface<CodeTemplateEntity> {
 
 	final static Logger LOG = LoggerFactory.getLogger(CodeTemplateService.class);
 

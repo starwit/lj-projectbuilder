@@ -39,7 +39,6 @@ public class AttributeEntity extends AbstractEntity<Long> {
 	@Column(name = "MINIMUM")
 	private Integer min;
 
-	@Transient
 	@Column(name = "NULLABLE")
 	private boolean nullable = true;
 

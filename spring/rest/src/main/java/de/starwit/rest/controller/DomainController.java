@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.dto.DomainDto;
 import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.entity.DataType;
+import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.ProjectRepository;
@@ -40,54 +40,54 @@ public class DomainController {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	private GenericController<DomainDto> genericController;
+	private GenericController<DomainEntity> genericController;
 
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<DomainDto>();
+		genericController = new GenericController<DomainEntity>();
 		genericController.setService(domainService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<DomainDto> findAll() {
+	public EntityListResponse<DomainEntity> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<DomainDto> findById(@PathVariable("id") Long id) {
+	public EntityResponse<DomainEntity> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<DomainDto> save(@RequestBody DomainDto domain) {
-		EntityResponse<DomainDto> response = validateAttibutes(domain);
+	public EntityResponse<DomainEntity> save(@RequestBody DomainEntity domain) {
+		EntityResponse<DomainEntity> response = validateAttibutes(domain);
 		return response == null ? genericController.editGeneric(domain) : response;
 	}
 
 	@PostMapping
-	public EntityResponse<DomainDto> update(@RequestBody DomainDto domain) {
-		EntityResponse<DomainDto> response = validateAttibutes(domain);
+	public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
+		EntityResponse<DomainEntity> response = validateAttibutes(domain);
 		return response == null ? genericController.editGeneric(domain) : response;
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<DomainDto> delete(@PathVariable("id") Long id) {
+	public EntityResponse<DomainEntity> delete(@PathVariable("id") Long id) {
 		return this.genericController.delete(id);
 	}
 
 	// Custom Endpoints
 	@GetMapping(value = "/query/domainsbyproject/{projectId}")
-	public EntityListResponse<DomainDto> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
+	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
 			throws NotificationException {
 		ProjectEntity project = projectRepository.findProjectByIdOrThrowExeption(projectId);
 		if (project == null) {
-			EntityListResponse<DomainDto> response = new EntityListResponse<DomainDto>(null);
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
 			response.setMetadata(responseMetadata);
 			return response;
 		} else {
-			List<DomainDto> entities = this.domainService.findAllDomainsByProject(projectId);
-			EntityListResponse<DomainDto> response = new EntityListResponse<DomainDto>(entities);
+			List<DomainEntity> entities = this.domainService.findAllDomainsByProject(projectId);
+			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
 			ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
 			response.setMetadata(responseMetadata);
 			return response;
@@ -99,8 +99,8 @@ public class DomainController {
 		return DataType.values();
 	}
 	
-	private EntityResponse<DomainDto> validateAttibutes(DomainDto entity) {
-		EntityResponse<DomainDto> response = new EntityResponse<DomainDto>();
+	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
 		
 		if (entity.getAttributes() != null) {
 			for (AttributeEntity attribute : entity.getAttributes()) {

@@ -9,9 +9,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
@@ -29,8 +28,7 @@ public class CategoryEntity extends AbstractEntity<Long> {
 	@NotNull
 	private String name = DEFAULT_CATEGORY;
 
-	@JsonIgnore
-	@XmlTransient
+	@JsonBackReference
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<CodeTemplateEntity> templates;
 

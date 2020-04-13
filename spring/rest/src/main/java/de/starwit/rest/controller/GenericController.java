@@ -12,66 +12,42 @@ import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
-import de.starwit.service.impl.AbstractServiceInterface;
+import de.starwit.service.impl.ServiceInterface;
 
 public class GenericController<E extends AbstractEntity<Long>> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger("fileAppender");
 
-	private AbstractServiceInterface<E> service;
+	private ServiceInterface<E> service;
 	
-//	private enum EditMode {
-//		CREATE,
-//		UPDATE;
-//	}
-//	
+	private enum EditMode {
+		CREATE,
+		UPDATE,
+		SAVEORUPDATE;
+	}
 	
-	public AbstractServiceInterface<E> getService() {
+	
+	public ServiceInterface<E> getService() {
 		return service;
 	}
 	
-	public void setService(AbstractServiceInterface<E> service) {
+	public void setService(ServiceInterface<E> service) {
 		this.service = service;
 	}
 	
-//	public EntityResponse<E> createGeneric(E entity) {
-//		return editGeneric(entity, EditMode.CREATE);
-//	}
-//	
-//	public EntityResponse<E> updateGeneric(E entity) {
-//		return editGeneric(entity, EditMode.UPDATE);
-//	}
-//
-//	private EntityResponse<E> editGeneric(E entity, EditMode editMode) {
-//	
-//		EntityResponse<E> response = new EntityResponse<E>();
-//		ResponseMetadata responseMetadata = EntityValidator.validate(entity);
-//		response.setMetadata(responseMetadata);
-//		
-//		if (!ResponseCode.NOT_VALID.equals(responseMetadata.getResponseCode())) {
-//			E interalEntity;
-//			LOG.debug("************ FrontendService for " + getService().getClass().getSimpleName());
-//			
-//			switch (editMode) {
-//				case CREATE :
-//					interalEntity = getService().create(entity);
-//					break;
-//				case UPDATE :
-//					interalEntity = getService().update(entity);
-//					break;
-//				default :
-//					interalEntity = getService().update(entity);
-//			}
-//			
-//			response.setResult(interalEntity);
-//			response.setMetadata(EntityValidator.savedResultExists(interalEntity));
-//		}
-//		return response;
-//	}
-
-
-
+	public EntityResponse<E> createGeneric(E entity) {
+		return editGeneric(entity, EditMode.CREATE);
+	}
+	
+	public EntityResponse<E> updateGeneric(E entity) {
+		return editGeneric(entity, EditMode.UPDATE);
+	}
+	
 	public EntityResponse<E> editGeneric(E entity) {
+		return editGeneric(entity, EditMode.SAVEORUPDATE);
+	}
+
+	public EntityResponse<E> editGeneric(E entity, EditMode editMode) {
 	
 		EntityResponse<E> response = new EntityResponse<E>();
 		ResponseMetadata responseMetadata = EntityValidator.validate(entity);
@@ -81,7 +57,17 @@ public class GenericController<E extends AbstractEntity<Long>> {
 			E interalEntity;
 			LOG.debug("************ FrontendService for " + getService().getClass().getSimpleName());
 	
-			interalEntity = getService().saveOrUpdate(entity);
+
+			switch (editMode) {
+			case CREATE:
+				interalEntity = getService().create(entity);
+				break;
+			case UPDATE:
+				interalEntity = getService().update(entity);
+				break;
+			default:
+				interalEntity = getService().saveOrUpdate(entity);
+			}
 			response.setResult(interalEntity);
 			response.setMetadata(EntityValidator.savedResultExists(interalEntity));
 		}

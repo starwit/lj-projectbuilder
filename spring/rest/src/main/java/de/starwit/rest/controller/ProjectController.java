@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.dto.ProjectDto;
+import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.service.impl.ProjectService;
@@ -31,36 +31,36 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 
-	private GenericController<ProjectDto> genericController;
+	private GenericController<ProjectEntity> genericController;
 
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<ProjectDto>();
+		genericController = new GenericController<ProjectEntity>();
 		genericController.setService(projectService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<ProjectDto> findAll() {
+	public EntityListResponse<ProjectEntity> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<ProjectDto> findById(@PathVariable("id") Long id) {
+	public EntityResponse<ProjectEntity> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<ProjectDto> save(@RequestBody ProjectDto category) {
+	public EntityResponse<ProjectEntity> save(@RequestBody ProjectEntity category) {
 		return genericController.editGeneric(category);
 	}
 
 	@PostMapping
-	public EntityResponse<ProjectDto> update(@RequestBody ProjectDto category) {
+	public EntityResponse<ProjectEntity> update(@RequestBody ProjectEntity category) {
 		return genericController.editGeneric(category);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<ProjectDto> delete(@PathVariable("id") Long id) {
+	public EntityResponse<ProjectEntity> delete(@PathVariable("id") Long id) {
 		return genericController.delete(id);
 	}
 

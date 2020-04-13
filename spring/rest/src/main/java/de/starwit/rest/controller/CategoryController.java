@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.dto.CategoryDto;
+import de.starwit.persistence.entity.CategoryEntity;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.service.impl.CategoryService;
@@ -27,36 +27,36 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-	private GenericController<CategoryDto> genericController;
+	private GenericController<CategoryEntity> genericController;
 
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<CategoryDto>();
+		genericController = new GenericController<CategoryEntity>();
 		genericController.setService(categoryService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<CategoryDto> findAll() {
+	public EntityListResponse<CategoryEntity> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<CategoryDto> findById(@PathVariable("id") Long id) {
+	public EntityResponse<CategoryEntity> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<CategoryDto> save(@RequestBody CategoryDto category) {
+	public EntityResponse<CategoryEntity> save(@RequestBody CategoryEntity category) {
 		return genericController.editGeneric(category);
 	}
 
 	@PostMapping
-	public EntityResponse<CategoryDto> update(@RequestBody CategoryDto category) {
+	public EntityResponse<CategoryEntity> update(@RequestBody CategoryEntity category) {
 		return genericController.editGeneric(category);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<CategoryDto> delete(@PathVariable("id") Long id) {
+	public EntityResponse<CategoryEntity> delete(@PathVariable("id") Long id) {
 		return genericController.delete(id);
 	}
 

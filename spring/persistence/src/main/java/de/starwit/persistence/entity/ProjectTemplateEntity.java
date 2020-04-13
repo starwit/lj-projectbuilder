@@ -50,6 +50,10 @@ public class ProjectTemplateEntity extends AbstractEntity<Long> {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "projectTemplate")
 	private Set<CodeTemplateEntity> codeTemplates;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+	
 	public String getDescription() {
 		return description;
 	}

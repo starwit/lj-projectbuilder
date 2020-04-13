@@ -53,13 +53,13 @@ public class ProjectTemplateController {
 	@PutMapping
 	public EntityResponse<ProjectTemplateEntity> save(@RequestBody ProjectTemplateEntity entity) {
 		EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(entity);
-		return response == null ? genericController.editGeneric(entity) : response;
+		return response == null ? genericController.createGeneric(entity) : response;
 	}
 
 	@PostMapping
 	public EntityResponse<ProjectTemplateEntity> update(@RequestBody ProjectTemplateEntity entity) {
 		EntityResponse<ProjectTemplateEntity> response = validateCodeTemplates(entity);
-		return response == null ? genericController.editGeneric(entity) : response;
+		return response == null ? genericController.updateGeneric(entity) : response;
 	}
 
 	@DeleteMapping(value = "/{id}")

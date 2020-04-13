@@ -18,9 +18,9 @@ import de.starwit.persistence.exception.EntityNotFoundException;
  *
  * @param <E>
  */
-public interface AbstractServiceInterface<E extends AbstractEntity<Long>> {
+public interface ServiceInterface<E extends AbstractEntity<Long>> {
 
-	static Logger LOG = LoggerFactory.getLogger(AbstractServiceInterface.class);
+	static Logger LOG = LoggerFactory.getLogger(ServiceInterface.class);
 
 	public void delete(Long id) throws EntityNotFoundException;
 
@@ -29,4 +29,12 @@ public interface AbstractServiceInterface<E extends AbstractEntity<Long>> {
 	public List<E> findAll();
 
 	public E findById(Long id);
+	
+	public default E create(E entity) throws ValidationException {
+		return saveOrUpdate(entity);
+	}
+	
+	public default E update(E entity) throws ValidationException {
+		return saveOrUpdate(entity);
+	}
 }
