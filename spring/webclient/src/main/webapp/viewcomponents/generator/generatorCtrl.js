@@ -119,7 +119,7 @@
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response;
 			ctrl.projecttitle = response.title;
-			ctrl.downloadlink="downloadproject?projectid=" + response.id;
+			ctrl.downloadlink="downloadproject/" + response.id;
 		}
 		
 		/**

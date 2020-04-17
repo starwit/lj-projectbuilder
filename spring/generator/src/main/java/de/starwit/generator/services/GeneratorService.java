@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.starwit.generator.config.Constants;
+import de.starwit.generator.generator.EntityImports;
 import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
@@ -30,9 +32,6 @@ import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.ValidationError;
-import de.starwit.service.impl.ProjectService;
-import de.starwit.generator.config.Constants;
-import de.starwit.generator.generator.EntityImports;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;

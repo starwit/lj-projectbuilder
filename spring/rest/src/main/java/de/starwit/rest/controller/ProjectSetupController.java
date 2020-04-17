@@ -4,6 +4,7 @@
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ import de.starwit.persistence.response.ResponseMetadata;
 //     private TargetRepoService targetRepoService;
 
      @PostMapping(value = "/downloadproject")
-     public Response<Boolean> downloadProject(GeneratorDto dto) throws Exception {
+     public Response<Boolean> downloadProject(@RequestBody GeneratorDto dto) throws Exception {
       
        try {
     	 projectSetupService.setupAndGenerateProject(dto);
