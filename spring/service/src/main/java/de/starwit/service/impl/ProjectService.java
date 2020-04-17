@@ -54,7 +54,7 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 			}
 		}
 		
-		dto = this.projectRepository.save(dto);
+		dto = this.projectRepository.saveAndFlush(dto);
 		dto = Mapper.convert(dto, ProjectEntity.class, "domains", "selectedDomains");
 		dto.setTemplate(projectTemplateService.map(dto.getTemplate()));
 		return dto;

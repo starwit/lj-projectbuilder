@@ -8,14 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.generator.dto.GeneratorDto;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 /**
  * Class for processing the whole project setup. A newly configured project is created and can be used.
  * @author Anett Huebner
@@ -30,7 +32,7 @@ public class ProjectSetupService implements Serializable {
 	private DomainService domainService;
 	
 	@Autowired
-	private ProjectRepository projectRepository;
+	private ProjectService projectService;
 	
 	@Autowired
 	private GeneratorService generatorSerivce;
@@ -52,14 +54,14 @@ public class ProjectSetupService implements Serializable {
 	 * @return
 	 * @throws NotificationException
 	 */
-	// @TransactionAttribute(TransactionAttributeType.NEVER)
+	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
-		ProjectEntity project = projectRepository.findProjectByIdOrThrowExeption(dto.getProject().getId());
+		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		//String destDirString = project.getTargetPath();
 		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
-		project = projectRepository.save(project);
+		project = projectService.saveOrUpdate(project);
 		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
 		for (DomainEntity domain : selectedDomains) {
 			domainService.setDomainSelected(domain.getId(), domain.isSelected());

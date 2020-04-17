@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.mapper.Mapper;
 import de.starwit.persistence.entity.DomainEntity;
@@ -34,6 +36,7 @@ public class DomainService implements ServiceInterface<DomainEntity> {
 		return Mapper.convertList(entities, DomainEntity.class, "project");
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void setDomainSelected(Long domainId, boolean selected) {
 		this.domainRepository.setDomainSelected(domainId, selected);
 	}
