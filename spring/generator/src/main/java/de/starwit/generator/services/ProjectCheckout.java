@@ -116,6 +116,12 @@ public class ProjectCheckout {
 			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
 					"error.projectcheckout.checkoutprojecttemplate.transport");
 			throw new NotificationException(data);
+		} catch (RuntimeException e) {
+			this.deleteTempURLProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
+			LOG.error("Error copying files for project template.", e);
+			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+					"error.projectcheckout.checkoutprojecttemplate.git");
+			throw new NotificationException(data);
 		}
 	}
 }

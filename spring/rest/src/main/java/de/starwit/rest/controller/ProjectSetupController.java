@@ -32,7 +32,7 @@ import de.starwit.persistence.response.ResponseMetadata;
 //     private TargetRepoService targetRepoService;
 
      @PostMapping(value = "/downloadproject")
-     public Response<Boolean> downloadProject(@RequestBody GeneratorDto dto) throws Exception {
+     public Response<?> downloadProject(@RequestBody GeneratorDto dto) throws Exception {
       
        try {
     	 projectSetupService.setupAndGenerateProject(dto);

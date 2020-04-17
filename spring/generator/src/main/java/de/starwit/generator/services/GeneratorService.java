@@ -10,10 +10,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,7 +29,6 @@ import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
-import de.starwit.persistence.validation.ValidationError;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -161,16 +158,17 @@ public class GeneratorService {
 				String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
 				writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
 			} else {
-				List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-				ValidationError ve = new ValidationError(codeTemplate.getTargetPath(), "error.generation.codetemplate");
-				validationErrors.add(ve);
-				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.NOT_VALID, "error.generation.templatemissing", validationErrors);
+				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.templatemissing");
 				throw new NotificationException(errorResponse);
 			}
 
-		} catch (IOException | TemplateException e) {
+		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, e.getMessage());
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.file");
+			throw new NotificationException(errorResponse);
+		} catch (TemplateException e) {
+			LOG.error("Error during file writing: ", e.fillInStackTrace());
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.template");
 			throw new NotificationException(errorResponse);
 		}
 	}
