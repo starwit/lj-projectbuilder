@@ -26,6 +26,9 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private ProjectTemplateService projectTemplateService;
 
 
 	public ProjectEntity findProjectByIdOrThrowExeption(final Long projectid) throws NotificationException {
@@ -36,7 +39,9 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 					"error.projectservice.findprojectbyid.projectnotfound");
 			throw new NotificationException(data);
 		}
-		return Mapper.convert(entity, ProjectEntity.class, "domains", "selectedDomains");
+		ProjectEntity dto = Mapper.convert(entity, ProjectEntity.class, "domains", "selectedDomains", "template");
+		dto.setTemplate(projectTemplateService.map(entity.getTemplate()));
+		return dto;
 	}
 
 	@Override
@@ -50,7 +55,9 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 		}
 		
 		dto = this.projectRepository.save(dto);
-		return Mapper.convert(dto, ProjectEntity.class, "domains", "selectedDomains");
+		dto = Mapper.convert(dto, ProjectEntity.class, "domains", "selectedDomains");
+		dto.setTemplate(projectTemplateService.map(dto.getTemplate()));
+		return dto;
 	}
 
 	@Override
@@ -65,11 +72,17 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 	@Override
 	public ProjectEntity findById(Long id) {
 		ProjectEntity entity = this.projectRepository.findById(id).orElse(null);
-		return Mapper.convert(entity, ProjectEntity.class, "domains", "selectedDomains");
+		ProjectEntity dto = Mapper.convert(entity, ProjectEntity.class, "domains", "selectedDomains", "template");
+		dto.setTemplate(projectTemplateService.map(entity.getTemplate()));
+		return dto;
 	}
 
 	@Override
 	public List<ProjectEntity> findAll() {
-		return Mapper.convertList(this.projectRepository.findAll(), ProjectEntity.class, "domains", "selectedDomains");
+		List<ProjectEntity> dtos = Mapper.convertList(this.projectRepository.findAll(), ProjectEntity.class, "domains", "selectedDomains");
+		for (ProjectEntity dto : dtos) {
+			dto.setTemplate(projectTemplateService.map(dto.getTemplate()));
+		}
+		return dtos;
 	}
 }

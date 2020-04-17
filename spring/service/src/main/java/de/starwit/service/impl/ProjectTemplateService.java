@@ -84,7 +84,7 @@ public class ProjectTemplateService implements ServiceInterface<ProjectTemplateE
 		return map(entity);
 	}
 
-	private ProjectTemplateEntity map(ProjectTemplateEntity entity) {
+	public ProjectTemplateEntity map(ProjectTemplateEntity entity) {
 		ProjectTemplateEntity dto = Mapper.convert(entity, ProjectTemplateEntity.class, "codeTemplates");
 		Set<CodeTemplateEntity> ctDtos = Mapper.convertSet(entity.getCodeTemplates(), CodeTemplateEntity.class, "projectTemplate");
 		if (entity != null && entity.getCodeTemplates() != null) {
