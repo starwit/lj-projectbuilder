@@ -38,7 +38,7 @@ public class DownloadProjectController {
 
 		ProjectEntity entity = projectService.findById(id);
 		if (entity != null && entity.getTargetPath() != null) {
-	        response.setHeader("Content-Disposition", "attachment;filename=" + entity.getTitle());
+	        response.setHeader("Content-Disposition", "attachment;filename=" + entity.getTitle() + ".zip");
 			File directory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 			File[] files = directory.listFiles();
 			if(files != null && files.length > 0) {

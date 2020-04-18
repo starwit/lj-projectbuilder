@@ -19,13 +19,13 @@ import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.DomainEntity;
 import de.starwit.persistence.entity.ProjectEntity;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.repository.ProjectRepository;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 
 /**
  * DomainEntity RestController Have a look at the RequestMapping!!!!!!
@@ -38,7 +38,7 @@ public class DomainController {
 	private DomainService domainService;
 
 	@Autowired
-	private ProjectRepository projectRepository;
+	private ProjectService projectService;
 
 	private GenericController<DomainEntity> genericController;
 
@@ -60,14 +60,24 @@ public class DomainController {
 
 	@PutMapping
 	public EntityResponse<DomainEntity> save(@RequestBody DomainEntity domain) {
-		EntityResponse<DomainEntity> response = validateAttibutes(domain);
+		return saveOrUpdate(domain);
+	}
+
+	private EntityResponse<DomainEntity> saveOrUpdate(DomainEntity domain) {
+		EntityResponse<DomainEntity> response;
+		try {
+			response = validateAttibutes(domain);
+		} catch (NotificationException nex) {
+			response = new EntityResponse<DomainEntity>(null);
+	        response.setMetadata(nex.getResponseMetadata());
+	        return response;
+		}
 		return response == null ? genericController.editGeneric(domain) : response;
 	}
 
 	@PostMapping
 	public EntityResponse<DomainEntity> update(@RequestBody DomainEntity domain) {
-		EntityResponse<DomainEntity> response = validateAttibutes(domain);
-		return response == null ? genericController.editGeneric(domain) : response;
+		return saveOrUpdate(domain);
 	}
 
 	@DeleteMapping(value = "/{id}")
@@ -77,9 +87,15 @@ public class DomainController {
 
 	// Custom Endpoints
 	@GetMapping(value = "/query/domainsbyproject/{projectId}")
-	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId)
-			throws NotificationException {
-		ProjectEntity project = projectRepository.findProjectByIdOrThrowExeption(projectId);
+	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
+		ProjectEntity project;
+		try {
+			project = projectService.findProjectByIdOrThrowExeption(projectId);
+		} catch (NotificationException nex) {
+           EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
+           response.setMetadata(nex.getResponseMetadata());
+           return response;
+		}
 		if (project == null) {
 			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
@@ -99,7 +115,9 @@ public class DomainController {
 		return DataType.values();
 	}
 	
-	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) {
+	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) throws NotificationException {
+		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(entity.getProjectId());
+		entity.setProject(project);
 		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
 		
 		if (entity.getAttributes() != null) {
