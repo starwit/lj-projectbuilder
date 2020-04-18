@@ -29,7 +29,7 @@
 		 * Standard function to edit the projecttemplate configuration.
 		 */
 		function doMaintain() {
-			if (ctrl.form.$dirty) {
+			if (ctrl.form.$dirty || !isUpdate()) {
 				doMaintainThenGoto(gotoProjectTemplate.all);
 			} else if (ctrl.form.$invalid) {
 				return;
