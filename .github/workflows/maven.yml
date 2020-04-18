@@ -1,5 +1,5 @@
 
-name: Java CI with Maven
+name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
