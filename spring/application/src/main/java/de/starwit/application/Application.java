@@ -2,11 +2,13 @@ package de.starwit.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Main SpringApplication to start the whole project
@@ -33,25 +35,23 @@ public class Application {
     @Configuration
     @Profile("!dev")
     static class ApplicationSecurityProd extends WebSecurityConfigurerAdapter {
- 
-        @Override
-        public void configure(WebSecurity web) throws Exception {
-        	web
-            .ignoring()
-            .antMatchers("/welcome.html");
-        	
-        }
         
     	@Override
         protected void configure(HttpSecurity http) throws Exception {
             http
             	.authorizeRequests()
                     .antMatchers("/welcome.html").permitAll()
-                    .antMatchers("/**").access("hasRole('ROLE_USER')")
+                    .antMatchers("/error.html").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .oauth2Login()
-                    .permitAll();
+                    .successHandler(myAuthenticationSuccessHandler())
+                    .and();
+        }
+
+        @Bean
+        public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+            return new LocalAuthenticationSuccessHandler();
         }
     }
     

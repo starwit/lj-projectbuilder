@@ -32,11 +32,22 @@
 	 * @param $scope
 	 * @returns
 	 */
-	function appController($scope) {
+	function appController($scope, $http) {
 		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 			$scope.title=next.title;
 			$scope.subtitle=next.subtitle;
 		});
+		console.log('checking profile image');
+		console.log($scope.userImageURL);
+		if($scope.userImageURL === undefined) {
+			$http.get('api/user/image')
+				.then(function(response){
+					console.log(response);
+					$scope.userImageURL=response.data;
+				}, function(){
+					console.log("couldn't load profile image");
+				});
+		}
 	}
 	
 	angular.module('ljprojectbuilderApp').factory('restConnectorFactory', restConnectorFactory);
