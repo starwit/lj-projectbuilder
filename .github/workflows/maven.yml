@@ -20,8 +20,6 @@ jobs:
         java-version: 14
     - name: Build with Maven
       run: mvn -B package -Pfrontend --file spring/pom.xml
-    - name: Print work dir content
-      run: find .
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
@@ -35,5 +33,5 @@ jobs:
         image_name: ljprojectbuilder
         image_tag: latest
         registry: docker.pkg.github.com
-        context: ./spring
+        path: spring
         dockerfile: ./spring/dockerfile
