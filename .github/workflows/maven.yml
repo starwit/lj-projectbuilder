@@ -36,4 +36,4 @@ jobs:
         image_tag: latest
         registry: docker.pkg.github.com
         context: spring
-        dockerfile: "$context"/dockerfile
+        dockerfile: ./spring/dockerfile
