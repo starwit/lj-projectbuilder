@@ -30,7 +30,7 @@ jobs:
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"        
-        image_name: ljprojectbuilder
+        image_name: starwit/lj-projectbuilder/ljprojectbuilder
         image_tag: latest
         registry: docker.pkg.github.com
         path: spring
