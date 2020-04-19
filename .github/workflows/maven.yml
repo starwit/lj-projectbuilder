@@ -35,4 +35,5 @@ jobs:
         image_name: ljprojectbuilder
         image_tag: latest
         registry: docker.pkg.github.com
-        context: ./spring
+        context: spring
+        dockerfile: "$context"/dockerfile
