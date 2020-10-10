@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,5 +54,11 @@ public class UserDetailsController {
 		DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();		
 		String imageURL = (String) authUser.getAttributes().get("avatar_url");
 		return imageURL;
+	}
+
+	@GetMapping("/oidc-principal")
+	public OidcUser getOidcUserPrincipal(@AuthenticationPrincipal OidcUser principal) {
+		System.out.println(principal);
+	    return principal;
 	}
 }
