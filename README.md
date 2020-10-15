@@ -29,22 +29,23 @@ To start the software, the following stuff have to be installed:
 You can build and start the Project Builder in only three steps:
 
 1. Clone [Lirejarp Project Builder](https://github.com/starwit/lj-projectbuilder) with git clone https://github.com/starwit/lj-projectbuilder
-2. go to directory lj-projectbuilder and open command line
+2. go to directory ljprojectbuilder and open command line
 3. execute `ant build_application` on commandline
 
 ## Maven Build
 
-- Build app running all tests:
+1. go to directory ljprojectbuilder and open command line
+2. Build app running all tests:
   ```bash
   mvn clean verify
   ```
-- You will find the build artifact in `application/target`
-- start JAR-fie with `java -jar application-0.0.1-SNAPSHOT.jar`
+ You will find the build artifact in `application/target`
+3. start JAR-fie with `java -jar application-0.0.1-SNAPSHOT.jar`
 
 Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
 
 ## How-To Build Application in Developer Mode
 
-* go to `application/Application.java` and run as Java application in your IDE
-* execute `ant copy_frontend` on commandline to copy frontend changes
+* go to `ljprojectbuilder/application/Application.java` and run as Java application in your IDE
+* go back to directory ljprojectbuilder and execute `ant copy_frontend` on commandline to copy frontend changes
 
