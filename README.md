@@ -34,13 +34,13 @@ You can build and start the Project Builder in only three steps:
 
 ## Maven Build
 
-1. go to directory ljprojectbuilder and open command line
-2. Build app running all tests:
+- go to directory ljprojectbuilder and open command line
+- Build app running all tests:
   ```bash
   mvn clean verify
   ```
  You will find the build artifact in `application/target`
-3. start JAR-fie with `java -jar application-0.0.1-SNAPSHOT.jar`
+- start JAR-fie with `java -jar application-0.0.1-SNAPSHOT.jar`
 
 Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
 
