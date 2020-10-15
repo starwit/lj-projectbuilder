@@ -1,7 +1,6 @@
-package de.starwit.application;
+package de.starwit.application.config;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +14,16 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import de.starwit.persistence.entity.AllowedUserEntity;
-import de.starwit.persistence.entity.UserRoleEnum;
-import de.starwit.persistence.repository.AllowedUserRepository;
+import de.starwit.persistence.entity.Role;
+import de.starwit.persistence.entity.UserEntity;
+import de.starwit.service.impl.UserService;
 
 public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     final static Logger LOG = LoggerFactory.getLogger(LocalAuthenticationSuccessHandler.class);
     
     @Autowired
-    private AllowedUserRepository allowedUserRepository;
+    private UserService userService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -35,9 +34,9 @@ public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();     
         String userId = authUser.getAttribute("login");
-        AllowedUserEntity localUserData = allowedUserRepository.findByUserAlias(userId);
-        if(localUserData.getUserRole() == UserRoleEnum.NONE) {
-            redirectStrategy.sendRedirect(request, response, "/role-error.html");
+        UserEntity localUserData = userService.findByUsername(userId);
+        if(localUserData.getRole() == Role.NONE) {
+            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/welcome/");
         } else {
             redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/project-all/");
         }

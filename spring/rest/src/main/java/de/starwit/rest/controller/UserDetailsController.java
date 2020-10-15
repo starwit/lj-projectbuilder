@@ -10,13 +10,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.AllowedUserEntity;
-import de.starwit.persistence.repository.AllowedUserRepository;
+import de.starwit.persistence.entity.UserEntity;
+import de.starwit.persistence.repository.UserRepository;
 
 @RestController
 @RequestMapping("${rest.base-path}/user")
@@ -24,7 +23,7 @@ public class UserDetailsController {
 	final static Logger LOG = LoggerFactory.getLogger(UserDetailsController.class);
 
 	@Autowired
-	AllowedUserRepository allowedUserRepository;
+	UserRepository allowedUserRepository;
 
 	@GetMapping("/userDetails")
 	public String getUserDetails(){
@@ -37,7 +36,7 @@ public class UserDetailsController {
 		}
 
 		String authenticatedUserName = (String) authUser.getAttributes().get("login");
-		AllowedUserEntity user = allowedUserRepository.findByUserAlias(authenticatedUserName);
+		UserEntity user = allowedUserRepository.findByUsername(authenticatedUserName).get();
 		if(null == user) {
 			LOG.warn("User " + authenticatedUserName + " may not enter");
 		} else {

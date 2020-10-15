@@ -12,6 +12,7 @@
 		'ljprojectbuilderApp.generator',
 		'ljprojectbuilderApp.projecttemplate',		
 		//###END### include generated files
+		'ljprojectbuilderApp.default',
 		'ngRoute'
 	]);
 	
@@ -24,6 +25,26 @@
 			.useSanitizeValueStrategy('escaped') // Security for escaping variables
 			.usePostCompiling(true); // Post compiling angular filters
 	}]);
+	
+	angular.module('ljprojectbuilderApp').config(function ($httpProvider) {
+	    $httpProvider.interceptors.push('responseObserver');
+	});
+	
+	angular.module('ljprojectbuilderApp').factory('responseObserver', function responseObserver($q, $window) {
+	    return {
+	        'responseError': function(errorResponse) {
+	            switch (errorResponse.status) {
+	            case 403:
+	                $window.location = './#/viewcomponents/notallowed';
+	                break;
+	            case 500:
+	                $window.location = './#/viewcomponents/internalerror';
+	                break;
+	            }
+	            return $q.reject(errorResponse);
+	        }
+	    };
+	});
 	
 	angular.module('ljprojectbuilderApp').controller('appController', appController);
 	
