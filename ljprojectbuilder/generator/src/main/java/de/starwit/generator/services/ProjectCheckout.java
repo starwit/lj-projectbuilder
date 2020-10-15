@@ -11,20 +11,19 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import de.spring.persistence.entity.ProjectEntity;
-import de.spring.persistence.exception.NotificationException;
-import de.spring.persistence.response.ResponseCode;
-import de.spring.persistence.response.ResponseMetadata;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.dto.GeneratorDto;
 
-
-@Component("ProjectCheckout")
+@Service
 public class ProjectCheckout {
 
-	public final static Logger LOG = LoggerFactory.getLogger(ProjectCheckout.class);
+  final static Logger LOG = LoggerFactory.getLogger(ProjectCheckout.class);
 
 	public String createTempProjectDirectory(final ProjectEntity project) throws NotificationException {
 		try {
@@ -116,6 +115,12 @@ public class ProjectCheckout {
 			LOG.error("Error copying files for project template.", e);
 			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
 					"error.projectcheckout.checkoutprojecttemplate.transport");
+			throw new NotificationException(data);
+		} catch (RuntimeException e) {
+			this.deleteTempURLProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
+			LOG.error("Error copying files for project template.", e);
+			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+					"error.projectcheckout.checkoutprojecttemplate.git");
 			throw new NotificationException(data);
 		}
 	}

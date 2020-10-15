@@ -1,20 +1,24 @@
-package de.starwit.ljprojectbuilder.ejb;
+// package de.starwit.ljprojectbuilder.ejb;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+// import javax.persistence.EntityManager;
+// import javax.persistence.PersistenceContext;
 
-import de.starwit.generator.services.ProjectSetupService;
+// import org.jboss.arquillian.junit.Arquillian;
+// import org.junit.Test;
+// import org.junit.runner.RunWith;
 
-//@RunWith(Arquillian.class)
-public class ProjectSetupServiceTest {
+// import de.starwit.generator.services.ProjectSetupService;
+
+// @RunWith(Arquillian.class)
+// public class ProjectSetupServiceTest {
 	
-	protected ProjectSetupService service;
+// 	protected ProjectSetupService service;
 	
-	@PersistenceContext
-	EntityManager entityManager;
+// 	@PersistenceContext
+// 	EntityManager entityManager;
 	
-//	@Test
-	public void setupAndGenerateProjectTest()  {
+// 	@Test
+// 	public void setupAndGenerateProjectTest()  {
 		
-	}
-}
+// 	}
+// }
