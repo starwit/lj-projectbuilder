@@ -19,7 +19,7 @@ jobs:
       with:
         java-version: 14
     - name: Build with Maven
-      run: mvn -B package -Pfrontend --file spring/pom.xml
+      run: mvn -B package -Pfrontend --file ljprojectbuilder/pom.xml
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
