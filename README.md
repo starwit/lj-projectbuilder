@@ -28,7 +28,7 @@ To start the software, the following stuff have to be installed:
 
 You can build and start the Project Builder in only three steps:
 
-1. Clone [Lirejarp Project Builder](https://github.com/starwit/lj-projectbuilder) with git clone https://github.com/witchpou/lj-projectbuilder
+1. Clone [Lirejarp Project Builder](https://github.com/starwit/lj-projectbuilder) with git clone https://github.com/starwit/lj-projectbuilder
 2. go to directory lj-projectbuilder and open command line
 3. execute `ant build_application` on commandline
 
