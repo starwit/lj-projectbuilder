@@ -6,7 +6,12 @@
 	<property name="app_path" value="ljprojectbuilder" />
 
 	<property name="ui_src" location="${app_path}/webclient/src/main/webapp/" />
-	<property name="ui_dest" value="${app_path}/target/classes/static" />
+	<property name="ui_dest" value="${app_path}/application/target/classes/static" />
+	<property name="os.windows" value="windows" />
+	
+	<condition property="isWindows">
+		<os family="windows" />
+	</condition>
 	
 	<scriptdef name="propertyreset" language="javascript"
 		description="Allows to assign @{property} new value">
@@ -14,6 +19,14 @@
 		<attribute name="value"/>
 			project.setProperty(attributes.get("name"), attributes.get("value"));
 	</scriptdef>
+
+	<target name="check_windows_os" if="isWindows">
+		<propertyreset  name="os.windows" value="${os.name}" />
+		<echo message="OS family is:         ${os.windows}" />
+        <echo message="OS Name is:         ${os.name}" />
+        <echo message="OS Architecture is: ${os.arch}" />
+        <echo message="OS Version is:      ${os.version}" />
+	</target>
 	
 	<property name="sql_create" value="
 			DROP DATABASE IF EXISTS ljprojectbuilder;
