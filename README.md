@@ -46,5 +46,5 @@ Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuild
 ## How-To Build Application in Developer Mode
 
 * go to `application/Application.java` and run as Java application in your IDE
-* execute `ant coby_frontend` on commandline to copy frontend changes
+* execute `ant copy_frontend` on commandline to copy frontend changes
 
