@@ -1,60 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>de.starwit</groupId>
+    <artifactId>ljprojectbuilder</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
 
-	<parent>
-		<artifactId>ljprojectbuilder</artifactId>
-		<groupId>ljprojectbuilder</groupId>
-		<version>1</version>
-	</parent>
+  <artifactId>rest</artifactId>
+  <packaging>jar</packaging>
 
-	<artifactId>rest</artifactId>
-	<packaging>jar</packaging>
+  <dependencies>
 
-	<dependencies>
-		<dependency>
-			<groupId>ljprojectbuilder</groupId>
-			<artifactId>generator</artifactId>
-			<type>jar</type>
-		</dependency>	
-	
-		<dependency>
-			<groupId>ljprojectbuilder</groupId>
-			<artifactId>persistence</artifactId>
-			<type>jar</type>
-		</dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+          </exclusions>		
+      </dependency>       
+    
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.starwit</groupId>
+      <artifactId>service</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>de.starwit</groupId>
+      <artifactId>generator</artifactId>
+    </dependency>
+  </dependencies>
 
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-	</dependencies>
-	
-	<profiles>
-    <profile>
-    	<id>dev</id>
-    	<activation>
-			<activeByDefault>true</activeByDefault>
-		</activation>
-    	<dependencies>
-	    	<dependency>
-				<groupId>ljprojectbuilder</groupId>
-				<artifactId>dbautoinit</artifactId>
-				<type>jar</type>
-			</dependency>	
-    	</dependencies>
-    </profile>
-        <profile>
-    	<id>prod</id>
-    </profile>
-</profiles>
 </project>

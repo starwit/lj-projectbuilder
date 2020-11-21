@@ -104,6 +104,7 @@
 			attribute.dataType = "String";
 			attribute.name = "attribute";
 			ctrl.domain.attributes.push(attribute);
+			ctrl.form.$dirty = true;
 		};
 		
 		/**
@@ -112,6 +113,7 @@
 		function removeAttribute($index) {
 			if (ctrl.domain.attributes != undefined && $index > -1) {
 				ctrl.domain.attributes.splice($index, 1);
+				ctrl.form.$dirty = true;
 			}
 		};
 		

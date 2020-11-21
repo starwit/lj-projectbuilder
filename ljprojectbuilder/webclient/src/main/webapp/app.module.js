@@ -12,6 +12,7 @@
 		'ljprojectbuilderApp.generator',
 		'ljprojectbuilderApp.projecttemplate',		
 		//###END### include generated files
+		'ljprojectbuilderApp.default',
 		'ngRoute'
 	]);
 	
@@ -25,6 +26,26 @@
 			.usePostCompiling(true); // Post compiling angular filters
 	}]);
 	
+	angular.module('ljprojectbuilderApp').config(function ($httpProvider) {
+	    $httpProvider.interceptors.push('responseObserver');
+	});
+	
+	angular.module('ljprojectbuilderApp').factory('responseObserver', function responseObserver($q, $window) {
+	    return {
+	        'responseError': function(errorResponse) {
+	            switch (errorResponse.status) {
+	            case 403:
+	                $window.location = './#/viewcomponents/notallowed';
+	                break;
+	            case 500:
+	                $window.location = './#/viewcomponents/internalerror';
+	                break;
+	            }
+	            return $q.reject(errorResponse);
+	        }
+	    };
+	});
+	
 	angular.module('ljprojectbuilderApp').controller('appController', appController);
 	
 	/**
@@ -32,11 +53,22 @@
 	 * @param $scope
 	 * @returns
 	 */
-	function appController($scope) {
+	function appController($scope, $http) {
 		$scope.$on('$routeChangeSuccess', function (scope, next, current) {
 			$scope.title=next.title;
 			$scope.subtitle=next.subtitle;
 		});
+		console.log('checking profile image');
+		console.log($scope.userImageURL);
+		if($scope.userImageURL === undefined) {
+			$http.get('api/user/image')
+				.then(function(response){
+					console.log(response);
+					$scope.userImageURL=response.data;
+				}, function(){
+					console.log("couldn't load profile image");
+				});
+		}
 	}
 	
 	angular.module('ljprojectbuilderApp').factory('restConnectorFactory', restConnectorFactory);

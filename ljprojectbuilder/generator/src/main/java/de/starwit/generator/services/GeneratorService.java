@@ -10,29 +10,25 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.CodeTemplateEntity;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
-import de.starwit.ljprojectbuilder.response.ResponseCode;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
-import de.starwit.ljprojectbuilder.validation.ValidationError;
+import de.starwit.persistence.entity.CodeTemplateEntity;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.repository.ProjectRepository;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -47,19 +43,18 @@ import freemarker.template.TemplateNotFoundException;
  *
  * @param <E> different configuration for frontend, backend and business
  */
-@Local
-@Stateless(name = "GeneratorService")
+@Service
 public class GeneratorService {
 
-	public final static Logger LOG = Logger.getLogger(GeneratorService.class);
+  final static Logger LOG = LoggerFactory.getLogger(GeneratorService.class);
 	
 	private final static String GENERATION ="###GENERATION###";
 	
-	@Inject
-	private ProjectService projectService;
+	@Autowired
+	private ProjectRepository projectRepository;
 
-	public void generate(Long projectId) throws NotificationException {
-		ProjectEntity project = projectService.findById(projectId);
+	public void generate(Long projectId) throws de.starwit.persistence.exception.NotificationException {
+		ProjectEntity project = projectRepository.findById(projectId).orElseThrow();
 		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
 		Collection<DomainEntity> domains = project.getSelectedDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
@@ -163,16 +158,17 @@ public class GeneratorService {
 				String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
 				writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
 			} else {
-				List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-				ValidationError ve = new ValidationError(codeTemplate.getTargetPath(), "error.generation.codetemplate");
-				validationErrors.add(ve);
-				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.NOT_VALID, "error.generation.templatemissing", validationErrors);
+				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.templatemissing");
 				throw new NotificationException(errorResponse);
 			}
 
-		} catch (IOException | TemplateException e) {
+		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, e.getMessage());
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.file");
+			throw new NotificationException(errorResponse);
+		} catch (TemplateException e) {
+			LOG.error("Error during file writing: ", e.fillInStackTrace());
+			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.template");
 			throw new NotificationException(errorResponse);
 		}
 	}
