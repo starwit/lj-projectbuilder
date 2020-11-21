@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /** Class for running git commands. */
 public class Git {
 
-	private final static Logger LOG =  LoggerFactory.getLogger("Git");
+  final static Logger LOG = LoggerFactory.getLogger(Git.class);
 
 	public static void gitInit(Path directory) throws IOException, InterruptedException {
 		runCommand(directory, "git", "init");

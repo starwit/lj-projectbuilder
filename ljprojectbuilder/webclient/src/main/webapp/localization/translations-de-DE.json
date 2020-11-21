@@ -3,6 +3,10 @@
 	"theme.columns"					: "1",
 	"theme.rows"					: "4",
 	"theme.properties"				: "rounded shadows",
+	
+	"welcome"						: "Herzlich Willkommen!",
+	"error.403"						: "Login worked but you are not allowed.",
+	"error.500"						: "Internal Server Error. Please contact your admin.",
 
 	"validation.error.DomainEntity"				: "Speichern der Domain nicht möglich: ",
 	"validation.error.AttributeEntity"				: "Speichern der Domain nicht möglich, Fehler im Abschnitt Attribute: ",
@@ -27,6 +31,7 @@
 	"error.projectcheckout.deletetempprojectfolder" : "Beim Herunterladen der Templateablage ist ein interner Fehler aufgetreten. Bitte kontaktieren Sie Ihren Administrator und lassen Sie die Server-Logs prüfen.",
 	"error.projectcheckout.checkoutprojecttemplate.transport" : "Das Git-Repository für die Templateablage benötigt eine Authentifizierung. Bitte geben Sie Nutzername und Passwort ein.",
 	"error.projectcheckout.checkoutprojecttemplate.default" : "Das Template konnte nicht kopiert werden. Bitte überprüfen Sie Git-Repository, Benutzername und Passwort.",
+	"error.projectcheckout.checkoutprojecttemplate.git": "Git clone fehlgeschlagen. Das Projekttemplate konnte nicht aus dem Git-Repository ausgecheckt werden. Bitte überprüfen Sie den Pfad und Branch des Git-Repositories.",
 	"error.project.copytemplate.destinationnotfound" 	: "Das Zielverzeichnis konnte nicht gefunden werden.",
 	"error.project.copytemplate.exists" 				: "Das Zielverzeichnis existiert bereits.",
 	"error.project.pattern" : "Es dürfen nur Zahlen und Buchstaben enthalten sein.",
@@ -36,6 +41,11 @@
 	"error.dialog.generation.showtemplate": "Projektemplate anpassen",
 	"error.generation.templatemissing": "Die Templatedatei konnte nicht gefunden werden.",
 	"error.generation.codetemplate": "Der Speicherort des Templates sollte mit ${projecthome}/${project.targetPath}/generator-templates/ beginnen",
+	"error.generation.generatepath": "Templatedaten konnten nicht gelesen oder geschrieben werden. Bitte überprüfen Sie die im Template angegebenen Pfade.",
+	"error.generation.generateglobal": "Templatedaten konnten nicht gelesen oder geschrieben werden. Bitte überprüfen Sie die im Template angegebenen Pfade.",
+	"error.generation.generateadditionalcontent": "Templatedaten konnten nicht gelesen oder geschrieben werden. Bitte überprüfen Sie die im Template angegebenen Pfade.",
+	"error.generation.file": "Templatedaten konnten nicht gelesen oder geschrieben werden. Bitte überprüfen Sie die im Template angegebenen Pfade.",
+	"error.generation.template": "Template konnte nicht gelesen werden.",
 	
 	"navnbar.projectdetails"	: "Allgemein",
 	"navnbar.domainobjects"	: "Domainobjekte",

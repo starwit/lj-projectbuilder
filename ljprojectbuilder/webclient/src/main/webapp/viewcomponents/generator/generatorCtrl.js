@@ -15,8 +15,6 @@
 		ctrl.dialog = dialogService.dialog;
 		ctrl.closeDialog = closeDialog;
 		ctrl.projectDownload = projectDownload;
-		ctrl.checkTargetRepo = checkTargetRepo;
-		ctrl.createTargetRepo = createTargetRepo;
 		ctrl.checkAuthentication = checkAuthentication;
 		ctrl.resetAuth = resetAuth;
 		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
@@ -63,31 +61,6 @@
 			}
 		};
 		
-		function checkTargetRepo() {
-			var targetRepoData = ctrl.targetRepoData;
-			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
-				projectSetupConnectorFactory.checkIfRepoServerWorks(ctrl.targetRepoData).then(function(data) {
-					ctrl.repos = data;
-					ctrl.targetRepoLoaded = true;
-				});				
-			} else {
-				//TODO error message
-			}
-
-		}
-		
-		function createTargetRepo() {
-			var targetRepoData = ctrl.targetRepoData;
-			if(targetRepoData.username && targetRepoData.password && targetRepoData.baseURL) {
-				projectSetupConnectorFactory.createTargetRepo(ctrl.targetRepoData).then(function(data) {
-					ctrl.repos = data;
-
-				});				
-			} else {
-				//TODO error message
-			}
-		}
-		
 		function getSelectedDomainIds() {
 			ctrl.generatorDto.selectedDomains = ctrl.domainAll;
 		}
@@ -119,7 +92,7 @@
 		function setGeneratorDto(response) {
 			ctrl.generatorDto.project = response;
 			ctrl.projecttitle = response.title;
-			ctrl.downloadlink="downloadproject?projectid=" + response.id;
+			ctrl.downloadlink="downloadproject/" + response.id;
 		}
 		
 		/**
@@ -145,8 +118,10 @@
 				dialogService.closeDialog('loadingdialog');
 				if (response == 'NOT_AUTHORIZED') {
 					dialogService.showDialog("projectsetup.dialog.error.title", response, dialogService.dialog.id.error, function(){});
-				} else {
+				} else if (response == 'NOT_VALID') {
 					dialogService.showGeneratorValidationDialog("projecttemplate.dialog.error.title", response.message, response.validationErrors, dialogService.dialog.id.error, gotoDestination);
+				} else {
+					dialogService.showGeneratorValidationDialog("projecttemplate.dialog.error.title", response, null, dialogService.dialog.id.error, gotoDestination);
 				}
 			}
 		};

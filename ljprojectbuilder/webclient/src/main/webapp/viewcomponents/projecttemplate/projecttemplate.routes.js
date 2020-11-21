@@ -25,7 +25,7 @@
 	    }
 		return factory;
     };
-	
+    
 	angular.module('ljprojectbuilderApp.projecttemplate')
 	.config(['$routeProvider', function($routeProvider) {
 		  $routeProvider.when('/viewcomponents/projecttemplate-all/', {
