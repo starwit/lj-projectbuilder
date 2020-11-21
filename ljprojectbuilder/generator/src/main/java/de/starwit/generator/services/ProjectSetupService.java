@@ -4,48 +4,46 @@ package de.starwit.generator.services;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.ljprojectbuilder.ejb.DomainService;
-import de.starwit.ljprojectbuilder.ejb.ProjectService;
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.EntityNotFoundException;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.service.impl.DomainService;
+import de.starwit.service.impl.ProjectService;
 /**
- * Class for processing the whole project setup. A newly configured project is created an can be used.
+ * Class for processing the whole project setup. A newly configured project is created and can be used.
  * @author Anett Huebner
  *
  */
-@Local
-@Stateless(name = "ProjectSetupService")
+@Service
 public class ProjectSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
+	@Autowired
 	private DomainService domainService;
 	
-	@Inject
+	@Autowired
 	private ProjectService projectService;
 	
-	@Inject
+	@Autowired
 	private GeneratorService generatorSerivce;
 	
-	@Inject
+	@Autowired
 	private ProjectCheckout projectCheckout;
 	
-	@Inject
+	@Autowired
 	private ProjectRenamer projectRenamer;
 	
-	final static Logger LOG = Logger.getLogger(ProjectSetupService.class);
-	
+  final static Logger LOG = LoggerFactory.getLogger(ProjectSetupService.class);
 	/**
 	 * Executes all functions needed to setup the new project. These are:
 	 *  - checkout template-project from git-repository
@@ -56,14 +54,14 @@ public class ProjectSetupService implements Serializable {
 	 * @return
 	 * @throws NotificationException
 	 */
-	@TransactionAttribute(TransactionAttributeType.NEVER)
-	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException {
+	@Transactional(propagation = Propagation.NEVER)
+	public void setupAndGenerateProject(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
 		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(dto.getProject().getId());
 		//String destDirString = project.getTargetPath();
 		//projectCheckout.deleteTempProject(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newProjectFolder = projectCheckout.createTempProjectDirectory(project);
 		project.setTargetPath(newProjectFolder);
-		project = projectService.update(project);
+		project = projectService.saveOrUpdate(project);
 		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
 		for (DomainEntity domain : selectedDomains) {
 			domainService.setDomainSelected(domain.getId(), domain.isSelected());

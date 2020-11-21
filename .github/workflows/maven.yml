@@ -1,0 +1,37 @@
+
+name: Compile, Build, Package, Dockerize and Publish
+
+on:
+  push:
+    branches: [ spring-boot ]
+  pull_request:
+    branches: [ spring-boot ]
+
+jobs:
+  build:
+    name: "Building project with Java 14"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 14
+      uses: actions/setup-java@v1
+      with:
+        java-version: 14
+    - name: Build with Maven
+      run: mvn -B package -Pfrontend --file ljprojectbuilder/pom.xml
+    - name: Upload Maven build artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifact
+        path: ljprojectbuilder/application/target/application-0.0.1-SNAPSHOT.jar
+    - name: Build Docker container
+      uses: docker/build-push-action@v1
+      with:
+        username: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"        
+        repository: starwit/lj-projectbuilder/ljprojectbuilder
+        tags: latest
+        registry: docker.pkg.github.com
+        path: ljprojectbuilder
+        dockerfile: ./ljprojectbuilder/dockerfile

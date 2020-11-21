@@ -2,16 +2,14 @@ package de.starwit.generator.dto;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.ProjectEntity;
 
-import de.starwit.ljprojectbuilder.entity.DomainEntity;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
 /**
  * Contains all configuration for project setup and generator.
  * @author Anett Huebner
  *
  */
-@XmlRootElement
 public class GeneratorDto {
 	
 	private ProjectEntity project;
@@ -22,6 +20,9 @@ public class GeneratorDto {
 	private String username;
 
 	private String password;
+
+	private String user;
+	private String pass;
 
 	/********************* GETTER, SETTER **************************/
 	
@@ -55,5 +56,21 @@ public class GeneratorDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }

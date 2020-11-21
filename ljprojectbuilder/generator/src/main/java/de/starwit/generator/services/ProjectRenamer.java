@@ -11,22 +11,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 
-import javax.inject.Named;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.response.ResponseCode;
+import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
-import de.starwit.ljprojectbuilder.entity.ProjectEntity;
-import de.starwit.ljprojectbuilder.exception.NotificationException;
-import de.starwit.ljprojectbuilder.response.ResponseCode;
-import de.starwit.ljprojectbuilder.response.ResponseMetadata;
 
-@Named("ProjectRenamer")
+
+@Component("ProjectRenamer")
 public class ProjectRenamer {
 	
 	public final static String[] EXT = new String[] { "java", "js", "html", "sql","xml", "md","log" };
-	final static Logger LOG = Logger.getLogger(ProjectRenamer.class);
+	final static Logger LOG = LoggerFactory.getLogger(ProjectRenamer.class);
 	
 	/**
 	 * This is used for renaming the whole project. Renames all occurrences of the project name with a new project name.

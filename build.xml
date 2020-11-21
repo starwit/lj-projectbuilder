@@ -3,13 +3,10 @@
     	ant script that can setup and run this project including maven calls
   	</description>
 
-	<property name="tomee_path" value="tomee" /> <!-- TODO what about websphere liberty --> 
 	<property name="app_path" value="ljprojectbuilder" />
 
 	<property name="ui_src" location="${app_path}/webclient/src/main/webapp/" />
-	<property name="warfile" value="${app_path}/target/ljprojectbuilder.war" />
-	<property name="ui_dest" value="${app_path}/target/ljprojectbuilder" />
-	
+	<property name="ui_dest" value="${app_path}/application/target/classes/static" />
 	<property name="os.windows" value="windows" />
 	
 	<condition property="isWindows">
@@ -22,7 +19,7 @@
 		<attribute name="value"/>
 			project.setProperty(attributes.get("name"), attributes.get("value"));
 	</scriptdef>
-	
+
 	<target name="check_windows_os" if="isWindows">
 		<propertyreset  name="os.windows" value="${os.name}" />
 		<echo message="OS family is:         ${os.windows}" />
@@ -38,9 +35,7 @@
 			CREATE USER 'ljprojectbuilder'@'localhost' IDENTIFIED BY 'ljprojectbuilder';
 			GRANT ALL PRIVILEGES ON ljprojectbuilder.* TO 'ljprojectbuilder'@'localhost';" />
 
-	<target name="setup_project" depends="stop_tomee,build_tomee,build_application,run_tomee"></target>
-	<target name="rebuild_application" depends="stop_tomee,build_application,run_tomee"></target>
-	<target name="clean_all" depends="stop_tomee,clean_tomee,clean_application"></target>
+	<target name="clean_all" depends="clean_application"></target>
 
 	<target name="copy_frontend_local">
 		<echo>copy web frontend from ${ui_src} to ${ui_dest}</echo>
@@ -49,13 +44,9 @@
 		</copy>
 	</target>
 
-	<target name="build_copy" >
-		<echo>copy ${warfile} to local AS installation to ${local_as}</echo>
-		<copy todir="${local_as}" file="${basedir}/${warfile}"></copy>
-	</target>
 
 	<target name="build_application">
-		<echo>build war</echo>
+		<echo>build application</echo>
 		<antcall target="call_maven">
 			<param name="exec_dir" value="${basedir}/${app_path}"/>
 			<param name="mvn_command" value="clean package -Dmaven.test.skip=true"/>
@@ -63,7 +54,7 @@
 	</target>
 	
 	<target name="build_application_with_tests">
-		<echo>build war</echo>
+		<echo>build application with tests</echo>
 		<antcall target="call_maven">
 			<param name="exec_dir" value="${basedir}/${app_path}"/>
 			<param name="mvn_command" value="clean package"/>
@@ -77,44 +68,6 @@
 		</antcall>		
 	</target>
 
-	<target name="build_tomee" description="build tomee">
-		<echo>call mvn tomee:build in ${basedir}/${tomee_path}</echo>
-		<antcall target="call_maven">
-			<param name="exec_dir" value="${basedir}/${tomee_path}"/>
-			<param name="mvn_command" value="tomee:build"/>
-		</antcall>
-	</target>
-
-	<target name="clean_tomee" description="build tomee">
-		<antcall target="call_maven">
-			<param name="exec_dir" value="${basedir}/${tomee_path}"/>
-			<param name="mvn_command" value="clean"/>
-		</antcall>
-	</target>
-
-	<target name="run_tomee" depends="check_windows_os">
-	
-	<echo message="OS family is:         ${os.windows}" />
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux">
-			<arg value="startup.sh" />
-		</exec>
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="${os.windows}">
-			<arg value="/C" />
-			<arg value="startup.bat" />
-		</exec>
-	</target>
-
-	<target name="stop_tomee" depends="check_windows_os,check_tomee_exist" if="${tomee.path.exist}">
-		<echo>Try to stop a running TomEE instance...</echo>
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="bash" os="Linux" >
-			<arg value="shutdown.sh" />
-		</exec>
-		<exec dir="${tomee_path}/target/apache-tomee/bin/" executable="cmd" os="${os.windows}" >
-			<arg value="/C" />
-			<arg value="shutdown.bat" />
-		</exec>
-	</target>
-
 	<!-- call maven on various operating systems -->
 	<target name="call_maven" depends="check_windows_os">
 		<echo>Running Maven in ${exec_dir} with ${mvn_command}</echo>
@@ -126,10 +79,6 @@
 			<arg value="/C" />
 			<arg value="mvn ${mvn_command}" />
 		</exec>
-	</target>
-
-	<target name="check_tomee_exist">
-		<available property="tomee.path.exist" file="${tomee_path}/target/apache-tomee/bin/" type="dir" />
 	</target>
 
 	<!-- MySQL stuff -->
@@ -157,16 +106,9 @@
 	<target name="info">
 		<echo>Provides various scripts to build and run application. Most stuff should run on Linux + Windows</echo>
 		<echo>Targets available:</echo>
-		<echo>setup_project: 		download tomee, build app, start tomee</echo>
-		<echo>rebuild_application: 	stop tomee, build app, start tomee</echo>
-		<echo>clean_all: 			stop tomee, clean app, clean tomee</echo>
-		<echo>copy_frontend_local: 	copies web frontend into local deployment folder (designer shortcut ;))</echo>
-		<echo>build_copy: 		build app, copy to a given tomee folder </echo>
+		<echo>clean_all: 			clean app</echo>
+		<echo>copy_frontend_local: 		copies web frontend into local deployment folder (designer shortcut ;))</echo>
 		<echo>build_application: 		clean + build application</echo>
 		<echo>clean_application: 		clean application</echo>
-		
-		<echo>stop_tomee: 		stop tomee</echo>
-		<echo>run_tomee: 			start tomee</echo>
-		<echo>clean_tomee: 		start tomee</echo>
 	</target>
 </project>
