@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ljprojectbuilder.fullname" . }}
+  labels:
+    {{- include "ljprojectbuilder.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ljprojectbuilder.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ljprojectbuilder.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "ljprojectbuilder.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: wait-4-mariadb
+          image: monasca/mysql-init
+          command: ['sh', '-c', 'until mysql --protocol TCP -u"{{ .Values.mariadb.db.user }}" -p"{{ .Values.mariadb.db.password }}" -h {{ (include "ljprojectbuilder.mariadb.fullname" .) }} -e "show databases;"; do echo waiting for mariadb; sleep 2; done;']
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: /{{ include "ljprojectbuilder.fullname" . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.mariadb.db.user }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.mariadb.db.password }}
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://{{ include "ljprojectbuilder.mariadb.fullname" . }}:3306/{{ .Values.mariadb.db.name }}?useLegacyDatetimeCode=false&serverTimezone=CET"
+          livenessProbe:
+            httpGet:
+              path: {{ include "ljprojectbuilder.fullname" . }}/monitoring/health
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
+          readinessProbe:
+            httpGet:
+              path: {{ include "ljprojectbuilder.fullname" . }}/monitoring/health
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
