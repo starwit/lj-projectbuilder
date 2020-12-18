@@ -13,10 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
 @Entity
 @Table(name = "DOMAIN")
 public class DomainEntity extends AbstractEntity<Long> {
@@ -34,7 +31,6 @@ public class DomainEntity extends AbstractEntity<Long> {
 	private String description;
 
 	@NotNull
-	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID")
 	private ProjectEntity project;
