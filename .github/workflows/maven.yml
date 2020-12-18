@@ -3,9 +3,9 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ spring-boot ]
+    branches: [ master, develop, spring-boot ]
   pull_request:
-    branches: [ spring-boot ]
+    branches: [ master, develop, spring-boot ]
 
 jobs:
   build:

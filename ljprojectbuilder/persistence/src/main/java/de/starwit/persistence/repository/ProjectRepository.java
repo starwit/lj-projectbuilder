@@ -12,4 +12,7 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
 
 	@Query("SELECT p FROM ProjectEntity p WHERE p.id = ?1")
 	public ProjectEntity findProjectByIdOrThrowExeption(Long projectid) throws NotificationException;
+	
+
+
 }

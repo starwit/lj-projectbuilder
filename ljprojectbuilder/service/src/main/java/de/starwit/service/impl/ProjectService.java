@@ -29,6 +29,9 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 	
 	@Autowired
 	private ProjectTemplateService projectTemplateService;
+	
+	@Autowired
+	private DomainService domainService;
 
 
 	public ProjectEntity findProjectByIdOrThrowExeption(final Long projectid) throws NotificationException {
@@ -63,9 +66,15 @@ public class ProjectService implements ServiceInterface<ProjectEntity> {
 	@Override
 	public void delete(Long id) throws EntityNotFoundException {
 		ProjectEntity entity = projectRepository.findById(id).get();
-		if (entity == null) {
+		if (entity == null || entity.getDomains() == null) {
 			throw new EntityNotFoundException(id, "ProjectEntity");
 		}
+		
+		List<DomainEntity> domains = entity.getDomains();
+		for (DomainEntity domainEntity : domains) {
+			domainService.delete(domainEntity.getId());
+		}
+		projectRepository.flush();
 		this.projectRepository.deleteById(id);
 	}
 
