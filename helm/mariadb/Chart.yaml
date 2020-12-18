@@ -1,5 +1,0 @@
-apiVersion: v1
-appVersion: "1.0"
-description: Single Pod MariaDB Server
-name: mariadb
-version: 0.4.3
