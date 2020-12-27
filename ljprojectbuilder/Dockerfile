@@ -3,5 +3,6 @@ FROM openjdk:14.0.1-slim
 COPY application/target/application-*.jar /application.jar
 COPY wait-for-db.sh /wait-for-db.sh
 RUN chmod u+x /wait-for-db.sh
+RUN bash -c "/wait-for-db.sh"
 # specify default command
 CMD ["/usr/java/openjdk-14/bin/java", "-jar", "/application.jar"]
