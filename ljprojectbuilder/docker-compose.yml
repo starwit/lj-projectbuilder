@@ -24,11 +24,24 @@ services:
 #    networks: # Networks to join (Services on the same network can communicate with each other using their name)
 #      - backend
 
+  start_dependencies:
+    image: alpine:latest
+    depends_on:
+      - db
+    command: >
+      /bin/bash -c "
+        while ! nc -z db 3306;
+        do
+          echo sleeping;
+          sleep 1;
+        done;
+        echo Connected!;
+      "
+
   myapp-main:
     image: docker.pkg.github.com/starwit/lj-projectbuilder/ljprojectbuilder:latest
     depends_on:
-      - db
-    command: ["./wait-for-db.sh"]
+      - start_dependencies
     restart: on-failure
     ports:
       - 8081:8081
