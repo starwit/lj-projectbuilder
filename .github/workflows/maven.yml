@@ -34,4 +34,4 @@ jobs:
         tags: latest
         registry: docker.pkg.github.com
         path: ljprojectbuilder
-        dockerfile: ./ljprojectbuilder/dockerfile
+        dockerfile: ./ljprojectbuilder/Dockerfile
