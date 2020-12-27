@@ -33,5 +33,5 @@ jobs:
         repository: starwit/lj-projectbuilder/ljprojectbuilder
         tags: latest
         registry: docker.pkg.github.com
-        path: /
+        path: .
         dockerfile: ./Dockerfile
