@@ -1,12 +1,32 @@
 # Project Builder
 
-## Links: 
+## Installation on kubernetes with helm
+
+Set environment variables:
+
+```bash
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID="your ClientID"
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET="your ClientSecret"
+export PAT="your personal access token"
+```
+
+Go to helm/ljprojectbuilder and execute:
+
+```bash
+helm install ljprojectbuilder . --set github.registry.username=<<yourusername>>,github.registry.pat=$PAT
+```
+
+## [DEPRECATED]
+
+The following description is deprecated because we switched to Spring Boot.
+
+### Links:
 * [How to create templates](https://gitlab.com/witchpou/lj-projectbuilder/blob/master/documentation/howto.md)
 * [architecture description for developer](https://gitlab.com/witchpou/lj-projectbuilder/blob/master/documentation/architecture.md)
 * [introduction for webdesigner](https://github.com/witchpou/lj-projectbuilder/blob/master/documentation/webdesign.md)
 * [article in german](https://wp.starwit.de/wp-content/uploads/2017/02/03-2016-Java-aktuell-Anett-Hübner_Java-Enterprise-Anwendungen-effizient-...-4.pdf)
 
-## Motivation
+### Motivation
 
 ![screenshot project builder](https://wp.starwit.de/wp-content/uploads/2016/10/projectbuilder.png)
 
@@ -16,7 +36,7 @@ A fully working example application of this pattern can be found is the [lirejar
 
 This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/starwit/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp or other templates is modified and enhanced accordingly.
 
-## Prequisites
+### Prequisites
 
 To start the software, the following stuff have to be installed:
 
@@ -24,7 +44,7 @@ To start the software, the following stuff have to be installed:
 * Maven 3.0.5 or higher
 * ant 1.9.3 or higher
 
-## Ant Build
+### Ant Build
 
 You can build and start the Project Builder in only three steps:
 
@@ -32,7 +52,7 @@ You can build and start the Project Builder in only three steps:
 2. go to directory ljprojectbuilder and open command line
 3. execute `ant build_application` on commandline
 
-## Maven Build
+### Maven Build
 
 - go to directory ljprojectbuilder and open command line
 - Build app running all tests:
@@ -44,8 +64,7 @@ You can build and start the Project Builder in only three steps:
 
 Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
 
-## How-To Build Application in Developer Mode
+### How-To Build Application in Developer Mode
 
 * go to `ljprojectbuilder/application/Application.java` and run as Java application in your IDE
 * go back to directory ljprojectbuilder and execute `ant copy_frontend` on commandline to copy frontend changes
-

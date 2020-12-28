@@ -1,6 +1,6 @@
 # Minikube Kubernetes Installation for local Tests
 
-To run some kubernetes or helm tests on your local machine, you can install Minikube. It installs a K8s with one node encapsulated in virtualbox.
+To run some kubernetes or helm tests on your local machine, you can install Minikube.
 
 ## Execute the following commands
 ```bash
