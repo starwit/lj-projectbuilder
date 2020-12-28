@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://{{ .Release.Name }}-mariadb:3306/{{ .Values.mariadb.database }}?useLegacyDatetimeCode=false&serverTimezone=CET
+              value: jdbc:mysql://{{ .Release.Name }}-mariadb:3306/{{ .Values.mariadb.auth.database }}?useLegacyDatetimeCode=false&serverTimezone=CET
             - name: SPRING_DATASOURCE_USERNAME
               value: {{ .Values.mariadb.auth.username }}
             - name: SPRING_DATASOURCE_PASSWORD
