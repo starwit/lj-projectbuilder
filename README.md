@@ -5,15 +5,16 @@
 Set environment variables:
 
 ```bash
-export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID="your ClientID"
-export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET="your ClientSecret"
+export CLIENTID="your ClientID"
+export CLIENTSECRET="your ClientSecret"
 export PAT="your personal access token"
+export GITHUBUSERNAME="your github username"
 ```
 
 Go to helm/ljprojectbuilder and execute:
 
 ```bash
-helm install ljprojectbuilder . --set github.registry.username=<<yourusername>>,github.registry.pat=$PAT
+helm install ljprojectbuilder . --set github.registry.username=$GITHUBUSERNAME,github.registry.pat=$PAT,oauth.clientid=$CLIENTID,oauth.clientsecret=$CLIENTSECRET
 ```
 
 ## [DEPRECATED]

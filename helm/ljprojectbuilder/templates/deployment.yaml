@@ -42,6 +42,16 @@ spec:
               value: {{ .Values.mariadb.auth.password }}
             - name: SERVER_SERVLET_CONTEXT_PATH
               value: /{{ include "ljprojectbuilder.fullname" . }}
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  key:  clientid
+                  name: {{ .Release.Name }}-oauth
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET
+              valueFrom:
+                secretKeyRef:
+                  key:  clientsecret
+                  name: {{ .Release.Name }}-oauth
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

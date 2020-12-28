@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: docker.pkg.github.com/starwit/lj-projectbuilder/jprojectbuilder
+  repository: docker.pkg.github.com/starwit/lj-projectbuilder/ljprojectbuilder
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: github-docker-pull
@@ -91,3 +91,8 @@ github:
     enabled: true
     username: TOBEDEFINED
     pat: TOBEDEFINED
+
+oauth:
+  enabled: true
+  clientid: TOBEDEFINED
+  clientsecret: TOBEDEFINED
