@@ -30,7 +30,8 @@ services:
       - backend
 
   lj-projectbuilder:
-    image: docker.pkg.github.com/starwit/lj-projectbuilder/ljprojectbuilder:latest
+    build: .
+#    image: docker.pkg.github.com/starwit/lj-projectbuilder/ljprojectbuilder:latest
     depends_on:
       db:
         condition: service_healthy
