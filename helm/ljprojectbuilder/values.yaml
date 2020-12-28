@@ -89,5 +89,5 @@ mariadb:
 github:
   registry:
     enabled: true
-    username: witchpou
-    pat: f1bd94863d5c12f064f349d2e59be55d3e01b3c3
+    username: ${GITHUBUSER} 
+    pat: ${PAT}
