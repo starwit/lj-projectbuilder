@@ -50,8 +50,11 @@ public class UserDetailsController {
 	@GetMapping("/image")
 	public String getUserImageLink() {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();		
-		String imageURL = (String) authUser.getAttributes().get("avatar_url");
+		String imageURL="welcome.jpg";
+		if (authentication != null) {
+			DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();		
+			imageURL = (String) authUser.getAttributes().get("avatar_url");
+		}
 		return imageURL;
 	}
 
