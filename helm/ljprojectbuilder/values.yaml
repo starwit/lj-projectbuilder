@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.pkg.github.com/starwit/lj-projectbuilder/jprojectbuilder
-  pullPolicy: IfNotPresent
+  repository: docker.pkg.github.com/starwit/lj-projectbuilder/ljprojectbuilder
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
@@ -39,7 +39,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 8081
 
 ingress:
   enabled: true
@@ -47,8 +47,8 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: 
-      paths: []
+    - host:
+      paths: [/lj-projectbuilder]
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -86,9 +86,13 @@ mariadb:
     username: ljprojectbuilder
     password: ljprojectbuilder
 
-
 github:
   registry:
     enabled: true
-    username: 
-    pat: 
+    username: TOBEDEFINED
+    pat: TOBEDEFINED
+
+oauth:
+  enabled: true
+  clientid: TOBEDEFINED
+  clientsecret: TOBEDEFINED
