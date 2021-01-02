@@ -5,68 +5,80 @@ metadata:
   labels:
     {{- include "ljprojectbuilder.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "ljprojectbuilder.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "ljprojectbuilder.selectorLabels" . | nindent 8 }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       serviceAccountName: {{ include "ljprojectbuilder.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      initContainers:
-        - name: wait-4-mariadb
-          image: monasca/mysql-init
-          command: ['sh', '-c', 'until mysql --protocol TCP -u"{{ .Values.mariadb.db.user }}" -p"{{ .Values.mariadb.db.password }}" -h {{ (include "ljprojectbuilder.mariadb.fullname" .) }} -e "show databases;"; do echo waiting for mariadb; sleep 2; done;']
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
           env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://{{ .Release.Name }}-mariadb:3306/{{ .Values.mariadb.auth.database }}?useLegacyDatetimeCode=false&serverTimezone=CET
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.mariadb.auth.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.mariadb.auth.password }}
             - name: SERVER_SERVLET_CONTEXT_PATH
               value: /{{ include "ljprojectbuilder.fullname" . }}
-            - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.mariadb.db.user }}
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.mariadb.db.password }}
-            - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://{{ include "ljprojectbuilder.mariadb.fullname" . }}:3306/{{ .Values.mariadb.db.name }}?useLegacyDatetimeCode=false&serverTimezone=CET"
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  key:  clientid
+                  name: {{ .Release.Name }}-oauth
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET
+              valueFrom:
+                secretKeyRef:
+                  key:  clientsecret
+                  name: {{ .Release.Name }}-oauth
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ include "ljprojectbuilder.fullname" . }}/monitoring/health
-              port: 8080
-            periodSeconds: 10
-            initialDelaySeconds: 5
+              path: /{{ include "ljprojectbuilder.fullname" . }}/monitoring/health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 5
           readinessProbe:
             httpGet:
-              path: {{ include "ljprojectbuilder.fullname" . }}/monitoring/health
-              port: 8080
-            periodSeconds: 10
-            initialDelaySeconds: 5
+              path: /{{ include "ljprojectbuilder.fullname" . }}/monitoring/health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+      {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}

@@ -3,9 +3,9 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ master, develop, spring-boot ]
+    branches: [ master, develop, correct-k8s-installation, dev-profile ]
   pull_request:
-    branches: [ master, develop, spring-boot ]
+    branches: [ master, develop, correct-k8s-installation, dev-profile ]
 
 jobs:
   build:
@@ -19,19 +19,19 @@ jobs:
       with:
         java-version: 14
     - name: Build with Maven
-      run: mvn -B package -Pfrontend --file ljprojectbuilder/pom.xml
+      run: mvn -B package -Pfrontend --file pom.xml
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
         name: artifact
-        path: ljprojectbuilder/application/target/application-0.0.1-SNAPSHOT.jar
+        path: application/target/application-0.0.1-SNAPSHOT.jar
     - name: Build Docker container
       uses: docker/build-push-action@v1
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"        
+        password: "${{ secrets.DOCKER_PASSWORD }}"
         repository: starwit/lj-projectbuilder/ljprojectbuilder
         tags: latest
         registry: docker.pkg.github.com
-        path: ljprojectbuilder
-        dockerfile: ./ljprojectbuilder/dockerfile
+        path: .
+        dockerfile: ./Dockerfile
