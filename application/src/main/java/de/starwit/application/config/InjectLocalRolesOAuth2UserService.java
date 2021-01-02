@@ -32,7 +32,7 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     	DefaultOAuth2User user = (DefaultOAuth2User) super.loadUser(userRequest);
-        String username = user.getName();
+        String username = user.getAttribute("login");
 
         UserEntity userEntity;
         try {
