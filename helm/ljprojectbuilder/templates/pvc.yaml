@@ -1,0 +1,14 @@
+{{- if .Values.mariadb.localstorage -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ljprojectbuilder-pv
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/opt/local-pv/ljpb-mariadb"
+{{- end }}

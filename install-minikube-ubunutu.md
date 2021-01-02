@@ -5,8 +5,8 @@ To run some kubernetes or helm tests on your local machine, you can install Mini
 ## Execute the following commands
 ```bash
 #!/bin/bash
-sudo apt install virtualbox virtualbox-ext-pack
 wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo cp minikube-linux-amd64 /usr/local/bin/minikube
 sudo chmod 755 /usr/local/bin/minikube
 minikube version
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
@@ -14,11 +14,24 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version -o json
 sudo apt install conntrack
-sudo minikube start --vm-driver=none
+sudo usermod -aG docker $USER && newgrp docker
+minikube start --vm-driver=docker
+watch -n 1 kubectl get all --all-namespaces
+minikube addons enable ingress
 ```
 ## Check Installation
 
-Run `sudo kubectl get all --all-namespaces` to check if kubectl command is running properly and cluster setup was successful.
+Run `kubectl get all --all-namespaces` to check if kubectl command is running properly and cluster setup was successful.
+
+## Use dashboard
+
+execute `minikube dashboard`
+
+Go to http://127.0.0.1:46683/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ for getting Minikube Dashboard.
+
+## Access Database from local Kubernetes Installation
+
+execute `kubectl port-forward pod/ljprojectbuilder-mariadb-0 3306:3306 -n=ljprojectbuilder`
 
 ## It should look like this:
 
@@ -285,6 +298,15 @@ kube-system   deployment.apps/coredns   1/1     1            1           7m31s
 NAMESPACE     NAME                                DESIRED   CURRENT   READY   AGE
 kube-system   replicaset.apps/coredns-74ff55c5b   1         1         1       7m16s
 anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $
+```
+## Uninstall Minikube
 
-
+```bash
+minikube stop; minikube delete
+docker stop (docker ps -aq)
+rm -r ~/.kube ~/.minikube
+sudo rm /usr/local/bin/localkube /usr/local/bin/minikube
+systemctl stop '*kubelet*.mount'
+sudo rm -rf /etc/kubernetes/
+docker system prune -af --volume
 ```
