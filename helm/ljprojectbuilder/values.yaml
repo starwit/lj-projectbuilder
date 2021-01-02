@@ -43,16 +43,17 @@ service:
 
 ingress:
   enabled: true
-  annotations: {}
+  annotations: 
+    cert-manager.io/issuer: letsencrypt-kub.starwit.de
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host:
-      paths: [/lj-projectbuilder]
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: kub.starwit.de
+      paths: [/ljprojectbuilder]
+  tls: 
+    - secretName: kub.starwit.de
+      hosts:
+        - kub.starwit.de
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -80,6 +81,8 @@ tolerations: []
 affinity: {}
 
 mariadb:
+  global:
+    storageClass: local-storage
   auth:
     rootPassword: root
     database: ljprojectbuilder
@@ -89,10 +92,10 @@ mariadb:
 github:
   registry:
     enabled: true
-    username: TOBEDEFINED
-    pat: TOBEDEFINED
+    username: undefined
+    pat:  undefined
 
 oauth:
   enabled: true
-  clientid: TOBEDEFINED
-  clientsecret: TOBEDEFINED
+  clientid: undefined
+  clientsecret: undefined
