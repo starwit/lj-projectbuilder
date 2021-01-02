@@ -1,8 +1,9 @@
 {{- if .Values.mariadb.localstorage -}}
+{{- $fullName := include "ljprojectbuilder.fullname" . -}}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: ljprojectbuilder-pv
+  name: {{ $fullName }}-pv
 spec:
   storageClassName: local-storage
   capacity:
