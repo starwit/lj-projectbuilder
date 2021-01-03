@@ -10,8 +10,7 @@ jobs:
     name: "Building project with Java 14"
     runs-on: ubuntu-latest
 
-   steps:
-
+    steps:
     - uses: actions/checkout@v2
 
     - name: Bump version and push tag
