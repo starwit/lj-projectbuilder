@@ -1,0 +1,35 @@
+# Default values for ljprojectbuilder.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/issuer: letsencrypt-kub.starwit.de
+  hosts:
+    - host: kub.starwit.de
+      paths: [/ljprojectbuilder]
+  tls:
+    - secretName: kub.starwit.de
+      hosts:
+        - kub.starwit.de
+
+mariadb:
+  localstorage: true
+  global:
+    storageClass: local-storage
+  auth:
+    rootPassword: root #change
+    database: ljprojectbuilder
+    username: ljprojectbuilder
+    password: ljprojectbuilder #change
+
+github:
+  registry:
+    enabled: true
+    username: undefined #change
+    pat: undefined #change
+
+oauth:
+  enabled: true
+  clientid: undefined #change
+  clientsecret: undefined #change

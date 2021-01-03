@@ -81,8 +81,8 @@ tolerations: []
 affinity: {}
 
 mariadb:
-  global:
-    storageClass: local-storage
+#  global:
+#    storageClass: local-storage
   auth:
     rootPassword: root
     database: ljprojectbuilder
@@ -93,7 +93,7 @@ github:
   registry:
     enabled: true
     username: undefined
-    pat:  undefined
+    pat: undefined
 
 oauth:
   enabled: true
