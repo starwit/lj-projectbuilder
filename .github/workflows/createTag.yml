@@ -1,5 +1,5 @@
 
-name: Compile, Build, Package, Dockerize and Publish
+name: Create tag and release
 
 on:
   push:
@@ -18,10 +18,11 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.26.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        release_branches: [ master, develop ]
 
     - name: Create a GitHub release
       uses: actions/create-release@v1
