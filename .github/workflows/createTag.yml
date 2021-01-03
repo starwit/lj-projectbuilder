@@ -3,7 +3,9 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ master]
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
