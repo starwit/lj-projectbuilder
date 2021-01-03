@@ -17,21 +17,26 @@ jobs:
       with:
         fetch-depth: '0'
 
-    - name: Bump version and push tag
-      id: tag_version
-      uses: mathieudutour/github-tag-action@v5.1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        release_branches: master,develop
+    - name: generate tag and release body
+      run: |
+        git config user.name github-ljprojectbuilder
+        git config user.email mail@example.com
+        npx standard-version -i RELEASE_BODY.md --skip.commit
 
-    - name: Create a GitHub release
+    - name: publish tag
+      id: publish_tag
+      run: |
+        git push --follow-tags
+        echo ::set-output name=tag_name::$(git describe HEAD --abbrev=0)
+
+    - name: create release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag_version.outputs.new_tag }}
-        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-        body: ${{ steps.tag_version.outputs.changelog }}
+        release_name: Release ${{ steps.publish_tag.outputs.tag_name }}
+        tag_name: ${{ steps.publish_tag.outputs.tag_name }}
+        body_path: RELEASE_BODY.md
 
     - name: Set up JDK 14
       uses: actions/setup-java@v1
