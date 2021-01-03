@@ -3,46 +3,59 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ master, develop, correct-k8s-installation, dev-profile ]
-  pull_request:
-    branches: [ master, develop, correct-k8s-installation, dev-profile ]
+    branches: [ local-k8s-helm ]
 
 jobs:
   build:
     name: "Building project with Java 14"
     runs-on: ubuntu-latest
 
-    steps:
+   steps:
+
     - uses: actions/checkout@v2
+
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create a GitHub release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
+
+    - name: checkout tag
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ steps.tag_version.outputs.new_tag }}
+
     - name: Set up JDK 14
       uses: actions/setup-java@v1
       with:
         java-version: 14
+        ref: ${{ steps.tag_version.outputs.new_tag }}
+
     - name: Build with Maven
       run: mvn -B package -Pfrontend --file pom.xml
+
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
         name: artifact
         path: application/target/application-0.0.1-SNAPSHOT.jar
+
     - name: Build Docker container
       uses: docker/build-push-action@v1
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
         repository: starwit/lj-projectbuilder/ljprojectbuilder
-        tags: latest
-        registry: docker.pkg.github.com
-        path: .
-        dockerfile: ./Dockerfile
-    - name: Build Docker container
-      uses: docker/build-push-action@v1
-      if: contains(github.ref, 'refs/tags/v')
-      with:
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
-        repository: starwit/lj-projectbuilder/ljprojectbuilder
-        tagging: true
+        tags: ${{ steps.tag_version.outputs.new_tag }}
         registry: docker.pkg.github.com
         path: .
         dockerfile: ./Dockerfile
