@@ -58,7 +58,7 @@ jobs:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
         repository: starwit/lj-projectbuilder/ljprojectbuilder
-        tags: ${{ steps.publish_tag.outputs.new_tag }}
+        tags: ${{ steps.publish_tag.outputs.tag_name }}
         registry: docker.pkg.github.com
         path: .
         dockerfile: ./Dockerfile
