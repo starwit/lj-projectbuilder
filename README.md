@@ -2,20 +2,11 @@
 
 ## Installation on kubernetes with helm
 
-Set environment variables:
-
-```bash
-export CLIENTID="your ClientID"
-export CLIENTSECRET="your ClientSecret"
-export PAT="your personal access token"
-export GITHUBUSERNAME="your github username"
-```
-
-Go to helm/ljprojectbuilder and execute:
-
-```bash
-helm install ljprojectbuilder . --set github.registry.username=$GITHUBUSERNAME,github.registry.pat=$PAT,oauth.clientid=$CLIENTID,oauth.clientsecret=$CLIENTSECRET
-```
+Go to helm/ljprojectbuilder
+- copy values-template4private.yaml to values-private.yaml and add secret values
+- and execute:
+  - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
+  - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
 
 ## [DEPRECATED]
 
