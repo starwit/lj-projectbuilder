@@ -81,8 +81,6 @@ tolerations: []
 affinity: {}
 
 mariadb:
-#  global:
-#    storageClass: local-storage
   auth:
     rootPassword: root
     database: ljprojectbuilder
