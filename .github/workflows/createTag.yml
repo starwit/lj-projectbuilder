@@ -21,13 +21,13 @@ jobs:
         git config user.email mail@example.com
         npx standard-version -i RELEASE_BODY.md --skip.commit
 
-    - name: Read package.json
+    - name: Read RELEASE_BODY.md
       id: package
       uses: juliangruber/read-file-action@v1
       with:
         path: ./RELEASE_BODY.md
     - name: Echo RELEASE_BODY.md
-      run: echo ${{ steps.package.outputs.content }}
+      run: echo '${{ steps.package.outputs.content }}'
 
     - name: publish tag
       id: publish_tag
