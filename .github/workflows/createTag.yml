@@ -63,7 +63,7 @@ jobs:
         path: .
         dockerfile: ./Dockerfile
 
-    - name: Build docker image with latest and push to github registry
+- name: Build docker image with latest and push to github registry
       uses: docker/build-push-action@v1
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
