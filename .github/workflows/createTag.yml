@@ -68,7 +68,7 @@ jobs:
         registry: docker.pkg.github.com
         path: .
         dockerfile: ./Dockerfile
-
+        
     - name: Build docker image with tag version and push to dockerhub
       uses: docker/build-push-action@v1
       with:
@@ -79,3 +79,12 @@ jobs:
         path: .
         dockerfile: ./Dockerfile
 
+    - name: Build docker image with tag version and push to dockerhub
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME  }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        repository: starwitorg/ljprojectbuilder
+        tags: ${{ steps.publish_tag.outputs.tag_name }}
+        path: .
+        dockerfile: ./Dockerfile
