@@ -21,7 +21,7 @@ jobs:
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
         npx standard-version -i RELEASE_BODY.md --skip.commit
-        cat RELEASE_BODY,md
+        cat RELEASE_BODY.md
 
     - name: publish tag
       id: publish_tag
