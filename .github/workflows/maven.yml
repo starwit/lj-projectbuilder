@@ -3,9 +3,9 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ develop, correct-k8s-installation, dev-profile ]
+    branches: [ develop ]
   pull_request:
-    branches: [ develop, correct-k8s-installation, dev-profile ]
+    branches: [ develop ]
 
 jobs:
   build:
