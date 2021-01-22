@@ -3,7 +3,7 @@ name: Create tag and release
 
 on:
   push:
-    branches: [ develop, feature/#55-dockerhub ]
+    branches: [ master ]
 
 jobs:
   build:
