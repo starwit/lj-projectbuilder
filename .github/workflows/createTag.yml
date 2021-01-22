@@ -68,6 +68,7 @@ jobs:
         registry: docker.pkg.github.com
         path: .
         dockerfile: ./Dockerfile
+
     - name: Build docker image with tag version and push to dockerhub
       uses: docker/build-push-action@v1
       with:
@@ -77,3 +78,4 @@ jobs:
         tags: ${{ steps.publish_tag.outputs.tag_name }}
         path: .
         dockerfile: ./Dockerfile
+
