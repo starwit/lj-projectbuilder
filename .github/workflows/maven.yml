@@ -42,6 +42,5 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         repository: starwitorg/ljprojectbuilder
         tags: latest
-        registry: hub.docker.com
         path: .
         dockerfile: ./Dockerfile
