@@ -4,6 +4,7 @@ name: Create tag and release
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:  
 
 jobs:
   build:
