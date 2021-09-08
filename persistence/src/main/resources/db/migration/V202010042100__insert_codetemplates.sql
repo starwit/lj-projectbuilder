@@ -1,4 +1,4 @@
-INSERT INTO PROJECTTEMPLATE(BRANCH,CREDENTIALS_REQUIRED,DESCRIPTION,LOCATION,PREFIX,TITLE) VALUES('JavaSpringBoot',0,'LireJarp@Spring - github master template','https://github.com/starwit/project-templates.git','xyz','lirejarp');
+INSERT INTO PROJECTTEMPLATE(BRANCH,CREDENTIALS_REQUIRED,DESCRIPTION,LOCATION,PREFIX,TITLE) VALUES('main',0,'LireJarp@Spring - github master template','https://github.com/starwit/project-templates.git','xyz','lirejarp');
 -- all templates for category ENTITY
 INSERT INTO CATEGORY (NAME) VALUES ('ENTITY');
 INSERT INTO CATEGORY (NAME) VALUES ('SERVICE');
