@@ -10,7 +10,7 @@ public class Constants {
 	public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 	public static final String LJ_PREFIX = "LJ_";
 	public static final String TEMPLATE_DIR = "generator-templates";
-	public static final String DEFAULT_BRANCH = "master";
+	public static final String DEFAULT_BRANCH = "main";
 	
 	/**deletion of temp files older than 1 minute **/
 	public static final long MILLISECONDS_UNTIL_DELETION = 1 * 60 * 1000;

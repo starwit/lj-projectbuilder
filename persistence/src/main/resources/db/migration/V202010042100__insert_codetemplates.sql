@@ -1,144 +1,34 @@
-INSERT INTO PROJECTTEMPLATE (LOCATION,CREDENTIALS_REQUIRED, PREFIX,TITLE,BRANCH) VALUES ('https://github.com/starwit/lirejarp.git', 0, 'starwit','lirejarp','master');
-
+INSERT INTO PROJECTTEMPLATE(BRANCH,CREDENTIALS_REQUIRED,DESCRIPTION,LOCATION,PREFIX,TITLE) VALUES('JavaSpringBoot',0,'LireJarp@Spring - github master template','https://github.com/starwit/project-templates.git','xyz','lirejarp');
 -- all templates for category ENTITY
 INSERT INTO CATEGORY (NAME) VALUES ('ENTITY');
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'Entity.java', 'entity/entity.ftl', '${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/entity/', false, true, false, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-	);
-	
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'persistence.xml', 'entity/persistence.ftl', '${projecthome}/${project.targetPath}/${project.title}/persistence/src/test/resources/META-INF/', false, false, false, 'ADDITIONAL_CONTENT',
-	(SELECT ID FROM CATEGORY WHERE NAME like 'ENTITY'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-	);
-
--- all templates for category SERVICE
 INSERT INTO CATEGORY (NAME) VALUES ('SERVICE');
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'Service.java', 'service/service.ftl', '${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/ejb/', false, true, false, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'SERVICE'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-	);
-	
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'ServiceImpl.java', 'service/serviceImpl.ftl', '${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/ejb/impl/', false, true, false, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'SERVICE'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-	);
-	
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'ServiceTest.java', 'service/serviceTest.ftl', '${projecthome}/${project.targetPath}/${project.title}/persistence/src/test/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/ejb/', false, true, false, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'SERVICE'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-	);	
-	
--- all templates for category REST
 INSERT INTO CATEGORY (NAME) VALUES ('REST');
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'Rest.java', 'rest/rest.ftl', '${projecthome}/${project.targetPath}/${project.title}/rest/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/api/rest/', false, true, false, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'REST'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-	
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'RestfulApplication.java', 'rest/restfulApplication.ftl', '${projecthome}/${project.targetPath}/${project.title}/rest/src/main/java/de/${project.packagePrefix?lower_case}/${project.title?lower_case}/api/restapp/', false, false, false, 'GLOBAL', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'REST'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
--- all templates for category FRONTEND
 INSERT INTO CATEGORY (NAME) VALUES ('FRONTEND');
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'.all.html', 'webclient/all.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
 
--- DOMAIN
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'AllCtrl.js', 'webclient/AllCtrl.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);	
-	
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'.single.html', 'webclient/single.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
 
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'SingleCtrl.js', 'webclient/SingleCtrl.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
+INSERT INTO CODETEMPLATE(CREATE_DOMAIN_DIR,FILE_NAME_SUFFIX,LOWER_CASE,TARGET_PATH,TEMPLATE_PATH,TEMPLATE_TYPE,FIRST_UPPER,CATEGORY_ID,PROJECTTEMPLATE_ID) VALUES
+    (0,'Repository.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/persistence/repository/','${projecthome}/${project.targetPath}/generator-templates/persistence/EntityRepository.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'RepositoryTest.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/test/java/de/${project.packagePrefix?lower_case}/persistence/repository/','${projecthome}/${project.targetPath}/generator-templates/persistence/EntityRepositoryTest.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/persistence/entity/','${projecthome}/${project.targetPath}/generator-templates/persistence/Entity.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),1),
+    (0,'application.properties',1,'${projecthome}/${project.targetPath}/${project.title}/application/src/main/resources/','${projecthome}/${project.targetPath}/generator-templates/application/properties.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'V1_0__init.sql',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/resources/db/migration/','${projecthome}/${project.targetPath}/generator-templates/flyway/V1_0__init.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'version_up.sh',0,'${projecthome}/${project.targetPath}/${project.title}/buildScripts/','${projecthome}/${project.targetPath}/generator-templates/buildScripts/version_up.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'Makefile',0,'${projecthome}/${project.targetPath}/${project.title}/','${projecthome}/${project.targetPath}/generator-templates/buildScripts/Makefile.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
 
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'.routes.js', 'webclient/routes.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
+    (0,'Service.java',0,'${projecthome}/${project.targetPath}/${project.title}/service/src/main/java/de/${project.packagePrefix?lower_case}/service/impl/','${projecthome}/${project.targetPath}/generator-templates/service/Service.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'SERVICE'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'ServiceTest.java',0,'${projecthome}/${project.targetPath}/${project.title}/service/src/test/java/de/${project.packagePrefix?lower_case}/service/','${projecthome}/${project.targetPath}/generator-templates/service/ServiceTest.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'SERVICE'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
 
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'.module.js', 'webclient/module.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/viewcomponents/', true, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
+    (0,'Controller.java',0,'${projecthome}/${project.targetPath}/${project.title}/rest/src/main/java/de/${project.packagePrefix?lower_case}/rest/controller/','${projecthome}/${project.targetPath}/generator-templates/rest/Controller.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'REST'),1),
+    (0,'ControllerTest.java',0,'${projecthome}/${project.targetPath}/${project.title}/rest/src/test/java/de/${project.packagePrefix?lower_case}/rest/controller/','${projecthome}/${project.targetPath}/generator-templates/rest/ControllerTest.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'REST'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
 
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'.connector.factory.js', 'webclient/connector.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/shared/restfacade/', false, false, true, 'DOMAIN', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
--- ADDITIONAL_CONTENT
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'index.html', 'webclient/scripts.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/', false, false, false, 'ADDITIONAL_CONTENT', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'app.module.js', 'webclient/app.module.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/', false, false, false, 'ADDITIONAL_CONTENT', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'menu.html', 'webclient/menu.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/', false, false, false, 'ADDITIONAL_CONTENT', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'translations-de-DE.json', 'webclient/translations-de-DE.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/localization/', false, false, false, 'ADDITIONAL_CONTENT', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
-
-INSERT INTO CODETEMPLATE (
-	FILE_NAME_SUFFIX, TEMPLATE_PATH, TARGET_PATH, CREATE_DOMAIN_DIR, FIRST_UPPER, LOWER_CASE, TEMPLATE_TYPE, CATEGORY_ID, PROJECTTEMPLATE_ID
-	) VALUES (
-	'translations-en-US.json', 'webclient/translations-en-US.ftl', '${projecthome}/${project.targetPath}/${project.title}/webclient/src/main/webapp/localization/', false, false, false, 'ADDITIONAL_CONTENT', 
-	(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'), (SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')
-);
+    (0,'Main.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/pages/${domain.name?lower_case}/','${projecthome}/${project.targetPath}/generator-templates/webclient/EntityMainComponent.ftl','DOMAIN',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'All.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/pages/${domain.name?lower_case}/all/','${projecthome}/${project.targetPath}/generator-templates/webclient/EntityAllComponent.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'Single.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/pages/${domain.name?lower_case}/single/','${projecthome}/${project.targetPath}/generator-templates/webclient/EntitySingleComponent.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/model/','${projecthome}/${project.targetPath}/generator-templates/webclient/Model.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'Rest.js',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/services/','${projecthome}/${project.targetPath}/generator-templates/webclient/EntityRest.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'App.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/','${projecthome}/${project.targetPath}/generator-templates/webclient/App.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'index.html',1,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/public/','${projecthome}/${project.targetPath}/generator-templates/webclient/index.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'AppNavigationMenu.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/contentProvider/','${projecthome}/${project.targetPath}/generator-templates/webclient/NavbarContentProvider.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'MainContentRouter.jsx',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/app/pages/','${projecthome}/${project.targetPath}/generator-templates/webclient/MainContentRouter.ftl','GLOBAL',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'translations-de-DE.json',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/localization','${projecthome}/${project.targetPath}/generator-templates/webclient/translation.ftl','ADDITIONAL_CONTENT',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp')),
+    (0,'translations-en-US.json',0,'${projecthome}/${project.targetPath}/${project.title}/webclient/app/src/localization','${projecthome}/${project.targetPath}/generator-templates/webclient/translation.ftl','ADDITIONAL_CONTENT',0,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'FRONTEND'),(SELECT ID FROM PROJECTTEMPLATE WHERE TITLE LIKE 'lirejarp'));
