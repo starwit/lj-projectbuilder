@@ -80,13 +80,14 @@ table.acc thead td{padding:0}
 table.acc.w3-show tbody tr{display:table-row}
 table.acc.w3-show thead td{padding-bottom:1%}
 
+#headerBox td.menu-col {text-align:right}
 #headerBox td{padding:0;vertical-align:middle;text-align:center}
-#headerBox td:first-child,#headerBox td:last-child{width:25%}
+#headerBox td:first-child,#headerBox td:last-child{width: 10%}
 #headerBox td:first-child{text-align:left}
 #headerBox td:last-child{text-align:right}
 #headerBox td a{display:inline-block}
-#headerBox img{width:30%!important;height:auto!important}
-#headerBox td:first-child img{width:50%!important}
+#headerBox img{width:50%!important;height:auto!important}
+#headerBox td:first-child img{width:100%!important}
 #headerBox img:hover{-moz-opacity:.6;-webkit-opacity:.6;-o-opacity:.6;-ms-opacity:.6;opacity:.6}
 
 form table{height:auto}

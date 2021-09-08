@@ -55,6 +55,26 @@
 #green .listcontent{background-color:#f0f0f0}
 #page .button.show a{color:#7f7f7f!important;background-color:#dfdfdf!important;box-shadow: 0 0 0 #8f8f8f;}
 
+/* --- BLUE --- */
+
+#blue{background:#fefefe;}
+#blue #headerBox,#blue button,#blue .button a{color:#fff;background-color: #3a9de2}
+#blue #footerBox p{color:#3a9de2; background-color:#9CCFF3;}
+#blue #footerBox{color:#3a9de2; background-color:#9CCFF3;}
+#blue #subheaderBox, #blue #bodyBox {background-color:#fefefe}
+
+#blue .navBar ul li.step1.act a{background-color:#31719E}
+#blue .navBar ul li.step2.act a{background-color:#4BAEF3}
+#blue .navBar ul li.step3.act a{background-color:#9CCFF3}
+#blue .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #31719E}
+#blue .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #4BAEF3}
+#blue .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #9CCFF3}
+#blue .odd{background-color:#fefefe}
+#blue .even{background-color:#fefefe}
+#blue .list{background-color:#dfdfdf}
+#blue .listcontent{background-color:#f0f0f0}
+#page .button.show a{color:#31719E!important;background-color:#dfdfdf!important;box-shadow: 0 0 0 #9CCFF3;}
+
 /* --- RED --- */
 
 #red{background:#fff}
@@ -83,16 +103,16 @@
 
 /* --- BLUE --- */
 
-#blue{background:#fff}
-#blue #headerBox,#blue button,#blue .button a{color:#fff;background-color:#00477e}
-#blue #footerBox p{color:#00477e}
+#blued{background:#fff}
+#blued #headerBox,#blued button,#blued .button a{color:#fff;background-color:#00477e}
+#blued #footerBox p{color:#00477e}
 
-#blue .navBar ul li.step1.act a{background-color:#002b4d}
-#blue .navBar ul li.step2.act a{background-color:#204b6d}
-#blue .navBar ul li.step3.act a{background-color:#406b8d}
-#blue .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #002b4d}
-#blue .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #204b6d}
-#blue .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #406b8d}
+#blued .navBar ul li.step1.act a{background-color:#002b4d}
+#blued .navBar ul li.step2.act a{background-color:#204b6d}
+#blued .navBar ul li.step3.act a{background-color:#406b8d}
+#blued .navBar ul li.step1.act a::after{border-color:transparent transparent transparent #002b4d}
+#blued .navBar ul li.step2.act a::after{border-color:transparent transparent transparent #204b6d}
+#blued .navBar ul li.step3.act a::after{border-color:transparent transparent transparent #406b8d}
 
 /* --- CAPUT-YELLOW --- */
 
