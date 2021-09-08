@@ -26,3 +26,5 @@ Go to helm/ljprojectbuilder
 * [how to create templates](documentation/templates-howto.md)
 * [architecture description for developer](documentation/architecture.md)
 
+## Screenshot
+![ljProjectBuilder](documentation/img/lJProjectBuilder.png)
