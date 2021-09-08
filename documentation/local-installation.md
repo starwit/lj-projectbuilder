@@ -54,10 +54,21 @@ apt install maven
 
 # Add environment variables
 echo 'export CLIENTSECRET=<<yourClientSecret>>' >> ~/.bashrc 
-echo 'export CLIENTID=edba8e9e17f1c045633e' >> ~/.bashrc 
+echo 'export CLIENTID=<<yourClientID>>' >> ~/.bashrc 
 echo 'export JAVA_HOME=/usr/lib/jvm/default-java' >> ~/.bashrc 
-```
 
+exit
+```
+Enable docker for your user:
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo chown root:docker /var/run/docker.sock
+sudo chown -R root:docker /var/run/docker
+sudo chmod g=x /var/run/docker
+```
+--> restart
 ## VS-Code Configuration
 
 The following extensions are installed:
@@ -105,7 +116,7 @@ To run projectBuilder via run-configuration directly, add launch configuration (
 Go to workplace folder and run the following command:
 
 ```bash
-sudo docker-compose -f mysql-docker-compose up
+docker-compose -f mysql-docker-compose up
 ```
 
 Configure the database Connection in VS Code Client as followed:
