@@ -12,7 +12,7 @@ on:
         default: "patch"  
 
 env:
-  release-type: ${{ 'patch' || github.event.inputs.release-type }}
+  release-type: ${{ github.event.inputs.release-type }}
 
 jobs:
   build:
@@ -26,9 +26,10 @@ jobs:
 
     - name: generate tag and release body
       run: |
+        RELEASE_TYPE=$(sh getReleaseType.sh ${{ env.release-type }})
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
-        npx standard-version -i RELEASE_BODY.md --skip.commit --release-as ${{ env.release-type }}
+        npx standard-version -i RELEASE_BODY.md --skip.commit --release-as $RELEASE_TYPE
 
     - name: Read RELEASE_BODY.md
       id: package
