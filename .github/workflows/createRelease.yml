@@ -3,13 +3,16 @@ name: Create release and tag
 
 on:
   push:
-    branches: [ main ]  
+    branches: [ main ]
   workflow_dispatch:  
     inputs:
       release-type: # id of input
         description: "prerelease, patch, minor or major"
         required: true
         default: "patch"  
+
+env:
+  release-type: ${{ 'patch' || github.event.inputs.release-type }}
 
 jobs:
   build:
@@ -25,7 +28,7 @@ jobs:
       run: |
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
-        npx standard-version -i RELEASE_BODY.md --skip.commit --release-as ${{ github.event.inputs.release-type }}
+        npx standard-version -i RELEASE_BODY.md --skip.commit --release-as ${{ env.release-type }}
 
     - name: Read RELEASE_BODY.md
       id: package
