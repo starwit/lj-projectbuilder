@@ -3,9 +3,10 @@ name: Compile, Build, Package, Dockerize and Publish
 
 on:
   push:
-    branches: [ develop, feature/#55-dockerhub ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   build:
