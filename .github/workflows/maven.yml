@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: "Building project with Java 14"
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
