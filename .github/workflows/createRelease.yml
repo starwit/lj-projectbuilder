@@ -26,7 +26,7 @@ jobs:
 
     - name: generate tag and release body
       run: |
-        RELEASE_TYPE=$(sh getReleaseType.sh ${{ env.release-type }})
+        RELEASE_TYPE=$(sh ${{ github.workspace }}/.github/workflows/getReleaseType.sh ${{ env.release-type }})
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
         npx standard-version -i RELEASE_BODY.md --skip.commit --release-as $RELEASE_TYPE
