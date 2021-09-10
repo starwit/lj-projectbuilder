@@ -22,9 +22,10 @@ Go to helm/ljprojectbuilder
   - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
 
 ## Further Information
-* [installation on local PC](documentation/local-installation.md)
-* [how to create templates](documentation/templates-howto.md)
-* [architecture description for developer](documentation/architecture.md)
+* [build and release project](docs/build-release-mgmt.md)
+* [installation on local PC](docs/local-installation.md)
+* [how to create templates](docs/templates-howto.md)
+* [architecture description for developer](docs/architecture.md)
 
 ## Screenshot
-![ljProjectBuilder](documentation/img/lJProjectBuilder.png)
+![ljProjectBuilder](docs/imgs/lJProjectBuilder.png)

@@ -9,14 +9,14 @@ on:
       release-type: # id of input
         description: "prerelease, patch, minor or major"
         required: true
-        default: "patch"  
+        default: "prerelease"  
 
 env:
   release-type: ${{ github.event.inputs.release-type }}
 
 jobs:
   build:
-    name: "Building project with Java 14"
+    name: "Creating changelog and release"
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,7 @@ jobs:
         RELEASE_TYPE=$(sh ${{ github.workspace }}/.github/workflows/getReleaseType.sh ${{ env.release-type }})
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
-        npx standard-version -i RELEASE_BODY.md --skip.commit --release-as $RELEASE_TYPE
+        npx standard-version -i RELEASE_BODY.md --release-as $RELEASE_TYPE
 
     - name: Read RELEASE_BODY.md
       id: package
