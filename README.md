@@ -1,6 +1,6 @@
-# Project Builder
-
 Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code needs to be written and creating application quickly remains a challenge. Lirejarp Project Builder is an application to kickstart new project via using templates. The Project Builder provides a configuration interfaces for creating new projects and applications.
+
+![ljProjectBuilder](docs/imgs/lJProjectBuilder.png)
 
 ## How Tos
 
@@ -9,12 +9,7 @@ Creating modern software always requires a number of things to do. One of these 
 * [how to create templates](docs/templates-howto.md)
 * [architecture description for developer](docs/architecture.md)
 
-## Prerequisites
-
-* Kubernetes Cluster
-* Helm
-
-## Installation
+## Running on Kubernetes
 
 Go to helm/ljprojectbuilder
 - copy values-template4private.yaml to values-private.yaml and add secret values
@@ -22,5 +17,5 @@ Go to helm/ljprojectbuilder
   - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
   - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
 
-![ljProjectBuilder](docs/imgs/lJProjectBuilder.png)
+
 
