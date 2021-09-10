@@ -29,14 +29,14 @@ jobs:
         RELEASE_TYPE=$(sh ${{ github.workspace }}/.github/workflows/getReleaseType.sh ${{ env.release-type }})
         git config user.name github-ljprojectbuilder
         git config user.email mail@example.com
-        npx standard-version -i RELEASE_BODY.md --release-as $RELEASE_TYPE
+        npx standard-version -i CHANGELOG.md --release-as $RELEASE_TYPE
 
-    - name: Read RELEASE_BODY.md
+    - name: Read CHANGELOG.md
       id: package
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./RELEASE_BODY.md
-    - name: Echo RELEASE_BODY.md
+        path: ./CHANGELOG.md
+    - name: Echo CHANGELOG.md
       run: echo '${{ steps.package.outputs.content }}'
 
     - name: publish tag
@@ -52,7 +52,7 @@ jobs:
       with:
         release_name: Release ${{ steps.publish_tag.outputs.tag_name }}
         tag_name: ${{ steps.publish_tag.outputs.tag_name }}
-        body_path: RELEASE_BODY.md
+        body_path: CHANGELOG.md
 
     - name: Set up JDK 14
       uses: actions/setup-java@v1
