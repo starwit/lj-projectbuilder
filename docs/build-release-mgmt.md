@@ -7,7 +7,7 @@ The following descriptions are based on gitflow best practices. Creating new fea
 1. Create feature ticket
 2. Create new branche by using name `[feature|bugfix]/#<ticketNumber>-<description>`
 3. Commit changes by using following message format: `<type>[optional scope]: <description>`. Types are: feat, fix, chore, docs, style, refactor, perf, test
-4. Create PR for merge into develop. Merging to develop automatically executes build and publish for project
+4. Create pull request for merge into develop. Merging to develop automatically executes build and publish for project
 5. Create patch release by merging into main
 
 By following the correct comit-message format, a changelog will be created automatically.
