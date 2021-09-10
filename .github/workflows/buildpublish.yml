@@ -1,5 +1,5 @@
 
-name: Compile, Build, Package, Dockerize and Publish
+name: Build and Publish
 
 on:
   pull_request:

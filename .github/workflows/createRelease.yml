@@ -9,7 +9,7 @@ on:
       release-type: # id of input
         description: "prerelease, patch, minor or major"
         required: true
-        default: "patch"  
+        default: "prerelease"  
 
 env:
   release-type: ${{ github.event.inputs.release-type }}
