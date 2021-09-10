@@ -5,8 +5,8 @@
 The following descriptions are based on gitflow best practices. Creating new features or bugfixes and release them is don by following steps:
 
 1. Create feature ticket
-2. Create new branche by using name [feature|bugfix]/#<<ticketNumber>>-description
-3. Commit changes by using following message format: <type>[optional scope]: <description>. Types are: feat, fix, chore, docs, style, refactor, perf, test
+2. Create new branche by using name `[feature|bugfix]/#<ticketNumber>-<description>`
+3. Commit changes by using following message format: `<type>[optional scope]: <description>`. Types are: feat, fix, chore, docs, style, refactor, perf, test
 4. Create PR for merge into develop. Merging to develop automatically executes build and publish for project
 5. Create patch release by merging into main
 
