@@ -4,7 +4,7 @@ services:
     image: nginx:latest
     restart: on-failure
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
