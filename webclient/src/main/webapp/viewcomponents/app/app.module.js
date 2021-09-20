@@ -5,7 +5,7 @@
 (function() {
 	'use strict';
 	
-	angular.module('ljappbuilderApp.app', ['ngRoute','pascalprecht.translate']);
-	angular.module('ljappbuilderApp.app').factory('appConnectorFactory', appConnectorFactory);
-	angular.module('ljappbuilderApp.app').factory('appSetupConnectorFactory', appSetupConnectorFactory);
+	angular.module('ljprojectbuilderApp.app', ['ngRoute','pascalprecht.translate']);
+	angular.module('ljprojectbuilderApp.app').factory('appConnectorFactory', appConnectorFactory);
+	angular.module('ljprojectbuilderApp.app').factory('appSetupConnectorFactory', appSetupConnectorFactory);
 })();

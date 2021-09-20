@@ -10,7 +10,7 @@ describe('appConnectorFactory', function() {
     // beforeEach(angular.mock.http.init);
     // afterEach(angular.mock.http.reset);
 
-    beforeEach(module('ljappbuilderApp', function ($translateProvider) {
+    beforeEach(module('ljprojectbuilderApp', function ($translateProvider) {
         /*
             provide empty json for translation since asynchronous
             loading of translation file fails in unit tests
@@ -19,7 +19,7 @@ describe('appConnectorFactory', function() {
         $translateProvider.translations('de-DE', {});
     }));
 
-    beforeEach(module('ljappbuilderApp.app'));
+    beforeEach(module('ljprojectbuilderApp.app'));
 
     beforeEach(inject(function(_$injector_, $rootScope, _$httpBackend_) {
         var $injector = _$injector_;

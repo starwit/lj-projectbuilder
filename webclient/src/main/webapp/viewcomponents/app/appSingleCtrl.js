@@ -3,7 +3,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('ljappbuilderApp.app').controller('appSingleCtrl', appSingleCtrl);
+	angular.module('ljprojectbuilderApp.app').controller('appSingleCtrl', appSingleCtrl);
 	
 	appSingleCtrl.$inject = ['$scope', '$routeParams', 'appConnectorFactory', 'dialogService', 'gotoApp'];
 	function appSingleCtrl($scope, $routeParams, appConnectorFactory, dialogService, gotoApp) {

@@ -26,7 +26,7 @@ import de.starwit.persistence.exception.NotificationException;
  	public void cloneGitRepoWithoutAuthTest() throws NotificationException, IOException, InterruptedException {
  		final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
  		LOG.info("Path is " + destDir.toString());
- 		Git.gitClone(destDir, "https://github.com/starwit/project-template.git", "master");
+ 		Git.gitClone(destDir, "https://github.com/starwit/lirejarp.git", "master");
 
  		String[] dirContent = destDir.toFile().list();
  		assertTrue("Cloning repository results in an empty directory.", (dirContent != null && dirContent.length > 0));

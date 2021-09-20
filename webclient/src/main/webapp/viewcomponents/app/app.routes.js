@@ -1,10 +1,10 @@
 /** 
- * Navigation and routing for module ljappbuilderApp.app.
+ * Navigation and routing for module ljprojectbuilderApp.app.
  */
 (function() {
 'use strict';
 
-	angular.module('ljappbuilderApp.app').factory('gotoApp', gotoApp);
+	angular.module('ljprojectbuilderApp.app').factory('gotoApp', gotoApp);
 	
 	function gotoApp($location) {
 		var factory = {};
@@ -29,7 +29,7 @@
 		return factory;
     };
 	
-	angular.module('ljappbuilderApp.app')
+	angular.module('ljprojectbuilderApp.app')
 	.config(['$routeProvider', function($routeProvider) {
 		  $routeProvider.when('/viewcomponents/app-all/', {
 				controller : 'appAllCtrl',

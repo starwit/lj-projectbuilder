@@ -7,7 +7,7 @@
 	    'ngFileSaver',
 	  
 	    //###BEGIN### include generated files
-		'ljprojectbuilderApp.project',
+		'ljprojectbuilderApp.app',
 		'ljprojectbuilderApp.domain',
 		'ljprojectbuilderApp.generator',
 		'ljprojectbuilderApp.apptemplate',		

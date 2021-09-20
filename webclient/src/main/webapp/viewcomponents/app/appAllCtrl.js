@@ -4,7 +4,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('ljappbuilderApp.app').controller('appAllCtrl', appAllCtrl);
+	angular.module('ljprojectbuilderApp.app').controller('appAllCtrl', appAllCtrl);
 	appAllCtrl.$inject = ['appConnectorFactory', 'dialogService', 'gotoApp'];
 	function appAllCtrl(appConnectorFactory, dialogService, gotoApp) {
 		var  ctrl = this;

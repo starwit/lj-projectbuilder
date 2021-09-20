@@ -3,7 +3,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('ljappbuilderApp.apptemplate').controller('apptemplateSingleCtrl', apptemplateSingleCtrl);
+	angular.module('ljprojectbuilderApp.apptemplate').controller('apptemplateSingleCtrl', apptemplateSingleCtrl);
 	
 	apptemplateSingleCtrl.$inject = ['$scope', '$routeParams', 'apptemplateConnectorFactory', 'dialogService', 'gotoAppTemplate'];
 	function apptemplateSingleCtrl($scope, $routeParams, apptemplateConnectorFactory, dialogService, gotoAppTemplate) {
