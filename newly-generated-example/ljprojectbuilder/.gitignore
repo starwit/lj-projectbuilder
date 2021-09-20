@@ -1,0 +1,53 @@
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+*.log
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### webclient (npm builds) ###
+application/src/main/resources/static
+
+# dependencies
+webclient/src/main/app/node_modules
+webclient/src/main/app/.pnp
+webclient/src/main/app/.pnp.js
+
+# testing
+webclient/src/main/app/coverage
+
+# production
+webclient/src/main/app/build
+
+# misc
+webclient/src/main/app/.DS_Store
+webclient/src/main/app/.env.local
+webclient/src/main/app/.env.development.local
+webclient/src/main/app/.env.test.local
+webclient/src/main/app/.env.production.local
+
+webclient/src/main/app/npm-debug.log*
+webclient/src/main/app/yarn-debug.log*
+webclient/src/main/app/yarn-error.log*
+

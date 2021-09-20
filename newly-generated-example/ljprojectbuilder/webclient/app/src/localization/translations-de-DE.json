@@ -1,0 +1,31 @@
+{
+    "app.title":  "App Überschrift",
+    "button.create": "Anlegen",
+    "button.update": "Updaten",
+    "button.delete": "Löschen",
+    "button.submit": "Bestätigen",
+    "button.back": "Zurück",
+    "form.create": "{{entity}} anlegen",
+    "form.update": "{{entity}} updaten",
+
+    "appTemplate": "AppTemplate",
+    "appTemplate.title": "AppTemplateAll",
+    "appTemplate.id": "id",
+	"appTemplate.name": "name",
+	"appTemplate.templatefiles": "templatefiles",
+	"appTemplate.description": "description",
+    "templateFile": "TemplateFile",
+    "templateFile.title": "TemplateFileAll",
+    "templateFile.id": "id",
+	"templateFile.description": "description",
+	"templateFile.name": "name",
+    "app": "App",
+    "app.title": "AppAll",
+    "app.id": "id",
+	"app.name": "name",
+	"app.description": "description",
+
+    "###GENERATION###" : "Generierung",
+
+    "home.title": "Home"
+}
