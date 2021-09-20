@@ -24,9 +24,9 @@ import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
 import de.starwit.persistence.entity.CodeTemplateEntity;
 import de.starwit.persistence.entity.DomainEntity;
-import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.repository.ProjectRepository;
+import de.starwit.persistence.repository.AppRepository;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import find.FindClass;
@@ -51,13 +51,13 @@ public class GeneratorService {
 	private final static String GENERATION ="###GENERATION###";
 	
 	@Autowired
-	private ProjectRepository projectRepository;
+	private AppRepository AppRepository;
 
-	public void generate(Long projectId) throws de.starwit.persistence.exception.NotificationException {
-		ProjectEntity project = projectRepository.findById(projectId).orElseThrow();
-		Set<CodeTemplateEntity> codeTemplates = project.getTemplate().getCodeTemplates();
-		Collection<DomainEntity> domains = project.getSelectedDomains();
-		Map<String, Object> templateData = fillTemplateGlobalParameter(project);
+	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
+		App app = AppRepository.findById(appId).orElseThrow();
+		Set<CodeTemplateEntity> codeTemplates = app.getTemplate().getCodeTemplates();
+		Collection<DomainEntity> domains = app.getSelectedDomains();
+		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
 		for (CodeTemplateEntity codeTemplate : codeTemplates) {
     		switch (codeTemplate.getType()) {
@@ -84,14 +84,14 @@ public class GeneratorService {
 	}
 	
 	/**
-	 * Adds parameter for generations based on project data.
-	 * @param setupBean - project data and generation configuration.
+	 * Adds parameter for generations based on app data.
+	 * @param setupBean - app data and generation configuration.
 	 * @return parameter for freemarker
 	 */
-	private Map<String, Object> fillTemplateGlobalParameter(ProjectEntity project) {
+	private Map<String, Object> fillTemplateGlobalParameter(App app) {
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("project", project);
-		data.put("projecthome", Constants.TMP_DIR);
+		data.put("app", app);
+		data.put("apphome", Constants.TMP_DIR);
 		return data;
 	}
 

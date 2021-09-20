@@ -10,7 +10,7 @@
 		'ljprojectbuilderApp.project',
 		'ljprojectbuilderApp.domain',
 		'ljprojectbuilderApp.generator',
-		'ljprojectbuilderApp.projecttemplate',		
+		'ljprojectbuilderApp.apptemplate',		
 		//###END### include generated files
 		'ljprojectbuilderApp.default',
 		'ngRoute'

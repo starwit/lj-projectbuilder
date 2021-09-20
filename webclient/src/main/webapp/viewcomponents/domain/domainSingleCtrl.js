@@ -5,11 +5,11 @@
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainSingleCtrl', domainSingleCtrl);
 	
-	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'dialogService', 'gotoDomain'];
-	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, dialogService, gotoDomain) {
+	domainSingleCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'appConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainSingleCtrl($scope, $routeParams, domainConnectorFactory, appConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 		
-		ctrl.projectid = 0;
+		ctrl.appid = 0;
 		ctrl.doMaintain = doMaintain;
 		ctrl.doMaintainNext = doMaintainNext;
 		ctrl.doMaintainDetail = doMaintainDetail;
@@ -26,7 +26,7 @@
 		init();
 		
 		/**
-		 * Standard function to edit the project configuration.
+		 * Standard function to edit the app configuration.
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {
@@ -61,7 +61,7 @@
 		};		
 
 		function doMaintainThenGoto(gotoDestination) {
-			ctrl.domain.projectId = ctrl.projectid;
+			ctrl.domain.appId = ctrl.appid;
 			var saveFunction = isUpdate() ? domainConnectorFactory.updateDomain : domainConnectorFactory.createDomain;
 			saveFunction(ctrl.domain).then(saveSuccessCallbackThatGoesTo(gotoDestination), saveError(gotoDestination));
 		}
@@ -122,7 +122,7 @@
 		 */
 		function init() {
 			ctrl.domain = {};
-			ctrl.projectid = {};
+			ctrl.appid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 
 			$scope.$on('$routeChangeSuccess', function(scope, next, current) {
@@ -131,19 +131,19 @@
 		};
 		
 		function initinit() {
-			ctrl.projectid = $routeParams.projectid;
-			ctrl.domain.project = {};
-			ctrl.domain.project.id = ctrl.projectid;
-			projectConnectorFactory.loadProject($routeParams.projectid)
-			.then(setProjectTitle, null);
+			ctrl.appid = $routeParams.appid;
+			ctrl.domain.app = {};
+			ctrl.domain.app.id = ctrl.appid;
+			appConnectorFactory.loadApp($routeParams.appid)
+			.then(setAppTitle, null);
 
 			if ($routeParams.id != undefined) {
 				domainConnectorFactory.loadDomain($routeParams.id).then(setDomain, loadError);
 			}
 		};
 		
-		function setProjectTitle(response) {
-			ctrl.projecttitle = response.title;		
+		function setAppTitle(response) {
+			ctrl.apptitle = response.title;		
 		}
 		
 		/**
@@ -161,7 +161,7 @@
 		}
 		
 		/**
-		 * Error message after loading the project.
+		 * Error message after loading the app.
 		 */
 		function loadError(response) {
 			dialogService.showDialog("domain.dialog.error.title", "domain.load.error", dialogService.dialog.id.error, gotoDomainAll);
@@ -172,23 +172,23 @@
 		};
 		
 		function gotoDomainAll() {
-			gotoDomain.all(ctrl.projectid);
+			gotoDomain.all(ctrl.appid);
 		};
 		
 		function gotoDomainNext() {
 			ctrl.domain = {};
-			ctrl.projectid = {};
+			ctrl.appid = {};
 			domainConnectorFactory.getTypes().then(setDataTypes, null);
 			initinit();
-			gotoDomain.create(ctrl.projectid);
+			gotoDomain.create(ctrl.appid);
 		};
 		
 		function gotoDomainDetail() {
-			gotoDomain.detail(ctrl.projectid);
+			gotoDomain.detail(ctrl.appid);
 		};
 		
 		function gotoDomainGenerate() {
-			gotoDomain.generate(ctrl.projectid);
+			gotoDomain.generate(ctrl.appid);
 		};
 	};
 })();	

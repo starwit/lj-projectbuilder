@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class DomainEntity extends AbstractEntity<Long> {
 
 	@Transient
-	private Long projectId;
+	private Long appId;
 
 	// domain attributes
 
@@ -32,8 +32,8 @@ public class DomainEntity extends AbstractEntity<Long> {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "PROJECT_ID")
-	private ProjectEntity project;
+	@JoinColumn(name = "APP_ID")
+	private App app;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<AttributeEntity> attributes;
@@ -57,12 +57,12 @@ public class DomainEntity extends AbstractEntity<Long> {
 		this.description = description;
 	}
 
-	public ProjectEntity getProject() {
-		return project;
+	public App getApp() {
+		return app;
 	}
 
-	public void setProject(ProjectEntity project) {
-		this.project = project;
+	public void setApp(App app) {
+		this.app = app;
 	}
 
 	public Set<AttributeEntity> getAttributes() {
@@ -81,12 +81,12 @@ public class DomainEntity extends AbstractEntity<Long> {
 		this.selected = selected;
 	}
 
-	public Long getProjectId() {
-		return projectId;
+	public Long getAppId() {
+		return appId;
 	}
 
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setAppId(Long appId) {
+		this.appId = appId;
 	}
 
     public void setId(Long id) {

@@ -38,7 +38,7 @@ public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessH
         if(localUserData.getRole() == Role.NONE) {
             redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/welcome/");
         } else {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/project-all/");
+            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/app-all/");
         }
       }
 }

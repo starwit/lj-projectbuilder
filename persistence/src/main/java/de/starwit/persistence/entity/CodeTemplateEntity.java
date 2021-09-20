@@ -24,7 +24,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
-@JsonIgnoreProperties("projectTemplate, projects")
+@JsonIgnoreProperties("appTemplate, apps")
 @Entity
 @Table(name = "CODETEMPLATE")
 public class CodeTemplateEntity extends AbstractEntity<Long> {
@@ -70,13 +70,13 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 
 	@JsonBackReference
 	@ManyToMany
-	@JoinTable(name = "CODETEMPLATE_PROJECT", joinColumns = @JoinColumn(name = "CODETEMPLATE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))
-	private Set<ProjectEntity> projects;
+	@JoinTable(name = "CODETEMPLATE_APP", joinColumns = @JoinColumn(name = "CODETEMPLATE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "APP_ID", referencedColumnName = "ID"))
+	private Set<App> apps;
 
 	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name = "PROJECTTEMPLATE_ID")
-	private ProjectTemplateEntity projectTemplate;
+	@JoinColumn(name = "APPTEMPLATE_ID")
+	private AppTemplateEntity appTemplate;
 
 	public String getFileNameSuffix() {
 		return fileNameSuffix;
@@ -143,20 +143,20 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 	}
 
 	
-	public ProjectTemplateEntity getProjectTemplate() {
-		return projectTemplate;
+	public AppTemplateEntity getAppTemplate() {
+		return appTemplate;
 	}
 
-	public void setProjectTemplate(ProjectTemplateEntity projectTemplate) {
-		this.projectTemplate = projectTemplate;
+	public void setAppTemplate(AppTemplateEntity appTemplate) {
+		this.appTemplate = appTemplate;
 	}
 
-	public Set<ProjectEntity> getProjects() {
-		return projects;
+	public Set<App> getApps() {
+		return apps;
 	}
 
-	public void setProjects(Set<ProjectEntity> projects) {
-		this.projects = projects;
+	public void setApps(Set<App> apps) {
+		this.apps = apps;
 	}
 
 	@XmlTransient

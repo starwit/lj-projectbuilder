@@ -1,6 +1,6 @@
 domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', 	function domainConnectorFactory($http, $location, restConnectorFactory) {
     var factory = {
-    		getDomainsByProject: getDomainsByProject,
+    		getDomainsByApp: getDomainsByApp,
     		loadDomain: loadDomain,
     		createDomain: createDomain,
     		updateDomain: updateDomain,
@@ -9,8 +9,8 @@ domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', 	functio
      };
     return factory;
 	
-	function getDomainsByProject(projectId) {
-		return $http.get('api/domain/query/domainsbyproject/' + projectId)
+	function getDomainsByApp(appId) {
+		return $http.get('api/domain/query/domainsbyapp/' + appId)
 		.then(
 			restConnectorFactory.handleResponseSuccess,
 			restConnectorFactory.handleResponseError
@@ -33,7 +33,7 @@ domainConnectorFactory = ['$http', '$location', 'restConnectorFactory', 	functio
 		);
 	};
 		
-	function updateDomain(domain, projectid) {
+	function updateDomain(domain, appid) {
 		return $http.post('api/domain/', domain)
 		.then(
 			restConnectorFactory.handleResponseSuccess,

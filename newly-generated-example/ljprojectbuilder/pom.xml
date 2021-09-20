@@ -11,7 +11,7 @@
     <groupId>de.ljprojectbuilder</groupId>
     <artifactId>ljprojectbuilder</artifactId>
     <version>0.0.1.dev</version>
-    <description>Project template from ljprojectbuilder @ spring</description>
+    <description>App template from ljprojectbuilder @ spring</description>
     <packaging>pom</packaging>
 
     <properties>

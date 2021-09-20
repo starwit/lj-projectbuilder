@@ -3,7 +3,7 @@
 [Back](../README.md)
 
 - [How to Create a Template](#how-to-create-a-template)
-- [How to Configure Projecttemplates](#how-to-configure-projecttemplates)
+- [How to Configure Apptemplates](#how-to-configure-projecttemplates)
   * [project](#project)
   * [domain](#domain)
   * [attribute](#attribute)

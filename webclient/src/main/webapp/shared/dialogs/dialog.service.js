@@ -23,7 +23,7 @@ dialogService = [function dialogService() {
 	    return dialogService;
 	    
 		/**
-		 * Display dialog after saving project configuration.
+		 * Display dialog after saving app configuration.
 		 */
 		function showDialog(dialogtitle, dialogtext, dialogid, gotoAfter) {
 			dialogService.dialog.title = dialogtitle;
