@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/basics/zoom-out</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M20.349381,19.4667478 L26.04125,25.1575 L25.1575,26.04125 L19.4654173,20.3502841 C17.9338726,21.6762339 15.930306,22.4775 13.73875,22.4775 C11.32125,22.4775 9.13125,21.5025 7.55375,19.92375 C5.975,18.34625 5,16.15625 5,13.73875 C5,11.32125 5.975,9.1325 7.55375,7.55375 C9.13125,5.975 11.32125,5 13.73875,5 L13.73875,5.625 L13.73875,6.25 C9.585,6.25125 6.25125,9.585 6.25,13.73875 C6.25125,17.8925 9.585,21.22625 13.73875,21.2275 C17.8925,21.22625 21.22625,17.8925 21.2275,13.73875 C21.22625,9.585 17.8925,6.25125 13.73875,6.25 L13.73875,5 C16.15625,5 18.345,5.975 19.92375,7.55375 C21.5025,9.1325 22.4775,11.32125 22.4775,13.73875 C22.4775,15.9308035 21.67587,17.93581 20.349381,19.4667478 Z M8.69875,14.32375 L8.69875,13.07375 L18.69875,13.07375 L18.69875,14.32375 L8.69875,14.32375 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ICV-Camera-Detailview" transform="translate(-1331.000000, -315.000000)">
+            <g id="arrows" transform="translate(1103.000000, 248.000000)">
+                <g id="arrow-zoomout" transform="translate(238.000000, 77.000000) scale(1, -1) translate(-238.000000, -77.000000) translate(219.000000, 58.000000)">
+                    <g id="icon/basics/zoom-out" transform="translate(19.000000, 19.000000) scale(1, -1) translate(-19.000000, -19.000000) translate(4.000000, 4.000000)">
+                        <g id="icon">
+                            <rect id="icon-area" fill-rule="nonzero" x="0" y="0" width="30" height="30"></rect>
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Fill-192" fill="#7FB3BB" xlink:href="#path-1"></use>
+                            <g id="color/special/white" mask="url(#mask-2)" fill="#FFFFFF">
+                                <rect id="Rectangle-Copy" x="0" y="0" width="29.7619048" height="29.7619048"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

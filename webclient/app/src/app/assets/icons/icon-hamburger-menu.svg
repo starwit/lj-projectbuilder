@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="18px" viewBox="0 0 28 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon-hamburger-menu</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="header-bar-light" transform="translate(-29.000000, -28.000000)" stroke="#597B8C">
+            <g id="header-bar">
+                <g id="icon-hamburger-menu" transform="translate(30.000000, 28.000000)">
+                    <path d="M13,14 L13,-12" id="Line" transform="translate(13.000000, 1.000000) rotate(90.000000) translate(-13.000000, -1.000000) "></path>
+                    <path d="M13,22 L13,-4" id="Line" transform="translate(13.000000, 9.000000) rotate(90.000000) translate(-13.000000, -9.000000) "></path>
+                    <path d="M13,30 L13,4" id="Line" transform="translate(13.000000, 17.000000) rotate(90.000000) translate(-13.000000, -17.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
