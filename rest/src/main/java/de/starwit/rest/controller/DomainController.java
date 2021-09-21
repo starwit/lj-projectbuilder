@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.starwit.persistence.entity.AttributeEntity;
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.DomainEntity;
-import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
@@ -25,7 +25,7 @@ import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.DomainService;
-import de.starwit.service.impl.ProjectService;
+import de.starwit.service.impl.AppService;
 
 /**
  * DomainEntity RestController Have a look at the RequestMapping!!!!!!
@@ -38,7 +38,7 @@ public class DomainController {
 	private DomainService domainService;
 
 	@Autowired
-	private ProjectService projectService;
+	private AppService appService;
 
 	private GenericController<DomainEntity> genericController;
 
@@ -86,23 +86,23 @@ public class DomainController {
 	}
 
 	// Custom Endpoints
-	@GetMapping(value = "/query/domainsbyproject/{projectId}")
-	public EntityListResponse<DomainEntity> findAllDomainsByProject(@PathVariable("projectId") Long projectId) {
-		ProjectEntity project;
+	@GetMapping(value = "/query/domainsbyapp/{appId}")
+	public EntityListResponse<DomainEntity> findAllDomainsByApp(@PathVariable("appId") Long appId) {
+		App app;
 		try {
-			project = projectService.findProjectByIdOrThrowExeption(projectId);
+			app = appService.findAppByIdOrThrowExeption(appId);
 		} catch (NotificationException nex) {
            EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
            response.setMetadata(nex.getResponseMetadata());
            return response;
 		}
-		if (project == null) {
+		if (app == null) {
 			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(null);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
 			response.setMetadata(responseMetadata);
 			return response;
 		} else {
-			List<DomainEntity> entities = this.domainService.findAllDomainsByProject(projectId);
+			List<DomainEntity> entities = this.domainService.findAllDomainsByApp(appId);
 			EntityListResponse<DomainEntity> response = new EntityListResponse<DomainEntity>(entities);
 			ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
 			response.setMetadata(responseMetadata);
@@ -116,8 +116,8 @@ public class DomainController {
 	}
 	
 	private EntityResponse<DomainEntity> validateAttibutes(DomainEntity entity) throws NotificationException {
-		ProjectEntity project = projectService.findProjectByIdOrThrowExeption(entity.getProjectId());
-		entity.setProject(project);
+		App app = appService.findAppByIdOrThrowExeption(entity.getAppId());
+		entity.setApp(app);
 		EntityResponse<DomainEntity> response = new EntityResponse<DomainEntity>();
 		
 		if (entity.getAttributes() != null) {

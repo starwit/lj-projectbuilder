@@ -4,19 +4,19 @@
 (function() {
 	'use strict';
 	
-	angular.module('ljprojectbuilderApp.generator').factory('gotoGenProjectTemplate', gotoGenProjectTemplate);
+	angular.module('ljprojectbuilderApp.generator').factory('gotoGenAppTemplate', gotoGenAppTemplate);
 	
-	function gotoGenProjectTemplate($location) {
+	function gotoGenAppTemplate($location) {
 		var factory = {};
 	    factory.update = function(id) {
-	    	$location.path('/viewcomponents/projecttemplate-maintain/update/' + id + '/' + false);
+	    	$location.path('/viewcomponents/apptemplate-maintain/update/' + id + '/' + false);
 	    }
 	    return factory;
 	};
 	
 	angular.module('ljprojectbuilderApp.generator').config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.when('/viewcomponents/generator/generate/:id', {
-		  title : "project",
+		  title : "app",
 		  subtitle : "generator.title",
 		  templateUrl : "viewcomponents/generator/generator.html",
 		  controller : 'generatorCtrl',

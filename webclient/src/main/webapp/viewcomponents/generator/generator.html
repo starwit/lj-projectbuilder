@@ -1,27 +1,27 @@
-<div id="headerBox" ng-include="'shared/menus/menu.project.html'"></div>
+<div id="headerBox" ng-include="'shared/menus/menu.app.html'"></div>
 
 <div id="subheaderBox">
 	<div class="top">
 		<span class="navBar">
 			<ul>
-			  <li class="step1 act"><a href="#/viewcomponents/project-maintain/update/{{ctrl.projectid}}">{{'navnbar.projectdetails' | translate}}</a></li>
-			  <li class="step2 act"><a href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}">{{'navnbar.domainobjects' | translate}}</a></li>
+			  <li class="step1 act"><a href="#/viewcomponents/app-maintain/update/{{ctrl.appid}}">{{'navnbar.appdetails' | translate}}</a></li>
+			  <li class="step2 act"><a href="#/viewcomponents/domain-byapp/{{ctrl.appid}}">{{'navnbar.domainobjects' | translate}}</a></li>
 			  <li class="step3 act"><a href="">{{'navnbar.generate' | translate}}</a></li>
 			  <li class="clearer"></li>
 			</ul>
 		</span>
-		<button class="icon back hint" href="#/viewcomponents/domain-byproject/{{ctrl.projectid}}"><span>{{'button.back' | translate}}</span></button>
+		<button class="icon back hint" href="#/viewcomponents/domain-byapp/{{ctrl.appid}}"><span>{{'button.back' | translate}}</span></button>
 		<div class="clearer"></div>
 	</div>
 	<div class="bottom aCenter">
-		<span class="button add"><a href="" ng-click="ctrl.checkAuthentication();">{{'generator.button.downloadproject' | translate}}</a></span>
+		<span class="button add"><a href="" ng-click="ctrl.checkAuthentication();">{{'generator.button.downloadapp' | translate}}</a></span>
 		<div class="w3-row-padding"><a class="w3-btn w3-pb-red w3-round-xxlarge" href="{{ctrl.downloadlink}}" style="display:none" id="downloadlink"></a></div>
 	</div>
 </div>
 
 <div id="bodyBox">
 	<div class="contain">
-		<form id="projectForm" name="ctrl.form"> 
+		<form id="appForm" name="ctrl.form"> 
 			<fieldset class="odd">
 				<table>
 			    	<colgroup>
@@ -32,35 +32,35 @@
 					<thead>
 						<tr>
 							<td colspan="3">
-								<h3>{{'generator.title.projectsetup' | translate}}</h3>
+								<h3>{{'generator.title.appsetup' | translate}}</h3>
 							</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<th></th>
-							<th>{{'project.template' | translate}}</th>
-							<th>{{'project.target' | translate}}</th>
+							<th>{{'app.template' | translate}}</th>
+							<th>{{'app.target' | translate}}</th>
 						</tr>
 						<tr>
-							<th>{{'project.title' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.title}}</td>
-							<td>{{ctrl.generatorDto.project.title}}</td>
+							<th>{{'app.title' | translate}}</th>
+							<td>{{ctrl.generatorDto.app.template.title}}</td>
+							<td>{{ctrl.generatorDto.app.title}}</td>
 						</tr>
 						<tr>
-							<th>{{'project.location' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.location}}</td>
+							<th>{{'app.location' | translate}}</th>
+							<td>{{ctrl.generatorDto.app.template.location}}</td>
 							<td></td>
 						</tr>	
 						<tr>
-							<th>{{'project.templatebranch' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.branch}}</td>
+							<th>{{'app.templatebranch' | translate}}</th>
+							<td>{{ctrl.generatorDto.app.template.branch}}</td>
 							<td></td>
 						</tr>					
 						<tr>
-							<th>{{'project.packageprefix' | translate}}</th>
-							<td>{{ctrl.generatorDto.project.template.packagePrefix}}</td>
-							<td>{{ctrl.generatorDto.project.packagePrefix}}</td>
+							<th>{{'app.packageprefix' | translate}}</th>
+							<td>{{ctrl.generatorDto.app.template.packagePrefix}}</td>
+							<td>{{ctrl.generatorDto.app.packagePrefix}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -138,10 +138,10 @@
 						</tr>
 						<tr>
 							<td>
-								<span>{{'generator.target.projectname' | translate}} </span>
+								<span>{{'generator.target.appname' | translate}} </span>
 							</td>
 							<td>
-								<input type="string" ng-model="ctrl.targetRepoData.projectName"/>
+								<input type="string" ng-model="ctrl.targetRepoData.appName"/>
 							</td>
 						</tr>
 						<tr>

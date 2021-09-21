@@ -12,8 +12,8 @@ import de.starwit.persistence.entity.DomainEntity;
 @Repository
 public interface DomainRepository extends JpaRepository<DomainEntity, Long> {
 
-	@Query("SELECT d FROM DomainEntity d WHERE d.project.id = ?1")
-	List<DomainEntity> findAllDomainsByProject(Long projectId);
+	@Query("SELECT d FROM DomainEntity d WHERE d.app.id = ?1")
+	List<DomainEntity> findAllDomainsByApp(Long appId);
 
 	@Modifying
 	@Query("UPDATE DomainEntity d SET d.selected = ?2 WHERE d.id = ?1")

@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.starwit.persistence.entity.CodeTemplateEntity;
-import de.starwit.persistence.entity.ProjectTemplateEntity;
+import de.starwit.persistence.entity.AppTemplateEntity;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.CodeTemplateService;
-import de.starwit.service.impl.ProjectTemplateService;
+import de.starwit.service.impl.AppTemplateService;
 
 /**
  * Domain RestController
@@ -36,7 +36,7 @@ public class CodeTemplateController {
     private CodeTemplateService codeTemplateService;
 
     @Autowired
-    private ProjectTemplateService projectTemplateService;
+    private AppTemplateService appTemplateService;
     
 	private GenericController<CodeTemplateEntity> genericController;
 
@@ -71,17 +71,17 @@ public class CodeTemplateController {
 		return genericController.delete(id);
 	}
 	
-    @GetMapping(value = "/query/byprojecttemplate/{projecttemplateId}")
-    public EntityListResponse<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(
-      @PathVariable("projecttemplateId") Long projecttemplateId) {
-      ProjectTemplateEntity projectTemplate = projectTemplateService.findById(projecttemplateId);
-      if (projectTemplate == null) {
+    @GetMapping(value = "/query/byapptemplate/{apptemplateId}")
+    public EntityListResponse<CodeTemplateEntity> findAllCodeTemplatesByAppTemplate(
+      @PathVariable("apptemplateId") Long apptemplateId) {
+      AppTemplateEntity appTemplate = appTemplateService.findById(apptemplateId);
+      if (appTemplate == null) {
         EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(null);
         ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
         response.setMetadata(responseMetadata);
         return response;
       } else {
-        List<CodeTemplateEntity> entities = codeTemplateService.findAllCodeTemplatesByProjectTemplate(projecttemplateId);
+        List<CodeTemplateEntity> entities = codeTemplateService.findAllCodeTemplatesByAppTemplate(apptemplateId);
         EntityListResponse<CodeTemplateEntity> response = new EntityListResponse<CodeTemplateEntity>(entities);
         ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
         response.setMetadata(responseMetadata);

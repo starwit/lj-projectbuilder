@@ -11,7 +11,7 @@
   <groupId>de.starwit</groupId>
   <artifactId>ljprojectbuilder</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <description>Project template from test @ spring</description>
+  <description>App template from test @ spring</description>
   <packaging>pom</packaging>
 
   <properties>

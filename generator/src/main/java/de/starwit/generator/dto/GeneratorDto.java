@@ -3,16 +3,16 @@ package de.starwit.generator.dto;
 import java.util.Set;
 
 import de.starwit.persistence.entity.DomainEntity;
-import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.entity.App;
 
 /**
- * Contains all configuration for project setup and generator.
+ * Contains all configuration for app setup and generator.
  * @author Anett Huebner
  *
  */
 public class GeneratorDto {
 	
-	private ProjectEntity project;
+	private App app;
 
 	
 	private Set<DomainEntity> selectedDomains;
@@ -26,12 +26,12 @@ public class GeneratorDto {
 
 	/********************* GETTER, SETTER **************************/
 	
-	public ProjectEntity getProject() {
-		return project;
+	public App getApp() {
+		return app;
 	}
 
-	public void setProject(ProjectEntity project) {
-		this.project = project;
+	public void setApp(App app) {
+		this.app = app;
 	}
 
 	public Set<DomainEntity> getSelectedDomains() {

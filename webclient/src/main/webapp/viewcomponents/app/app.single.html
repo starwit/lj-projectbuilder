@@ -1,0 +1,102 @@
+<div id="headerBox" ng-include="'shared/menus/menu.app.html'"></div>
+
+<div id="subheaderBox">
+	<div class="contain">
+		<span class="navBar">
+			<ul>
+			  <li class="step1 act"><a href="#/viewcomponents/app-maintain/update/{{ctrl.appid}}">{{'navnbar.appdetails' | translate}}</a></li>
+			  <li class="step2"><a href="" ng-click="ctrl.doMaintainDomain();">{{'navnbar.domainobjects' | translate}}</a></li>
+			  <li class="step3"><a href="" ng-click="ctrl.doMaintainGenerate();">{{'navnbar.generate' | translate}}</a></li>
+			  <li class="clearer"></li>
+			</ul>
+		</span>
+		<button class="icon back hint" ng-click="ctrl.doMaintain(); "><span>{{'button.back' | translate}}</span></button>
+		<button class="icon next right hint" ng-click="ctrl.doMaintainDomain(); sent=true;" title="{{'button.savenext' | translate}}"><span>{{'button.next' | translate}}</span></button>
+		<div class="clearer"></div>
+	</div>
+</div>
+
+<div id="bodyBox">
+	<div class="contain">
+		<form name="ctrl.form" ng-init="sent=true;"> 
+			<fieldset class="odd">
+				<table>
+					<thead>
+						<tr>
+							<td><h3>{{'app.template' | translate}}</h3></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<label for="apptemplates">{{'app.templateselect' | translate}}</label>
+								 <select name="apptemplates" id="apptemplates" ng-model="ctrl.app.template" ng-options="template as template.title + ' - Repo: ' + template.location + ' - Branch: '  + template.branch for template in ctrl.templateAll track by template.id"></select>
+							</td>
+							<td>
+								<label for="description">{{'app.description' | translate}}</label>
+								<input name="description" id="description" type="text" ng-model="ctrl.app.description" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<table>
+									<tr>
+										<td><span><strong>{{'apptemplate.title' | translate}}:</strong></span></td>
+										<td><span>{{ctrl.app.template.title}}</span></td>
+									</tr>
+									<tr>
+										<td><span><strong>{{'apptemplate.location' | translate}}</strong></span></td>
+										<td><span>{{ctrl.app.template.location}}</span></td>
+									</tr>
+									<tr>
+										<td><span><strong>{{'apptemplate.branch' | translate}}</strong></span></td>
+										<td><span>{{ctrl.app.template.branch}}</span></td>
+									</tr>
+									<tr>	
+										<td><span><strong>{{'apptemplate.packageprefix' | translate}}</strong></span></td>
+										<td><span>{{ctrl.app.template.packagePrefix}}</span></td>
+									</tr>
+									<tr>	
+										<td><span><strong>{{'apptemplate.description' | translate}}</strong></span></td>
+										<td><span>{{ctrl.app.template.description}}</span></td>
+									</tr>									
+								</table>
+							</td>
+							<td>&nbsp;</td>
+						<tr>
+					</tbody>
+				</table>
+			</fieldset>
+			<fieldset class="even">
+				<table>
+					<thead>
+						<tr>
+							<td><h3>{{'app.target' | translate}}</h3></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<label for="title">{{'app.title' | translate}}</label>
+								<input class="w3-input w3-col" name="title" id="title" type="text" ng-model="ctrl.app.title" required ng-pattern="/^[a-zA-Z0-9]*$/" />
+								<label  ng-show="ctrl.form.title.$error == null"></label>
+								<label  ng-show="ctrl.form.title.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.title.$error.pattern">{{'error.app.pattern' | translate}}</label>
+							</td>
+							<td>
+								<label for="packageprefix">{{'app.packageprefix' | translate}}</label>
+								<input name="packageprefix" id="packageprefix" type="text" ng-model="ctrl.app.packagePrefix" required ng-pattern="/^[a-zA-Z0-9]*$/" />
+								<label ng-show="ctrl.form.packageprefix.$error.required">{{'error.required' | translate}}</label>
+								<label ng-show="ctrl.form.packageprefix.$error.pattern">{{'error.app.pattern' | translate}}</label>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>	
+		</form>
+	</div>
+</div>  
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.ext.html'"></div>
+</div>

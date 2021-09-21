@@ -3,7 +3,7 @@
 [Back](../README.md)
 
 - [How to Create a Template](#how-to-create-a-template)
-- [How to Configure Projecttemplates](#how-to-configure-projecttemplates)
+- [How to Configure Apptemplates](#how-to-configure-projecttemplates)
   * [project](#project)
   * [domain](#domain)
   * [attribute](#attribute)
@@ -17,11 +17,11 @@
 
 #### 1. Create Project and Push it to Git
 
-For creating a template, you need a project saved into a git repository. The generator with substitude all occurrences of the name in the projecttemplate later on.
+For creating a template, you need a project saved into a git repository. The generator with substitude all occurrences of the name in the apptemplate later on.
 
 #### 2. Start ProjectBuilder
 
-Next, you have to download and start projectbuilder. You can build your own projecttemplates by using the so called site in the projectBuilder. 
+Next, you have to download and start projectbuilder. You can build your own apptemplates by using the so called site in the projectBuilder. 
 
 #### 3. Configure Projecttemplate
 
@@ -29,7 +29,7 @@ You can configure your codetemplates via [Freemarker](https://freemarker.apache.
 
 #### 4. Create a Project
 
-The next step is the creation of the project itself. Create an new project in ProjectBuilder and choose your git-project and projecttemplate and enter a name and description.
+The next step is the creation of the project itself. Create an new project in ProjectBuilder and choose your git-project and apptemplate and enter a name and description.
 
 #### 5. Add Domains and Attributes
 
@@ -43,7 +43,7 @@ Now, everything is prepared and you can download your new project.
 
 ### **project** 
 
-The project-object contains general information and can be used to configure the paths for codetemplates-sets saved as projecttemplate.
+The project-object contains general information and can be used to configure the paths for codetemplates-sets saved as apptemplate.
 
 #### Example
 

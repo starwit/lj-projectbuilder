@@ -11,12 +11,12 @@ import de.starwit.persistence.entity.CodeTemplateEntity;
 @Repository
 public interface CodeTemplateRepository extends JpaRepository<CodeTemplateEntity, Long> {
 
-	@Query("SELECT c FROM CodeTemplateEntity c JOIN c.projects p WHERE p.id = ?1")
-	List<CodeTemplateEntity> findAllCodeTemplatesByProject(Long projectId);
+	@Query("SELECT c FROM CodeTemplateEntity c JOIN c.apps p WHERE p.id = ?1")
+	List<CodeTemplateEntity> findAllCodeTemplatesByApp(Long appId);
 
-	@Query("SELECT c FROM CodeTemplateEntity c WHERE c.projectTemplate.id = ?1")
-	List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId);
+	@Query("SELECT c FROM CodeTemplateEntity c WHERE c.appTemplate.id = ?1")
+	List<CodeTemplateEntity> findAllCodeTemplatesByAppTemplate(Long appTemplateId);
 
-	@Query("SELECT c.id FROM CodeTemplateEntity c WHERE c.projectTemplate.id = ?1")
-	List<Long> findAllCodeTemplateIdsByProjectTemplate(Long projectTemplateId);
+	@Query("SELECT c.id FROM CodeTemplateEntity c WHERE c.appTemplate.id = ?1")
+	List<Long> findAllCodeTemplateIdsByAppTemplate(Long appTemplateId);
 }

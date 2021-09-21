@@ -5,7 +5,7 @@
 // @XmlRootElement
 // public class RepoServerData {
 // 	private String baseURL;
-// 	private String projectName = null;
+// 	private String appName = null;
 
 // 	private String username;
 // 	private String password;
@@ -14,15 +14,15 @@
 
 // 	/**
 // 	 * Bitbucket specific implementation for request url. 
-// 	 * It's either a user or a project repo.
+// 	 * It's either a user or a app repo.
 // 	 * @return
 // 	 */
 // 	public String getRepoRequestURL() {
 // 		String requestUrl = baseURL;
-// 		if (projectName == null || "".equals(projectName)) {
+// 		if (appName == null || "".equals(appName)) {
 // 			requestUrl += "users/" + username + "/repos";
 // 		} else {
-// 			requestUrl += "projects/" + projectName + "/repos";
+// 			requestUrl += "apps/" + appName + "/repos";
 // 		}
 // 		return requestUrl;
 // 	}
@@ -51,12 +51,12 @@
 // 		this.baseURL = baseURL;
 // 	}
 
-// 	public String getProjectName() {
-// 		return projectName;
+// 	public String getAppName() {
+// 		return appName;
 // 	}
 
-// 	public void setProjectName(String projectName) {
-// 		this.projectName = projectName;
+// 	public void setAppName(String appName) {
+// 		this.appName = appName;
 // 	}
 
 // 	public String getRepoName() {

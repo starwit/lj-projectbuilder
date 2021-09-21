@@ -21,16 +21,16 @@ public class CodeTemplateService implements ServiceInterface<CodeTemplateEntity>
 	@Autowired
 	private CodeTemplateRepository codeTemplateRepository;
 
-	public List<CodeTemplateEntity> findAllCodeTemplatesByProject(Long projectId) {
-		return this.codeTemplateRepository.findAllCodeTemplatesByProject(projectId);
+	public List<CodeTemplateEntity> findAllCodeTemplatesByApp(Long appId) {
+		return this.codeTemplateRepository.findAllCodeTemplatesByApp(appId);
 	}
 
-	public List<CodeTemplateEntity> findAllCodeTemplatesByProjectTemplate(Long projectTemplateId) {
-		return this.codeTemplateRepository.findAllCodeTemplatesByProjectTemplate(projectTemplateId);
+	public List<CodeTemplateEntity> findAllCodeTemplatesByAppTemplate(Long appTemplateId) {
+		return this.codeTemplateRepository.findAllCodeTemplatesByAppTemplate(appTemplateId);
 	}
 
-	public List<Long> findAllCodeTemplateIdsByProjectTemplate(Long projectTemplateId) {
-		return this.codeTemplateRepository.findAllCodeTemplateIdsByProjectTemplate(projectTemplateId);
+	public List<Long> findAllCodeTemplateIdsByAppTemplate(Long appTemplateId) {
+		return this.codeTemplateRepository.findAllCodeTemplateIdsByAppTemplate(appTemplateId);
 	}
 
 	@Override

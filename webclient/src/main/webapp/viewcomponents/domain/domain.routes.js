@@ -13,29 +13,29 @@
 	 */
 	function gotoDomain($location) {
 		var factory = {};
-		factory.all = function(projectid) {
-			$location.path('/viewcomponents/domain-byproject/' + projectid);
+		factory.all = function(appid) {
+			$location.path('/viewcomponents/domain-byapp/' + appid);
 	    },
-	    factory.update = function(projectid, id) {
-	    	$location.path('/viewcomponents/domain-maintain/update/' + projectid + '/' + id);
+	    factory.update = function(appid, id) {
+	    	$location.path('/viewcomponents/domain-maintain/update/' + appid + '/' + id);
 	    },
-	    factory.create = function(projectid) {
-	    	$location.path('/viewcomponents/domain-maintain/create/' + projectid);
+	    factory.create = function(appid) {
+	    	$location.path('/viewcomponents/domain-maintain/create/' + appid);
 	    },
 	    factory.loaderror = function() {
-	    	$location.path('/viewcomponents/project-all/');
+	    	$location.path('/viewcomponents/app-all/');
 	    },
-		factory.prev = function(projectid) {
-			$location.path('/viewcomponents/project-maintain/update/' + projectid);
+		factory.prev = function(appid) {
+			$location.path('/viewcomponents/app-maintain/update/' + appid);
 	    },
-		factory.detail = function(projectid) {
-	    	$location.path('/viewcomponents/project-maintain/update/' + projectid);
+		factory.detail = function(appid) {
+	    	$location.path('/viewcomponents/app-maintain/update/' + appid);
 	    },
-		factory.generate = function(projectid) {
-			$location.path('/viewcomponents/generator/generate/' + projectid);
+		factory.generate = function(appid) {
+			$location.path('/viewcomponents/generator/generate/' + appid);
 	    },
-		factory.next = function(projectid) {
-			$location.path('/viewcomponents/generator/generate/' + projectid);
+		factory.next = function(appid) {
+			$location.path('/viewcomponents/generator/generate/' + appid);
 	    }
 	    return factory;
 	};
@@ -44,22 +44,22 @@
 	 * Routing for module.
 	 */
 	angular.module('ljprojectbuilderApp.domain').config(['$routeProvider', function($routeProvider) {
-	  $routeProvider.when('/viewcomponents/domain-byproject/:projectid', {
+	  $routeProvider.when('/viewcomponents/domain-byapp/:appid', {
 			controller : 'domainAllCtrl',
 			controllerAs : 'ctrl',
-			title : "project",
+			title : "app",
 			subtitle : "domain.all.title",
 			templateUrl : "viewcomponents/domain/domain.all.html"
-		}).when('/viewcomponents/domain-maintain/create/:projectid', {
+		}).when('/viewcomponents/domain-maintain/create/:appid', {
 			controller : 'domainSingleCtrl',
 			controllerAs : 'ctrl',
-			title : "project",
+			title : "app",
 			subtitle : "domain.create.title",
 			templateUrl : "viewcomponents/domain/domain.single.html"
-		}).when('/viewcomponents/domain-maintain/update/:projectid/:id', {
+		}).when('/viewcomponents/domain-maintain/update/:appid/:id', {
 			controller : 'domainSingleCtrl',
 			controllerAs : 'ctrl',
-			title : "project",
+			title : "app",
 			subtitle : "domain.update.title",
 			templateUrl : "viewcomponents/domain/domain.single.html"
 		});

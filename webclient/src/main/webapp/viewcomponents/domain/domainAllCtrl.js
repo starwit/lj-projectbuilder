@@ -1,18 +1,18 @@
 /**
- * This controller facilitates the domain.all.html - view to display all domains of a project. 
+ * This controller facilitates the domain.all.html - view to display all domains of a app. 
  * It provides all needed functions for this view.
  */
 (function() {
 	'use strict';
 	angular.module('ljprojectbuilderApp.domain').controller('domainAllCtrl', domainAllCtrl);
 	
-	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'projectConnectorFactory', 'dialogService', 'gotoDomain'];
-	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, projectConnectorFactory, dialogService, gotoDomain) {
+	domainAllCtrl.$inject = ['$scope', '$routeParams', 'domainConnectorFactory', 'appConnectorFactory', 'dialogService', 'gotoDomain'];
+	function domainAllCtrl($scope, $routeParams, domainConnectorFactory, appConnectorFactory, dialogService, gotoDomain) {
 		var  ctrl = this;
 
 		ctrl.domainAll = [];
-		ctrl.projecttitle = "";
-		ctrl.projectid = 0;
+		ctrl.apptitle = "";
+		ctrl.appid = 0;
 		ctrl.refresh = refresh;
 		ctrl.gotoDomain = gotoDomain;
 		ctrl.deleteDomain = deleteDomain;
@@ -26,7 +26,7 @@
 		 * refreshs the view from database.
 		 */
 		function refresh() { 
-			domainConnectorFactory.getDomainsByProject(ctrl.projectid).then(setDomainAll, loadError); 
+			domainConnectorFactory.getDomainsByApp(ctrl.appid).then(setDomainAll, loadError); 
 		};
 		
 		/**
@@ -53,17 +53,17 @@
 		 */
 		function init() {
 			$scope.$on('$routeChangeSuccess', function (scope, next, current) {
-				if ($routeParams.projectid != undefined) {
-					ctrl.projectid = $routeParams.projectid;
-					projectConnectorFactory.loadProject($routeParams.projectid)
-					.then(	setProjectTitle, null);
+				if ($routeParams.appid != undefined) {
+					ctrl.appid = $routeParams.appid;
+					appConnectorFactory.loadApp($routeParams.appid)
+					.then(	setAppTitle, null);
 					refresh();
 				}
 			});
 		}
 		
-		function setProjectTitle(response) {
-			ctrl.projecttitle = response.title;		
+		function setAppTitle(response) {
+			ctrl.apptitle = response.title;		
 		}
 		
 		/**
@@ -90,14 +90,14 @@
 		};
 		
 		/**
-		 * Error message after loading domains for project.
+		 * Error message after loading domains for app.
 		 */
 		function loadError(response) {
 			dialogService.showDialog("domain.dialog.error.title", "domain.load.error", dialogService.dialog.id.error, gotoDomain.loaderror);
 		};
 		
 		function gotoDomainAll() {
-			gotoDomain.all(ctrl.projectid);
+			gotoDomain.all(ctrl.appid);
 		};
 		
 		function closeDialog(dialogid) {

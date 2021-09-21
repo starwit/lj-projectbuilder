@@ -24,14 +24,14 @@ module.exports = function(config) {
 
         'shared/directives/global.directives.js',
         'shared/restfacade/rest.connector.factory.js',
-        'shared/restfacade/projectsetup.connector.factory.js',
+        'shared/restfacade/appsetup.connector.factory.js',
         'shared/dialogs/dialog.service.js',
 
-        'shared/restfacade/project.connector.factory.js',
-        'viewcomponents/project/project.module.js',
-        'viewcomponents/project/project.routes.js',
-        'viewcomponents/project/projectAllCtrl.js',
-        'viewcomponents/project/projectSingleCtrl.js',
+        'shared/restfacade/app.connector.factory.js',
+        'viewcomponents/app/app.module.js',
+        'viewcomponents/app/app.routes.js',
+        'viewcomponents/app/appAllCtrl.js',
+        'viewcomponents/app/appSingleCtrl.js',
 
         'shared/restfacade/domain.connector.factory.js',
         'viewcomponents/domain/domain.module.js',
