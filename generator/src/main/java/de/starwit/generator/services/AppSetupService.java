@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
@@ -62,8 +62,8 @@ public class AppSetupService implements Serializable {
 		String newAppFolder = appCheckout.createTempAppDirectory(app);
 		app.setTargetPath(newAppFolder);
 		app = appService.saveOrUpdate(app);
-		Set<DomainEntity> selectedDomains = dto.getSelectedDomains();
-		for (DomainEntity domain : selectedDomains) {
+		Set<Domain> selectedDomains = dto.getSelectedDomains();
+		for (Domain domain : selectedDomains) {
 			domainService.setDomainSelected(domain.getId(), domain.isSelected());
 		}
 

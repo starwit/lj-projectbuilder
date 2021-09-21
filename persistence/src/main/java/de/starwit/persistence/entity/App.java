@@ -23,7 +23,7 @@ public class App extends AbstractEntity<Long> {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
-	private AppTemplateEntity template;
+	private AppTemplate template;
 
 	@NotNull
 	@Pattern(regexp = "^[A-Za-z0-9]*$")
@@ -45,20 +45,20 @@ public class App extends AbstractEntity<Long> {
 	private String description;
 
 	@OneToMany(mappedBy = "app",  cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<DomainEntity> domains;
+	private List<Domain> domains;
 
 	@Transient
-	private Set<DomainEntity> selectedDomains;
+	private Set<Domain> selectedDomains;
 
     public void setId(Long id) {
         this.id = id;
     }
 	
-	public AppTemplateEntity getTemplate() {
+	public AppTemplate getTemplate() {
 		return template;
 	}
 
-	public void setTemplate(AppTemplateEntity template) {
+	public void setTemplate(AppTemplate template) {
 		this.template = template;
 	}
 
@@ -94,15 +94,15 @@ public class App extends AbstractEntity<Long> {
 		this.targetPath = targetPath;
 	}
 
-	public List<DomainEntity> getDomains() {
+	public List<Domain> getDomains() {
 		return domains;
 	}
 
-	public void setDomains(List<DomainEntity> domains) {
+	public void setDomains(List<Domain> domains) {
 		this.domains = domains;
 	}
 
-	public Set<DomainEntity> getSelectedDomains() {
+	public Set<Domain> getSelectedDomains() {
 		if (selectedDomains == null && getDomains() != null) {
 			selectedDomains = getDomains().stream() // convert list to stream
 					.filter(domain -> domain.isSelected()) // we only want selected domains

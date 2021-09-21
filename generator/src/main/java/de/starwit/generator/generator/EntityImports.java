@@ -3,9 +3,9 @@ package de.starwit.generator.generator;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.starwit.persistence.entity.AttributeEntity;
+import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
-import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.Domain;
 
 /**
  * 
@@ -18,10 +18,10 @@ public class EntityImports {
 	 * @param domain - definition of domain.
 	 * @return Set of Java imports
 	 */
-	public static Set<String> gatherEntityImports(DomainEntity domain) {
+	public static Set<String> gatherEntityImports(Domain domain) {
 		Set<String> imports = new HashSet<String>();
 		if (domain.getAttributes() != null) {
-			for (AttributeEntity attr : domain.getAttributes()) {
+			for (Attribute attr : domain.getAttributes()) {
 				
 				if (DataType.String.equals(attr.getDataType())) {
 					if (attr.getMax() != null || attr.getMin() != null) {

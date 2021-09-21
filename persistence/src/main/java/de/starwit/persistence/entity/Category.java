@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "templates" })
 @Entity
 @Table(name = "CATEGORY")
-public class CategoryEntity extends AbstractEntity<Long> {
+public class Category extends AbstractEntity<Long> {
 
 	public static final String DEFAULT_CATEGORY = "ENTITY";
 
@@ -30,7 +30,7 @@ public class CategoryEntity extends AbstractEntity<Long> {
 
 	@JsonBackReference
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	private List<CodeTemplateEntity> templates;
+	private List<TemplateFile> templates;
 
 	@Column(name = "NAME", nullable = false, unique = true)
 	public String getName() {
@@ -41,11 +41,11 @@ public class CategoryEntity extends AbstractEntity<Long> {
 		this.name = name;
 	}
 
-	public List<CodeTemplateEntity> getTemplates() {
+	public List<TemplateFile> getTemplates() {
 		return templates;
 	}
 
-	public void setTemplates(List<CodeTemplateEntity> templates) {
+	public void setTemplates(List<TemplateFile> templates) {
 		this.templates = templates;
 	}
 

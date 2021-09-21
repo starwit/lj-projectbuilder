@@ -12,15 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.CategoryEntity;
-import de.starwit.persistence.entity.CodeTemplateEntity;
-import de.starwit.persistence.entity.AppTemplateEntity;
+import de.starwit.persistence.entity.Category;
+import de.starwit.persistence.entity.TemplateFile;
+import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.repository.CategoryRepository;
 import de.starwit.persistence.repository.AppTemplateRepository;
 
 @Service
-public class AppTemplateService implements ServiceInterface<AppTemplateEntity> {
+public class AppTemplateService implements ServiceInterface<AppTemplate> {
 
 	final static Logger LOG = LoggerFactory.getLogger(AppTemplateService.class);
 
@@ -33,18 +33,18 @@ public class AppTemplateService implements ServiceInterface<AppTemplateEntity> {
 	@Autowired
 	private AppTemplateRepository appTemplateRepository;
 	
-	public AppTemplateEntity update(AppTemplateEntity entity) throws ValidationException {
-		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
+	public AppTemplate update(AppTemplate entity) throws ValidationException {
+		Set<TemplateFile> codeTemplates = entity.getCodeTemplates();
 		map(entity);
 
 		// CodeTemplateEntity might be not filled completely
 		if (codeTemplates != null) {
-			for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
+			for (TemplateFile codeTemplateEntity : codeTemplates) {
 				codeTemplateEntity.setAppTemplate(entity);
 
 				// set default category
 				if (codeTemplateEntity.getCategory() == null) {
-					CategoryEntity ce = categoryRepository.findByName(CategoryEntity.DEFAULT_CATEGORY);
+					Category ce = categoryRepository.findByName(Category.DEFAULT_CATEGORY);
 					codeTemplateEntity.setCategory(ce);
 				}
 			}
@@ -54,12 +54,12 @@ public class AppTemplateService implements ServiceInterface<AppTemplateEntity> {
 		return map(entity);
 	}
 
-	public AppTemplateEntity create(AppTemplateEntity entity) throws ValidationException {
-		Set<CodeTemplateEntity> codeTemplates = entity.getCodeTemplates();
+	public AppTemplate create(AppTemplate entity) throws ValidationException {
+		Set<TemplateFile> codeTemplates = entity.getCodeTemplates();
 		this.appTemplateRepository.save(entity);
 
 		if (codeTemplates != null) {
-			for (CodeTemplateEntity codeTemplateEntity : codeTemplates) {
+			for (TemplateFile codeTemplateEntity : codeTemplates) {
 				codeTemplateEntity.setAppTemplate(entity);
 				codeTemplateService.saveOrUpdate(codeTemplateEntity);
 			}
@@ -68,28 +68,28 @@ public class AppTemplateService implements ServiceInterface<AppTemplateEntity> {
 	}
 
 	@Override
-	public List<AppTemplateEntity> findAll() {
-		List<AppTemplateEntity> entities = this.appTemplateRepository.findAll();
-		List<AppTemplateEntity> dtos = new ArrayList<AppTemplateEntity>();
-		for (AppTemplateEntity entity : entities) {
-			AppTemplateEntity dto = map(entity);
+	public List<AppTemplate> findAll() {
+		List<AppTemplate> entities = this.appTemplateRepository.findAll();
+		List<AppTemplate> dtos = new ArrayList<AppTemplate>();
+		for (AppTemplate entity : entities) {
+			AppTemplate dto = map(entity);
 			dtos.add(dto);
 		}
 		return dtos;
 	}
 
 	@Override
-	public AppTemplateEntity findById(Long id) {
-		AppTemplateEntity entity = this.appTemplateRepository.findById(id).orElse(null);		
+	public AppTemplate findById(Long id) {
+		AppTemplate entity = this.appTemplateRepository.findById(id).orElse(null);		
 		return map(entity);
 	}
 
-	public AppTemplateEntity map(AppTemplateEntity entity) {
-		AppTemplateEntity dto = Mapper.convert(entity, AppTemplateEntity.class, "codeTemplates");
-		Set<CodeTemplateEntity> ctDtos = Mapper.convertSet(entity.getCodeTemplates(), CodeTemplateEntity.class, "appTemplate");
+	public AppTemplate map(AppTemplate entity) {
+		AppTemplate dto = Mapper.convert(entity, AppTemplate.class, "codeTemplates");
+		Set<TemplateFile> ctDtos = Mapper.convertSet(entity.getCodeTemplates(), TemplateFile.class, "appTemplate");
 		if (entity != null && entity.getCodeTemplates() != null) {
-			for (CodeTemplateEntity codeTemplateDto : ctDtos) {
-				CategoryEntity category = Mapper.convert(codeTemplateDto.getCategory(), CategoryEntity.class, "templates");
+			for (TemplateFile codeTemplateDto : ctDtos) {
+				Category category = Mapper.convert(codeTemplateDto.getCategory(), Category.class, "templates");
 				codeTemplateDto.setCategory(category);
 			}
 		}
@@ -98,7 +98,7 @@ public class AppTemplateService implements ServiceInterface<AppTemplateEntity> {
 	}
 
 	@Override
-	public AppTemplateEntity saveOrUpdate(AppTemplateEntity entity) {
+	public AppTemplate saveOrUpdate(AppTemplate entity) {
 		map(entity);
 		return this.appTemplateRepository.save(entity);
 	}

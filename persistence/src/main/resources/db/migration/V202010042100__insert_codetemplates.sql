@@ -6,7 +6,7 @@ INSERT INTO CATEGORY (NAME) VALUES ('REST');
 INSERT INTO CATEGORY (NAME) VALUES ('FRONTEND');
 
 
-INSERT INTO CODETEMPLATE(CREATE_DOMAIN_DIR,FILE_NAME_SUFFIX,LOWER_CASE,TARGET_PATH,TEMPLATE_PATH,TEMPLATE_TYPE,FIRST_UPPER,CATEGORY_ID,APPTEMPLATE_ID) VALUES
+INSERT INTO TEMPLATEFILE(CREATE_DOMAIN_DIR,FILE_NAME_SUFFIX,LOWER_CASE,TARGET_PATH,TEMPLATE_PATH,TEMPLATE_TYPE,FIRST_UPPER,CATEGORY_ID,APPTEMPLATE_ID) VALUES
     (0,'Repository.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/persistence/repository/','${projecthome}/${project.targetPath}/generator-templates/persistence/EntityRepository.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM APPTEMPLATE WHERE TITLE LIKE 'lirejarp')),
     (0,'RepositoryTest.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/test/java/de/${project.packagePrefix?lower_case}/persistence/repository/','${projecthome}/${project.targetPath}/generator-templates/persistence/EntityRepositoryTest.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),(SELECT ID FROM APPTEMPLATE WHERE TITLE LIKE 'lirejarp')),
     (0,'.java',0,'${projecthome}/${project.targetPath}/${project.title}/persistence/src/main/java/de/${project.packagePrefix?lower_case}/persistence/entity/','${projecthome}/${project.targetPath}/generator-templates/persistence/Entity.ftl','DOMAIN',1,(SELECT ID FROM CATEGORY WHERE NAME LIKE 'ENTITY'),1),

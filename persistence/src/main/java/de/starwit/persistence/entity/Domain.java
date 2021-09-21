@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "DOMAIN")
-public class DomainEntity extends AbstractEntity<Long> {
+public class Domain extends AbstractEntity<Long> {
 
 	@Transient
 	private Long appId;
@@ -36,7 +36,7 @@ public class DomainEntity extends AbstractEntity<Long> {
 	private App app;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<AttributeEntity> attributes;
+	private Set<Attribute> attributes;
 
 	@Column(name = "SELECTED", nullable = false)
 	private boolean selected = true;
@@ -65,11 +65,11 @@ public class DomainEntity extends AbstractEntity<Long> {
 		this.app = app;
 	}
 
-	public Set<AttributeEntity> getAttributes() {
+	public Set<Attribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Set<AttributeEntity> attributes) {
+	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
 	}
 

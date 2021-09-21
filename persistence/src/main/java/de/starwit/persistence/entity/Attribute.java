@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "ATTRIBUTE")
-public class AttributeEntity extends AbstractEntity<Long> {
+public class Attribute extends AbstractEntity<Long> {
 
 	// domain attributes
 

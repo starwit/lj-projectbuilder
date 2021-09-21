@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
-import de.starwit.persistence.entity.CodeTemplateEntity;
-import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.TemplateFile;
+import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.AppRepository;
@@ -55,11 +55,11 @@ public class GeneratorService {
 
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
-		Set<CodeTemplateEntity> codeTemplates = app.getTemplate().getCodeTemplates();
-		Collection<DomainEntity> domains = app.getSelectedDomains();
+		Set<TemplateFile> codeTemplates = app.getTemplate().getCodeTemplates();
+		Collection<Domain> domains = app.getSelectedDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
-		for (CodeTemplateEntity codeTemplate : codeTemplates) {
+		for (TemplateFile codeTemplate : codeTemplates) {
     		switch (codeTemplate.getType()) {
 			case GLOBAL:
 				generatePath(templateData, codeTemplate);
@@ -70,7 +70,7 @@ public class GeneratorService {
 				generateAdditionalContent(templateData, codeTemplate);
 				break;
 			case DOMAIN: {
-				for (DomainEntity domain : domains) {
+				for (Domain domain : domains) {
 					templateData.putAll(fillTemplateDomainParameter(domain));
 					generatePath(templateData, codeTemplate);
 					generateDomain(domain.getName(), templateData, codeTemplate);
@@ -100,7 +100,7 @@ public class GeneratorService {
 	 * @param domain - basic for entities
 	 * @return
 	 */
-	private Map<String, Object> fillTemplateDomainParameter(DomainEntity domain) {
+	private Map<String, Object> fillTemplateDomainParameter(Domain domain) {
 		// Build the data-model
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain);
@@ -108,7 +108,7 @@ public class GeneratorService {
 		return data;
 	}
 	
-	protected void generatePath(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
+	protected void generatePath(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
 		try {
 			@SuppressWarnings("deprecation")
 			Template codeTemplateTargetPath = new Template("codeTemplateTargetPath", new StringReader(codeTemplate.getTargetPath()),
@@ -130,7 +130,7 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateGlobal(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
+	protected void generateGlobal(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
 		try {
 			String targetFileUrl = codeTemplate.getTargetFileUrl("");
 			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, true);
@@ -141,7 +141,7 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateAdditionalContent(Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
+	protected void generateAdditionalContent(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
 		try {
 			addLinesToFile(codeTemplate.getConcreteTargetPath() + Constants.FILE_SEP + codeTemplate.getFileNameSuffix(), getTemplate(codeTemplate.getConcreteTemplatePath()), data);
 		} catch (IOException | TemplateException e) {
@@ -151,7 +151,7 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateDomain(String domainName, Map<String, Object> data, CodeTemplateEntity codeTemplate) throws NotificationException {
+	protected void generateDomain(String domainName, Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
 		try {
 			File targetPath = new File(codeTemplate.getConcreteTemplatePath());
 			if (targetPath.exists()) {

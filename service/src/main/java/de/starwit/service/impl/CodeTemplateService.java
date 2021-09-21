@@ -10,22 +10,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.starwit.persistence.entity.CodeTemplateEntity;
+import de.starwit.persistence.entity.TemplateFile;
 import de.starwit.persistence.repository.CodeTemplateRepository;
 
 @Service
-public class CodeTemplateService implements ServiceInterface<CodeTemplateEntity> {
+public class CodeTemplateService implements ServiceInterface<TemplateFile> {
 
 	final static Logger LOG = LoggerFactory.getLogger(CodeTemplateService.class);
 
 	@Autowired
 	private CodeTemplateRepository codeTemplateRepository;
 
-	public List<CodeTemplateEntity> findAllCodeTemplatesByApp(Long appId) {
+	public List<TemplateFile> findAllCodeTemplatesByApp(Long appId) {
 		return this.codeTemplateRepository.findAllCodeTemplatesByApp(appId);
 	}
 
-	public List<CodeTemplateEntity> findAllCodeTemplatesByAppTemplate(Long appTemplateId) {
+	public List<TemplateFile> findAllCodeTemplatesByAppTemplate(Long appTemplateId) {
 		return this.codeTemplateRepository.findAllCodeTemplatesByAppTemplate(appTemplateId);
 	}
 
@@ -34,17 +34,17 @@ public class CodeTemplateService implements ServiceInterface<CodeTemplateEntity>
 	}
 
 	@Override
-	public CodeTemplateEntity findById(Long id) {
+	public TemplateFile findById(Long id) {
 		return this.codeTemplateRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 
 	@Override
-	public List<CodeTemplateEntity> findAll() {
+	public List<TemplateFile> findAll() {
 		return this.codeTemplateRepository.findAll();
 	}
 
 	@Override
-	public CodeTemplateEntity saveOrUpdate(CodeTemplateEntity entity) throws ValidationException {
+	public TemplateFile saveOrUpdate(TemplateFile entity) throws ValidationException {
 		return this.codeTemplateRepository.save(entity);
 	}
 
