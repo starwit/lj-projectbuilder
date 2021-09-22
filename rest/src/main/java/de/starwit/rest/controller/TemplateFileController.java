@@ -21,7 +21,7 @@ import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
-import de.starwit.service.impl.CodeTemplateService;
+import de.starwit.service.impl.TemplateFileService;
 import de.starwit.service.impl.AppTemplateService;
 
 /**
@@ -29,11 +29,11 @@ import de.starwit.service.impl.AppTemplateService;
  * Have a look at the RequestMapping!!!!!!
  */
 @RestController
-@RequestMapping("${rest.base-path}/codetemplate")
-public class CodeTemplateController {
+@RequestMapping("${rest.base-path}/templatefile")
+public class TemplateFileController {
 
     @Autowired
-    private CodeTemplateService codeTemplateService;
+    private TemplateFileService templateFileService;
 
     @Autowired
     private AppTemplateService appTemplateService;
@@ -43,7 +43,7 @@ public class CodeTemplateController {
 	@PostConstruct
 	public void init() {
 		genericController = new GenericController<TemplateFile>();
-		genericController.setService(codeTemplateService);
+		genericController.setService(templateFileService);
 	}
 	
 	@GetMapping("/query/all")
@@ -72,7 +72,7 @@ public class CodeTemplateController {
 	}
 	
     @GetMapping(value = "/query/byapptemplate/{apptemplateId}")
-    public EntityListResponse<TemplateFile> findAllCodeTemplatesByAppTemplate(
+    public EntityListResponse<TemplateFile> findAllTemplateFilesByAppTemplate(
       @PathVariable("apptemplateId") Long apptemplateId) {
       AppTemplate appTemplate = appTemplateService.findById(apptemplateId);
       if (appTemplate == null) {
@@ -81,7 +81,7 @@ public class CodeTemplateController {
         response.setMetadata(responseMetadata);
         return response;
       } else {
-        List<TemplateFile> entities = codeTemplateService.findAllCodeTemplatesByAppTemplate(apptemplateId);
+        List<TemplateFile> entities = templateFileService.findAllTemplateFilesByAppTemplate(apptemplateId);
         EntityListResponse<TemplateFile> response = new EntityListResponse<TemplateFile>(entities);
         ResponseMetadata responseMetadata = EntityValidator.isNotEmpty(response.getResult());
         response.setMetadata(responseMetadata);

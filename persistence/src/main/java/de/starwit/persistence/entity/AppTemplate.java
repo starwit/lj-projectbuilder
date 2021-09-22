@@ -48,7 +48,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	@OrderBy("category, fileNameSuffix asc")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
-	private Set<TemplateFile> codeTemplates;
+	private Set<TemplateFile> templateFiles;
 
     public void setId(Long id) {
         this.id = id;
@@ -102,11 +102,11 @@ public class AppTemplate extends AbstractEntity<Long> {
 		this.credentialsRequired = credentialsRequired;
 	}
 
-	public Set<TemplateFile> getCodeTemplates() {
-		return codeTemplates;
+	public Set<TemplateFile> getTemplateFiles() {
+		return templateFiles;
 	}
 
-	public void setCodeTemplates(Set<TemplateFile> codeTemplates) {
-		this.codeTemplates = codeTemplates;
+	public void setTemplateFiles(Set<TemplateFile> templateFiles) {
+		this.templateFiles = templateFiles;
 	}
 }

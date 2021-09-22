@@ -55,25 +55,25 @@ public class GeneratorService {
 
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
-		Set<TemplateFile> codeTemplates = app.getTemplate().getCodeTemplates();
+		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
 		Collection<Domain> domains = app.getSelectedDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
-		for (TemplateFile codeTemplate : codeTemplates) {
-    		switch (codeTemplate.getType()) {
+		for (TemplateFile templateFile : templateFiles) {
+    		switch (templateFile.getType()) {
 			case GLOBAL:
-				generatePath(templateData, codeTemplate);
-				generateGlobal(templateData, codeTemplate);
+				generatePath(templateData, templateFile);
+				generateGlobal(templateData, templateFile);
 				break;
 			case ADDITIONAL_CONTENT:
-				generatePath(templateData, codeTemplate);
-				generateAdditionalContent(templateData, codeTemplate);
+				generatePath(templateData, templateFile);
+				generateAdditionalContent(templateData, templateFile);
 				break;
 			case DOMAIN: {
 				for (Domain domain : domains) {
 					templateData.putAll(fillTemplateDomainParameter(domain));
-					generatePath(templateData, codeTemplate);
-					generateDomain(domain.getName(), templateData, codeTemplate);
+					generatePath(templateData, templateFile);
+					generateDomain(domain.getName(), templateData, templateFile);
 				}
 				break;
 			}
@@ -108,21 +108,21 @@ public class GeneratorService {
 		return data;
 	}
 	
-	protected void generatePath(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
+	protected void generatePath(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
 			@SuppressWarnings("deprecation")
-			Template codeTemplateTargetPath = new Template("codeTemplateTargetPath", new StringReader(codeTemplate.getTargetPath()),
+			Template templateFileTargetPath = new Template("templateFileTargetPath", new StringReader(templateFile.getTargetPath()),
 		               new Configuration());
 	        StringWriter output = new StringWriter();
-	        codeTemplateTargetPath.process(data, output);
-	        codeTemplate.setConcreteTargetPath(output.toString());
+	        templateFileTargetPath.process(data, output);
+	        templateFile.setConcreteTargetPath(output.toString());
 	        
 			@SuppressWarnings("deprecation")
-			Template codeTemplateTemplatePath = new Template("codeTemplateTemplatePath", new StringReader(codeTemplate.getTemplatePath()),
+			Template templateFileTemplatePath = new Template("templateFileTemplatePath", new StringReader(templateFile.getTemplatePath()),
 		               new Configuration());
 	        output = new StringWriter();
-	        codeTemplateTemplatePath.process(data, output);
-	        codeTemplate.setConcreteTemplatePath(output.toString());
+	        templateFileTemplatePath.process(data, output);
+	        templateFile.setConcreteTemplatePath(output.toString());
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generatepath");
@@ -130,10 +130,10 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateGlobal(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
+	protected void generateGlobal(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			String targetFileUrl = codeTemplate.getTargetFileUrl("");
-			writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, true);
+			String targetFileUrl = templateFile.getTargetFileUrl("");
+			writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, true);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateglobal");
@@ -141,9 +141,9 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateAdditionalContent(Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
+	protected void generateAdditionalContent(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			addLinesToFile(codeTemplate.getConcreteTargetPath() + Constants.FILE_SEP + codeTemplate.getFileNameSuffix(), getTemplate(codeTemplate.getConcreteTemplatePath()), data);
+			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileNameSuffix(), getTemplate(templateFile.getConcreteTemplatePath()), data);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateadditionalcontent");
@@ -151,12 +151,12 @@ public class GeneratorService {
 		}
 	}
 	
-	protected void generateDomain(String domainName, Map<String, Object> data, TemplateFile codeTemplate) throws NotificationException {
+	protected void generateDomain(String domainName, Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			File targetPath = new File(codeTemplate.getConcreteTemplatePath());
+			File targetPath = new File(templateFile.getConcreteTemplatePath());
 			if (targetPath.exists()) {
-				String targetFileUrl = codeTemplate.getTargetFileUrl(domainName);
-				writeGeneratedFile(targetFileUrl, getTemplate(codeTemplate.getConcreteTemplatePath()), data, false);
+				String targetFileUrl = templateFile.getTargetFileUrl(domainName);
+				writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, false);
 			} else {
 				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.templatemissing");
 				throw new NotificationException(errorResponse);

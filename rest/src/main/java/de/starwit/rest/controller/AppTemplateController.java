@@ -52,13 +52,13 @@ public class AppTemplateController {
 
 	@PutMapping
 	public EntityResponse<AppTemplate> save(@RequestBody AppTemplate entity) {
-		EntityResponse<AppTemplate> response = validateCodeTemplates(entity);
+		EntityResponse<AppTemplate> response = validateTemplateFiles(entity);
 		return response == null ? genericController.createGeneric(entity) : response;
 	}
 
 	@PostMapping
 	public EntityResponse<AppTemplate> update(@RequestBody AppTemplate entity) {
-		EntityResponse<AppTemplate> response = validateCodeTemplates(entity);
+		EntityResponse<AppTemplate> response = validateTemplateFiles(entity);
 		return response == null ? genericController.updateGeneric(entity) : response;
 	}
 
@@ -68,10 +68,10 @@ public class AppTemplateController {
 	}
 
 
-	private EntityResponse<AppTemplate> validateCodeTemplates(AppTemplate entity) {
-		if (entity.getCodeTemplates() != null) {
-			for (TemplateFile codeTemplate : entity.getCodeTemplates()) {
-				ResponseMetadata responseMetadata = EntityValidator.validate(codeTemplate);	
+	private EntityResponse<AppTemplate> validateTemplateFiles(AppTemplate entity) {
+		if (entity.getTemplateFiles() != null) {
+			for (TemplateFile templateFile : entity.getTemplateFiles()) {
+				ResponseMetadata responseMetadata = EntityValidator.validate(templateFile);	
 				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
 					EntityResponse<AppTemplate> response = new EntityResponse<AppTemplate>();
 					response.setMetadata(responseMetadata);

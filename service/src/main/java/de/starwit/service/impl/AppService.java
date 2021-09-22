@@ -71,8 +71,8 @@ public class AppService implements ServiceInterface<App> {
 		}
 		
 		List<Domain> domains = entity.getDomains();
-		for (Domain domainEntity : domains) {
-			domainService.delete(domainEntity.getId());
+		for (Domain domain : domains) {
+			domainService.delete(domain.getId());
 		}
 		AppRepository.flush();
 		this.AppRepository.deleteById(id);

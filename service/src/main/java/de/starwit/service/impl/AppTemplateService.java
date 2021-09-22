@@ -28,24 +28,24 @@ public class AppTemplateService implements ServiceInterface<AppTemplate> {
 	private CategoryRepository categoryRepository;
 
 	@Autowired
-	private CodeTemplateService codeTemplateService;
+	private TemplateFileService templateFileService;
 
 	@Autowired
 	private AppTemplateRepository appTemplateRepository;
 	
 	public AppTemplate update(AppTemplate entity) throws ValidationException {
-		Set<TemplateFile> codeTemplates = entity.getCodeTemplates();
+		Set<TemplateFile> templateFiles = entity.getTemplateFiles();
 		map(entity);
 
-		// CodeTemplateEntity might be not filled completely
-		if (codeTemplates != null) {
-			for (TemplateFile codeTemplateEntity : codeTemplates) {
-				codeTemplateEntity.setAppTemplate(entity);
+		// TemplateFileEntity might be not filled completely
+		if (templateFiles != null) {
+			for (TemplateFile templateFileEntity : templateFiles) {
+				templateFileEntity.setAppTemplate(entity);
 
 				// set default category
-				if (codeTemplateEntity.getCategory() == null) {
+				if (templateFileEntity.getCategory() == null) {
 					Category ce = categoryRepository.findByName(Category.DEFAULT_CATEGORY);
-					codeTemplateEntity.setCategory(ce);
+					templateFileEntity.setCategory(ce);
 				}
 			}
 		}
@@ -55,13 +55,13 @@ public class AppTemplateService implements ServiceInterface<AppTemplate> {
 	}
 
 	public AppTemplate create(AppTemplate entity) throws ValidationException {
-		Set<TemplateFile> codeTemplates = entity.getCodeTemplates();
+		Set<TemplateFile> templateFiles = entity.getTemplateFiles();
 		this.appTemplateRepository.save(entity);
 
-		if (codeTemplates != null) {
-			for (TemplateFile codeTemplateEntity : codeTemplates) {
-				codeTemplateEntity.setAppTemplate(entity);
-				codeTemplateService.saveOrUpdate(codeTemplateEntity);
+		if (templateFiles != null) {
+			for (TemplateFile templateFileEntity : templateFiles) {
+				templateFileEntity.setAppTemplate(entity);
+				templateFileService.saveOrUpdate(templateFileEntity);
 			}
 		}
 		return map(entity);
@@ -85,15 +85,15 @@ public class AppTemplateService implements ServiceInterface<AppTemplate> {
 	}
 
 	public AppTemplate map(AppTemplate entity) {
-		AppTemplate dto = Mapper.convert(entity, AppTemplate.class, "codeTemplates");
-		Set<TemplateFile> ctDtos = Mapper.convertSet(entity.getCodeTemplates(), TemplateFile.class, "appTemplate");
-		if (entity != null && entity.getCodeTemplates() != null) {
-			for (TemplateFile codeTemplateDto : ctDtos) {
-				Category category = Mapper.convert(codeTemplateDto.getCategory(), Category.class, "templates");
-				codeTemplateDto.setCategory(category);
+		AppTemplate dto = Mapper.convert(entity, AppTemplate.class, "templateFiles");
+		Set<TemplateFile> ctDtos = Mapper.convertSet(entity.getTemplateFiles(), TemplateFile.class, "appTemplate");
+		if (entity != null && entity.getTemplateFiles() != null) {
+			for (TemplateFile templateFileDto : ctDtos) {
+				Category category = Mapper.convert(templateFileDto.getCategory(), Category.class, "templates");
+				templateFileDto.setCategory(category);
 			}
 		}
-		dto.setCodeTemplates(ctDtos);
+		dto.setTemplateFiles(ctDtos);
 		return dto;
 	}
 
