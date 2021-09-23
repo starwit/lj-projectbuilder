@@ -8,7 +8,7 @@ import ErDesigner from "./sections/erDesigner/ErDesigner";
 function ProjectEditor() {
 
 
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(1);
     const [selectedTemplate, setSelectedTemplate] = useState(null)
 
     const steps = [
