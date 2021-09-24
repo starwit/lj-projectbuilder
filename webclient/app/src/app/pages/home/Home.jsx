@@ -18,7 +18,7 @@ function Home() {
     return (
         <Container>
             <Typography variant={"h2"} gutterBottom>
-                Deine Projekte
+                Deine Apps
             </Typography>
             <Grid container spacing={5}>
                 {projects.map(project => (

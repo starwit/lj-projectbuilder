@@ -160,8 +160,10 @@ function ErDesigner() {
                 </Drawer>
             </React.Fragment>
             <div style={{height: "70vh"}}>
-                <Draggable bounds="parent"  axis={"both"}>
+                <Draggable bounds="parent" axis={"both"}>
+                    <div style={{width: "20rem"}}>
                         {renderEntities()}
+                    </div>
                 </Draggable>
             </div>
 
