@@ -2,7 +2,7 @@ package de.starwit.generator.dto;
 
 import java.util.Set;
 
-import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
 
 /**
@@ -15,7 +15,7 @@ public class GeneratorDto {
 	private App app;
 
 	
-	private Set<DomainEntity> selectedDomains;
+	private Set<Domain> selectedDomains;
 	
 	private String username;
 
@@ -34,11 +34,11 @@ public class GeneratorDto {
 		this.app = app;
 	}
 
-	public Set<DomainEntity> getSelectedDomains() {
+	public Set<Domain> getSelectedDomains() {
 		return selectedDomains;
 	}
 
-	public void setSelectedDomains(Set<DomainEntity> selectedDomains) {
+	public void setSelectedDomains(Set<Domain> selectedDomains) {
 		this.selectedDomains = selectedDomains;
 	}
 

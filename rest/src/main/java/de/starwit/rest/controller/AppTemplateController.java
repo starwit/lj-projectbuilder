@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.CodeTemplateEntity;
-import de.starwit.persistence.entity.AppTemplateEntity;
+import de.starwit.persistence.entity.TemplateFile;
+import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
@@ -32,48 +32,48 @@ public class AppTemplateController {
     @Autowired
     private AppTemplateService appTemplateService;
     
-    private GenericController<AppTemplateEntity> genericController;
+    private GenericController<AppTemplate> genericController;
     
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<AppTemplateEntity>();
+		genericController = new GenericController<AppTemplate>();
 		genericController.setService(appTemplateService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<AppTemplateEntity> findAll() {
+	public EntityListResponse<AppTemplate> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<AppTemplateEntity> findById(@PathVariable("id") Long id) {
+	public EntityResponse<AppTemplate> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<AppTemplateEntity> save(@RequestBody AppTemplateEntity entity) {
-		EntityResponse<AppTemplateEntity> response = validateCodeTemplates(entity);
+	public EntityResponse<AppTemplate> save(@RequestBody AppTemplate entity) {
+		EntityResponse<AppTemplate> response = validateTemplateFiles(entity);
 		return response == null ? genericController.createGeneric(entity) : response;
 	}
 
 	@PostMapping
-	public EntityResponse<AppTemplateEntity> update(@RequestBody AppTemplateEntity entity) {
-		EntityResponse<AppTemplateEntity> response = validateCodeTemplates(entity);
+	public EntityResponse<AppTemplate> update(@RequestBody AppTemplate entity) {
+		EntityResponse<AppTemplate> response = validateTemplateFiles(entity);
 		return response == null ? genericController.updateGeneric(entity) : response;
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<AppTemplateEntity> delete(@PathVariable("id") Long id) {
+	public EntityResponse<AppTemplate> delete(@PathVariable("id") Long id) {
 		return genericController.delete(id);
 	}
 
 
-	private EntityResponse<AppTemplateEntity> validateCodeTemplates(AppTemplateEntity entity) {
-		if (entity.getCodeTemplates() != null) {
-			for (CodeTemplateEntity codeTemplate : entity.getCodeTemplates()) {
-				ResponseMetadata responseMetadata = EntityValidator.validate(codeTemplate);	
+	private EntityResponse<AppTemplate> validateTemplateFiles(AppTemplate entity) {
+		if (entity.getTemplateFiles() != null) {
+			for (TemplateFile templateFile : entity.getTemplateFiles()) {
+				ResponseMetadata responseMetadata = EntityValidator.validate(templateFile);	
 				if (responseMetadata.getResponseCode() == ResponseCode.NOT_VALID) {
-					EntityResponse<AppTemplateEntity> response = new EntityResponse<AppTemplateEntity>();
+					EntityResponse<AppTemplate> response = new EntityResponse<AppTemplate>();
 					response.setMetadata(responseMetadata);
 					return response;
 				}

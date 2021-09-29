@@ -11,41 +11,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.CategoryEntity;
+import de.starwit.persistence.entity.Category;
 import de.starwit.persistence.repository.CategoryRepository;
 
 @Service
-public class CategoryService implements ServiceInterface<CategoryEntity> {
+public class CategoryService implements ServiceInterface<Category> {
 
 	final static Logger LOG = LoggerFactory.getLogger(CategoryService.class);
 
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	public CategoryEntity findByName(String name) {
-		CategoryEntity entity = this.categoryRepository.findByName(name);
-		return Mapper.convert(entity, CategoryEntity.class, "templates");
+	public Category findByName(String name) {
+		Category entity = this.categoryRepository.findByName(name);
+		return Mapper.convert(entity, Category.class, "templates");
 	}
 
 	@Override
-	public CategoryEntity findById(Long id) {
-		CategoryEntity entity = this.categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-		return Mapper.convert(entity, CategoryEntity.class, "templates");
+	public Category findById(Long id) {
+		Category entity = this.categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+		return Mapper.convert(entity, Category.class, "templates");
 
 	}
 
 	@Override
-	public List<CategoryEntity> findAll() {
-		List<CategoryEntity> entities = this.categoryRepository.findAll();
-		return Mapper.convertList(entities, CategoryEntity.class, "templates");
+	public List<Category> findAll() {
+		List<Category> entities = this.categoryRepository.findAll();
+		return Mapper.convertList(entities, Category.class, "templates");
 	}
 
 	@Override
-	public CategoryEntity saveOrUpdate(CategoryEntity dto) throws ValidationException  {
-		CategoryEntity entity = this.categoryRepository.findById(dto.getId()).orElseThrow(() -> new EntityNotFoundException(String.valueOf(dto.getId())));
+	public Category saveOrUpdate(Category dto) throws ValidationException  {
+		Category entity = this.categoryRepository.findById(dto.getId()).orElseThrow(() -> new EntityNotFoundException(String.valueOf(dto.getId())));
 		entity.setName(dto.getName());
 		entity = this.categoryRepository.save(entity);
-		return Mapper.convert(entity, CategoryEntity.class, "templates");
+		return Mapper.convert(entity, Category.class, "templates");
 	}
 
 	@Override

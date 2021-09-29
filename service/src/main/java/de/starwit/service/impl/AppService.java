@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.DomainEntity;
+import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
@@ -50,7 +50,7 @@ public class AppService implements ServiceInterface<App> {
 	@Override
 	public App saveOrUpdate(App dto) throws ValidationException {
 		if (dto != null && dto.getId() != null) {
-			final List<DomainEntity> domains = this.AppRepository.findById(dto.getId()).orElse(null)
+			final List<Domain> domains = this.AppRepository.findById(dto.getId()).orElse(null)
 					.getDomains();
 			if (domains != null) {
 				dto.setDomains(domains);
@@ -70,9 +70,9 @@ public class AppService implements ServiceInterface<App> {
 			throw new EntityNotFoundException(id, "App");
 		}
 		
-		List<DomainEntity> domains = entity.getDomains();
-		for (DomainEntity domainEntity : domains) {
-			domainService.delete(domainEntity.getId());
+		List<Domain> domains = entity.getDomains();
+		for (Domain domain : domains) {
+			domainService.delete(domain.getId());
 		}
 		AppRepository.flush();
 		this.AppRepository.deleteById(id);

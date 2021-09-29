@@ -26,8 +26,8 @@ import org.hibernate.validator.constraints.Length;
 @XmlRootElement
 @JsonIgnoreProperties("appTemplate, apps")
 @Entity
-@Table(name = "CODETEMPLATE")
-public class CodeTemplateEntity extends AbstractEntity<Long> {
+@Table(name = "TEMPLATEFILE")
+public class TemplateFile extends AbstractEntity<Long> {
 
 	@Length(max = 100)
 	@NotBlank
@@ -66,17 +66,17 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "CATEGORY_ID")
-	private CategoryEntity category;
+	private Category category;
 
 	@JsonBackReference
 	@ManyToMany
-	@JoinTable(name = "CODETEMPLATE_APP", joinColumns = @JoinColumn(name = "CODETEMPLATE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "APP_ID", referencedColumnName = "ID"))
+	@JoinTable(name = "TEMPLATEFILE_APP", joinColumns = @JoinColumn(name = "TEMPLATEFILE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "APP_ID", referencedColumnName = "ID"))
 	private Set<App> apps;
 
 	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "APPTEMPLATE_ID")
-	private AppTemplateEntity appTemplate;
+	private AppTemplate appTemplate;
 
 	public String getFileNameSuffix() {
 		return fileNameSuffix;
@@ -134,20 +134,20 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 		this.type = type;
 	}
 
-	public CategoryEntity getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryEntity category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
 	
-	public AppTemplateEntity getAppTemplate() {
+	public AppTemplate getAppTemplate() {
 		return appTemplate;
 	}
 
-	public void setAppTemplate(AppTemplateEntity appTemplate) {
+	public void setAppTemplate(AppTemplate appTemplate) {
 		this.appTemplate = appTemplate;
 	}
 
@@ -168,7 +168,7 @@ public class CodeTemplateEntity extends AbstractEntity<Long> {
 		}
 
 		if (upperCaseFirst) {
-			domainname = CodeTemplateEntity.upperCaseFirst(domainname);
+			domainname = TemplateFile.upperCaseFirst(domainname);
 		} else if (lowerCase) {
 			domainname = domainname.toLowerCase();
 		}

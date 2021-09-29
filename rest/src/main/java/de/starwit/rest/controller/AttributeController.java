@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.AttributeEntity;
+import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.service.impl.AttributeService;
@@ -28,36 +28,36 @@ public class AttributeController {
     @Autowired
     private AttributeService attributeService;
     
-	private GenericController<AttributeEntity> genericController;
+	private GenericController<Attribute> genericController;
 
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<AttributeEntity>();
+		genericController = new GenericController<Attribute>();
 		genericController.setService(attributeService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<AttributeEntity> findAll() {
+	public EntityListResponse<Attribute> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<AttributeEntity> findById(@PathVariable("id") Long id) {
+	public EntityResponse<Attribute> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<AttributeEntity> save(@RequestBody AttributeEntity category) {
+	public EntityResponse<Attribute> save(@RequestBody Attribute category) {
 		return genericController.editGeneric(category);
 	}
 
 	@PostMapping
-	public EntityResponse<AttributeEntity> update(@RequestBody AttributeEntity category) {
+	public EntityResponse<Attribute> update(@RequestBody Attribute category) {
 		return genericController.editGeneric(category);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<AttributeEntity> delete(@PathVariable("id") Long id) {
+	public EntityResponse<Attribute> delete(@PathVariable("id") Long id) {
 		return genericController.delete(id);
 	}
 }

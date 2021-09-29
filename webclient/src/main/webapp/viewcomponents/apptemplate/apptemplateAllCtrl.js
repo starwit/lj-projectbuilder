@@ -111,10 +111,10 @@
 			delete toDownload.id;
 			delete toDownload["$$hashKey"];
 
-			toDownload.codeTemplates = toDownload.codeTemplates.map(codeTemplate => {
-				let codeTemplateCopy = Object.assign({}, codeTemplate);
-				delete codeTemplateCopy.id;
-				return codeTemplateCopy;
+			toDownload.templateFiles = toDownload.templateFiles.map(templateFile => {
+				let templateFileCopy = Object.assign({}, templateFile);
+				delete templateFileCopy.id;
+				return templateFileCopy;
 			})
 
 			let fileToSave = new Blob([angular.toJson(toDownload, true)], {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.CategoryEntity;
+import de.starwit.persistence.entity.Category;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.service.impl.CategoryService;
@@ -27,36 +27,36 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-	private GenericController<CategoryEntity> genericController;
+	private GenericController<Category> genericController;
 
 	@PostConstruct
 	public void init() {
-		genericController = new GenericController<CategoryEntity>();
+		genericController = new GenericController<Category>();
 		genericController.setService(categoryService);
 	}
 
 	@GetMapping("/query/all")
-	public EntityListResponse<CategoryEntity> findAll() {
+	public EntityListResponse<Category> findAll() {
 		return genericController.findAll();
 	}
 
 	@GetMapping(value = "/query/{id}")
-	public EntityResponse<CategoryEntity> findById(@PathVariable("id") Long id) {
+	public EntityResponse<Category> findById(@PathVariable("id") Long id) {
 		return genericController.findById(id);
 	}
 
 	@PutMapping
-	public EntityResponse<CategoryEntity> save(@RequestBody CategoryEntity category) {
+	public EntityResponse<Category> save(@RequestBody Category category) {
 		return genericController.editGeneric(category);
 	}
 
 	@PostMapping
-	public EntityResponse<CategoryEntity> update(@RequestBody CategoryEntity category) {
+	public EntityResponse<Category> update(@RequestBody Category category) {
 		return genericController.editGeneric(category);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public EntityResponse<CategoryEntity> delete(@PathVariable("id") Long id) {
+	public EntityResponse<Category> delete(@PathVariable("id") Long id) {
 		return genericController.delete(id);
 	}
 

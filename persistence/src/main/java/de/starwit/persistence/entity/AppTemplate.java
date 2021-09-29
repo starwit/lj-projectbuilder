@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "APPTEMPLATE")
-public class AppTemplateEntity extends AbstractEntity<Long> {
+public class AppTemplate extends AbstractEntity<Long> {
 
 	@NotNull
 	@Size(max = 100)
@@ -48,7 +48,7 @@ public class AppTemplateEntity extends AbstractEntity<Long> {
 
 	@OrderBy("category, fileNameSuffix asc")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
-	private Set<CodeTemplateEntity> codeTemplates;
+	private Set<TemplateFile> templateFiles;
 
     public void setId(Long id) {
         this.id = id;
@@ -102,11 +102,11 @@ public class AppTemplateEntity extends AbstractEntity<Long> {
 		this.credentialsRequired = credentialsRequired;
 	}
 
-	public Set<CodeTemplateEntity> getCodeTemplates() {
-		return codeTemplates;
+	public Set<TemplateFile> getTemplateFiles() {
+		return templateFiles;
 	}
 
-	public void setCodeTemplates(Set<CodeTemplateEntity> codeTemplates) {
-		this.codeTemplates = codeTemplates;
+	public void setTemplateFiles(Set<TemplateFile> templateFiles) {
+		this.templateFiles = templateFiles;
 	}
 }

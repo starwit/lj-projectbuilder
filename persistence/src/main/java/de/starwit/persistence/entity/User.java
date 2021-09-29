@@ -5,19 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
 @Table(name = "ALLOWEDUSER")
-public class UserEntity extends AbstractEntity<Long> {
+public class User extends AbstractEntity<Long> {
 
-    public UserEntity(String username) {
+    public User(String username) {
         this.username = username;
     }
 
-    public UserEntity() {
+    public User() {
     }
 
  	@Column(name = "USERALIAS", nullable = false, unique = true)

@@ -14,8 +14,8 @@
 		ctrl.doGotoAppTemplateAll = doGotoAppTemplateAll;
 		ctrl.closeDialog = closeDialog;
 		ctrl.dialog = dialogService.dialog;
-		ctrl.addCodeTemplate = addCodeTemplate;
-		ctrl.removeCodeTemplate = removeCodeTemplate;
+		ctrl.addTemplateFile = addTemplateFile;
+		ctrl.removeTemplateFile = removeTemplateFile;
 		ctrl.closeDialogWithErrors = dialogService.closeDialogWithErrors;
 		ctrl.resetAndContinue = dialogService.resetAndContinue;
 		ctrl.templateTypes = [	"GLOBAL","DOMAIN","ADDITIONAL_CONTENT"];
@@ -91,12 +91,12 @@
 			ctrl.apptemplatetitle = response.title;
 			if (ctrl.copy == "true") {
 				ctrl.apptemplate.id = null;
-				var codetemplates = [];
-		        angular.forEach(ctrl.apptemplate.codeTemplates, function (value, key) {
+				var templatefiles = [];
+		        angular.forEach(ctrl.apptemplate.templateFiles, function (value, key) {
 		        	value.id = null;
-		        	codetemplates.push(value);
+		        	templatefiles.push(value);
 		        });
-		        ctrl.apptemplate.codeTemplates = codetemplates;
+		        ctrl.apptemplate.templateFiles = templatefiles;
 	        	ctrl.form.$dirty = true;
 			}
 		}
@@ -133,28 +133,28 @@
 		}
 		
 		/**
-		 * Add an codetemplate to a apptemplate.
+		 * Add an templatefile to a apptemplate.
 		 */
-		function addCodeTemplate() {
-			if (ctrl.apptemplate.codeTemplates == undefined) {
-				ctrl.apptemplate.codeTemplates = [];
+		function addTemplateFile() {
+			if (ctrl.apptemplate.templateFiles == undefined) {
+				ctrl.apptemplate.templateFiles = [];
 			}
-			var codetemplate = {};
-			codetemplate.category = ctrl.categoryAll[0];
-			codetemplate.type = ctrl.templateTypes[1];
-			codetemplate.fileNameSuffix = "Entity.java"
-			codetemplate.templatePath = "${apphome}/${app.targetPath}/generator-templates/entity/entity.ftl";
-			codetemplate.targetPath = "${apphome}/${app.targetPath}/${app.title}/persistence/src/main/java/de/${app.packagePrefix?lower_case}/${app.title?lower_case}/entity/";	
-			ctrl.apptemplate.codeTemplates.unshift(codetemplate);
+			var templatefile = {};
+			templatefile.category = ctrl.categoryAll[0];
+			templatefile.type = ctrl.templateTypes[1];
+			templatefile.fileNameSuffix = "Entity.java"
+			templatefile.templatePath = "${apphome}/${app.targetPath}/generator-templates/entity/entity.ftl";
+			templatefile.targetPath = "${apphome}/${app.targetPath}/${app.title}/persistence/src/main/java/de/${app.packagePrefix?lower_case}/${app.title?lower_case}/entity/";	
+			ctrl.apptemplate.templateFiles.unshift(templatefile);
 			ctrl.form.$dirty = true;
 		};
 		
 		/**
-		 * Remove an codetemplate from a apptemplate.
+		 * Remove an templatefile from a apptemplate.
 		 */
-		function removeCodeTemplate($index) {
-			if (ctrl.apptemplate.codeTemplates != undefined && $index > -1) {
-				ctrl.apptemplate.codeTemplates.splice($index, 1);
+		function removeTemplateFile($index) {
+			if (ctrl.apptemplate.templateFiles != undefined && $index > -1) {
+				ctrl.apptemplate.templateFiles.splice($index, 1);
 				ctrl.form.$dirty = true;
 			}
 		};
