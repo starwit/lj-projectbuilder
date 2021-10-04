@@ -9,8 +9,14 @@ class MainTheme {
             contrastText: "#fff"
         },
         background: {
-            default: "#F5F5F5",
-            paper: "#fff"
+            default: "#121212",
+            paper: "#1F1A24"
+        },
+        text: {
+            primary: "#fff",
+            secondary: "rgba(255,255,255,.7)",
+            disabled: "rgba(255,255,255,.5)",
+            icon: "rgba(255,255,255,.5)"
         }
     };
 

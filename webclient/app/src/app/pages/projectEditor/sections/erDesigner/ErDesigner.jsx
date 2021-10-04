@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {
+    Button,
     Card,
     Drawer,
     Fab,
@@ -17,11 +18,13 @@ import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
+import EntityEditor from "./entityEditor/EntityEditor";
 
 
 const exampleData = {
     entities: [
         {
+            id: 1,
             name: "Test",
             attributes: [
                 {
@@ -67,6 +70,8 @@ function ErDesigner() {
 
     const erDesignerStyles = ErDesignerStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [currentEntity, setCurrentEntity] = useState(false);
+
 
     function renderAttributes(entity) {
         return entity.attributes.map((attribute, index) => {
@@ -96,7 +101,7 @@ function ErDesigner() {
                             <Typography variant={"h6"}>{entity.name}</Typography>
                         </Grid>
                         <Grid item sm={2}>
-                            <IconButton><Edit fontSize={"small"}/></IconButton>
+                            <IconButton onClick={() => setCurrentEntity(entity)}><Edit fontSize={"small"}/></IconButton>
                         </Grid>
                         <Grid item sm={2}>
                             <IconButton><Delete fontSize={"small"}/></IconButton>
@@ -123,9 +128,9 @@ function ErDesigner() {
             <Fab color="primary" aria-label="add" style={{position: "absolute", bottom: "5%", right: "2%"}}>
                 <Add/>
             </Fab>
-            <Fab aria-label="add" style={{position: "absolute", top: "15%", left: "2%"}} onClick={openDrawer}>
-                <Code/>
-            </Fab>
+            <Button style={{zIndex: 5}} variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
+                Code
+            </Button>
             <React.Fragment key={"left"}>
                 <Drawer
                     anchor={"left"}
@@ -166,10 +171,9 @@ function ErDesigner() {
                     </div>
                 </Draggable>
             </div>
-
+            <EntityEditor entityId={currentEntity.id} onClose={() => setCurrentEntity(null)}/>
         </>
     )
-
 }
 
 export default ErDesigner;

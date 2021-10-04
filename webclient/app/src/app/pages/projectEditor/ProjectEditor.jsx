@@ -3,6 +3,7 @@ import {Box, Button, Container, Step, StepLabel, Stepper} from "@mui/material";
 import AddCard from "../../commons/addCard/AddCard";
 import TemplateSelection from "./sections/templateSelection/TemplateSelection";
 import ErDesigner from "./sections/erDesigner/ErDesigner";
+import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 
 
 function ProjectEditor() {
@@ -36,9 +37,29 @@ function ProjectEditor() {
         setActiveStep((activeStep + 1))
     }
 
+    function isLastStep(){
+        return activeStep === steps.length - 1;
+    }
+
+    function renderNextButton(){
+        let content = (
+            <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
+                Weiter
+            </Button>
+        )
+        if (isLastStep()){
+            content = (
+                <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<Done/>} >
+                    Abschließen
+                </Button>
+            )
+        }
+        return content;
+    }
+
     return (
         <div style={{paddingTop: "2rem"}}>
-            <Stepper activeStep={activeStep} style={{paddingBottom: "2rem"}}>
+            <Stepper activeStep={activeStep} >
                 {steps.map((step, index) => {
                     const stepProps = {};
                     const labelProps = {};
@@ -49,22 +70,22 @@ function ProjectEditor() {
                     );
                 })}
             </Stepper>
-            {steps[activeStep].component}
-            <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', paddingBottom: "2rem"}}>
                 <Button
                     color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     sx={{mr: 1}}
+                    startIcon={<ChevronLeft/>}
                 >
                     Zurück
                 </Button>
                 <Box sx={{flex: '1 1 auto'}}/>
 
-                <Button onClick={handleNext} disabled={!steps[activeStep].condition}>
-                    {activeStep === steps.length - 1 ? 'Abschließen' : 'Weiter'}
-                </Button>
+                {renderNextButton()}
             </Box>
+            {steps[activeStep].component}
+
         </div>
     )
 
