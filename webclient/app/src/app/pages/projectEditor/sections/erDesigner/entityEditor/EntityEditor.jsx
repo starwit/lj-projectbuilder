@@ -167,6 +167,14 @@ function EntityEditor(props) {
         setEntity(newEntity)
     }
 
+    function renderAccordionTitle(name) {
+        let value = "Neues Feld";
+        if (name) {
+            value = name;
+        }
+        return value;
+    }
+
     function renderFields() {
         return entity.fields.map((field, index) => {
             const {dataType, mandatory, min, max, pattern, description, name} = entity.fields[index];
@@ -177,14 +185,15 @@ function EntityEditor(props) {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography sx={{flexShrink: 0, width: "50%"}}>Feldname</Typography>
+                        <Typography sx={{flexShrink: 0, width: "50%"}}>{renderAccordionTitle(field.name)}</Typography>
                         <Typography
                             sx={{color: 'text.secondary'}}>{/* Add something interesting here */}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={4}>
                             <Grid item sm={6}>
-                                <TextField fullWidth value={name} label={"Name"}/>
+                                <TextField fullWidth value={name} label={"Name"}
+                                           onChange={(event) => editFieldProperty("name", event.target.value, index)}/>
                             </Grid>
                             <Grid item sm={6}>
                                 <FormControl fullWidth>
@@ -244,7 +253,7 @@ function EntityEditor(props) {
                                     control={<Checkbox defaultChecked/>}
                                     label="Pflichtfeld"
                                     value={mandatory}
-                                    onChange={(event) => editFieldProperty("mandatory", event.target.value, index)}
+                                    onChange={(event) => editFieldProperty("mandatory", !mandatory, index)}
                                 />
                             </Grid>
                         </Grid>
@@ -294,7 +303,7 @@ function EntityEditor(props) {
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    <Button onClick={handleSave}>Speichern</Button>
+                    <Button onClick={() => handleSave(entity)}>Speichern</Button>
                 </DialogActions>
             </Container>
         </Dialog>

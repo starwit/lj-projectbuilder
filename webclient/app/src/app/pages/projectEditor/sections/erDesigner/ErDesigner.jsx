@@ -21,38 +21,6 @@ import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
 
 
-const exampleData = {
-    entities: [
-        {
-            id: 1,
-            name: "Test",
-            attributes: [
-                {
-                    name: "field1",
-                    dataType: "string",
-                    regex: "",
-                    min: 0,
-                    max: 20
-                },
-                {
-                    name: "field2",
-                    dataType: "string",
-                    regex: "",
-                    min: 0,
-                    max: 20
-                },
-                {
-                    name: "field3",
-                    dataType: "string",
-                    regex: "",
-                    min: 0,
-                    max: 20
-                },
-            ]
-        }
-    ]
-}
-
 // https://stackoverflow.com/questions/30765163/pretty-printing-json-with-react
 const PrettyPrintJson = React.memo(({data}) => {
     console.log(data)
@@ -71,14 +39,60 @@ function ErDesigner() {
     const erDesignerStyles = ErDesignerStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
+    const [exampleData, setExampleData] = useState({
+        entities: [
+            {
+                id: 1,
+                name: "Test",
+                fields: [
+                    {
+                        name: "field1",
+                        dataType: {
+                            id: 2,
+                            name: "integer",
+                            allowMin: true,
+                            allowMax: true
+                        },
+                        regex: "",
+                        min: 0,
+                        max: 20
+                    },
+                    {
+                        name: "field2",
+                        dataType: {
+                            id: 2,
+                            name: "integer",
+                            allowMin: true,
+                            allowMax: true
+                        },
+                        regex: "",
+                        min: 0,
+                        max: 20
+                    },
+                    {
+                        name: "field3",
+                        dataType: {
+                            id: 2,
+                            name: "integer",
+                            allowMin: true,
+                            allowMax: true
+                        },
+                        regex: "",
+                        min: 0,
+                        max: 20
+                    },
+                ]
+            }
+        ]
+    })
 
 
     function renderAttributes(entity) {
-        return entity.attributes.map((attribute, index) => {
+        return entity.fields.map((field, index) => {
             return (
                 <TableRow key={index}>
-                    <TableCell>{attribute.name}</TableCell>
-                    <TableCell>{attribute.dataType}</TableCell>
+                    <TableCell>{field.name}</TableCell>
+                    <TableCell>{field.dataType.name}</TableCell>
                 </TableRow>
             )
         })
@@ -92,33 +106,65 @@ function ErDesigner() {
         setDrawerOpen(false);
     }
 
+    function deleteEntity(entityId) {
+        const foundEntityIndex = exampleData.entities.findIndex(entity => entity.id === entityId)
+
+        const newExampleData = {...exampleData}
+        if (foundEntityIndex > -1) {
+            newExampleData.entities.splice(foundEntityIndex, 1);
+        }
+        setExampleData(newExampleData);
+    }
+
+    function updateEntity(updatedEntity) {
+        const foundEntityIndex = exampleData.entities.findIndex(entity => entity.id === updatedEntity.id);
+        const newExampleData = {...exampleData};
+
+        if (foundEntityIndex > -1) {
+            console.log("editing existing", updatedEntity)
+            newExampleData.entities[foundEntityIndex] = updatedEntity
+        } else {
+            console.log("creating new one", updatedEntity)
+
+            newExampleData.entities.push(updatedEntity);
+        }
+
+        setExampleData(newExampleData);
+        setCurrentEntity(null)
+
+    }
+
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
-                <Card className={erDesignerStyles.entityCard}>
-                    <Grid container>
-                        <Grid item sm={8}>
-                            <Typography variant={"h6"}>{entity.name}</Typography>
+                <Draggable bounds="parent" axis={"both"}>
+                    <Card className={`${erDesignerStyles.entityCard} handle`}>
+                        <Grid container>
+                            <Grid item sm={8}>
+                                <Typography variant={"h6"}>{entity.name}</Typography>
+                            </Grid>
+                            <Grid item sm={2}>
+                                <IconButton onClick={() => setCurrentEntity(entity)}><Edit
+                                    fontSize={"small"}/></IconButton>
+                            </Grid>
+                            <Grid item sm={2}>
+                                <IconButton onClick={() => deleteEntity(entity.id)}><Delete
+                                    fontSize={"small"}/></IconButton>
+                            </Grid>
                         </Grid>
-                        <Grid item sm={2}>
-                            <IconButton onClick={() => setCurrentEntity(entity)}><Edit fontSize={"small"}/></IconButton>
-                        </Grid>
-                        <Grid item sm={2}>
-                            <IconButton><Delete fontSize={"small"}/></IconButton>
-                        </Grid>
-                    </Grid>
-                    <Table size={"small"}>
-                        <TableHead>
-                            <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Datentyp</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {renderAttributes(entity)}
-                        </TableBody>
-                    </Table>
-                </Card>
+                        <Table size={"small"}>
+                            <TableHead>
+                                <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Datentyp</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {renderAttributes(entity)}
+                            </TableBody>
+                        </Table>
+                    </Card>
+                </Draggable>
             )
         })
     }
@@ -165,13 +211,10 @@ function ErDesigner() {
                 </Drawer>
             </React.Fragment>
             <div style={{height: "70vh"}}>
-                <Draggable bounds="parent" axis={"both"}>
-                    <div style={{width: "20rem"}}>
-                        {renderEntities()}
-                    </div>
-                </Draggable>
+                {renderEntities()}
             </div>
-            <EntityEditor entityId={currentEntity.id} onClose={() => setCurrentEntity(null)}/>
+            <EntityEditor entityId={currentEntity?.id} onClose={() => setCurrentEntity(null)}
+                          handleSave={(data) => updateEntity(data)}/>
         </>
     )
 }
