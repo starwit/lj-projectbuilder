@@ -12,18 +12,18 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.DomainEntity;
-import de.starwit.persistence.entity.ProjectEntity;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.DomainRepository;
-import de.starwit.persistence.repository.ProjectRepository;
+import de.starwit.persistence.repository.AppRepository;
 
 @Service
-public class DomainService implements ServiceInterface<DomainEntity> {
+public class DomainService implements ServiceInterface<Domain> {
 
 	@Autowired
-	private ProjectRepository projectRepository;
+	private AppRepository appRepository;
 
 	@Autowired
 	private DomainRepository domainRepository;
@@ -31,9 +31,9 @@ public class DomainService implements ServiceInterface<DomainEntity> {
 	final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
 	
 
-	public List<DomainEntity> findAllDomainsByProject(Long projectId) {
-		List<DomainEntity> entities = this.domainRepository.findAllDomainsByProject(projectId);
-		return Mapper.convertList(entities, DomainEntity.class, "project");
+	public List<Domain> findAllDomainsByApp(Long appId) {
+		List<Domain> entities = this.domainRepository.findAllDomainsByApp(appId);
+		return Mapper.convertList(entities, Domain.class, "app");
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -42,25 +42,25 @@ public class DomainService implements ServiceInterface<DomainEntity> {
 	}
 
 	@Override
-	public List<DomainEntity> findAll() {
-		List<DomainEntity> entities = this.domainRepository.findAll();
-		return Mapper.convertList(entities, DomainEntity.class, "project");
+	public List<Domain> findAll() {
+		List<Domain> entities = this.domainRepository.findAll();
+		return Mapper.convertList(entities, Domain.class, "app");
 	}
 
 	@Override
-	public DomainEntity findById(Long id) {
-		DomainEntity entity = this.domainRepository.findById(id).orElse(null);
-		return Mapper.convert(entity, DomainEntity.class, "project");
+	public Domain findById(Long id) {
+		Domain entity = this.domainRepository.findById(id).orElse(null);
+		return Mapper.convert(entity, Domain.class, "app");
 	}
 
-	public DomainEntity saveOrUpdateThrowException(DomainEntity dto) throws ValidationException, NotificationException {
-		ProjectEntity project = this.projectRepository.findProjectByIdOrThrowExeption(dto.getProjectId());
+	public Domain saveOrUpdateThrowException(Domain dto) throws ValidationException, NotificationException {
+		App app = this.appRepository.findAppByIdOrThrowExeption(dto.getAppId());
 		
 		if (dto != null) {
-			dto.setProject(project);
+			dto.setApp(app);
 		}
 		dto = this.domainRepository.save(dto);
-		return Mapper.convert(dto, DomainEntity.class, "project");
+		return Mapper.convert(dto, Domain.class, "app");
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class DomainService implements ServiceInterface<DomainEntity> {
 	}
 
 	@Override
-	public DomainEntity saveOrUpdate(DomainEntity dto) throws ValidationException {
+	public Domain saveOrUpdate(Domain dto) throws ValidationException {
 		try {
 			return saveOrUpdateThrowException(dto);
 		} catch (NotificationException e) {

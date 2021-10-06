@@ -1,10 +1,10 @@
-package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.ejb;
+package de.${app.packagePrefix?lower_case}.${app.title?lower_case}.ejb;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
-import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity;
+import de.${app.packagePrefix?lower_case}.${app.title?lower_case}.entity.${domain.name}Entity;
 
 @RunWith(Arquillian.class)
 public class ${domain.name}ServiceTest extends AbstractServiceTest<${domain.name}Service, ${domain.name}Entity> {

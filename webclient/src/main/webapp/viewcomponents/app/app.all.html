@@ -1,0 +1,85 @@
+<div id="headerBox" ng-include="'shared/menus/menu.app.all.html'"></div>
+
+<div id="subheaderBox" class="aCenter">
+	<div class="bottom">
+		<span class="button add"><a ng-click="ctrl.gotoApp.create();">+ App {{ 'button.add' | translate}}</a></span>
+		<div class="clearer"></div>
+	</div>
+</div>
+<div id="bodyBox">
+	<div class="contain">
+		<ul class="itemList">
+			<li class="list" ng-repeat="app in ctrl.appAll"  ng-click="ctrl.showDetails(app.id);" ng-dblclick="ctrl.gotoApp.update(app.id);">
+				<table class="acc" id="{{app.id}}" >
+			    	<colgroup>
+			    		<col class="">
+			    		<col class="">
+			    		<col class="">
+			    	</colgroup>
+					<thead>
+						<tr>
+							<td class="aLeft">
+								<span class="button show"><a ng-click="$event.stopPropagation();ctrl.showDetails(app.id);"><b></b></a></span>
+								<span class="button"><a ng-click="$event.stopPropagation();ctrl.gotoApp.update(app.id);">Bearbeiten</a></span>
+							</td>
+							<td class="aCenter">
+								<h3>{{app.title}}</h3>
+								<span>{{app.description}}</span>
+							</td>
+							<td class="aRight">
+								<span class="button delete"><a ng-click="$event.stopPropagation();ctrl.deleteApp(app.id);">x</a></span>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="listcontent">
+						<tr>
+							<td>
+								<table>
+									<tr>
+										<td colspan="2"><h4>{{'app.template' | translate}}</h4></td>
+									</tr>
+									<tr>
+										<th>{{'apptemplate.title' | translate}}:</th>
+										<td>{{app.template.title}}</td>
+									</tr>
+									<tr>
+										<th>{{'apptemplate.packageprefix' | translate}}:</th>
+										<td>{{app.template.packagePrefix}}</td>
+									</tr>
+									<tr>
+										<th>{{'apptemplate.location' | translate}}:</th>
+										<td>{{app.template.location}}</td>
+									</tr>		
+									<tr>
+										<th>{{'apptemplate.branch' | translate}}:</th>
+										<td>{{app.template.branch}}</td>
+									</tr>																				
+								</table>
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								<table>
+									<tr>
+										<td colspan="2"><h4>{{'app.target' | translate}}</h4></td>
+									</tr>
+									<tr>
+										<th>{{'app.title' | translate}}:</th>
+										<td>{{app.title}}</td>
+									</tr>
+									<tr>
+										<th>{{'app.packageprefix' | translate}}:</th>
+										<td>{{app.packagePrefix}}</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="dialogBox">
+	<div ng-include="'shared/dialogs/dialog.success.html'"></div>
+	<div ng-include="'shared/dialogs/dialog.error.html'"></div>
+</div>

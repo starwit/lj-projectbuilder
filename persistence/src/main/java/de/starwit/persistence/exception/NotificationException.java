@@ -8,7 +8,7 @@ public class NotificationException extends Exception {
 	private ResponseMetadata responseMetadata;
 	
 	public NotificationException(ResponseMetadata responseMetadata) {
-		super("Error during project setup or generation.");
+		super("Error during app setup or generation.");
 		this.responseMetadata = responseMetadata;
 	}
 

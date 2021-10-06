@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.starwit.persistence.repository.DomainRepository;
-import de.starwit.persistence.repository.ProjectRepository;
+import de.starwit.persistence.repository.AppRepository;
 import de.starwit.service.impl.DomainService;
 
 /**
@@ -39,7 +39,7 @@ public class DomainServiceTest {
     private DomainService domainService;
 
     @MockBean
-    private ProjectRepository projectRepository;
+    private AppRepository AppRepository;
 
     @MockBean
     private DomainRepository domainRepository;

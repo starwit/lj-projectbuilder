@@ -15,7 +15,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import de.starwit.persistence.entity.Role;
-import de.starwit.persistence.entity.UserEntity;
+import de.starwit.persistence.entity.User;
 import de.starwit.service.impl.UserService;
 
 public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -34,11 +34,11 @@ public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();     
         String userId = authUser.getAttribute("login");
-        UserEntity localUserData = userService.findByUsername(userId);
+        User localUserData = userService.findByUsername(userId);
         if(localUserData.getRole() == Role.NONE) {
             redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/welcome/");
         } else {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/project-all/");
+            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/app-all/");
         }
       }
 }

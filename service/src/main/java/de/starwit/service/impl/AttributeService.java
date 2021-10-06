@@ -5,27 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.starwit.persistence.entity.AttributeEntity;
+import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.repository.AttributeRepository;
 
 @Service
-public class AttributeService implements ServiceInterface<AttributeEntity> {
+public class AttributeService implements ServiceInterface<Attribute> {
     
     @Autowired
     private AttributeRepository attributeRepository;
 
     @Override
-    public List<AttributeEntity> findAll() {
+    public List<Attribute> findAll() {
         return this.attributeRepository.findAll();
     }
 
     @Override
-    public AttributeEntity findById(Long id) {
+    public Attribute findById(Long id) {
         return this.attributeRepository.findById(id).orElse(null);
     }
 
     @Override
-    public AttributeEntity saveOrUpdate(AttributeEntity entity) {
+    public Attribute saveOrUpdate(Attribute entity) {
         return this.attributeRepository.save(entity);
     }
 

@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 
 import de.starwit.exception.EntityNotFoundException;
 import de.starwit.persistence.entity.Role;
-import de.starwit.persistence.entity.UserEntity;
+import de.starwit.persistence.entity.User;
 import de.starwit.service.impl.UserService;
 
 public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -34,7 +34,7 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     	DefaultOAuth2User user = (DefaultOAuth2User) super.loadUser(userRequest);
         String username = user.getAttribute("login");
 
-        UserEntity userEntity;
+        User userEntity;
         try {
             userEntity = this.userService.findByUsername(username);
             LOGGER.debug("Found authenticated user \"{}\" in local DB.", username);
@@ -52,11 +52,11 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     
     private Role checkIfUserHasRole(OAuth2User user) {
         String userId = user.getAttribute("login");
-        UserEntity localUserData = null;
+        User localUserData = null;
         try {
         	localUserData = userService.findByUsername(userId);
         } catch (EntityNotFoundException ex) {
-        	localUserData = new UserEntity();
+        	localUserData = new User();
             localUserData.setUsername(userId);
             localUserData.setRole(Role.NONE);
         }
@@ -85,8 +85,8 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     }
 
 
-    private UserEntity createUserWithNoneRole(String username) {
-        UserEntity userEntity = new UserEntity();
+    private User createUserWithNoneRole(String username) {
+        User userEntity = new User();
         userEntity.setUsername(username);
         userEntity.setRole(Role.NONE);
         return userService.create(userEntity);

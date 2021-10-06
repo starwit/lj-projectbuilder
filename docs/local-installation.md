@@ -102,7 +102,7 @@ To run projectBuilder via run-configuration directly, add launch configuration (
             "projectName": "application",
             "args": "",
             "env": {
-                "PROJECT_NAME": "FOO_PROJECT",
+                "APP_NAME": "FOO_APP",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID": "edba8e9e17f1c045633e",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET": "<<yourClientSecret>>"
             }            

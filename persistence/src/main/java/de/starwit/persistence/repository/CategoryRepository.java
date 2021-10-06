@@ -3,12 +3,12 @@ package de.starwit.persistence.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.starwit.persistence.entity.CategoryEntity;
+import de.starwit.persistence.entity.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 	
-	CategoryEntity findByName(String name);
+	Category findByName(String name);
 }
 
 
