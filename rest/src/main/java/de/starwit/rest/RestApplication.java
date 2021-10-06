@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Disable default HATEOAS with exclude <code>org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration</code>
  *
  */
-@SpringBootApplication(scanBasePackages = {"de.starwit.rest", "de.starwit.service", "de.starwit.persistence"})//, exclude = RepositoryRestMvcAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = {"de.starwit.rest", "de.starwit.service", "de.starwit.generator.mapper", "de.starwit.persistence"})//, exclude = RepositoryRestMvcAutoConfiguration.class)
 public class RestApplication {
 
     public static void main(String[] args) {
