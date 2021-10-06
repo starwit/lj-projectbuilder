@@ -6,7 +6,6 @@ import AppHeader from "./commons/header/AppHeader";
 import MainContentRouter from "./pages/MainContentRouter";
 import AppStyles from "./AppStyles";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import MainThemeDark from "./assets/themes/MainThemeDark";
 
 
 function App() {
