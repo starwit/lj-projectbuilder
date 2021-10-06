@@ -9,7 +9,7 @@ class MainTheme {
             contrastText: "#fff"
         },
         background: {
-            main: "#bdc1c7",
+            default: "#F5F5F5",
             paper: "#fff"
         }
     };
