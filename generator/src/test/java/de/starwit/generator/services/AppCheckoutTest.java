@@ -1,6 +1,6 @@
  package de.starwit.generator.services;
 
- import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,9 +13,7 @@ import org.slf4j.LoggerFactory;
 import de.starwit.generator.config.Constants;
 import de.starwit.persistence.exception.NotificationException;
 
-
-
- public class AppCheckoutTest {
+public class AppCheckoutTest {
 
  	protected AppCheckout checkout = new AppCheckout();
  	protected StartupShutdownService startup = new StartupShutdownService();

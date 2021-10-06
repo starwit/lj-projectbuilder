@@ -35,7 +35,7 @@ public class AppSetupService implements Serializable {
 	private AppService appService;
 	
 	@Autowired
-	private GeneratorService generatorSerivce;
+	private GeneratorService generatorService;
 	
 	@Autowired
 	private AppCheckout appCheckout;
@@ -74,7 +74,7 @@ public class AppSetupService implements Serializable {
 		appRenamer.renamePackage(app);
 		dto.setApp(app);
 		
-		generatorSerivce.generate(app.getId());
+		generatorService.generate(app.getId());
 		appCheckout.findFilesAndDelete();
 	}
 }

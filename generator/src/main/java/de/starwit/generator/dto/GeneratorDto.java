@@ -3,6 +3,7 @@ package de.starwit.generator.dto;
 import java.util.Set;
 
 import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.AbstractEntity;
 import de.starwit.persistence.entity.App;
 
 /**
@@ -10,7 +11,7 @@ import de.starwit.persistence.entity.App;
  * @author Anett Huebner
  *
  */
-public class GeneratorDto {
+public class GeneratorDto extends AbstractEntity<Long> {
 	
 	private App app;
 
