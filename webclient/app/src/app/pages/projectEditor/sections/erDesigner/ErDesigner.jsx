@@ -214,7 +214,7 @@ function ErDesigner() {
                 {renderEntities()}
             </div>
             <EntityEditor entityId={currentEntity?.id} onClose={() => setCurrentEntity(null)}
-                          handleSave={(data) => updateEntity(data)}/>
+                          handleSave={(data) => updateEntity(data)} entities={exampleData.entities}/>
         </>
     )
 }

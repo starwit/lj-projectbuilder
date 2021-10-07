@@ -19,12 +19,11 @@ function App() {
     return (
         <React.Fragment>
             <ThemeProvider theme={theme}>
-                    <div>
-                        <CssBaseline/>
-                        <AppHeader/>
-
-                        <MainContentRouter/>
-                    </div>
+                <div>
+                    <CssBaseline/>
+                    <AppHeader/>
+                    <MainContentRouter/>
+                </div>
             </ThemeProvider>
         </React.Fragment>
     );

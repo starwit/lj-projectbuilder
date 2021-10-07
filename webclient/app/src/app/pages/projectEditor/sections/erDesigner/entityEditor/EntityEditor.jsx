@@ -14,6 +14,8 @@ import {
 import {Add, Close, ExpandMore} from "@mui/icons-material";
 import LoadingSpinner from "../../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../../../../../commons/fieldAccordion/FieldAccordion";
+import RelationshipAccordion from "../../../../../commons/relationshipAccordion/RelationshipAccordion";
+import PropTypes from "prop-types";
 
 
 function TabPanel(props) {
@@ -49,7 +51,7 @@ function EntityEditor(props) {
     const [entity, setEntity] = React.useState(null);
     const [selectedAttribute, setSelectedAttribute] = React.useState(null);
 
-    const {onSave, entityId, onClose, handleSave} = props;
+    const {onSave, entityId, onClose, handleSave, entities} = props;
 
     useEffect(() => {
 
@@ -125,6 +127,12 @@ function EntityEditor(props) {
         }
     ];
 
+    const relationshipTypes = [
+        "one-to-one",
+        "one-to-many",
+        "many-to-many"
+    ];
+
     function addField() {
 
         let newEntity = {...entity};
@@ -143,6 +151,21 @@ function EntityEditor(props) {
         setEntity(newEntity);
         setSelectedAttribute(entity.fields.length - 1);
 
+    }
+
+    function addRelationship() {
+
+        let newEntity = {...entity};
+        newEntity.relationships.push(
+            {
+                "relationshipType": "",
+                "otherEntityName": "",
+                "otherEntityRelationshipName": "",
+                "relationshipName": ""
+            }
+        )
+        setEntity(newEntity);
+        console.log(newEntity);
     }
 
     const handleChange = (event, newValue) => {
@@ -164,9 +187,26 @@ function EntityEditor(props) {
         setEntity(newEntity)
     }
 
+    function editRelationshipProperty(key, value, index) {
+        const newEntity = {...entity};
+        newEntity.relationships[index][key] = value;
+        setEntity(newEntity)
+    }
+
 
     function renderRelations() {
-
+        return entity.relationships.map((relationship, index) => {
+            const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
+            return <RelationshipAccordion
+                otherEntityRelationshipName={otherEntityRelationshipName}
+                otherEntityName={otherEntityName}
+                relationshipName={relationshipName}
+                entities={entities}
+                editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
+                currentEntity={entity}
+                relationshipTypes={relationshipTypes}
+            />
+        })
     }
 
     function renderFields() {
@@ -225,7 +265,7 @@ function EntityEditor(props) {
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         {renderRelations()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addField}>Hinzufügen</Button>
+                        <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>Hinzufügen</Button>
                     </TabPanel>
                 </Box>
                 <DialogActions>
