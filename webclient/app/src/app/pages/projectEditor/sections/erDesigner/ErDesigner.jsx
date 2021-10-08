@@ -20,20 +20,6 @@ import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
 
-
-// https://stackoverflow.com/questions/30765163/pretty-printing-json-with-react
-const PrettyPrintJson = React.memo(({data}) => {
-    console.log(data)
-    return (
-        <div>
-        <pre>
-            {JSON.stringify(data, null, 2)}
-        </pre>
-        </div>
-    )
-});
-
-
 function ErDesigner() {
 
     const erDesignerStyles = ErDesignerStyles();
@@ -154,7 +140,7 @@ function ErDesigner() {
                         </Grid>
                         <Table size={"small"}>
                             <TableHead>
-                                <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                <TableRow className={erDesignerStyles.tableRow}>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Datentyp</TableCell>
                                 </TableRow>
@@ -171,7 +157,7 @@ function ErDesigner() {
 
     return (
         <>
-            <Fab color="primary" aria-label="add" style={{position: "absolute", bottom: "5%", right: "2%"}}>
+            <Fab color="primary" aria-label="add" className={erDesignerStyles.addFab}>
                 <Add/>
             </Fab>
             <Button style={{zIndex: 5}} variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
@@ -182,14 +168,7 @@ function ErDesigner() {
                     anchor={"left"}
                     open={drawerOpen}
                     onClose={closeDrawer}
-                    sx={{
-                        width: "50vw",
-                        flexShrink: 0,
-                        '& .MuiDrawer-paper': {
-                            width: "50vw",
-                            boxSizing: 'border-box',
-                        },
-                    }}
+                    className={erDesignerStyles.drawer}
                 >
                     <SyntaxHighlighter
                         language="json"
@@ -210,7 +189,7 @@ function ErDesigner() {
                     </SyntaxHighlighter>
                 </Drawer>
             </React.Fragment>
-            <div style={{height: "70vh"}}>
+            <div className={erDesignerStyles.draggableWrapper}>
                 {renderEntities()}
             </div>
             <EntityEditor entityId={currentEntity?.id} onClose={() => setCurrentEntity(null)}

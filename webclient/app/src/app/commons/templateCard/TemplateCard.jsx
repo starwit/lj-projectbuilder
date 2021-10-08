@@ -1,9 +1,11 @@
 import React from "react";
 import {Alert, Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import TemplateCardStyles from "./TemplateCardStyles";
 
 
 function TemplateCard(props) {
     const {template, selected, onSelection} = props;
+    const templateCardStyles = TemplateCardStyles();
 
     function renderSelectedAlert(){
         if (selected) {
@@ -20,7 +22,7 @@ function TemplateCard(props) {
                 height="150rem"
                 image={template.image}
                 alt="green iguana"
-                style={{backgroundColor: "#000"}}
+                className={templateCardStyles.cardMedia}
             />
             {renderSelectedAlert()}
             <CardContent>
@@ -31,7 +33,7 @@ function TemplateCard(props) {
                     {template.description}
                 </Typography>
             </CardContent>
-            <CardActions style={{justifyContent: "flex-end"}}>
+            <CardActions className={templateCardStyles.actionsWrapper}>
                 <Button size="small" disabled={selected} onClick={() => onSelection(template)}>Auswählen</Button>
             </CardActions>
         </Card>

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {Box, Button, Container, Step, StepLabel, Stepper} from "@mui/material";
+import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import AddCard from "../../commons/addCard/AddCard";
 import TemplateSelection from "./sections/templateSelection/TemplateSelection";
 import ErDesigner from "./sections/erDesigner/ErDesigner";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
+import ProjectEditorStyles from "./ProjectEditorStyles";
 
 
 function ProjectEditor() {
@@ -11,6 +12,7 @@ function ProjectEditor() {
 
     const [activeStep, setActiveStep] = useState(1);
     const [selectedTemplate, setSelectedTemplate] = useState(null)
+    const projectEditorStyles = ProjectEditorStyles()
 
     const steps = [
         {
@@ -21,7 +23,7 @@ function ProjectEditor() {
         {
             label: "ER-Designer",
             component: <ErDesigner/>
-        },,
+        },
         {
             label: "Abschließen",
             component: <AddCard/>
@@ -29,6 +31,7 @@ function ProjectEditor() {
     ];
 
     console.log(selectedTemplate)
+
     function handleBack() {
         setActiveStep((activeStep - 1))
     }
@@ -37,19 +40,19 @@ function ProjectEditor() {
         setActiveStep((activeStep + 1))
     }
 
-    function isLastStep(){
+    function isLastStep() {
         return activeStep === steps.length - 1;
     }
 
-    function renderNextButton(){
+    function renderNextButton() {
         let content = (
             <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
                 Weiter
             </Button>
         )
-        if (isLastStep()){
+        if (isLastStep()) {
             content = (
-                <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<Done/>} >
+                <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
                     Abschließen
                 </Button>
             )
@@ -58,8 +61,8 @@ function ProjectEditor() {
     }
 
     return (
-        <div style={{paddingTop: "2rem"}}>
-            <Stepper activeStep={activeStep} >
+        <div className={projectEditorStyles.root}>
+            <Stepper activeStep={activeStep}>
                 {steps.map((step, index) => {
                     const stepProps = {};
                     const labelProps = {};
@@ -70,17 +73,17 @@ function ProjectEditor() {
                     );
                 })}
             </Stepper>
-            <Box sx={{display: 'flex', flexDirection: 'row', paddingBottom: "2rem"}}>
+            <Box className={projectEditorStyles.navigationButtonsArray}>
                 <Button
                     color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    sx={{mr: 1}}
+                    className={projectEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
                 >
                     Zurück
                 </Button>
-                <Box sx={{flex: '1 1 auto'}}/>
+                <Box className={projectEditorStyles.navigationButtonNext}/>
 
                 {renderNextButton()}
             </Box>

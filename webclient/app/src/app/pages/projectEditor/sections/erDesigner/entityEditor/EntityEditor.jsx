@@ -1,57 +1,30 @@
 import React, {useEffect} from "react";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box, Button, Checkbox, Container,
-    Dialog, DialogActions,
-    DialogTitle, Divider, FormControl, FormControlLabel, Grid,
-    IconButton, InputLabel, MenuItem, Select,
+    Box,
+    Button,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    IconButton,
     Tab,
-    Tabs, TextField,
-    Typography
+    Tabs,
+    TextField
 } from "@mui/material";
-import {Add, Close, ExpandMore} from "@mui/icons-material";
+import {Add, Close} from "@mui/icons-material";
 import LoadingSpinner from "../../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../../../../../commons/fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../../../../../commons/relationshipAccordion/RelationshipAccordion";
-import PropTypes from "prop-types";
-
-
-function TabPanel(props) {
-    const {children, value, index, ...other} = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{p: 3}}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
+import EntityEditorStyles from "./EntityEditorStyles";
+import TabPanel from "../../../../../commons/tabPanel/TabPanel";
 
 function EntityEditor(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
-    const [selectedAttribute, setSelectedAttribute] = React.useState(null);
+    const entityEditorStyles = EntityEditorStyles();
 
-    const {onSave, entityId, onClose, handleSave, entities} = props;
+    const {entityId, onClose, handleSave, entities} = props;
 
     useEffect(() => {
 
@@ -133,6 +106,13 @@ function EntityEditor(props) {
         "many-to-many"
     ];
 
+    function a11yProps(index) {
+        return {
+            id: `simple-tab-${index}`,
+            'aria-controls': `simple-tabpanel-${index}`,
+        };
+    }
+
     function addField() {
 
         let newEntity = {...entity};
@@ -149,8 +129,6 @@ function EntityEditor(props) {
             }
         );
         setEntity(newEntity);
-        setSelectedAttribute(entity.fields.length - 1);
-
     }
 
     function addRelationship() {
@@ -165,7 +143,6 @@ function EntityEditor(props) {
             }
         )
         setEntity(newEntity);
-        console.log(newEntity);
     }
 
     const handleChange = (event, newValue) => {
@@ -197,15 +174,17 @@ function EntityEditor(props) {
     function renderRelations() {
         return entity.relationships.map((relationship, index) => {
             const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
-            return <RelationshipAccordion
-                otherEntityRelationshipName={otherEntityRelationshipName}
-                otherEntityName={otherEntityName}
-                relationshipName={relationshipName}
-                entities={entities}
-                editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
-                currentEntity={entity}
-                relationshipTypes={relationshipTypes}
-            />
+            return (
+                <RelationshipAccordion
+                    otherEntityRelationshipName={otherEntityRelationshipName}
+                    otherEntityName={otherEntityName}
+                    relationshipName={relationshipName}
+                    entities={entities}
+                    editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
+                    currentEntity={entity}
+                    relationshipTypes={relationshipTypes}
+                />
+            )
         })
     }
 
@@ -240,25 +219,18 @@ function EntityEditor(props) {
                 <IconButton
                     aria-label="close"
                     onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
+                    className={entityEditorStyles.dialogCloseButton}
                 >
                     <Close/>
                 </IconButton>
             </DialogTitle>
             <Container>
                 <TextField fullWidth label={"Name"} value={entity.name} onChange={handleEntityTitleText}/>
-                <Box sx={{width: '100%'}}>
-                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab label="Felder" {...a11yProps(0)} />
-                            <Tab label="Relationen" {...a11yProps(1)} />
-                        </Tabs>
-                    </Box>
+                <Box className={entityEditorStyles.tabBox}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab label="Felder" {...a11yProps(0)} />
+                        <Tab label="Relationen" {...a11yProps(1)} />
+                    </Tabs>
                     <TabPanel value={value} index={0}>
                         {renderFields()}
                         <Button fullWidth startIcon={<Add/>} onClick={addField}>Hinzufügen</Button>

@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
+import FieldAccordionStyles from "./FieldAccordionStyles";
 
 
 function FieldAccordion(props) {
 
     const {dataType, mandatory, min, max, pattern, description, name, editFieldProperty, dataTypes} = props;
+    const fieldAccordionStyles = FieldAccordionStyles();
 
     function renderAccordionTitle(name) {
         let value = "Neues Feld";
@@ -32,9 +34,9 @@ function FieldAccordion(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography sx={{flexShrink: 0, width: "50%"}}>{renderAccordionTitle(name)}</Typography>
+                <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
                 <Typography
-                    sx={{color: 'text.secondary'}}>{/* Add something interesting here */}</Typography>
+                    className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <Grid container spacing={4}>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Container, Grid} from "@mui/material";
 import TemplateCard from "../../../../commons/templateCard/TemplateCard";
 import Image from "../../../../assets/images/logo.png"
@@ -24,7 +24,6 @@ function TemplateSelection(props) {
     ]
 
     function handleSelection(template) {
-        console.log("template", template)
         onChange(template)
     }
 

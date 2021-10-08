@@ -2,15 +2,17 @@ import React from "react";
 import {
     Accordion,
     AccordionDetails,
-    AccordionSummary, Checkbox, Divider,
-    FormControl, FormControlLabel,
+    AccordionSummary,
+    FormControl,
     Grid,
-    InputLabel, MenuItem, Select,
-    TextField,
+    InputLabel,
+    MenuItem,
+    Select,
     Typography
 } from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
+import RelationshipAccordionStyles from "./RelationshipAccordionStyles";
 
 
 function RelationshipAccordion(props) {
@@ -25,6 +27,8 @@ function RelationshipAccordion(props) {
         relationshipType,
         relationshipTypes
     } = props;
+    const relationshipAccordionStyles = RelationshipAccordionStyles();
+
 
     function renderAccordionTitle() {
         let value = "Neue Relation";
@@ -46,7 +50,6 @@ function RelationshipAccordion(props) {
         if (foundSelectedEntity) {
             value = foundSelectedEntity.fields.map(field => field);
         }
-        console.log("entitiesField",value)
         return value;
     }
 
@@ -57,9 +60,9 @@ function RelationshipAccordion(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography sx={{flexShrink: 0, width: "50%"}}>{renderAccordionTitle()}</Typography>
+                <Typography className={relationshipAccordionStyles.title}>{renderAccordionTitle()}</Typography>
                 <Typography
-                    sx={{color: 'text.secondary'}}>{/* Add something interesting here */}</Typography>
+                    className={relationshipAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <Grid container spacing={4}>
@@ -79,7 +82,7 @@ function RelationshipAccordion(props) {
                             </Select>
                         </FormControl>
                     </Grid>
-                        <Grid item sm={6}>
+                    <Grid item sm={6}>
                         <Typography variant={"h6"} gutterBottom>Quelle</Typography>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Quellfeld</InputLabel>
@@ -98,7 +101,7 @@ function RelationshipAccordion(props) {
                     </Grid>
                     <Grid item sm={6}>
                         <Typography variant={"h6"} gutterBottom>Ziel</Typography>
-                        <FormControl fullWidth style={{paddingBottom: "2rem"}}>
+                        <FormControl fullWidth className={relationshipAccordionStyles.spacerBottom}>
                             <InputLabel id="demo-simple-select-label">Ziel Entität</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"

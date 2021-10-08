@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {CircularProgress, Fade, Typography} from "@mui/material";
 import PropTypes from "prop-types";
+import LoadingSpinnerStyles from "./LoadingSpinnerStyles";
 
 function LoadingSpinner(props) {
     const {message} = props;
     const [showMessage, setShowMessage] = useState(false);
+    const loadingSpinnerStyles = LoadingSpinnerStyles();
 
     useEffect(() => {
         setTimeout(function () {
@@ -13,11 +15,11 @@ function LoadingSpinner(props) {
     })
 
     return (
-        <div style={{height: "100%", display: "flex", justifyContent: "center", alignContent: "center"}}>
-            <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                <CircularProgress color={"secondary"} style={{marginBottom: "2rem"}}/>
+        <div className={loadingSpinnerStyles.root}>
+            <div className={loadingSpinnerStyles.contentWrapper}>
+                <CircularProgress color={"secondary"} className={loadingSpinnerStyles.loadingSpinner}/>
                 <Fade in={showMessage}>
-                    <Typography variant={"body1"} color={"text.secondary"}>{message}</Typography>
+                    <Typography variant={"body1"} className={loadingSpinnerStyles.message}>{message}</Typography>
                 </Fade>
             </div>
         </div>
