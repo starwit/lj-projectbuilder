@@ -1,0 +1,18 @@
+
+{
+    "baseName": "string",
+    "entities": [
+    {
+        "fields": [
+        {
+            "fieldName": "string",
+            "id": 0
+        }
+        ],
+        "id": 0,
+        "name": "string"
+    }
+    ],
+    "id": 0,
+    "packageName": "string"
+}

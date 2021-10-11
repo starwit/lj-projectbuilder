@@ -5,8 +5,12 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +29,6 @@ import de.starwit.generator.dto.ApplicationDto;
 import de.starwit.generator.mapper.ApplicationMapper;
 import de.starwit.generator.mapper.EntityMapper;
 import de.starwit.generator.mapper.FieldMapper;
-import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 
 @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
@@ -42,47 +45,76 @@ public class ApplicationControllerTest {
     ObjectMapper mapper;
 
     @MockBean
-	private AppService appService;
+    private AppService appService;
 
     private JacksonTester<ApplicationDto> jsonApplicationDto;
-    
-    public App createApp() {
-        App app = new App();
-        app.setId(2L);
-        app.setTitle("testAppTitle");
-        app.setPackagePrefix("testpackage");
-        return app;
-    }
 
-    public ApplicationDto createApplicationDto() {
-        ApplicationDto dto = new ApplicationDto();
-        dto.setId(2L);
-        dto.setBaseName("testAppTitle");
-        dto.setPackageName("testpackage");
-        return dto;
+    @Autowired
+    private ApplicationMapper applicationMapper;
+
+    private ApplicationDto dtosimple;
+
+    private ApplicationDto dtoadvanced;
+
+    @BeforeEach
+    public void setup() {
+        // create Object Mapper
+        ObjectMapper mapper = new ObjectMapper();
+        JacksonTester.initFields(this, new ObjectMapper());
+
+        // read JSON file and map/convert to java POJO
+        try {
+            URL res = getClass().getClassLoader().getResource("appsimple.json");
+            File file = new File(res.getFile());
+            dtosimple = mapper.readValue(file, ApplicationDto.class);
+
+            res = getClass().getClassLoader().getResource("app.json");
+            file = new File(res.getFile());
+            dtoadvanced = mapper.readValue(file, ApplicationDto.class);
+        } catch (IOException e) {
+            LOG.error("JSON mapper failed", e);
+        }
     }
 
     @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
     @Test
-    public void canRetrieveByIdWhenExists() throws Exception {
-        JacksonTester.initFields(this, new ObjectMapper());
-
+    public void canRetrieveByIdSimple() throws Exception {
         // given
-       when(appService.findById(2L)).thenReturn(createApp());
-
+        when(appService.findById(0L)).thenReturn(applicationMapper.convertToEntity(dtosimple));
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                get("/api/application/2")
-                .contentType(MediaType.APPLICATION_JSON))
+        get("/api/application/0")
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andReturn().getResponse();
 
-        // then
+            LOG.info(response.getContentAsString());
+
+        //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        LOG.info(response.getContentAsString());
-        assertThat(response.getContentAsString()).isEqualTo(
-        jsonApplicationDto.write(createApplicationDto()).getJson()
-        );
+        assertThat(response.getContentAsString())
+            .isEqualTo(jsonApplicationDto.write(dtosimple).getJson());
+    }
+
+    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    @Test
+    public void canRetrieveByIdAdvanced() throws Exception {
+        // given
+        when(appService.findById(0L)).thenReturn(applicationMapper.convertToEntity(dtoadvanced));
+
+        // when
+        MockHttpServletResponse response = mvc.perform(
+        get("/api/application/0")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn().getResponse();
+
+            LOG.info(response.getContentAsString());
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString())
+            .isEqualTo(jsonApplicationDto.write(dtoadvanced).getJson());
     }
 }
