@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.starwit.generator.dto.ApplicationDto;
-import de.starwit.generator.dto.EntityDto;
-import de.starwit.generator.dto.FieldDto;
 import de.starwit.generator.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
-import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.service.impl.AppService;
 
 @RestController
@@ -35,32 +32,28 @@ public class ApplicationController {
 	@Autowired
 	private ApplicationMapper appMapper;
 
-    @GetMapping("/query/all")
+    @GetMapping
 	public List<ApplicationDto> findAll() {
 		return null;
 	}
 
-	@GetMapping(value = "/query/{id}")
-	public ApplicationDto findById(@PathVariable("id") Long id) throws Exception {
-		return appMapper.convertDb(appService.findById(id));
+	@GetMapping(value = "/{id}")
+	public ApplicationDto findById(@PathVariable("id") Long id) {
+		App entity = appService.findById(id);
+		ApplicationDto dto = appMapper.convertToDto(entity);
+		return dto;
 	}
 
 	@PutMapping
-	public ApplicationDto save(@RequestBody ApplicationDto dto) throws Exception {
+	public ApplicationDto save(@RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
 	@PostMapping
-	public ApplicationDto update(@RequestBody ApplicationDto dto) throws Exception {
-		App app = appMapper.convertFrontend(dto);
+	public ApplicationDto update(@RequestBody ApplicationDto dto) {
+		App app = appMapper.convertToEntity(dto);
 		app = appService.saveOrUpdate(app);
-
-		//update entities
-			//check if id exists if yes -> update, if no -> create
-			//update fields
-		//update relations
-		//update template id
-		return appMapper.convertDb(app);
+		return appMapper.convertToDto(app);
 	}
 
 	@DeleteMapping(value = "/{id}")

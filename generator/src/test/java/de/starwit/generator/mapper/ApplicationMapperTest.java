@@ -2,6 +2,11 @@ package de.starwit.generator.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,7 +17,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.starwit.generator.dto.ApplicationDto;
+import de.starwit.generator.dto.EntityDto;
+import de.starwit.generator.dto.FieldDto;
 import de.starwit.persistence.entity.App;
+import de.starwit.persistence.entity.Attribute;
+import de.starwit.persistence.entity.DataType;
+import de.starwit.persistence.entity.Domain;
 
 @RunWith(SpringRunner.class)
 public class ApplicationMapperTest {
@@ -27,37 +37,83 @@ public class ApplicationMapperTest {
      * </pre>
      */
     @TestConfiguration
-    static class ApplicationMapperTestConfiguration {
+     static class ApplicationMapperTestConfiguration {
 
         @Bean
         public ApplicationMapper createApplicationMapper() {
-            ApplicationMapper appMapper = new ApplicationMapper();
-            return appMapper;
+            ApplicationMapper applicationMapper = new ApplicationMapper();
+            return applicationMapper;
+        }
+
+        @Bean
+        public EntityMapper createEntityMapper() {
+            EntityMapper entityMapper = new EntityMapper();
+            return entityMapper;
+        }
+
+        @Bean
+        public FieldMapper createFieldMapper() {
+            FieldMapper fieldMapper = new FieldMapper();
+            return fieldMapper;
         }
     }
+
+    private App app;
+    private ApplicationDto dto;
 
     @Autowired
     private ApplicationMapper applicationMapper;
 
-    @Test
-   public void mapAppTest() throws Exception {
-        App app = new App();
+    @Before
+    public void createApp() {
+        app = new App();
         app.setTitle("testAppTitle");
         app.setPackagePrefix("testpackage");
+        
+        Domain domain = new Domain();
+        domain.setName("testdomain");
+        Attribute attr = new Attribute();
+        attr.setName("testattribute");
+        attr.setDataType(DataType.String);
+        Set<Attribute> attributes = new HashSet<Attribute>();
+        attributes.add(attr);
+        domain.setAttributes(attributes);
+        app.setDomains(new ArrayList<Domain>());
+        app.getDomains().add(domain);
+    }
 
-        ApplicationDto dto = applicationMapper.convertDb(app);
+    @Before
+    public void createApplicationDto() {
+        dto = new ApplicationDto();
+        dto.setBaseName("testAppTitle");
+        dto.setPackageName("testpackage");
+        EntityDto entity = new EntityDto();
+        entity.setName("testentity");
+        FieldDto field = new FieldDto();
+        field.setFieldName("testfield");
+        entity.setFields(new ArrayList<>());
+        entity.getFields().add(field);
+        dto.setEntities(new ArrayList<>());
+        dto.getEntities().add(entity);
+    }
+
+    @Test
+    public void convertToAppTest() throws Exception {
+        ApplicationDto dto = applicationMapper.convertToDto(app);
         assertEquals( "testAppTitle", dto.getBaseName());
         assertEquals("testpackage", dto.getPackageName());
+        assertEquals("testdomain", dto.getEntities().get(0).getName());
+        assertEquals("testattribute", dto.getEntities().get(0).getFields().get(0).getFieldName());
       }
     
     @Test
-    public void mapApplicationDtoTest() throws Exception {
-        ApplicationDto dto = new ApplicationDto();
-        dto.setBaseName("testAppTitle");
-        dto.setPackageName("testpackage");
-        App app = applicationMapper.convertFrontend(dto);
+    public void convertToDtoTest() throws Exception {
+        App app = applicationMapper.convertToEntity(dto);
         assertEquals( "testAppTitle", app.getTitle());
         assertEquals("testpackage", app.getPackagePrefix());
+        assertEquals("testentity", app.getDomains().get(0).getName());
+        assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().toArray()[0]).getName());
+
     }
     
     

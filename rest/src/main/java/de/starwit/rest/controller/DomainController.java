@@ -89,13 +89,8 @@ public class DomainController {
 	@GetMapping(value = "/query/domainsbyapp/{appId}")
 	public EntityListResponse<Domain> findAllDomainsByApp(@PathVariable("appId") Long appId) {
 		App app;
-		try {
-			app = appService.findAppByIdOrThrowExeption(appId);
-		} catch (NotificationException nex) {
-           EntityListResponse<Domain> response = new EntityListResponse<Domain>(null);
-           response.setMetadata(nex.getResponseMetadata());
-           return response;
-		}
+		app = appService.findById(appId);
+
 		if (app == null) {
 			EntityListResponse<Domain> response = new EntityListResponse<Domain>(null);
 			ResponseMetadata responseMetadata = new ResponseMetadata(ResponseCode.NOT_FOUND, "responsecode.notfound");
@@ -116,7 +111,7 @@ public class DomainController {
 	}
 	
 	private EntityResponse<Domain> validateAttibutes(Domain entity) throws NotificationException {
-		App app = appService.findAppByIdOrThrowExeption(entity.getAppId());
+		App app = appService.findById(entity.getAppId());
 		entity.setApp(app);
 		EntityResponse<Domain> response = new EntityResponse<Domain>();
 		

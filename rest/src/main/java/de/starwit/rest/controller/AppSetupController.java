@@ -53,40 +53,4 @@ import de.starwit.persistence.response.ResponseMetadata;
          return response;
        }
      }
-
-//     @PostMapping(vlue = "/currentrepos")
-//     public Response<List<RepoData>> listCurrentRepos(RepoServerData data) {
-//       Response<List<RepoData>> response = new Response<>();
-//      
-//       if("".equals(data.getAppName())) {
-//         data.setAppName(null);
-//       }
-//          
-//       targetRepoService.setRepoServerData(data);
-//       List<RepoData> repoData = targetRepoService.listRepos();
-//       if (repoData == null) {
-//         response.setMetadata(new ResponseMetadata(ResponseCode.ERROR, "generator.target.test.error"));
-//       } else {
-//         response.setMetadata(new ResponseMetadata(ResponseCode.OK, "generator.target.test.success"));
-//         response.setResult(repoData);
-//       }
-//      
-//       return response;
-//     }
-
-//     @PostMapping(value = "/createtargetrepo")
-//     public Response<Boolean> createTargetRepo(RepoServerData data) {
-//       boolean result = false;
-//       targetRepoService.setRepoServerData(data);
-//       result = targetRepoService.createTargetRepo();
-//       Response<Boolean> response = new Response<>(result);
-//       if(result) {
-//         response.setMetadata(new ResponseMetadata(ResponseCode.OK, "generator.target.create.success"));
-//       } else {
-//         response.setMetadata(new ResponseMetadata(ResponseCode.ERROR, "generator.target.create.error"));
-//       }
-//      
-//       return response;
-//     }
-
  }

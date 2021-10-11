@@ -2,7 +2,6 @@ package de.starwit.persistence.entity;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -102,13 +101,8 @@ public class App extends AbstractEntity<Long> {
 		this.domains = domains;
 	}
 
-	public Set<Domain> getSelectedDomains() {
-		if (selectedDomains == null && getDomains() != null) {
-			selectedDomains = getDomains().stream() // convert list to stream
-					.filter(domain -> domain.isSelected()) // we only want selected domains
-					.collect(Collectors.toSet());
-		}
-		return selectedDomains;
+	public List<Domain> getSelectedDomains() {
+		return getDomains();
 	}
 
 }

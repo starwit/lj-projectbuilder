@@ -56,16 +56,12 @@ public class AppSetupService implements Serializable {
 	 */
 	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
-		App app = appService.findAppByIdOrThrowExeption(dto.getApp().getId());
+		App app = appService.findById(dto.getApp().getId());
 		//String destDirString = app.getTargetPath();
 		//appCheckout.deleteTempApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newAppFolder = appCheckout.createTempAppDirectory(app);
 		app.setTargetPath(newAppFolder);
 		app = appService.saveOrUpdate(app);
-		Set<Domain> selectedDomains = dto.getSelectedDomains();
-		for (Domain domain : selectedDomains) {
-			domainService.setDomainSelected(domain.getId(), domain.isSelected());
-		}
 
 		GeneratorDto checkoutDto = dto;
 		checkoutDto.setApp(app);
