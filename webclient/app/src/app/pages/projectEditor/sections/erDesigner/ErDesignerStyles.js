@@ -24,6 +24,9 @@ const ErDesignerStyles = makeStyles(theme => ({
     },
     tableRow: {
         '&:last-child td, &:last-child th': {border: 0}
+    },
+    statementWrapper: {
+        height: "10rem"
     }
 }))
 export default ErDesignerStyles;

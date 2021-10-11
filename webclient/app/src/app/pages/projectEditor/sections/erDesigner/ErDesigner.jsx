@@ -19,6 +19,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
+import Statement from "../../../../commons/statement/Statement";
 
 function ErDesigner() {
 
@@ -67,6 +68,26 @@ function ErDesigner() {
                         min: 0,
                         max: 20
                     },
+                ],
+                relationships: [
+                    {
+                        "relationshipType": "many-to-one",
+                        "otherEntityName": "a",
+                        "otherEntityRelationshipName": "b",
+                        "relationshipName": "a"
+                    }
+                ]
+            },
+            {
+                id: 1,
+                name: "Test",
+                relationships: [
+                    {
+                        "relationshipType": "many-to-one",
+                        "otherEntityName": "a",
+                        "otherEntityRelationshipName": "b",
+                        "relationshipName": "a"
+                    }
                 ]
             }
         ]
@@ -74,14 +95,39 @@ function ErDesigner() {
 
 
     function renderAttributes(entity) {
+
         return entity.fields.map((field, index) => {
             return (
                 <TableRow key={index}>
                     <TableCell>{field.name}</TableCell>
                     <TableCell>{field.dataType.name}</TableCell>
+                    <TableCell id={"anchor_" + entity.name + "_" + field.name}/>
                 </TableRow>
             )
         })
+    }
+
+    function renderFieldsTable(entity) {
+        if (!entity.fields) {
+            return (
+                <div className={erDesignerStyles.statementWrapper}>
+                    <Statement message={"Keine Felder angelegt"}/>
+                </div>
+            )
+        }
+        return (
+            <Table size={"small"}>
+                <TableHead>
+                    <TableRow className={erDesignerStyles.tableRow}>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Datentyp</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {renderAttributes(entity)}
+                </TableBody>
+            </Table>
+        )
     }
 
     function openDrawer() {
@@ -120,6 +166,16 @@ function ErDesigner() {
 
     }
 
+    function renderRelations() {
+        const relationships = exampleData.entities.map(entity => {
+            if (entity.relationships) {
+                return entity?.relationships.map(relationship => relationship)
+            }
+        })
+        console.log(relationships);
+
+    }
+
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
@@ -138,17 +194,7 @@ function ErDesigner() {
                                     fontSize={"small"}/></IconButton>
                             </Grid>
                         </Grid>
-                        <Table size={"small"}>
-                            <TableHead>
-                                <TableRow className={erDesignerStyles.tableRow}>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Datentyp</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {renderAttributes(entity)}
-                            </TableBody>
-                        </Table>
+                        {renderFieldsTable(entity)}
                     </Card>
                 </Draggable>
             )
@@ -191,6 +237,7 @@ function ErDesigner() {
             </React.Fragment>
             <div className={erDesignerStyles.draggableWrapper}>
                 {renderEntities()}
+                {renderRelations()}
             </div>
             <EntityEditor entityId={currentEntity?.id} onClose={() => setCurrentEntity(null)}
                           handleSave={(data) => updateEntity(data)} entities={exampleData.entities}/>

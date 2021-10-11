@@ -84,7 +84,6 @@ function ProjectEditor() {
                     Zurück
                 </Button>
                 <Box className={projectEditorStyles.navigationButtonNext}/>
-
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}

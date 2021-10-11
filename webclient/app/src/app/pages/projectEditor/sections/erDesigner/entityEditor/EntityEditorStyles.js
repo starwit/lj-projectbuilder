@@ -5,11 +5,13 @@ const EntityEditorStyles = makeStyles(theme => ({
         borderBottom: 1,
         borderColor: 'divider'
     },
-    dialogCloseButton: {
-        position: 'absolute',
-        right: 8,
-        top: 8,
-        color: theme.palette.grey[500],
+    dialogHeaderBar: {
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "space-between"
+    },
+    statementWrapper: {
+        height: "30rem"
     }
 }))
 export default EntityEditorStyles;

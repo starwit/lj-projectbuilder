@@ -9,14 +9,16 @@ import {
     IconButton,
     Tab,
     Tabs,
-    TextField
+    TextField,
+    Typography
 } from "@mui/material";
-import {Add, Close} from "@mui/icons-material";
+import {Add, Close, Help} from "@mui/icons-material";
 import LoadingSpinner from "../../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../../../../../commons/fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../../../../../commons/relationshipAccordion/RelationshipAccordion";
 import EntityEditorStyles from "./EntityEditorStyles";
 import TabPanel from "../../../../../commons/tabPanel/TabPanel";
+import Statement from "../../../../../commons/statement/Statement";
 
 function EntityEditor(props) {
 
@@ -28,34 +30,7 @@ function EntityEditor(props) {
 
     useEffect(() => {
 
-        setEntity({
-            "name": "B",
-            description: "",
-            "fields": [
-                {
-                    name: "",
-                    dataType: {
-                        id: 2,
-                        name: "integer",
-                        allowMin: true,
-                        allowMax: true
-                    },
-                    description: "",
-                    pattern: "",
-                    min: "",
-                    max: "",
-                    mandatory: false
-                }
-            ],
-            "relationships": [
-                {
-                    "relationshipType": "many-to-one",
-                    "otherEntityName": "a",
-                    "otherEntityRelationshipName": "b",
-                    "relationshipName": "a"
-                }
-            ]
-        },)
+        setEntity({...entities.find(entity => entity.id === entityId)})
 
     }, [entityId])
 
@@ -172,6 +147,9 @@ function EntityEditor(props) {
 
 
     function renderRelations() {
+        if (!entity.relationships) {
+            return;
+        }
         return entity.relationships.map((relationship, index) => {
             const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
             return (
@@ -189,6 +167,14 @@ function EntityEditor(props) {
     }
 
     function renderFields() {
+        if (!entity.fields) {
+            return (
+                <div className={entityEditorStyles.statementWrapper}>
+                    <Statement icon={<Help/>} message={"test"}/>
+                </div>
+            )
+        }
+
         return entity.fields.map((field, index) => {
             const {dataType, mandatory, min, max, pattern, description, name} = entity.fields[index];
             return (
@@ -214,12 +200,12 @@ function EntityEditor(props) {
 
     return (
         <Dialog open={entityId} maxWidth={"xl"} fullWidth>
-            <DialogTitle sx={{m: 0, p: 2}}>
-                Entität bearbeiten
+            <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
+                <Typography noWrap variant={"h6"} component={"p"}>Entität bearbeiten</Typography>
+                <div style={{flex: 1}}/>
                 <IconButton
                     aria-label="close"
                     onClick={onClose}
-                    className={entityEditorStyles.dialogCloseButton}
                 >
                     <Close/>
                 </IconButton>
