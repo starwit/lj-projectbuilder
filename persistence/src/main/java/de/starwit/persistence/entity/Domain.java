@@ -1,5 +1,6 @@
 package de.starwit.persistence.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Domain extends AbstractEntity<Long> {
 	private App app;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Attribute> attributes;
+	private List<Attribute> attributes;
 
 	@Column(name = "SELECTED", nullable = false)
 	private boolean selected = true;
@@ -65,11 +66,11 @@ public class Domain extends AbstractEntity<Long> {
 		this.app = app;
 	}
 
-	public Set<Attribute> getAttributes() {
+	public List<Attribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Set<Attribute> attributes) {
+	public void setAttributes(List<Attribute> attributes) {
 		this.attributes = attributes;
 	}
 

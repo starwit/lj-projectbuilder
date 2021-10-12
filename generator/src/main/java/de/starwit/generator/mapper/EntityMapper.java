@@ -27,7 +27,7 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription("");
-        entity.setAttributes(fieldMapper.convertToEntitySet(dto.getFields()));
+        entity.setAttributes(fieldMapper.convertToEntityList(dto.getFields()));
         return entity;
     }
 

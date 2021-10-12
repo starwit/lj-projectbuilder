@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,7 @@ import de.starwit.generator.dto.ApplicationDto;
 import de.starwit.generator.mapper.ApplicationMapper;
 import de.starwit.generator.mapper.EntityMapper;
 import de.starwit.generator.mapper.FieldMapper;
+import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 
 @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
@@ -52,35 +55,70 @@ public class ApplicationControllerTest {
     @Autowired
     private ApplicationMapper applicationMapper;
 
-    private ApplicationDto dtosimple;
-
-    private ApplicationDto dtoadvanced;
-
     @BeforeEach
     public void setup() {
         // create Object Mapper
         ObjectMapper mapper = new ObjectMapper();
         JacksonTester.initFields(this, new ObjectMapper());
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
-        // read JSON file and map/convert to java POJO
+    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    @Test
+    public void canRetrieveById() throws Exception {
+
+        ApplicationDto dto = readFromFile("app.json");
+        MockHttpServletResponse response = retrieveById(dto);
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString())
+            .isEqualTo(jsonApplicationDto.write(dto).getJson());
+    }
+
+    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    @Test
+    public void canRetrieveByIdWithFields() throws Exception {
+
+        ApplicationDto dto = readFromFile("app-with-fields.json");
+        MockHttpServletResponse response = retrieveById(dto);
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString())
+            .isEqualTo(jsonApplicationDto.write(dto).getJson());
+    }
+
+    //@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    //@Test
+    public void canRetrieveByIdWithRelations() throws Exception {
+
+        ApplicationDto dto = readFromFile("app-with-relations.json");
+        MockHttpServletResponse response = retrieveById(dto);
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString())
+            .isEqualTo(jsonApplicationDto.write(dto).getJson());
+    }
+
+
+    private ApplicationDto readFromFile(String path) throws Exception {
         try {
-            URL res = getClass().getClassLoader().getResource("appsimple.json");
+            URL res = getClass().getClassLoader().getResource(path);
             File file = new File(res.getFile());
-            dtosimple = mapper.readValue(file, ApplicationDto.class);
-
-            res = getClass().getClassLoader().getResource("app.json");
-            file = new File(res.getFile());
-            dtoadvanced = mapper.readValue(file, ApplicationDto.class);
+            ApplicationDto dto = mapper.readValue(file, ApplicationDto.class);
+            return dto;
         } catch (IOException e) {
             LOG.error("JSON mapper failed", e);
+            throw new Exception("SON mapper failed");
         }
     }
-
-    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
-    @Test
-    public void canRetrieveByIdSimple() throws Exception {
+    
+    private MockHttpServletResponse retrieveById(ApplicationDto dto) throws Exception {
         // given
-        when(appService.findById(0L)).thenReturn(applicationMapper.convertToEntity(dtosimple));
+        App entity = applicationMapper.convertToEntity(dto);
+        when(appService.findById(0L)).thenReturn(entity);
 
         // when
         MockHttpServletResponse response = mvc.perform(
@@ -89,32 +127,8 @@ public class ApplicationControllerTest {
             .andExpect(status().isOk())
             .andReturn().getResponse();
 
-            LOG.info(response.getContentAsString());
-
-        //then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonApplicationDto.write(dtosimple).getJson());
+        LOG.info(response.getContentAsString());
+        return response;
     }
 
-    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
-    @Test
-    public void canRetrieveByIdAdvanced() throws Exception {
-        // given
-        when(appService.findById(0L)).thenReturn(applicationMapper.convertToEntity(dtoadvanced));
-
-        // when
-        MockHttpServletResponse response = mvc.perform(
-        get("/api/application/0")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andReturn().getResponse();
-
-            LOG.info(response.getContentAsString());
-
-        //then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonApplicationDto.write(dtoadvanced).getJson());
-    }
 }

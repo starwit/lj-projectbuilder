@@ -3,8 +3,7 @@ package de.starwit.generator.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +74,7 @@ public class ApplicationMapperTest {
         Attribute attr = new Attribute();
         attr.setName("testattribute");
         attr.setDataType(DataType.String);
-        Set<Attribute> attributes = new HashSet<Attribute>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
         attributes.add(attr);
         domain.setAttributes(attributes);
         app.setDomains(new ArrayList<Domain>());
