@@ -29,7 +29,9 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         Attribute entity = new Attribute();
         entity.setId(dto.getId());
         entity.setName(dto.getFieldName());
-        entity.setDataType(DataType.valueOf(dto.getFieldType().toString()));
+        if (dto.getFieldType() != null) {
+            entity.setDataType(DataType.valueOf(dto.getFieldType().toString()));
+        }
         setValidationToEntity(dto, entity);
         return entity;
     }

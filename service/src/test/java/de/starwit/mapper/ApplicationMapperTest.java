@@ -18,7 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import de.starwit.dto.ApplicationDto;
 import de.starwit.dto.EntityDto;
 import de.starwit.dto.FieldDto;
+import de.starwit.dto.FieldType;
 import de.starwit.persistence.entity.App;
+import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.Domain;
@@ -79,6 +81,11 @@ public class ApplicationMapperTest {
         domain.setAttributes(attributes);
         app.setDomains(new ArrayList<Domain>());
         app.getDomains().add(domain);
+        AppTemplate template = new AppTemplate();
+        template.setId(ApplicationMapper.defaultAppTemplateID);
+        template.setBranch("master");
+        template.setTitle("testtemplate");
+        app.setTemplate(template);
     }
 
     @Before
@@ -92,6 +99,7 @@ public class ApplicationMapperTest {
         field.setFieldName("testfield");
         entity.setFields(new ArrayList<>());
         entity.getFields().add(field);
+        field.setFieldType(FieldType.String);
         dto.setEntities(new ArrayList<>());
         dto.getEntities().add(entity);
     }

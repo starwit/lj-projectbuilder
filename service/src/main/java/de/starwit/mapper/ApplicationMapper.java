@@ -27,9 +27,11 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       dto.setPackageName(entity.getPackagePrefix());
       dto.setEntities(entityMapper.convertToDtoList(entity.getDomains()));
       AppTemplateDto appTemplateDto = new AppTemplateDto();
-      appTemplateDto.setId(entity.getTemplate().getId());
-      appTemplateDto.setName(entity.getTemplate().getTitle());
-      dto.setTemplate(appTemplateDto);
+      if (entity.getTemplate() != null) {
+        appTemplateDto.setId(entity.getTemplate().getId());
+        appTemplateDto.setName(entity.getTemplate().getTitle());
+        dto.setTemplate(appTemplateDto);
+      }
     }
 
     return dto;
