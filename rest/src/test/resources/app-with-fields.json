@@ -1,17 +1,14 @@
 
 {
-    "id": 0,
     "packageName": "testpackage",
     "baseName": "testname",
     "entities": [
         {
-            "id": 0,
             "name": "testEntityName",
             "fields": [
             {
                 "fieldName": "myfield",
-                "fieldType": "String",
-                "id": 0
+                "fieldType": "String"
             },
             {
                 "fieldName": "stringPatternField",

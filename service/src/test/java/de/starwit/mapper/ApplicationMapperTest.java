@@ -1,4 +1,4 @@
-package de.starwit.generator.mapper;
+package de.starwit.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,9 +15,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.starwit.generator.dto.ApplicationDto;
-import de.starwit.generator.dto.EntityDto;
-import de.starwit.generator.dto.FieldDto;
+import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
+import de.starwit.dto.FieldDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
@@ -111,7 +111,7 @@ public class ApplicationMapperTest {
         assertEquals( "testAppTitle", app.getTitle());
         assertEquals("testpackage", app.getPackagePrefix());
         assertEquals("testentity", app.getDomains().get(0).getName());
-        assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().toArray()[0]).getName());
+        assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().get(0)).getName());
 
     }
     

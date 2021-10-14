@@ -1,4 +1,4 @@
-package de.starwit.generator.dto;
+package de.starwit.dto;
 
 import java.util.Set;
 

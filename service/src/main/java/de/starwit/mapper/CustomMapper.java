@@ -1,4 +1,4 @@
-package de.starwit.generator.mapper;
+package de.starwit.mapper;
 
 import java.util.ArrayList;
 import java.util.Collection;

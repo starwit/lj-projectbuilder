@@ -111,7 +111,7 @@ public class DomainController {
 	}
 	
 	private EntityResponse<Domain> validateAttibutes(Domain entity) throws NotificationException {
-		App app = appService.findById(entity.getAppId());
+		App app = appService.findById(entity.getApp().getId());
 		entity.setApp(app);
 		EntityResponse<Domain> response = new EntityResponse<Domain>();
 		

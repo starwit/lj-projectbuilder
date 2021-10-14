@@ -1,13 +1,13 @@
-package de.starwit.generator.mapper;
+package de.starwit.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import de.starwit.generator.dto.FieldDto;
-import de.starwit.generator.dto.FieldType;
-import de.starwit.generator.dto.FieldValidateRulesType;
+import de.starwit.dto.FieldDto;
+import de.starwit.dto.FieldType;
+import de.starwit.dto.FieldValidateRulesType;
 import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
 

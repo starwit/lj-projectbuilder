@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.generator.dto.ApplicationDto;
-import de.starwit.generator.mapper.ApplicationMapper;
+import de.starwit.dto.ApplicationDto;
+import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 

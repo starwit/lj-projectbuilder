@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.generator.dto.GeneratorDto;
+import de.starwit.dto.GeneratorDto;
 import de.starwit.generator.services.AppSetupService;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.response.Response;
@@ -19,19 +19,19 @@ import de.starwit.persistence.response.ResponseMetadata;
   * AppSetup RestController
   * Have a look at the RequestMapping!!!!!!
   */
- @RestController
- @RequestMapping("${rest.base-path}/appsetup")
+ //@RestController
+ //@RequestMapping("${rest.base-path}/appsetup")
  public class AppSetupController {
 
-	 final static Logger LOG = LoggerFactory.getLogger(AppSetupService.class);
+	 final static Logger LOG = LoggerFactory.getLogger(AppSetupController.class);
 	 
-     @Autowired
+     //@Autowired
      private AppSetupService appSetupService;
 
 //     @Autowired
 //     private TargetRepoService targetRepoService;
 
-     @PostMapping(value = "/downloadapp")
+     //@PostMapping(value = "/downloadapp")
      public Response<?> downloadApp(@RequestBody GeneratorDto dto) throws Exception {
       
        try {

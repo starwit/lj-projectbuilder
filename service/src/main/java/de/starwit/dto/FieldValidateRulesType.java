@@ -1,4 +1,4 @@
-package de.starwit.generator.dto;
+package de.starwit.dto;
 
 public enum FieldValidateRulesType {
     required, 

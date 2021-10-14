@@ -27,19 +27,19 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import de.starwit.generator.dto.ApplicationDto;
-import de.starwit.generator.mapper.ApplicationMapper;
-import de.starwit.generator.mapper.EntityMapper;
-import de.starwit.generator.mapper.FieldMapper;
+import de.starwit.dto.ApplicationDto;
+import de.starwit.mapper.ApplicationMapper;
+import de.starwit.mapper.EntityMapper;
+import de.starwit.mapper.FieldMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 
 @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
 @WebMvcTest(controllers = ApplicationController.class)
 @Import({ApplicationMapper.class, EntityMapper.class, FieldMapper.class})
-public class ApplicationControllerTest {
+public class ApplicationControllerIT {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerTest.class);
+    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerIT.class);
 
     @Autowired
     private MockMvc mvc;
@@ -58,7 +58,7 @@ public class ApplicationControllerTest {
     @BeforeEach
     public void setup() {
         // create Object Mapper
-        ObjectMapper mapper = new ObjectMapper();
+        mapper = new ObjectMapper();
         JacksonTester.initFields(this, new ObjectMapper());
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
@@ -89,7 +89,7 @@ public class ApplicationControllerTest {
             .isEqualTo(jsonApplicationDto.write(dto).getJson());
     }
 
-    //@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    //ö@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
     //@Test
     public void canRetrieveByIdWithRelations() throws Exception {
 

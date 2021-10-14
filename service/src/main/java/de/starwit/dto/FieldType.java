@@ -1,4 +1,4 @@
-package de.starwit.generator.dto;
+package de.starwit.dto;
 
 public enum FieldType {
     String(new FieldValidateRulesType[]{FieldValidateRulesType.required, FieldValidateRulesType.minlength, FieldValidateRulesType.maxlength, FieldValidateRulesType.pattern, FieldValidateRulesType.unique}),
