@@ -1,15 +1,21 @@
 import React from "react";
-import {Card, CardActionArea} from "@mui/material";
+import {Card, CardActionArea, Typography} from "@mui/material";
 import {Add} from "@mui/icons-material";
 import PropTypes from "prop-types";
+import AddCardStyles from "./AddCardStyles";
 
 function AddCard(props) {
+
     const {onClick} = props;
+    const addCardStyles = AddCardStyles();
 
     return (
         <Card elevation={5}>
-            <CardActionArea style={{padding: "2rem", display: "flex", justifyContent: "center"}} onClick={onClick}>
-                <Add style={{fontSize: "5rem"}} color={"text.secondary"} />
+            <CardActionArea onClick={onClick}>
+                <div className={addCardStyles.actionArea}>
+                    <Add className={addCardStyles.addIcon}/>
+                    <Typography variant={"body1"}>Hinzufügen</Typography>
+                </div>
             </CardActionArea>
         </Card>
     )

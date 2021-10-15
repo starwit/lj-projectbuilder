@@ -1,25 +1,12 @@
 import React, {useState} from "react";
-import {
-    Button,
-    Card,
-    Drawer,
-    Fab,
-    Grid,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography
-} from "@mui/material";
-import {Add, Code, Delete, Edit} from "@mui/icons-material";
+import {Button, Drawer, Fab} from "@mui/material";
+import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
-import Statement from "../../../../commons/statement/Statement";
+import EntityCard from "../../../../commons/entityCard/EntityCard";
 
 function ErDesigner() {
 
@@ -126,42 +113,6 @@ function ErDesigner() {
         console.log("exData", exampleData)
     }
 
-    function renderAttributes(entity) {
-
-        return entity.fields.map((field, index) => {
-            console.log("src", entity.name, field.name, "anchor_" + entity.name + "_" + field.name)
-            return (
-                <TableRow key={index}>
-                    <TableCell>{field.name}</TableCell>
-                    <TableCell>{field.dataType.name}</TableCell>
-                    <TableCell id={"anchor_" + entity.name + "_" + field.name}/>
-                </TableRow>
-            )
-        })
-    }
-
-    function renderFieldsTable(entity) {
-        if (!entity.fields || entity.fields.length === 0) {
-            return (
-                <div className={erDesignerStyles.statementWrapper}>
-                    <Statement message={"Keine Felder angelegt"}/>
-                </div>
-            )
-        }
-        return (
-            <Table size={"small"}>
-                <TableHead>
-                    <TableRow className={erDesignerStyles.tableRow}>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Datentyp</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {renderAttributes(entity)}
-                </TableBody>
-            </Table>
-        )
-    }
 
     function openDrawer() {
         setDrawerOpen(true);
@@ -231,34 +182,14 @@ function ErDesigner() {
 
     }
 
-    function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>Neue Entität</Typography>
-        if (name) {
-            value = <Typography variant={"h6"}>{name}</Typography>
-        }
-        return value;
-    }
 
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
-                <Draggable bounds="parent" axis={"both"}>
-                    <Card className={`${erDesignerStyles.entityCard} handle`}>
-                        <Grid container>
-                            <Grid item sm={8}>
-                                {renderTitle(entity.name)}
-                            </Grid>
-                            <Grid item sm={2}>
-                                <IconButton onClick={() => setCurrentEntity(entity)}><Edit
-                                    fontSize={"small"}/></IconButton>
-                            </Grid>
-                            <Grid item sm={2}>
-                                <IconButton onClick={() => deleteEntity(entity.id)}><Delete
-                                    fontSize={"small"}/></IconButton>
-                            </Grid>
-                        </Grid>
-                        {renderFieldsTable(entity)}
-                    </Card>
+                <Draggable axis={"both"}>
+                    <div>
+                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}/>
+                    </div>
                 </Draggable>
             )
         })
@@ -306,8 +237,12 @@ function ErDesigner() {
                 {renderEntities()}
                 {renderRelations()}
             </div>
-            <EntityEditor entityId={currentEntity?.id} onClose={() => setCurrentEntity(null)}
-                          handleSave={(data) => updateEntity(data)} entities={exampleData.entities}/>
+            <EntityEditor
+                entityId={currentEntity?.id}
+                onClose={() => setCurrentEntity(null)}
+                handleSave={(data) => updateEntity(data)}
+                entities={exampleData.entities}
+            />
         </>
     )
 }
