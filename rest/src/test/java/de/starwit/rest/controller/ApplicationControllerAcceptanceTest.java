@@ -36,9 +36,9 @@ import de.starwit.mapper.ApplicationMapper;
 @SpringBootTest
 @EnableAutoConfiguration
 @AutoConfigureMockMvc(addFilters = false)
-public class ApplicationControllerAT {
+public class ApplicationControllerAcceptanceTest {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerAT.class);
+    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerAcceptanceTest.class);
 
     @Autowired
     private MockMvc mvc;
@@ -108,12 +108,12 @@ public class ApplicationControllerAT {
 
         //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
+        ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        assertThat(jsonApplicationDto.write(result).getJson())
             .isEqualTo(jsonApplicationDto.write(dto2).getJson());
     }
 
-    //ö@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
-    //@Test
+    @Test
     public void canRetrieveByIdWithRelations() throws Exception {
         //given
         ApplicationDto dto = readFromFile("app-with-relations.json");
@@ -125,7 +125,8 @@ public class ApplicationControllerAT {
 
         //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
+        ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        assertThat(jsonApplicationDto.write(result).getJson())
             .isEqualTo(jsonApplicationDto.write(dto2).getJson());
     }
 
@@ -139,8 +140,10 @@ public class ApplicationControllerAT {
         dto2.setBaseName("secondName");
         EntityDto entityDto = dto2.getEntities().get(0);
         entityDto.setName("secondEntityName");
+        int fieldcount = entityDto.getFields().size();
         entityDto.getFields().get(0).setFieldName("secondFieldName");
-
+        entityDto.getFields().remove(1);
+       
         //when
         response = update(dto2);
 
@@ -149,6 +152,7 @@ public class ApplicationControllerAT {
         ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
         assertThat(result.getId()).isEqualTo(dto2.getId());
         assertThat(result.getBaseName()).isEqualTo("secondName");
+        assertThat(result.getEntities().get(0).getFields().size()).isEqualTo(fieldcount-1);
         assertThat(result.getEntities().get(0).getId()).isEqualTo(entityDto.getId());
         assertThat(result.getEntities().get(0).getName()).isEqualTo("secondEntityName");
         assertThat(result.getEntities().get(0).getFields().get(0).getId()).isEqualTo(entityDto.getFields().get(0).getId());

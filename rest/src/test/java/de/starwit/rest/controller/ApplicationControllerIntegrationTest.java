@@ -37,9 +37,9 @@ import de.starwit.service.impl.AppService;
 @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
 @WebMvcTest(controllers = ApplicationController.class)
 @Import({ApplicationMapper.class, EntityMapper.class, FieldMapper.class})
-public class ApplicationControllerIT {
+public class ApplicationControllerIntegrationTest {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerIT.class);
+    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerIntegrationTest.class);
 
     @Autowired
     private MockMvc mvc;
@@ -89,8 +89,8 @@ public class ApplicationControllerIT {
             .isEqualTo(jsonApplicationDto.write(dto).getJson());
     }
 
-    //ö@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
-    //@Test
+    @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+    @Test
     public void canRetrieveByIdWithRelations() throws Exception {
 
         ApplicationDto dto = readFromFile("app-with-relations.json");
@@ -111,7 +111,7 @@ public class ApplicationControllerIT {
             return dto;
         } catch (IOException e) {
             LOG.error("JSON mapper failed", e);
-            throw new Exception("SON mapper failed");
+            throw new Exception("JSON mapper failed");
         }
     }
     

@@ -1,17 +1,17 @@
 {
-    "id": 0,
     "baseName": "testname",
     "packageName": "testpackage",
     "template": null,
     "entities": [
         {
-            "id": 0,
+          "name": "testwithoutfields"
+        },        
+        {
             "name": "testEntityName",
             "fields": [
             {
                 "fieldName": "myfield",
-                "fieldType": "String",
-                "id": 0
+                "fieldType": "String"
             },
             {
                 "fieldName": "stringPatternField",
@@ -81,13 +81,6 @@
                 "otherEntityName": "employee",
                 "otherEntityRelationshipName": "employee",
                 "relationshipName": "manager"
-              },
-              {
-                "relationshipType": "many-to-one",
-                "otherEntityName": "department",
-                "otherEntityRelationshipName": "employee",
-                "javadoc": "Another side of the same relationship",
-                "relationshipName": "department"
               }
             ],
             "javadoc": "The Employee entity.",
@@ -101,6 +94,81 @@
             "embedded": false,
             "applications": "*",
             "changelogDate": "20210923094703"
+        },
+        {
+          "name": "Job",
+          "fields": [
+            {
+              "fieldName": "jobTitle",
+              "fieldType": "String"
+            },
+            {
+              "fieldName": "minSalary",
+              "fieldType": "Long"
+            },
+            {
+              "fieldName": "maxSalary",
+              "fieldType": "Long"
+            }
+          ],
+          "relationships": [
+            {
+              "relationshipType": "many-to-many",
+              "otherEntityName": "task",
+              "otherEntityRelationshipName": "job",
+              "relationshipName": "task",
+              "ownerSide": true
+            },
+            {
+              "relationshipType": "many-to-one",
+              "otherEntityName": "employee",
+              "otherEntityRelationshipName": "job",
+              "relationshipName": "employee"
+            }
+          ],
+          "entityTableName": "job",
+          "dto": "no",
+          "pagination": "pagination",
+          "service": "no",
+          "jpaMetamodelFiltering": false,
+          "fluentMethods": true,
+          "readOnly": false,
+          "embedded": false,
+          "applications": "*",
+          "changelogDate": "20210923094704"
+        },
+        {
+          "name": "Task",
+          "fields": [
+            {
+              "fieldName": "title",
+              "fieldType": "String"
+            },
+            {
+              "fieldName": "description",
+              "fieldType": "String"
+            }
+          ],
+          "relationships": [
+            {
+              "relationshipType": "many-to-many",
+              "otherEntityName": "job",
+              "otherEntityRelationshipName": "task",
+              "relationshipName": "job",
+              "ownerSide": false
+            }
+          ],
+          "javadoc": "Task entity.\\n@author The JHipster team.",
+          "entityTableName": "task",
+          "dto": "no",
+          "pagination": "no",
+          "service": "serviceImpl",
+          "jpaMetamodelFiltering": false,
+          "fluentMethods": true,
+          "readOnly": false,
+          "embedded": false,
+          "applications": "*",
+          "changelogDate": "20210923094702"
         }
     ]
 }

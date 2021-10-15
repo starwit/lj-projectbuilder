@@ -33,7 +33,7 @@ public interface ServiceInterface<E extends AbstractEntity<Long>, R extends JpaR
     }
 
     default public E saveOrUpdate(E entity) {
-        this.getRepository().save(entity);
+        entity = this.getRepository().save(entity);
         return entity;
     }
 
