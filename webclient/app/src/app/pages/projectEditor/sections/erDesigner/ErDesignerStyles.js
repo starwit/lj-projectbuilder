@@ -27,6 +27,11 @@ const ErDesignerStyles = makeStyles(theme => ({
     },
     statementWrapper: {
         height: "10rem"
+    },
+    codeButtonWrapper: {
+        position: "absolute",
+        bottom: "5%",
+        left: "2%"
     }
 }))
 export default ErDesignerStyles;

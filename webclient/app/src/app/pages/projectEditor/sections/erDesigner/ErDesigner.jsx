@@ -29,74 +29,107 @@ function ErDesigner() {
     const [exampleData, setExampleData] = useState({
         entities: [
             {
-                id: 1,
-                name: "Test",
-                fields: [
+                "id": 1,
+                "name": "D1",
+                "fields": [
                     {
-                        name: "field1",
-                        dataType: {
-                            id: 2,
-                            name: "integer",
-                            allowMin: true,
-                            allowMax: true
+                        "name": "D1-f1-s",
+                        "description": "",
+                        "dataType": {
+                            "id": 1,
+                            "name": "string"
                         },
-                        regex: "",
-                        min: 0,
-                        max: 20
+                        "pattern": "",
+                        "min": "",
+                        "max": "",
+                        "mandatory": false
                     },
                     {
-                        name: "field2",
-                        dataType: {
-                            id: 2,
-                            name: "integer",
-                            allowMin: true,
-                            allowMax: true
+                        "name": "D1-f1-i",
+                        "description": "",
+                        "dataType": {
+                            "id": 2,
+                            "name": "integer",
+                            "allowMin": true,
+                            "allowMax": true
                         },
-                        regex: "",
-                        min: 0,
-                        max: 20
-                    },
-                    {
-                        name: "field3",
-                        dataType: {
-                            id: 2,
-                            name: "integer",
-                            allowMin: true,
-                            allowMax: true
-                        },
-                        regex: "",
-                        min: 0,
-                        max: 20
-                    },
-                ],
-                relationships: [
-                    {
-                        "relationshipType": "many-to-one",
-                        "otherEntityName": "a",
-                        "otherEntityRelationshipName": "b",
-                        "relationshipName": "a"
+                        "pattern": "",
+                        "min": "",
+                        "max": "",
+                        "mandatory": false
                     }
-                ]
+                ],
+                "relationships": []
             },
             {
-                id: 1,
-                name: "Test",
-                relationships: [
+                "id": 2,
+                "name": "D2",
+                "fields": [
                     {
-                        "relationshipType": "many-to-one",
-                        "otherEntityName": "a",
-                        "otherEntityRelationshipName": "b",
-                        "relationshipName": "a"
+                        "name": "D2-f1-i",
+                        "description": "",
+                        "dataType": {
+                            "id": 2,
+                            "name": "integer",
+                            "allowMin": true,
+                            "allowMax": true
+                        },
+                        "pattern": "",
+                        "min": "",
+                        "max": "",
+                        "mandatory": false
+                    },
+                    {
+                        "name": "D2-f2-s",
+                        "description": "",
+                        "dataType": {
+                            "id": 1,
+                            "name": "string"
+                        },
+                        "pattern": "",
+                        "min": "",
+                        "max": "",
+                        "mandatory": false
+                    }
+                ],
+                "relationships": [
+                    {
+                        "relationshipType": "one-to-many",
+                        "otherEntityName": "D2",
+                        "otherEntityRelationshipName": "D2-f1-i",
+                        "relationshipName": "D2-f1-i",
+                        "name": "D2"
                     }
                 ]
             }
         ]
     })
 
+    function addEntity() {
+        const newExampleData = {...exampleData};
+
+        let newId = 1;
+        if (exampleData.entities.length > 0) {
+            newId = exampleData.entities[exampleData.entities.length - 1].id + 1;
+        }
+        const newEntity = {
+            id: newId,
+            name: "",
+            fields: [],
+            relationships: []
+        };
+        newExampleData.entities.push(
+            newEntity
+        )
+        setExampleData(newExampleData)
+        setCurrentEntity(newEntity)
+        console.log("exData", exampleData)
+    }
 
     function renderAttributes(entity) {
 
         return entity.fields.map((field, index) => {
+            console.log("src", entity.name, field.name, "anchor_" + entity.name + "_" + field.name)
             return (
                 <TableRow key={index}>
                     <TableCell>{field.name}</TableCell>
@@ -108,7 +141,7 @@ function ErDesigner() {
     }
 
     function renderFieldsTable(entity) {
-        if (!entity.fields) {
+        if (!entity.fields || entity.fields.length === 0) {
             return (
                 <div className={erDesignerStyles.statementWrapper}>
                     <Statement message={"Keine Felder angelegt"}/>
@@ -167,13 +200,43 @@ function ErDesigner() {
     }
 
     function renderRelations() {
-        const relationships = exampleData.entities.map(entity => {
+        const relationsList = [];
+        exampleData.entities.forEach(entity => {
             if (entity.relationships) {
-                return entity?.relationships.map(relationship => relationship)
+                return entity?.relationships.forEach(relationship => {
+                    relationship.name = entity.name
+                    relationsList.push(relationship)
+                })
             }
         })
-        console.log(relationships);
+        const svgList = relationsList.map(parsedRelation => {
+            const elementSource = document
+                .getElementById('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName)
+                ?.getBoundingClientRect();
+            const elementTarget = document
+                .getElementById('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName)
+                ?.getBoundingClientRect();
+            if (elementTarget && elementSource) {
+                console.log("element", elementSource, elementTarget)
+                return (
+                    <svg height={"100%"} width={"100%"}>
+                        <line x1={elementSource.x} y1={elementSource.y} x2={elementTarget.x} y2={elementTarget.y}
+                              stroke="black"/>
+                    </svg>
+                )
+            }
+        })
+        console.log(svgList);
+        return svgList;
 
+    }
+
+    function renderTitle(name) {
+        let value = <Typography variant={"h6"} color={"text.secondary"}>Neue Entität</Typography>
+        if (name) {
+            value = <Typography variant={"h6"}>{name}</Typography>
+        }
+        return value;
     }
 
     function renderEntities() {
@@ -183,7 +246,7 @@ function ErDesigner() {
                     <Card className={`${erDesignerStyles.entityCard} handle`}>
                         <Grid container>
                             <Grid item sm={8}>
-                                <Typography variant={"h6"}>{entity.name}</Typography>
+                                {renderTitle(entity.name)}
                             </Grid>
                             <Grid item sm={2}>
                                 <IconButton onClick={() => setCurrentEntity(entity)}><Edit
@@ -203,12 +266,16 @@ function ErDesigner() {
 
     return (
         <>
-            <Fab color="primary" aria-label="add" className={erDesignerStyles.addFab}>
-                <Add/>
-            </Fab>
-            <Button style={{zIndex: 5}} variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                Code
-            </Button>
+            <div className={erDesignerStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={addEntity}>
+                    <Add/>
+                </Fab>
+            </div>
+            <div className={erDesignerStyles.codeButtonWrapper}>
+                <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
+                    Code
+                </Button>
+            </div>
             <React.Fragment key={"left"}>
                 <Drawer
                     anchor={"left"}
@@ -231,7 +298,7 @@ function ErDesigner() {
                             }
                         }}
                     >
-                        {JSON.stringify(exampleData, null, 4)}
+                        {JSON.stringify(exampleData.entities, null, 4)}
                     </SyntaxHighlighter>
                 </Drawer>
             </React.Fragment>

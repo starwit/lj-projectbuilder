@@ -12,7 +12,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {Add, Close, Help} from "@mui/icons-material";
+import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
 import LoadingSpinner from "../../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../../../../../commons/fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../../../../../commons/relationshipAccordion/RelationshipAccordion";
@@ -147,8 +147,12 @@ function EntityEditor(props) {
 
 
     function renderRelations() {
-        if (!entity.relationships) {
-            return;
+        if (!entity.relationships || entity.relationships.length <= 0) {
+            return (
+                <div className={entityEditorStyles.statementWrapper}>
+                    <Statement icon={<CheckBoxOutlineBlank/>} message={"Keine Relationen angelegt"}/>
+                </div>
+            )
         }
         return entity.relationships.map((relationship, index) => {
             const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
@@ -167,10 +171,10 @@ function EntityEditor(props) {
     }
 
     function renderFields() {
-        if (!entity.fields) {
+        if (!entity.fields || entity.fields.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement icon={<Help/>} message={"test"}/>
+                    <Statement icon={<CheckBoxOutlineBlank/>} message={"Keine Felder angelegt"}/>
                 </div>
             )
         }

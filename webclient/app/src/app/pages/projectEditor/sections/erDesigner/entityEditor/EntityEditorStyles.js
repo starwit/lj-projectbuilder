@@ -11,7 +11,7 @@ const EntityEditorStyles = makeStyles(theme => ({
         justifyContent: "space-between"
     },
     statementWrapper: {
-        height: "30rem"
+        height: "15rem"
     }
 }))
 export default EntityEditorStyles;

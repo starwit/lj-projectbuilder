@@ -75,8 +75,9 @@ function RelationshipAccordion(props) {
                                 value={relationshipType}
                                 label="Quellfeld"
                                 onChange={(event) => editRelationshipProperty("relationshipType", event.target.value)}
+                                disabled={!relationshipTypes}
                             >
-                                {relationshipTypes.map(relationshipType => (
+                                {relationshipTypes?.map(relationshipType => (
                                     <MenuItem value={relationshipType}>{relationshipType}</MenuItem>
                                 ))}
                             </Select>
@@ -92,8 +93,9 @@ function RelationshipAccordion(props) {
                                 value={relationshipName}
                                 label="Quellfeld"
                                 onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
+                                disabled={!currentEntity.fields}
                             >
-                                {currentEntity.fields.map(field => (
+                                {currentEntity?.fields?.map(field => (
                                     <MenuItem value={field.name}>{field.name}</MenuItem>
                                 ))}
                             </Select>
@@ -110,7 +112,7 @@ function RelationshipAccordion(props) {
                                 label="Ziel Domain"
                                 onChange={(event) => editRelationshipProperty("otherEntityName", event.target.value)}
                             >
-                                {prepareEntitiesSelection().map(entityName => (
+                                {prepareEntitiesSelection()?.map(entityName => (
                                     <MenuItem value={entityName}>{entityName}</MenuItem>
                                 ))}
                             </Select>
