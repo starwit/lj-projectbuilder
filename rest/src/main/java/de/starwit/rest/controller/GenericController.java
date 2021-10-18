@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.starwit.persistence.entity.AbstractEntity;
-import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.response.EntityListResponse;
 import de.starwit.persistence.response.EntityResponse;
 import de.starwit.persistence.response.ResponseCode;
@@ -18,7 +18,7 @@ public class GenericController<E extends AbstractEntity<Long>> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger("fileAppender");
 
-	private ServiceInterface<E> service;
+	private ServiceInterface<E, ? extends JpaRepository<E, Long>> service;
 	
 	private enum EditMode {
 		CREATE,
@@ -27,11 +27,11 @@ public class GenericController<E extends AbstractEntity<Long>> {
 	}
 	
 	
-	public ServiceInterface<E> getService() {
+	public ServiceInterface<E, ? extends JpaRepository<E, Long>> getService() {
 		return service;
 	}
 	
-	public void setService(ServiceInterface<E> service) {
+	public void setService(ServiceInterface<E, ? extends JpaRepository<E, Long>> service) {
 		this.service = service;
 	}
 	
@@ -56,18 +56,7 @@ public class GenericController<E extends AbstractEntity<Long>> {
 		if (!ResponseCode.NOT_VALID.equals(responseMetadata.getResponseCode())) {
 			E interalEntity;
 			LOG.debug("************ FrontendService for " + getService().getClass().getSimpleName());
-	
-
-			switch (editMode) {
-			case CREATE:
-				interalEntity = getService().create(entity);
-				break;
-			case UPDATE:
-				interalEntity = getService().update(entity);
-				break;
-			default:
-				interalEntity = getService().saveOrUpdate(entity);
-			}
+			interalEntity = getService().saveOrUpdate(entity);
 			response.setResult(interalEntity);
 			response.setMetadata(EntityValidator.savedResultExists(interalEntity));
 		}
@@ -94,15 +83,10 @@ public class GenericController<E extends AbstractEntity<Long>> {
 	public EntityResponse<E> delete(Long id) {
 		EntityResponse<E> response = new EntityResponse<E>();
 		ResponseMetadata responseMetadata = new ResponseMetadata();
-		
-		try {
-			getService().delete(id);
-			responseMetadata.setResponseCode(ResponseCode.OK);
-			responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
-		} catch (EntityNotFoundException e) {
-			responseMetadata.setResponseCode(ResponseCode.NOT_DELETE);
-			responseMetadata.setMessage("Der Eintrag konnte nicht gelöscht werden. " + e.getMessage());
-		}
+
+		getService().delete(id);
+		responseMetadata.setResponseCode(ResponseCode.OK);
+		responseMetadata.setMessage("Der Eintrag wurde gelöscht.");
 
 		response.setMetadata(responseMetadata);
 		return response;

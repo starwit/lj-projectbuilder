@@ -1,14 +1,15 @@
-package de.starwit.generator.dto;
+package de.starwit.dto;
 
 import java.util.List;
 
 import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.entity.Relationship;
 
 public class EntityDto extends AbstractEntity<Long> {
 
     private String name;
     private List<FieldDto> fields;
-    private List<RelationshipDto> relationships;
+    private List<Relationship> relationships;
 
     public String getName() {
         return name;
@@ -22,10 +23,10 @@ public class EntityDto extends AbstractEntity<Long> {
     public void setFields(List<FieldDto> fields) {
         this.fields = fields;
     }
-    public List<RelationshipDto> getRelationships() {
+    public List<Relationship> getRelationships() {
         return relationships;
     }
-    public void setRelationships(List<RelationshipDto> relationships) {
+    public void setRelationships(List<Relationship> relationships) {
         this.relationships = relationships;
     }
 }
