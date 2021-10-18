@@ -1,14 +1,17 @@
 package de.starwit.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Service;
 
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.Relationship;
 import de.starwit.persistence.repository.AppRepository;
 import de.starwit.persistence.repository.AppTemplateRepository;
 
@@ -39,7 +42,7 @@ public class AppService implements ServiceInterface<App, AppRepository> {
 				appTempate = this.appTemplateRepository.getById(ApplicationMapper.defaultAppTemplateID);
 			}
 			entity.setTemplate(appTempate);
-        	this.getRepository().save(entity);
+        	entity = this.getRepository().save(entity);
 		}
         return entity;
     }

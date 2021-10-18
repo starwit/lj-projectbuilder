@@ -1,5 +1,6 @@
 package de.starwit.persistence.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,10 @@ public class Domain extends AbstractEntity<Long> {
 	private App app;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Attribute> attributes;
+	private List<Attribute> attributes = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Relationship> relationships = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -67,4 +71,13 @@ public class Domain extends AbstractEntity<Long> {
     public void setId(Long id) {
         this.id = id;
     }
+
+	public List<Relationship> getRelationships() {
+		return relationships;
+	}
+
+	public void setRelationships(List<Relationship> relationships) {
+		this.relationships = relationships;
+	}
+
 }

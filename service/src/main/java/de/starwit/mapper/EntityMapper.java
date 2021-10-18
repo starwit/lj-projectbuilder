@@ -20,7 +20,12 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         EntityDto dto = new EntityDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setFields(fieldMapper.convertToDtoList(entity.getAttributes()));
+        if (entity.getAttributes() != null && !entity.getAttributes().isEmpty()) {
+            dto.setFields(fieldMapper.convertToDtoList(entity.getAttributes()));
+        }
+        if (entity.getRelationships() != null && !entity.getRelationships().isEmpty()) {
+            dto.setRelationships(entity.getRelationships());
+        }
         return dto;
     }
 
@@ -30,7 +35,12 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription("");
-        entity.setAttributes(fieldMapper.convertToEntityList(dto.getFields()));
+        if (dto.getFields() != null && !dto.getFields().isEmpty()) {
+            entity.setAttributes(fieldMapper.convertToEntityList(dto.getFields()));
+        }
+        if (dto.getRelationships() != null && !dto.getRelationships().isEmpty()) {
+            entity.setRelationships(dto.getRelationships());
+        }
         return entity;
     }
 

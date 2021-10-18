@@ -44,45 +44,33 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         FieldValidateRulesType[] allowedRules = dto.getFieldType().getValidationRules();
         List<FieldValidateRulesType> rules = dto.getFieldValidateRules();
         for (FieldValidateRulesType allowedRule : allowedRules) {
-            switch (allowedRule) {
-                case min:
-                    if(rules.contains(allowedRule)) {
+            if(rules.contains(allowedRule)) {
+                switch (allowedRule) {
+                    case min:
                         entity.setMin(dto.getFieldValidateRulesMin());
-                    }
-                    break;                
-                case max:
-                    if(rules.contains(allowedRule)) {
+                        break;                
+                    case max:
                         entity.setMax(dto.getFieldValidateRulesMax());
-                    }
-                    break;
-                case minlength:
-                    if(rules.contains(allowedRule)) {
+                        break;
+                    case minlength:
                         entity.setMin(dto.getFieldValidateRulesMinlength());
-                    }
-                    break;                    
-                case maxlength:
-                    if(rules.contains(allowedRule)) {
+                        break;                    
+                    case maxlength:
                         entity.setMax(dto.getFieldValidateRulesMaxlength());
-                    }
-                    break;
-                case pattern:
-                    if(rules.contains(allowedRule)) {
+                        break;
+                    case pattern:
                         entity.setPattern(dto.getFieldValidateRulesPattern());
                         entity.setPatterJava(dto.getFieldValidateRulesPatternJava());
-                    }
-                    break;
-                case required:
-                    if(rules.contains(allowedRule)) {
+                        break;
+                    case required:
                         entity.setNullable(false);
-                    }
-                    break;
-                case unique:
-                    if(rules.contains(allowedRule)) {
+                        break;
+                    case unique:
                         entity.setUnique(true);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
