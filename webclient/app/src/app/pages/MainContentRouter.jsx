@@ -1,14 +1,14 @@
 import React from "react";
 import {Route} from "react-router-dom";
 import Home from "./home/Home";
-import ProjectOverview from "./projectOverview/ProjectOverview";
-import ProjectEditor from "./projectEditor/ProjectEditor";
+import AppOverview from "./appOverview/AppOverview";
+import AppEditor from "./appEditor/AppEditor";
 
 function MainContentRouter() {
     return (
         <>
-            <Route path={"/project/:projectId/edit"} component={ProjectEditor}/>
-            <Route path={"/project/:projectId"} component={ProjectOverview}/>
+            <Route path={"/app/:appId/edit"} component={AppEditor}/>
+            <Route path={"/app/:appId"} component={AppOverview}/>
             <Route exact path={"/"} component={Home}/>
         </>
     )

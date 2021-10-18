@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const ProjectCardStyles = makeStyles(theme => ({
+const AppCardStyles = makeStyles(theme => ({
     cardActions: {
         justifyContent: "flex-end"
     },
@@ -8,4 +8,4 @@ const ProjectCardStyles = makeStyles(theme => ({
         color: theme.palette.text.secondary
     }
 }))
-export default ProjectCardStyles;
+export default AppCardStyles;

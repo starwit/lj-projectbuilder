@@ -1,10 +1,10 @@
 import React from "react";
 import {Container, Grid, Typography} from "@mui/material";
-import ProjectCard from "../../commons/projectCard/ProjectCard";
+import AppCard from "../../commons/appCard/AppCard";
 import AddCard from "../../commons/addCard/AddCard";
 import {useHistory} from "react-router-dom";
 
-const projects= [
+const apps = [
     {
         id: 1,
         name: "test",
@@ -21,14 +21,22 @@ function Home() {
                 Deine Apps
             </Typography>
             <Grid container spacing={5}>
-                {projects.map(project => (
+                {apps.map(app => (
                     <Grid item sm={4}>
-                        <ProjectCard onEditClick={() => {history.push("/project/"+project.id+"/edit")}} onDeleteClick={() => {}} project={project} />
+                        <AppCard
+                            onEditClick={() => {
+                                history.push("/app/" + app.id + "/edit")
+                            }}
+                            onDeleteClick={() => {}}
+                            app={app}/>
                     </Grid>
                 ))}
 
                 <Grid item sm={4}>
-                    <AddCard onClick={() => {}}/>
+                    <AddCard
+                        onClick={() => {
+                        }}
+                    />
                 </Grid>
             </Grid>
         </Container>

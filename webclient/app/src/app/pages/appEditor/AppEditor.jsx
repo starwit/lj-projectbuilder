@@ -4,15 +4,15 @@ import AddCard from "../../commons/addCard/AddCard";
 import TemplateSelection from "./sections/templateSelection/TemplateSelection";
 import ErDesigner from "./sections/erDesigner/ErDesigner";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
-import ProjectEditorStyles from "./ProjectEditorStyles";
+import AppEditorStyles from "./AppEditorStyles";
 
 
-function ProjectEditor() {
+function AppEditor() {
 
 
     const [activeStep, setActiveStep] = useState(1);
     const [selectedTemplate, setSelectedTemplate] = useState(null)
-    const projectEditorStyles = ProjectEditorStyles()
+    const appEditorStyles = AppEditorStyles()
 
     const steps = [
         {
@@ -61,7 +61,7 @@ function ProjectEditor() {
     }
 
     return (
-        <div className={projectEditorStyles.root}>
+        <div className={appEditorStyles.root}>
             <Stepper activeStep={activeStep}>
                 {steps.map((step, index) => {
                     const stepProps = {};
@@ -73,17 +73,17 @@ function ProjectEditor() {
                     );
                 })}
             </Stepper>
-            <Box className={projectEditorStyles.navigationButtonsArray}>
+            <Box className={appEditorStyles.navigationButtonsArray}>
                 <Button
                     color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    className={projectEditorStyles.navigationButtonBack}
+                    className={appEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
                 >
                     Zurück
                 </Button>
-                <Box className={projectEditorStyles.navigationButtonNext}/>
+                <Box className={appEditorStyles.navigationButtonNext}/>
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}
@@ -93,4 +93,4 @@ function ProjectEditor() {
 
 }
 
-export default ProjectEditor;
+export default AppEditor;

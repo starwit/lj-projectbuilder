@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const ProjectEditorStyles = makeStyles(theme => ({
+const AppEditorStyles = makeStyles(theme => ({
     root: {
         paddingTop: theme.spacing(2)
     },
@@ -16,4 +16,4 @@ const ProjectEditorStyles = makeStyles(theme => ({
         flex: '1 1 auto'
     }
 }))
-export default ProjectEditorStyles;
+export default AppEditorStyles;
