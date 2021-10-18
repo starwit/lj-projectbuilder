@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Relationship extends AbstractEntity<Long> {
 
     @NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", nullable = false)
     private RelationshipType relationshipType;
 
     @NotBlank
