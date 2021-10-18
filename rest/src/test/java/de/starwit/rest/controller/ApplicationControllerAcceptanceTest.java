@@ -171,7 +171,7 @@ public class ApplicationControllerAcceptanceTest {
             return dto;
         } catch (IOException e) {
             LOG.error("JSON mapper failed", e);
-            throw new Exception("SON mapper failed");
+            throw new Exception("JSON mapper failed");
         }
     }
 
