@@ -2,13 +2,13 @@ package de.starwit.service.impl;
 
 import java.util.List;
 
-import javax.validation.ValidationException;
+import javax.persistence.EntityNotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.starwit.persistence.entity.AbstractEntity;
-import de.starwit.persistence.exception.EntityNotFoundException;
 
 /**
  * AbstractService used as template for all service implementations and implements the basic 
@@ -18,23 +18,28 @@ import de.starwit.persistence.exception.EntityNotFoundException;
  *
  * @param <E>
  */
-public interface ServiceInterface<E extends AbstractEntity<Long>> {
+public interface ServiceInterface<E extends AbstractEntity<Long>, R extends JpaRepository<E, Long>> {
 
 	static Logger LOG = LoggerFactory.getLogger(ServiceInterface.class);
 
-	public void delete(Long id) throws EntityNotFoundException;
+	public R getRepository();
 
-	public E saveOrUpdate(E entity) throws ValidationException;
-	
-	public List<E> findAll();
+	default public List<E> findAll() {
+        return this.getRepository().findAll();
+    }
 
-	public E findById(Long id);
-	
-	public default E create(E entity) throws ValidationException {
-		return saveOrUpdate(entity);
-	}
-	
-	public default E update(E entity) throws ValidationException {
-		return saveOrUpdate(entity);
-	}
+    default public E findById(Long id) {
+        return this.getRepository().findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+    }
+
+    default public E saveOrUpdate(E entity) {
+        this.getRepository().save(entity);
+        return entity;
+    }
+
+    default public void delete(Long id) {
+        this.getRepository().deleteById(id);
+    }
+
 }
+

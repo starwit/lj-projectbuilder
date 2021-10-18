@@ -17,8 +17,8 @@ import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.response.ResponseCode;
 import de.starwit.persistence.response.ResponseMetadata;
+import de.starwit.dto.GeneratorDto;
 import de.starwit.generator.config.Constants;
-import de.starwit.generator.dto.GeneratorDto;
 
 @Service
 public class AppCheckout {

@@ -14,7 +14,7 @@ import de.starwit.persistence.entity.TemplateFile;
 import de.starwit.persistence.repository.TemplateFileRepository;
 
 @Service
-public class TemplateFileService implements ServiceInterface<TemplateFile> {
+public class TemplateFileService implements ServiceInterface<TemplateFile, TemplateFileRepository> {
 
 	final static Logger LOG = LoggerFactory.getLogger(TemplateFileService.class);
 
@@ -34,24 +34,8 @@ public class TemplateFileService implements ServiceInterface<TemplateFile> {
 	}
 
 	@Override
-	public TemplateFile findById(Long id) {
-		return this.templateFileRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-	}
-
-	@Override
-	public List<TemplateFile> findAll() {
-		return this.templateFileRepository.findAll();
-	}
-
-	@Override
-	public TemplateFile saveOrUpdate(TemplateFile entity) throws ValidationException {
-		return this.templateFileRepository.save(entity);
-	}
-
-	@Override
-	public void delete(Long id) throws de.starwit.persistence.exception.EntityNotFoundException {
-		this.templateFileRepository.deleteById(id);
-		
+	public TemplateFileRepository getRepository() {
+		return templateFileRepository;
 	}
 }
 

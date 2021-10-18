@@ -1,26 +1,20 @@
 package de.starwit.persistence.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "DOMAIN")
 public class Domain extends AbstractEntity<Long> {
-
-	@Transient
-	private Long appId;
-
 	// domain attributes
 
 	@NotBlank
@@ -35,11 +29,8 @@ public class Domain extends AbstractEntity<Long> {
 	@JoinColumn(name = "APP_ID")
 	private App app;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Attribute> attributes;
-
-	@Column(name = "SELECTED", nullable = false)
-	private boolean selected = true;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Attribute> attributes;
 
 	public String getName() {
 		return name;
@@ -65,28 +56,12 @@ public class Domain extends AbstractEntity<Long> {
 		this.app = app;
 	}
 
-	public Set<Attribute> getAttributes() {
+	public List<Attribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Set<Attribute> attributes) {
+	public void setAttributes(List<Attribute> attributes) {
 		this.attributes = attributes;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	public Long getAppId() {
-		return appId;
-	}
-
-	public void setAppId(Long appId) {
-		this.appId = appId;
 	}
 
     public void setId(Long id) {

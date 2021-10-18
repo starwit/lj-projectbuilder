@@ -1,15 +1,14 @@
-package de.starwit.generator.dto;
+package de.starwit.dto;
 
 import java.util.List;
 
 import de.starwit.persistence.entity.AbstractEntity;
-import de.starwit.persistence.entity.AppTemplate;
 
 public class ApplicationDto extends AbstractEntity<Long> {
 
     private String baseName;
     private String packageName;
-    private AppTemplate template;
+    private AppTemplateDto template;
 
     private List<EntityDto> entities;
 
@@ -30,11 +29,11 @@ public class ApplicationDto extends AbstractEntity<Long> {
     }
 
     
-    public AppTemplate getTemplate() {
+    public AppTemplateDto getTemplate() {
         return template;
     }
 
-    public void setTemplate(AppTemplate template) {
+    public void setTemplate(AppTemplateDto template) {
         this.template = template;
     }
 

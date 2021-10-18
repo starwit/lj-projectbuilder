@@ -2,28 +2,25 @@ package de.starwit.generator.services;
 
 
 import java.io.Serializable;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.starwit.generator.dto.GeneratorDto;
-import de.starwit.persistence.entity.Domain;
+import de.starwit.dto.GeneratorDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.service.impl.DomainService;
 import de.starwit.service.impl.AppService;
+import de.starwit.service.impl.DomainService;
 /**
  * Class for processing the whole app setup. A newly configured app is created and can be used.
  * @author Anett Huebner
  *
  */
-@Service
+//@Service
 public class AppSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -56,16 +53,12 @@ public class AppSetupService implements Serializable {
 	 */
 	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
-		App app = appService.findAppByIdOrThrowExeption(dto.getApp().getId());
+		App app = appService.findById(dto.getApp().getId());
 		//String destDirString = app.getTargetPath();
 		//appCheckout.deleteTempApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newAppFolder = appCheckout.createTempAppDirectory(app);
 		app.setTargetPath(newAppFolder);
 		app = appService.saveOrUpdate(app);
-		Set<Domain> selectedDomains = dto.getSelectedDomains();
-		for (Domain domain : selectedDomains) {
-			domainService.setDomainSelected(domain.getId(), domain.isSelected());
-		}
 
 		GeneratorDto checkoutDto = dto;
 		checkoutDto.setApp(app);

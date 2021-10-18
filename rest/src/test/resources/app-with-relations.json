@@ -1,0 +1,106 @@
+{
+    "id": 0,
+    "baseName": "testname",
+    "packageName": "testpackage",
+    "template": null,
+    "entities": [
+        {
+            "id": 0,
+            "name": "testEntityName",
+            "fields": [
+            {
+                "fieldName": "myfield",
+                "fieldType": "String",
+                "id": 0
+            },
+            {
+                "fieldName": "stringPatternField",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                    "pattern"
+                ],
+                "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+            }
+
+            ]
+        },        
+        {
+            "name": "Employee",
+            "fields": [
+              {
+                "fieldName": "firstName",
+                "fieldType": "String",
+                "javadoc": "The firstname attribute.",
+                "fieldValidateRules": [
+                  "required",
+                  "minlength",
+                  "maxlength"
+                ],
+                "fieldValidateRulesMinlength": "1",
+                "fieldValidateRulesMaxlength": "42"
+              },
+              {
+                "fieldName": "lastName",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                  "required",
+                  "minlength"
+                ],
+                "fieldValidateRulesMinlength": "42"
+              },
+              {
+                "fieldName": "email",
+                "fieldType": "String"
+              },
+              {
+                "fieldName": "phoneNumber",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                  "pattern"
+                ],
+                "fieldValidateRulesPattern": "^[0-9]+\\d$"
+              },
+              {
+                "fieldName": "salary",
+                "fieldType": "Long"
+              },
+              {
+                "fieldName": "commissionPct",
+                "fieldType": "Long"
+              }
+            ],
+            "relationships": [
+              {
+                "relationshipType": "one-to-many",
+                "otherEntityName": "job",
+                "otherEntityRelationshipName": "employee",
+                "relationshipName": "job"
+              },
+              {
+                "relationshipType": "many-to-one",
+                "otherEntityName": "employee",
+                "otherEntityRelationshipName": "employee",
+                "relationshipName": "manager"
+              },
+              {
+                "relationshipType": "many-to-one",
+                "otherEntityName": "department",
+                "otherEntityRelationshipName": "employee",
+                "javadoc": "Another side of the same relationship",
+                "relationshipName": "department"
+              }
+            ],
+            "javadoc": "The Employee entity.",
+            "entityTableName": "employee",
+            "dto": "no",
+            "pagination": "infinite-scroll",
+            "service": "no",
+            "jpaMetamodelFiltering": false,
+            "fluentMethods": true,
+            "readOnly": false,
+            "embedded": false,
+            "applications": "*",
+            "changelogDate": "20210923094703"
+        }
+    ]
+}
