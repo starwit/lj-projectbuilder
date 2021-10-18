@@ -69,7 +69,7 @@
                                     <outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>${project.parent.basedir}/webclient/src/main/webapp</directory>
+                                            <directory>${project.parent.basedir}/webclient/app/build</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
