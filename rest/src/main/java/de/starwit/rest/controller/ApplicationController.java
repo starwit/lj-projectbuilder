@@ -31,7 +31,7 @@ public class ApplicationController {
 
     @GetMapping
 	public List<ApplicationDto> findAll() {
-		return null;
+		return appMapper.convertToDtoList(appService.findAll());
 	}
 
 	@GetMapping(value = "/{id}")
@@ -55,7 +55,7 @@ public class ApplicationController {
 
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		
+		appService.delete(id);
 	}
 
 
