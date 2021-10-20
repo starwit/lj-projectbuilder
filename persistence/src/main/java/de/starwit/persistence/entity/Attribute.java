@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,6 +41,14 @@ public class Attribute extends AbstractEntity<Long> {
 	@Column(name = "NULLABLE")
 	private boolean nullable = true;
 
+	//TODO
+	@Transient
+	private boolean unique = false;
+
+	//TODO
+	@Transient
+	private String patterJava;
+
 	public String getName() {
 		return name;
 	}
@@ -70,6 +79,14 @@ public class Attribute extends AbstractEntity<Long> {
 
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
+	}
+
+	public String getPatterJava() {
+		return patterJava;
+	}
+
+	public void setPatterJava(String patterJava) {
+		this.patterJava = patterJava;
 	}
 
 	public Integer getMax() {
@@ -103,4 +120,13 @@ public class Attribute extends AbstractEntity<Long> {
 	public void setRequired(boolean required) {
 		this.nullable = !required;
 	}
+
+	public boolean isUnique() {
+		return unique;
+	}
+
+	public void setUnique(boolean unique) {
+		this.unique = unique;
+	}
+
 }
