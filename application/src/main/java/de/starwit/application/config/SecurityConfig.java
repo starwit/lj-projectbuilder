@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers("/**/*.{js,html,css,json}").permitAll()
 	    	.antMatchers("/**/viewcomponents/default/*.html").permitAll()
 	    	.antMatchers("/**/api/user/**").permitAll()
+			.antMatchers("/swagger-ui/**", "/swagger-ui.html", "**/api-docs", "**/api-docs/swagger-config").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
 	        .antMatchers("/**/viewcomponents/apptemplate/*.html").access("hasRole('ROLE_ADMIN')")
 	        .antMatchers("/**/viewcomponents/domain/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
 	        .antMatchers("/**/viewcomponents/app/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
