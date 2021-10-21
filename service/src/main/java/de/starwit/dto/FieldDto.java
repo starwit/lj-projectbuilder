@@ -2,12 +2,23 @@ package de.starwit.dto;
 
 import java.util.List;
 
-import de.starwit.persistence.entity.AbstractEntity;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import de.starwit.persistence.entity.AbstractEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema
+@XmlRootElement
 public class FieldDto extends AbstractEntity<Long> {
     
+    @NotNull
     private String fieldName;
+
+    @Schema(defaultValue = "String")
+    @NotNull
     private FieldType fieldType;
+    
     private List<FieldValidateRulesType> fieldValidateRules;
     private Integer fieldValidateRulesMin;
     private Integer fieldValidateRulesMax;

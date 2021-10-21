@@ -1,5 +1,8 @@
 package de.starwit.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema
 public enum FieldType {
     String(new FieldValidateRulesType[]{FieldValidateRulesType.required, FieldValidateRulesType.minlength, FieldValidateRulesType.maxlength, FieldValidateRulesType.pattern, FieldValidateRulesType.unique}),
     Integer(new FieldValidateRulesType[]{FieldValidateRulesType.required, FieldValidateRulesType.min, FieldValidateRulesType.max, FieldValidateRulesType.unique}),

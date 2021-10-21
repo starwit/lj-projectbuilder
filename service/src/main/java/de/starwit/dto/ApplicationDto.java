@@ -2,11 +2,18 @@ package de.starwit.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import de.starwit.persistence.entity.AbstractEntity;
 
+@XmlRootElement
 public class ApplicationDto extends AbstractEntity<Long> {
 
+    @NotNull
     private String baseName;
+
+    @NotNull
     private String packageName;
     private AppTemplateDto template;
 

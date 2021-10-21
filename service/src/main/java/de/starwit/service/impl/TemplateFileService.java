@@ -2,9 +2,6 @@ package de.starwit.service.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.ValidationException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
