@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("${rest.base-path}/application")
-public class ApplicationController {
+public class ApplicationController implements ControllerInterface<ApplicationDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 

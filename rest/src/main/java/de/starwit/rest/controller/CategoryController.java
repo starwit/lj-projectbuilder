@@ -20,6 +20,7 @@ import de.starwit.service.impl.CategoryService;
 /**
  * Domain RestController Have a look at the RequestMapping!!!!!!
  */
+@Deprecated
 @RestController
 @RequestMapping("${rest.base-path}/category")
 public class CategoryController {

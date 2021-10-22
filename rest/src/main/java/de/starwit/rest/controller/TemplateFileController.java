@@ -28,6 +28,7 @@ import de.starwit.service.impl.AppTemplateService;
  * Domain RestController
  * Have a look at the RequestMapping!!!!!!
  */
+@Deprecated
 @RestController
 @RequestMapping("${rest.base-path}/templatefile")
 public class TemplateFileController {
