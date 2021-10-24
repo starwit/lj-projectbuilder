@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import de.starwit.dto.ApplicationDto;
 import de.starwit.persistence.entity.AbstractEntity;
 
 @SpringBootTest
@@ -33,15 +32,13 @@ import de.starwit.persistence.entity.AbstractEntity;
 @AutoConfigureMockMvc(addFilters = false)
 public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntity<Long>> {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerAcceptanceTest.class);
+    final static Logger LOG = LoggerFactory.getLogger(AbstractControllerAcceptanceTest.class);
 
     @Autowired
     protected MockMvc mvc;
 
     @Autowired
     protected ObjectMapper mapper;
-
-    protected JacksonTester<ApplicationDto> jsonTester;
 
     @BeforeEach
     public void setup() {
@@ -54,6 +51,8 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
     public abstract Class<DTO> getDtoClass();
 
     public abstract String getRestPath();
+
+    public abstract JacksonTester<DTO> getJsonTester();
 
     @Test
     public abstract void canCreate() throws Exception;
@@ -80,8 +79,8 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
         }
     }
 
-    protected MockHttpServletResponse create(ApplicationDto dto) throws Exception {
-        String applicationString = jsonTester.write(dto).getJson();
+    protected MockHttpServletResponse create(DTO dto) throws Exception {
+        String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
         MockMvcRequestBuilders.put(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -90,15 +89,14 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
                               .content(applicationString);
 
         MockHttpServletResponse response = mvc.perform(builder)
-            .andExpect(status().isOk())
             .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
     }
 
-    protected MockHttpServletResponse update(ApplicationDto dto) throws Exception {
-        String applicationString = jsonTester.write(dto).getJson();
+    protected MockHttpServletResponse update(DTO dto) throws Exception {
+        String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
         MockMvcRequestBuilders.post(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -114,9 +112,19 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
         return response;
     }
 
-    protected MockHttpServletResponse retrieveById(ApplicationDto dto, Long id) throws Exception {
+    protected MockHttpServletResponse retrieveById(Long id) throws Exception {
         MockHttpServletResponse response = mvc.perform(
         get(getRestPath() + id)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
+
+        LOG.info(response.getContentAsString());
+        return response;
+    }
+
+    protected MockHttpServletResponse delete(Long id) throws Exception {
+        MockHttpServletResponse response = mvc.perform(
+            MockMvcRequestBuilders.delete(getRestPath() + id)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andReturn().getResponse();

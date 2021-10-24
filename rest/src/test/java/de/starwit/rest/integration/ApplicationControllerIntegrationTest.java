@@ -39,7 +39,7 @@ public class ApplicationControllerIntegrationTest extends AbstractControllerInte
 
     private static final String data = TestdataConstants.TESTDATA_APP_DIR;
 
-    private static final String restpath = "/api/application/";
+    private static final String restpath = "/api/apps/";
 
     @Override
     public Class<ApplicationDto> getDtoClass() {

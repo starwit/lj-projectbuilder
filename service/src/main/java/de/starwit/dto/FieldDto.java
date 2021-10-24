@@ -2,6 +2,7 @@ package de.starwit.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @XmlRootElement
 public class FieldDto extends AbstractEntity<Long> {
     
-    @NotNull
+    @NotEmpty
     private String fieldName;
 
     @Schema(defaultValue = "String")
