@@ -30,7 +30,7 @@ public enum RelationshipType {
      * @param jsonFormat
      * @return RelationshipType from json string value
      */
-    static public RelationshipType getEnum(String jsonFormat) {
+    static public RelationshipType setJsonFormat(String jsonFormat) {
         return lookup.get(jsonFormat);
     }
 

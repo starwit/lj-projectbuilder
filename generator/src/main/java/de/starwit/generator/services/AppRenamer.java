@@ -100,7 +100,6 @@ public class AppRenamer {
 	 * @param directory current directory
 	 */
 	private void renameFiles(String oldAppName, String newAppName, File directory) throws NotificationException {
-		@SuppressWarnings("unchecked")
 		Collection<File> files = FileUtils.listFiles(directory, EXT, true);
 		for (File file : files) {
 			LOG.info("FileName: " + file.getAbsolutePath());

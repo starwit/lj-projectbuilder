@@ -12,15 +12,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema
 @XmlRootElement
 @Entity
 @Table(name = "RELATIONSHIP")
 public class Relationship extends AbstractEntity<Long> {
 
+    @Schema(required = true, allowableValues = { "one-to-one",
+    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    private RelationshipType relationshipType;
+    private RelationshipType relationshipType = RelationshipType.OneToMany;
 
     @NotBlank
     @Column(name = "OTHER_ENTITY_NAME", nullable = false)
@@ -55,14 +60,18 @@ public class Relationship extends AbstractEntity<Long> {
         this.relationshipType = relationshipType;
     }
 
+    @Schema(required = true, allowableValues = { "one-to-one",
+    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
     @JsonProperty("relationshipType")
     public String getRelationshipTypeAsJson() {
         return relationshipType.getJsonFormat();
     }
 
+    @Schema(required = true, allowableValues = { "one-to-one",
+    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
     @JsonProperty("relationshipType")
     public void setRelationshipTypeAsJson(String relationshipType) {
-        this.relationshipType = RelationshipType.getEnum(relationshipType);
+        this.relationshipType = RelationshipType.setJsonFormat(relationshipType);
     }
 
     public String getOtherEntityName() {

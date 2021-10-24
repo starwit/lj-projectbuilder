@@ -2,12 +2,18 @@ package de.starwit.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import de.starwit.persistence.entity.AbstractEntity;
 import de.starwit.persistence.entity.Relationship;
 
+@XmlRootElement
 public class EntityDto extends AbstractEntity<Long> {
 
+    @NotNull
     private String name;
+
     private List<FieldDto> fields;
     private List<Relationship> relationships;
 

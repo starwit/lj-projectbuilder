@@ -11,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.dto.GeneratorDto;
 import de.starwit.persistence.entity.App;
-import de.starwit.persistence.exception.EntityNotFoundException;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.service.impl.AppService;
-import de.starwit.service.impl.DomainService;
 /**
  * Class for processing the whole app setup. A newly configured app is created and can be used.
  * @author Anett Huebner
@@ -25,9 +23,7 @@ public class AppSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
-	private DomainService domainService;
-	
+
 	@Autowired
 	private AppService appService;
 	
@@ -52,7 +48,7 @@ public class AppSetupService implements Serializable {
 	 * @throws NotificationException
 	 */
 	@Transactional(propagation = Propagation.NEVER)
-	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException, EntityNotFoundException {
+	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException {
 		App app = appService.findById(dto.getApp().getId());
 		//String destDirString = app.getTargetPath();
 		//appCheckout.deleteTempApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);

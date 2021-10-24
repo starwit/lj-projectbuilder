@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -22,7 +21,7 @@ import de.starwit.persistence.entity.Role;
 import de.starwit.persistence.entity.User;
 import de.starwit.service.impl.UserService;
 
-public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService {
 
     private static Logger LOGGER = LoggerFactory.getLogger(InjectLocalRolesOAuth2UserService.class);
 
