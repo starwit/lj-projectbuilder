@@ -22,10 +22,12 @@ function EntityCard(props) {
 
         return entity.fields.map((field, index) => {
             return (
+
                 <TableRow key={index}>
+                    <TableCell className={"anchor_" + entity.name + "_" + field.name + "_l"}/>
                     <TableCell>{field.name}</TableCell>
                     <TableCell>{field.dataType.name}</TableCell>
-                    <TableCell id={"anchor_" + entity.name + "_" + field.name}/>
+                    <TableCell className={"anchor_" + entity.name + "_" + field.name + "_r"}/>
                 </TableRow>
             )
         })
@@ -43,6 +45,7 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
+                        <TableCell></TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Datentyp</TableCell>
                     </TableRow>

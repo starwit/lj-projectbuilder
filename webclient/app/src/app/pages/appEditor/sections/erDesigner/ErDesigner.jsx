@@ -7,12 +7,14 @@ import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
+import LineTo, {Line} from "react-lineto";
 
 function ErDesigner() {
 
     const erDesignerStyles = ErDesignerStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
+    const [coordinates, setCoordinates] = useState([]);
     const [exampleData, setExampleData] = useState({
         entities: [
             {
@@ -82,8 +84,8 @@ function ErDesigner() {
                 "relationships": [
                     {
                         "relationshipType": "one-to-many",
-                        "otherEntityName": "D2",
-                        "otherEntityRelationshipName": "D2-f1-i",
+                        "otherEntityName": "D1",
+                        "otherEntityRelationshipName": "D1-f1-i",
                         "relationshipName": "D2-f1-i",
                         "name": "D2"
                     }
@@ -150,8 +152,9 @@ function ErDesigner() {
 
     }
 
-    function renderRelations() {
+    function updateCoordinates() {
         const relationsList = [];
+        const coordinates = [];
         exampleData.entities.forEach(entity => {
             if (entity.relationships) {
                 return entity?.relationships.forEach(relationship => {
@@ -160,25 +163,42 @@ function ErDesigner() {
                 })
             }
         })
-        const svgList = relationsList.map(parsedRelation => {
-            const elementSource = document
-                .getElementById('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName)
-                ?.getBoundingClientRect();
-            const elementTarget = document
-                .getElementById('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName)
-                ?.getBoundingClientRect();
+        relationsList.forEach(parsedRelation => {
+            let elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_r')
+            let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_l')
+            console.log("1", elementTarget, elementSource)
+
+            if (elementSource?.x > elementTarget?.x) {
+                elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_l')
+                elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_r')
+            }
+            console.log("2", elementTarget, elementSource)
             if (elementTarget && elementSource) {
                 console.log("element", elementSource, elementTarget)
-                return (
-                    <svg height={"100%"} width={"100%"}>
-                        <line x1={elementSource.x} y1={elementSource.y} x2={elementTarget.x} y2={elementTarget.y}
-                              stroke="black"/>
-                    </svg>
-                )
+                coordinates.push({
+                    x0: elementSource.x,
+                    y0: elementSource.y,
+                    x1: elementTarget.x,
+                    y1: elementTarget.y,
+                })
+            } else {
+                console.log("Entities could not be found")
             }
         })
-        console.log(svgList);
-        return svgList;
+        setCoordinates(coordinates)
+    }
+
+    function getElement(className) {
+        const classes = document
+            .getElementsByClassName(className)
+        return classes[0]?.getBoundingClientRect();
+    }
+
+    function renderRelations() {
+
+        return coordinates.map(coordinate => {
+            return <Line x0={coordinate.x0} y0={coordinate.y0} x1={coordinate.x1} y1={coordinate.y1}/>
+        })
 
     }
 
@@ -186,7 +206,7 @@ function ErDesigner() {
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
-                <Draggable axis={"both"}>
+                <Draggable axis={"both"} onStop={updateCoordinates}>
                     <div>
                         <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}/>
                     </div>
@@ -234,8 +254,10 @@ function ErDesigner() {
                 </Drawer>
             </React.Fragment>
             <div className={erDesignerStyles.draggableWrapper}>
+
                 {renderEntities()}
                 {renderRelations()}
+
             </div>
             <EntityEditor
                 entityId={currentEntity?.id}
