@@ -33,11 +33,11 @@ public class EntityController {
 
     final static Logger LOG = LoggerFactory.getLogger(EntityController.class);
 
-	@Autowired
-	private DomainService domainService;
+    @Autowired
+    private DomainService domainService;
 
-	@Autowired
-	private EntityMapper mapper;
+    @Autowired
+    private EntityMapper mapper;
 
     @GetMapping(value = "/{entityId}")
     public EntityDto findById(@PathVariable("entityId") Long entityId) {
@@ -47,7 +47,7 @@ public class EntityController {
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) {
-            domainService.delete(id);
+        domainService.delete(id);
     }
 
     @PutMapping(value = "/byApp/{appId}")
@@ -58,15 +58,15 @@ public class EntityController {
     @PostMapping(value = "/byApp/{appId}")
     public EntityDto update(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         Domain domain = null;
-        if(dto.getId() != null) {
+        if (dto.getId() != null) {
             domain = domainService.findByAppAndDomainId(appId, dto.getId());
         }
         App app = new App();
         app.setId(appId);
         domain = mapper.convertToEntity(dto);
         domain.setApp(app);
-		domain = domainService.saveOrUpdate(domain);
-		return mapper.convertToDto(domain);
+        domain = domainService.saveOrUpdate(domain);
+        return mapper.convertToDto(domain);
     }
 
     @GetMapping(value = "/allByApp/{appId}")
@@ -77,7 +77,7 @@ public class EntityController {
     @PutMapping(value = "/allByApp/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
-    }  
+    }
 
     @PostMapping(value = "/allByApp/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
@@ -85,7 +85,7 @@ public class EntityController {
             update(appId, dto);
         }
         return mapper.convertToDtoList(domainService.findAllDomainsByApp(appId));
-    } 
+    }
 
     @GetMapping(value = "/byApp/{appId}/{entityId}")
     public EntityDto findByIdAndApp(@PathVariable("appId") Long appId, @PathVariable("entityId") Long entityId) {
@@ -107,5 +107,5 @@ public class EntityController {
     public ResponseEntity<Object> handleException(WrongAppIdException ex) {
         LOG.info(ex.getMessage());
         return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }  
+    }
 }

@@ -50,30 +50,28 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     @Override
     @Test
     public void canCreate() throws Exception {
-        //given
+        // given
         ApplicationDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         String requestObject = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, requestObject);
         Long appId = mapper.readValue(response.getContentAsString(), ApplicationDto.class).getId();
-        
 
-        //when
+        // when
         requestObject = jsonTester.write(dto).getJson();
-        response = create(restpath  + "byApp/" + appId, requestObject);
+        response = create(restpath + "byApp/" + appId, requestObject);
 
-        //then
+        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
+        assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
     @Override
     @Test
     public void canRetrieveById() throws Exception {
 
-        //given
+        // given
         ApplicationDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
@@ -82,41 +80,32 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
         dto.setId(appDto2.getEntities().get(0).getId());
-        
-        //when
+
+        // when
         response = retrieveById(dto.getId());
 
-        //then
+        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
+        assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
     private MockHttpServletResponse create(String path, String applicationString) throws Exception {
-        MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.put(path)
-                              .contentType(MediaType.APPLICATION_JSON_VALUE)
-                              .accept(MediaType.APPLICATION_JSON)
-                              .characterEncoding("UTF-8")
-                              .content(applicationString);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(path)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8").content(applicationString);
 
-        MockHttpServletResponse response = mvc.perform(builder)
-            .andReturn().getResponse();
+        MockHttpServletResponse response = mvc.perform(builder).andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
     }
 
     private MockHttpServletResponse update(String path, String requestObjectString) throws Exception {
-        MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.post(path)
-                              .contentType(MediaType.APPLICATION_JSON_VALUE)
-                              .accept(MediaType.APPLICATION_JSON)
-                              .characterEncoding("UTF-8")
-                              .content(requestObjectString);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(path)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8").content(requestObjectString);
 
-        MockHttpServletResponse response = mvc.perform(builder)
-            .andReturn().getResponse();
+        MockHttpServletResponse response = mvc.perform(builder).andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
@@ -137,7 +126,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     @Override
     @Test
     public void canUpdate() throws Exception {
-        //given
+        // given
         ApplicationDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
@@ -147,25 +136,23 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
         dto.setId(appDto2.getEntities().get(0).getId());
         dto.setName("changed");
-        
+
         String requestObject = jsonTester.write(dto).getJson();
 
-        //when
+        // when
         response = update(restpath + "byApp/" + appDto2.getId(), requestObject);
 
-        //then
+        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
         assertThat(mapper.readValue(response.getContentAsString(), EntityDto.class).getName()).isEqualTo("changed");
-
-        
     }
 
     @Override
     @Test
     public void canDelete() throws Exception {
-        //given
+        // given
         ApplicationDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
