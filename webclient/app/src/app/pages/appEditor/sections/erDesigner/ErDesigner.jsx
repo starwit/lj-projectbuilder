@@ -7,7 +7,7 @@ import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
 import EntityEditor from "./entityEditor/EntityEditor";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
-import LineTo, {Line} from "react-lineto";
+import {Line} from "react-lineto";
 
 function ErDesigner() {
 
