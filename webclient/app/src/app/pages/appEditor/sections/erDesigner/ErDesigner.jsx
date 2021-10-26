@@ -112,7 +112,6 @@ function ErDesigner() {
         )
         setExampleData(newExampleData)
         setCurrentEntity(newEntity)
-        console.log("exData", exampleData)
     }
 
 
@@ -139,11 +138,8 @@ function ErDesigner() {
         const newExampleData = {...exampleData};
 
         if (foundEntityIndex > -1) {
-            console.log("editing existing", updatedEntity)
             newExampleData.entities[foundEntityIndex] = updatedEntity
         } else {
-            console.log("creating new one", updatedEntity)
-
             newExampleData.entities.push(updatedEntity);
         }
 
@@ -166,23 +162,18 @@ function ErDesigner() {
         relationsList.forEach(parsedRelation => {
             let elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_r')
             let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_l')
-            console.log("1", elementTarget, elementSource)
 
             if (elementSource?.x > elementTarget?.x) {
                 elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_l')
                 elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_r')
             }
-            console.log("2", elementTarget, elementSource)
             if (elementTarget && elementSource) {
-                console.log("element", elementSource, elementTarget)
                 coordinates.push({
                     x0: elementSource.x,
                     y0: elementSource.y,
                     x1: elementTarget.x,
                     y1: elementTarget.y,
                 })
-            } else {
-                console.log("Entities could not be found")
             }
         })
         setCoordinates(coordinates)
@@ -206,7 +197,7 @@ function ErDesigner() {
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
-                <Draggable axis={"both"} onStop={updateCoordinates}>
+                <Draggable axis={"both"} onStop={updateCoordinates} style={{width: "20rem"}}>
                     <div>
                         <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}/>
                     </div>
@@ -254,10 +245,8 @@ function ErDesigner() {
                 </Drawer>
             </React.Fragment>
             <div className={erDesignerStyles.draggableWrapper}>
-
                 {renderEntities()}
                 {renderRelations()}
-
             </div>
             <EntityEditor
                 entityId={currentEntity?.id}

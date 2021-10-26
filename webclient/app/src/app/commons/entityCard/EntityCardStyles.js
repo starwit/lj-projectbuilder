@@ -11,5 +11,8 @@ const EntityCardStyles = makeStyles(theme => ({
         padding: "1rem",
         width: "20rem"
     },
+    relationshipPlaceholder: {
+        width: "1px"
+    }
 }))
 export default EntityCardStyles;
