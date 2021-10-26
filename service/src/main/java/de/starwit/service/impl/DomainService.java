@@ -2,6 +2,8 @@ package de.starwit.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
 		List<Domain> entities = this.domainRepository.findAllDomainsByApp(appId);
 		return Mapper.convertList(entities, Domain.class, "app");
 	}
+
+	public Domain findByAppAndDomainId(Long appId, Long domainId) {
+        return this.getRepository().findByAppAndDomainId(appId, domainId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
+    }
 
 	@Override
 	public DomainRepository getRepository() {

@@ -14,6 +14,7 @@ import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.persistence.validation.EntityValidator;
 import de.starwit.service.impl.ServiceInterface;
 
+@Deprecated
 public class GenericController<E extends AbstractEntity<Long>> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger("fileAppender");

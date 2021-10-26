@@ -80,31 +80,31 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
             return;
         }
 
-        FieldValidateRulesType[] allowedRules = dto.getFieldType().getValidationRules();
+        FieldValidateRulesType[] allowedRules = FieldValidateRulesType.values();
         List<FieldValidateRulesType> rules = new ArrayList<>();
 
         for (FieldValidateRulesType allowedRule : allowedRules) {
             switch (allowedRule) {
                 case min:
-                    if(entity.getMin() != null) {
+                    if(entity.getMin() != null && entity.getDataType() != DataType.String) {
                         rules.add(FieldValidateRulesType.min);
                         dto.setFieldValidateRulesMin(entity.getMin());
                     }
                     break;                
                 case max:
-                    if(entity.getMax() != null) {
+                    if(entity.getMax() != null && entity.getDataType() != DataType.String) {
                         rules.add(FieldValidateRulesType.max);
                         dto.setFieldValidateRulesMax(entity.getMax());
                     }
                     break;
                 case minlength:
-                    if(entity.getMin() != null) {
+                    if(entity.getMin() != null && entity.getDataType() == DataType.String) {
                         rules.add(FieldValidateRulesType.minlength);
                         dto.setFieldValidateRulesMinlength(entity.getMin());
                     }
                     break;
                 case maxlength:
-                    if(entity.getMax() != null) {
+                    if(entity.getMax() != null && entity.getDataType() == DataType.String) {
                         rules.add(FieldValidateRulesType.maxlength);
                         dto.setFieldValidateRulesMaxlength(entity.getMax());
                     }

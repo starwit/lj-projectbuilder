@@ -21,6 +21,7 @@ import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 
+@Deprecated
 @RestController
 public class DownloadAppController {
 	
