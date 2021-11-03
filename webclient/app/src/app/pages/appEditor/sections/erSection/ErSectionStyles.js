@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const ErDesignerStyles = makeStyles(theme => ({
+const ErSectionStyles = makeStyles(theme => ({
 
     addFab: {
         position: "absolute",
@@ -27,4 +27,4 @@ const ErDesignerStyles = makeStyles(theme => ({
         left: "2%"
     }
 }))
-export default ErDesignerStyles;
+export default ErSectionStyles;

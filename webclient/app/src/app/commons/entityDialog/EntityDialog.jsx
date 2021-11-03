@@ -13,18 +13,18 @@ import {
     Typography
 } from "@mui/material";
 import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
-import LoadingSpinner from "../../../../../commons/loadingSpinner/LoadingSpinner";
-import FieldAccordion from "../../../../../commons/fieldAccordion/FieldAccordion";
-import RelationshipAccordion from "../../../../../commons/relationshipAccordion/RelationshipAccordion";
-import EntityEditorStyles from "./EntityEditorStyles";
-import TabPanel from "../../../../../commons/tabPanel/TabPanel";
-import Statement from "../../../../../commons/statement/Statement";
+import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
+import FieldAccordion from "../fieldAccordion/FieldAccordion";
+import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
+import EntityDialogStyles from "./EntityDialogStyles";
+import TabPanel from "../tabPanel/TabPanel";
+import Statement from "../statement/Statement";
 
-function EntityEditor(props) {
+function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
-    const entityEditorStyles = EntityEditorStyles();
+    const entityEditorStyles = EntityDialogStyles();
 
     const {entityId, onClose, handleSave, entities} = props;
 
@@ -239,4 +239,4 @@ function EntityEditor(props) {
 
 }
 
-export default EntityEditor;
+export default EntityDialog;

@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const EntityEditorStyles = makeStyles(theme => ({
+const EntityDialogStyles = makeStyles(theme => ({
     tabBox: {
         borderBottom: 1,
         borderColor: 'divider'
@@ -14,4 +14,4 @@ const EntityEditorStyles = makeStyles(theme => ({
         height: "15rem"
     }
 }))
-export default EntityEditorStyles;
+export default EntityDialogStyles;
