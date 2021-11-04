@@ -206,7 +206,7 @@ function EntityEditor(props) {
         <Dialog open={entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography noWrap variant={"h6"} component={"p"}>Entität bearbeiten</Typography>
-                <div style={{flex: 1}}/>
+                <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
                     onClick={onClose}

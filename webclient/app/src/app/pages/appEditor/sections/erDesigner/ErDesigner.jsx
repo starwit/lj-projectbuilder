@@ -197,7 +197,7 @@ function ErDesigner() {
     function renderEntities() {
         return exampleData.entities.map(entity => {
             return (
-                <Draggable axis={"both"} onStop={updateCoordinates} style={{width: "20rem"}}>
+                <Draggable axis={"both"} onStop={updateCoordinates} defaultClassName={erDesignerStyles.draggable}>
                     <div>
                         <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}/>
                     </div>
@@ -234,10 +234,7 @@ function ErDesigner() {
                             fontSize: ".75em"
                         }}
                         codeTagProps={{
-                            style: {
-                                lineHeight: "inherit",
-                                fontSize: "inherit"
-                            }
+                            className: erDesignerStyles.syntaxHighlighterCodeTag
                         }}
                     >
                         {JSON.stringify(exampleData.entities, null, 4)}
