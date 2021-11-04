@@ -12,15 +12,17 @@ import {
 import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
+import {useTranslation} from "react-i18next";
 
 
 function FieldAccordion(props) {
 
     const {dataType, mandatory, min, max, pattern, description, name, editFieldProperty, dataTypes} = props;
     const fieldAccordionStyles = FieldAccordionStyles();
+    const {t} = useTranslation();
 
     function renderAccordionTitle(name) {
-        let value = "Neues Feld";
+        let value = t("fieldDialog.newField");
         if (name) {
             value = name;
         }
@@ -41,17 +43,17 @@ function FieldAccordion(props) {
             <AccordionDetails>
                 <Grid container spacing={4}>
                     <Grid item sm={6}>
-                        <TextField fullWidth value={name} label={"Name"}
+                        <TextField fullWidth value={name} label={t("fieldDialog.name")}
                                    onChange={(event) => editFieldProperty("name", event.target.value)}/>
                     </Grid>
                     <Grid item sm={6}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Datentyp</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t("fieldDialog.dataType")}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={dataType.id}
-                                label="Datatype"
+                                label={t("fieldDialog.dataType")}
                                 onChange={(event) => editFieldProperty("dataType", event.target.value)}
                             >
                                 {dataTypes.map(dataType => (
@@ -63,18 +65,18 @@ function FieldAccordion(props) {
                     <Grid item sm={12}>
                         <TextField
                             fullWidth
-                            label={"Beschreibung"}
+                            label={t("fieldDialog.description")}
                             value={description}
                             onChange={(event) => editFieldProperty("description", event.target.value)}
                         />
                     </Grid>
                     <Grid item sm={12}>
-                        <Divider variant={"middle"}>Restriktionen</Divider>
+                        <Divider variant={"middle"}>{t("fieldDialog.restrictions")}</Divider>
                     </Grid>
                     <Grid item sm={12}>
                         <TextField
                             fullWidth
-                            label={"Pattern"}
+                            label={t("fieldDialog.pattern")}
                             value={pattern}
                             onChange={(event) => editFieldProperty("pattern", event.target.value)}
                         />
@@ -82,7 +84,7 @@ function FieldAccordion(props) {
                     <Grid item sm={6}>
                         <TextField
                             fullWidth
-                            label={"Min"}
+                            label={t("fieldDialog.min")}
                             value={min}
                             disabled={!dataType.allowMin}
                             onChange={(event) => editFieldProperty("min", event.target.value)}
@@ -91,7 +93,7 @@ function FieldAccordion(props) {
                     <Grid item sm={6}>
                         <TextField
                             fullWidth
-                            label={"Max"}
+                            label={t("fieldDialog.max")}
                             value={max}
                             disabled={!dataType.allowMax}
                             onChange={(event) => editFieldProperty("max", event.target.value)}
@@ -100,7 +102,7 @@ function FieldAccordion(props) {
                     <Grid item sm={12}>
                         <FormControlLabel
                             control={<Checkbox defaultChecked/>}
-                            label="Pflichtfeld"
+                            label={t("fieldDialog.mandatoryField")}
                             value={mandatory}
                             onChange={(event) => editFieldProperty("mandatory", !mandatory)}
                         />

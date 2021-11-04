@@ -3,6 +3,7 @@ import {Container, Grid, Typography} from "@mui/material";
 import AppCard from "../../commons/appCard/AppCard";
 import AddCard from "../../commons/addCard/AddCard";
 import {useHistory} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const apps = [
     {
@@ -14,11 +15,12 @@ const apps = [
 
 function Home() {
     const history = useHistory();
+    const {t} = useTranslation();
 
     return (
         <Container>
             <Typography variant={"h2"} gutterBottom>
-                Deine Apps
+                {t("home.yourApps")}
             </Typography>
             <Grid container spacing={5}>
                 {apps.map(app => (

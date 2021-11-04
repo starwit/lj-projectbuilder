@@ -5,6 +5,7 @@ import TemplateSelection from "./sections/templateSelection/TemplateSelection";
 import ErDesigner from "./sections/erDesigner/ErDesigner";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
+import {useTranslation} from "react-i18next";
 
 
 function AppEditor() {
@@ -12,25 +13,24 @@ function AppEditor() {
 
     const [activeStep, setActiveStep] = useState(1);
     const [selectedTemplate, setSelectedTemplate] = useState(null)
-    const appEditorStyles = AppEditorStyles()
+    const appEditorStyles = AppEditorStyles();
+    const {t} = useTranslation();
 
     const steps = [
         {
-            label: "Template",
+            label: t("appEditor.section.template.title"),
             component: <TemplateSelection onChange={setSelectedTemplate} value={selectedTemplate}/>,
             condition: selectedTemplate
         },
         {
-            label: "ER-Designer",
+            label: t("appEditor.section.erDesigner.title"),
             component: <ErDesigner/>
         },
         {
-            label: "Abschließen",
+            label: t("appEditor.section.conclusion.title"),
             component: <AddCard/>
         },
     ];
-
-    console.log(selectedTemplate)
 
     function handleBack() {
         setActiveStep((activeStep - 1))
@@ -47,13 +47,13 @@ function AppEditor() {
     function renderNextButton() {
         let content = (
             <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
-                Weiter
+                {t("button.next")}
             </Button>
         )
         if (isLastStep()) {
             content = (
                 <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
-                    Abschließen
+                    {t("button.save")}
                 </Button>
             )
         }
@@ -81,7 +81,7 @@ function AppEditor() {
                     className={appEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
                 >
-                    Zurück
+                    {t("button.back")}
                 </Button>
                 <Box className={appEditorStyles.navigationButtonNext}/>
                 {renderNextButton()}

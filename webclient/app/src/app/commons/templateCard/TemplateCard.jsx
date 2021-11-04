@@ -1,16 +1,18 @@
 import React from "react";
 import {Alert, Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import TemplateCardStyles from "./TemplateCardStyles";
+import {useTranslation} from "react-i18next";
 
 
 function TemplateCard(props) {
     const {template, selected, onSelection} = props;
     const templateCardStyles = TemplateCardStyles();
+    const {t} = useTranslation();
 
     function renderSelectedAlert(){
         if (selected) {
             return (
-                <Alert severity={"success"}>Ausgewählt</Alert>
+                <Alert severity={"success"}>{t("templateCard.selected")}</Alert>
             )
         }
     }
@@ -34,7 +36,7 @@ function TemplateCard(props) {
                 </Typography>
             </CardContent>
             <CardActions className={templateCardStyles.actionsWrapper}>
-                <Button size="small" disabled={selected} onClick={() => onSelection(template)}>Auswählen</Button>
+                <Button size="small" disabled={selected} onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
             </CardActions>
         </Card>
     )

@@ -1,4 +1,7 @@
-{
+import commonsTranslationsDE from "../app/commons/localization/commonsTranslationsDE";
+import pagesTranslationsDE from "../app/pages/localization/pagesTranslationsDE";
+
+const translationsDeDE = {
     "app.title":  "App Überschrift",
     "button.create": "Erstellen",
     "button.update": "Updaten",
@@ -12,6 +15,8 @@
 
     "###GENERATION###" : "Generierung",
 
-    "home.title": "Home"
-
-}
+    "home.title": "Home",
+    ...commonsTranslationsDE,
+    ...pagesTranslationsDE
+};
+export default translationsDeDE;

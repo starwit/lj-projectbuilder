@@ -2,11 +2,13 @@ import i18n from 'i18next';
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import translationDeDE from "./translations-de-DE";
 import translationEnUS from "./translations-en-US";
+import translationsDeDE from "./translations-de-DE";
+
+console
 
 const resources = {
-    "de-DE": {translation: translationDeDE},
+    "de-DE": {translation: translationsDeDE},
     "en-US": {translation: translationEnUS}
 };
 
