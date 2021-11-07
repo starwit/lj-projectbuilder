@@ -2,7 +2,7 @@ import commonsTranslationsDE from "../app/commons/localization/commonsTranslatio
 import pagesTranslationsDE from "../app/pages/localization/pagesTranslationsDE";
 
 const translationsDeDE = {
-    "app.title":  "App Überschrift",
+    "app.title": "App Überschrift",
     "button.create": "Erstellen",
     "button.update": "Updaten",
     "button.delete": "Löschen",
@@ -13,7 +13,7 @@ const translationsDeDE = {
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
 
-    "###GENERATION###" : "Generierung",
+    "###GENERATION###": "Generierung",
 
     "home.title": "Home",
     ...commonsTranslationsDE,

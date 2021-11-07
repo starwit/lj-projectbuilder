@@ -20,7 +20,8 @@ function AppHeader() {
                     <div className={appHeaderStyles.spacer}/>
                     <Button color="inherit" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/")}>{t("appHeader.apps")}</Button>
-                    <Button color="inherit" disableRipple className={appHeaderStyles.linkButton}>{t("appHeader.store")}</Button>
+                    <Button color="inherit" disableRipple
+                            className={appHeaderStyles.linkButton}>{t("appHeader.store")}</Button>
                     <Avatar className={appHeaderStyles.linkButton}></Avatar>
                 </Toolbar>
             </AppBar>

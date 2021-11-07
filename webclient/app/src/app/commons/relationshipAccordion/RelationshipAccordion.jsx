@@ -70,7 +70,8 @@ function RelationshipAccordion(props) {
                 <Grid container spacing={4}>
                     <Grid item sm={12}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">{t("relationshipAccordion.relationType")}</InputLabel>
+                            <InputLabel
+                                id="demo-simple-select-label">{t("relationshipAccordion.relationType")}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -88,7 +89,8 @@ function RelationshipAccordion(props) {
                     <Grid item sm={6}>
                         <Typography variant={"h6"} gutterBottom>{t("relationshipAccordion.source")}</Typography>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">{t("relationshipAccordion.sourceField")}</InputLabel>
+                            <InputLabel
+                                id="demo-simple-select-label">{t("relationshipAccordion.sourceField")}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -106,7 +108,8 @@ function RelationshipAccordion(props) {
                     <Grid item sm={6}>
                         <Typography variant={"h6"} gutterBottom>{t("relationshipAccordion.target")}</Typography>
                         <FormControl fullWidth className={relationshipAccordionStyles.spacerBottom}>
-                            <InputLabel id="demo-simple-select-label">{t("relationshipAccordion.targetDomain")}</InputLabel>
+                            <InputLabel
+                                id="demo-simple-select-label">{t("relationshipAccordion.targetDomain")}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -120,7 +123,8 @@ function RelationshipAccordion(props) {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">{t("relationshipAccordion.targetField")}</InputLabel>
+                            <InputLabel
+                                id="demo-simple-select-label">{t("relationshipAccordion.targetField")}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"

@@ -1,5 +1,5 @@
 const homeTranslationsDE = {
-    "home.yourApps": "Deine apps"
+    "home.yourApps": "Deine Apps"
 
 }
 export default homeTranslationsDE;

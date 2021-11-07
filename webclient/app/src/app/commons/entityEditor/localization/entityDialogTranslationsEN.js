@@ -1,4 +1,2 @@
-const entityDialogTranslationsEN = {
-
-}
+const entityDialogTranslationsEN = {}
 export default entityDialogTranslationsEN

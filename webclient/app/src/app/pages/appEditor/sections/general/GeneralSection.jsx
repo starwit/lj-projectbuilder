@@ -1,5 +1,5 @@
 import React from "react";
-import {Input, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 function GeneralSection() {

@@ -29,7 +29,8 @@ function Home() {
                             onEditClick={() => {
                                 history.push("/app/" + app.id + "/edit")
                             }}
-                            onDeleteClick={() => {}}
+                            onDeleteClick={() => {
+                            }}
                             app={app}/>
                     </Grid>
                 ))}

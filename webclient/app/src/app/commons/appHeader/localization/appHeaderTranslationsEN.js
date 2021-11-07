@@ -1,4 +1,2 @@
-const appHeaderTranslationsEN = {
-
-}
+const appHeaderTranslationsEN = {}
 export default appHeaderTranslationsEN

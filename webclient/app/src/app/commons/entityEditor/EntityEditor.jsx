@@ -217,7 +217,8 @@ function EntityEditor(props) {
                 </IconButton>
             </DialogTitle>
             <Container>
-                <TextField fullWidth label={t("entityDialog.name")} value={entity.name} onChange={handleEntityTitleText}/>
+                <TextField fullWidth label={t("entityDialog.name")} value={entity.name}
+                           onChange={handleEntityTitleText}/>
                 <Box className={entityEditorStyles.tabBox}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />

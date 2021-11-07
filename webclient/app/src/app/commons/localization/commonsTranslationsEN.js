@@ -1,4 +1,2 @@
-const commonsTranslationsEN = {
-
-}
+const commonsTranslationsEN = {}
 export default commonsTranslationsEN

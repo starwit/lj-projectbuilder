@@ -9,7 +9,7 @@ function TemplateCard(props) {
     const templateCardStyles = TemplateCardStyles();
     const {t} = useTranslation();
 
-    function renderSelectedAlert(){
+    function renderSelectedAlert() {
         if (selected) {
             return (
                 <Alert severity={"success"}>{t("templateCard.selected")}</Alert>
@@ -36,7 +36,8 @@ function TemplateCard(props) {
                 </Typography>
             </CardContent>
             <CardActions className={templateCardStyles.actionsWrapper}>
-                <Button size="small" disabled={selected} onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
+                <Button size="small" disabled={selected}
+                        onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
             </CardActions>
         </Card>
     )

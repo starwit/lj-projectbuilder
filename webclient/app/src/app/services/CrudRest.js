@@ -5,7 +5,7 @@ class CrudRest {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
     }
-    
+
     create = (entity) => {
         return axios.post(this.baseUrl, entity);
     }

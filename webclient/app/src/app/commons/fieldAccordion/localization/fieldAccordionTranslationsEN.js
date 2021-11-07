@@ -1,4 +1,2 @@
-const fieldAccordionTranslationsEN = {
-
-}
+const fieldAccordionTranslationsEN = {}
 export default fieldAccordionTranslationsEN
