@@ -12,6 +12,7 @@ import {Line} from "react-lineto";
 function ErDesigner() {
 
     const erDesignerStyles = ErDesignerStyles();
+
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
