@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 function EntityCard(props) {
 
     const entityCardStyles = EntityCardStyles();
-    const {entity, handleEdit, handleDelete} = props;
+    const {entity, handleEdit, handleDelete, editable} = props;
 
     function renderTitle(name) {
         let value = <Typography variant={"h6"} color={"text.secondary"}>Neue Entität</Typography>
@@ -64,7 +64,7 @@ function EntityCard(props) {
     }
 
     function renderEditButton() {
-        if (handleEdit) {
+        if (handleEdit && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton onClick={() => handleEdit(entity)}>
@@ -75,7 +75,7 @@ function EntityCard(props) {
     }
 
     function renderDeleteClick() {
-        if (handleDelete) {
+        if (handleDelete && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton
@@ -117,7 +117,12 @@ function EntityCard(props) {
 EntityCard.propTypes = {
     entity: PropTypes.object.isRequired,
     handleEdit: PropTypes.func,
-    handleDelete: PropTypes.func
+    handleDelete: PropTypes.func,
+    editable: PropTypes.bool
+}
+
+EntityCard.defaultProps = {
+    editable: true
 }
 
 export default EntityCard;

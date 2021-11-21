@@ -8,7 +8,7 @@ function MainContentRouter() {
     return (
         <>
             <Route path={"/app/:appId/edit"} component={AppEditor}/>
-            <Route path={"/app/:appId"} component={AppOverview}/>
+            <Route exact path={"/app/:appId"} component={AppOverview}/>
             <Route exact path={"/"} component={Home}/>
         </>
     )
