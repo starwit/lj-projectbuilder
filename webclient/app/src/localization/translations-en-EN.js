@@ -1,5 +1,5 @@
 const translationsEnEN = {
-    "app.title": "App Überschrift",
+    "app.title": "App Title",
     "button.create": "Create",
     "button.update": "Update",
     "button.delete": "Delete",
