@@ -5,6 +5,7 @@ const translationsDeDE = {
     "button.delete": "Löschen",
     "button.submit": "Bestätigen",
     "button.next": "Bestätigen",
+    "button.edit": "Bearbeiten",
     "button.back": "Zurück",
     "button.save": "Speichern",
     "form.create": "{{entity}} anlegen",
