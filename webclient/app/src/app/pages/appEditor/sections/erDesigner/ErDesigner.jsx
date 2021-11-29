@@ -5,9 +5,10 @@ import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
-import EntityEditor from "./entityEditor/EntityEditor";
+import EntityEditor from "../../../../commons/entityEditor/EntityEditor";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
 import {Line} from "react-lineto";
+import {useTranslation} from "react-i18next";
 
 function ErDesigner() {
 
@@ -93,6 +94,8 @@ function ErDesigner() {
             }
         ]
     })
+
+    const {t} = useTranslation();
 
     function addEntity() {
         const newExampleData = {...exampleData};
@@ -215,7 +218,7 @@ function ErDesigner() {
             </div>
             <div className={erDesignerStyles.codeButtonWrapper}>
                 <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                    Code
+                    {t("entityDesigner.code")}
                 </Button>
             </div>
             <React.Fragment key={"left"}>

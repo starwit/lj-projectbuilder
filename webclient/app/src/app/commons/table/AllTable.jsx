@@ -19,8 +19,10 @@ class AllTable extends Component {
                 </TableHead>
                 <TableBody>
                     {entities.map(entity =>
-                        <TableRow key={entity.id} onClick={() => onRowClick(entity)} selected={selected && entity.id === selected.id}>
-                            {columns.map(column => <TableCell key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
+                        <TableRow key={entity.id} onClick={() => onRowClick(entity)}
+                                  selected={selected && entity.id === selected.id}>
+                            {columns.map(column => <TableCell
+                                key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
                         </TableRow>
                     )}
                 </TableBody>
