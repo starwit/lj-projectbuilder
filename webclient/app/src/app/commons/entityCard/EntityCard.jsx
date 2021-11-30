@@ -4,14 +4,16 @@ import React from "react";
 import Statement from "../statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
+import {useTranslation} from "react-i18next";
 
 function EntityCard(props) {
 
     const entityCardStyles = EntityCardStyles();
     const {entity, handleEdit, handleDelete, editable} = props;
+    const {t} = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>Neue Entität</Typography>
+        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entityCard.newEntity")}</Typography>
         if (name) {
             value = <Typography variant={"h6"}>{name}</Typography>
         }
@@ -41,7 +43,7 @@ function EntityCard(props) {
         if (!entity.fields || entity.fields.length === 0) {
             return (
                 <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={"Keine Felder angelegt"}/>
+                    <Statement message={t("entityCard.noFields")}/>
                 </div>
             )
         }
@@ -50,8 +52,8 @@ function EntityCard(props) {
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
                         <TableCell/>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Datentyp</TableCell>
+                        <TableCell>{t("entityCard.name")}</TableCell>
+                        <TableCell>{t("entityCard.dataType")}</TableCell>
                         <TableCell/>
 
                     </TableRow>

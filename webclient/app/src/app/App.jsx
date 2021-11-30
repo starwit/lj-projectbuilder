@@ -2,7 +2,7 @@ import React from "react";
 
 import MainTheme from "./assets/themes/MainTheme";
 
-import AppHeader from "./commons/header/AppHeader";
+import AppHeader from "./commons/appHeader/AppHeader";
 import MainContentRouter from "./pages/MainContentRouter";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 

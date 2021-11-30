@@ -65,7 +65,7 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     linkButton: {
         marginRight: theme.spacing(3),
-        marginLeft:theme.spacing(3),
+        marginLeft: theme.spacing(3),
     },
     contentSpacer: {
         height: appBarHeight
