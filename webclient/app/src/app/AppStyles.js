@@ -1,6 +1,4 @@
 import {makeStyles} from "@mui/styles";
 
-const AppStyles = makeStyles(theme => ({
-
-}))
+const AppStyles = makeStyles(theme => ({}))
 export default AppStyles;
