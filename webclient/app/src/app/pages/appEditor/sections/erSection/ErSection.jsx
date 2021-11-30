@@ -8,6 +8,7 @@ import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
 import {Line} from "react-lineto";
+import {useTranslation} from "react-i18next";
 
 function ErSection() {
 
@@ -93,6 +94,8 @@ function ErSection() {
             }
         ]
     })
+
+    const {t} = useTranslation();
 
     function addEntity() {
         const newExampleData = {...exampleData};
@@ -215,7 +218,7 @@ function ErSection() {
             </div>
             <div className={erDesignerStyles.codeButtonWrapper}>
                 <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                    Code
+                    {t("entityDesigner.code")}
                 </Button>
             </div>
             <React.Fragment key={"left"}>
