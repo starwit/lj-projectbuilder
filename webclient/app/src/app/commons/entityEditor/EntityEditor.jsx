@@ -34,7 +34,7 @@ function EntityEditor(props) {
 
         setEntity({...entities.find(entity => entity.id === entityId)})
 
-    }, [entityId])
+    }, [entityId, entities])
 
     const dataTypes = [
         {
