@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Profile("!dev")
 @Configuration
@@ -24,15 +23,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-	    	.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-	        .authorizeRequests()
+			.csrf().disable()
+			.authorizeRequests()
 	        .antMatchers("/api/userinfo", "/api/userinfo/", "/api/user/information", "/api/user/information/").permitAll()
-	        .antMatchers("/**/*.{js,html,css}").permitAll()
+	        .antMatchers("/**/*.{js,html,css,json}").permitAll()
 	    	.antMatchers("/**/viewcomponents/default/*.html").permitAll()
 	    	.antMatchers("/**/api/user/**").permitAll()
-	        .antMatchers("/**/viewcomponents/projecttemplate/*.html").access("hasRole('ROLE_ADMIN')")
+			.antMatchers("/swagger-ui/**", "/swagger-ui.html", "**/api-docs", "**/api-docs/swagger-config").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
+	        .antMatchers("/**/viewcomponents/apptemplate/*.html").access("hasRole('ROLE_ADMIN')")
 	        .antMatchers("/**/viewcomponents/domain/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
-	        .antMatchers("/**/viewcomponents/project/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
+	        .antMatchers("/**/viewcomponents/app/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
 	        .antMatchers("/**/viewcomponents/generator/*.html").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
 	        .antMatchers("/**/api/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_PBUSER')")
 	        .anyRequest().authenticated()

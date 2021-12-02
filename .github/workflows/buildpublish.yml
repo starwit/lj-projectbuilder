@@ -47,3 +47,4 @@ jobs:
         tags: latest
         path: .
         dockerfile: ./Dockerfile
+        

@@ -31,7 +31,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-security</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -65,7 +73,7 @@
                                     <outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>${project.parent.basedir}/webclient/src/main/webapp</directory>
+                                            <directory>${project.parent.basedir}/webclient/app/build</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -119,7 +127,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <phase>prepare-package</phase>
