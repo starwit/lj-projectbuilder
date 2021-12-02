@@ -3,7 +3,7 @@ name: Build and Publish
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [ develop, v2 ]
   workflow_dispatch:
 
 jobs:
