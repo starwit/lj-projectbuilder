@@ -239,7 +239,6 @@ function EntityEditor(props) {
             </Container>
         </Dialog>
     )
-
 }
 
 export default EntityEditor;
