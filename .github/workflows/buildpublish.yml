@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY: docker.pkg.github.com
+  REGISTRY: ghcr.io
 
 jobs:
   build:
