@@ -4,12 +4,14 @@ import {Delete} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
+import {useTranslation} from "react-i18next";
 
 function AppCard(props) {
 
     const {app, onDeleteClick, onEditClick} = props;
     const history = useHistory();
-    const appCardStyles = AppCardStyles()
+    const appCardStyles = AppCardStyles();
+    const {t} = useTranslation();
 
     return (
         <Card elevation={5}>
@@ -24,7 +26,7 @@ function AppCard(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions className={appCardStyles.cardActions}>
-                <Button size="small" onClick={onEditClick}>Bearbeiten</Button>
+                <Button size="small" onClick={onEditClick}>{t("button.edit")}</Button>
                 <IconButton onClick={onDeleteClick}><Delete fontSize={"small"}/></IconButton>
             </CardActions>
         </Card>

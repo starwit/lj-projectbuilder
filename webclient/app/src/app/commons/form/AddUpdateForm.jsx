@@ -42,7 +42,7 @@ class AddUpdateForm extends Component {
             </form>
         )
     }
-    
+
 }
 
 export default compose(withStyles(AddUpdateFormStyles), withTranslation())(AddUpdateForm);
