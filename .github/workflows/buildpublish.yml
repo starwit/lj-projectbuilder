@@ -5,9 +5,10 @@ on:
   pull_request:
     branches: [ develop, v2 ]
   workflow_dispatch:
-
+  
 env:
   REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
@@ -19,13 +20,13 @@ jobs:
     - name: Set up JDK 14
       uses: actions/setup-java@v1
       with:
-        java-version: 14
+        java-version: 14    
     - name: npm install
       run: |
         cd webclient/app
-        npm install --legacy-peer-deps
+        npm install --legacy-peer-deps    
     - name: Build with Maven
-      run: mvn -B package -P frontend --file pom.xml
+      run: mvn clean -B package -P frontend --file pom.xml
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
@@ -42,7 +43,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
       with:
-        images: starwit/lj-projectbuilder/ljprojectbuilder
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker image
@@ -52,4 +53,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        
