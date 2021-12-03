@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.9](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.9-1...v0.2.9) (2021-10-21)
+
+
+### Features
+
+* adding nginx as reverse proxy ([2c359c6](https://github.com/mokkapps/changelog-generator-demo/commits/2c359c63bd1c8185d953e719cfc8c167830ea6a4))
+
 ### [0.2.9-1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.9-0...v0.2.9-1) (2021-09-10)
 
 
