@@ -3,16 +3,24 @@ package de.starwit.dto;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 import de.starwit.persistence.entity.AbstractEntity;
 import de.starwit.persistence.entity.Relationship;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema
 @XmlRootElement
 public class EntityDto extends AbstractEntity<Long> {
 
-    @NotEmpty
+    @Schema(defaultValue = "DefaultEntity")
+    @NotBlank
+	@Pattern(regexp = "^[A-Z][a-zA-Z0-9]*$")
+	@Length(max = 100)
     private String name;
 
     @Valid

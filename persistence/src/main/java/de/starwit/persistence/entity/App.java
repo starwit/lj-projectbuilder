@@ -11,10 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 @Entity
@@ -26,23 +28,24 @@ public class App extends AbstractEntity<Long> {
 	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
 	private AppTemplate template;
 
-	@NotNull
+	@NotBlank
 	@Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Size(max = 100)
+	@Length(max = 100)
 	@Column(name = "TITLE", nullable = false, length = 100)
 	private String title;
 
-	@NotNull
+	@NotBlank
 	@Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Size(max = 100)
+	@Length(max = 100)
 	@Column(name = "PACKAGEPREFIX", nullable = false, length = 100)
 	private String packagePrefix;
 
-	@Size(max = 100)
+	@Length(max = 100)
 	@Column(name = "TARGETPATH", length = 100)
 	private String targetPath;
 
-	@Column(name = "DESCRIPTION")
+	@Length(max = 240)
+	@Column(name = "DESCRIPTION", length = 240)
 	private String description;
 
 	@OneToMany(mappedBy = "app",  cascade = CascadeType.ALL, orphanRemoval = true)

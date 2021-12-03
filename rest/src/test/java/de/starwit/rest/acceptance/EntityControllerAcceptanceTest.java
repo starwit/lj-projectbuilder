@@ -47,6 +47,25 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         return jsonTester;
     }
 
+    @Test
+    public void isValidatedRegEx() throws Exception {
+
+        // given
+        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        EntityDto dto = readFromFile(data + "entity-wrong-name.json");
+        String requestObject = jsonAppTester.write(appDto).getJson();
+        MockHttpServletResponse response = create(apprestpath, requestObject);
+        Long appId = mapper.readValue(response.getContentAsString(), ApplicationDto.class).getId();
+
+        // when
+        requestObject = jsonTester.write(dto).getJson();
+        response = create(restpath + "byApp/" + appId, requestObject);
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(response.getContentAsString()).contains("^[A-Z][a-zA-Z0-9]*$");
+    }
+
     @Override
     @Test
     public void canCreate() throws Exception {
@@ -135,7 +154,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
         dto.setId(appDto2.getEntities().get(0).getId());
-        dto.setName("changed");
+        dto.setName("Changed");
 
         String requestObject = jsonTester.write(dto).getJson();
 
@@ -146,7 +165,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
-        assertThat(mapper.readValue(response.getContentAsString(), EntityDto.class).getName()).isEqualTo("changed");
+        assertThat(mapper.readValue(response.getContentAsString(), EntityDto.class).getName()).isEqualTo("Changed");
     }
 
     @Override
