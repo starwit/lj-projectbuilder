@@ -5,7 +5,7 @@ import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErDesignerStyles";
 import Draggable from "react-draggable";
-import EntityEditor from "../../../../commons/entityEditor/EntityEditor";
+import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
 import {Line} from "react-lineto";
 import {useTranslation} from "react-i18next";
@@ -138,7 +138,7 @@ function ErDesigner(props) {
         }
         return entities.map(entity => {
             return (
-                <Draggable axis={"both"} onStop={updateCoordinates} style={{width: "20rem"}}>
+                <Draggable axis={"both"} onStop={updateCoordinates} defaultClassName={erDesignerStyles.draggable}>
                     <div>
                         <EntityCard
                             entity={entity}
@@ -199,10 +199,7 @@ function ErDesigner(props) {
                             fontSize: ".75em"
                         }}
                         codeTagProps={{
-                            style: {
-                                lineHeight: "inherit",
-                                fontSize: "inherit"
-                            }
+                            className: erDesignerStyles.syntaxHighlighterCodeTag
                         }}
                     >
                         {JSON.stringify(entities, null, 4)}
@@ -213,7 +210,7 @@ function ErDesigner(props) {
                 {renderEntities()}
                 {renderRelations()}
             </div>
-            <EntityEditor
+            <EntityDialog
                 entityId={currentEntity?.id}
                 onClose={() => setCurrentEntity(null)}
                 handleSave={(data) => updateEntity(data)}

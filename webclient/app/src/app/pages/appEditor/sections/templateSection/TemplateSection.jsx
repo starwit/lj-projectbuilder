@@ -4,7 +4,7 @@ import TemplateCard from "../../../../commons/templateCard/TemplateCard";
 import Image from "../../../../assets/images/logo.png"
 
 
-function TemplateSelection(props) {
+function TemplateSection(props) {
 
     const {onChange, value} = props;
 
@@ -43,10 +43,10 @@ function TemplateSelection(props) {
 
 }
 
-TemplateSelection.defaultProps = {
+TemplateSection.defaultProps = {
     onChange: () => {
         //This is intentional
     }
 }
 
-export default TemplateSelection;
+export default TemplateSection;

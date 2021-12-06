@@ -11,7 +11,9 @@ import ConclusionSection from "./sections/conclusion/ConclusionSection";
 function AppEditor() {
 
     const [activeStep, setActiveStep] = useState(1);
-    const [selectedTemplate, setSelectedTemplate] = useState(null);
+    const [selectedTemplate, setSelectedTemplate] = useState(null)
+    const appEditorStyles = AppEditorStyles();
+    const {t} = useTranslation();
     const [appName, setAppName] = useState(null)
     const [packageName, setPackageName] = useState(null)
     const [entities, setEntities] = useState([
@@ -90,8 +92,6 @@ function AppEditor() {
             ]
         }
     ])
-    const appEditorStyles = AppEditorStyles();
-    const {t} = useTranslation();
 
     const steps = [
         {

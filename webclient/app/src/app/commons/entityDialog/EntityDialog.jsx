@@ -16,16 +16,16 @@ import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
-import EntityEditorStyles from "./EntityEditorStyles";
+import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../tabPanel/TabPanel";
 import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
 
-function EntityEditor(props) {
+function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
-    const entityEditorStyles = EntityEditorStyles();
+    const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
 
     const {entityId, onClose, handleSave, entities} = props;
@@ -208,7 +208,7 @@ function EntityEditor(props) {
         <Dialog open={entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography noWrap variant={"h6"} component={"p"}>{t("entityDialog.editDomain")}</Typography>
-                <div style={{flex: 1}}/>
+                <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
                     onClick={onClose}
@@ -239,7 +239,6 @@ function EntityEditor(props) {
             </Container>
         </Dialog>
     )
-
 }
 
-export default EntityEditor;
+export default EntityDialog;
