@@ -25,6 +25,13 @@ const ErSectionStyles = makeStyles(theme => ({
         position: "absolute",
         bottom: "5%",
         left: "2%"
+    },
+    draggable: {
+        width: "20rem"
+    },
+    syntaxHighlighterCodeTag: {
+        lineHeight: "inherit",
+        fontSize: "inherit"
     }
 }))
 export default ErSectionStyles;

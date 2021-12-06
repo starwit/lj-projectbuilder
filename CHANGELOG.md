@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.10-1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.10-0...v0.2.10-1) (2021-12-03)
+
+### [0.2.10-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.9...v0.2.10-0) (2021-12-03)
+
+
+### Features
+
+* 103 create new rest interface for application mapping ([707923c](https://github.com/mokkapps/changelog-generator-demo/commits/707923c434bae7535f1e10f662636d2b85bb8406))
+* added required fields & enum values for rest ([b2cd1b1](https://github.com/mokkapps/changelog-generator-demo/commits/b2cd1b11203ed2b9904ac58091c5748c20680c10))
+* added rest interface for entity ([56d0bfa](https://github.com/mokkapps/changelog-generator-demo/commits/56d0bfa976331725a49b9d113cafcb16417b6b03))
+* relationship added to ER-modell ([0a5f7cd](https://github.com/mokkapps/changelog-generator-demo/commits/0a5f7cd02f273c61b5a9b7530a6605ee93ca193a))
+* renaming project to app ([7b11923](https://github.com/mokkapps/changelog-generator-demo/commits/7b11923713c60522906b4d1cb2da1be9a3659285))
+* swagger added ([e5b4e55](https://github.com/mokkapps/changelog-generator-demo/commits/e5b4e55f59b418c955e1976911bb354bf46494dd))
+
 ### [0.2.9](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.9-1...v0.2.9) (2021-10-21)
 
 

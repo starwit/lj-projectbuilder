@@ -19,12 +19,14 @@ import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordio
 import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../tabPanel/TabPanel";
 import Statement from "../statement/Statement";
+import {useTranslation} from "react-i18next";
 
 function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
     const entityEditorStyles = EntityDialogStyles();
+    const {t} = useTranslation();
 
     const {entityId, onClose, handleSave, entities} = props;
 
@@ -150,7 +152,7 @@ function EntityDialog(props) {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement icon={<CheckBoxOutlineBlank/>} message={"Keine Relationen angelegt"}/>
+                    <Statement icon={<CheckBoxOutlineBlank/>} message={t("entityDialog.noRelations")}/>
                 </div>
             )
         }
@@ -174,7 +176,7 @@ function EntityDialog(props) {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement icon={<CheckBoxOutlineBlank/>} message={"Keine Felder angelegt"}/>
+                    <Statement icon={<CheckBoxOutlineBlank/>} message={t("entityDialog.noFields")}/>
                 </div>
             )
         }
@@ -199,14 +201,14 @@ function EntityDialog(props) {
     }
 
     if (!entity) {
-        return <LoadingSpinner message={"Domain wird geladen"}/>
+        return <LoadingSpinner message={t("entityDialog.domainIsLoading")}/>
     }
 
     return (
         <Dialog open={entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                <Typography noWrap variant={"h6"} component={"p"}>Entität bearbeiten</Typography>
-                <div style={{flex: 1}}/>
+                <Typography noWrap variant={"h6"} component={"p"}>{t("entityDialog.editDomain")}</Typography>
+                <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
                     onClick={onClose}
@@ -215,28 +217,28 @@ function EntityDialog(props) {
                 </IconButton>
             </DialogTitle>
             <Container>
-                <TextField fullWidth label={"Name"} value={entity.name} onChange={handleEntityTitleText}/>
+                <TextField fullWidth label={t("entityDialog.name")} value={entity.name}
+                           onChange={handleEntityTitleText}/>
                 <Box className={entityEditorStyles.tabBox}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="Felder" {...a11yProps(0)} />
-                        <Tab label="Relationen" {...a11yProps(1)} />
+                        <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />
+                        <Tab label={t("entityDialog.tab.relations")} {...a11yProps(1)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
                         {renderFields()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addField}>Hinzufügen</Button>
+                        <Button fullWidth startIcon={<Add/>} onClick={addField}>{t("button.create")}</Button>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         {renderRelations()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>Hinzufügen</Button>
+                        <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>{t("button.create")}</Button>
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    <Button onClick={() => handleSave(entity)}>Speichern</Button>
+                    <Button onClick={() => handleSave(entity)}>{t("button.save")}</Button>
                 </DialogActions>
             </Container>
         </Dialog>
     )
-
 }
 
 export default EntityDialog;
