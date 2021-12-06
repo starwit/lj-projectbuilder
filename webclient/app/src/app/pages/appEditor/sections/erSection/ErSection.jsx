@@ -3,7 +3,7 @@ import {Button, Drawer, Fab} from "@mui/material";
 import {Add, CheckBoxOutlineBlank, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import ErDesignerStyles from "./ErDesignerStyles";
+import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";

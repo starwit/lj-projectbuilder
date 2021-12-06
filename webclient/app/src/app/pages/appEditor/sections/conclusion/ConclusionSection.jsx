@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Container, Grid, List, ListItem, ListItemText, Skeleton, Typography} from "@mui/material";
 import {Download} from "@mui/icons-material";
-import ErDesigner from "../erDesigner/ErDesigner";
+import ErSection from "../erSection/ErSection";
 import PropTypes from "prop-types";
 import ConclusionSectionStyles from "./ConclusionSectionStyles";
 
@@ -50,7 +50,7 @@ function ConclusionSection(props) {
 
             </Grid>
             <Typography variant={"h5"} gutterBottom>ER-Diagramm</Typography>
-            <ErDesigner entities={entities} dense editable={false}/>
+            <ErSection entities={entities} dense editable={false}/>
         </Container>
     )
 }

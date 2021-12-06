@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
-import TemplateSelection from "./sections/templateSelection/TemplateSelection";
-import ErDesigner from "./sections/erDesigner/ErDesigner";
+import TemplateSelection from "./sections/templateSection/TemplateSection";
+import ErDesigner from "./sections/erSection/ErSection";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
