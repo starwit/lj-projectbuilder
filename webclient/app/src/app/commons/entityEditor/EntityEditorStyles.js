@@ -12,6 +12,9 @@ const EntityEditorStyles = makeStyles(theme => ({
     },
     statementWrapper: {
         height: "15rem"
+    },
+    flex: {
+        flex: 1
     }
 }))
 export default EntityEditorStyles;
