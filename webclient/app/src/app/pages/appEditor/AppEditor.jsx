@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import AddCard from "../../commons/addCard/AddCard";
-import TemplateSelection from "./sections/templateSelection/TemplateSelection";
-import ErDesigner from "./sections/erDesigner/ErDesigner";
+import TemplateSection from "./sections/templateSection/TemplateSection";
+import ErSection from "./sections/erSection/ErSection";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
@@ -19,12 +19,12 @@ function AppEditor() {
     const steps = [
         {
             label: t("appEditor.section.template.title"),
-            component: <TemplateSelection onChange={setSelectedTemplate} value={selectedTemplate}/>,
+            component: <TemplateSection onChange={setSelectedTemplate} value={selectedTemplate}/>,
             condition: selectedTemplate
         },
         {
             label: t("appEditor.section.erDesigner.title"),
-            component: <ErDesigner/>
+            component: <ErSection/>
         },
         {
             label: t("appEditor.section.conclusion.title"),

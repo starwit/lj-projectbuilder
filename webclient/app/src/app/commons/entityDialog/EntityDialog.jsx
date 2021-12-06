@@ -16,16 +16,16 @@ import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
-import EntityEditorStyles from "./EntityEditorStyles";
+import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../tabPanel/TabPanel";
 import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
 
-function EntityEditor(props) {
+function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
-    const entityEditorStyles = EntityEditorStyles();
+    const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
 
     const {entityId, onClose, handleSave, entities} = props;
@@ -241,4 +241,4 @@ function EntityEditor(props) {
     )
 }
 
-export default EntityEditor;
+export default EntityDialog;

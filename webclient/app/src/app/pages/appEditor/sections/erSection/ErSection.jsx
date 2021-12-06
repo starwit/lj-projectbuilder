@@ -3,16 +3,16 @@ import {Button, Drawer, Fab} from "@mui/material";
 import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import ErDesignerStyles from "./ErDesignerStyles";
+import ErSectionStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
-import EntityEditor from "../../../../commons/entityEditor/EntityEditor";
+import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
 import {Line} from "react-lineto";
 import {useTranslation} from "react-i18next";
 
-function ErDesigner() {
+function ErSection() {
 
-    const erDesignerStyles = ErDesignerStyles();
+    const erDesignerStyles = ErSectionStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
@@ -248,7 +248,7 @@ function ErDesigner() {
                 {renderEntities()}
                 {renderRelations()}
             </div>
-            <EntityEditor
+            <EntityDialog
                 entityId={currentEntity?.id}
                 onClose={() => setCurrentEntity(null)}
                 handleSave={(data) => updateEntity(data)}
@@ -258,4 +258,4 @@ function ErDesigner() {
     )
 }
 
-export default ErDesigner;
+export default ErSection;
