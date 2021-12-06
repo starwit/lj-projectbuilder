@@ -1,4 +1,4 @@
-<#list app.selectedDomains as domain>
+<#list project.selectedDomains as domain>
 <#list (domain.attributes) as attribute> 
 	"${domain.name?lower_case}.${attribute.name}": "${attribute.name}",
 </#list>

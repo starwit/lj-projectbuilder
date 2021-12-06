@@ -5,20 +5,19 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.5.5</version>
+    <version>2.3.3.RELEASE</version>
   </parent>
 
   <groupId>de.starwit</groupId>
   <artifactId>ljprojectbuilder</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <description>App template from test @ spring</description>
+  <description>Project template from test @ spring</description>
   <packaging>pom</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spring-version>2.2.6.RELEASE</spring-version>
-    <openapi-version>1.5.2</openapi-version>
     <jackson-2-version>2.7.4</jackson-2-version>
   </properties>
 
@@ -45,8 +44,8 @@
         </exclusions>
       </dependency>
       <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-oauth2-client</artifactId>
         <version>${spring-version}</version>
         <exclusions>
           <exclusion>
@@ -57,28 +56,16 @@
 	  </dependency>
 	  <dependency>
 	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-security</artifactId>
-      <version>${spring-version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-      </exclusions>
-	  </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
+		<artifactId>spring-boot-starter-security</artifactId>
         <version>${spring-version}</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
           </exclusion>
-        </exclusions>      
-    </dependency>    
-    <dependency>
+        </exclusions>
+	  </dependency>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-actuator</artifactId>
         <version>${spring-version}</version>
@@ -126,16 +113,18 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-log4j2</artifactId>
         <version>${spring-version}</version>
-      </dependency>    
-      <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-ui</artifactId>
-          <version>${openapi-version}</version>
       </dependency>
       <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-security</artifactId>
-          <version>${openapi-version}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>${spring-version}</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
@@ -152,12 +141,12 @@
       <dependency>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
-        <version>7.15.0</version>
+        <version>5.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
-        <version>2.3.31</version>
+        <version>2.3.23</version>
       </dependency>
 
       <dependency>
@@ -167,9 +156,9 @@
       </dependency>
 
       <dependency>
-        <groupId>commons-io</groupId>
+        <groupId>org.apache.commons</groupId>
         <artifactId>commons-io</artifactId>
-        <version>2.11.0</version>
+        <version>1.3.2</version>
       </dependency>
 
       <dependency>

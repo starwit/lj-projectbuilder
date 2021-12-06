@@ -5,6 +5,6 @@
 (function() {
 	'use strict';
 	
-	angular.module('${app.title?lower_case}App.${domain.name?lower_case}', ['ngRoute','pascalprecht.translate']);
-	angular.module('${app.title?lower_case}App.${domain.name?lower_case}').factory('${domain.name?lower_case}ConnectorFactory', ${domain.name?lower_case}ConnectorFactory);
+	angular.module('${project.title?lower_case}App.${domain.name?lower_case}', ['ngRoute','pascalprecht.translate']);
+	angular.module('${project.title?lower_case}App.${domain.name?lower_case}').factory('${domain.name?lower_case}ConnectorFactory', ${domain.name?lower_case}ConnectorFactory);
 })();

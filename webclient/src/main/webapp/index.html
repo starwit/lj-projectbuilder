@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="<%= locale %>" ng-app="ljprojectbuilderApp"  ng-controller="appController">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>LJProjectbuilder</title>
+	<meta name="keywords" content="ljprojectbuilderApp" jee, java, architecture" />
+	<meta name="description" content="Lightweight REST JEE Arch Pattern" />
+
+	<link href="res/css/themes.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/elements.css" rel="stylesheet" type="text/css" />
+	<link href="res/css/viewports.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="{{ 'theme.color' | translate}}">
+	<div id="page" class="rows{{ 'theme.rows' | translate}} cols{{ 'theme.columns' | translate}} {{ 'theme.properties' | translate}}">
+			<div ng-view></div>
+			<div id="footerBox">
+				<p>&copy; LireJarp</p>
+			</div>
+	</div>
+
+	<script src="res/lib/angular.js" type="application/javascript"></script>
+	<script src="res/lib/angular-route.js" type="application/javascript"></script>
+	<script src="res/lib/angular-translate.min.js" type="application/javascript"></script>
+	<script src="res/lib/angular-translate-loader-static-files.min.js" type="application/javascript"></script>
+	<script src="res/lib/angular-file-saver.bundle.min.js" type="application/javascript"></script>
+	
+	<script src="shared/directives/global.directives.js" type="application/javascript"></script>
+	<script src="shared/restfacade/rest.connector.factory.js"></script>
+	<script src="shared/restfacade/projectsetup.connector.factory.js"></script>
+	<script src="shared/dialogs/dialog.service.js"></script>
+	
+	<!-- ###BEGIN### generated scripts -->
+	<script src="shared/restfacade/project.connector.factory.js" type="application/javascript"></script>	
+	<script src="viewcomponents/project/project.module.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/project/project.routes.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/project/projectAllCtrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/project/projectSingleCtrl.js" type="application/javascript" ></script>
+
+	<script src="shared/restfacade/domain.connector.factory.js" type="application/javascript"></script>
+	<script src="viewcomponents/domain/domain.module.js" type="application/javascript" ></script>
+	<script src="viewcomponents/domain/domain.routes.js" type="application/javascript" ></script>
+	<script src="viewcomponents/domain/domainAllCtrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/domain/domainSingleCtrl.js" type="application/javascript" ></script>
+
+	<script src="viewcomponents/generator/generator.module.js" type="application/javascript" ></script>
+	<script src="viewcomponents/generator/generator.routes.js" type="application/javascript" ></script>
+	<script src="viewcomponents/generator/generatorCtrl.js" type="application/javascript" ></script>
+	
+	<script src="shared/restfacade/projecttemplate.connector.factory.js" type="application/javascript"></script>	
+	<script src="viewcomponents/projecttemplate/projecttemplate.module.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/projecttemplate/projecttemplate.routes.js" type="application/javascript" ></script>	
+	<script src="viewcomponents/projecttemplate/projecttemplateAllCtrl.js" type="application/javascript" ></script>
+	<script src="viewcomponents/projecttemplate/projecttemplateSingleCtrl.js" type="application/javascript" ></script>
+	
+	<script src="viewcomponents/default/default.module.js" type="application/javascript" ></script>
+	<script src="viewcomponents/default/default.routes.js" type="application/javascript" ></script>
+	
+	<script src="app.module.js"></script>
+	<script src="app.routes.js"></script>
+	<!-- ###END### generated scripts -->
+</body>
+</html>

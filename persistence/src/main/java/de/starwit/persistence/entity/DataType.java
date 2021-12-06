@@ -9,7 +9,6 @@ public enum DataType {
 	Time("time"),
 	Timestamp("timestamp"),
 	BigDecimal("bigdecimal"),
-	Long("long"),
 	Enum("enum");
 	
 	private String translationKey;

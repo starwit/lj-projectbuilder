@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Service;
 
-import de.starwit.persistence.entity.User;
+import de.starwit.persistence.entity.UserEntity;
 import de.starwit.exception.EntityNotFoundException;
 import de.starwit.persistence.repository.UserRepository;
 
@@ -17,23 +17,23 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public Page<User> findAll(Pageable pageable) {
+    public Page<UserEntity> findAll(Pageable pageable) {
         return this.userRepository.findAll(pageable);
     }
 
-    public User findById(Long id) {
+    public UserEntity findById(Long id) {
         return this.userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public User create(User userEntity) {
+    public UserEntity create(UserEntity userEntity) {
         return this.userRepository.save(userEntity);
     }
 
-    public User findByUsername(String username){
+    public UserEntity findByUsername(String username){
         return this.userRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
     }
 
-    public User getCurrentUser(){
+    public UserEntity getCurrentUser(){
         DefaultOidcUser userDetails = (DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUsername = userDetails.getUserInfo().getPreferredUsername();
         return this.findByUsername(currentUsername);

@@ -3,7 +3,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('${app.title?lower_case}App.${domain.name?lower_case}').controller('${domain.name?lower_case}SingleCtrl', ${domain.name?lower_case}SingleCtrl);
+	angular.module('${project.title?lower_case}App.${domain.name?lower_case}').controller('${domain.name?lower_case}SingleCtrl', ${domain.name?lower_case}SingleCtrl);
 	
 	${domain.name?lower_case}SingleCtrl.$inject = ['$scope', '$routeParams', '${domain.name?lower_case}ConnectorFactory', 'goto${domain.name}'];
 	function ${domain.name?lower_case}SingleCtrl($scope, $routeParams, ${domain.name?lower_case}ConnectorFactory, goto${domain.name}) {
@@ -14,7 +14,7 @@
 		init();
 
 		/**
-		 * Standard function to edit the app configuration.
+		 * Standard function to edit the project configuration.
 		 */
 		function doMaintain() {
 			if (ctrl.form.$dirty) {

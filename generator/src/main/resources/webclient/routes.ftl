@@ -1,10 +1,10 @@
 /** 
- * Navigation and routing for module '${app.title?lower_case}App.${domain.name?lower_case}.
+ * Navigation and routing for module '${project.title?lower_case}App.${domain.name?lower_case}.
  */
 (function() {
 'use strict';
 
-	angular.module('${app.title?lower_case}App.${domain.name?lower_case}').factory('goto${domain.name}', goto${domain.name});
+	angular.module('${project.title?lower_case}App.${domain.name?lower_case}').factory('goto${domain.name}', goto${domain.name});
 
 	function goto${domain.name}($location) {
 		var factory = {};
@@ -23,7 +23,7 @@
 		return factory;
     };
     
-   	angular.module('${app.title?lower_case}App.${domain.name?lower_case}') 
+   	angular.module('${project.title?lower_case}App.${domain.name?lower_case}') 
    	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/viewcomponents/${domain.name?lower_case}-all/', {
 			controller : '${domain.name?lower_case}AllCtrl',

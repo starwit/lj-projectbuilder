@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,10 +19,10 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 
 import de.starwit.exception.EntityNotFoundException;
 import de.starwit.persistence.entity.Role;
-import de.starwit.persistence.entity.User;
+import de.starwit.persistence.entity.UserEntity;
 import de.starwit.service.impl.UserService;
 
-public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService {
+public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private static Logger LOGGER = LoggerFactory.getLogger(InjectLocalRolesOAuth2UserService.class);
 
@@ -33,7 +34,7 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     	DefaultOAuth2User user = (DefaultOAuth2User) super.loadUser(userRequest);
         String username = user.getAttribute("login");
 
-        User userEntity;
+        UserEntity userEntity;
         try {
             userEntity = this.userService.findByUsername(username);
             LOGGER.debug("Found authenticated user \"{}\" in local DB.", username);
@@ -51,11 +52,11 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     
     private Role checkIfUserHasRole(OAuth2User user) {
         String userId = user.getAttribute("login");
-        User localUserData = null;
+        UserEntity localUserData = null;
         try {
         	localUserData = userService.findByUsername(userId);
         } catch (EntityNotFoundException ex) {
-        	localUserData = new User();
+        	localUserData = new UserEntity();
             localUserData.setUsername(userId);
             localUserData.setRole(Role.NONE);
         }
@@ -84,8 +85,8 @@ public class InjectLocalRolesOAuth2UserService extends DefaultOAuth2UserService 
     }
 
 
-    private User createUserWithNoneRole(String username) {
-        User userEntity = new User();
+    private UserEntity createUserWithNoneRole(String username) {
+        UserEntity userEntity = new UserEntity();
         userEntity.setUsername(username);
         userEntity.setRole(Role.NONE);
         return userService.create(userEntity);

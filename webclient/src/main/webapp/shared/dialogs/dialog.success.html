@@ -1,0 +1,13 @@
+<div class="msgBox" id="successdialog" style="display:none" ng-click="ctrl.closeDialog('successdialog')">
+	<table>
+		<tr>
+			<td>
+				<span class="msg success">
+					<span class="button delete"><a href="">x</a></span>
+					<h2>{{ctrl.dialog.title | translate }}</h2>
+					<p>{{ctrl.dialog.text | translate }}</p>
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>

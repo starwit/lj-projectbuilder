@@ -39,14 +39,14 @@ public class StartupShutdownService {
 			File oldDestDir = new File(System.getProperty("java.io.tmpdir"));
 			final File[] files = oldDestDir.listFiles((File pathname) -> pathname.getName().startsWith("LJ_"));
 		    for (File file : files) {
-	    		deleteTempApp(file);
+	    		deleteTempProject(file);
 			}
 		} catch (IOException e) {
-			LOG.error("Error deleting temporary folder for app", e);
+			LOG.error("Error deleting temporary folder for project", e);
 		}
 	}
     
-	public void deleteTempApp(File oldDestDir) throws IOException {
+	public void deleteTempProject(File oldDestDir) throws IOException {
 		Path oldDestDirPath = Paths.get(oldDestDir.getPath());
 		Files.walkFileTree(oldDestDirPath, new DeleteFileVisitor());
 	}
