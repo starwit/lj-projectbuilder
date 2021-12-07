@@ -26,6 +26,7 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         if (entity.getRelationships() != null && !entity.getRelationships().isEmpty()) {
             dto.setRelationships(entity.getRelationships());
         }
+        dto.setPosition(entity.getPosition());
         return dto;
     }
 
@@ -41,6 +42,7 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         if (dto.getRelationships() != null && !dto.getRelationships().isEmpty()) {
             entity.setRelationships(dto.getRelationships());
         }
+        entity.setPosition(dto.getPosition());
         return entity;
     }
 

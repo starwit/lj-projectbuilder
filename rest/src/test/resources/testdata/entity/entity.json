@@ -1,3 +1,7 @@
 {
-    "name": "myTestEntity"
+    "name": "myTestEntity",
+    "position": {
+        "positionX": 2,
+        "positionY": 4
+    }
 }
