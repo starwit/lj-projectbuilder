@@ -1,6 +1,5 @@
 version: "3.9"
 services:
-services:
   db:
     image: mariadb:latest
     restart: on-failure
