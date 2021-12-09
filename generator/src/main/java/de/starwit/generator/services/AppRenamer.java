@@ -34,11 +34,11 @@ public class AppRenamer {
 	 * @param properties
 	 */
 	public void renameAppTitle(App entity) throws NotificationException {
-		LOG.info("Try to rename app " + entity.getTemplate().getPackagePrefix() + ".");
+		LOG.info("Try to rename app " + entity.getTemplate().getPackagePlaceholder() + ".");
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		String currentAppName = entity.getTemplate().getTitle();
+		String currentAppName = entity.getTemplate().getTemplateName();
 		renameDirectories(currentAppName, entity.getTitle(), parentdirectory, false);
 		renameFiles(currentAppName, entity.getTitle(), parentdirectory);
 	}
@@ -52,8 +52,8 @@ public class AppRenamer {
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		renameDirectories(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory, true);
-		renameFiles(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameDirectories(entity.getTemplate().getPackagePlaceholder(), entity.getPackagePrefix(), parentdirectory, true);
+		renameFiles(entity.getTemplate().getPackagePlaceholder(), entity.getPackagePrefix(), parentdirectory);
 	}
 
 	/**

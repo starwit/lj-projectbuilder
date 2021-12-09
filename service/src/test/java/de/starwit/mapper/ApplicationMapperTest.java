@@ -84,7 +84,7 @@ public class ApplicationMapperTest {
         AppTemplate template = new AppTemplate();
         template.setId(ApplicationMapper.defaultAppTemplateID);
         template.setBranch("master");
-        template.setTitle("testtemplate");
+        template.setTemplateName("testtemplate");
         app.setTemplate(template);
     }
 

@@ -11,7 +11,7 @@ public class Constants {
 	public static final String LJ_PREFIX = "LJ_";
 	public static final String TEMPLATE_DIR = "generator-templates";
 	public static final String DEFAULT_BRANCH = "main";
-	
+	public static final String APPTEMPLATE_PROPERTIES = "template.properties";
 	/**deletion of temp files older than 1 minute **/
 	public static final long MILLISECONDS_UNTIL_DELETION = 1 * 60 * 1000;
 }
