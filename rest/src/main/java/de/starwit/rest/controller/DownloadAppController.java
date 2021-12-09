@@ -15,14 +15,15 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
 
-@Deprecated
 @RestController
+@RequestMapping("${rest.base-path}/downloadapp")
 public class DownloadAppController {
 	
 	final static Logger LOG = LoggerFactory.getLogger(DownloadAppController.class);
@@ -30,7 +31,7 @@ public class DownloadAppController {
 	@Autowired
 	private AppService appService;
 
-    @GetMapping("/downloadapp/{id}")
+    @GetMapping("/{id}")
     public void downloadFile(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
 
         response.setContentType("application/octet-stream");

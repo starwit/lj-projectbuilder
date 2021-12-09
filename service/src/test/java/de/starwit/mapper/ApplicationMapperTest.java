@@ -120,7 +120,6 @@ public class ApplicationMapperTest {
         assertEquals("testpackage", app.getPackagePrefix());
         assertEquals("testentity", app.getDomains().get(0).getName());
         assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().get(0)).getName());
-
     }
     
     

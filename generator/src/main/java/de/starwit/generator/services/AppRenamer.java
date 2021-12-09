@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 
 
@@ -87,8 +85,7 @@ public class AppRenamer {
 				}
 			} catch (IOException e) {
 				LOG.error("Problems moving file with name " + childdirectory.getName(), e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.apprenamer.renamedirectories");
-				throw new NotificationException(data);
+				throw new NotificationException("error.apprenamer.renamedirectories", "Problems moving file with name " + childdirectory.getName());
 			}
 		}
 	}
@@ -154,8 +151,7 @@ public class AppRenamer {
 			
 		} catch (IOException e) {
 			LOG.error("Error processing file with name " + newAppName, e);
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.apprenamer.renamefilecontent");
-			throw new NotificationException(data);
+			throw new NotificationException("error.apprenamer.renamefilecontent", "Error processing file with name " + newAppName);
 		} finally {
 			try {
 				if (reader != null) {

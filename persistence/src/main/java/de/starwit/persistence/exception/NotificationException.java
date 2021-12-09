@@ -1,24 +1,30 @@
 package de.starwit.persistence.exception;
 
-import de.starwit.persistence.response.ResponseMetadata;
-
 public class NotificationException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
-	private ResponseMetadata responseMetadata;
+	private String exceptionKey;
+	private String exceptionMessage;
 	
-	public NotificationException(ResponseMetadata responseMetadata) {
+	public NotificationException(String exceptionKey, String exceptionMessage) {
 		super("Error during app setup or generation.");
-		this.responseMetadata = responseMetadata;
+		this.exceptionKey = exceptionKey;
+		this.exceptionMessage = exceptionMessage;
 	}
 
-	public ResponseMetadata getResponseMetadata() {
-		return responseMetadata;
+	public String getExceptionKey() {
+		return exceptionKey;
 	}
 
-	public void setResponseMetadata(ResponseMetadata responseMetadata) {
-		this.responseMetadata = responseMetadata;
+	public void setExceptionKey(String exceptionKey) {
+		this.exceptionKey = exceptionKey;
 	}
-	
 
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
+	}
 }
