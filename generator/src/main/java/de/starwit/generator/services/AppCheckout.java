@@ -138,6 +138,15 @@ public class AppCheckout {
 
 	protected void saveTemplateProperties(AppTemplate template, String newAppFolder) throws NotificationException {
 		Properties props = readTemplateProperties(newAppFolder);
+		if (template == null) {
+			LOG.error("Error: template should not be null.");
+			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
+					"error.appcheckout.templatenull.git");
+			throw new NotificationException(data);
+		}
+		if (template.getId() != null) {
+			template = appTemplateService.findById(template.getId());
+		}
 		template.setTemplateName(props.getProperty("templateName", "lirejarp"));
 		template.setPackagePlaceholder(props.getProperty("packagePlaceholder", "starwit"));
 		appTemplateService.saveOrUpdate(template);
