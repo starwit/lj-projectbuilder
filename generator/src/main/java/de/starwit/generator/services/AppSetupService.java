@@ -6,6 +6,7 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import de.starwit.service.impl.AppService;
  * @author Anett Huebner
  *
  */
-//@Service
+@Service
 public class AppSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
