@@ -20,6 +20,6 @@ Go to helm/ljprojectbuilder
 - execute e.g.:
   - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
   - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
-
+.
 
 
