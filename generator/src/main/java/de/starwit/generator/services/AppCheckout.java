@@ -153,10 +153,11 @@ public class AppCheckout {
 			props.load(inputStream);
 		} catch (FileNotFoundException e) {
 			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "not found in apptemplate.", e);
-			throw new NotificationException("error.appcheckout.templatepropertiesnotfound.git", "Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "not found in apptemplate.");
+			String path = newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES;
+			throw new NotificationException("error.appcheckout.templatepropertiesnotfound.git", "Template properties file " + path + " not found.");
 		} catch (IOException e) {
 			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "could not be read.", e);
-			throw new NotificationException("error.appcheckout.templatepropertiesnotread.git", "Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "could not be read.");
+			throw new NotificationException("error.appcheckout.templatepropertiesnotread.git", "Template properties file " + Constants.APPTEMPLATE_PROPERTIES + " could not be read.");
 		}
 		return props;
 	}
