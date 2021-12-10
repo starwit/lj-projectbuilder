@@ -20,10 +20,10 @@ import org.springframework.stereotype.Service;
 
 import de.starwit.dto.GeneratorDto;
 import de.starwit.generator.config.Constants;
-import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.NotificationException;
+import de.starwit.service.impl.AppService;
 import de.starwit.service.impl.AppTemplateService;
 
 @Service
@@ -35,7 +35,7 @@ public class AppCheckout {
   private AppTemplateService appTemplateService;
 
   @Autowired
-  private ApplicationMapper applicationMapper;
+  private AppService appService;
 
 	public String createTempAppDirectory(final App app) throws NotificationException {
 		try {
@@ -103,7 +103,7 @@ public class AppCheckout {
 	 * @throws NotificationException
 	 */
 	public void checkoutAppTemplate(final GeneratorDto dto) throws NotificationException {
-		final App app = applicationMapper.convertToEntity(dto.getApp());
+		final App app = appService.findById(dto.getAppId());
 		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + app.getTargetPath();
 		final File destDir = new File(destDirString);
 		String srcDir = app.getTemplate().getLocation();

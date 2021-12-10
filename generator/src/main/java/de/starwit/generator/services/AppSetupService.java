@@ -54,19 +54,15 @@ public class AppSetupService implements Serializable {
 	 */
 	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException {
-		App app = appService.findById(dto.getApp().getId());
+		App app = appService.findById(dto.getAppId());
 		//String destDirString = app.getTargetPath();
 		//appCheckout.deleteTempApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newAppFolder = appCheckout.createTempAppDirectory(app);
 		app.setTargetPath(newAppFolder);
 		app = appService.saveOrUpdate(app);
-
-		GeneratorDto checkoutDto = dto;
-		checkoutDto.setApp(applicationMapper.convertToDto(app));
 		appCheckout.checkoutAppTemplate(dto);
 		appRenamer.renameAppTitle(app);
 		appRenamer.renamePackage(app);
-		dto.setApp(applicationMapper.convertToDto(app));
 		
 		generatorService.generate(app.getId());
 		appCheckout.findFilesAndDelete();

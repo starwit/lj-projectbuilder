@@ -25,8 +25,8 @@ public class AppSetupController {
   @Autowired
   private AppSetupService appSetupService;
 
-  @PostMapping(value = "/downloadapp")
-  public void downloadApp(@RequestBody GeneratorDto dto) throws NotificationException {
+  @PostMapping
+  public void generateApp(@RequestBody GeneratorDto dto) throws NotificationException {
     appSetupService.setupAndGenerateApp(dto);
   }
 }

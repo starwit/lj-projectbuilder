@@ -11,12 +11,9 @@ import de.starwit.persistence.entity.AbstractEntity;
  */
 public class GeneratorDto extends AbstractEntity<Long> {
 	
-	@Valid
-	private ApplicationDto app;
+	private Long appId;
 
-	
 	private String username;
-
 	private String password;
 
 	private String user;
@@ -24,12 +21,12 @@ public class GeneratorDto extends AbstractEntity<Long> {
 
 	/********************* GETTER, SETTER **************************/
 	
-	public ApplicationDto getApp() {
-		return app;
+	public Long getAppId() {
+		return appId;
 	}
 
-	public void setApp(ApplicationDto app) {
-		this.app = app;
+	public void setAppId(Long appId) {
+		this.appId = appId;
 	}
 
 	public String getUsername() {
