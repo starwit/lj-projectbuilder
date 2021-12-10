@@ -1,5 +1,7 @@
 package de.starwit.dto;
 
+import javax.validation.Valid;
+
 import de.starwit.persistence.entity.AbstractEntity;
 
 /**
@@ -9,6 +11,7 @@ import de.starwit.persistence.entity.AbstractEntity;
  */
 public class GeneratorDto extends AbstractEntity<Long> {
 	
+	@Valid
 	private ApplicationDto app;
 
 	

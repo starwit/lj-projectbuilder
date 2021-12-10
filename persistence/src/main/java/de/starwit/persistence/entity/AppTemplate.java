@@ -34,6 +34,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	private String packagePlaceholder = "starwit";
 
 	@NotNull
+	@Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;

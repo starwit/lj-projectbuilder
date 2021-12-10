@@ -54,7 +54,7 @@ public class GeneratorService {
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
 		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
-		Collection<Domain> domains = app.getSelectedDomains();
+		Collection<Domain> domains = app.getDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
 		for (TemplateFile templateFile : templateFiles) {

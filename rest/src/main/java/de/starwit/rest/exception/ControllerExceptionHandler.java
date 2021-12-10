@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,6 +33,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
         return new ResponseEntity<Object>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = { InvalidDefinitionException.class })
+    public ResponseEntity<Object> handleInvalidDefinitionException(Exception ex) {
+        LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
+        String output = "Invalid Definition: " + ex.getMessage() + ".";
+        return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { Unauthorized.class })
