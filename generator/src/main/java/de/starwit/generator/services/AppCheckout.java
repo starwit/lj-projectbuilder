@@ -111,7 +111,7 @@ public class AppCheckout {
 		if (dto.getApp().getTemplate().isCredentialsRequired()) {
 			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
 			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
-			System.out.println(srcDir);
+			LOG.info("Source directory is: " + srcDir);
 		}
 
 		try {
