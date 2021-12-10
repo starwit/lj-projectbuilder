@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.dto.GeneratorDto;
+import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.service.impl.AppService;
@@ -36,6 +37,9 @@ public class AppSetupService implements Serializable {
 	
 	@Autowired
 	private AppRenamer appRenamer;
+
+	@Autowired
+	private ApplicationMapper applicationMapper;
 	
   final static Logger LOG = LoggerFactory.getLogger(AppSetupService.class);
 	/**
@@ -58,11 +62,11 @@ public class AppSetupService implements Serializable {
 		app = appService.saveOrUpdate(app);
 
 		GeneratorDto checkoutDto = dto;
-		checkoutDto.setApp(app);
+		checkoutDto.setApp(applicationMapper.convertToDto(app));
 		appCheckout.checkoutAppTemplate(dto);
 		appRenamer.renameAppTitle(app);
 		appRenamer.renamePackage(app);
-		dto.setApp(app);
+		dto.setApp(applicationMapper.convertToDto(app));
 		
 		generatorService.generate(app.getId());
 		appCheckout.findFilesAndDelete();

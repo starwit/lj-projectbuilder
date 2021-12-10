@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import de.starwit.dto.GeneratorDto;
 import de.starwit.generator.config.Constants;
+import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.NotificationException;
@@ -32,6 +33,9 @@ public class AppCheckout {
   
   @Autowired
   private AppTemplateService appTemplateService;
+
+  @Autowired
+  private ApplicationMapper applicationMapper;
 
 	public String createTempAppDirectory(final App app) throws NotificationException {
 		try {
@@ -99,16 +103,16 @@ public class AppCheckout {
 	 * @throws NotificationException
 	 */
 	public void checkoutAppTemplate(final GeneratorDto dto) throws NotificationException {
-		final App entity = dto.getApp();
-		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath();
+		final App app = applicationMapper.convertToEntity(dto.getApp());
+		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + app.getTargetPath();
 		final File destDir = new File(destDirString);
-		String srcDir = entity.getTemplate().getLocation();
+		String srcDir = app.getTemplate().getLocation();
 		String branch = Constants.DEFAULT_BRANCH;
-		if (entity.getTemplate().getBranch() != null) {
-			branch = entity.getTemplate().getBranch();
+		if (app.getTemplate().getBranch() != null) {
+			branch = app.getTemplate().getBranch();
 		}
 
-		if (dto.getApp().getTemplate().isCredentialsRequired()) {
+		if (app.getTemplate().isCredentialsRequired()) {
 			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
 			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
 			LOG.info("Source directory is: " + srcDir);
@@ -116,7 +120,7 @@ public class AppCheckout {
 
 		try {
 			Git.gitClone(destDir.toPath(), srcDir, branch);
-			saveTemplateProperties(dto.getApp().getTemplate(), destDir.getAbsolutePath());
+			saveTemplateProperties(app.getTemplate(), destDir.getAbsolutePath());
 		} catch (IOException | InterruptedException e) {
 			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for app template.", e);
