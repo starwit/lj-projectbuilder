@@ -15,4 +15,4 @@ RUN ls -al
 # copy application JAR (with libraries inside)
 COPY application/target/application-*.jar /home/ljprojectbuilder/application.jar
 # specify default command
-CMD ["/usr/java/openjdk-14/bin/java", "-jar", "/home/ljprojectbuilder/application.jar"]
+CMD ["/usr/java/openjdk-14/bin/java", "-jar", "/home/ljprojectbuilder/application.jar", "-Dlog4j2.formatMsgNoLookups=true"]
