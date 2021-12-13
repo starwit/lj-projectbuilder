@@ -47,7 +47,7 @@ services:
 
 # Names our volume
 volumes:
-  ljprojectbuilderv1-db-data:
+  ljprojectbuilderv2-db-data:
 
  # Networks to be created to facilitate communication between containers
 networks:
