@@ -54,13 +54,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        
-    - name: Build docker image with tag version and push to dockerhub
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME  }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        repository: starwitorg/ljprojectbuilder
-        tags: ${{ steps.meta.outputs.tags }}
-        path: .
-        dockerfile: ./Dockerfile
