@@ -113,6 +113,7 @@ public class AppCheckout {
 		}
 
 		if (app.getTemplate().isCredentialsRequired()) {
+			//TODO: Sonderzeichencodierung
 			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
 			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
 			LOG.info("Source directory is: " + srcDir);
