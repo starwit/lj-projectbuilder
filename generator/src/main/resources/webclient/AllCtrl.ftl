@@ -4,7 +4,7 @@
  */
 (function() {
 	'use strict';
-	angular.module('${project.title?lower_case}App.${domain.name?lower_case}').controller('${domain.name?lower_case}AllCtrl', ${domain.name?lower_case}AllCtrl);
+	angular.module('${app.title?lower_case}App.${domain.name?lower_case}').controller('${domain.name?lower_case}AllCtrl', ${domain.name?lower_case}AllCtrl);
 	${domain.name?lower_case}AllCtrl.$inject = ['${domain.name?lower_case}ConnectorFactory', 'goto${domain.name}'];
 	function ${domain.name?lower_case}AllCtrl(${domain.name?lower_case}ConnectorFactory, goto${domain.name}) {
 		

@@ -1,0 +1,174 @@
+{
+    "baseName": "testname",
+    "packageName": "testpackage",
+    "template": null,
+    "entities": [
+        {
+          "name": "testwithoutfields"
+        },        
+        {
+            "name": "testEntityName",
+            "fields": [
+            {
+                "fieldName": "myfield",
+                "fieldType": "String"
+            },
+            {
+                "fieldName": "stringPatternField",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                    "pattern"
+                ],
+                "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+            }
+
+            ]
+        },        
+        {
+            "name": "Employee",
+            "fields": [
+              {
+                "fieldName": "firstName",
+                "fieldType": "String",
+                "javadoc": "The firstname attribute.",
+                "fieldValidateRules": [
+                  "required",
+                  "minlength",
+                  "maxlength"
+                ],
+                "fieldValidateRulesMinlength": "1",
+                "fieldValidateRulesMaxlength": "42"
+              },
+              {
+                "fieldName": "lastName",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                  "required",
+                  "minlength"
+                ],
+                "fieldValidateRulesMinlength": "42"
+              },
+              {
+                "fieldName": "email",
+                "fieldType": "String"
+              },
+              {
+                "fieldName": "phoneNumber",
+                "fieldType": "String",
+                "fieldValidateRules": [
+                  "pattern"
+                ],
+                "fieldValidateRulesPattern": "^[0-9]+\\d$"
+              },
+              {
+                "fieldName": "salary",
+                "fieldType": "Long"
+              },
+              {
+                "fieldName": "commissionPct",
+                "fieldType": "Long"
+              }
+            ],
+            "relationships": [
+              {
+                "relationshipType": "one-to-many",
+                "otherEntityName": "job",
+                "otherEntityRelationshipName": "employee",
+                "relationshipName": "job"
+              },
+              {
+                "relationshipType": "many-to-one",
+                "otherEntityName": "employee",
+                "otherEntityRelationshipName": "employee",
+                "relationshipName": "manager"
+              }
+            ],
+            "javadoc": "The Employee entity.",
+            "entityTableName": "employee",
+            "dto": "no",
+            "pagination": "infinite-scroll",
+            "service": "no",
+            "jpaMetamodelFiltering": false,
+            "fluentMethods": true,
+            "readOnly": false,
+            "embedded": false,
+            "applications": "*",
+            "changelogDate": "20210923094703"
+        },
+        {
+          "name": "Job",
+          "fields": [
+            {
+              "fieldName": "jobTitle",
+              "fieldType": "String"
+            },
+            {
+              "fieldName": "minSalary",
+              "fieldType": "Long"
+            },
+            {
+              "fieldName": "maxSalary",
+              "fieldType": "Long"
+            }
+          ],
+          "relationships": [
+            {
+              "relationshipType": "many-to-many",
+              "otherEntityName": "task",
+              "otherEntityRelationshipName": "job",
+              "relationshipName": "task",
+              "ownerSide": true
+            },
+            {
+              "relationshipType": "many-to-one",
+              "otherEntityName": "employee",
+              "otherEntityRelationshipName": "job",
+              "relationshipName": "employee"
+            }
+          ],
+          "entityTableName": "job",
+          "dto": "no",
+          "pagination": "pagination",
+          "service": "no",
+          "jpaMetamodelFiltering": false,
+          "fluentMethods": true,
+          "readOnly": false,
+          "embedded": false,
+          "applications": "*",
+          "changelogDate": "20210923094704"
+        },
+        {
+          "name": "Task",
+          "fields": [
+            {
+              "fieldName": "title",
+              "fieldType": "String"
+            },
+            {
+              "fieldName": "description",
+              "fieldType": "String"
+            }
+          ],
+          "relationships": [
+            {
+              "relationshipType": "many-to-many",
+              "otherEntityName": "job",
+              "otherEntityRelationshipName": "task",
+              "relationshipName": "job",
+              "ownerSide": false
+            }
+          ],
+          "javadoc": "Task entity.\\n@author The JHipster team.",
+          "entityTableName": "task",
+          "dto": "no",
+          "pagination": "no",
+          "service": "serviceImpl",
+          "jpaMetamodelFiltering": false,
+          "fluentMethods": true,
+          "readOnly": false,
+          "embedded": false,
+          "applications": "*",
+          "changelogDate": "20210923094702"
+        }
+    ]
+}
