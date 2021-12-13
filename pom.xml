@@ -17,8 +17,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <spring-version>2.2.6.RELEASE</spring-version>
-    <openapi-version>1.5.2</openapi-version>
+    <spring-version>2.3.12.RELEASE</spring-version>
+    <log4j2.version>2.15.0</log4j2.version>
     <jackson-2-version>2.7.4</jackson-2-version>
   </properties>
 
