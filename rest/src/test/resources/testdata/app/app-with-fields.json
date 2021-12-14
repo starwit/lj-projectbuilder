@@ -4,7 +4,7 @@
     "baseName": "testname",
     "entities": [
         {
-            "name": "testEntityName",
+            "name": "TestEntityName",
             "fields": [
             {
                 "fieldName": "myfield",
