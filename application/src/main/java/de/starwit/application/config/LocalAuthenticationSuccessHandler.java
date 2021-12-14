@@ -35,10 +35,15 @@ public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessH
         DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();     
         String userId = authUser.getAttribute("login");
         User localUserData = userService.findByUsername(userId);
-        if(localUserData.getRole() == Role.NONE) {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/welcome/");
+        if(localUserData.getRole() == Role.NONE ) {
+            redirectStrategy.sendRedirect(request, response, "/#/default/welcome/");
+        } else if(response.getStatus() == HttpServletResponse.SC_FORBIDDEN
+          || response.getStatus() == HttpServletResponse.SC_METHOD_NOT_ALLOWED) {
+          redirectStrategy.sendRedirect(request, response, "/#/default/error403/");
+        } else if(response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR) {
+          redirectStrategy.sendRedirect(request, response, "/#/default/error500/");
         } else {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/app-all/");
+            redirectStrategy.sendRedirect(request, response, "/");
         }
       }
 }

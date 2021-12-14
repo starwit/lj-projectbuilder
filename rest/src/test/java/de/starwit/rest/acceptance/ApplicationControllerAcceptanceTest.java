@@ -79,7 +79,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"entities[0].name\":\"must not be empty\"}");
+        assertThat(response.getContentAsString()).isEqualTo("{\"entities[0].name\":\"must not be blank\"}");
     }
 
     @Test
@@ -164,7 +164,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
         dto2.setBaseName("secondName");
         EntityDto entityDto = dto2.getEntities().get(0);
-        entityDto.setName("secondEntityName");
+        entityDto.setName("SecondEntityName");
         int fieldcount = entityDto.getFields().size();
         entityDto.getFields().get(0).setFieldName("secondFieldName");
         entityDto.getFields().remove(1);
@@ -179,7 +179,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         assertThat(result.getBaseName()).isEqualTo("secondName");
         assertThat(result.getEntities().get(0).getFields().size()).isEqualTo(fieldcount - 1);
         assertThat(result.getEntities().get(0).getId()).isEqualTo(entityDto.getId());
-        assertThat(result.getEntities().get(0).getName()).isEqualTo("secondEntityName");
+        assertThat(result.getEntities().get(0).getName()).isEqualTo("SecondEntityName");
         assertThat(result.getEntities().get(0).getFields().get(0).getId())
                 .isEqualTo(entityDto.getFields().get(0).getId());
         assertThat(result.getEntities().get(0).getFields().get(0).getFieldName()).isEqualTo("secondFieldName");

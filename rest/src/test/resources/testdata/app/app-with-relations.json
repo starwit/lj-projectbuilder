@@ -4,10 +4,10 @@
     "template": null,
     "entities": [
         {
-          "name": "testwithoutfields"
+          "name": "Testwithoutfields"
         },        
         {
-            "name": "testEntityName",
+            "name": "TestEntityName",
             "fields": [
             {
                 "fieldName": "myfield",
