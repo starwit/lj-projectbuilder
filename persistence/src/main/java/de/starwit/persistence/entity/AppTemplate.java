@@ -33,7 +33,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Column(name = "PACKAGE", nullable = false, length = 100)
 	private String packagePlaceholder = "starwit";
 
-	@NotNull
+	@NotBlank
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;
