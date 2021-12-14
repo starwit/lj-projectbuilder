@@ -29,7 +29,7 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       AppTemplateDto appTemplateDto = new AppTemplateDto();
       if (entity.getTemplate() != null) {
         appTemplateDto.setId(entity.getTemplate().getId());
-        appTemplateDto.setName(entity.getTemplate().getTitle());
+        appTemplateDto.setName(entity.getTemplate().getTemplateName());
         dto.setTemplate(appTemplateDto);
       }
     }
