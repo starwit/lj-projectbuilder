@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Length;
 
 import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.entity.Position;
 import de.starwit.persistence.entity.Relationship;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -29,6 +30,9 @@ public class EntityDto extends AbstractEntity<Long> {
     @Valid
     private List<Relationship> relationships;
 
+    @Valid
+    private Position position;
+
     public String getName() {
         return name;
     }
@@ -46,5 +50,11 @@ public class EntityDto extends AbstractEntity<Long> {
     }
     public void setRelationships(List<Relationship> relationships) {
         this.relationships = relationships;
+    }
+    public Position getPosition() {
+        return position;
+    }
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

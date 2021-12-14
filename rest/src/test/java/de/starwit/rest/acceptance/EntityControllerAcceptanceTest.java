@@ -83,6 +83,9 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
+        dto.getPosition().setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getId());
+        assertThat(2).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionX());
+        assertThat(4).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionY());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
@@ -104,6 +107,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         response = retrieveById(dto.getId());
 
         // then
+        dto.getPosition().setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getId());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
@@ -164,6 +168,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
+        dto.getPosition().setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getId());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
         assertThat(mapper.readValue(response.getContentAsString(), EntityDto.class).getName()).isEqualTo("Changed");
     }
