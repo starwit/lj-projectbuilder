@@ -1,5 +1,5 @@
 {
-    "name": "myTestEntity",
+    "name": "MyTestEntity",
     "fields": [
         {
             "fieldName": "testField",

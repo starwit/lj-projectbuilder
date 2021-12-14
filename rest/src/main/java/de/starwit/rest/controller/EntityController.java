@@ -26,6 +26,7 @@ import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
 import de.starwit.rest.exception.WrongAppIdException;
 import de.starwit.service.impl.DomainService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("${rest.base-path}/entities")
@@ -39,22 +40,26 @@ public class EntityController {
     @Autowired
     private EntityMapper mapper;
 
+    @Operation(summary = "Get entity with id")
     @GetMapping(value = "/{entityId}")
     public EntityDto findById(@PathVariable("entityId") Long entityId) {
         Domain domain = domainService.findById(entityId);
         return mapper.convertToDto(domain);
     }
 
+    @Operation(summary = "Delete entity with id")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) {
         domainService.delete(id);
     }
 
+    @Operation(summary = "Create entity in app with appid")
     @PutMapping(value = "/byApp/{appId}")
     public EntityDto save(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         return update(appId, dto);
     }
 
+    @Operation(summary = "Update entity in app with appid")
     @PostMapping(value = "/byApp/{appId}")
     public EntityDto update(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         Domain domain = null;
@@ -69,16 +74,19 @@ public class EntityController {
         return mapper.convertToDto(domain);
     }
 
+    @Operation(summary = "Get all entities in app with appid")
     @GetMapping(value = "/allByApp/{appId}")
     public List<EntityDto> findAllByApp(@PathVariable("appId") Long id) {
         return mapper.convertToDtoList(domainService.findAllDomainsByApp(id));
     }
 
+    @Operation(summary = "Create (or update) entities in app with appid")
     @PutMapping(value = "/allByApp/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
     }
 
+    @Operation(summary = "Create (or update) entities in app with appid")
     @PostMapping(value = "/allByApp/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         for (EntityDto dto : dtos) {
@@ -87,6 +95,7 @@ public class EntityController {
         return mapper.convertToDtoList(domainService.findAllDomainsByApp(appId));
     }
 
+    @Operation(summary = "Get entity by id in app with appid")
     @GetMapping(value = "/byApp/{appId}/{entityId}")
     public EntityDto findByIdAndApp(@PathVariable("appId") Long appId, @PathVariable("entityId") Long entityId) {
         Domain domain = domainService.findById(entityId);

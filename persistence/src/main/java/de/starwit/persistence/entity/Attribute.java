@@ -8,7 +8,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 @Entity
@@ -18,10 +21,13 @@ public class Attribute extends AbstractEntity<Long> {
 	// domain attributes
 
 	@NotBlank
-	@Column(name = "NAME", nullable = false)
+	@Pattern(regexp = "^[a-z][a-zA-Z0-9]*$")
+	@Length(max = 100)
+	@Column(name = "NAME", nullable = false, length = 100)
 	private String name;
 
-	@Column(name = "DESCRIPTION")
+	@Length(max = 240)
+	@Column(name = "DESCRIPTION", length = 240)
 	private String description;
 
 	@NotNull
