@@ -1,4 +1,3 @@
-
 name: Build and Publish
 
 on:
@@ -23,8 +22,10 @@ jobs:
         java-version: 14    
     - name: npm install
       run: |
-        cd webclient/app
-        npm install --legacy-peer-deps    
+        if [ -d "webclient/app" ]; then
+          cd webclient/app
+          npm install --legacy-peer-deps
+        fi    
     - name: Build with Maven
       run: mvn clean -B package -P frontend --file pom.xml
     - name: Upload Maven build artifact

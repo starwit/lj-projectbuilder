@@ -2,9 +2,12 @@ package de.starwit.dto;
 
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 import de.starwit.persistence.entity.AbstractEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +16,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @XmlRootElement
 public class FieldDto extends AbstractEntity<Long> {
     
-    @NotEmpty
+    @Schema(defaultValue = "defaultField")
+    @NotBlank
+	@Pattern(regexp = "^[a-z][a-zA-Z0-9]*$")
+	@Length(max = 100)
     private String fieldName;
 
     @Schema(defaultValue = "String")

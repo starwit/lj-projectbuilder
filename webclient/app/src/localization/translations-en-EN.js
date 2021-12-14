@@ -61,6 +61,12 @@ const translationsEnEN = {
 
     "entityDesigner.code": "Code",
 
-    "home.yourApps": "Your Apps"
+    "home.yourApps": "Your Apps",
+
+    "default.welcome": "Welcome",
+    "default.error.403.title": "No Right",
+    "default.error.403": "Login worked but you are not allowed.",
+    "default.error.title": "Error",
+    "default.error.500": "Internal Server Error. Please contact your admin."
 };
 export default translationsEnEN;

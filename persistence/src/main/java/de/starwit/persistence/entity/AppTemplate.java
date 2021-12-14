@@ -9,32 +9,32 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 @Entity
 @Table(name = "APPTEMPLATE")
 public class AppTemplate extends AbstractEntity<Long> {
 
-
-	@NotNull
+	@NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
 	@Size(max = 100)
 	@Column(name = "TEMPLATE_NAME", nullable = false, length = 100)
 	private String templateName = "lirejarp";
 
-
-	@NotNull
+	@NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
 	@Size(max = 100)
 	@Column(name = "PACKAGE", nullable = false, length = 100)
 	private String packagePlaceholder = "starwit";
 
-	@NotNull
-	@Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
+	@NotBlank
+  @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;

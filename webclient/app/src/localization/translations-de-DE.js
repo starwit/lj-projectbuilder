@@ -62,5 +62,11 @@ const translationsDeDE = {
     "generalSection.nameOfApp": "Name der App",
     "generalSection.descriptionOfApp": "Beschreibung der App",
 
+    "default.welcome": "Herzlich Willkommen",
+    "default.error.403.title": "Fehlende Berechtigungen",
+    "default.error.403": "Sie besitzen keine Berechtigungen zur Anzeige dieser Seite",
+    "default.error.title": "Fehler",
+    "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin."
+
 };
 export default translationsDeDE;

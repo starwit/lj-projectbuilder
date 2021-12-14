@@ -38,11 +38,13 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 	@Autowired
 	private ApplicationMapper appMapper;
 
+	@Operation(summary = "Get all apps")
     @GetMapping
 	public List<ApplicationDto> findAll() {
 		return appMapper.convertToDtoList(appService.findAll());
 	}
 
+	@Operation(summary = "Get app with id")
 	@GetMapping(value = "/{id}")
 	public ApplicationDto findById(@PathVariable("id") Long id) {
 		App entity = appService.findById(id);
@@ -50,12 +52,13 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 		return dto;
 	}
 
-	@Operation(summary = "Create Application")
+	@Operation(summary = "Create app")
 	@PutMapping
 	public ApplicationDto save(@RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
+	@Operation(summary = "Update app")
 	@PostMapping
 	public ApplicationDto update(@RequestBody ApplicationDto dto) {
 		App app = appMapper.convertToEntity(dto);
@@ -73,6 +76,7 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 		return appMapper.convertToDto(app);
 	}
 
+	@Operation(summary = "Delete app with id")
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		appService.delete(id);
