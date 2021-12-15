@@ -2,8 +2,12 @@ package de.starwit.persistence.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
@@ -41,6 +45,10 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	@Column(name = "CREDENTIALS_REQUIRED")
 	private boolean credentialsRequired = false;
+
+	@OrderBy("category, fileName asc")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
+	private Set<TemplateFile> templateFiles;
 
 	@Column(name = "DESCRIPTION")
 	private String description;
@@ -95,5 +103,13 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<TemplateFile> getTemplateFiles() {
+		return templateFiles;
+	}
+
+	public void setTemplateFiles(Set<TemplateFile> templateFiles) {
+		this.templateFiles = templateFiles;
 	}
 }

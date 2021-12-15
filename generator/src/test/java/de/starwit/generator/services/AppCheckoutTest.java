@@ -62,12 +62,12 @@ public class AppCheckoutTest {
 		 LOG.info("Path is " + destDir.toString());
 
 		 AppTemplate template = new AppTemplate();
-		 template.setLocation("https://github.com/starwit/lirejarp.git");
-		 template.setBranch("master");
+		 template.setLocation("https://github.com/starwit/project-templates.git");
+		 template.setBranch("v2");
 
 		 Git.gitClone(destDir, template.getLocation(), template.getBranch());
  
-		 appCheckout.saveTemplateProperties(template, destDir.toString());
+		 template = appCheckout.saveTemplateFile(template, destDir.toString());
 		 assertEquals("lirejarp", template.getTemplateName());
 		 assertEquals("xyz", template.getPackagePlaceholder());
  

@@ -53,12 +53,11 @@ public class GeneratorService {
 
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
-		//TODO: get template files
-		Set<TemplateFile> templateFiles = null; //app.getTemplate().getTemplateFiles();
+		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
 		Collection<Domain> domains = app.getDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
-		
-		for (TemplateFile templateFile : templateFiles) {
+//TODO: implement template type		
+/*		for (TemplateFile templateFile : templateFiles) {
     		switch (templateFile.getType()) {
 			case GLOBAL:
 				generatePath(templateData, templateFile);
@@ -80,6 +79,7 @@ public class GeneratorService {
 				break;
 			}
 		}
+		*/
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class GeneratorService {
 	
 	protected void generateAdditionalContent(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileNameSuffix(), getTemplate(templateFile.getConcreteTemplatePath()), data);
+			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileName(), getTemplate(templateFile.getConcreteTemplatePath()), data);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			throw new NotificationException("error.generation.generateadditionalcontent", "Error during file writing");
