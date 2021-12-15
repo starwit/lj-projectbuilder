@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,6 +23,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import de.starwit.persistence.exception.NotificationException;
+
 @ControllerAdvice(basePackages = "de.starwit.rest")
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class);
@@ -29,6 +33,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
         return new ResponseEntity<Object>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = { InvalidDefinitionException.class })
+    public ResponseEntity<Object> handleInvalidDefinitionException(Exception ex) {
+        LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
+        String output = "Invalid Definition: " + ex.getMessage() + ".";
+        return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { Unauthorized.class })
@@ -46,6 +57,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = { NotificationException.class })
+    public ResponseEntity<Object> handleException(NotificationException ex) {
+        LOG.info("Wrong input value ", ex.getMessage());
+        String output = ex.getExceptionKey() + ":" + ex.getExceptionMessage();
+        return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
         LOG.info("Entity not found Exception: ", ex.getMessage());
@@ -57,8 +75,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         LOG.info(ex.getMessage());
         return new ResponseEntity<Object>("Does not exists and cannot be deleted.", HttpStatus.NOT_FOUND);
     }
-
-    
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

@@ -27,8 +27,6 @@ import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.AppRepository;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
 import find.FindClass;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -56,7 +54,7 @@ public class GeneratorService {
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
 		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
-		Collection<Domain> domains = app.getSelectedDomains();
+		Collection<Domain> domains = app.getDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
 		for (TemplateFile templateFile : templateFiles) {
@@ -125,8 +123,7 @@ public class GeneratorService {
 	        templateFile.setConcreteTemplatePath(output.toString());
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generatepath");
-			throw new NotificationException(errorResponse);
+			throw new NotificationException("error.generation.generatepath", "Error during file writing.");
 		}
 	}
 	
@@ -136,8 +133,7 @@ public class GeneratorService {
 			writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, true);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateglobal");
-			throw new NotificationException(errorResponse);
+			throw new NotificationException("error.generation.generateglobal", "Error during file writing");
 		}
 	}
 	
@@ -146,8 +142,7 @@ public class GeneratorService {
 			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileNameSuffix(), getTemplate(templateFile.getConcreteTemplatePath()), data);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.generateadditionalcontent");
-			throw new NotificationException(errorResponse);
+			throw new NotificationException("error.generation.generateadditionalcontent", "Error during file writing");
 		}
 	}
 	
@@ -158,18 +153,15 @@ public class GeneratorService {
 				String targetFileUrl = templateFile.getTargetFileUrl(domainName);
 				writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, false);
 			} else {
-				ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.templatemissing");
-				throw new NotificationException(errorResponse);
+				throw new NotificationException("error.generation.templatemissing", "CodeTemplate missing.");
 			}
 
 		} catch (IOException e) {
 			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.file");
-			throw new NotificationException(errorResponse);
+			throw new NotificationException("error.generation.file", "Error during file writing.");
 		} catch (TemplateException e) {
 			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			ResponseMetadata errorResponse = new ResponseMetadata(ResponseCode.ERROR, "error.generation.template");
-			throw new NotificationException(errorResponse);
+			throw new NotificationException("error.generation.template", "Error during file writing.");
 		}
 	}
 	

@@ -23,8 +23,7 @@ import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
+import de.starwit.service.impl.AppService;
 import de.starwit.service.impl.AppTemplateService;
 
 @Service
@@ -35,6 +34,9 @@ public class AppCheckout {
   @Autowired
   private AppTemplateService appTemplateService;
 
+  @Autowired
+  private AppService appService;
+
 	public String createTempAppDirectory(final App app) throws NotificationException {
 		try {
 			Path destDir = null;
@@ -42,9 +44,7 @@ public class AppCheckout {
 			return destDir.getFileName().toString();
 		} catch (final IOException e) {
 			LOG.error("Error creating temporary folder for app", e);
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-					"error.appcheckout.createtempappfolder");
-			throw new NotificationException(data);
+			throw new NotificationException("error.appcheckout.createtempappfolder", "Error creating temporary folder for app");
 		}
 	}
 
@@ -103,36 +103,33 @@ public class AppCheckout {
 	 * @throws NotificationException
 	 */
 	public void checkoutAppTemplate(final GeneratorDto dto) throws NotificationException {
-		final App entity = dto.getApp();
-		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath();
+		final App app = appService.findById(dto.getAppId());
+		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + app.getTargetPath();
 		final File destDir = new File(destDirString);
-		String srcDir = entity.getTemplate().getLocation();
+		String srcDir = app.getTemplate().getLocation();
 		String branch = Constants.DEFAULT_BRANCH;
-		if (entity.getTemplate().getBranch() != null) {
-			branch = entity.getTemplate().getBranch();
+		if (app.getTemplate().getBranch() != null) {
+			branch = app.getTemplate().getBranch();
 		}
 
-		if (dto.getApp().getTemplate().isCredentialsRequired()) {
+		if (app.getTemplate().isCredentialsRequired()) {
+			//TODO: Sonderzeichencodierung
 			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
 			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
-			System.out.println(srcDir);
+			LOG.info("Source directory is: " + srcDir);
 		}
 
 		try {
 			Git.gitClone(destDir.toPath(), srcDir, branch);
-			saveTemplateProperties(dto.getApp().getTemplate(), destDir.getAbsolutePath());
+			saveTemplateProperties(app.getTemplate(), destDir.getAbsolutePath());
 		} catch (IOException | InterruptedException e) {
 			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for app template.", e);
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-					"error.appcheckout.checkoutapptemplate.transport");
-			throw new NotificationException(data);
+			throw new NotificationException("error.appcheckout.checkoutapptemplate.transport", "Error copying files for app template.");
 		} catch (RuntimeException e) {
 			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for app template.", e);
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-					"error.appcheckout.checkoutapptemplate.git");
-			throw new NotificationException(data);
+			throw new NotificationException("error.appcheckout.checkoutapptemplate.git", "Error copying files for app template.");
 		}
 	}
 
@@ -140,9 +137,7 @@ public class AppCheckout {
 		Properties props = readTemplateProperties(newAppFolder);
 		if (template == null) {
 			LOG.error("Error: template should not be null.");
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-					"error.appcheckout.templatenull.git");
-			throw new NotificationException(data);
+			throw new NotificationException("error.appcheckout.templatenull.git", "Error: template should not be null.");
 		}
 		if (template.getId() != null) {
 			template = appTemplateService.findById(template.getId());
@@ -159,14 +154,11 @@ public class AppCheckout {
 			props.load(inputStream);
 		} catch (FileNotFoundException e) {
 			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "not found in apptemplate.", e);
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-			"error.appcheckout.templatepropertiesnotfound.git");
-			throw new NotificationException(data);
+			String path = newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES;
+			throw new NotificationException("error.appcheckout.templatepropertiesnotfound.git", "Template properties file " + path + " not found.");
 		} catch (IOException e) {
 			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "could not be read.", e);
-			final ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR,
-			"error.appcheckout.templatepropertiesnotread.git");
-			throw new NotificationException(data);
+			throw new NotificationException("error.appcheckout.templatepropertiesnotread.git", "Template properties file " + Constants.APPTEMPLATE_PROPERTIES + " could not be read.");
 		}
 		return props;
 	}

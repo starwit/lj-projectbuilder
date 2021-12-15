@@ -60,7 +60,7 @@ public class UserDetailsController {
 
 	@GetMapping("/oidc-principal")
 	public OidcUser getOidcUserPrincipal(@AuthenticationPrincipal OidcUser principal) {
-		System.out.println(principal);
+		LOG.debug(principal.toString());
 	    return principal;
 	}
 }

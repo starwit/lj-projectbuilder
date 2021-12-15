@@ -6,10 +6,12 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.dto.GeneratorDto;
+import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.service.impl.AppService;
@@ -18,7 +20,7 @@ import de.starwit.service.impl.AppService;
  * @author Anett Huebner
  *
  */
-//@Service
+@Service
 public class AppSetupService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -35,6 +37,9 @@ public class AppSetupService implements Serializable {
 	
 	@Autowired
 	private AppRenamer appRenamer;
+
+	@Autowired
+	private ApplicationMapper applicationMapper;
 	
   final static Logger LOG = LoggerFactory.getLogger(AppSetupService.class);
 	/**
@@ -49,19 +54,15 @@ public class AppSetupService implements Serializable {
 	 */
 	@Transactional(propagation = Propagation.NEVER)
 	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException {
-		App app = appService.findById(dto.getApp().getId());
+		App app = appService.findById(dto.getAppId());
 		//String destDirString = app.getTargetPath();
 		//appCheckout.deleteTempApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 		String newAppFolder = appCheckout.createTempAppDirectory(app);
 		app.setTargetPath(newAppFolder);
 		app = appService.saveOrUpdate(app);
-
-		GeneratorDto checkoutDto = dto;
-		checkoutDto.setApp(app);
 		appCheckout.checkoutAppTemplate(dto);
 		appRenamer.renameAppTitle(app);
 		appRenamer.renamePackage(app);
-		dto.setApp(app);
 		
 		generatorService.generate(app.getId());
 		appCheckout.findFilesAndDelete();
