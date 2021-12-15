@@ -1,90 +1,58 @@
 package de.starwit.persistence.entity;
 
 import java.io.File;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
-@JsonIgnoreProperties("appTemplate, apps")
-@Entity
-@Table(name = "TEMPLATEFILE")
 public class TemplateFile extends AbstractEntity<Long> {
 
 	@Length(max = 100)
 	@NotBlank
-	@Column(name = "FILE_NAME_SUFFIX", nullable = false, length = 100)
-	private String fileNameSuffix;
+	private String fileName;
 
 	@NotBlank
-	@Column(name = "TEMPLATE_PATH", nullable = false)
 	private String templatePath;
 
-	@Transient
+	@XmlTransient
 	private String concreteTemplatePath = "";
 
+	@XmlTransient
 	@NotBlank
-	@Column(name = "TARGET_PATH", nullable = false)
 	private String targetPath;
 
 	@Transient
 	private String concreteTargetPath = "";
 
-	@Column(name = "CREATE_DOMAIN_DIR", nullable = false)
 	private boolean createDomainDir = false;
 
-	@Column(name = "FIRST_UPPER", nullable = false)
 	private boolean upperCaseFirst = false;
 
-	@Column(name = "LOWER_CASE", nullable = false)
 	private boolean lowerCase = false;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TEMPLATE_TYPE", nullable = false)
 	private TemplateType type = TemplateType.DOMAIN;
 
-	@JsonManagedReference
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "CATEGORY_ID")
-	private Category category;
-
-	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name = "TEMPLATEFILE_APP", joinColumns = @JoinColumn(name = "TEMPLATEFILE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "APP_ID", referencedColumnName = "ID"))
-	private Set<App> apps;
-
-	@JsonManagedReference
-	@ManyToOne
-	@JoinColumn(name = "APPTEMPLATE_ID")
-	private AppTemplate appTemplate;
+	@NotBlank
+	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+	private String category;
 
 	public String getFileNameSuffix() {
-		return fileNameSuffix;
+		return fileName;
 	}
 
-	public void setFileNameSuffix(String fileNameSuffix) {
-		this.fileNameSuffix = fileNameSuffix;
+	public void setFileNameSuffix(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public String getTemplatePath() {
@@ -135,29 +103,12 @@ public class TemplateFile extends AbstractEntity<Long> {
 		this.type = type;
 	}
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	
-	public AppTemplate getAppTemplate() {
-		return appTemplate;
-	}
-
-	public void setAppTemplate(AppTemplate appTemplate) {
-		this.appTemplate = appTemplate;
-	}
-
-	public Set<App> getApps() {
-		return apps;
-	}
-
-	public void setApps(Set<App> apps) {
-		this.apps = apps;
 	}
 
 	@XmlTransient
@@ -174,7 +125,7 @@ public class TemplateFile extends AbstractEntity<Long> {
 			domainname = domainname.toLowerCase();
 		}
 		if (checkedDir != null) {
-			String targetUrl = checkedDir + domainname + fileNameSuffix;
+			String targetUrl = checkedDir + domainname + fileName;
 			return targetUrl;
 		}
 		return null;
@@ -201,6 +152,7 @@ public class TemplateFile extends AbstractEntity<Long> {
 		return new String(array);
 	}
 
+	@XmlTransient
 	public String getConcreteTargetPath() {
 		return concreteTargetPath;
 	}
@@ -209,6 +161,7 @@ public class TemplateFile extends AbstractEntity<Long> {
 		this.concreteTargetPath = concreteTargetPath;
 	}
 
+	@XmlTransient
 	public String getConcreteTemplatePath() {
 		return concreteTemplatePath;
 	}

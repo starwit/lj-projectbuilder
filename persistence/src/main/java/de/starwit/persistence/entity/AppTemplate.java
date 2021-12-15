@@ -2,19 +2,14 @@ package de.starwit.persistence.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 @Entity
@@ -27,6 +22,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Column(name = "TEMPLATE_NAME", nullable = false, length = 100)
 	private String templateName = "lirejarp";
 
+	@Transient
 	@NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
 	@Size(max = 100)
@@ -34,7 +30,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	private String packagePlaceholder = "starwit";
 
 	@NotBlank
-  @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
+  	@Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;
@@ -48,10 +44,6 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	@Column(name = "DESCRIPTION")
 	private String description;
-
-	@OrderBy("category, fileNameSuffix asc")
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
-	private Set<TemplateFile> templateFiles;
 
     public void setId(Long id) {
         this.id = id;
@@ -103,13 +95,5 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Set<TemplateFile> getTemplateFiles() {
-		return templateFiles;
-	}
-
-	public void setTemplateFiles(Set<TemplateFile> templateFiles) {
-		this.templateFiles = templateFiles;
 	}
 }

@@ -53,7 +53,8 @@ public class GeneratorService {
 
 	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
-		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
+		//TODO: get template files
+		Set<TemplateFile> templateFiles = null; //app.getTemplate().getTemplateFiles();
 		Collection<Domain> domains = app.getDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 		
@@ -106,6 +107,12 @@ public class GeneratorService {
 		return data;
 	}
 	
+	/**
+	 * Template Path can contain variables needed to be interpreted by freemarker.
+	 * @param data input parameters
+	 * @param templateFile templateFile with freemarker 
+	 * @throws NotificationException
+	 */
 	protected void generatePath(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
 			@SuppressWarnings("deprecation")
