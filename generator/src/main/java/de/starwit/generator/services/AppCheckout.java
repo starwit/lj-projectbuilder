@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.starwit.dto.LoadAppTemplateDto;
+import de.starwit.dto.DownloadAppTemplateDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.NotificationException;
@@ -97,7 +97,7 @@ public class AppCheckout {
 	 * @return
 	 * @throws NotificationException
 	 */
-	public AppTemplate checkoutAndUpdateAppTemplate(final LoadAppTemplateDto dto, final String targetDownloadPath) throws NotificationException {
+	public AppTemplate checkoutAndUpdateAppTemplate(final DownloadAppTemplateDto dto, final String targetDownloadPath) throws NotificationException {
 		final AppTemplate appTemplate = appTemplateService.findById(dto.getAppTemplateId());
 		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + targetDownloadPath;
 		final File destDir = new File(destDirString);
@@ -143,7 +143,7 @@ public class AppCheckout {
 			appTemplate.setBranch(template.getBranch());
 			appTemplate.setCredentialsRequired(template.isCredentialsRequired());
 
-			return appTemplateService.saveOrUpdate(appTemplate);
+			return appTemplateService.updateFromRepo(appTemplate);
 		
 		
 		} catch (Exception ex) {

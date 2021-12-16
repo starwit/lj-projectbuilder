@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.starwit.dto.GeneratorDto;
-import de.starwit.dto.LoadAppTemplateDto;
+import de.starwit.dto.DownloadAppTemplateDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
@@ -78,7 +78,7 @@ public class AppSetupService implements Serializable {
 	 * @throws NotificationException
 	 */
 	@Transactional(propagation = Propagation.NEVER)
-	public void updateTemplates(LoadAppTemplateDto dto) throws NotificationException {
+	public void updateTemplates(DownloadAppTemplateDto dto) throws NotificationException {
 		String newAppTemplateFolder = appCheckout.createTempAppDirectory("defaultAppTemplatePath");
 		appCheckout.checkoutAndUpdateAppTemplate(dto, newAppTemplateFolder);
 		appCheckout.findFilesAndDelete();
