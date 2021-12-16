@@ -75,7 +75,7 @@ public class AppCheckoutTest {
 		 assertNotNull(template.getTemplateFiles());
 		 boolean containsFilename = false;
 		 for (TemplateFile templateFile : template.getTemplateFiles()) {
-			 if (templateFile.getFileName().equals("${domain.name}.java")) {
+			 if (templateFile.getFileName().equals("${domain.name}Entity.java")) {
 				containsFilename = true;
 				break;
 			 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.entity.TemplateFile;
 import de.starwit.persistence.repository.AppTemplateRepository;
-import de.starwit.persistence.repository.TemplateFileRepository;
 
 @Service
 public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemplateRepository> {
@@ -20,34 +19,21 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 	@Autowired
 	private AppTemplateRepository appTemplateRepository;
 
-	@Autowired
-	private TemplateFileRepository templateFileRepository;
-
-
 	@Override
 	public AppTemplateRepository getRepository() {
 		return appTemplateRepository;
 	}
 
-
 	@Override
 	public AppTemplate saveOrUpdate(AppTemplate entity) {
-		Set<TemplateFile> templateFiles = templateFileRepository.findAllByAppTemplate(entity.getId());
-		
-		if (templateFiles != null && templateFiles.size() > 0) {
-			for (TemplateFile templateFile : templateFiles) {
-				templateFileRepository.delete(templateFile);
-			}
-		}
+		Set<TemplateFile> newTemplateFiles = entity.getTemplateFiles();
 
-		templateFiles = entity.getTemplateFiles();
-		if (templateFiles != null && templateFiles.size() > 0) {
-			for (TemplateFile templateFile : templateFiles) {
+		if (newTemplateFiles != null && newTemplateFiles.size() > 0) {
+			for (TemplateFile templateFile : newTemplateFiles) {
 				templateFile.setAppTemplate(entity);
-				templateFileRepository.save(templateFile);
 			}
 		}
-		return ServiceInterface.super.saveOrUpdate(entity);
+		return appTemplateRepository.save(entity);
 	}
 
 }
