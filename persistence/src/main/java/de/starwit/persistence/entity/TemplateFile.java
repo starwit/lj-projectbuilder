@@ -2,15 +2,12 @@ package de.starwit.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -41,6 +38,9 @@ public class TemplateFile extends AbstractEntity<Long> {
 	@XmlTransient
 	@Transient
 	private String concreteTargetPath = "";
+
+	@Column(name = "APPEND_TO_FILE")
+	private boolean append = false;
 
 	@NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
@@ -92,16 +92,6 @@ public class TemplateFile extends AbstractEntity<Long> {
 	}
 
 	@XmlTransient
-	@Transient
-	public String getTargetFileUrl(String domainname) {
-		if (concreteTargetPath != null) {
-			String targetUrl = concreteTargetPath + domainname + fileName;
-			return targetUrl;
-		}
-		return null;
-	}
-
-	@XmlTransient
 	public String getConcreteTargetPath() {
 		return concreteTargetPath;
 	}
@@ -117,5 +107,13 @@ public class TemplateFile extends AbstractEntity<Long> {
 
 	public void setConcreteTemplatePath(String concreteTemplatePath) {
 		this.concreteTemplatePath = concreteTemplatePath;
+	}
+
+	public boolean isAppend() {
+		return append;
+	}
+
+	public void setAppend(boolean append) {
+		this.append = append;
 	}
 }

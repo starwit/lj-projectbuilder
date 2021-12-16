@@ -1,10 +1,7 @@
 package de.starwit.generator.services;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +9,8 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
-import java.util.Properties;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -141,6 +138,7 @@ public class AppCheckout {
 		try {
 			// create object mapper instance
 			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			// convert JSON string to Book object
 			AppTemplate appTemplate = mapper.readValue(Paths.get(newAppFolder + Constants.FILE_SEP + "template-import.json").toFile(), AppTemplate.class);
 
@@ -155,37 +153,7 @@ public class AppCheckout {
 		
 		} catch (Exception ex) {
 			LOG.error("JSON mapping of code template failed.", ex);
-			throw new NotificationException("error.appcheckout.jsonmapping.git", "Error: JSON mapping of code template failed.");
+			throw new NotificationException("error.appcheckout.jsonmapping.git", ex.getMessage());
 		}
-	}
-
-	protected void saveTemplateProperties(AppTemplate template, String newAppFolder) throws NotificationException {
-		Properties props = readTemplateProperties(newAppFolder);
-		if (template == null) {
-			LOG.error("Error: template should not be null.");
-			throw new NotificationException("error.appcheckout.templatenull.git", "Error: template should not be null.");
-		}
-		if (template.getId() != null) {
-			template = appTemplateService.findById(template.getId());
-		}
-		template.setTemplateName(props.getProperty("templateName", "lirejarp"));
-		template.setPackagePlaceholder(props.getProperty("packagePlaceholder", "starwit"));
-		appTemplateService.saveOrUpdate(template);
-	}
-
-	private Properties readTemplateProperties(String newAppFolder) throws NotificationException {
-		Properties props = new Properties();
-		try {
-			InputStream inputStream = new FileInputStream(newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES);
-			props.load(inputStream);
-		} catch (FileNotFoundException e) {
-			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "not found in apptemplate.", e);
-			String path = newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES;
-			throw new NotificationException("error.appcheckout.templatepropertiesnotfound.git", "Template properties file " + path + " not found.");
-		} catch (IOException e) {
-			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "could not be read.", e);
-			throw new NotificationException("error.appcheckout.templatepropertiesnotread.git", "Template properties file " + Constants.APPTEMPLATE_PROPERTIES + " could not be read.");
-		}
-		return props;
 	}
 }
