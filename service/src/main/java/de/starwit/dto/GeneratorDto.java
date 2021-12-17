@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema
 @XmlRootElement
-public class GeneratorDto extends LoadAppTemplateDto {
+public class GeneratorDto extends DownloadAppTemplateDto {
 	
 	private Long appId;
 

@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -26,7 +25,6 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Column(name = "TEMPLATE_NAME", nullable = false, length = 100)
 	private String templateName = "lirejarp";
 
-	@Transient
 	@NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
 	@Size(max = 100)
@@ -40,6 +38,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	private String location;
 
 	@Size(max = 100)
+	@Pattern(regexp = "^([a-zA-Z0-9/_\\-]*)$")
 	@Column(name = "BRANCH", length = 100)
 	private String branch = "master";
 

@@ -58,33 +58,32 @@ public class AppCheckoutTest {
  		return file;
  	}
 
-	 @Test
-	 public void canLoadTemplateProperties() throws NotificationException, IOException, InterruptedException {
-		 final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
-		 LOG.info("Path is " + destDir.toString());
+	@Test
+	public void canLoadTemplateProperties() throws NotificationException, IOException, InterruptedException {
+		final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
+		LOG.info("Path is " + destDir.toString());
 
-		 AppTemplate template = new AppTemplate();
-		 template.setLocation("https://github.com/starwit/project-templates.git");
-		 template.setBranch("v2");
+		AppTemplate template = new AppTemplate();
+		template.setLocation("https://github.com/starwit/project-templates.git");
+		template.setBranch("v2");
 
-		 Git.gitClone(destDir, template.getLocation(), template.getBranch());
- 
-		 template = appCheckout.saveTemplateFile(template, destDir.toString());
-		 assertEquals("lirejarp", template.getTemplateName());
-		 assertEquals("xyz", template.getPackagePlaceholder());
-		 assertNotNull(template.getTemplateFiles());
-		 boolean containsFilename = false;
-		 for (TemplateFile templateFile : template.getTemplateFiles()) {
-			 if (templateFile.getFileName().equals("${domain.name}Entity.java")) {
-				containsFilename = true;
-				break;
-			 }
-		 }
-		 assertTrue(containsFilename);
- 
-		 String[] dirContent = destDir.toFile().list();
-		 assertTrue("Cloning repository results in an empty directory.", (dirContent != null && dirContent.length > 0));
-		 appCheckout.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp");
-	 }
+		Git.gitClone(destDir, template.getLocation(), template.getBranch());
 
- }
+		template = appCheckout.saveTemplateFile(template, destDir.toString());
+		assertEquals("lirejarp", template.getTemplateName());
+		assertEquals("xyz", template.getPackagePlaceholder());
+		assertNotNull(template.getTemplateFiles());
+		boolean containsFilename = false;
+		for (TemplateFile templateFile : template.getTemplateFiles()) {
+			if (templateFile.getFileName().equals("${domain.name}Entity.java")) {
+			containsFilename = true;
+			break;
+			}
+		}
+		assertTrue(containsFilename);
+
+		String[] dirContent = destDir.toFile().list();
+		assertTrue("Cloning repository results in an empty directory.", (dirContent != null && dirContent.length > 0));
+		appCheckout.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp");
+	}
+}
