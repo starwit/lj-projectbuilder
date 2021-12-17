@@ -58,8 +58,12 @@ const translationsEnEN = {
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
 
-    "appTemplateEditor.title": "Edit AppTemplate",
     "appTemplateOverview.title": "AppTemplate Overview",
+    "appTemplateDialog.edit": " - Edit Dialog",
+    "appTemplateDialog.isLoading": "loading...",
+    "appTemplateDialog.location": "Git-Repository",
+    "appTemplateDialog.branch": "Branch",
+    "appTemplateDialog.description": "Description",
 
     "generalSection.nameOfApp": "Name of App",
     "generalSection.descriptionOfApp": "Description of app",

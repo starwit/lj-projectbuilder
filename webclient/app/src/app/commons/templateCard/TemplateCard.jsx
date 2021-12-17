@@ -8,9 +8,8 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 
-
 function TemplateCard(props) {
-    const { template, selected } = props;
+    const { appTemplate, selected, handleEdit, handleDelete } = props;
     const templateCardStyles = TemplateCardStyles();
     const { t } = useTranslation();
     const [expanded, setExpanded] = React.useState(false);
@@ -48,8 +47,6 @@ function TemplateCard(props) {
         setExpanded(!expanded);
       };
 
-      
-
     function renderSelectedAlert() {
         if (selected) {
             return (
@@ -65,24 +62,24 @@ function TemplateCard(props) {
                 <Grid container spacing={0}>
                     <Grid item xs={7}>
                         <Typography gutterBottom variant="h5" component="span">
-                            {template.name}
+                            {appTemplate.name}
                         </Typography>
                     </Grid>
                     <Grid item xs={5} align="right">
-                        <IconButton><Edit /></IconButton>
-                        <IconButton><Delete /></IconButton>
+                        <IconButton><Edit onClick={() => handleEdit(appTemplate)} /></IconButton>
+                        <IconButton><Delete onClick={() => handleDelete(appTemplate.Id)}/></IconButton>
                     </Grid>
                 </Grid>
                 <Divider />
                 <Typography variant="body2" color="text.secondary">
-                    <p />{template.description}
+                    <p />{appTemplate.description}
                 </Typography>
                 <List>
                     <ListItem disablePadding>
                         <ListItemIcon>
                             <GitHub />
                         </ListItemIcon>
-                        <ListItemText primary={template.location} secondary={t("templateCard.branch") + ": " + template.branch} />
+                        <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
                     </ListItem>
                 </List>
             </CardContent>

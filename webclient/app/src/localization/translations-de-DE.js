@@ -61,8 +61,12 @@ const translationsDeDE = {
     "appEditor.section.conclusion.title": "Abschluss",
     "entityDesigner.code": "Code",
 
-    "appTemplateEditor.title": "AppTemplate bearbeiten",
     "appTemplateOverview.title": "Übersicht AppTemplates",
+    "appTemplateDialog.edit": "bearbeiten",
+    "appTemplateDialog.isLoading": "Die Seite wird noch geladen",
+    "appTemplateDialog.location": "Git-Repository",
+    "appTemplateDialog.branch": "Branch",
+    "appTemplateDialog.description": "Beschreibung",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.descriptionOfApp": "Beschreibung der App",
