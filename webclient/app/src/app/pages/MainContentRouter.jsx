@@ -8,7 +8,6 @@ import Error500 from "./default/Error500";
 import Home from "./home/Home";
 import AppOverview from "./appOverview/AppOverview";
 import AppEditor from "./appEditor/AppEditor";
-import AppTemplateDetails from "./appTemplate/AppTemplateDetails";
 import AppTemplateOverview from "./appTemplate/AppTemplateOverview";
 
 function MainContentRouter() {
@@ -20,8 +19,7 @@ function MainContentRouter() {
             <Route path={"/app/:appId/edit"} component={AppEditor}/>
             <Route path={"/app/:appId"} component={AppOverview}/>
             <Route exact path={"/"} component={Home}/>
-            <Route path={"/apptemplate/details:appTemplateId"} component={AppTemplateDetails}/>
-            <Route path={"/apptemplate/all"} component={AppTemplateOverview}/>
+            <Route path={"/apptemplate"} component={AppTemplateOverview}/>
         </>
     )
 }
