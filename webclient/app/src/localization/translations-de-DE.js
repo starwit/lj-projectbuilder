@@ -39,6 +39,7 @@ const translationsDeDE = {
     "fieldDialog.mandatoryField": "Pflichtfeld.",
 
     "appHeader.apps": "Apps",
+    "appHeader.apptemplates": "Templates",
     "appHeader.store": "Store",
 
     "relationshipAccordion.newRelation": "Neue Relation",
@@ -51,6 +52,7 @@ const translationsDeDE = {
 
     "templateCard.select": "Auswählen",
     "templateCard.selected": "Ausgewählt",
+    "templateCard.branch": "Branch",
 
     "home.yourApps": "Deine Apps",
 
@@ -58,6 +60,9 @@ const translationsDeDE = {
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Abschluss",
     "entityDesigner.code": "Code",
+
+    "appTemplateEditor.title": "AppTemplate bearbeiten",
+    "appTemplateOverview.title": "Übersicht AppTemplates",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.descriptionOfApp": "Beschreibung der App",

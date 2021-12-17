@@ -1,13 +1,13 @@
 import React from "react";
-import {Alert, Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import { Alert, Button, Card, CardActions, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import TemplateCardStyles from "./TemplateCardStyles";
-import {useTranslation} from "react-i18next";
-
+import { useTranslation } from "react-i18next";
+import GitHub from '@mui/icons-material/GitHub';
 
 function TemplateCard(props) {
-    const {template, selected, onSelection} = props;
+    const { template, selected, onSelection } = props;
     const templateCardStyles = TemplateCardStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     function renderSelectedAlert() {
         if (selected) {
@@ -19,13 +19,6 @@ function TemplateCard(props) {
 
     return (
         <Card color={"error"}>
-            <CardMedia
-                component="img"
-                height="150rem"
-                image={template.image}
-                alt="green iguana"
-                className={templateCardStyles.cardMedia}
-            />
             {renderSelectedAlert()}
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -34,10 +27,18 @@ function TemplateCard(props) {
                 <Typography variant="body2" color="text.secondary">
                     {template.description}
                 </Typography>
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemIcon>
+                            <GitHub />
+                        </ListItemIcon>
+                        <ListItemText primary={template.location} secondary={t("templateCard.branch") + ": " + template.branch}/>
+                    </ListItem>
+                </List>
             </CardContent>
             <CardActions className={templateCardStyles.actionsWrapper}>
-                <Button size="small" disabled={selected}
-                        onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
+                <Button size="small" disabled={true}
+                    onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
             </CardActions>
         </Card>
     )
