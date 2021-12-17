@@ -34,6 +34,7 @@ public class AppTemplateController {
 
     @Autowired
     private AppTemplateService appTemplateService;
+
     
 	@GetMapping(value = "/{templateId}")
 	public AppTemplate findById(@PathVariable("templateId") Long id) {

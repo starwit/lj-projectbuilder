@@ -12,6 +12,8 @@ import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
@@ -28,14 +30,14 @@ public class TemplateFile extends AbstractEntity<Long> {
 	@Column(name = "TEMPLATE_PATH", nullable = false)
 	private String templatePath;
 
-	@XmlTransient
+	@JsonIgnore
 	@Transient
 	private String concreteTemplatePath = "";
 
 	@NotBlank
 	private String targetPath;
 
-	@XmlTransient
+	@JsonIgnore
 	@Transient
 	private String concreteTargetPath = "";
 
@@ -47,6 +49,7 @@ public class TemplateFile extends AbstractEntity<Long> {
 	@Column(name = "CATEGORY", nullable = false)
 	private String category = "default";
 
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="APPTEMPLATE_ID")
 	private AppTemplate appTemplate;
