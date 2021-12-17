@@ -39,6 +39,7 @@ const translationsEnEN = {
     "fieldDialog.mandatoryField": "Mandatory.",
 
     "appHeader.apps": "Apps",
+    "appHeader.apptemplates": "Templates",
     "appHeader.store": "Store",
 
     "relationshipAccordion.newRelation": "New relation",
@@ -51,10 +52,14 @@ const translationsEnEN = {
 
     "templateCard.select": "Select",
     "templateCard.selected": "Selected",
+    "templateCard.branch": "Branch",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
+
+    "appTemplateEditor.title": "Edit AppTemplate",
+    "appTemplateOverview.title": "AppTemplate Overview",
 
     "generalSection.nameOfApp": "Name of App",
     "generalSection.descriptionOfApp": "Description of app",

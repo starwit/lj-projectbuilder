@@ -16,3 +16,4 @@
 rest/src/test/actual.json
 rest/src/test/test.json
 generator/.factorypath
+webclient/app/package-lock.json
