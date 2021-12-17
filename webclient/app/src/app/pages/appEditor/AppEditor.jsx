@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import TemplateSelection from "./sections/templateSection/TemplateSection";
 import ErDesigner from "./sections/erSection/ErSection";
@@ -16,6 +16,11 @@ function AppEditor() {
     const {t} = useTranslation();
     const [appName, setAppName] = useState(null)
     const [packageName, setPackageName] = useState(null)
+    // This is temporary. setAppName and setPackageName will be used later when everything is being wired together
+    useEffect(() => {
+        setAppName(null);
+        setPackageName(null);
+    }, [])
     const [entities, setEntities] = useState([
         {
             "id": 1,
