@@ -1,17 +1,17 @@
 package de.starwit.generator.services;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
-import java.util.Properties;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +29,13 @@ import de.starwit.service.impl.AppTemplateService;
 @Service
 public class AppCheckout {
 
-  final static Logger LOG = LoggerFactory.getLogger(AppCheckout.class);
-  
-  @Autowired
-  private AppTemplateService appTemplateService;
+	final static Logger LOG = LoggerFactory.getLogger(AppCheckout.class);
+	
+	@Autowired
+	private AppTemplateService appTemplateService;
 
-  @Autowired
-  private AppService appService;
+	@Autowired
+	private AppService appService;
 
 	public String createTempAppDirectory(final App app) throws NotificationException {
 		try {
@@ -121,7 +121,8 @@ public class AppCheckout {
 
 		try {
 			Git.gitClone(destDir.toPath(), srcDir, branch);
-			saveTemplateProperties(app.getTemplate(), destDir.getAbsolutePath());
+			//saveTemplateProperties(app.getTemplate(), destDir.getAbsolutePath());
+			app.setTemplate(saveTemplateFile(app.getTemplate(), destDir.getAbsolutePath()));
 		} catch (IOException | InterruptedException e) {
 			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			LOG.error("Error copying files for app template.", e);
@@ -133,33 +134,26 @@ public class AppCheckout {
 		}
 	}
 
-	protected void saveTemplateProperties(AppTemplate template, String newAppFolder) throws NotificationException {
-		Properties props = readTemplateProperties(newAppFolder);
-		if (template == null) {
-			LOG.error("Error: template should not be null.");
-			throw new NotificationException("error.appcheckout.templatenull.git", "Error: template should not be null.");
-		}
-		if (template.getId() != null) {
-			template = appTemplateService.findById(template.getId());
-		}
-		template.setTemplateName(props.getProperty("templateName", "lirejarp"));
-		template.setPackagePlaceholder(props.getProperty("packagePlaceholder", "starwit"));
-		appTemplateService.saveOrUpdate(template);
-	}
-
-	private Properties readTemplateProperties(String newAppFolder) throws NotificationException {
-		Properties props = new Properties();
+	protected AppTemplate saveTemplateFile(AppTemplate template, String newAppFolder) throws NotificationException {
 		try {
-			InputStream inputStream = new FileInputStream(newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES);
-			props.load(inputStream);
-		} catch (FileNotFoundException e) {
-			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "not found in apptemplate.", e);
-			String path = newAppFolder + Constants.FILE_SEP + Constants.APPTEMPLATE_PROPERTIES;
-			throw new NotificationException("error.appcheckout.templatepropertiesnotfound.git", "Template properties file " + path + " not found.");
-		} catch (IOException e) {
-			LOG.error("Template properties file" + Constants.APPTEMPLATE_PROPERTIES + "could not be read.", e);
-			throw new NotificationException("error.appcheckout.templatepropertiesnotread.git", "Template properties file " + Constants.APPTEMPLATE_PROPERTIES + " could not be read.");
+			// create object mapper instance
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			// convert JSON string to Book object
+			AppTemplate appTemplate = mapper.readValue(Paths.get(newAppFolder + Constants.FILE_SEP + "template-import.json").toFile(), AppTemplate.class);
+
+			appTemplate.setId(template.getId());
+			appTemplate.setLocation(template.getLocation());
+			appTemplate.setDescription(template.getDescription());
+			appTemplate.setBranch(template.getBranch());
+			appTemplate.setCredentialsRequired(template.isCredentialsRequired());
+
+			return appTemplateService.saveOrUpdate(appTemplate);
+		
+		
+		} catch (Exception ex) {
+			LOG.error("JSON mapping of code template failed.", ex);
+			throw new NotificationException("error.appcheckout.jsonmapping.git", ex.getMessage());
 		}
-		return props;
 	}
 }
