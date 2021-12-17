@@ -32,10 +32,10 @@ public class AppCheckout {
 	@Autowired
 	private AppTemplateService appTemplateService;
 
-	public String createTempAppDirectory(final String name) throws NotificationException {
+	public String createTempAppDirectory(final String tempDirectoryName) throws NotificationException {
 		try {
 			Path destDir = null;
-			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + name);
+			destDir = Files.createTempDirectory(Constants.LJ_PREFIX + tempDirectoryName);
 			return destDir.getFileName().toString();
 		} catch (final IOException e) {
 			LOG.error("Error creating temporary folder for app", e);
