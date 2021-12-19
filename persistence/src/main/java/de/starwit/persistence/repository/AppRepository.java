@@ -12,7 +12,4 @@ public interface AppRepository extends JpaRepository<App, Long> {
 
 	@Query("SELECT p FROM App p WHERE p.id = ?1")
 	public App findAppByIdOrThrowExeption(Long appid) throws NotificationException;
-	
-
-
 }

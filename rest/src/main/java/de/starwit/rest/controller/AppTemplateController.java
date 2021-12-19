@@ -19,43 +19,58 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.starwit.dto.SaveAppTemplateDto;
+import de.starwit.mapper.AppTemplateMapper;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.service.impl.AppTemplateService;
+import io.swagger.v3.oas.annotations.Operation;
 
-/**
- * Domain RestController
- * Have a look at the RequestMapping!!!!!!
- */
 @RestController
-@RequestMapping("${rest.base-path}/apptemplate")
+@RequestMapping("${rest.base-path}/apptemplates")
 public class AppTemplateController {
 
 	final static Logger LOG = LoggerFactory.getLogger(AppTemplateController.class);
 
     @Autowired
     private AppTemplateService appTemplateService;
-    
+
+	@Autowired
+	private AppTemplateMapper appTemplateMapper;
+
+	@Operation(summary = "Get appTemplate with id")
 	@GetMapping(value = "/{templateId}")
 	public AppTemplate findById(@PathVariable("templateId") Long id) {
 		AppTemplate template = appTemplateService.findById(id);
 		return template;
 	}
 
+	@Operation(summary = "Create appTemplate (location, branch, description, credentialsRequired)")
 	@PutMapping
-	public AppTemplate save(@RequestBody AppTemplate entity) {
-		return update(entity);
+	public AppTemplate save(@RequestBody SaveAppTemplateDto appTemplateDto) {
+		return update(appTemplateDto);
 	}
 
+	@Operation(summary = "Update appTemplate (location, branch, description, credentialsRequired)")
 	@PostMapping
-	public AppTemplate update(@RequestBody AppTemplate entity) {
-		return appTemplateService.saveOrUpdate(entity);
+	public AppTemplate update(@RequestBody SaveAppTemplateDto appTemplateDto) {
+		AppTemplate appTemplate = new AppTemplate();
+		if (appTemplateDto.getId() != null) {
+			appTemplate = appTemplateService.findById(appTemplateDto.getId());
+		}
+		appTemplate.setLocation(appTemplateDto.getLocation());
+		appTemplate.setBranch(appTemplateDto.getBranch());
+		appTemplate.setDescription(appTemplate.getDescription());
+		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
+		return appTemplateService.saveOrUpdate(appTemplate);
 	}
 
+	@Operation(summary = "Get all appTemplates")
 	@GetMapping
-	public List<AppTemplate> findAll() {
-		return appTemplateService.findAll();
+	public List<SaveAppTemplateDto> findAll() {
+		return appTemplateMapper.convertToDtoList(appTemplateService.findAll());
 	}
 
+	@Operation(summary = "Delete appTemplate")
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		appTemplateService.delete(id);
@@ -66,5 +81,4 @@ public class AppTemplateController {
         LOG.info("AppTemplate not found. ", ex.getMessage());
         return new ResponseEntity<Object>("AppTemplate not found.", HttpStatus.NOT_FOUND);
     }
-
 }

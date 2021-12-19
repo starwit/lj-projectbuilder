@@ -56,29 +56,20 @@ public class GeneratorService {
 		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
 		Collection<Domain> domains = app.getDomains();
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
-		
+	
 		for (TemplateFile templateFile : templateFiles) {
-    		switch (templateFile.getType()) {
-			case GLOBAL:
-				generatePath(templateData, templateFile);
-				generateGlobal(templateData, templateFile);
-				break;
-			case ADDITIONAL_CONTENT:
-				generatePath(templateData, templateFile);
+			generatePath(templateData, templateFile);
+			if (templateFile.isAppend()) {
 				generateAdditionalContent(templateData, templateFile);
-				break;
-			case DOMAIN: {
+			} else if (templateFile.getFileName().contains("${domain") || templateFile.getFileName().contains("${entity")) {
 				for (Domain domain : domains) {
 					templateData.putAll(fillTemplateDomainParameter(domain));
-					generatePath(templateData, templateFile);
-					generateDomain(domain.getName(), templateData, templateFile);
+					generateFileWithOverride(templateData, templateFile);
 				}
-				break;
+			} else {
+				generateFileWithOverride(templateData, templateFile);
 			}
-			default:
-				break;
-			}
-		}
+		}	
 	}
 	
 	/**
@@ -106,30 +97,37 @@ public class GeneratorService {
 		return data;
 	}
 	
+	/**
+	 * Template Path can contain variables needed to be interpreted by freemarker.
+	 * @param data input parameters
+	 * @param templateFile templateFile with freemarker 
+	 * @throws NotificationException
+	 */
 	protected void generatePath(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
+		String concreteTargetPath = generatePathWithFreemarker(data, templateFile, templateFile.getTargetPath());
+		templateFile.setConcreteTargetPath(concreteTargetPath);
+
+		String contreteTemplatePath = generatePathWithFreemarker(data, templateFile, templateFile.getTemplatePath());
+		templateFile.setConcreteTemplatePath(contreteTemplatePath);
+	}
+
+	protected String generatePathWithFreemarker(Map<String, Object> data, TemplateFile templateFile, String path) throws NotificationException {
 		try {
 			@SuppressWarnings("deprecation")
-			Template templateFileTargetPath = new Template("templateFileTargetPath", new StringReader(templateFile.getTargetPath()),
-		               new Configuration());
-	        StringWriter output = new StringWriter();
-	        templateFileTargetPath.process(data, output);
-	        templateFile.setConcreteTargetPath(output.toString());
-	        
-			@SuppressWarnings("deprecation")
-			Template templateFileTemplatePath = new Template("templateFileTemplatePath", new StringReader(templateFile.getTemplatePath()),
-		               new Configuration());
-	        output = new StringWriter();
-	        templateFileTemplatePath.process(data, output);
-	        templateFile.setConcreteTemplatePath(output.toString());
+			Template templateFileTargetPath = new Template("templatePath", new StringReader(path),
+					new Configuration());
+			StringWriter output = new StringWriter();
+			templateFileTargetPath.process(data, output);
+			return output.toString();
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			throw new NotificationException("error.generation.generatepath", "Error during file writing.");
 		}
 	}
 	
-	protected void generateGlobal(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
+	protected void generateFileWithOverride(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			String targetFileUrl = templateFile.getTargetFileUrl("");
+			String targetFileUrl = templateFile.getConcreteTargetPath() + generatePathWithFreemarker(data, templateFile, templateFile.getFileName());
 			writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, true);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
@@ -139,29 +137,10 @@ public class GeneratorService {
 	
 	protected void generateAdditionalContent(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
 		try {
-			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileNameSuffix(), getTemplate(templateFile.getConcreteTemplatePath()), data);
+			addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileName(), getTemplate(templateFile.getConcreteTemplatePath()), data);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			throw new NotificationException("error.generation.generateadditionalcontent", "Error during file writing");
-		}
-	}
-	
-	protected void generateDomain(String domainName, Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
-		try {
-			File targetPath = new File(templateFile.getConcreteTemplatePath());
-			if (targetPath.exists()) {
-				String targetFileUrl = templateFile.getTargetFileUrl(domainName);
-				writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, false);
-			} else {
-				throw new NotificationException("error.generation.templatemissing", "CodeTemplate missing.");
-			}
-
-		} catch (IOException e) {
-			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			throw new NotificationException("error.generation.file", "Error during file writing.");
-		} catch (TemplateException e) {
-			LOG.error("Error during file writing: ", e.fillInStackTrace());
-			throw new NotificationException("error.generation.template", "Error during file writing.");
 		}
 	}
 	

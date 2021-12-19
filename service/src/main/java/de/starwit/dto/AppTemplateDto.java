@@ -1,6 +1,8 @@
 package de.starwit.dto;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import de.starwit.persistence.entity.AbstractEntity;
@@ -8,7 +10,9 @@ import de.starwit.persistence.entity.AbstractEntity;
 @XmlRootElement
 public class AppTemplateDto extends AbstractEntity<Long> {
 
-    @NotEmpty
+    @NotBlank
+	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+	@Size(max = 100)
     private String name;
 
     public String getName() {

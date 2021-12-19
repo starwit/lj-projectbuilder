@@ -14,8 +14,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.Length;
-
 @XmlRootElement
 @Entity
 @Table(name = "APPTEMPLATE")
@@ -34,24 +32,25 @@ public class AppTemplate extends AbstractEntity<Long> {
 	private String packagePlaceholder = "starwit";
 
 	@NotBlank
-  @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
+  	@Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;
 
 	@Size(max = 100)
+	@Pattern(regexp = "^([a-zA-Z0-9/_\\-]*)$")
 	@Column(name = "BRANCH", length = 100)
 	private String branch = "master";
 
 	@Column(name = "CREDENTIALS_REQUIRED")
 	private boolean credentialsRequired = false;
 
-	@Column(name = "DESCRIPTION")
-	private String description;
-
-	@OrderBy("category, fileNameSuffix asc")
+	@OrderBy("category, fileName asc")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
 	private Set<TemplateFile> templateFiles;
+
+	@Column(name = "DESCRIPTION")
+	private String description;
 
     public void setId(Long id) {
         this.id = id;
