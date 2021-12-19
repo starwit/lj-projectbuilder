@@ -6,21 +6,17 @@ import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
 import ConclusionSection from "./sections/conclusion/ConclusionSection";
+import GeneralSection from "./sections/generalSection/GeneralSection";
 
 
 function AppEditor() {
 
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
     const [selectedTemplate, setSelectedTemplate] = useState(null)
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
-    const [appName, setAppName] = useState(null)
-    const [packageName, setPackageName] = useState(null)
-    // This is temporary. setAppName and setPackageName will be used later when everything is being wired together
-    useEffect(() => {
-        setAppName(null);
-        setPackageName(null);
-    }, [])
+    const [appName, setAppName] = useState("")
+    const [packageName, setPackageName] = useState("")
     const [entities, setEntities] = useState([
         {
             "id": 1,
@@ -99,6 +95,16 @@ function AppEditor() {
     ])
 
     const steps = [
+        {
+            label: t("appEditor.section.general.title"),
+            component: <GeneralSection
+                packageName={packageName}
+                appName={appName}
+                setAppName={setAppName}
+                setPackageName={setPackageName}
+            />,
+            condition: appName !== "" && packageName !== ""
+        },
         {
             label: t("appEditor.section.template.title"),
             component: <TemplateSelection
