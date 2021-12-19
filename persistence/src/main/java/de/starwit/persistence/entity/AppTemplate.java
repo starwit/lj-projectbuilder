@@ -9,35 +9,35 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 @Entity
 @Table(name = "APPTEMPLATE")
 public class AppTemplate extends AbstractEntity<Long> {
 
-	@NotNull
+	@NotBlank
+	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+	@Size(max = 100)
+	@Column(name = "TEMPLATE_NAME", nullable = false, length = 100)
+	private String templateName = "lirejarp";
+
+	@NotBlank
+	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+	@Size(max = 100)
+	@Column(name = "PACKAGE", nullable = false, length = 100)
+	private String packagePlaceholder = "starwit";
+
+	@NotBlank
+  @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
 	@Size(max = 100)
 	@Column(name = "LOCATION", nullable = false, length = 100)
 	private String location;
-
-	@NotNull
-	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
-	@Size(max = 100)
-	@Column(name = "TITLE", nullable = false, length = 100)
-	private String title;
-
-	@Column(name = "DESCRIPTION")
-	private String description;
-
-	@NotNull
-	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
-	@Size(max = 100)
-	@Column(name = "PREFIX", nullable = false, length = 100)
-	private String packagePrefix;
 
 	@Size(max = 100)
 	@Column(name = "BRANCH", length = 100)
@@ -46,6 +46,9 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Column(name = "CREDENTIALS_REQUIRED")
 	private boolean credentialsRequired = false;
 
+	@Column(name = "DESCRIPTION")
+	private String description;
+
 	@OrderBy("category, fileNameSuffix asc")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "appTemplate")
 	private Set<TemplateFile> templateFiles;
@@ -53,29 +56,21 @@ public class AppTemplate extends AbstractEntity<Long> {
     public void setId(Long id) {
         this.id = id;
     }
-	
-	public String getDescription() {
-		return description;
+
+	public String getTemplateName() {
+		return templateName;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getPackagePlaceholder() {
+		return packagePlaceholder;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getPackagePrefix() {
-		return packagePrefix;
-	}
-
-	public void setPackagePrefix(String packagePrefix) {
-		this.packagePrefix = packagePrefix;
+	public void setPackagePlaceholder(String packagePlaceholder) {
+		this.packagePlaceholder = packagePlaceholder;
 	}
 
 	public String getLocation() {
@@ -100,6 +95,14 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	public void setCredentialsRequired(boolean credentialsRequired) {
 		this.credentialsRequired = credentialsRequired;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Set<TemplateFile> getTemplateFiles() {

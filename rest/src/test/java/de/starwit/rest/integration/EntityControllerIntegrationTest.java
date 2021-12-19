@@ -85,7 +85,7 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
     public void canThrowIlligalFormatException() throws Exception {
         try {
             // given
-            EntityDto dto = readFromFile(data + "entity-wrong-format.json");
+            EntityDto dto = readFromFile(data + "entity-wrong-name.json");
             Domain domain = entityMapper.convertToEntity(dto);
             when(domainService.findById(0L)).thenReturn(domain);
             MockHttpServletResponse response = retrieveById(0L);

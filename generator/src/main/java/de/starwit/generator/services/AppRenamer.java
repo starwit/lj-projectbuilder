@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.exception.NotificationException;
-import de.starwit.persistence.response.ResponseCode;
-import de.starwit.persistence.response.ResponseMetadata;
 import de.starwit.generator.config.Constants;
 
 
@@ -34,11 +32,11 @@ public class AppRenamer {
 	 * @param properties
 	 */
 	public void renameAppTitle(App entity) throws NotificationException {
-		LOG.info("Try to rename app " + entity.getTemplate().getPackagePrefix() + ".");
+		LOG.info("Try to rename app " + entity.getTemplate().getPackagePlaceholder() + ".");
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		String currentAppName = entity.getTemplate().getTitle();
+		String currentAppName = entity.getTemplate().getTemplateName();
 		renameDirectories(currentAppName, entity.getTitle(), parentdirectory, false);
 		renameFiles(currentAppName, entity.getTitle(), parentdirectory);
 	}
@@ -52,8 +50,8 @@ public class AppRenamer {
 
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
-		renameDirectories(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory, true);
-		renameFiles(entity.getTemplate().getPackagePrefix(), entity.getPackagePrefix(), parentdirectory);
+		renameDirectories(entity.getTemplate().getPackagePlaceholder(), entity.getPackagePrefix(), parentdirectory, true);
+		renameFiles(entity.getTemplate().getPackagePlaceholder(), entity.getPackagePrefix(), parentdirectory);
 	}
 
 	/**
@@ -87,8 +85,7 @@ public class AppRenamer {
 				}
 			} catch (IOException e) {
 				LOG.error("Problems moving file with name " + childdirectory.getName(), e);
-				ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.apprenamer.renamedirectories");
-				throw new NotificationException(data);
+				throw new NotificationException("error.apprenamer.renamedirectories", "Problems moving file with name " + childdirectory.getName());
 			}
 		}
 	}
@@ -154,8 +151,7 @@ public class AppRenamer {
 			
 		} catch (IOException e) {
 			LOG.error("Error processing file with name " + newAppName, e);
-			ResponseMetadata data = new ResponseMetadata(ResponseCode.ERROR, "error.apprenamer.renamefilecontent");
-			throw new NotificationException(data);
+			throw new NotificationException("error.apprenamer.renamefilecontent", "Error processing file with name " + newAppName);
 		} finally {
 			try {
 				if (reader != null) {

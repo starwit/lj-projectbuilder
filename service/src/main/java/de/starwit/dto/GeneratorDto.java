@@ -1,10 +1,8 @@
 package de.starwit.dto;
 
-import java.util.Set;
+import javax.validation.Valid;
 
-import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.AbstractEntity;
-import de.starwit.persistence.entity.App;
 
 /**
  * Contains all configuration for app setup and generator.
@@ -13,13 +11,9 @@ import de.starwit.persistence.entity.App;
  */
 public class GeneratorDto extends AbstractEntity<Long> {
 	
-	private App app;
+	private Long appId;
 
-	
-	private Set<Domain> selectedDomains;
-	
 	private String username;
-
 	private String password;
 
 	private String user;
@@ -27,20 +21,12 @@ public class GeneratorDto extends AbstractEntity<Long> {
 
 	/********************* GETTER, SETTER **************************/
 	
-	public App getApp() {
-		return app;
+	public Long getAppId() {
+		return appId;
 	}
 
-	public void setApp(App app) {
-		this.app = app;
-	}
-
-	public Set<Domain> getSelectedDomains() {
-		return selectedDomains;
-	}
-
-	public void setSelectedDomains(Set<Domain> selectedDomains) {
-		this.selectedDomains = selectedDomains;
+	public void setAppId(Long appId) {
+		this.appId = appId;
 	}
 
 	public String getUsername() {
