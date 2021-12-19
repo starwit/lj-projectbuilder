@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 function EntityCard(props) {
 
     const entityCardStyles = EntityCardStyles();
-    const {entity, handleEdit, handleDelete} = props;
+    const {entity, handleEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
     function renderTitle(name) {
@@ -66,7 +66,7 @@ function EntityCard(props) {
     }
 
     function renderEditButton() {
-        if (handleEdit) {
+        if (handleEdit && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton onClick={() => handleEdit(entity)}>
@@ -77,7 +77,7 @@ function EntityCard(props) {
     }
 
     function renderDeleteClick() {
-        if (handleDelete) {
+        if (handleDelete && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton
@@ -119,7 +119,12 @@ function EntityCard(props) {
 EntityCard.propTypes = {
     entity: PropTypes.object.isRequired,
     handleEdit: PropTypes.func,
-    handleDelete: PropTypes.func
+    handleDelete: PropTypes.func,
+    editable: PropTypes.bool
+}
+
+EntityCard.defaultProps = {
+    editable: true
 }
 
 export default EntityCard;

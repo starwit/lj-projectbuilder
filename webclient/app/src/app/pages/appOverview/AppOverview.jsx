@@ -1,7 +1,11 @@
 import React from "react";
+import ConclusionSection from "../appEditor/sections/conclusion/ConclusionSection";
 
 function AppOverview(props) {
-    return (<></>);
+    return (
+        <>
+            <ConclusionSection/>
+        </>);
 }
 
 export default AppOverview

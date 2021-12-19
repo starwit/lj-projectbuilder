@@ -17,7 +17,7 @@ function MainContentRouter() {
             <Route exact path={"/default/403"} component={Error403}/>
             <Route exact path={"/default/500"} component={Error500}/>
             <Route path={"/app/:appId/edit"} component={AppEditor}/>
-            <Route path={"/app/:appId"} component={AppOverview}/>
+            <Route exact path={"/app/:appId"} component={AppOverview}/>
             <Route exact path={"/"} component={Home}/>
             <Route path={"/apptemplate"} component={AppTemplateOverview}/>
         </>
