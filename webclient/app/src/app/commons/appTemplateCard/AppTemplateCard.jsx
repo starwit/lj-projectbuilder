@@ -7,6 +7,7 @@ import { Delete, Edit, ExpandMore } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function AppTemplateCard(props) {
     const { appTemplate, selected, handleEdit, handleDelete } = props;
@@ -45,7 +46,7 @@ function AppTemplateCard(props) {
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
-      };
+    };
 
     function renderSelectedAlert() {
         if (selected) {
@@ -66,8 +67,8 @@ function AppTemplateCard(props) {
                         </Typography>
                     </Grid>
                     <Grid item xs={5} align="right">
-                        <IconButton><Edit onClick={() => handleEdit(appTemplate)} /></IconButton>
-                        <IconButton><Delete onClick={() => handleDelete(appTemplate.Id)}/></IconButton>
+                        <IconButton onClick={() => handleEdit(appTemplate)}><Edit /></IconButton>
+                        <IconButton onClick={() => handleDelete(appTemplate.Id)}><Delete /></IconButton>
                     </Grid>
                 </Grid>
                 <Divider />
@@ -84,12 +85,13 @@ function AppTemplateCard(props) {
                 </List>
             </CardContent>
             <CardActions className={appTemplateCardStyles.actionsWrapper}>
-                <IconButton>
+                <IconButton onClick={handleExpandClick}>
                     <ExpandMore 
-                          expand={expanded}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label="show more" />
+                        expand={expanded}
+                        aria-expanded={expanded}
+                        aria-label="show more" >
+                    <ExpandMoreIcon />
+                    </ExpandMore>
                 </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
