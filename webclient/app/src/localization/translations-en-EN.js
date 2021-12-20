@@ -57,9 +57,14 @@ const translationsEnEN = {
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
+    "appEditor.section.general.title": "General",
+
 
     "appTemplateEditor.title": "Edit AppTemplate",
     "appTemplateOverview.title": "AppTemplate Overview",
+    "generalSection.hello": "Hello!",
+    "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
+    "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
 
     "generalSection.nameOfApp": "Name of App",
     "generalSection.descriptionOfApp": "Description of app",
