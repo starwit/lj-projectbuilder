@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Collapse, Card, CardContent, CardActions, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
-import TemplateCardStyles from "./TemplateCardStyles";
+import AppTemplateCardStyles from "./AppTemplateCardStyles";
 import { useTranslation } from "react-i18next";
 import GitHub from '@mui/icons-material/GitHub';
 import { Delete, Edit, ExpandMore } from "@mui/icons-material";
@@ -8,9 +8,9 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 
-function TemplateCard(props) {
+function AppTemplateCard(props) {
     const { appTemplate, selected, handleEdit, handleDelete } = props;
-    const templateCardStyles = TemplateCardStyles();
+    const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -58,7 +58,7 @@ function TemplateCard(props) {
     return (
         <Card color={"error"}>
             {renderSelectedAlert()}
-            <CardContent className={templateCardStyles.CardContent}>
+            <CardContent className={appTemplateCardStyles.CardContent}>
                 <Grid container spacing={0}>
                     <Grid item xs={7}>
                         <Typography gutterBottom variant="h5" component="span">
@@ -83,7 +83,7 @@ function TemplateCard(props) {
                     </ListItem>
                 </List>
             </CardContent>
-            <CardActions className={templateCardStyles.actionsWrapper}>
+            <CardActions className={appTemplateCardStyles.actionsWrapper}>
                 <IconButton>
                     <ExpandMore 
                           expand={expanded}
@@ -103,4 +103,4 @@ function TemplateCard(props) {
     )
 }
 
-export default TemplateCard;
+export default AppTemplateCard;

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import { Container,Typography } from "@mui/material";
-import {useTranslation} from "react-i18next";
-import { Grid } from "@mui/material";
-import TemplateCard from "../../commons/templateCard/TemplateCard";
-import TemplateDialog from "../../commons/templateDialog/TemplateDialog";
+import { Container, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import TemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
+import TemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 
 function AppTemplateOverview(props) {
     const {t} = useTranslation();
