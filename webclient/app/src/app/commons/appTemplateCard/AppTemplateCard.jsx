@@ -73,7 +73,7 @@ function AppTemplateCard(props) {
                 </Grid>
                 <Divider />
                 <Typography variant="body2" color="text.secondary">
-                    <p>{appTemplate.description}</p>
+                    <br />{appTemplate.description}
                 </Typography>
                 <List>
                     <ListItem disablePadding>

@@ -2,10 +2,10 @@ import { Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import TemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
-import TemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
+import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 
 function AppTemplateOverview(props) {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [currentAppTemplate, setCurrentAppTemplate] = useState(false);
     const [data, setData] = useState({
         appTemplates: [
@@ -34,7 +34,7 @@ function AppTemplateOverview(props) {
     function deleteAppTemplate(appTemplateId) {
         const foundIndex = data.appTemplates.findIndex(appTemplate => appTemplate.id === appTemplateId)
 
-        const newData = {...data}
+        const newData = { ...data }
         if (foundIndex > -1) {
             newData.appTemplates.splice(foundIndex, 1);
         }
@@ -43,7 +43,7 @@ function AppTemplateOverview(props) {
 
     function updateAppTemplate(updatedAppTemplate) {
         const foundIndex = data.appTemplates.findIndex(appTemplate => appTemplate.id === updatedAppTemplate.id);
-        const newData = {...data};
+        const newData = { ...data };
 
         if (foundIndex > -1) {
             newData.appTemplates[foundIndex] = updatedAppTemplate
@@ -52,12 +52,11 @@ function AppTemplateOverview(props) {
         }
 
         setData(newData);
+        // TODO: Add send to server
         setCurrentAppTemplate(null)
 
     }
 
-
-      
     return (
         <Container>
             <Typography variant={"h2"} gutterBottom>
@@ -65,17 +64,18 @@ function AppTemplateOverview(props) {
             </Typography>
             <Grid container spacing={2}>
                 {data.appTemplates.map(appTemplate => (
-                    <Grid item sm={12}>
+                    <Grid item key={appTemplate.id} sm={12}>
                         <TemplateCard
-                            appTemplate={appTemplate} handleEdit={setCurrentAppTemplate} handleDelete={deleteAppTemplate}/>
+                            appTemplate={appTemplate} handleEdit={setCurrentAppTemplate} handleDelete={deleteAppTemplate} />
                     </Grid>
                 ))}
-           </Grid>
-        <TemplateDialog 
-            appTemplateId={currentAppTemplate?.id}
-            onClose={() => setCurrentAppTemplate(null)}
-            handleSave={(data) => updateAppTemplate(data)}
-            appTemplates={data.appTemplates} />
+            </Grid>
+            <AppTemplateDialog
+                appTemplate={currentAppTemplate}
+                onClose={() => setCurrentAppTemplate(null)}
+                handleSave={updateAppTemplate}
+                appTemplates={data.appTemplates}
+            />
         </Container>
     )
 }

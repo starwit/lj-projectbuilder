@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Box,
@@ -9,31 +9,43 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
+import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 
 function AppTemplateDialog(props) {
 
-    let [appTemplate, setAppTemplate] = React.useState(null);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const { t } = useTranslation();
+    const [internalAppTemplate, setInternalAppTemplate] = useState(null);
 
-    const { appTemplateId, onClose, handleSave, appTemplates } = props;
+    const { appTemplate, onClose, handleSave } = props;
 
-    useEffect(() => {
-        setAppTemplate({ ...appTemplates.find(appTemplate => appTemplate.id === appTemplateId) })
-    }, [appTemplateId, appTemplates])
+    function handleAppTemplateEdit(event){
+        console.log("event",event.target.name, event.target.value);
+        const {name,value} = event.target;
+        let appTemplateNew = {...internalAppTemplate};
+        appTemplateNew[name] = value;
+        setInternalAppTemplate(appTemplateNew);
+    }
 
-    if (!appTemplate) {
+    useEffect(()=> {
+        setInternalAppTemplate(appTemplate);
+    }, [appTemplate])
+
+    if(!appTemplate) {
+        return null;
+    }
+    
+    if(!internalAppTemplate && appTemplate) {
         return <LoadingSpinner message={t("appTemplateDialog.isLoading")} />
     }
 
     return (
-        <Dialog open={appTemplateId} spacing={2}>
+        <Dialog open={appTemplate} spacing={2}>
             <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
-                <Typography noWrap variant={"h6"} component={"p"}>{t("appTemplateDialog.title", { appTemplateName: appTemplate.name })}</Typography>
+                <Typography noWrap variant={"h6"} component={"p"}>{t("appTemplateDialog.title", { appTemplateName: internalAppTemplate.name })}</Typography>
                 <div className={appTemplateDialogStyles.flex} />
                 <IconButton
                     aria-label="close"
@@ -51,11 +63,11 @@ function AppTemplateDialog(props) {
                 noValidate
                 autoComplete="off"
             >
-                <TextField fullWidth label={t("appTemplateDialog.location")} value={appTemplate.location} />
-                <TextField fullWidth label={t("appTemplateDialog.branch")} value={appTemplate.branch} />
-                <TextField fullWidth label={t("appTemplateDialog.description")} value={appTemplate.description} />
+                <TextField fullWidth label={t("appTemplateDialog.location")} value={internalAppTemplate.location} name="location" onChange={handleAppTemplateEdit}/>
+                <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleAppTemplateEdit}/>
+                <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleAppTemplateEdit}/>
                 <DialogActions>
-                    <Button onClick={() => handleSave(appTemplate)}>{t("button.save")}</Button>
+                    <Button onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>
