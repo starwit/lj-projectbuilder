@@ -1,7 +1,7 @@
 import React from "react";
 import {Container, Grid} from "@mui/material";
-import TemplateCard from "../../../../commons/templateCard/TemplateCard";
 import Image from "../../../../assets/images/logo.png"
+import AppTemplateSelectCard from "../../../../commons/appTemplateSelectCard/AppTemplateSelectCard";
 
 
 function TemplateSection(props) {
@@ -32,8 +32,11 @@ function TemplateSection(props) {
             <Grid container spacing={5}>
                 {templates.map(template => (
                     <Grid item sm={3}>
-                        <TemplateCard template={template} onSelection={handleSelection}
-                                      selected={value?.id === template.id}/>
+                        <AppTemplateSelectCard
+                            template={template}
+                            onSelection={handleSelection}
+                            selected={value?.id === template.id}
+                        />
                     </Grid>
                 ))}
 
