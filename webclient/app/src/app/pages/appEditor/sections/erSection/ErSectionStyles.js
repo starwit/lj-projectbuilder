@@ -18,6 +18,9 @@ const ErSectionStyles = makeStyles(theme => ({
     draggableWrapper: {
         height: "70vh"
     },
+    draggableWrapperDense: {
+        height: "20vh"
+    },
     statementWrapper: {
         height: "10rem"
     },

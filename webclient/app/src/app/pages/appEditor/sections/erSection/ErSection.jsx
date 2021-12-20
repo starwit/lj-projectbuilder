@@ -1,108 +1,35 @@
 import React, {useState} from "react";
 import {Button, Drawer, Fab} from "@mui/material";
-import {Add, Code} from "@mui/icons-material";
+import {Add, CheckBoxOutlineBlank, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import ErSectionStyles from "./ErSectionStyles";
+import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
 import {Line} from "react-lineto";
 import {useTranslation} from "react-i18next";
+import PropTypes from "prop-types";
+import Statement from "../../../../commons/statement/Statement";
 
-function ErSection() {
+function ErDesigner(props) {
 
-    const erDesignerStyles = ErSectionStyles();
+    const {editable, entities, handleUpdateEntities, dense} = props;
+
+    const erDesignerStyles = ErDesignerStyles();
+
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
-    const [exampleData, setExampleData] = useState({
-        entities: [
-            {
-                "id": 1,
-                "name": "D1",
-                "fields": [
-                    {
-                        "name": "D1-f1-s",
-                        "description": "",
-                        "dataType": {
-                            "id": 1,
-                            "name": "string"
-                        },
-                        "pattern": "",
-                        "min": "",
-                        "max": "",
-                        "mandatory": false
-                    },
-                    {
-                        "name": "D1-f1-i",
-                        "description": "",
-                        "dataType": {
-                            "id": 2,
-                            "name": "integer",
-                            "allowMin": true,
-                            "allowMax": true
-                        },
-                        "pattern": "",
-                        "min": "",
-                        "max": "",
-                        "mandatory": false
-                    }
-                ],
-                "relationships": []
-            },
-            {
-                "id": 2,
-                "name": "D2",
-                "fields": [
-                    {
-                        "name": "D2-f1-i",
-                        "description": "",
-                        "dataType": {
-                            "id": 2,
-                            "name": "integer",
-                            "allowMin": true,
-                            "allowMax": true
-                        },
-                        "pattern": "",
-                        "min": "",
-                        "max": "",
-                        "mandatory": false
-                    },
-                    {
-                        "name": "D2-f2-s",
-                        "description": "",
-                        "dataType": {
-                            "id": 1,
-                            "name": "string"
-                        },
-                        "pattern": "",
-                        "min": "",
-                        "max": "",
-                        "mandatory": false
-                    }
-                ],
-                "relationships": [
-                    {
-                        "relationshipType": "one-to-many",
-                        "otherEntityName": "D1",
-                        "otherEntityRelationshipName": "D1-f1-i",
-                        "relationshipName": "D2-f1-i",
-                        "name": "D2"
-                    }
-                ]
-            }
-        ]
-    })
 
     const {t} = useTranslation();
 
     function addEntity() {
-        const newExampleData = {...exampleData};
+        const newEntities = [...entities];
 
         let newId = 1;
-        if (exampleData.entities.length > 0) {
-            newId = exampleData.entities[exampleData.entities.length - 1].id + 1;
+        if (newEntities.length > 0) {
+            newId = newEntities[newEntities.length - 1].id + 1;
         }
         const newEntity = {
             id: newId,
@@ -110,10 +37,10 @@ function ErSection() {
             fields: [],
             relationships: []
         };
-        newExampleData.entities.push(
+        newEntities.push(
             newEntity
         )
-        setExampleData(newExampleData)
+        handleUpdateEntities(newEntities);
         setCurrentEntity(newEntity)
     }
 
@@ -127,26 +54,34 @@ function ErSection() {
     }
 
     function deleteEntity(entityId) {
-        const foundEntityIndex = exampleData.entities.findIndex(entity => entity.id === entityId)
-
-        const newExampleData = {...exampleData}
-        if (foundEntityIndex > -1) {
-            newExampleData.entities.splice(foundEntityIndex, 1);
+        if (!editable) {
+            return;
         }
-        setExampleData(newExampleData);
+
+        const foundEntityIndex = entities.findIndex(entity => entity.id === entityId)
+
+        const newEntities = [...entities];
+        if (foundEntityIndex > -1) {
+            newEntities.splice(foundEntityIndex, 1);
+        }
+        handleUpdateEntities(newEntities)
     }
 
     function updateEntity(updatedEntity) {
-        const foundEntityIndex = exampleData.entities.findIndex(entity => entity.id === updatedEntity.id);
-        const newExampleData = {...exampleData};
-
-        if (foundEntityIndex > -1) {
-            newExampleData.entities[foundEntityIndex] = updatedEntity
-        } else {
-            newExampleData.entities.push(updatedEntity);
+        if (!editable) {
+            return;
         }
 
-        setExampleData(newExampleData);
+        const foundEntityIndex = entities.findIndex(entity => entity.id === updatedEntity.id);
+        const newEntities = [...entities];
+
+        if (foundEntityIndex > -1) {
+            newEntities[foundEntityIndex] = updatedEntity
+        } else {
+            newEntities.push(updatedEntity);
+        }
+
+        handleUpdateEntities(newEntities);
         setCurrentEntity(null)
 
     }
@@ -154,7 +89,7 @@ function ErSection() {
     function updateCoordinates() {
         const relationsList = [];
         const coordinates = [];
-        exampleData.entities.forEach(entity => {
+        entities.forEach(entity => {
             if (entity.relationships) {
                 return entity?.relationships.forEach(relationship => {
                     relationship.name = entity.name
@@ -198,24 +133,51 @@ function ErSection() {
 
 
     function renderEntities() {
-        return exampleData.entities.map(entity => {
+        if (entities.length === 0) {
+            return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
+        }
+        return entities.map(entity => {
             return (
                 <Draggable axis={"both"} onStop={updateCoordinates} defaultClassName={erDesignerStyles.draggable}>
                     <div>
-                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}/>
+                        <EntityCard
+                            entity={entity}
+                            handleEdit={setCurrentEntity}
+                            handleDelete={deleteEntity}
+                            editable={editable}
+                        />
                     </div>
                 </Draggable>
             )
         })
     }
 
-    return (
-        <>
+    function renderAddFab() {
+
+        if (!editable) {
+            return;
+        }
+
+        return (
             <div className={erDesignerStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={addEntity}>
                     <Add/>
                 </Fab>
             </div>
+        )
+
+    }
+
+    function generateWrapper() {
+        if (dense) {
+            return erDesignerStyles.draggableWrapperDense
+        }
+        return erDesignerStyles.draggableWrapper
+    }
+
+    return (
+        <>
+            {renderAddFab()}
             <div className={erDesignerStyles.codeButtonWrapper}>
                 <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
                     {t("entityDesigner.code")}
@@ -240,11 +202,11 @@ function ErSection() {
                             className: erDesignerStyles.syntaxHighlighterCodeTag
                         }}
                     >
-                        {JSON.stringify(exampleData.entities, null, 4)}
+                        {JSON.stringify(entities, null, 4)}
                     </SyntaxHighlighter>
                 </Drawer>
             </React.Fragment>
-            <div className={erDesignerStyles.draggableWrapper}>
+            <div className={generateWrapper()}>
                 {renderEntities()}
                 {renderRelations()}
             </div>
@@ -252,10 +214,23 @@ function ErSection() {
                 entityId={currentEntity?.id}
                 onClose={() => setCurrentEntity(null)}
                 handleSave={(data) => updateEntity(data)}
-                entities={exampleData.entities}
+                entities={entities}
             />
         </>
     )
 }
 
-export default ErSection;
+ErDesigner.propTypes = {
+    handleUpdateEntities: PropTypes.func,
+    entities: PropTypes.array,
+    editable: PropTypes.bool,
+    dense: PropTypes.bool
+}
+
+ErDesigner.defaultProps = {
+    editable: true,
+    entities: [],
+    dense: false
+};
+
+export default ErDesigner;
