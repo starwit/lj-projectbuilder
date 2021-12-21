@@ -1,12 +1,31 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import TemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
-import TemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
+import AppTemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
+import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 
 function AppTemplateOverview(props) {
-    const {t} = useTranslation();
-    const [currentAppTemplate, setCurrentAppTemplate] = useState(false);
+    const { t } = useTranslation();
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
+
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+        setSelectedAppTemplate(defaultAppTemplate);
+    };
+
+    const handleDialogClose = () => {
+        setOpenDialog(false);
+    };
+
+    const defaultAppTemplate =
+    {
+        "id": "-1",
+        "location": "",
+        "branch": "",
+        "credentialsRequired": false,
+        "description": ""
+    };
     const [data, setData] = useState({
         appTemplates: [
             {
@@ -30,52 +49,39 @@ function AppTemplateOverview(props) {
         ]
     });
 
-
-    function deleteAppTemplate(appTemplateId) {
-        const foundIndex = data.appTemplates.findIndex(appTemplate => appTemplate.id === appTemplateId)
-
-        const newData = {...data}
-        if (foundIndex > -1) {
-            newData.appTemplates.splice(foundIndex, 1);
-        }
+    function reload() {
+        const newData = { ...data };
+        // TODO: load apTemplates from server
         setData(newData);
     }
 
-    function updateAppTemplate(updatedAppTemplate) {
-        const foundIndex = data.appTemplates.findIndex(appTemplate => appTemplate.id === updatedAppTemplate.id);
-        const newData = {...data};
-
-        if (foundIndex > -1) {
-            newData.appTemplates[foundIndex] = updatedAppTemplate
-        } else {
-            data.appTemplates.push(updatedAppTemplate);
-        }
-
-        setData(newData);
-        setCurrentAppTemplate(null)
-
-    }
-
-
-      
     return (
         <Container>
-            <Typography variant={"h2"} gutterBottom>
-                {t("appTemplateOverview.title")}
-            </Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={9}>
+                    <Typography variant={"h2"} gutterBottom>
+                        {t("appTemplateOverview.title")}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3} align="right">
+                    <Button onClick={handleDialogOpen} >{t("button.create")}</Button>
+                </Grid>
+            </Grid>
+
             <Grid container spacing={2}>
                 {data.appTemplates.map(appTemplate => (
-                    <Grid item sm={12}>
-                        <TemplateCard
-                            appTemplate={appTemplate} handleEdit={setCurrentAppTemplate} handleDelete={deleteAppTemplate}/>
+                    <Grid item key={appTemplate.id} sm={12}>
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} />
                     </Grid>
                 ))}
-           </Grid>
-        <TemplateDialog 
-            appTemplateId={currentAppTemplate?.id}
-            onClose={() => setCurrentAppTemplate(null)}
-            handleSave={(data) => updateAppTemplate(data)}
-            appTemplates={data.appTemplates} />
+            </Grid>
+            <AppTemplateDialog
+                appTemplate={selectedAppTemplate}
+                open={openDialog}
+                onClose={handleDialogClose}
+                onRefresh={reload}
+                isCreateDialog={true}
+            />
         </Container>
     )
 }
