@@ -82,7 +82,7 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
     protected MockHttpServletResponse create(DTO dto) throws Exception {
         String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.put(getRestPath())
+        MockMvcRequestBuilders.post(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
                               .accept(MediaType.APPLICATION_JSON)
                               .characterEncoding("UTF-8")
@@ -98,7 +98,7 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
     protected MockHttpServletResponse update(DTO dto) throws Exception {
         String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.post(getRestPath())
+        MockMvcRequestBuilders.put(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
                               .accept(MediaType.APPLICATION_JSON)
                               .characterEncoding("UTF-8")

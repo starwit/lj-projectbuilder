@@ -56,6 +56,18 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     }
 
     @Test
+    public void isValidated() throws Exception {
+        // given
+        SaveAppTemplateDto dto = readFromFile(data + "apptemplate-wrong.json");
+
+        // when
+        MockHttpServletResponse response = create(dto);
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     public void canNotFindById() throws Exception {
         // when
         MockHttpServletResponse response = mvc

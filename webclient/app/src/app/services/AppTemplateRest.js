@@ -1,9 +1,9 @@
-import CrudRest from "./services/CrudRest";
+import CrudRest from "./CrudRest";
 
 class AppTemplateRest extends CrudRest {
 
     constructor() {
-        super(window.location.pathname + "api/apptemplates");
+        super(window.location.pathname + "api/apptemplates/");
     }
 }
 

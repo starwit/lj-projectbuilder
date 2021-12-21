@@ -12,12 +12,14 @@ import {
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
+import AppTemplateRest from "../../services/AppTemplateRest"
 
 function AppTemplateDialog(props) {
 
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    const appTemplateRest = new AppTemplateRest();
 
     const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
 
@@ -34,11 +36,11 @@ function AppTemplateDialog(props) {
     }
 
     function handleSave(toSave) {
-        // TODO: Add send to server
-        const savedAppTempate = toSave;
-        setInternalAppTemplate(savedAppTempate);
-        onRefresh();
-        onClose();
+        appTemplateRest.create(toSave).then(response => {
+            setInternalAppTemplate(response.data);
+            onRefresh();
+            onClose();
+        });
     }
 
     useEffect(() => {

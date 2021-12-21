@@ -3,6 +3,7 @@ package de.starwit.rest.controller;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,14 +46,14 @@ public class AppTemplateController {
 	}
 
 	@Operation(summary = "Create appTemplate (location, branch, description, credentialsRequired)")
-	@PutMapping
-	public AppTemplate save(@RequestBody SaveAppTemplateDto appTemplateDto) {
+	@PostMapping
+	public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
 		return update(appTemplateDto);
 	}
 
 	@Operation(summary = "Update appTemplate (location, branch, description, credentialsRequired)")
-	@PostMapping
-	public AppTemplate update(@RequestBody SaveAppTemplateDto appTemplateDto) {
+	@PutMapping
+	public AppTemplate update(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
 		AppTemplate appTemplate = new AppTemplate();
 		if (appTemplateDto.getId() != null) {
 			appTemplate = appTemplateService.findById(appTemplateDto.getId());
