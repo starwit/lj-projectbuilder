@@ -57,7 +57,7 @@ function AppTemplateCard(props) {
         setOpenDialog(false);
     };
 
-    function handleDelete(appTemplateId) {
+    const  handleDelete = (appTemplateId) => {
         appTemplateRest.delete(appTemplateId).then(response => {
             handleRefresh();
         });

@@ -31,14 +31,14 @@ function AppTemplateDialog(props) {
         setInternalAppTemplate(appTemplate);
     }
 
-    function handleChange(event) {
+    const handleChange = (event) => {
         const { name, value } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = value;
         setInternalAppTemplate(appTemplateNew);
     }
 
-    function handleSave(toSave) {
+    const handleSave = (toSave) => {
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
@@ -58,7 +58,7 @@ function AppTemplateDialog(props) {
         setAlert({"open":false, "title": "alert.error", "message": ""});
     }
 
-    function handleSaveResponse(response) {
+    const handleSaveResponse = (response) => {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
