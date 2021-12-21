@@ -14,8 +14,8 @@ class CrudRest {
         return axios.put(this.baseUrl, entity);
     }
 
-    delete = (entity) => {
-        return axios.delete(this.baseUrl, {data: entity});
+    delete = (entityId) => {
+        return axios.delete(this.baseUrl + "/" + entityId);
     }
 
     findAll = () => {

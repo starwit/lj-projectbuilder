@@ -10,7 +10,7 @@ import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
-
+import AppTemplateRest from "../../services/AppTemplateRest"
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -26,33 +26,6 @@ const ExpandMore = styled((props) => {
 
 function AppTemplateCard(props) {
 
-    const appTemplateDetails = `{
-        "templateName": "lirejarp",
-        "packagePlaceholder": "xyz",
-        "templateFiles": [
-          {
-            "fileName": "\${domain.name}Entity.java",
-            "someprop": "some stuff",
-            "templatePath": "persistence/Entity.ftl",
-            "targetPath": "persistence/src/main/java/de/\${app.packagePrefix?lower_case}/persistence/entity/",
-            "category": "ENTITY"
-          },
-          {
-            "fileName": "\${domain.name}Serivce.java",
-            "someprop": "some stuff",
-            "templatePath": "persistence/Service.ftl",
-            "targetPath": "persistence/src/main/java/de/\${app.packagePrefix?lower_case}/persistence/service/",
-            "category": "SERVICE"
-          },    
-          {
-            "fileName": "application.properties",
-            "templatePath": "application/properties.ftl",
-            "targetPath": "application/src/main/resources/",
-            "category": "GLOBAL"
-          }
-        ]
-      }`
-
     SyntaxHighlighter.registerLanguage('javascript', js);
 
     const { appTemplate, handleRefresh } = props;
@@ -61,6 +34,7 @@ function AppTemplateCard(props) {
     const [expanded, setExpanded] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const appTemplateRest = new AppTemplateRest();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -76,8 +50,9 @@ function AppTemplateCard(props) {
     };
 
     function handleDelete(appTemplateId) {
-        //TODO:deleteFromList
-        handleRefresh();
+        appTemplateRest.delete(appTemplateId).then(response => {
+            handleRefresh();
+        });
     }
 
     return (
@@ -92,7 +67,7 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <IconButton onClick={() => handleDialogOpen()}><Edit /></IconButton>
-                            <IconButton onClick={() => handleDelete(appTemplate.Id)}><Delete /></IconButton>
+                            <IconButton onClick={() => handleDelete(appTemplate.id)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
                     <Divider />
@@ -120,7 +95,7 @@ function AppTemplateCard(props) {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <SyntaxHighlighter language="json" style={dark}>
-                            {appTemplateDetails}
+                            {JSON.stringify(appTemplate, null, '\t')}
                         </SyntaxHighlighter>
                     </CardContent>
                 </Collapse>

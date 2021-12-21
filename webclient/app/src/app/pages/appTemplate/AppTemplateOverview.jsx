@@ -23,7 +23,6 @@ function AppTemplateOverview() {
 
     const defaultAppTemplate =
     {
-        "id": "-1",
         "location": "",
         "branch": "",
         "credentialsRequired": false,
@@ -33,7 +32,6 @@ function AppTemplateOverview() {
     const [data, setData] = useState([]);
 
     const reload = () => {
-        
         appTemplateRest.findAll().then(response => {
             setData(response.data);
         },[]);

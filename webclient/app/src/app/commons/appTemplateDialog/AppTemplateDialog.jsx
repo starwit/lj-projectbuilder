@@ -36,11 +36,21 @@ function AppTemplateDialog(props) {
     }
 
     function handleSave(toSave) {
-        appTemplateRest.create(toSave).then(response => {
-            setInternalAppTemplate(response.data);
-            onRefresh();
-            onClose();
-        });
+        if (isCreateDialog) {
+            appTemplateRest.create(toSave).then(response => {
+                handleSaveResponse(response);
+            });
+        } else {
+            appTemplateRest.update(toSave).then(response => {
+                handleSaveResponse(response);
+            });
+        }
+    }
+
+    function handleSaveResponse(response) {
+        setInternalAppTemplate(response.data);
+        onRefresh();
+        onClose();
     }
 
     useEffect(() => {

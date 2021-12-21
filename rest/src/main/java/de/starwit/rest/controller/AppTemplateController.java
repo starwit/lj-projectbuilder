@@ -60,7 +60,7 @@ public class AppTemplateController {
 		}
 		appTemplate.setLocation(appTemplateDto.getLocation());
 		appTemplate.setBranch(appTemplateDto.getBranch());
-		appTemplate.setDescription(appTemplate.getDescription());
+		appTemplate.setDescription(appTemplateDto.getDescription());
 		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
 		return appTemplateService.saveOrUpdate(appTemplate);
 	}
