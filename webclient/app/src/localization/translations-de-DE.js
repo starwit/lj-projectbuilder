@@ -7,6 +7,7 @@ const translationsDeDE = {
     "button.next": "Bestätigen",
     "button.edit": "Bearbeiten",
     "button.back": "Zurück",
+    "button.cancel": "Abbrechen",    
     "button.save": "Speichern",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
@@ -62,6 +63,7 @@ const translationsDeDE = {
     "entityDesigner.code": "Code",
 
     "appTemplateOverview.title": "Übersicht AppTemplates",
+    "appTemplateDialog.new.title": "AppTemplate erstellen",
     "appTemplateDialog.title": "{{appTemplateName}} bearbeiten",
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",
     "appTemplateDialog.location": "Git-Repository",

@@ -8,6 +8,7 @@ const translationsEnEN = {
     "button.edit": "Edit",
     "button.back": "Back",
     "button.save": "Save",
+    "button.cancel": "Cancel",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
 
@@ -59,6 +60,7 @@ const translationsEnEN = {
     "appEditor.section.conclusion.title": "Conclusion",
 
     "appTemplateOverview.title": "AppTemplate Overview",
+    "appTemplateDialog.new.title": "Create AppTemplate",
     "appTemplateDialog.title": "Edit {{appTemplateName}}",
     "appTemplateDialog.isLoading": "loading...",
     "appTemplateDialog.location": "Git-Repository",
