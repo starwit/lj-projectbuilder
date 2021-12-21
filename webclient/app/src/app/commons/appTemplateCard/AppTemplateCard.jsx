@@ -11,6 +11,7 @@ import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest"
+import ConfirmationDialog from "../alert/ConfirmationDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -35,6 +36,13 @@ function AppTemplateCard(props) {
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
     const appTemplateRest = new AppTemplateRest();
+
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    const deleteDialolgContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+
+    const closeDeleteDialog = () => {
+        setOpenDeleteDialog(false);
+    }
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -67,7 +75,7 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <IconButton onClick={() => handleDialogOpen()}><Edit /></IconButton>
-                            <IconButton onClick={() => handleDelete(appTemplate.id)}><Delete /></IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
                     <Divider />
@@ -106,6 +114,12 @@ function AppTemplateCard(props) {
                 onClose={handleDialogClose}
                 onRefresh={handleRefresh}
                 isCreateDialog={false}
+            />
+            <ConfirmationDialog 
+                content={deleteDialolgContent} 
+                open={openDeleteDialog} 
+                onClose={closeDeleteDialog} 
+                onSubmit={() => handleDelete(appTemplate.id)} 
             />
         </Container>
     )

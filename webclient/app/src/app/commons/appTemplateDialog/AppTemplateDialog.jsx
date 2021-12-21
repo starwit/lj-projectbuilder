@@ -13,18 +13,21 @@ import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
 import AppTemplateRest from "../../services/AppTemplateRest"
+import ErrorAlert from "../alert/ErrorAlert";
 
 function AppTemplateDialog(props) {
-
-    const appTemplateDialogStyles = AppTemplateDialogStyles();
+    const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
+
+    const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
 
-    const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
 
     const onDialogClose = () => {
         onClose();
+        closeAlert();
         setInternalAppTemplate(appTemplate);
     }
 
@@ -39,12 +42,20 @@ function AppTemplateDialog(props) {
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
+            }).catch(err => {
+                return setAlert({"open":true, "title": "alert.error", "message": JSON.stringify(err.response.data)});
             });
         } else {
             appTemplateRest.update(toSave).then(response => {
                 handleSaveResponse(response);
+            }).catch(err => {
+                return setAlert({"open":true, "title": "alert.error", "message": JSON.stringify(err.response.data)});
             });
         }
+    }
+
+    const closeAlert = () => {
+        setAlert({"open":false, "title": "alert.error", "message": ""});
     }
 
     function handleSaveResponse(response) {
@@ -90,6 +101,7 @@ function AppTemplateDialog(props) {
                 noValidate
                 autoComplete="off"
             >
+                <ErrorAlert alert={alert} onClose={closeAlert} />
                 <TextField fullWidth label={t("appTemplateDialog.location")} value={internalAppTemplate.location} name="location" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleChange} />

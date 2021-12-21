@@ -9,8 +9,7 @@ function AppTemplateOverview() {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
-    const appTemplateRest = new AppTemplateRest();
-    const [init, setInit] = useState(true);
+    
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -32,17 +31,15 @@ function AppTemplateOverview() {
     const [data, setData] = useState([]);
 
     const reload = () => {
+        const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setData(response.data);
-        },[]);
+         });
     };
 
     useEffect(() => {
-        if (init) {
-            setInit(false);
-            reload();
-        }
-    },[init]);
+        reload();
+    },[]);
 
     return (
         <Container >
