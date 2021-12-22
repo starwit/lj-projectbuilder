@@ -10,7 +10,7 @@ const translationsDeDE = {
     "button.cancel": "Abbrechen",    
     "button.save": "Speichern",
     "button.no": "Nein",
-    "button.yes": "Yes",
+    "button.yes": "Ja",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
     "alert.error": "Fehler",
