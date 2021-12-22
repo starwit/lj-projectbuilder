@@ -74,7 +74,7 @@ function AppTemplateCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <IconButton onClick={() => handleDialogOpen()}><Edit /></IconButton>
+                            <IconButton onClick={handleDialogOpen}><Edit /></IconButton>
                             <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
