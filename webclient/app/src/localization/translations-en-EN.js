@@ -9,6 +9,7 @@ const translationsEnEN = {
     "button.back": "Back",
     "button.save": "Save",
     "button.cancel": "Cancel",
+    "button.loadtemplate": "Refresh from Git-Repo",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
     "alert.error": "Error",
@@ -58,13 +59,14 @@ const translationsEnEN = {
     "templateCard.select": "Select",
     "templateCard.selected": "Selected",
     "templateCard.branch": "Branch",
+    "templateCard.config": "Template Configuration",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
 
-    "appTemplateOverview.title": "AppTemplate Overview",
+    "appTemplateOverview.title": "AppTemplate",
     "appTemplateDialog.new.title": "Create AppTemplate",
     "appTemplateDialog.title": "Edit {{appTemplateName}}",
     "appTemplateDialog.isLoading": "loading...",

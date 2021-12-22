@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { styled } from '@mui/material/styles';
-import { Container, Collapse, Card, CardContent, CardActions, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
+import { Button, Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
 import { useTranslation } from "react-i18next";
 import GitHub from '@mui/icons-material/GitHub';
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, CloudSync, Edit } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
@@ -34,17 +34,20 @@ function AppTemplateCard(props) {
     const { t } = useTranslation();
     const [expanded, setExpanded] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
+    const [extendedAppTemplate, setExtendedAppTemplate] = useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
     const appTemplateRest = new AppTemplateRest();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const deleteDialolgContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
     }
 
-    const handleExpandClick = () => {
+    const handleExpandClick = (appTemplateId) => {
+        loadAppTemplate(appTemplateId);
         setExpanded(!expanded);
     };
 
@@ -57,11 +60,30 @@ function AppTemplateCard(props) {
         setOpenDialog(false);
     };
 
-    const  handleDelete = (appTemplateId) => {
-        appTemplateRest.delete(appTemplateId).then(response => {
+    const handleDelete = (appTemplateId) => {
+        appTemplateRest.delete(appTemplateId)
+        .then(response => {
             handleRefresh();
+        }).catch(response => {
+            console.log(response.err);
         });
     }
+
+    const handleAppTemplateReload = (appTemplateId) => {
+        uploadTemplateDto.appTemplateId = appTemplateId;
+        appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
+            handleRefresh();
+        }).catch(response => {
+            console.log(response.response.data);
+        });
+    }
+
+    const loadAppTemplate = (appTemplateId) => {
+        const appTemplateRest2 = new AppTemplateRest();
+        appTemplateRest2.findById(appTemplateId).then(response => {
+            setExtendedAppTemplate(response.data);
+         });
+    };
 
     return (
         <Container>
@@ -79,31 +101,41 @@ function AppTemplateCard(props) {
                         </Grid>
                     </Grid>
                     <Divider />
-                    <Typography variant="body2" color="text.secondary">
-                        <br />{appTemplate.description}
-                    </Typography>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemIcon>
-                                <GitHub />
-                            </ListItemIcon>
-                            <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
-                        </ListItem>
-                    </List>
+                    <Grid container spacing={0}>
+                        <Grid item xs={7}>
+                            <Typography variant="body2" color="text.secondary">
+                                <br />{appTemplate.description}
+                            </Typography>
+                            <List>
+                                <ListItem disablePadding>
+                                    <ListItemIcon>
+                                        <GitHub />
+                                    </ListItemIcon>
+                                    <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
+                                </ListItem>
+                            </List>
+                        </Grid>
+                        <Grid item xs={5} align="right">
+                            <br /><br />
+                            <Button onClick={() => handleAppTemplateReload(appTemplate.id)} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
+                        </Grid>
+                    </Grid>
                 </CardContent>
-                <CardActions className={appTemplateCardStyles.actionsWrapper}>
+
+                <Divider>
+                    <Chip label={t("templateCard.config")} />
                     <ExpandMore
                         expand={expanded}
-                        onClick={handleExpandClick}
+                        onClick={() => handleExpandClick(appTemplate.id)}
                         aria-expanded={expanded}
                         aria-label="show more" >
                         <ExpandMoreIcon />
                     </ExpandMore>
-                </CardActions>
+                </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <SyntaxHighlighter language="json" style={dark}>
-                            {JSON.stringify(appTemplate, null, '\t')}
+                            {JSON.stringify(extendedAppTemplate, null, '\t')}
                         </SyntaxHighlighter>
                     </CardContent>
                 </Collapse>
@@ -115,11 +147,11 @@ function AppTemplateCard(props) {
                 onRefresh={handleRefresh}
                 isCreateDialog={false}
             />
-            <ConfirmationDialog 
-                content={deleteDialolgContent} 
-                open={openDeleteDialog} 
-                onClose={closeDeleteDialog} 
-                onSubmit={() => handleDelete(appTemplate.id)} 
+            <ConfirmationDialog
+                content={deleteDialolgContent}
+                open={openDeleteDialog}
+                onClose={closeDeleteDialog}
+                onSubmit={() => handleDelete(appTemplate.id)}
             />
         </Container>
     )

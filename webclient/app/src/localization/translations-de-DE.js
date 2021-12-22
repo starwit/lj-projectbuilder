@@ -11,6 +11,7 @@ const translationsDeDE = {
     "button.save": "Speichern",
     "button.no": "Nein",
     "button.yes": "Yes",
+    "button.loadtemplate": "Aus Git-Repo aktualisieren",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
     "alert.error": "Fehler",
@@ -60,6 +61,7 @@ const translationsDeDE = {
     "templateCard.select": "Auswählen",
     "templateCard.selected": "Ausgewählt",
     "templateCard.branch": "Branch",
+    "templateCard.config": "Template Konfiguration",
 
     "home.yourApps": "Deine Apps",
 
@@ -70,7 +72,7 @@ const translationsDeDE = {
 
     "entityDesigner.code": "Code",
 
-    "appTemplateOverview.title": "Übersicht AppTemplates",
+    "appTemplateOverview.title": "AppTemplates",
     "appTemplateDialog.new.title": "AppTemplate erstellen",
     "appTemplateDialog.title": "{{appTemplateName}} bearbeiten",
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",

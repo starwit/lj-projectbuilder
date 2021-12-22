@@ -34,7 +34,7 @@ function AppTemplateOverview() {
         const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setData(response.data);
-         });
+        });
     };
 
     useEffect(() => {
@@ -49,8 +49,9 @@ function AppTemplateOverview() {
                         {t("appTemplateOverview.title")}
                     </Typography>
                 </Grid>
-                <Grid item xs={3} align="right">
-                    <Button onClick={handleDialogOpen} >{t("button.create")}</Button>
+                <Grid item xs={3} align="right" >
+                    <br />
+                    <Button variant="contained" onClick={handleDialogOpen} >{t("button.create")}</Button>
                 </Grid>
             </Grid>
                 <Grid container spacing={2}>
