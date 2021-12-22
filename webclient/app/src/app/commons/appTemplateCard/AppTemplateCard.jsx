@@ -12,6 +12,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest"
 import ConfirmationDialog from "../alert/ConfirmationDialog";
+import ErrorDialog from "../alert/ErrorDialog";
+import SuccessDialog from "../alert/SuccessDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -39,7 +41,11 @@ function AppTemplateCard(props) {
     const appTemplateRest = new AppTemplateRest();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialolgContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const deleteDialogContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const errorDialogContent = ({ "title": "appTemplateErrorDialog.title", "message": "appTemplateErrorDialog.message" });
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
+    const successDialogContent = ({ "title": "appTemplateSuccessDialog.title", "message": "appTemplateSuccessDialog.message" });
+    const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
     const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
 
     const closeDeleteDialog = () => {
@@ -62,19 +68,21 @@ function AppTemplateCard(props) {
 
     const handleDelete = (appTemplateId) => {
         appTemplateRest.delete(appTemplateId)
-        .then(response => {
-            handleRefresh();
-        }).catch(response => {
-            console.log(response.err);
-        });
+            .then(response => {
+                handleRefresh();
+            }).catch(err => {
+                console.log(err.response.data);
+            });
     }
 
     const handleAppTemplateReload = (appTemplateId) => {
         uploadTemplateDto.appTemplateId = appTemplateId;
         appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
             handleRefresh();
-        }).catch(response => {
-            console.log(response.response.data);
+            setOpenSuccessDialog(true);
+        }).catch(err => {
+            setOpenErrorDialog(true);
+            console.log(err.response.data);
         });
     }
 
@@ -82,7 +90,7 @@ function AppTemplateCard(props) {
         const appTemplateRest2 = new AppTemplateRest();
         appTemplateRest2.findById(appTemplateId).then(response => {
             setExtendedAppTemplate(response.data);
-         });
+        });
     };
 
     return (
@@ -148,10 +156,20 @@ function AppTemplateCard(props) {
                 isCreateDialog={false}
             />
             <ConfirmationDialog
-                content={deleteDialolgContent}
+                content={deleteDialogContent}
                 open={openDeleteDialog}
                 onClose={closeDeleteDialog}
                 onSubmit={() => handleDelete(appTemplate.id)}
+            />
+            <ErrorDialog
+                content={errorDialogContent}
+                open={openErrorDialog}
+                onClose={() => setOpenErrorDialog(false)}
+            />
+            <SuccessDialog
+                content={successDialogContent}
+                open={openSuccessDialog}
+                onClose={() => setOpenSuccessDialog(false)}
             />
         </Container>
     )

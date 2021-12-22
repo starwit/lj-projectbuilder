@@ -9,6 +9,7 @@ const translationsEnEN = {
     "button.back": "Back",
     "button.save": "Save",
     "button.cancel": "Cancel",
+    "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
@@ -20,6 +21,10 @@ const translationsEnEN = {
 
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
+    "appTemplateErrorDialog.title": "Error",
+    "appTemplateErrorDialog.message": "Template configuration could not be loaded. Please check Git-Repo path and name of the config file (template-config.json).",
+    "appTemplateSuccessDialog.title": "Success Template Upload",
+    "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
     "entityCard.newEntity": "New Domain",
     "entityCard.noFields": "No fields",
