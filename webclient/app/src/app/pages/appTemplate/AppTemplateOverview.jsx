@@ -9,7 +9,7 @@ function AppTemplateOverview() {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
-    
+    const [data, setData] = useState([]);    
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -27,8 +27,6 @@ function AppTemplateOverview() {
         "credentialsRequired": false,
         "description": ""
     };
-
-    const [data, setData] = useState([]);
 
     const reload = () => {
         const appTemplateRest = new AppTemplateRest();

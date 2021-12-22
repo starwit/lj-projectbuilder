@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { Container, Collapse, Card, CardContent, CardActions, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
@@ -26,8 +26,6 @@ const ExpandMore = styled((props) => {
 
 
 function AppTemplateCard(props) {
-
-    SyntaxHighlighter.registerLanguage('javascript', js);
 
     const { appTemplate, handleRefresh } = props;
     const appTemplateCardStyles = AppTemplateCardStyles();
@@ -62,6 +60,11 @@ function AppTemplateCard(props) {
             handleRefresh();
         });
     }
+
+
+    useEffect(() => {
+        SyntaxHighlighter.registerLanguage('javascript', js);
+    },[]);
 
     return (
         <Container>
