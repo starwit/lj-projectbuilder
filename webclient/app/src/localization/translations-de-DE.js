@@ -7,8 +7,9 @@ const translationsDeDE = {
     "button.next": "Bestätigen",
     "button.edit": "Bearbeiten",
     "button.back": "Zurück",
-    "button.cancel": "Abbrechen",    
+    "button.cancel": "Abbrechen",
     "button.save": "Speichern",
+    "button.retry": "Erneut versuchen",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
 
@@ -56,6 +57,8 @@ const translationsDeDE = {
     "templateCard.branch": "Branch",
 
     "home.yourApps": "Deine Apps",
+    "home.loading": "Deine Apps werden geladen",
+    "home.loadingError": "Deine Apps konnten nicht geladen werden.",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",

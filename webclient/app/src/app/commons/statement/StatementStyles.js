@@ -15,9 +15,6 @@ const StatementStyles = makeStyles(theme => ({
         alignItems: "center",
         flexDirection: "column"
     },
-    icon: {
-        fontSize: "1.5rem"
-    },
     message: {
         color: theme.palette.text.secondary,
         paddingTop: theme.spacing(2)

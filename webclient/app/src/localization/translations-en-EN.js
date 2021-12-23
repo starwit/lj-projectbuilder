@@ -8,6 +8,7 @@ const translationsEnEN = {
     "button.edit": "Edit",
     "button.back": "Back",
     "button.save": "Save",
+    "button.retry": "Retry",
     "button.cancel": "Cancel",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
@@ -68,7 +69,7 @@ const translationsEnEN = {
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.description": "Description",
-  
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
@@ -79,6 +80,8 @@ const translationsEnEN = {
     "entityDesigner.code": "Code",
 
     "home.yourApps": "Your Apps",
+    "home.loading": "Your apps are loading",
+    "home.loadingError": "Your apps could not be loaded.",
 
     "default.welcome": "Welcome",
     "default.error.403.title": "No Right",
