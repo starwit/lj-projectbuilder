@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Grid, TextField, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";

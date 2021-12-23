@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -24,7 +24,18 @@ import RegexConfig from "../../../regexConfig";
 
 function FieldAccordion(props) {
 
-    const {dataType, mandatory, min, max, pattern, description, name, editFieldProperty, dataTypes, handleHasError} = props;
+    const {
+        dataType,
+        mandatory,
+        min,
+        max,
+        pattern,
+        description,
+        name,
+        editFieldProperty,
+        dataTypes,
+        handleHasError
+    } = props;
     const fieldAccordionStyles = FieldAccordionStyles();
     const {t} = useTranslation();
 
