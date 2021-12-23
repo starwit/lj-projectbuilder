@@ -27,9 +27,11 @@ const translationsDeDE = {
     "entityDialog.tab.fields": "Felder",
     "entityDialog.tab.relations": "Relationen",
     "entityDialog.name": "Name",
+    "entityDialog.name.error": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
 
     "fieldDialog.newField": "Neues Feld",
     "fieldDialog.name": "Name",
+    "fieldDialog.name.error": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "fieldDialog.dataType": "Datentyp",
     "fieldDialog.description": "Beschreibung",
     "fieldDialog.restrictions": "Restriktionen",
@@ -71,7 +73,8 @@ const translationsDeDE = {
     "default.error.403.title": "Fehlende Berechtigungen",
     "default.error.403": "Sie besitzen keine Berechtigungen zur Anzeige dieser Seite",
     "default.error.title": "Fehler",
-    "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin."
+    "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin.",
+
 
 };
 export default translationsDeDE;

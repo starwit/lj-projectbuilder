@@ -27,9 +27,11 @@ const translationsEnEN = {
     "entityDialog.tab.fields": "Fields",
     "entityDialog.tab.relations": "Relations",
     "entityDialog.name": "Name",
+    "entityDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
 
     "fieldDialog.newField": "New field",
     "fieldDialog.name": "Name",
+    "fieldDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "fieldDialog.dataType": "Data type",
     "fieldDialog.description": "Description",
     "fieldDialog.restrictions": "Restrictions",
