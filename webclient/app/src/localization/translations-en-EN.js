@@ -70,13 +70,15 @@ const translationsEnEN = {
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.description": "Description",
-  
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
 
     "generalSection.nameOfApp": "Name of App",
-    "generalSection.descriptionOfApp": "Description of app",
+    "generalSection.nameOfApp.error": "Upper and lower cased chars and numbers are allowed",
+    "generalSection.packageNameOfApp": "Package name",
+    "generalSection.packageNameOfApp.error": "Upper and lower cased chars and numbers are allowed",
 
     "entityDesigner.code": "Code",
 

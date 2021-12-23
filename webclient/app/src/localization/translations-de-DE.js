@@ -75,7 +75,9 @@ const translationsDeDE = {
     "appTemplateDialog.description": "Beschreibung",
 
     "generalSection.nameOfApp": "Name der App",
-    "generalSection.descriptionOfApp": "Beschreibung der App",
+    "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
+    "generalSection.packageNameOfApp": "Package Name",
+    "generalSection.packageNameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "generalSection.hello": "Hallo!",
     "generalSection.enterInformation": "Bitte gib als ersten Schritt die allgemeinen Informationen zu deiner App ein.",
     "generalSection.clickNext": "Klicke dann auf Weiter auf der oberen rechten Seite.",
