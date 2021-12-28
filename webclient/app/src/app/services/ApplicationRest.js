@@ -1,30 +1,14 @@
 import CrudRest from "./CrudRest";
 import axios from 'axios';
 
-class ApplicationRest  extends CrudRest {
+class ApplicationRest extends CrudRest {
 
     constructor() {
-        this.baseUrl = window.location.pathname + "/api/apps";
-    }
-
-    getAll = () => {
-        return axios.get(this.baseUrl);
-    }
-
-    createApp = (data) => {
-        return axios.put(this.baseUrl, data);
-    }
-
-    updateApp = (data) => {
-        return axios.post(this.baseUrl, data);
+        super(window.location.pathname + "/api/apps");
     }
 
     updateAppProperties = (data) => {
-        return axios.post(this.baseUrl + "/appproperties", data);
-    }
-
-    getAppById = (appId) => {
-        return axios.get(this.baseUrl + "/" + appId);
+        return axios.post(this.baseUrl + "/app-properties", data);
     }
 
     deleteAppById = (appId) => {
