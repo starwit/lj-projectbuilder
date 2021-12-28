@@ -30,22 +30,26 @@ const ExpandMore = styled((props) => {
 function AppTemplateCard(props) {
 
     SyntaxHighlighter.registerLanguage('javascript', js);
-
-    const { appTemplate, handleRefresh } = props;
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
-    const [expanded, setExpanded] = React.useState(false);
+
+    const { appTemplate, handleRefresh } = props;
+    const appTemplateRest = new AppTemplateRest();
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [extendedAppTemplate, setExtendedAppTemplate] = useState(false);
+
+    const [expanded, setExpanded] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
-    const appTemplateRest = new AppTemplateRest();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const deleteDialogContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+
     const errorDialogContent = ({ "title": "appTemplateErrorDialog.title", "message": "appTemplateErrorDialog.message" });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
+    
     const successDialogContent = ({ "title": "appTemplateSuccessDialog.title", "message": "appTemplateSuccessDialog.message" });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+    
     const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
 
     const closeDeleteDialog = () => {
