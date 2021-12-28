@@ -1,5 +1,6 @@
 package de.starwit.rest.acceptance;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,6 +20,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -82,7 +84,7 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
     protected MockHttpServletResponse create(DTO dto) throws Exception {
         String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.put(getRestPath())
+        MockMvcRequestBuilders.post(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
                               .accept(MediaType.APPLICATION_JSON)
                               .characterEncoding("UTF-8")
@@ -98,15 +100,15 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
     protected MockHttpServletResponse update(DTO dto) throws Exception {
         String applicationString = getJsonTester().write(dto).getJson();
         MockHttpServletRequestBuilder builder =
-        MockMvcRequestBuilders.post(getRestPath())
+        MockMvcRequestBuilders.put(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
                               .accept(MediaType.APPLICATION_JSON)
                               .characterEncoding("UTF-8")
                               .content(applicationString);
 
         MockHttpServletResponse response = mvc.perform(builder)
-            .andExpect(status().isOk())
             .andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
         LOG.info(response.getContentAsString());
         return response;
