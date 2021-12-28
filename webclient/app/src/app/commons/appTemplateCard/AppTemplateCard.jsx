@@ -12,8 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest"
 import ConfirmationDialog from "../alert/ConfirmationDialog";
-import ErrorDialog from "../alert/ErrorDialog";
-import SuccessDialog from "../alert/SuccessDialog";
+import NotificationDialog from "../alert/NotificationDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -53,7 +52,7 @@ function AppTemplateCard(props) {
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
-    }
+    };
 
     const handleExpandClick = (appTemplateId) => {
         loadAppTemplate(appTemplateId);
@@ -71,24 +70,30 @@ function AppTemplateCard(props) {
 
     const handleDelete = (appTemplateId) => {
         appTemplateRest.delete(appTemplateId)
-            .then(response => {
+            .then(() => {
                 handleRefresh();
             }).catch(err => {
                 console.log(err.response.data);
             });
-    }
+    };
 
     const handleAppTemplateReload = (appTemplateId) => {
         uploadTemplateDto.appTemplateId = appTemplateId;
-        appTemplateRest.updateTemplates(uploadTemplateDto).then((response) => {
-            setExtendedAppTemplate(response.data);
+        appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
             handleRefresh();
             setOpenSuccessDialog(true);
         }).catch(err => {
             setOpenErrorDialog(true);
             console.log(err.response.data);
         });
-    }
+    };
+
+    const loadAppTemplate = (appTemplateId) => {
+        const appTemplateRest2 = new AppTemplateRest();
+        appTemplateRest2.findById(appTemplateId).then(response => {
+            setExtendedAppTemplate(response.data);
+        });
+    };
 
 
     useEffect(() => {
@@ -154,21 +159,25 @@ function AppTemplateCard(props) {
                 appTemplate={selectedAppTemplate}
                 open={openDialog}
                 onClose={handleDialogClose}
-                onRefresh={handleRefresh}
+                onRefresh={() => handleRefresh(appTemplate.id)}
                 isCreateDialog={false}
             />
             <ConfirmationDialog
                 content={deleteDialogContent}
                 open={openDeleteDialog}
                 onClose={closeDeleteDialog}
-                onSubmit={() => handleDelete(appTemplate.id)}
+                onSubmit={
+                    () => handleDelete(appTemplate.id)
+                }
             />
-            <ErrorDialog
+            <NotificationDialog
+                severity="error"
                 content={errorDialogContent}
                 open={openErrorDialog}
                 onClose={() => setOpenErrorDialog(false)}
             />
-            <SuccessDialog
+            <NotificationDialog
+                severity="success"
                 content={successDialogContent}
                 open={openSuccessDialog}
                 onClose={() => setOpenSuccessDialog(false)}

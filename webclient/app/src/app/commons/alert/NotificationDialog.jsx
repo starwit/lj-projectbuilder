@@ -6,8 +6,8 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useTranslation } from 'react-i18next';
 
-export default function ErrorDialog(props) {
-    const { content, open, onClose } = props;
+function NotificationDialog(props) {
+    const { content, open, onClose, title, message, severity } = props;
     const { t } = useTranslation();
 
     return (
@@ -17,9 +17,9 @@ export default function ErrorDialog(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <Alert severity="error">
-                <AlertTitle>{t(content.title)}</AlertTitle>
-                {t(content.message)}
+            <Alert severity={severity ? severity : "success"}>
+                <AlertTitle>{content ? content.title : title}</AlertTitle>
+                {content ? content.message : message }
             </Alert>
             <DialogActions>
                 <Button onClick={onClose} autoFocus>{t("button.ok")}</Button>
@@ -27,3 +27,4 @@ export default function ErrorDialog(props) {
         </Dialog>
     );
 }
+export default NotificationDialog;
