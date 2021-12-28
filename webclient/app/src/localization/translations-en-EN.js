@@ -77,7 +77,12 @@ const translationsEnEN = {
     "appTemplateDialog.isLoading": "loading...",
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
+    "appTemplateDialog.credentialsRequired": "private Repo with Login",
     "appTemplateDialog.description": "Description",
+
+    "appTemplateAuthDialog.title": "Login Git Template Repository",
+    "appTemplateAuthDialog.user": "User",
+    "appTemplateAuthDialog.password": "Password",
   
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",

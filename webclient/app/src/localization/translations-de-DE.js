@@ -83,7 +83,12 @@ const translationsDeDE = {
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
+    "appTemplateDialog.credentialsRequired": "privates Repo mit Login",
     "appTemplateDialog.description": "Beschreibung",
+
+    "appTemplateAuthDialog.title": "Login Git Template Repository",
+    "appTemplateAuthDialog.user": "Nutzername",
+    "appTemplateAuthDialog.password": "Passwort",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.descriptionOfApp": "Beschreibung der App",

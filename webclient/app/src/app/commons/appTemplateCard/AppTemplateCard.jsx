@@ -120,7 +120,7 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <br /><br />
-                            <AppTemplateAuthDialog />
+                            <AppTemplateAuthDialog appTemplate={appTemplate} handleRefresh={handleRefresh} setOpenSuccessDialog={setOpenSuccessDialog} setOpenErrorDialog={setOpenErrorDialog} />
                         </Grid>
                     </Grid>
                 </CardContent>

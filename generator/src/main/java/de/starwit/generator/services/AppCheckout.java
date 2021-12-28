@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
+import antlr.StringUtils;
 import de.starwit.dto.DownloadAppTemplateDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.AppTemplate;
@@ -109,9 +111,8 @@ public class AppCheckout {
 
 		if (appTemplate.isCredentialsRequired()) {
 			//TODO: Sonderzeichencodierung
-			dto.setPassword(dto.getPass().replaceAll("@", "%40"));
-			srcDir = srcDir.replaceAll("://", "://" + dto.getUser() + ":" + dto.getPass() + "@");
-			LOG.info("Source directory is: " + srcDir);
+			dto.setPass(HtmlUtils.htmlEscape(dto.getPassword()));
+			srcDir = srcDir.replaceAll("://", "://" + dto.getUsername() + ":" + dto.getPass() + "@");
 		}
 
 		try {
