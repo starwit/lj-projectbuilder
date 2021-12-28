@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { Button, Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
@@ -29,7 +29,6 @@ const ExpandMore = styled((props) => {
 
 function AppTemplateCard(props) {
 
-    SyntaxHighlighter.registerLanguage('javascript', js);
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
 
@@ -42,12 +41,12 @@ function AppTemplateCard(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialogContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
-    const errorDialogContent = ({ "title": "appTemplateErrorDialog.title", "message": "appTemplateErrorDialog.message" });
+    const errorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.message") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     
-    const successDialogContent = ({ "title": "appTemplateSuccessDialog.title", "message": "appTemplateSuccessDialog.message" });
+    const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
     
     const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
@@ -81,7 +80,8 @@ function AppTemplateCard(props) {
 
     const handleAppTemplateReload = (appTemplateId) => {
         uploadTemplateDto.appTemplateId = appTemplateId;
-        appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
+        appTemplateRest.updateTemplates(uploadTemplateDto).then((response) => {
+            setExtendedAppTemplate(response.data);
             handleRefresh();
             setOpenSuccessDialog(true);
         }).catch(err => {
@@ -90,12 +90,10 @@ function AppTemplateCard(props) {
         });
     }
 
-    const loadAppTemplate = (appTemplateId) => {
-        const appTemplateRest2 = new AppTemplateRest();
-        appTemplateRest2.findById(appTemplateId).then(response => {
-            setExtendedAppTemplate(response.data);
-        });
-    };
+
+    useEffect(() => {
+        SyntaxHighlighter.registerLanguage('javascript', js);
+    },[]);
 
     return (
         <Container>
@@ -108,7 +106,7 @@ function AppTemplateCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <IconButton onClick={() => handleDialogOpen()}><Edit /></IconButton>
+                            <IconButton onClick={handleDialogOpen}><Edit /></IconButton>
                             <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
