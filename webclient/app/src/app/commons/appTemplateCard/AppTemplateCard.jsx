@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
@@ -12,9 +12,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
 import ConfirmationDialog from "../alert/ConfirmationDialog";
-import ErrorDialog from "../alert/ErrorDialog";
-import SuccessDialog from "../alert/SuccessDialog";
 import AppTemplateAuthDialog from "../appTemplateDialog/AppTemplateAuthDialog";
+import NotificationDialog from "../alert/NotificationDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -30,7 +29,6 @@ const ExpandMore = styled((props) => {
 
 function AppTemplateCard(props) {
 
-    SyntaxHighlighter.registerLanguage('javascript', js);
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
 
@@ -43,17 +41,17 @@ function AppTemplateCard(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialogContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
-    const errorDialogContent = ({ "title": "appTemplateErrorDialog.title", "message": "appTemplateErrorDialog.message" });
+    const errorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.message") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     
-    const successDialogContent = ({ "title": "appTemplateSuccessDialog.title", "message": "appTemplateSuccessDialog.message" });
+    const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
-    }
+    };
 
     const handleExpandClick = (appTemplateId) => {
         loadAppTemplate(appTemplateId);
@@ -72,13 +70,12 @@ function AppTemplateCard(props) {
     const handleDelete = (appTemplateId) => {
         appTemplateRest.delete(appTemplateId)
             .then(() => {
-                setOpenSuccessDialog(true);
                 handleRefresh();
             }).catch(err => {
                 setOpenErrorDialog(true);
                 console.log(err.response.data);
             });
-    }
+    };
 
     const loadAppTemplate = (appTemplateId) => {
         const appTemplateRest2 = new AppTemplateRest();
@@ -86,6 +83,10 @@ function AppTemplateCard(props) {
             setExtendedAppTemplate(response.data);
         });
     };
+
+    useEffect(() => {
+        SyntaxHighlighter.registerLanguage('javascript', js);
+    },[]);
 
     return (
         <Container>
@@ -98,13 +99,13 @@ function AppTemplateCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <IconButton onClick={() => handleDialogOpen()}><Edit /></IconButton>
+                            <IconButton onClick={handleDialogOpen}><Edit /></IconButton>
                             <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
                     <Divider />
                     <Grid container spacing={0}>
-                        <Grid item xs={7}>
+                        <Grid item sm={7}>
                             <Typography variant="body2" color="text.secondary">
                                 <br />{appTemplate.description}
                             </Typography>
@@ -146,21 +147,25 @@ function AppTemplateCard(props) {
                 appTemplate={selectedAppTemplate}
                 open={openDialog}
                 onClose={handleDialogClose}
-                onRefresh={handleRefresh}
+                onRefresh={() => handleRefresh(appTemplate.id)}
                 isCreateDialog={false}
             />
             <ConfirmationDialog
                 content={deleteDialogContent}
                 open={openDeleteDialog}
                 onClose={closeDeleteDialog}
-                onSubmit={() => handleDelete(appTemplate.id)}
+                onSubmit={
+                    () => handleDelete(appTemplate.id)
+                }
             />
-            <ErrorDialog
+            <NotificationDialog
+                severity="error"
                 content={errorDialogContent}
                 open={openErrorDialog}
                 onClose={() => setOpenErrorDialog(false)}
             />
-            <SuccessDialog
+            <NotificationDialog
+                severity="success"
                 content={successDialogContent}
                 open={openSuccessDialog}
                 onClose={() => setOpenSuccessDialog(false)}

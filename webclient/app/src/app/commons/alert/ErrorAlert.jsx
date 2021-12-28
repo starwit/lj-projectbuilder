@@ -3,17 +3,15 @@ import {
     AlertTitle,
     Collapse,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
 const ErrorAlert = (props) => {
-    const { alert, onClose } = props;
-    const { t } = useTranslation();
+    const { alert, onClose, open, title, message  } = props;
 
     return (
-        <Collapse in={alert.open} onClose={onClose} >
+        <Collapse in={alert ? alert.open : open} onClose={onClose} >
         <Alert severity="error">
-            <AlertTitle>{t(alert.title)}</AlertTitle>
-            {alert.message}
+            <AlertTitle>{alert ? alert.title : title}</AlertTitle>
+            {alert ? alert.message : message}
         </Alert>
         </Collapse>
     );

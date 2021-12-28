@@ -11,7 +11,7 @@ const translationsDeDE = {
     "button.ok": "OK",    
     "button.save": "Speichern",
     "button.no": "Nein",
-    "button.yes": "Yes",
+    "button.yes": "Ja",
     "button.loadtemplate": "Aus Git-Repo aktualisieren",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
