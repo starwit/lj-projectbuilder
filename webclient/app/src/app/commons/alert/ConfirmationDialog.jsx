@@ -7,7 +7,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { useTranslation } from 'react-i18next';
 
 export default function ConfirmationDialog(props) {
-    const { content, open, onClose, onSubmit } = props;
+    const { content, open, onClose, onSubmit, title, message } = props;
     const { t } = useTranslation();
 
     return (
@@ -18,8 +18,8 @@ export default function ConfirmationDialog(props) {
             aria-describedby="alert-dialog-description"
         >
             <Alert severity="warning">
-                <AlertTitle>{content.title}</AlertTitle>
-                {content.message}
+                <AlertTitle>{content ? content.title : title}</AlertTitle>
+                {content ? content.message : message}
             </Alert>
             <DialogActions>
                 <Button onClick={onClose}>{t("button.no")}</Button>
