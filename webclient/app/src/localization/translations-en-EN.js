@@ -9,12 +9,22 @@ const translationsEnEN = {
     "button.back": "Back",
     "button.save": "Save",
     "button.cancel": "Cancel",
+    "button.ok": "OK",
+    "button.loadtemplate": "Refresh from Git-Repo",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
+    "alert.error": "Error",
 
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+
+    "appTemplateDeleteDialog.title": "Delete Template",
+    "appTemplateDeleteDialog.message": "Do you want to delete the template?",
+    "appTemplateErrorDialog.title": "Error",
+    "appTemplateErrorDialog.message": "Template configuration could not be loaded. Please check Git-Repo path and name of the config file (template-config.json).",
+    "appTemplateSuccessDialog.title": "Success Template Upload",
+    "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
     "entityCard.newEntity": "New Domain",
     "entityCard.noFields": "No fields",
@@ -56,14 +66,14 @@ const translationsEnEN = {
     "templateCard.select": "Select",
     "templateCard.selected": "Selected",
     "templateCard.branch": "Branch",
+    "templateCard.config": "Template Configuration",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
 
-
-    "appTemplateOverview.title": "AppTemplate Overview",
+    "appTemplateOverview.title": "AppTemplate",
     "appTemplateDialog.new.title": "Create AppTemplate",
     "appTemplateDialog.title": "Edit {{appTemplateName}}",
     "appTemplateDialog.isLoading": "loading...",

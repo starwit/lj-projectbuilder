@@ -7,14 +7,26 @@ const translationsDeDE = {
     "button.next": "Bestätigen",
     "button.edit": "Bearbeiten",
     "button.back": "Zurück",
-    "button.cancel": "Abbrechen",    
+    "button.cancel": "Abbrechen",
+    "button.ok": "OK",    
     "button.save": "Speichern",
+    "button.no": "Nein",
+    "button.yes": "Ja",
+    "button.loadtemplate": "Aus Git-Repo aktualisieren",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
+    "alert.error": "Fehler",
 
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+
+    "appTemplateDeleteDialog.title": "Template löschen",
+    "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
+    "appTemplateErrorDialog.title": "Fehler",
+    "appTemplateErrorDialog.message": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Pfad des Git-Repository. Die Konfigurationsdatei muss zudem template-config.json heißen.",
+    "appTemplateSuccessDialog.title": "Template Aktualisierung erfolgreich",
+    "appTemplateSuccessDialog.message": "Die Templates wurden erfolgreich aus dem Git-Repository geladen.",
 
     "entityCard.newEntity": "Neue Domain",
     "entityCard.noFields": "Keine Felder angelegt",
@@ -56,6 +68,7 @@ const translationsDeDE = {
     "templateCard.select": "Auswählen",
     "templateCard.selected": "Ausgewählt",
     "templateCard.branch": "Branch",
+    "templateCard.config": "Template Konfiguration",
 
     "home.yourApps": "Deine Apps",
 
@@ -66,7 +79,7 @@ const translationsDeDE = {
 
     "entityDesigner.code": "Code",
 
-    "appTemplateOverview.title": "Übersicht AppTemplates",
+    "appTemplateOverview.title": "AppTemplates",
     "appTemplateDialog.new.title": "AppTemplate erstellen",
     "appTemplateDialog.title": "{{appTemplateName}} bearbeiten",
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",

@@ -7,18 +7,21 @@ import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
 import ConclusionSection from "./sections/conclusion/ConclusionSection";
 import GeneralSection from "./sections/generalSection/GeneralSection";
+import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 
 
 function AppEditor() {
 
     const [activeStep, setActiveStep] = useState(0);
-    const [selectedTemplate, setSelectedTemplate] = useState(null)
+    const [selectedTemplate, setSelectedTemplate] = useState(null);
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
-    const [appName, setAppName] = useState("")
+    const history = useHistory();
+
+    const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
-    const [packageName, setPackageName] = useState("")
+    const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([
         {
             "id": 1,
@@ -94,7 +97,12 @@ function AppEditor() {
                 }
             ]
         }
-    ])
+    ]);
+    let {appId} = useParams();
+
+    useEffect(() => {
+        // TODO Load app data here
+    }, [appId])
 
     useEffect(() => {
 
@@ -154,6 +162,12 @@ function AppEditor() {
         return activeStep === steps.length - 1;
     }
 
+    function handleSave() {
+        //TODO send to server
+
+        history.push("/app/" + appId)
+    }
+
     function renderNextButton() {
         let content = (
             <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
@@ -162,7 +176,7 @@ function AppEditor() {
         )
         if (isLastStep()) {
             content = (
-                <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
+                <Button onClick={handleSave} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
                     {t("button.save")}
                 </Button>
             )
@@ -201,5 +215,6 @@ function AppEditor() {
     )
 
 }
+
 
 export default AppEditor;

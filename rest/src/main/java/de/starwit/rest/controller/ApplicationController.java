@@ -53,14 +53,14 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 	}
 
 	@Operation(summary = "Create app")
-	@PutMapping
+	@PostMapping
 	public ApplicationDto save(@RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
 	@Operation(summary = "Update app")
-	@PostMapping
-	public ApplicationDto update(@RequestBody ApplicationDto dto) {
+	@PutMapping
+	public ApplicationDto update(@Valid @RequestBody ApplicationDto dto) {
 		App app = appMapper.convertToEntity(dto);
 		app = appService.saveOrUpdate(app);
 		return appMapper.convertToDto(app);

@@ -113,7 +113,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     }
 
     private MockHttpServletResponse create(String path, String applicationString) throws Exception {
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(path)
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(path)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8").content(applicationString);
 
@@ -124,7 +124,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     }
 
     private MockHttpServletResponse update(String path, String requestObjectString) throws Exception {
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(path)
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(path)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8").content(requestObjectString);
 
