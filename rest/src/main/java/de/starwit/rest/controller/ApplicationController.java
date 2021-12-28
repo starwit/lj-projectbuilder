@@ -67,7 +67,7 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 	}
 
 	@Operation(summary = "Updates only app properties. List of entities will not be saved, changed or removed.")
-	@PostMapping(value="/appproperties")
+	@PostMapping(value="/app-properties")
 	public ApplicationDto updateProperties(@Valid @RequestBody ApplicationDto dto) {
 		App app = appMapper.convertToEntity(dto);
 		App appOld = appService.findById(app.getId());
