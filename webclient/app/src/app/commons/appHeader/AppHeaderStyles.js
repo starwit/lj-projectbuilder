@@ -10,7 +10,7 @@ const AppHeaderStyles = makeStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.modal + 1,
         backgroundColor: theme.palette.primary.main,
-        height: "5rem"
+        height: "5rem",
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -68,7 +68,7 @@ const AppHeaderStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(3),
     },
     contentSpacer: {
-        height: appBarHeight
+        height: `calc(${appBarHeight} + ${theme.spacing(3)})`
     }
 }))
 export default AppHeaderStyles;

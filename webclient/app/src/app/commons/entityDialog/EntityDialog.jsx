@@ -9,7 +9,6 @@ import {
     IconButton,
     Tab,
     Tabs,
-    TextField,
     Typography
 } from "@mui/material";
 import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
@@ -20,11 +19,14 @@ import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../tabPanel/TabPanel";
 import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
+import RegexConfig from "../../../regexConfig";
 
 function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
+    const [hasFormError, setHasFormError] = React.useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
 
@@ -35,6 +37,26 @@ function EntityDialog(props) {
         setEntity({...entities.find(entity => entity.id === entityId)})
 
     }, [entityId, entities])
+
+    useEffect(() => {
+        if (!entity) {
+            return;
+        }
+        let hasError = false;
+
+        if (!RegexConfig.entityTitle.test(entity.name)) {
+            hasError = true;
+        }
+
+        entity.fields?.forEach(field => {
+            if (!RegexConfig.fieldName.test(field.name)) {
+                hasError = true;
+            }
+
+        })
+        setHasFormError(hasError);
+
+    }, [entity])
 
     const dataTypes = [
         {
@@ -217,8 +239,14 @@ function EntityDialog(props) {
                 </IconButton>
             </DialogTitle>
             <Container>
-                <TextField fullWidth label={t("entityDialog.name")} value={entity.name}
-                           onChange={handleEntityTitleText}/>
+                <ValidatedTextField
+                    fullWidth
+                    label={t("entityDialog.name")}
+                    value={entity.name}
+                    onChange={handleEntityTitleText}
+                    helperText={t("entityDialog.name.error")}
+                    regex={RegexConfig.entityTitle}
+                />
                 <Box className={entityEditorStyles.tabBox}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />
@@ -234,7 +262,8 @@ function EntityDialog(props) {
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    <Button onClick={() => handleSave(entity)}>{t("button.save")}</Button>
+                    {console.log(hasFormError)}
+                    <Button onClick={() => handleSave(entity)} disabled={hasFormError}>{t("button.save")}</Button>
                 </DialogActions>
             </Container>
         </Dialog>

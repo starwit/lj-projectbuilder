@@ -8,6 +8,7 @@ const translationsEnEN = {
     "button.edit": "Edit",
     "button.back": "Back",
     "button.save": "Save",
+    "button.retry": "Retry",
     "button.cancel": "Cancel",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
@@ -38,9 +39,11 @@ const translationsEnEN = {
     "entityDialog.tab.fields": "Fields",
     "entityDialog.tab.relations": "Relations",
     "entityDialog.name": "Name",
+    "entityDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
 
     "fieldDialog.newField": "New field",
     "fieldDialog.name": "Name",
+    "fieldDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "fieldDialog.dataType": "Data type",
     "fieldDialog.description": "Description",
     "fieldDialog.restrictions": "Restrictions",
@@ -89,11 +92,15 @@ const translationsEnEN = {
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
 
     "generalSection.nameOfApp": "Name of App",
-    "generalSection.descriptionOfApp": "Description of app",
+    "generalSection.nameOfApp.error": "Upper and lower cased chars and numbers are allowed",
+    "generalSection.packageNameOfApp": "Package name",
+    "generalSection.packageNameOfApp.error": "Upper and lower cased chars and numbers are allowed",
 
     "entityDesigner.code": "Code",
 
     "home.yourApps": "Your Apps",
+    "home.loading": "Your apps are loading",
+    "home.loadingError": "Your apps could not be loaded.",
 
     "default.welcome": "Welcome",
     "default.error.403.title": "No Right",

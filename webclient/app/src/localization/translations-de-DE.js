@@ -8,8 +8,9 @@ const translationsDeDE = {
     "button.edit": "Bearbeiten",
     "button.back": "Zurück",
     "button.cancel": "Abbrechen",
-    "button.ok": "OK",    
+    "button.ok": "OK",
     "button.save": "Speichern",
+    "button.retry": "Erneut versuchen",
     "button.no": "Nein",
     "button.yes": "Ja",
     "button.loadtemplate": "Aus Git-Repo aktualisieren",
@@ -40,9 +41,11 @@ const translationsDeDE = {
     "entityDialog.tab.fields": "Felder",
     "entityDialog.tab.relations": "Relationen",
     "entityDialog.name": "Name",
+    "entityDialog.name.error": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
 
     "fieldDialog.newField": "Neues Feld",
     "fieldDialog.name": "Name",
+    "fieldDialog.name.error": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "fieldDialog.dataType": "Datentyp",
     "fieldDialog.description": "Beschreibung",
     "fieldDialog.restrictions": "Restriktionen",
@@ -69,6 +72,8 @@ const translationsDeDE = {
     "templateCard.config": "Template Konfiguration",
 
     "home.yourApps": "Deine Apps",
+    "home.loading": "Deine Apps werden geladen",
+    "home.loadingError": "Deine Apps konnten nicht geladen werden.",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
@@ -91,7 +96,9 @@ const translationsDeDE = {
     "appTemplateAuthDialog.password": "Passwort",
 
     "generalSection.nameOfApp": "Name der App",
-    "generalSection.descriptionOfApp": "Beschreibung der App",
+    "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
+    "generalSection.packageNameOfApp": "Package Name",
+    "generalSection.packageNameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "generalSection.hello": "Hallo!",
     "generalSection.enterInformation": "Bitte gib als ersten Schritt die allgemeinen Informationen zu deiner App ein.",
     "generalSection.clickNext": "Klicke dann auf Weiter auf der oberen rechten Seite.",
@@ -101,7 +108,8 @@ const translationsDeDE = {
     "default.error.403.title": "Fehlende Berechtigungen",
     "default.error.403": "Sie besitzen keine Berechtigungen zur Anzeige dieser Seite",
     "default.error.title": "Fehler",
-    "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin."
+    "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin.",
+
 
 };
 export default translationsDeDE;

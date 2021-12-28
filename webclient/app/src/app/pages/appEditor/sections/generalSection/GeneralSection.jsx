@@ -1,24 +1,33 @@
 import React from "react";
-import {Container, Grid, TextField, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
+import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
+import RegexConfig from "../../../../../regexConfig";
+import GeneralSectionStyles from "./GeneralSectionStyles";
 
 function GeneralSection(props) {
 
     const {t} = useTranslation();
     const {setAppName, setPackageName, appName, packageName} = props;
+    const generalSectionStyles = GeneralSectionStyles();
+
     return (
         <Container maxWidth={false}>
             <Grid container spacing={5}>
                 <Grid item md={8}>
-                    <TextField
+                    <ValidatedTextField
                         label={t("generalSection.nameOfApp")}
+                        regex={RegexConfig.applicationBaseName}
+                        helperText={t("generalSection.nameOfApp.error")}
                         value={appName}
                         fullWidth
                         onChange={event => setAppName(event.target.value)}
                     />
-                    <div style={{paddingBottom: "2rem"}}/>
-                    <TextField
-                        label={t("generalSection.descriptionOfApp")}
+                    <div className={generalSectionStyles.padding}/>
+                    <ValidatedTextField
+                        label={t("generalSection.packageNameOfApp")}
+                        regex={RegexConfig.packageName}
+                        helperText={t("generalSection.packageNameOfApp.error")}
                         value={packageName}
                         fullWidth
                         onChange={event => setPackageName(event.target.value)}

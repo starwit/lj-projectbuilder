@@ -18,10 +18,10 @@ function AppCard(props) {
             <CardActionArea onClick={() => history.push("/app/" + app.id)}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {app.title}
+                        {app.baseName}
                     </Typography>
                     <Typography variant="body2" className={appCardStyles.description}>
-                        {app.description}
+                        {app.packageName}
                     </Typography>
                 </CardContent>
             </CardActionArea>
