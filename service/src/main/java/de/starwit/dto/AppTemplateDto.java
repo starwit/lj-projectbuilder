@@ -13,7 +13,7 @@ public class AppTemplateDto extends AbstractEntity<Long> {
     @NotBlank
 	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
 	@Size(max = 100)
-    private String name;
+    private String name = "default";
 
     public String getName() {
         return name;

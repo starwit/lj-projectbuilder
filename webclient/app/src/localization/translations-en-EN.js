@@ -11,10 +11,14 @@ const translationsEnEN = {
     "button.cancel": "Cancel",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
+    "alert.error": "Error",
 
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+
+    "appTemplateDeleteDialog.title": "Delete Template",
+    "appTemplateDeleteDialog.message": "Do you want to delete the template?",
 
     "entityCard.newEntity": "New Domain",
     "entityCard.noFields": "No fields",
@@ -59,7 +63,6 @@ const translationsEnEN = {
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
-
 
     "appTemplateOverview.title": "AppTemplate Overview",
     "appTemplateDialog.new.title": "Create AppTemplate",

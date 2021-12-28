@@ -1,5 +1,7 @@
 package de.starwit.rest.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +31,13 @@ public class AppSetupController {
 
   @Operation(summary = "Creates new App from templates.")
   @PostMapping(value = "/setupApp")
-  public void generateApp(@RequestBody GeneratorDto dto) throws NotificationException {
+  public void generateApp(@Valid @RequestBody GeneratorDto dto) throws NotificationException {
     appSetupService.setupAndGenerateApp(dto);
   }
 
   @Operation(summary = "Gets template description from git repository and updates template definitions in database.")
   @PostMapping(value = "/updateTemplates")
-	public void updateCodeTemplates(@RequestBody DownloadAppTemplateDto dto) throws NotificationException {
+	public void updateCodeTemplates(@Valid @RequestBody DownloadAppTemplateDto dto) throws NotificationException {
 	  appSetupService.updateTemplates(dto);
 	}
 }

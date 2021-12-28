@@ -54,13 +54,13 @@ public class EntityController {
     }
 
     @Operation(summary = "Create entity in app with appid")
-    @PutMapping(value = "/byApp/{appId}")
+    @PostMapping(value = "/byApp/{appId}")
     public EntityDto save(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         return update(appId, dto);
     }
 
     @Operation(summary = "Update entity in app with appid")
-    @PostMapping(value = "/byApp/{appId}")
+    @PutMapping(value = "/byApp/{appId}")
     public EntityDto update(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         Domain domain = null;
         if (dto.getId() != null) {
@@ -81,13 +81,13 @@ public class EntityController {
     }
 
     @Operation(summary = "Create (or update) entities in app with appid")
-    @PutMapping(value = "/allByApp/{appId}")
+    @PostMapping(value = "/allByApp/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
     }
 
     @Operation(summary = "Create (or update) entities in app with appid")
-    @PostMapping(value = "/allByApp/{appId}")
+    @PutMapping(value = "/allByApp/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         for (EntityDto dto : dtos) {
             update(appId, dto);

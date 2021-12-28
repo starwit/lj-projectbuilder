@@ -9,12 +9,18 @@ const translationsDeDE = {
     "button.back": "Zurück",
     "button.cancel": "Abbrechen",    
     "button.save": "Speichern",
+    "button.no": "Nein",
+    "button.yes": "Ja",
     "form.create": "{{entity}} anlegen",
     "form.update": "{{entity}} updaten",
+    "alert.error": "Fehler",
 
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+
+    "appTemplateDeleteDialog.title": "Template löschen",
+    "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
 
     "entityCard.newEntity": "Neue Domain",
     "entityCard.noFields": "Keine Felder angelegt",
