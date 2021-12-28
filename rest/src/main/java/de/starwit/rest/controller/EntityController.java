@@ -54,13 +54,13 @@ public class EntityController {
     }
 
     @Operation(summary = "Create entity in app with appid")
-    @PostMapping(value = "/byApp/{appId}")
+    @PostMapping(value = "/by-app/{appId}")
     public EntityDto save(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         return update(appId, dto);
     }
 
     @Operation(summary = "Update entity in app with appid")
-    @PutMapping(value = "/byApp/{appId}")
+    @PutMapping(value = "/by-app/{appId}")
     public EntityDto update(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         Domain domain = null;
         if (dto.getId() != null) {
@@ -75,19 +75,19 @@ public class EntityController {
     }
 
     @Operation(summary = "Get all entities in app with appid")
-    @GetMapping(value = "/allByApp/{appId}")
+    @GetMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> findAllByApp(@PathVariable("appId") Long id) {
         return mapper.convertToDtoList(domainService.findAllDomainsByApp(id));
     }
 
     @Operation(summary = "Create (or update) entities in app with appid")
-    @PostMapping(value = "/allByApp/{appId}")
+    @PostMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
     }
 
     @Operation(summary = "Create (or update) entities in app with appid")
-    @PutMapping(value = "/allByApp/{appId}")
+    @PutMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         for (EntityDto dto : dtos) {
             update(appId, dto);
@@ -96,7 +96,7 @@ public class EntityController {
     }
 
     @Operation(summary = "Get entity by id in app with appid")
-    @GetMapping(value = "/byApp/{appId}/{entityId}")
+    @GetMapping(value = "/by-app/{appId}/{entityId}")
     public EntityDto findByIdAndApp(@PathVariable("appId") Long appId, @PathVariable("entityId") Long entityId) {
         Domain domain = domainService.findById(entityId);
         if (domain.getApp() != null && domain.getApp().getId() == appId) {

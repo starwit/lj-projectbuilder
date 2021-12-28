@@ -8,7 +8,7 @@ class AppTemplateRest extends CrudRest {
     }
 
     updateTemplates = (data) => {
-        return axios.post(window.location.pathname + "api/updatetemplates", data);
+        return axios.post(window.location.pathname + "api/update-templates", entity);
     }
 }
 
