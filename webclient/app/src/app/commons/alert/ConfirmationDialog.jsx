@@ -18,8 +18,8 @@ export default function ConfirmationDialog(props) {
             aria-describedby="alert-dialog-description"
         >
             <Alert severity="warning">
-                <AlertTitle>{t(content.title)}</AlertTitle>
-                {t(content.message)}
+                <AlertTitle>{content.title}</AlertTitle>
+                {content.message}
             </Alert>
             <DialogActions>
                 <Button onClick={onClose}>{t("button.no")}</Button>

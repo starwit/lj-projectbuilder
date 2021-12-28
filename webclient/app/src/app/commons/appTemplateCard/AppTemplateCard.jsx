@@ -36,7 +36,7 @@ function AppTemplateCard(props) {
     const appTemplateRest = new AppTemplateRest();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialolgContent = ({ "title": "appTemplateDeleteDialog.title", "message": "appTemplateDeleteDialog.message" });
+    const deleteDialolgContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);

@@ -12,7 +12,7 @@ const ErrorAlert = (props) => {
     return (
         <Collapse in={alert.open} onClose={onClose} >
         <Alert severity="error">
-            <AlertTitle>{t(alert.title)}</AlertTitle>
+            <AlertTitle>{alert.title}</AlertTitle>
             {alert.message}
         </Alert>
         </Collapse>
