@@ -38,9 +38,11 @@ const translationsEnEN = {
     "entityDialog.tab.fields": "Fields",
     "entityDialog.tab.relations": "Relations",
     "entityDialog.name": "Name",
+    "entityDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
 
     "fieldDialog.newField": "New field",
     "fieldDialog.name": "Name",
+    "fieldDialog.name.error": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "fieldDialog.dataType": "Data type",
     "fieldDialog.description": "Description",
     "fieldDialog.restrictions": "Restrictions",
@@ -78,13 +80,15 @@ const translationsEnEN = {
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.description": "Description",
-  
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
 
     "generalSection.nameOfApp": "Name of App",
-    "generalSection.descriptionOfApp": "Description of app",
+    "generalSection.nameOfApp.error": "Upper and lower cased chars and numbers are allowed",
+    "generalSection.packageNameOfApp": "Package name",
+    "generalSection.packageNameOfApp.error": "Upper and lower cased chars and numbers are allowed",
 
     "entityDesigner.code": "Code",
 

@@ -18,11 +18,24 @@ import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
 import {useTranslation} from "react-i18next";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
+import RegexConfig from "../../../regexConfig";
 
 
 function FieldAccordion(props) {
 
-    const {dataType, mandatory, min, max, pattern, description, name, editFieldProperty, dataTypes} = props;
+    const {
+        dataType,
+        mandatory,
+        min,
+        max,
+        pattern,
+        description,
+        name,
+        editFieldProperty,
+        dataTypes,
+        handleHasError
+    } = props;
     const fieldAccordionStyles = FieldAccordionStyles();
     const {t} = useTranslation();
 
@@ -48,8 +61,15 @@ function FieldAccordion(props) {
             <AccordionDetails>
                 <Grid container spacing={4}>
                     <Grid item sm={6}>
-                        <TextField fullWidth value={name} label={t("fieldDialog.name")}
-                                   onChange={(event) => editFieldProperty("name", event.target.value)}/>
+                        <ValidatedTextField
+                            regex={RegexConfig.fieldName}
+                            helperText={t("fieldDialog.name.error")}
+                            fullWidth
+                            value={name}
+                            label={t("fieldDialog.name")}
+                            onChange={(event) => editFieldProperty("name", event.target.value)}
+                            handleHasError={handleHasError}
+                        />
                     </Grid>
                     <Grid item sm={6}>
                         <FormControl fullWidth>
@@ -92,6 +112,7 @@ function FieldAccordion(props) {
                             label={t("fieldDialog.min")}
                             value={min}
                             disabled={!dataType.allowMin}
+                            type={"number"}
                             onChange={(event) => editFieldProperty("min", event.target.value)}
                         />
                     </Grid>
@@ -100,6 +121,7 @@ function FieldAccordion(props) {
                             fullWidth
                             label={t("fieldDialog.max")}
                             value={max}
+                            type={"number"}
                             disabled={!dataType.allowMax}
                             onChange={(event) => editFieldProperty("max", event.target.value)}
                         />

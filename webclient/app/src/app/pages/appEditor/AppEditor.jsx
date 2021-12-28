@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import ConclusionSection from "./sections/conclusion/ConclusionSection";
 import GeneralSection from "./sections/generalSection/GeneralSection";
 import {useHistory, useParams} from "react-router-dom";
+import RegexConfig from "../../../regexConfig";
 
 
 function AppEditor() {
@@ -19,6 +20,7 @@ function AppEditor() {
     const history = useHistory();
 
     const [appName, setAppName] = useState("");
+    const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([
         {
@@ -102,6 +104,12 @@ function AppEditor() {
         // TODO Load app data here
     }, [appId])
 
+    useEffect(() => {
+
+        setGeneralSectionHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName))
+
+    }, [packageName, appName])
+
     const steps = [
         {
             label: t("appEditor.section.general.title"),
@@ -111,7 +119,7 @@ function AppEditor() {
                 setAppName={setAppName}
                 setPackageName={setPackageName}
             />,
-            condition: appName !== "" && packageName !== ""
+            condition: appName !== "" && packageName !== "" && !generalSectionHasFormError
         },
         {
             label: t("appEditor.section.template.title"),
