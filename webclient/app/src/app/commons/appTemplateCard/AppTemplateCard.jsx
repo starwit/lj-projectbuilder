@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { styled } from '@mui/material/styles';
-import { Button, Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
+import { Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
 import { useTranslation } from "react-i18next";
 import GitHub from '@mui/icons-material/GitHub';
-import { Delete, CloudSync, Edit } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
-import AppTemplateRest from "../../services/AppTemplateRest"
+import AppTemplateRest from "../../services/AppTemplateRest";
 import ConfirmationDialog from "../alert/ConfirmationDialog";
 import ErrorDialog from "../alert/ErrorDialog";
 import SuccessDialog from "../alert/SuccessDialog";
+import AppTemplateAuthDialog from "../appTemplateDialog/AppTemplateAuthDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -49,8 +50,6 @@ function AppTemplateCard(props) {
     
     const successDialogContent = ({ "title": "appTemplateSuccessDialog.title", "message": "appTemplateSuccessDialog.message" });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
-    
-    const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
@@ -72,22 +71,13 @@ function AppTemplateCard(props) {
 
     const handleDelete = (appTemplateId) => {
         appTemplateRest.delete(appTemplateId)
-            .then(response => {
+            .then(() => {
+                setOpenSuccessDialog(true);
                 handleRefresh();
             }).catch(err => {
+                setOpenErrorDialog(true);
                 console.log(err.response.data);
             });
-    }
-
-    const handleAppTemplateReload = (appTemplateId) => {
-        uploadTemplateDto.appTemplateId = appTemplateId;
-        appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
-            handleRefresh();
-            setOpenSuccessDialog(true);
-        }).catch(err => {
-            setOpenErrorDialog(true);
-            console.log(err.response.data);
-        });
     }
 
     const loadAppTemplate = (appTemplateId) => {
@@ -129,7 +119,7 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <br /><br />
-                            <Button onClick={() => handleAppTemplateReload(appTemplate.id)} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
+                            <AppTemplateAuthDialog />
                         </Grid>
                     </Grid>
                 </CardContent>

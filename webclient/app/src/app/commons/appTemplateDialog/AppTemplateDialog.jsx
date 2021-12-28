@@ -7,7 +7,8 @@ import {
     DialogTitle,
     IconButton,
     TextField,
-    Typography
+    Typography,
+    Checkbox
 } from "@mui/material";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
@@ -104,6 +105,7 @@ function AppTemplateDialog(props) {
                 <ErrorAlert alert={alert} onClose={closeAlert} />
                 <TextField fullWidth label={t("appTemplateDialog.location")} value={internalAppTemplate.location} name="location" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleChange} />
+                <Checkbox label={t("appTemplateDialog.credentialsRequired")} value={internalAppTemplate.credentialsRequired} name="credentialsRequired" onChange={handleChange}  />
                 <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleChange} />
                 <DialogActions>
                     <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
