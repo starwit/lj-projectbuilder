@@ -25,7 +25,7 @@ public class UserDetailsController {
 	@Autowired
 	UserRepository allowedUserRepository;
 
-	@GetMapping("/userDetails")
+	@GetMapping("/user-details")
 	public String getUserDetails(){
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();

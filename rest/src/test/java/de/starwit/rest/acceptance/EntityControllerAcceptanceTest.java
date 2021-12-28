@@ -59,7 +59,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
 
         // when
         requestObject = jsonTester.write(dto).getJson();
-        response = create(restpath + "byApp/" + appId, requestObject);
+        response = create(restpath + "by-app/" + appId, requestObject);
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
@@ -78,7 +78,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
 
         // when
         requestObject = jsonTester.write(dto).getJson();
-        response = create(restpath + "byApp/" + appId, requestObject);
+        response = create(restpath + "by-app/" + appId, requestObject);
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
@@ -163,7 +163,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         String requestObject = jsonTester.write(dto).getJson();
 
         // when
-        response = update(restpath + "byApp/" + appDto2.getId(), requestObject);
+        response = update(restpath + "by-app/" + appDto2.getId(), requestObject);
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());

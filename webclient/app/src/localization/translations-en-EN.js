@@ -74,8 +74,8 @@ const translationsEnEN = {
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
 
-    "appTemplateOverview.title": "AppTemplate",
-    "appTemplateDialog.new.title": "Create AppTemplate",
+    "appTemplateOverview.title": "Templates",
+    "appTemplateDialog.new.title": "Create Template",
     "appTemplateDialog.title": "Edit {{appTemplateName}}",
     "appTemplateDialog.isLoading": "loading...",
     "appTemplateDialog.location": "Git-Repository",

@@ -82,8 +82,8 @@ const translationsDeDE = {
 
     "entityDesigner.code": "Code",
 
-    "appTemplateOverview.title": "AppTemplates",
-    "appTemplateDialog.new.title": "AppTemplate erstellen",
+    "appTemplateOverview.title": "Templates",
+    "appTemplateDialog.new.title": "Template erstellen",
     "appTemplateDialog.title": "{{appTemplateName}} bearbeiten",
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",
     "appTemplateDialog.location": "Git-Repository",
