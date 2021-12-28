@@ -1,6 +1,7 @@
 package de.starwit.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +22,7 @@ public class GeneratorDto extends DownloadAppTemplateDto {
 	/********************* GETTER, SETTER **************************/
 	
 	@Schema(defaultValue = "1")
-	@NotBlank
+	@NotNull
 	public Long getAppId() {
 		return appId;
 	}

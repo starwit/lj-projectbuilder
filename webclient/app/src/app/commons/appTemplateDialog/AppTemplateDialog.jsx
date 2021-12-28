@@ -43,13 +43,13 @@ function AppTemplateDialog(props) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
             }).catch(err => {
-                return setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
+                setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
             });
         } else {
             appTemplateRest.update(toSave).then(response => {
                 handleSaveResponse(response);
             }).catch(err => {
-                return setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
+                setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
             });
         }
     }

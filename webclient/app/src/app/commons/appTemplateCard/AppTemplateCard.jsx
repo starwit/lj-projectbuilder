@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
-import { Container, Collapse, Card, CardContent, CardActions, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
+import { Button, Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
 import { useTranslation } from "react-i18next";
 import GitHub from '@mui/icons-material/GitHub';
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, CloudSync, Edit } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest"
 import ConfirmationDialog from "../alert/ConfirmationDialog";
+import NotificationDialog from "../alert/NotificationDialog";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -27,22 +28,34 @@ const ExpandMore = styled((props) => {
 
 function AppTemplateCard(props) {
 
-    const { appTemplate, handleRefresh } = props;
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
-    const [expanded, setExpanded] = React.useState(false);
-    const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
-    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const { appTemplate, handleRefresh } = props;
     const appTemplateRest = new AppTemplateRest();
+    const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
+    const [extendedAppTemplate, setExtendedAppTemplate] = useState(false);
+
+    const [expanded, setExpanded] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialolgContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
+    const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
+
+    const errorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.message") });
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
+    
+    const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
+    const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+    
+    const uploadTemplateDto = ({ "appTemplateId": null, "username": null, "password": null });
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
-    }
+    };
 
-    const handleExpandClick = () => {
+    const handleExpandClick = (appTemplateId) => {
+        loadAppTemplate(appTemplateId);
         setExpanded(!expanded);
     };
 
@@ -55,11 +68,32 @@ function AppTemplateCard(props) {
         setOpenDialog(false);
     };
 
-    const  handleDelete = (appTemplateId) => {
-        appTemplateRest.delete(appTemplateId).then(response => {
+    const handleDelete = (appTemplateId) => {
+        appTemplateRest.delete(appTemplateId)
+            .then(() => {
+                handleRefresh();
+            }).catch(err => {
+                console.log(err.response.data);
+            });
+    };
+
+    const handleAppTemplateReload = (appTemplateId) => {
+        uploadTemplateDto.appTemplateId = appTemplateId;
+        appTemplateRest.updateTemplates(uploadTemplateDto).then(() => {
             handleRefresh();
+            setOpenSuccessDialog(true);
+        }).catch(err => {
+            setOpenErrorDialog(true);
+            console.log(err.response.data);
         });
-    }
+    };
+
+    const loadAppTemplate = (appTemplateId) => {
+        const appTemplateRest2 = new AppTemplateRest();
+        appTemplateRest2.findById(appTemplateId).then(response => {
+            setExtendedAppTemplate(response.data);
+        });
+    };
 
 
     useEffect(() => {
@@ -82,31 +116,41 @@ function AppTemplateCard(props) {
                         </Grid>
                     </Grid>
                     <Divider />
-                    <Typography variant="body2" color="text.secondary">
-                        <br />{appTemplate.description}
-                    </Typography>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemIcon>
-                                <GitHub />
-                            </ListItemIcon>
-                            <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
-                        </ListItem>
-                    </List>
+                    <Grid container spacing={0}>
+                        <Grid item sm={7}>
+                            <Typography variant="body2" color="text.secondary">
+                                <br />{appTemplate.description}
+                            </Typography>
+                            <List>
+                                <ListItem disablePadding>
+                                    <ListItemIcon>
+                                        <GitHub />
+                                    </ListItemIcon>
+                                    <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
+                                </ListItem>
+                            </List>
+                        </Grid>
+                        <Grid item xs={5} align="right">
+                            <br /><br />
+                            <Button onClick={() => handleAppTemplateReload(appTemplate.id)} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
+                        </Grid>
+                    </Grid>
                 </CardContent>
-                <CardActions className={appTemplateCardStyles.actionsWrapper}>
+
+                <Divider>
+                    <Chip label={t("templateCard.config")} />
                     <ExpandMore
                         expand={expanded}
-                        onClick={handleExpandClick}
+                        onClick={() => handleExpandClick(appTemplate.id)}
                         aria-expanded={expanded}
                         aria-label="show more" >
                         <ExpandMoreIcon />
                     </ExpandMore>
-                </CardActions>
+                </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <SyntaxHighlighter language="json" style={dark}>
-                            {JSON.stringify(appTemplate, null, '\t')}
+                            {JSON.stringify(extendedAppTemplate, null, '\t')}
                         </SyntaxHighlighter>
                     </CardContent>
                 </Collapse>
@@ -115,14 +159,28 @@ function AppTemplateCard(props) {
                 appTemplate={selectedAppTemplate}
                 open={openDialog}
                 onClose={handleDialogClose}
-                onRefresh={handleRefresh}
+                onRefresh={() => handleRefresh(appTemplate.id)}
                 isCreateDialog={false}
             />
-            <ConfirmationDialog 
-                content={deleteDialolgContent} 
-                open={openDeleteDialog} 
-                onClose={closeDeleteDialog} 
-                onSubmit={() => handleDelete(appTemplate.id)} 
+            <ConfirmationDialog
+                content={deleteDialogContent}
+                open={openDeleteDialog}
+                onClose={closeDeleteDialog}
+                onSubmit={
+                    () => handleDelete(appTemplate.id)
+                }
+            />
+            <NotificationDialog
+                severity="error"
+                content={errorDialogContent}
+                open={openErrorDialog}
+                onClose={() => setOpenErrorDialog(false)}
+            />
+            <NotificationDialog
+                severity="success"
+                content={successDialogContent}
+                open={openSuccessDialog}
+                onClose={() => setOpenSuccessDialog(false)}
             />
         </Container>
     )

@@ -30,13 +30,13 @@ public class AppSetupController {
   private AppSetupService appSetupService;
 
   @Operation(summary = "Creates new App from templates.")
-  @PostMapping(value = "/setupApp")
+  @PostMapping(value = "/setupapp")
   public void generateApp(@Valid @RequestBody GeneratorDto dto) throws NotificationException {
     appSetupService.setupAndGenerateApp(dto);
   }
 
   @Operation(summary = "Gets template description from git repository and updates template definitions in database.")
-  @PostMapping(value = "/updateTemplates")
+  @PostMapping(value = "/updatetemplates")
 	public void updateCodeTemplates(@Valid @RequestBody DownloadAppTemplateDto dto) throws NotificationException {
 	  appSetupService.updateTemplates(dto);
 	}

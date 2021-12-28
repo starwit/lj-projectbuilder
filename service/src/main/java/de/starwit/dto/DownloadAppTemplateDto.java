@@ -1,6 +1,7 @@
 package de.starwit.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -22,7 +23,7 @@ public class DownloadAppTemplateDto {
 
 	/********************* GETTER, SETTER **************************/
 	@Schema(defaultValue = "1")
-	@NotBlank
+	@NotNull
 	public Long getAppTemplateId() {
 		return appTemplateId;
 	}
