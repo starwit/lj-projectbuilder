@@ -114,7 +114,7 @@ function AppTemplateCard(props) {
                     </Grid>
                     <Divider />
                     <Grid container spacing={0}>
-                        <Grid item xs={7}>
+                        <Grid item sm={7}>
                             <Typography variant="body2" color="text.secondary">
                                 <br />{appTemplate.description}
                             </Typography>
