@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class VersionRest {
+class ApplicationRest  extends CrudRest {
 
     constructor() {
         this.baseUrl = window.location.pathname + "/api/apps";
