@@ -31,4 +31,4 @@ class ApplicationRest  extends CrudRest {
     }
 }
 
-export default VersionRest;
+export default ApplicationRest;
