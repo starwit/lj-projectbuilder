@@ -8,8 +8,9 @@ const translationsDeDE = {
     "button.edit": "Bearbeiten",
     "button.back": "Zurück",
     "button.cancel": "Abbrechen",
-    "button.ok": "OK",    
+    "button.ok": "OK",
     "button.save": "Speichern",
+    "button.retry": "Erneut versuchen",
     "button.no": "Nein",
     "button.yes": "Ja",
     "button.loadtemplate": "Aus Git-Repo aktualisieren",
@@ -71,6 +72,8 @@ const translationsDeDE = {
     "templateCard.config": "Template Konfiguration",
 
     "home.yourApps": "Deine Apps",
+    "home.loading": "Deine Apps werden geladen",
+    "home.loadingError": "Deine Apps konnten nicht geladen werden.",
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",

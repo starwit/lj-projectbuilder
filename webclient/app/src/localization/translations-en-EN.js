@@ -8,6 +8,7 @@ const translationsEnEN = {
     "button.edit": "Edit",
     "button.back": "Back",
     "button.save": "Save",
+    "button.retry": "Retry",
     "button.cancel": "Cancel",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
@@ -93,6 +94,8 @@ const translationsEnEN = {
     "entityDesigner.code": "Code",
 
     "home.yourApps": "Your Apps",
+    "home.loading": "Your apps are loading",
+    "home.loadingError": "Your apps could not be loaded.",
 
     "default.welcome": "Welcome",
     "default.error.403.title": "No Right",
