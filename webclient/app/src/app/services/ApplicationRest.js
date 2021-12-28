@@ -1,3 +1,4 @@
+import CrudRest from "./CrudRest";
 import axios from 'axios';
 
 class ApplicationRest  extends CrudRest {
