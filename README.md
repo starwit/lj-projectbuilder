@@ -4,6 +4,8 @@ Creating modern software always requires a number of things to do. One of these 
 
 The Project Builder provides a configuration interfaces for creating new projects and applications.
 
+The lj-projectbuilder is deployed at https://lj.starwit.de/ljprojectbuilder/ contact info@starwit.de for access and more information.
+
 <p align="center"><img src="docs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
 
 ## How Tos
