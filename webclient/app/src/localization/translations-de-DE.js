@@ -110,6 +110,13 @@ const translationsDeDE = {
     "default.error.title": "Fehler",
     "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin.",
 
-
+    "error.git.directorynotexists": "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
+    "error.git.access.denied": "Sie benötigen Rechte zum Ausführen von git clone. In Github verwenden Sie das Recht 'repo'.",
+    "error.git.access.tokenusagerequired": "Sie müssen einen Personal Access Token verwenden.",
+    "error.git.access.invaliduserpassword": "Nuter oder Passwort sind ungültig.",
+    "error.git.exit": "Fehler beim Abrufen der Daten vom Git-Repository.",
+    "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL",
+    "error.appcheckout.jsonmapping.git": "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
+    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden."
 };
 export default translationsDeDE;
