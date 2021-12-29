@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import TemplateSelection from "./sections/templateSection/TemplateSection";
 import ErDesigner from "./sections/erSection/ErSection";
@@ -7,7 +7,6 @@ import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
 import ConclusionSection from "./sections/conclusion/ConclusionSection";
 import GeneralSection from "./sections/generalSection/GeneralSection";
-import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 
 
@@ -17,7 +16,6 @@ function AppEditor() {
     const [selectedTemplate, setSelectedTemplate] = useState(null)
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
-    const history = useHistory();
 
     const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
