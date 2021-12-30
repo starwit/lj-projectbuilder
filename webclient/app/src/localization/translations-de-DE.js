@@ -90,10 +90,14 @@ const translationsDeDE = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "privates Repo mit Login",
     "appTemplateDialog.description": "Beschreibung",
+    "appTemplateDialog.location.error": "muss eine valide Git-Repository Adresse sein",
+    "appTemplateDialog.branch.error": "muss ein gültiger Branch Namen sein",
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "Nutzername",
     "appTemplateAuthDialog.password": "Passwort",
+    "appTemplateAuthDialog.user.error": "Nutzer darf nicht leer sein und kann Buchstaben und Ziffern enthalten",
+    "appTemplateAuthDialog.password.error": "Passwort / PAT darf nicht leer sein und kann Buchstaben, Ziffern und Sonderzeichen enthalten",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",

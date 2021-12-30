@@ -82,10 +82,14 @@ const translationsEnEN = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "private Repo with Login",
     "appTemplateDialog.description": "Description",
+    "appTemplateDialog.location.error": "Location has to be a valid git-repository name",
+    "appTemplateDialog.branch.error": "has to be a valid branch name",    
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
+    "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters and numbers",
+    "appTemplateAuthDialog.password.error": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
   
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
