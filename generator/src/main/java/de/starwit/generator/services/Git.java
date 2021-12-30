@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.starwit.persistence.exception.NotificationException;
-import jdk.internal.org.jline.utils.Log;
 
 /** Class for running git commands. */
 public class Git {
