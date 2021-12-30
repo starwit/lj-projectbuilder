@@ -23,7 +23,7 @@ const translationsEnEN = {
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
     "appTemplateErrorDialog.title": "Error",
-    "appTemplateErrorDialog.message": "Template configuration could not be loaded. Please check Git-Repo path and name of the config file (template-config.json).",
+    "appTemplateErrorDialog.deletemessage": "Template could not be deleted.",
     "appTemplateSuccessDialog.title": "Success Template Upload",
     "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
@@ -106,6 +106,15 @@ const translationsEnEN = {
     "default.error.403.title": "No Right",
     "default.error.403": "Login worked but you are not allowed.",
     "default.error.title": "Error",
-    "default.error.500": "Internal Server Error. Please contact your admin."
+    "default.error.500": "Internal Server Error. Please contact your admin.",
+
+    "error.git.directorynotexists": "An internal error occured. Please contact IT-support.",
+    "error.git.access.denied": "Not enough rights. For Github you need at least the right 'repo'",
+    "error.git.access.tokenusagerequired": "Support for password authentication was removed. A personal access token is required.",
+    "error.git.access.invaliduserpassword": "Invalid username or password.",
+    "error.git.exit": "Error to get data from Git repository",
+    "error.appcheckout.giturlisinvalid": "Invalid Git repository URL",
+    "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
+    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name."
 };
 export default translationsEnEN;

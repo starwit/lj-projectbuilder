@@ -22,6 +22,7 @@ function AppTemplateDialog(props) {
     const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
 
     const appTemplateDialogStyles = AppTemplateDialogStyles();
@@ -116,8 +117,9 @@ function AppTemplateDialog(props) {
                 <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleChange} />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
-                    <FormControlLabel fullWidth 
+                    <FormControlLabel 
                         control={<Checkbox  checked={internalAppTemplate.credentialsRequired} 
+                        value={internalAppTemplate.credentialsRequired} 
                         name="credentialsRequired" onChange={handleCredentialsCheckbox} />} 
                         label={t("appTemplateDialog.credentialsRequired")} 
                     />

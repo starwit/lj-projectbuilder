@@ -7,11 +7,13 @@ import AppTemplateRest from "../../services/AppTemplateRest";
 import { CloudSync, Close } from "@mui/icons-material";
 import ErrorAlert from "../alert/ErrorAlert";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
+import NotificationDialog from "../alert/NotificationDialog";
 
 function AppTemplateAuthDialog(props) {
-    const { appTemplate, handleRefresh, setOpenSuccessDialog, setOpenErrorDialog } = props;
+    const { appTemplate, handleRefresh, setOpenSuccessDialog } = props;
     const appTemplateDialogStyles = AppTemplateDialogStyles();
-    const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": null, "password": null });
+    const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": "", "password": "" });
+    const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
 
     const appTemplateRest = new AppTemplateRest();
@@ -29,6 +31,7 @@ function AppTemplateAuthDialog(props) {
     const handleLogin = () => {
         console.log("in handleLogin");
         if (appTemplate.credentialsRequired) {
+            handleAlertClose();
             setOpenAuthDialog(true);
         } else {
             handleAppTemplateReload();
@@ -42,19 +45,24 @@ function AppTemplateAuthDialog(props) {
             setOpenAuthDialog(false);
             setOpenSuccessDialog(true);
         }).catch(err => {
-            setOpenErrorDialog(true);
+            setAlert({"open":true, "title": t("alert.error"), "message": t(err.response.data.messageKey)});
             console.log(err.response.data);
         });
     }
 
+    const handleAlertClose = () => {
+        setAlert({"open":false, "title": "ERROR", "message": ""});
+    }
+
     const onClose = () => {
-        setDownloadRequestData({ "appTemplateId": null, "username": null, "password": null });
+        setDownloadRequestData({ "appTemplateId": null, "username": "", "password": "" });
         setOpenAuthDialog(false);
     }
 
     return (
         <Container>
             <Button onClick={handleLogin} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
+            <NotificationDialog open={alert.open && !appTemplate.credentialsRequired} onClose={handleAlertClose} severity="error" title={t(alert.title)} message={t(alert.message)} />
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
                 <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
@@ -77,7 +85,7 @@ function AppTemplateAuthDialog(props) {
                     noValidate
                     autoComplete="off"
                 >
-                    <ErrorAlert alert={alert} onClose={() => setOpenErrorDialog(false)} />
+                    <ErrorAlert alert={alert} />
                     <TextField
                         fullWidth
                         label={t("appTemplateAuthDialog.user")}

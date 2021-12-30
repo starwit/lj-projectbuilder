@@ -43,7 +43,7 @@ function AppTemplateCard(props) {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
-    const errorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.message") });
+    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deletemessage") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     
     const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
@@ -73,6 +73,7 @@ function AppTemplateCard(props) {
                 handleRefresh();
             }).catch(err => {
                 setOpenErrorDialog(true);
+                setOpenDeleteDialog(false);
                 console.log(err.response.data);
             });
     };
@@ -160,7 +161,7 @@ function AppTemplateCard(props) {
             />
             <NotificationDialog
                 severity="error"
-                content={errorDialogContent}
+                content={deleteErrorDialogContent}
                 open={openErrorDialog}
                 onClose={() => setOpenErrorDialog(false)}
             />

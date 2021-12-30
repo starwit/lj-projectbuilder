@@ -60,7 +60,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { NotificationException.class })
     public ResponseEntity<Object> handleException(NotificationException ex) {
         LOG.info("Wrong input value ", ex.getMessage());
-        String output = ex.getExceptionKey() + ":" + ex.getExceptionMessage();
+        NotificationDto output = new NotificationDto();
+        output.setMessageKey(ex.getExceptionKey());
+        output.setMessage(ex.getExceptionMessage());
         return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
     }
 
