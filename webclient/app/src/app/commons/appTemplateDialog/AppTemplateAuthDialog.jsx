@@ -32,9 +32,6 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleLogin = () => {
-        if(hasFormError) {
-            return;
-        }
         if (appTemplate.credentialsRequired) {
             handleAlertClose();
             setOpenAuthDialog(true);
@@ -44,6 +41,9 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleAppTemplateReload = () => {
+        if(hasFormError && appTemplate.credentialsRequired) {
+            return;
+        }
         downloadRequestData.appTemplateId = appTemplate.id;
         appTemplateRest.updateTemplates(downloadRequestData).then(() => {
             handleRefresh();
