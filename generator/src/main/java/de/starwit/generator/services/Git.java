@@ -78,7 +78,7 @@ public class Git {
 				throw new NotificationException("error.git.exit", "Git clone runs into error.");
 			}
 		} catch (final InterruptedException ex ) {
-			Log.warn("interrupted", ex);
+			LOG.warn("interrupted", ex);
 			// Restore interrupted state...
 			Thread.currentThread().interrupt();
 			throw new NotificationException("error.git.exit", "Git clone runs into error.");
