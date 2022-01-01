@@ -21,6 +21,7 @@ const translationsDeDE = {
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+    "home.noApps": "Es wurden keine Apps angelegt. Bitte unten Rechts eine App hinzufügen.",
 
     "appTemplateDeleteDialog.title": "Template löschen",
     "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",

@@ -9,6 +9,7 @@ import ConclusionSection from "./sections/conclusion/ConclusionSection";
 import GeneralSection from "./sections/generalSection/GeneralSection";
 import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
+import ApplicationRest from "../../services/ApplicationRest";
 
 
 function AppEditor() {
@@ -18,89 +19,23 @@ function AppEditor() {
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
     const history = useHistory();
+    const appRest = new ApplicationRest();
 
     const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
-    const [entities, setEntities] = useState([
-        {
-            "id": 1,
-            "name": "D1",
-            "fields": [
-                {
-                    "name": "D1-f1-s",
-                    "description": "",
-                    "dataType": {
-                        "id": 1,
-                        "name": "string"
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                },
-                {
-                    "name": "D1-f1-i",
-                    "description": "",
-                    "dataType": {
-                        "id": 2,
-                        "name": "integer",
-                        "allowMin": true,
-                        "allowMax": true
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                }
-            ],
-            "relationships": []
-        },
-        {
-            "id": 2,
-            "name": "D2",
-            "fields": [
-                {
-                    "name": "D2-f1-i",
-                    "description": "",
-                    "dataType": {
-                        "id": 2,
-                        "name": "integer",
-                        "allowMin": true,
-                        "allowMax": true
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                },
-                {
-                    "name": "D2-f2-s",
-                    "description": "",
-                    "dataType": {
-                        "id": 1,
-                        "name": "string"
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                }
-            ],
-            "relationships": [
-                {
-                    "relationshipType": "one-to-many",
-                    "otherEntityName": "D1",
-                    "otherEntityRelationshipName": "D1-f1-i",
-                    "relationshipName": "D2-f1-i",
-                    "name": "D2"
-                }
-            ]
-        }
-    ]);
+    const [entities, setEntities] = useState([]);
+    const [isNewApp, setIsNewApp] = useState(false);
     let {appId} = useParams();
 
     useEffect(() => {
+
+        if (appId === "create") {
+            setIsNewApp(true);
+            return;
+        }
+
+
         // TODO Load app data here
     }, [appId])
 
@@ -134,7 +69,7 @@ function AppEditor() {
                 entities={entities}
                 handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
             />,
-            condition: entities.length > 1
+            condition: entities.length >= 1
         },
         {
             label: t("appEditor.section.conclusion.title"),
@@ -164,7 +99,14 @@ function AppEditor() {
 
     function handleSave() {
         //TODO send to server
-
+        if (isNewApp) {
+            appRest.create({
+                baseName: appName,
+                packageName: packageName,
+                template: selectedTemplate,
+                entities: entities,
+            })
+        }
         history.push("/app/" + appId)
     }
 

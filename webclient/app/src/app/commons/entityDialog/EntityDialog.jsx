@@ -118,12 +118,12 @@ function EntityDialog(props) {
         // TODO Maybe add an ID to entity
         newEntity.fields.push(
             {
-                name: "",
+                fieldName: "",
                 description: "",
-                dataType: "",
-                pattern: "",
-                min: "",
-                max: "",
+                fieldType: "",
+                fieldValidateRulesPattern: "",
+                fieldValidateRulesMin: "",
+                fieldValidateRulesMax: "",
                 mandatory: false
             }
         );
@@ -144,13 +144,13 @@ function EntityDialog(props) {
         setEntity(newEntity);
     }
 
-    const handleChange = (event, newValue) => {
+    const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
 
     function handleEntityTitleText(event) {
         const newEntity = {...entity};
-        newEntity.name = event.target.value;
+        newEntity.fieldName = event.target.value;
         setEntity(newEntity);
     }
 
@@ -204,18 +204,26 @@ function EntityDialog(props) {
         }
 
         return entity.fields.map((field, index) => {
-            const {dataType, mandatory, min, max, pattern, description, name} = entity.fields[index];
+            const {
+                mandatory,
+                fieldValidateRulesMin,
+                fieldValidateRulesMax,
+                fieldValidateRulesPattern,
+                description,
+                fieldName,
+                fieldType
+            } = entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
                     dataTypes={dataTypes}
-                    dataType={dataType}
+                    dataType={fieldType}
                     description={description}
-                    pattern={pattern}
-                    min={min}
-                    max={max}
+                    pattern={fieldValidateRulesPattern}
+                    min={fieldValidateRulesMin}
+                    max={fieldValidateRulesMax}
                     mandatory={mandatory}
-                    name={name}
+                    name={fieldName}
                 />
             )
         })
@@ -242,13 +250,13 @@ function EntityDialog(props) {
                 <ValidatedTextField
                     fullWidth
                     label={t("entityDialog.name")}
-                    value={entity.name}
+                    value={entity.fieldName}
                     onChange={handleEntityTitleText}
                     helperText={t("entityDialog.name.error")}
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
                         <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />
                         <Tab label={t("entityDialog.tab.relations")} {...a11yProps(1)} />
                     </Tabs>
@@ -262,7 +270,6 @@ function EntityDialog(props) {
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    {console.log(hasFormError)}
                     <Button onClick={() => handleSave(entity)} disabled={hasFormError}>{t("button.save")}</Button>
                 </DialogActions>
             </Container>
