@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
+import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.TemplateFile;
 import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.App;
@@ -47,6 +48,9 @@ public class GeneratorService {
   final static Logger LOG = LoggerFactory.getLogger(GeneratorService.class);
 	
 	private final static String GENERATION ="###GENERATION###";
+
+	@Autowired
+	private EntityMapper entityMapper;
 	
 	@Autowired
 	private AppRepository AppRepository;
@@ -93,6 +97,7 @@ public class GeneratorService {
 		// Build the data-model
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("domain", domain);
+		data.put("entity", entityMapper.convertToDto(domain));
 		data.put("imports", EntityImports.gatherEntityImports(domain));
 		return data;
 	}
