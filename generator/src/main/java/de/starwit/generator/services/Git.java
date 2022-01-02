@@ -46,7 +46,7 @@ public class Git {
 			throws NotificationException {
 		Objects.requireNonNull(directory, "directory");
 		if (!Files.exists(directory)) {
-			throw new NotificationException("error.git.directorynotexists", "can't run command in non-existing directory '" + directory + "'");
+			throw new NotificationException("error.git.directorynotexists", "can't run command in non-existing directory '{}'", directory);
 		}
 		ProcessBuilder pb = new ProcessBuilder()
 				.command(command)
