@@ -25,7 +25,7 @@ const translationsDeDE = {
     "appTemplateDeleteDialog.title": "Template löschen",
     "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
     "appTemplateErrorDialog.title": "Fehler",
-    "appTemplateErrorDialog.message": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Pfad des Git-Repository. Die Konfigurationsdatei muss zudem template-config.json heißen.",
+    "appTemplateErrorDialog.deletemessage": "Das Template konnte nicht gelöscht werden.",
     "appTemplateSuccessDialog.title": "Template Aktualisierung erfolgreich",
     "appTemplateSuccessDialog.message": "Die Templates wurden erfolgreich aus dem Git-Repository geladen.",
 
@@ -88,7 +88,12 @@ const translationsDeDE = {
     "appTemplateDialog.isLoading": "Die Seite wird noch geladen",
     "appTemplateDialog.location": "Git-Repository",
     "appTemplateDialog.branch": "Branch",
+    "appTemplateDialog.credentialsRequired": "privates Repo mit Login",
     "appTemplateDialog.description": "Beschreibung",
+
+    "appTemplateAuthDialog.title": "Login Git Template Repository",
+    "appTemplateAuthDialog.user": "Nutzername",
+    "appTemplateAuthDialog.password": "Passwort",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
@@ -105,6 +110,13 @@ const translationsDeDE = {
     "default.error.title": "Fehler",
     "default.error.500": "Interner Fehler, bitte kontaktieren Sie Ihren Admin.",
 
-
+    "error.git.directorynotexists": "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
+    "error.git.access.denied": "Sie benötigen Rechte zum Ausführen von git clone. In Github verwenden Sie das Recht 'repo'.",
+    "error.git.access.tokenusagerequired": "Der Support für Nutzer/Passwort Authetifizierung ist ausgelaufen. Sie müssen einen Personal Access Token verwenden.",
+    "error.git.access.invaliduserpassword": "Nuter oder Passwort sind ungültig.",
+    "error.git.exit": "Fehler beim Abrufen der Daten vom Git-Repository.",
+    "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL",
+    "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
+    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen."
 };
 export default translationsDeDE;

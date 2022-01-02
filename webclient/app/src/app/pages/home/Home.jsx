@@ -20,7 +20,7 @@ function Home() {
     const loadApps = useCallback(() => {
         setApps(null);
         setAppsError(null);
-        applicationRest.getAll().then(allAppsResponse => {
+        applicationRest.findAll().then(allAppsResponse => {
             setApps(allAppsResponse.data);
         }).catch(allAppsResponseError => {
             setAppsError(allAppsResponseError.response)

@@ -16,6 +16,7 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         dto.setLocation(entity.getLocation());
         dto.setBranch(entity.getBranch());
         dto.setDescription(entity.getDescription());
+        dto.setCredentialsRequired(entity.isCredentialsRequired());
         dto.setPackagePlaceholder(entity.getPackagePlaceholder());
         return dto;
     }
@@ -28,6 +29,7 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         entity.setLocation(dto.getLocation());
         entity.setBranch(dto.getBranch());
         entity.setDescription(dto.getDescription());
+        entity.setCredentialsRequired(dto.isCredentialsRequired());
         entity.setPackagePlaceholder(dto.getPackagePlaceholder());
         return entity;
     }
