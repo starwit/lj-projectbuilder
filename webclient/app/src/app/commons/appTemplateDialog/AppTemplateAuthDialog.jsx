@@ -61,7 +61,13 @@ function AppTemplateAuthDialog(props) {
     return (
         <Container>
             <Button onClick={handleLogin} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
-            <NotificationDialog open={alert.open && !appTemplate.credentialsRequired} onClose={handleAlertClose} severity="error" title={t(alert.title)} message={t(alert.message)} />
+            <NotificationDialog 
+                open={alert.open && !appTemplate.credentialsRequired} 
+                onClose={handleAlertClose} 
+                severity="error" 
+                title={t(alert.title)} 
+                message={t(alert.message)} 
+            />
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
                 <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
