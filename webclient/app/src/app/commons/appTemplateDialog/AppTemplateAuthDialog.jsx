@@ -29,7 +29,6 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleLogin = () => {
-        console.log("in handleLogin");
         if (appTemplate.credentialsRequired) {
             handleAlertClose();
             setOpenAuthDialog(true);
