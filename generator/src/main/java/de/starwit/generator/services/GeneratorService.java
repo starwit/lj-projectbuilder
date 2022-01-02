@@ -118,7 +118,7 @@ public class GeneratorService {
 
 		String templatePath = templateFile.getTemplatePath();
 		if (!templatePath.startsWith(Constants.APP_HOME)){
-			templatePath = Constants.TARGET_PATH_PREFIX + targetPath;
+			templatePath = Constants.TEMPLATE_PATH_PREFIX + templatePath;
 		}
 		String contreteTemplatePath = generatePathWithFreemarker(data, templateFile, templatePath);
 		templateFile.setConcreteTemplatePath(contreteTemplatePath);
