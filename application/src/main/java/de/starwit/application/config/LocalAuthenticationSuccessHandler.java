@@ -15,7 +15,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import de.starwit.persistence.entity.Role;
-import de.starwit.persistence.entity.UserEntity;
+import de.starwit.persistence.entity.User;
 import de.starwit.service.impl.UserService;
 
 public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -34,11 +34,16 @@ public class LocalAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();     
         String userId = authUser.getAttribute("login");
-        UserEntity localUserData = userService.findByUsername(userId);
-        if(localUserData.getRole() == Role.NONE) {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/welcome/");
+        User localUserData = userService.findByUsername(userId);
+        if(localUserData.getRole() == Role.NONE ) {
+            redirectStrategy.sendRedirect(request, response, "/#/default/welcome/");
+        } else if(response.getStatus() == HttpServletResponse.SC_FORBIDDEN
+          || response.getStatus() == HttpServletResponse.SC_METHOD_NOT_ALLOWED) {
+          redirectStrategy.sendRedirect(request, response, "/#/default/error403/");
+        } else if(response.getStatus() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR) {
+          redirectStrategy.sendRedirect(request, response, "/#/default/error500/");
         } else {
-            redirectStrategy.sendRedirect(request, response, "/#/viewcomponents/project-all/");
+            redirectStrategy.sendRedirect(request, response, "/");
         }
       }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.persistence.entity.UserEntity;
+import de.starwit.persistence.entity.User;
 import de.starwit.persistence.repository.UserRepository;
 
 @RestController
@@ -25,7 +25,7 @@ public class UserDetailsController {
 	@Autowired
 	UserRepository allowedUserRepository;
 
-	@GetMapping("/userDetails")
+	@GetMapping("/user-details")
 	public String getUserDetails(){
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		DefaultOAuth2User authUser = (DefaultOAuth2User) authentication.getPrincipal();
@@ -36,7 +36,7 @@ public class UserDetailsController {
 		}
 
 		String authenticatedUserName = (String) authUser.getAttributes().get("login");
-		UserEntity user = allowedUserRepository.findByUsername(authenticatedUserName).get();
+		User user = allowedUserRepository.findByUsername(authenticatedUserName).get();
 		if(null == user) {
 			LOG.warn("User " + authenticatedUserName + " may not enter");
 		} else {
@@ -60,7 +60,7 @@ public class UserDetailsController {
 
 	@GetMapping("/oidc-principal")
 	public OidcUser getOidcUserPrincipal(@AuthenticationPrincipal OidcUser principal) {
-		System.out.println(principal);
+		LOG.debug(principal.toString());
 	    return principal;
 	}
 }

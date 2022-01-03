@@ -1,6 +1,6 @@
 ## Purpose
 
-Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code needs to be written and creating application quickly remains a challenge. Lirejarp Project Builder is an application to kickstart new project via using templates. 
+Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code needs to be written and creating application quickly remains a challenge. Lirejarp App Builder is an application to kickstart new project via using templates. 
 
 The Project Builder provides a configuration interfaces for creating new projects and applications.
 
@@ -22,6 +22,6 @@ Go to helm/ljprojectbuilder
 - execute e.g.:
   - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
   - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
-
+.
 
 

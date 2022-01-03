@@ -13,3 +13,7 @@
 .drawio-chrome/chrome-data/Default/Network Persistent State
 .drawio-chrome/chrome-data/Default/Preferences
 .history
+rest/src/test/actual.json
+rest/src/test/test.json
+generator/.factorypath
+webclient/app/package-lock.json

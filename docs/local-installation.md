@@ -7,6 +7,7 @@
 * github account to login to projectbuilder
 * Java 14 or later
 * Maven 3
+* NodeJs with NPM - [NodeJS Install](https://nodejs.org/en/download/package-manager/)
 
 **Recommended:**
 
@@ -103,7 +104,7 @@ To run projectBuilder via run-configuration directly, add launch configuration (
             "projectName": "application",
             "args": "",
             "env": {
-                "PROJECT_NAME": "FOO_PROJECT",
+                "APP_NAME": "FOO_APP",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID": "edba8e9e17f1c045633e",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET": "<<yourClientSecret>>"
             }            
@@ -137,6 +138,7 @@ INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`) VALUES
 ## Install ljprojectbuilder via Maven
 
 - go to directory ljprojectbuilder and open command line
+- Install the frontend dependencies: ``npm i webclient/app/``
 - Build app running all tests:
   ```bash
   mvn clean package -P frontend
@@ -152,3 +154,10 @@ Go to workplace folder and run the following command:
 ```bash
 sudo docker-compose -f mysql-docker-compose up
 ```
+
+### Start frontend development server
+If you are running the project the first time, you have to install the dependencies.
+Navigate to ``webclient/app/`` in the project folder and run ``npm i``. 
+
+Once this is finished you can start the development server with ``npm start``.
+The development server will be accessible through ``http://localhost:3000``.

@@ -1,4 +1,4 @@
-package de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.rest;
+package de.${app.packagePrefix?lower_case}.${app.title?lower_case}.api.rest;
 
 
 import javax.inject.Inject;
@@ -8,9 +8,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.api.rest.response.EntityResponse;
-import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.ejb.${domain.name}Service;
-import de.${project.packagePrefix?lower_case}.${project.title?lower_case}.entity.${domain.name}Entity;
+import de.${app.packagePrefix?lower_case}.${app.title?lower_case}.api.rest.response.EntityResponse;
+import de.${app.packagePrefix?lower_case}.${app.title?lower_case}.ejb.${domain.name}Service;
+import de.${app.packagePrefix?lower_case}.${app.title?lower_case}.entity.${domain.name}Entity;
 
 @Path("/${domain.name?lower_case}")
 @Consumes("application/json")
