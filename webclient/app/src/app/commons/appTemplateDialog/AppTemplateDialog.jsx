@@ -7,7 +7,10 @@ import {
     DialogTitle,
     IconButton,
     TextField,
-    Typography
+    Typography,
+    Checkbox,
+    FormControlLabel,
+    FormGroup
 } from "@mui/material";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
@@ -19,6 +22,7 @@ function AppTemplateDialog(props) {
     const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
 
     const appTemplateDialogStyles = AppTemplateDialogStyles();
@@ -35,6 +39,13 @@ function AppTemplateDialog(props) {
         const { name, value } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = value;
+        setInternalAppTemplate(appTemplateNew);
+    }
+
+    const handleCredentialsCheckbox = (event) => {
+        const { name, checked } = event.target;
+        let appTemplateNew = { ...internalAppTemplate };
+        appTemplateNew[name] = checked;
         setInternalAppTemplate(appTemplateNew);
     }
 
@@ -105,6 +116,14 @@ function AppTemplateDialog(props) {
                 <TextField fullWidth label={t("appTemplateDialog.location")} value={internalAppTemplate.location} name="location" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleChange} />
                 <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleChange} />
+                <FormGroup className={appTemplateDialogStyles.checkbox}>
+                    <FormControlLabel 
+                        control={<Checkbox  checked={internalAppTemplate.credentialsRequired} 
+                        value={internalAppTemplate.credentialsRequired} 
+                        name="credentialsRequired" onChange={handleCredentialsCheckbox} />} 
+                        label={t("appTemplateDialog.credentialsRequired")} 
+                    />
+                </FormGroup>
                 <DialogActions>
                     <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
                     <Button onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
