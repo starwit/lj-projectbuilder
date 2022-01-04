@@ -104,6 +104,8 @@ const translationsDeDE = {
     "generalSection.enterInformation": "Bitte gib als ersten Schritt die allgemeinen Informationen zu deiner App ein.",
     "generalSection.clickNext": "Klicke dann auf Weiter auf der oberen rechten Seite.",
 
+    "templateSection.loading": "Templates werden geladen...",
+    "templateSection.loading.error": "Templates konnten nicht geladen werden",
 
     "default.welcome": "Herzlich Willkommen",
     "default.error.403.title": "Fehlende Berechtigungen",

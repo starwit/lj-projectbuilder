@@ -87,7 +87,7 @@ const translationsEnEN = {
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
-  
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
@@ -96,6 +96,9 @@ const translationsEnEN = {
     "generalSection.nameOfApp.error": "Upper and lower cased chars and numbers are allowed",
     "generalSection.packageNameOfApp": "Package name",
     "generalSection.packageNameOfApp.error": "Upper and lower cased chars and numbers are allowed",
+
+    "templateSection.loading": "Templates loading...",
+    "templateSection.loading.error": "Templates could not be loaded",
 
     "entityDesigner.code": "Code",
 
