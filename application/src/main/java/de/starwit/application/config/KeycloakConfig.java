@@ -38,7 +38,7 @@ public class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-            .antMatchers("/myLogout.html").permitAll()
+            .antMatchers("/logout.html").permitAll()
             .antMatchers("/api/usermanagement/logout").permitAll()
             //.antMatchers("/api/apptemplates").hasAnyAuthority("admin")
             .anyRequest()
