@@ -77,12 +77,12 @@ function FieldAccordion(props) {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={dataType.id}
+                                value={dataType.name}
                                 label={t("fieldDialog.dataType")}
                                 onChange={(event) => editFieldProperty("fieldType", event.target.value)}
                             >
                                 {dataTypes.map(dataType => (
-                                    <MenuItem value={dataType.id} key={dataType.id}>{dataType.name}</MenuItem>
+                                    <MenuItem value={dataType.name} key={dataType.id}>{dataType.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>

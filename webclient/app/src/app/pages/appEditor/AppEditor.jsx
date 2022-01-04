@@ -103,12 +103,19 @@ function AppEditor() {
         //TODO send to server
         let restRequest;
         setSaveData("loading");
+        let entitiesEdited = [...entities].map(entity => {
+            entity.id = null;
+            return entity;
+        });
+
+        console.log(entitiesEdited)
+
         if (isNewApp) {
             restRequest = appRest.create({
                 baseName: appName,
                 packageName: packageName,
                 template: selectedTemplate,
-                entities: entities,
+                entities: entitiesEdited,
             })
         }
 
