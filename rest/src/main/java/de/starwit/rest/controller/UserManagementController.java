@@ -26,7 +26,7 @@ public class UserManagementController {
     public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String contextPath = request.getContextPath();
         request.logout();  
-        response.sendRedirect(contextPath + "/logout.html");     
+        response.sendRedirect(contextPath + "/");     
     }
 
     @GetMapping("/userinfo")

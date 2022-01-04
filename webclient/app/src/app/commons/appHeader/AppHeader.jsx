@@ -6,7 +6,6 @@ import AppHeaderStyles from "./AppHeaderStyles";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
-
 function AppHeader() {
     const appHeaderStyles = AppHeaderStyles();
     const history = useHistory();
