@@ -10,6 +10,7 @@ import GeneralSection from "./sections/generalSection/GeneralSection";
 import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
+import LoadingButton from "../../commons/loadingButton/LoadingButton";
 
 
 function AppEditor() {
@@ -26,6 +27,7 @@ function AppEditor() {
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
+    const [saveData, setSaveData] = useState(null);
     let {appId} = useParams();
 
     useEffect(() => {
@@ -99,15 +101,20 @@ function AppEditor() {
 
     function handleSave() {
         //TODO send to server
+        let restRequest;
+        setSaveData("loading");
         if (isNewApp) {
-            appRest.create({
+            restRequest = appRest.create({
                 baseName: appName,
                 packageName: packageName,
                 template: selectedTemplate,
                 entities: entities,
             })
         }
-        history.push("/app/" + appId)
+
+        restRequest.then(response => {
+            history.push("/app/" + appId)
+        }).catch(response => setSaveData(response.data));
     }
 
     function renderNextButton() {
@@ -118,9 +125,14 @@ function AppEditor() {
         )
         if (isLastStep()) {
             content = (
-                <Button onClick={handleSave} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
+                <LoadingButton
+                    onClick={handleSave}
+                    disabled={!steps[activeStep].condition}
+                    loading={saveData === "loading"}
+                    startIcon={<Done/>}
+                >
                     {t("button.save")}
-                </Button>
+                </LoadingButton>
             )
         }
         return content;

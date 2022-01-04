@@ -46,10 +46,12 @@ function EntityDialog(props) {
 
         if (!RegexConfig.entityTitle.test(entity.name)) {
             hasError = true;
+            console.log("entityTitleHasError")
         }
 
         entity.fields?.forEach(field => {
-            if (!RegexConfig.fieldName.test(field.name)) {
+            if (!RegexConfig.fieldName.test(field.fieldName)) {
+                console.log(field.name, "has error");
                 hasError = true;
             }
 
@@ -150,7 +152,7 @@ function EntityDialog(props) {
 
     function handleEntityTitleText(event) {
         const newEntity = {...entity};
-        newEntity.fieldName = event.target.value;
+        newEntity.name = event.target.value;
         setEntity(newEntity);
     }
 
@@ -250,7 +252,7 @@ function EntityDialog(props) {
                 <ValidatedTextField
                     fullWidth
                     label={t("entityDialog.name")}
-                    value={entity.fieldName}
+                    value={entity.name}
                     onChange={handleEntityTitleText}
                     helperText={t("entityDialog.name.error")}
                     regex={RegexConfig.entityTitle}
