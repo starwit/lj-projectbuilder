@@ -2,7 +2,6 @@ package de.starwit.rest.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
@@ -59,7 +58,7 @@ public class ApplicationController {
 	@IsUser
 	@Operation(summary = "Create app")
 	@PostMapping
-	public ApplicationDto save(@RequestBody ApplicationDto dto) {
+	public ApplicationDto save(@Valid @RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
