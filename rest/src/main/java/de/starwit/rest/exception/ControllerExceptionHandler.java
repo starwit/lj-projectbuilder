@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         output.setMessageKey(ex.getExceptionKey());
         output.setMessage(ex.getExceptionMessage());
         return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
+    public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
+        LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
+        return new ResponseEntity<Object>(ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })

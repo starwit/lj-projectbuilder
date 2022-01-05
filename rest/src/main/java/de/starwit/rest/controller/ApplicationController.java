@@ -54,7 +54,7 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 
 	@Operation(summary = "Create app")
 	@PostMapping
-	public ApplicationDto save(@RequestBody ApplicationDto dto) {
+	public ApplicationDto save(@Valid @RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
