@@ -2,6 +2,7 @@ package de.starwit.rest.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.starwit.allowedroles.IsAdmin;
+import de.starwit.allowedroles.IsUser;
 import de.starwit.dto.ApplicationDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
@@ -28,7 +31,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("${rest.base-path}/apps")
-public class ApplicationController implements ControllerInterface<ApplicationDto> {
+public class ApplicationController {
 
     final static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
@@ -52,12 +55,16 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 		return dto;
 	}
 
+	@IsAdmin
+	@IsUser
 	@Operation(summary = "Create app")
 	@PostMapping
 	public ApplicationDto save(@RequestBody ApplicationDto dto) {
 		return update(dto);
 	}
 
+	@IsAdmin
+	@IsUser
 	@Operation(summary = "Update app")
 	@PutMapping
 	public ApplicationDto update(@Valid @RequestBody ApplicationDto dto) {
@@ -66,6 +73,8 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 		return appMapper.convertToDto(app);
 	}
 
+	@IsAdmin
+	@IsUser
 	@Operation(summary = "Updates only app properties. List of entities will not be saved, changed or removed.")
 	@PostMapping(value="/app-properties")
 	public ApplicationDto updateProperties(@Valid @RequestBody ApplicationDto dto) {
@@ -76,6 +85,8 @@ public class ApplicationController implements ControllerInterface<ApplicationDto
 		return appMapper.convertToDto(app);
 	}
 
+	@IsAdmin
+	@IsUser
 	@Operation(summary = "Delete app with id")
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {

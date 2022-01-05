@@ -115,6 +115,7 @@ const translationsEnEN = {
     "error.git.exit": "Error to get data from Git repository",
     "error.appcheckout.giturlisinvalid": "Invalid Git repository URL",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
-    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name."
+    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
+    "error.accessdenied": "You are not allowed to execute this action."
 };
 export default translationsEnEN;

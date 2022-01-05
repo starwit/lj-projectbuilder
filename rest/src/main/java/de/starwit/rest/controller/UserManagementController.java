@@ -34,6 +34,8 @@ public class UserManagementController {
     
             KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
             AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
+            String groups = accessToken.getOtherClaims().get("groups").toString();
+            log.info("user groups {}", groups);
             log.info("user info {},{}", accessToken.getGivenName(), accessToken.getFamilyName());
             return accessToken;
     }     

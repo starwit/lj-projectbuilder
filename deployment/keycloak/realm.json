@@ -4,14 +4,21 @@
   "roles": {
     "realm": [
       {
-        "name": "user",
+        "name": "ROLE_user",
         "composite": false,
         "clientRole": false,
         "containerId": "projectbuilder",
         "attributes": {}
       },
       {
-        "name": "admin",
+        "name": "ROLE_admin",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "projectbuilder",
+        "attributes": {}
+      },
+      {
+        "name": "ROLE_reader",
         "composite": false,
         "clientRole": false,
         "containerId": "projectbuilder",
@@ -22,8 +29,21 @@
       "projectbuilder": []
     }
   },
+  "groups": [
+    {
+      "name": "projectbuilder-default",
+      "path": "/projectbuilder-default",
+      "attributes": {},
+      "realmRoles": [
+        "ROLE_reader"
+      ],
+      "clientRoles": {},
+      "subGroups": []
+    }
+  ],
   "clients": [
     {
+      "id": "2f8e4455-dcbc-4535-8ec1-b1c3ced005ae",
       "clientId": "projectbuilder",
       "name": "projectbuilder",
       "rootUrl": "http://localhost:8081",
@@ -76,6 +96,21 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "false",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "groups",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ],      
       "defaultClientScopes": [
         "web-origins",
         "roles",
