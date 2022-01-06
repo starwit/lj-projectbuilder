@@ -25,7 +25,7 @@ const translationsDeDE = {
     "appTemplateDeleteDialog.title": "Template löschen",
     "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
     "appTemplateErrorDialog.title": "Fehler",
-    "appTemplateErrorDialog.deletemessage": "Das Template konnte nicht gelöscht werden.",
+    "appTemplateErrorDialog.deleteMessage": "Das Template konnte nicht gelöscht werden.",
     "appTemplateSuccessDialog.title": "Template Aktualisierung erfolgreich",
     "appTemplateSuccessDialog.message": "Die Templates wurden erfolgreich aus dem Git-Repository geladen.",
 
