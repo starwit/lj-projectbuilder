@@ -23,7 +23,7 @@ const translationsEnEN = {
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
     "appTemplateErrorDialog.title": "Error",
-    "appTemplateErrorDialog.deletemessage": "Template could not be deleted.",
+    "appTemplateErrorDialog.deleteMessage": "Template could not be deleted.",
     "appTemplateSuccessDialog.title": "Success Template Upload",
     "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
