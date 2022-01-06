@@ -1,28 +1,5 @@
 version: "3.9"
 services:
-  nginx:
-    image: nginx:latest
-    restart: always
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-      - ./conf.d:/etc/nginx/conf.d
-      - ./content:/var/www/html
-    ports:
-      - 443:443
-    networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - backend
-
-  certbot:
-    image: certbot/certbot:latest
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./certbot/logs:/var/log/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-
   db:
     image: mariadb:latest
     restart: on-failure
@@ -44,7 +21,7 @@ services:
       - '3306'
     # Where our data will be persisted
     volumes:
-      - db-data:/var/lib/mysql
+      - /mnt/projectbuilder-mariadb/mysql:/var/lib/mysql
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
       

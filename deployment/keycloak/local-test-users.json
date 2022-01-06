@@ -2,7 +2,7 @@
   "realm" : "projectbuilder",
   "users" : [ {
     "username" : "admin",
-    "enabled" : false,
+    "enabled" : true,
     "credentials" : [ {
         "type" : "password",
         "secretData" : "{\"value\":\"o2sxyw56EK8jKnh0CQSV2FiN9plXTSzwOWNlt7SiIUd/Ox+huiDWYGlCL4gqSM0R/3Q+PONjG0Dl7dQrvtfU2A==\",\"salt\":\"m63ldw2Y1VagMqRIEhQZOg==\",\"additionalParameters\":{}}",
