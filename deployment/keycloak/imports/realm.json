@@ -1,6 +1,7 @@
 {
   "id": "projectbuilder",
   "realm": "projectbuilder",
+  "enabled": true,
   "roles": {
     "realm": [
       {
@@ -40,6 +41,9 @@
       "clientRoles": {},
       "subGroups": []
     }
+  ],
+  "defaultGroups": [
+    "/projectbuilder-default"
   ],
   "clients": [
     {
