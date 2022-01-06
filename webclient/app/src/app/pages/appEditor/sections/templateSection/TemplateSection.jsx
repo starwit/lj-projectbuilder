@@ -18,22 +18,6 @@ function TemplateSection(props) {
     const appTemplateRest = useMemo(() => new AppTemplateRest(), []);
     const {t} = useTranslation();
 
-    /* const templates = [
-         {
-             id: 1,
-             name: "Standard Runtime",
-             description: "Das ist eine lange Beschreibung der Standard-Runtime",
-             image: Image
-         },
-         {
-             id: 2,
-             name: "Andere Runtime",
-             description: "Das ist eine lange Beschreibung der Standard-Runtime",
-             image: Image
-         },
-     ]*/
-
-
     const loadAppTemplates = useCallback(() => {
         setTemplates(null);
         setAppTemplatesError(null);
