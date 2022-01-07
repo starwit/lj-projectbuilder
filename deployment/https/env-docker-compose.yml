@@ -64,6 +64,6 @@ services:
       - backend
 
  # Networks to be created to facilitate communication between containers
-  networks:
-    backend:
+networks:
+  backend:
 

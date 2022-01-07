@@ -25,5 +25,5 @@ services:
       - ./data/certbot/www:/var/www/certbot
 
   # Networks to be created to facilitate communication between containers
-  networks:
-    backend:
+networks:
+  backend:
