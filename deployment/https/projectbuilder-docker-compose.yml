@@ -8,11 +8,12 @@ services:
       # So you don't have to use root, but you can if you like
       MYSQL_USER: 'ljprojectbuilder'
       # You can use whatever password you like
-      MYSQL_PASSWORD: 'ljprojectbuilder'
+      MYSQL_PASSWORD: ${DB_PW_PROJECTBUILDER}
       # Password for root access
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_ROOT_PASSWORD: ${DB_PW_pb_ROOT}
     healthcheck:
-      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3306", "-u", "root", "-e", "select 1", "ljprojectbuilder"]
+      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3306", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD", "-e", "select 1", "ljprojectbuilder"]
       interval: 5s
       timeout: 60s
       retries: 30
@@ -34,7 +35,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ljprojectbuilder?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
       SPRING_DATASOURCE_USERNAME: ljprojectbuilder
-      SPRING_DATASOURCE_PASSWORD: ljprojectbuilder
+      SPRING_DATASOURCE_PASSWORD: ${DB_PW_PROJECTBUILDER}
       KEYCLOAK_AUTH-SERVER-URL: https://pb.starwit.de/auth
       SERVER_USE_FORWARD_HEADERS: "true"
       SERVER_FORWARD_HEADERS_STRATEGY: FRAMEWORK
