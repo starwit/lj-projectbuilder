@@ -1,4 +1,4 @@
-FROM openjdk:19-slim
+FROM openjdk:17-slim
 RUN apt-get -y update
 RUN apt-get -y install git
 
@@ -16,4 +16,4 @@ RUN ls -al
 COPY application/target/application-*.jar /home/ljprojectbuilder/application.jar
 #COPY /home/ljprojectbuilder/application/target/application-*.jar /home/ljprojectbuilder/application.jar
 # specify default command
-CMD ["/usr/local/openjdk-19/java", "-jar", "/home/ljprojectbuilder/application.jar", "-Dlog4j2.formatMsgNoLookups=true"]
+CMD ["/usr/local/openjdk-17/java", "-jar", "/home/ljprojectbuilder/application.jar", "-Dlog4j2.formatMsgNoLookups=true"]
