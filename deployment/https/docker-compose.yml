@@ -23,3 +23,7 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+
+  # Networks to be created to facilitate communication between containers
+  networks:
+    backend:
