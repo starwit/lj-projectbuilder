@@ -13,7 +13,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
       MYSQL_ROOT_PASSWORD: ${DB_PW_pb_ROOT}
     healthcheck:
-      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3306", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD", "-e", "select 1", "ljprojectbuilder"]
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       interval: 5s
       timeout: 60s
       retries: 30
@@ -27,7 +27,7 @@ services:
       - backend
       
   projectbuilder:
-    image: starwitorg/ljprojectbuilder:v0.2.9
+    image: starwitorg/ljprojectbuilder:v0.2.13-5
     depends_on:
       db:
         condition: service_healthy

@@ -35,7 +35,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PW_KC_ROOT}
       MYSQL_TCP_PORT: 3307
     healthcheck:
-      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3307", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD", "-e", "select 1", "keycloak"]
+      test: mysqladmin ping -h 127.0.0.1 -P 3307 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       interval: 5s
       timeout: 60s
       retries: 30
