@@ -16,4 +16,4 @@ RUN ls -al
 COPY application/target/application-*.jar /home/ljprojectbuilder/application.jar
 #COPY /home/ljprojectbuilder/application/target/application-*.jar /home/ljprojectbuilder/application.jar
 # specify default command
-RUN java -jar /home/ljprojectbuilder/application.jar -Dlog4j2.formatMsgNoLookups=true
+CMD ["/usr/local/openjdk-19/java", "-jar", "/home/ljprojectbuilder/application.jar", "-Dlog4j2.formatMsgNoLookups=true"]
