@@ -13,7 +13,7 @@ ENV TEMP=/home/${USER}/tmp
 RUN cd /home/${USER}
 RUN ls -al
 # copy application JAR (with libraries inside)
-RUN cp ./application/target/application-*.jar /home/ljprojectbuilder/application.jar
+RUN cp application/target/application-*.jar /home/ljprojectbuilder/application.jar
 #COPY /home/ljprojectbuilder/application/target/application-*.jar /home/ljprojectbuilder/application.jar
 # specify default command
 CMD ["/usr/java/openjdk-14/bin/java", "-jar", "/home/ljprojectbuilder/application.jar", "-Dlog4j2.formatMsgNoLookups=true"]
