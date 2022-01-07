@@ -50,14 +50,14 @@
       "id": "2f8e4455-dcbc-4535-8ec1-b1c3ced005ae",
       "clientId": "projectbuilder",
       "name": "projectbuilder",
-      "rootUrl": "http://localhost:8081",
-      "baseUrl": "http://localhost:8081",
+      "rootUrl": "",
+      "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8081/*"
+        "*"
       ],
       "webOrigins": [
         "+"

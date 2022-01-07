@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# This script creates the first certificats by using docker-compose (nginx and cerbot is established).
 if ! [ -x "$(command -v docker-compose)" ]; then
   echo 'Error: docker-compose is not installed.' >&2
   exit 1
