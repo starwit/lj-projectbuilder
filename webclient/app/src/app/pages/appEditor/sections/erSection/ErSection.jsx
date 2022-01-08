@@ -126,7 +126,8 @@ function ErDesigner(props) {
     function renderRelations() {
 
         return coordinates.map(coordinate => {
-            return <Line x0={coordinate.x0} y0={coordinate.y0} x1={coordinate.x1} y1={coordinate.y1}/>
+            const {x0, y0, x1, y1} = coordinate;
+            return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + ""}/>
         })
 
     }
@@ -138,7 +139,12 @@ function ErDesigner(props) {
         }
         return entities.map(entity => {
             return (
-                <Draggable axis={"both"} onStop={updateCoordinates} defaultClassName={erDesignerStyles.draggable}>
+                <Draggable
+                    axis={"both"}
+                    onStop={updateCoordinates}
+                    key={entity.id}
+                    defaultClassName={erDesignerStyles.draggable}
+                >
                     <div>
                         <EntityCard
                             entity={entity}

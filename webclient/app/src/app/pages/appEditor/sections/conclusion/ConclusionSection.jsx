@@ -14,7 +14,12 @@ function ConclusionSection(props) {
         if (!text) {
             return <Skeleton animation={"wave"}/>
         }
-        return text;
+        return <Typography
+            variant={"h6"}
+            className={conclusionSectionStyles.listItemText}
+        >
+            {text}
+        </Typography>;
     }
 
     return (
@@ -44,12 +49,12 @@ function ConclusionSection(props) {
                         variant={"contained"}
                         size={"large"}
                     >
-                        Download 
+                        Download
                     </Button>
                 </Grid>
 
             </Grid>
-            <Typography variant={"h5"} gutterBottom>ER-Diagramm</Typography>
+            <Typography variant={"h4"} gutterBottom>ER-Diagramm</Typography>
             <ErSection entities={entities} dense editable={false}/>
         </Container>
     )
@@ -59,11 +64,13 @@ ConclusionSection.propTypes = {
     entities: PropTypes.array,
     appName: PropTypes.string,
     packageName: PropTypes.string,
+    templateName: PropTypes.string
 }
 
 ConclusionSection.defaultProps = {
     appName: <Skeleton animation={"wave"}/>,
     templateName: <Skeleton animation={"wave"}/>,
+    packageName: <Skeleton animation={"wave"}/>,
 }
 
 export default ConclusionSection

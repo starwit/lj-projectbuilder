@@ -87,6 +87,9 @@ const translationsEnEN = {
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
 
+    "appOverview.app.isLoading": "App is loading",
+    "appOverview.app.doesNotExist": "The provided App does not exist",
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",

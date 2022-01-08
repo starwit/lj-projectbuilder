@@ -95,6 +95,9 @@ const translationsDeDE = {
     "appTemplateAuthDialog.user": "Nutzername",
     "appTemplateAuthDialog.password": "Passwort",
 
+    "appOverview.app.isLoading": "App wird geladen...",
+    "appOverview.app.doesNotExist": "Die angegebene App exisitert nicht",
+
     "generalSection.nameOfApp": "Name der App",
     "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "generalSection.packageNameOfApp": "Package Name",

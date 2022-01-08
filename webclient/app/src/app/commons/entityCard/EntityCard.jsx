@@ -30,7 +30,7 @@ function EntityCard(props) {
                         <div className={"anchor_" + entity.name + "_" + field.name + "_l"}/>
                     </TableCell>
                     <TableCell>{field.name}</TableCell>
-                    <TableCell>{field.dataType.name}</TableCell>
+                    <TableCell>{field.fieldType.name}</TableCell>
                     <TableCell className={entityCardStyles.relationshipPlaceholder}>
                         <div className={"anchor_" + entity.name + "_" + field.name + "_r"}/>
                     </TableCell>
@@ -55,7 +55,6 @@ function EntityCard(props) {
                         <TableCell>{t("entityCard.name")}</TableCell>
                         <TableCell>{t("entityCard.dataType")}</TableCell>
                         <TableCell/>
-
                     </TableRow>
                 </TableHead>
                 <TableBody>
