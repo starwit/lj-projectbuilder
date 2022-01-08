@@ -46,10 +46,12 @@ function EntityDialog(props) {
 
         if (!RegexConfig.entityTitle.test(entity.name)) {
             hasError = true;
+            console.log("entityTitleHasError")
         }
 
         entity.fields?.forEach(field => {
-            if (!RegexConfig.fieldName.test(field.name)) {
+            if (!RegexConfig.fieldName.test(field.fieldName)) {
+                console.log(field.name, "has error");
                 hasError = true;
             }
 
@@ -61,41 +63,41 @@ function EntityDialog(props) {
     const dataTypes = [
         {
             id: 1,
-            name: "string"
+            name: "String"
         },
         {
             id: 2,
-            name: "integer",
+            name: "Integer",
             allowMin: true,
             allowMax: true
         },
         {
             id: 3,
-            name: "double",
+            name: "Double",
             allowMin: true,
             allowMax: true
         },
         {
             id: 4,
-            name: "date"
+            name: "Date"
         },
         {
             id: 5,
-            name: "time"
+            name: "Time"
         },
         {
             id: 6,
-            name: "timestamp"
+            name: "Timestamp"
         },
         {
             id: 7,
-            name: "bigDecimal",
+            name: "BigDecimal",
             allowMin: true,
             allowMax: true
         },
         {
             id: 8,
-            name: "enum"
+            name: "Enum"
         }
     ];
 
@@ -118,12 +120,12 @@ function EntityDialog(props) {
         // TODO Maybe add an ID to entity
         newEntity.fields.push(
             {
-                name: "",
+                fieldName: "",
                 description: "",
-                dataType: "",
-                pattern: "",
-                min: "",
-                max: "",
+                fieldType: "",
+                fieldValidateRulesPattern: "",
+                fieldValidateRulesMin: "",
+                fieldValidateRulesMax: "",
                 mandatory: false
             }
         );
@@ -144,7 +146,7 @@ function EntityDialog(props) {
         setEntity(newEntity);
     }
 
-    const handleChange = (event, newValue) => {
+    const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
 
@@ -204,18 +206,26 @@ function EntityDialog(props) {
         }
 
         return entity.fields.map((field, index) => {
-            const {dataType, mandatory, min, max, pattern, description, name} = entity.fields[index];
+            const {
+                mandatory,
+                fieldValidateRulesMin,
+                fieldValidateRulesMax,
+                fieldValidateRulesPattern,
+                description,
+                fieldName,
+                fieldType
+            } = entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
                     dataTypes={dataTypes}
-                    dataType={dataType}
+                    dataType={fieldType}
                     description={description}
-                    pattern={pattern}
-                    min={min}
-                    max={max}
+                    pattern={fieldValidateRulesPattern}
+                    min={fieldValidateRulesMin}
+                    max={fieldValidateRulesMax}
                     mandatory={mandatory}
-                    name={name}
+                    name={fieldName}
                 />
             )
         })
@@ -248,7 +258,7 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
                         <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />
                         <Tab label={t("entityDialog.tab.relations")} {...a11yProps(1)} />
                     </Tabs>
@@ -262,7 +272,6 @@ function EntityDialog(props) {
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    {console.log(hasFormError)}
                     <Button onClick={() => handleSave(entity)} disabled={hasFormError}>{t("button.save")}</Button>
                 </DialogActions>
             </Container>

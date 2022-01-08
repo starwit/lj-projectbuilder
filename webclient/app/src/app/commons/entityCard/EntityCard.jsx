@@ -27,12 +27,12 @@ function EntityCard(props) {
 
                 <TableRow key={index}>
                     <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.name + "_l"}/>
+                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_l"}/>
                     </TableCell>
-                    <TableCell>{field.name}</TableCell>
-                    <TableCell>{field.fieldType.name}</TableCell>
+                    <TableCell>{field.fieldName}</TableCell>
+                    <TableCell>{field.fieldType}</TableCell>
                     <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.name + "_r"}/>
+                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_r"}/>
                     </TableCell>
                 </TableRow>
             )

@@ -19,6 +19,7 @@ const translationsEnEN = {
     "###GENERATION###": "Generierung",
 
     "home.title": "Home",
+    "home.noApps": "No apps created. Please add one on the lower right.",
 
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
