@@ -100,7 +100,7 @@ function RelationshipAccordion(props) {
                                 disabled={!currentEntity.fields}
                             >
                                 {currentEntity?.fields?.map(field => (
-                                    <MenuItem value={field.name}>{field.name}</MenuItem>
+                                    <MenuItem value={field.fieldName}>{field.fieldName}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -133,7 +133,7 @@ function RelationshipAccordion(props) {
                                 onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
                             >
                                 {prepareEntitiesFieldSelection().map(field => (
-                                    <MenuItem value={field.name}>{field.name}</MenuItem>
+                                    <MenuItem value={field.fieldName}>{field.fieldName}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>

@@ -31,13 +31,10 @@ function AppEditor() {
     let {appId} = useParams();
 
     useEffect(() => {
-
         if (appId === "create") {
             setIsNewApp(true);
             return;
         }
-
-
         // TODO Load app data here
     }, [appId])
 
@@ -92,7 +89,7 @@ function AppEditor() {
     }
 
     function handleNext() {
-        setActiveStep((activeStep + 1))
+        setActiveStep((activeStep + 1));
     }
 
     function isLastStep() {

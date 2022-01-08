@@ -63,41 +63,41 @@ function EntityDialog(props) {
     const dataTypes = [
         {
             id: 1,
-            name: "string"
+            name: "String"
         },
         {
             id: 2,
-            name: "integer",
+            name: "Integer",
             allowMin: true,
             allowMax: true
         },
         {
             id: 3,
-            name: "double",
+            name: "Double",
             allowMin: true,
             allowMax: true
         },
         {
             id: 4,
-            name: "date"
+            name: "Date"
         },
         {
             id: 5,
-            name: "time"
+            name: "Time"
         },
         {
             id: 6,
-            name: "timestamp"
+            name: "Timestamp"
         },
         {
             id: 7,
-            name: "bigDecimal",
+            name: "BigDecimal",
             allowMin: true,
             allowMax: true
         },
         {
             id: 8,
-            name: "enum"
+            name: "Enum"
         }
     ];
 
