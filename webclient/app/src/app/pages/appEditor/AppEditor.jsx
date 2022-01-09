@@ -147,6 +147,7 @@ function AppEditor() {
                     history.push(`/app/${id}/edit`);
                     return response;
                 })
+                .catch(response => setSaveError(response.data))
         } else {
             restRequest = appRest.update(appPackage)
                 .then(response => {
@@ -157,6 +158,7 @@ function AppEditor() {
                     setEntities(entities);
                     return response;
                 })
+                .catch(response => setSaveError(response.data))
         }
 
         return restRequest;
@@ -169,7 +171,8 @@ function AppEditor() {
             .then(response => {
                 console.log("reachedTHen", response)
                 history.replace("/app/" + response.data.id)
-            }).catch(response => setSaveError(response.data));
+            })
+            .catch(response => setSaveError(response.data));
     }
 
     function renderNextButton() {
