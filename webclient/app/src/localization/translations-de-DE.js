@@ -80,6 +80,7 @@ const translationsDeDE = {
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Abschluss",
     "appEditor.section.general.title": "General",
+    "appEditor.loading": "App wird geladen",
 
     "entityDesigner.code": "Code",
 
