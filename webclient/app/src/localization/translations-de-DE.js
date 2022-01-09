@@ -22,6 +22,9 @@ const translationsDeDE = {
 
     "home.title": "Home",
 
+    "appCard.sureToDelete.title": "App löschen",
+    "appCard.sureToDelete.message": "Diese Operation kann nicht rückgängig gemacht werden.",
+
     "appTemplateDeleteDialog.title": "Template löschen",
     "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
     "appTemplateErrorDialog.title": "Fehler",
