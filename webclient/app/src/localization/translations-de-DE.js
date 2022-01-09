@@ -98,6 +98,7 @@ const translationsDeDE = {
 
     "appOverview.app.isLoading": "App wird geladen...",
     "appOverview.app.doesNotExist": "Die angegebene App exisitert nicht",
+    "appOverview.app.error": "Es ist ein Fehler beim Laden aufgetreten.",
 
     "generalSection.nameOfApp": "Name der App",
     "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",

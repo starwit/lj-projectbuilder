@@ -4,6 +4,8 @@ import ApplicationRest from "../../services/ApplicationRest";
 import {useParams} from "react-router-dom";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useTranslation} from "react-i18next";
+import Statement from "../../commons/statement/Statement";
+import {Clear} from "@mui/icons-material";
 
 function AppOverview(props) {
 
@@ -15,7 +17,7 @@ function AppOverview(props) {
     let {appId} = useParams();
 
 
-    const loadApps = useCallback((appId) => {
+    const loadApp = useCallback((appId) => {
         setApp(null);
         setAppError(null);
         applicationRest.findById(appId).then(appResponse => {
@@ -26,14 +28,23 @@ function AppOverview(props) {
     }, [applicationRest, setApp, setAppError])
 
     useEffect(() => {
-        loadApps(appId);
-    }, [loadApps, appId])
+        loadApp(appId);
+    }, [loadApp, appId])
 
 
-    if (!app) {
+    if (!app && !appError) {
         return <LoadingSpinner
             message={t("appOverview.app.isLoading")}
         />
+    }
+
+    if (appError) {
+        return <Statement
+            message={t("appOverview.app.error")}
+            icon={<Clear/>}
+            actionMessage={t("button.retry")}
+            onActionClick={() => loadApp(appId)}
+        />;
     }
 
     return (<>

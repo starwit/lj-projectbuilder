@@ -90,6 +90,7 @@ const translationsEnEN = {
 
     "appOverview.app.isLoading": "App is loading",
     "appOverview.app.doesNotExist": "The provided App does not exist",
+    "appOverview.app.error": "An error occurred while loading the app.",
 
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
