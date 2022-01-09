@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.starwit.allowedroles.IsAdmin;
+import de.starwit.allowedroles.IsUser;
 import de.starwit.dto.EntityDto;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.App;
@@ -47,18 +49,24 @@ public class EntityController {
         return mapper.convertToDto(domain);
     }
 
+    @IsAdmin
+    @IsUser
     @Operation(summary = "Delete entity with id")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) {
         domainService.delete(id);
     }
 
+    @IsAdmin
+    @IsUser
     @Operation(summary = "Create entity in app with appid")
     @PostMapping(value = "/by-app/{appId}")
     public EntityDto save(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
         return update(appId, dto);
     }
 
+    @IsAdmin
+    @IsUser
     @Operation(summary = "Update entity in app with appid")
     @PutMapping(value = "/by-app/{appId}")
     public EntityDto update(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
@@ -80,12 +88,16 @@ public class EntityController {
         return mapper.convertToDtoList(domainService.findAllDomainsByApp(id));
     }
 
+    @IsAdmin
+    @IsUser
     @Operation(summary = "Create (or update) entities in app with appid")
     @PostMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
     }
 
+    @IsAdmin
+    @IsUser
     @Operation(summary = "Create (or update) entities in app with appid")
     @PutMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {

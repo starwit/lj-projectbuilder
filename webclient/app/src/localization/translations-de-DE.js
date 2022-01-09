@@ -119,6 +119,7 @@ const translationsDeDE = {
     "error.git.exit": "Fehler beim Abrufen der Daten vom Git-Repository.",
     "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
-    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen."
+    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
+    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt."
 };
 export default translationsDeDE;
