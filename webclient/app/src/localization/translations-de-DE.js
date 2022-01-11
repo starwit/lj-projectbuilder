@@ -100,6 +100,10 @@ const translationsDeDE = {
     "appTemplateAuthDialog.user.error": "Nutzer darf nicht leer sein und kann Buchstaben, Ziffern und ./_- enthalten",
     "appTemplateAuthDialog.password.error": "Passwort / PAT darf nicht leer sein und kann Buchstaben, Ziffern und Sonderzeichen enthalten",
 
+    "appOverview.app.isLoading": "App wird geladen...",
+    "appOverview.app.doesNotExist": "Die angegebene App exisitert nicht",
+    "appOverview.app.error": "Es ist ein Fehler beim Laden aufgetreten.",
+
     "generalSection.nameOfApp": "Name der App",
     "generalSection.nameOfApp.error": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "generalSection.packageNameOfApp": "Package Name",

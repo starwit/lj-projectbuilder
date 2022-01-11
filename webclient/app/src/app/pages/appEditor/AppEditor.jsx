@@ -117,7 +117,7 @@ function AppEditor() {
         }
 
         restRequest.then(response => {
-            history.push("/app/" + appId)
+            history.push("/app/" + response.data.id)
         }).catch(response => setSaveData(response.data));
     }
 

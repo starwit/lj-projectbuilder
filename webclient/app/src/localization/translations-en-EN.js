@@ -89,6 +89,11 @@ const translationsEnEN = {
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
+
+    "appOverview.app.isLoading": "App is loading",
+    "appOverview.app.doesNotExist": "The provided App does not exist",
+    "appOverview.app.error": "An error occurred while loading the app.",
+
     "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
     "appTemplateAuthDialog.password.error": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
   
