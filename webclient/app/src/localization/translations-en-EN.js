@@ -10,6 +10,8 @@ const translationsEnEN = {
     "button.save": "Save",
     "button.retry": "Retry",
     "button.cancel": "Cancel",
+    "button.yes": "Yes",
+    "button.no": "No",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
     "form.create": "create {{entity}}",
