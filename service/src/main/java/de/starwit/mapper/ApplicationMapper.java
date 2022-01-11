@@ -1,11 +1,14 @@
 package de.starwit.mapper;
 
 import java.io.Serializable;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 
@@ -51,11 +54,22 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       } else {
         appTemplate.setId(dto.getTemplate().getId());
       }
+      if (dto.getId() == null) {
+        deleteIdsFromEntityDtos(dto.getEntities());
+      }
       app.setDomains(entityMapper.convertToEntityList(dto.getEntities()));
       entityMapper.addParent(app.getDomains(), app);
     }
 
     return app;
+  }
+
+  private void deleteIdsFromEntityDtos(Collection<EntityDto> dtos) {
+    if (dtos != null) {
+        for (EntityDto dto  : dtos) {
+            dto.setId(null);
+        }
+    }
   }
 
 }

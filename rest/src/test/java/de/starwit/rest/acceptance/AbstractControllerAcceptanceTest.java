@@ -4,7 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 
@@ -81,8 +83,45 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
         }
     }
 
+    protected String readJsonStringFromFile(String path) throws Exception {
+        try {
+            URL res = getClass().getClassLoader().getResource(path);
+            File file = new File(res.getFile());
+
+            StringBuilder contentBuilder = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) 
+            {
+     
+                String sCurrentLine;
+                while ((sCurrentLine = br.readLine()) != null) 
+                {
+                    contentBuilder.append(sCurrentLine);
+                }
+            }
+            return contentBuilder.toString();
+        } catch (IOException e) {
+            LOG.error("JSON mapper failed", e);
+            throw new Exception("JSON mapper failed");
+        }
+    }
+
     protected MockHttpServletResponse create(DTO dto) throws Exception {
         String applicationString = getJsonTester().write(dto).getJson();
+        MockHttpServletRequestBuilder builder =
+        MockMvcRequestBuilders.post(getRestPath())
+                              .contentType(MediaType.APPLICATION_JSON_VALUE)
+                              .accept(MediaType.APPLICATION_JSON)
+                              .characterEncoding("UTF-8")
+                              .content(applicationString);
+
+        MockHttpServletResponse response = mvc.perform(builder)
+            .andReturn().getResponse();
+
+        LOG.info(response.getContentAsString());
+        return response;
+    }
+
+    protected MockHttpServletResponse createFromString(String applicationString) throws Exception {
         MockHttpServletRequestBuilder builder =
         MockMvcRequestBuilders.post(getRestPath())
                               .contentType(MediaType.APPLICATION_JSON_VALUE)
