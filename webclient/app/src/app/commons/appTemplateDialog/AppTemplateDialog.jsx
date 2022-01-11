@@ -97,12 +97,6 @@ function AppTemplateDialog(props) {
         setInternalAppTemplate(appTemplate);
     }, [appTemplate]);
 
-    useEffect(() => {
-        if (!internalAppTemplate) {
-            return;
-        }
-    }, [internalAppTemplate])
-
     if (!appTemplate) {
         return null;
     }

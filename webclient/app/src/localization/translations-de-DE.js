@@ -96,7 +96,7 @@ const translationsDeDE = {
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "Nutzername",
     "appTemplateAuthDialog.password": "Passwort",
-    "appTemplateAuthDialog.user.error": "Nutzer darf nicht leer sein und kann Buchstaben und Ziffern enthalten",
+    "appTemplateAuthDialog.user.error": "Nutzer darf nicht leer sein und kann Buchstaben, Ziffern und ./_- enthalten",
     "appTemplateAuthDialog.password.error": "Passwort / PAT darf nicht leer sein und kann Buchstaben, Ziffern und Sonderzeichen enthalten",
 
     "generalSection.nameOfApp": "Name der App",
@@ -117,9 +117,12 @@ const translationsDeDE = {
     "error.git.directorynotexists": "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
     "error.git.access.denied": "Sie benötigen Rechte zum Ausführen von git clone. In Github verwenden Sie das Recht 'repo'.",
     "error.git.access.tokenusagerequired": "Der Support für Nutzer/Passwort Authetifizierung ist ausgelaufen. Sie müssen einen Personal Access Token verwenden.",
-    "error.git.access.invaliduserpassword": "Nuter oder Passwort sind ungültig.",
+    "error.git.access.invaliduserpassword": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
     "error.git.exit": "Fehler beim Abrufen der Daten vom Git-Repository.",
-    "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL",
+    "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL. Es sind nur Buchstaben, Zahlen und ./_- erlaubt.",
+    "error.appcheckout.usernameisinvalid":"Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
+    "error.appcheckout.passworisinvalid": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
+    "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen."
 };

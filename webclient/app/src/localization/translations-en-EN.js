@@ -88,7 +88,7 @@ const translationsEnEN = {
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
-    "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters and numbers",
+    "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
     "appTemplateAuthDialog.password.error": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
   
     "generalSection.hello": "Hello!",
@@ -115,9 +115,12 @@ const translationsEnEN = {
     "error.git.directorynotexists": "An internal error occured. Please contact IT-support.",
     "error.git.access.denied": "Not enough rights. For Github you need at least the right 'repo'",
     "error.git.access.tokenusagerequired": "Support for password authentication was removed. A personal access token is required.",
-    "error.git.access.invaliduserpassword": "Invalid username or password.",
+    "error.git.access.invaliduserpassword": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.git.exit": "Error to get data from Git repository",
-    "error.appcheckout.giturlisinvalid": "Invalid Git repository URL",
+    "error.appcheckout.giturlisinvalid": "Invalid Git repository URL. Only letters, numbers and ./_- are allowed.",
+    "error.appcheckout.usernameisinvalid":"Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name."
 };

@@ -2,6 +2,8 @@ package de.starwit.generator.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -111,19 +113,34 @@ public class AppCheckout {
 			branch = appTemplate.getBranch();
 		}
 
+		if (!srcDir.matches(Constants.GIT_URL_REGEX)) {
+			LOG.info("Error copying files for app template. The given git url is not valid.");
+			throw new NotificationException("error.appcheckout.giturlisinvalid", "The given git url is not valid.");
+		} else if (!appTemplate.getBranch().matches(Constants.GIT_BRANCH_REGEX)) {
+			LOG.info("Invalid branch name for git clone");
+			throw new NotificationException("error.appcheckout.branchisinvalid", "Invalid branch name for git clone.");
+		}
+
 		if (appTemplate.isCredentialsRequired()) {
+			if (!dto.getUsername().matches(Constants.GIT_USER_REGEX)) {
+				LOG.info("Invalid username for git clone");
+				throw new NotificationException("error.appcheckout.usernameisinvalid", "Invalid username for git clone.");
+			} else if (!dto.getPassword().matches(Constants.GIT_PASSWORD_REGEX)) {
+				LOG.info("Invalid password for git clone");
+				throw new NotificationException("error.appcheckout.passworisinvalid", "Invalid password for git clone.");
+			}
 			dto.setPass(HtmlUtils.htmlEscape(dto.getPassword()));
 			srcDir = srcDir.replaceAll("://", "://" + dto.getUsername() + ":" + dto.getPass() + "@");
 		}
 
-		if (!srcDir.matches(Constants.GIT_URL_REGEX)) {
-			LOG.info("Error copying files for app template. The given git url is not valid.");
-			throw new NotificationException("error.appcheckout.giturlisinvalid", "The given git url is not valid.");
-		}
-
 		try {
-			Git.gitClone(destDir.toPath(), srcDir, branch);
+			URL srcUrl = new URL(srcDir);
+			Git.gitClone(destDir.toPath(), srcUrl, branch);
 			return saveTemplateFile(appTemplate, destDir.getAbsolutePath());
+		} catch (MalformedURLException ex) {
+			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
+			throw new NotificationException("error.appcheckout.giturlisinvalid", "The given git url is not valid.");
+
 		} catch (NotificationException e) {
 			this.deleteTempURLApp(Constants.TMP_DIR + Constants.FILE_SEP + destDirString);
 			throw e;
