@@ -1,6 +1,6 @@
 This is configured for running on server for domain pb.starwit.de.
 
-* 1. if you change domain configure / check domain in all files
+* 1. if you change domain configure / check domain in all files of this folder
 * 2. create server on hetzner
 * 3. create volume on named lj-mariadb
 * 4. login to server via ssh
