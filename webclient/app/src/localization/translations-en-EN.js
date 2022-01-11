@@ -74,6 +74,7 @@ const translationsEnEN = {
     "appEditor.section.erDesigner.title": "ER-Designer",
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
+    "appEditor.loading": "App wird geladen",
 
     "appTemplateOverview.title": "Templates",
     "appTemplateDialog.new.title": "Create Template",

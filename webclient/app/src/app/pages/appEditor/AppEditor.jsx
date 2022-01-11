@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import React, {useEffect, useMemo, useState} from "react";
+import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
 import TemplateSelection from "./sections/templateSection/TemplateSection";
 import ErDesigner from "./sections/erSection/ErSection";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
@@ -11,6 +11,7 @@ import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
 import LoadingButton from "../../commons/loadingButton/LoadingButton";
+import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 
 
 function AppEditor() {
@@ -20,23 +21,36 @@ function AppEditor() {
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
     const history = useHistory();
-    const appRest = new ApplicationRest();
+    const appRest = useMemo(() => new ApplicationRest(), []);
 
+    const [isAppLoading, setIsAppLoading] = useState(false);
     const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
-    const [saveData, setSaveData] = useState(null);
+    const [saveError, setSaveError] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
     let {appId} = useParams();
 
     useEffect(() => {
+        setIsAppLoading(true);
         if (appId === "create") {
             setIsNewApp(true);
-            return;
+            setIsAppLoading(false);
+
+        } else {
+            appRest.findById(appId).then(response => {
+                const {baseName, packageName, template, entities} = response.data;
+                setAppName(baseName);
+                setPackageName(packageName);
+                setSelectedTemplate(template);
+                setEntities(entities);
+                setIsAppLoading(false);
+                setIsNewApp(false);
+            })
         }
-        // TODO Load app data here
-    }, [appId])
+    }, [appId, appRest])
 
     useEffect(() => {
 
@@ -85,11 +99,20 @@ function AppEditor() {
     ];
 
     function handleBack() {
-        setActiveStep((activeStep - 1))
+        setIsSaving(true);
+        handleSave().then(() => {
+            setActiveStep((activeStep - 1));
+            setIsSaving(false);
+        });
     }
 
     function handleNext() {
-        setActiveStep((activeStep + 1));
+        setIsSaving(true);
+        handleSave()
+            .then(() => {
+                setActiveStep((activeStep + 1));
+                setIsSaving(false);
+            });
     }
 
     function isLastStep() {
@@ -97,9 +120,7 @@ function AppEditor() {
     }
 
     function handleSave() {
-        //TODO send to server
         let restRequest;
-        setSaveData("loading");
         let entitiesEdited = [...entities].map(entity => {
             entity.id = null;
             return entity;
@@ -107,32 +128,70 @@ function AppEditor() {
 
         console.log(entitiesEdited)
 
-        if (isNewApp) {
-            restRequest = appRest.create({
-                baseName: appName,
-                packageName: packageName,
-                template: selectedTemplate,
-                entities: entitiesEdited,
-            })
+        const appPackage = {
+            id: (isNewApp ? null : appId),
+            baseName: appName,
+            packageName: packageName,
+            template: selectedTemplate,
+            entities: entitiesEdited,
         }
 
-        restRequest.then(response => {
-            history.push("/app/" + response.data.id)
-        }).catch(response => setSaveData(response.data));
+        if (isNewApp) {
+            restRequest = appRest.create(appPackage)
+                .then(response => {
+                    const {baseName, packageName, template, entities, id} = response.data;
+                    setAppName(baseName);
+                    setPackageName(packageName);
+                    setSelectedTemplate(template);
+                    setEntities(entities);
+                    history.push(`/app/${id}/edit`);
+                    return response;
+                })
+                .catch(response => setSaveError(response.data))
+        } else {
+            restRequest = appRest.update(appPackage)
+                .then(response => {
+                    const {baseName, packageName, template, entities} = response.data;
+                    setAppName(baseName);
+                    setPackageName(packageName);
+                    setSelectedTemplate(template);
+                    setEntities(entities);
+                    return response;
+                })
+                .catch(response => setSaveError(response.data))
+        }
+
+        return restRequest;
+    }
+
+    function handleFinishButton() {
+
+        const restRequest = handleSave();
+        restRequest
+            .then(response => {
+                console.log("reachedTHen", response)
+                history.replace("/app/" + response.data.id)
+            })
+            .catch(response => setSaveError(response.data));
     }
 
     function renderNextButton() {
         let content = (
-            <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
+            <LoadingButton
+                onClick={handleNext}
+                disabled={!steps[activeStep].condition}
+                startIcon={<ChevronRight/>}
+                loading={isSaving}
+            >
                 {t("button.next")}
-            </Button>
+            </LoadingButton>
         )
         if (isLastStep()) {
             content = (
                 <LoadingButton
-                    onClick={handleSave}
+                    onClick={handleFinishButton}
                     disabled={!steps[activeStep].condition}
-                    loading={saveData === "loading"}
+                    loading={isSaving}
                     startIcon={<Done/>}
                 >
                     {t("button.save")}
@@ -140,6 +199,10 @@ function AppEditor() {
             )
         }
         return content;
+    }
+
+    if (isAppLoading) {
+        return <LoadingSpinner message={t("appEditor.loading")}/>;
     }
 
     return (
@@ -156,19 +219,25 @@ function AppEditor() {
                 })}
             </Stepper>
             <Box className={appEditorStyles.navigationButtonsArray}>
-                <Button
+                <LoadingButton
                     color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={appEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
+                    loading={isSaving}
                 >
                     {t("button.back")}
-                </Button>
+                </LoadingButton>
                 <Box className={appEditorStyles.navigationButtonNext}/>
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}
+            <Snackbar open={!!saveError} autoHideDuration={6000} onClose={() => setSaveError(null)}>
+                <Alert onClose={() => setSaveError(null)} severity="error" sx={{width: '30%'}}>
+                    This is a success message!
+                </Alert>
+            </Snackbar>
         </div>
     )
 
