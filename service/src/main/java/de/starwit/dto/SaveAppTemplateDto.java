@@ -17,7 +17,7 @@ public class SaveAppTemplateDto extends AppTemplateDto {
     private String location;
 
     @Size(max = 100)
-    @Pattern(regexp = "^([a-zA-Z0-9/_-]{2,100})$")
+    @Pattern(regexp = "^([a-zA-Z0-9/_-]{0,100})$")
     private String branch = "master";
 
     private boolean credentialsRequired = false;

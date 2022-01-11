@@ -16,11 +16,11 @@ public class DownloadAppTemplateDto {
 	
 	private Long appTemplateId;
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{1,100}$")
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
 	@Size(max = 100)
 	private String username;
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{1,100}$")
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
 	@Size(max = 100)
 	private String password;
 
