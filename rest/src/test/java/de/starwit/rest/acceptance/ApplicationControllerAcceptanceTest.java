@@ -66,6 +66,27 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     }
 
     @Test
+    public void canCreateTest() throws Exception {
+        // given
+        String jsonString = readJsonStringFromFile(data + "app-test.json");
+        // when
+        MockHttpServletResponse response = createFromString(jsonString);
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    public void canCreateTest2() throws Exception {
+        // given
+        String jsonString = readJsonStringFromFile(data + "app-test2.json");
+        // when
+        MockHttpServletResponse response = createFromString(jsonString);
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+
+    @Test
     public void isValidated() throws Exception {
         // given
         ApplicationDto dto = readFromFile(data + "app-wrong-format.json");

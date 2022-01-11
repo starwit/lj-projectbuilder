@@ -1,7 +1,6 @@
 package de.starwit.application.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -20,16 +19,6 @@ public class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**");
     }
-
-    @Bean
-    InjectLocalRolesOAuth2UserService injectLocalRolesOAuth2UserService() {
-        return new InjectLocalRolesOAuth2UserService();
-    }
-
-	@Bean
-	public LocalAuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-		return new LocalAuthenticationSuccessHandler();
-	}   
 
     OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler() {
         OidcClientInitiatedLogoutSuccessHandler successHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);

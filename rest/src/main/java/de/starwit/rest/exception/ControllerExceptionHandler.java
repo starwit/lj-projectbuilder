@@ -10,9 +10,11 @@ import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.ClassUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -66,6 +68,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(output, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
+    public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
+        LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
+        return new ResponseEntity<Object>(ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.", HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
         LOG.info("Entity not found Exception: ", ex.getMessage());
@@ -76,6 +84,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleException(EmptyResultDataAccessException ex) {
         LOG.info(ex.getMessage());
         return new ResponseEntity<Object>("Does not exists and cannot be deleted.", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = { AccessDeniedException.class })
+    public ResponseEntity<Object> handleException(AccessDeniedException ex) {
+        LOG.info(ex.getMessage());
+        NotificationDto output = new NotificationDto();
+        output.setMessageKey("error.accessdenied");
+        output.setMessage("access denied");
+        return new ResponseEntity<Object>(output, HttpStatus.FORBIDDEN);
     }
 
     @Override

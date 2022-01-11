@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.starwit.allowedroles.IsAdmin;
 import de.starwit.dto.SaveAppTemplateDto;
 import de.starwit.mapper.AppTemplateMapper;
 import de.starwit.persistence.entity.AppTemplate;
@@ -45,12 +46,14 @@ public class AppTemplateController {
 		return template;
 	}
 
+	@IsAdmin
 	@Operation(summary = "Create appTemplate (location, branch, description, credentialsRequired)")
 	@PostMapping
 	public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
 		return update(appTemplateDto);
 	}
 
+	@IsAdmin
 	@Operation(summary = "Update appTemplate (location, branch, description, credentialsRequired)")
 	@PutMapping
 	public AppTemplate update(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
@@ -71,6 +74,7 @@ public class AppTemplateController {
 		return appTemplateMapper.convertToDtoList(appTemplateService.findAll());
 	}
 
+	@IsAdmin
 	@Operation(summary = "Delete appTemplate")
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable("id") Long id) {

@@ -100,6 +100,9 @@ const translationsEnEN = {
     "generalSection.packageNameOfApp": "Package name",
     "generalSection.packageNameOfApp.error": "Upper and lower cased chars and numbers are allowed",
 
+    "templateSection.loading": "Templates loading...",
+    "templateSection.loading.error": "Templates could not be loaded",
+
     "entityDesigner.code": "Code",
 
     "home.yourApps": "Your Apps",
@@ -122,6 +125,7 @@ const translationsEnEN = {
     "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
-    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name."
+    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
+    "error.accessdenied": "You are not allowed to execute this action."
 };
 export default translationsEnEN;

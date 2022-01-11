@@ -107,6 +107,8 @@ const translationsDeDE = {
     "generalSection.enterInformation": "Bitte gib als ersten Schritt die allgemeinen Informationen zu deiner App ein.",
     "generalSection.clickNext": "Klicke dann auf Weiter auf der oberen rechten Seite.",
 
+    "templateSection.loading": "Templates werden geladen...",
+    "templateSection.loading.error": "Templates konnten nicht geladen werden",
 
     "default.welcome": "Herzlich Willkommen",
     "default.error.403.title": "Fehlende Berechtigungen",
@@ -124,6 +126,7 @@ const translationsDeDE = {
     "error.appcheckout.passworisinvalid": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
     "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
-    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen."
+    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
+    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt."
 };
 export default translationsDeDE;
