@@ -10,8 +10,9 @@ import GeneralSection from "./sections/generalSection/GeneralSection";
 import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
-import LoadingButton from "../../commons/loadingButton/LoadingButton";
+import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
+
 
 
 function AppEditor() {
