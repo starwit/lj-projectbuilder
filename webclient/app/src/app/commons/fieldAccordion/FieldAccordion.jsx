@@ -67,7 +67,7 @@ function FieldAccordion(props) {
                             fullWidth
                             value={name}
                             label={t("fieldDialog.name")}
-                            onChange={(event) => editFieldProperty("name", event.target.value)}
+                            onChange={(event) => editFieldProperty("fieldName", event.target.value)}
                             handleHasError={handleHasError}
                         />
                     </Grid>
@@ -77,12 +77,12 @@ function FieldAccordion(props) {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={dataType.id}
+                                value={dataType.name}
                                 label={t("fieldDialog.dataType")}
-                                onChange={(event) => editFieldProperty("dataType", event.target.value)}
+                                onChange={(event) => editFieldProperty("fieldType", event.target.value)}
                             >
                                 {dataTypes.map(dataType => (
-                                    <MenuItem value={dataType.id}>{dataType.name}</MenuItem>
+                                    <MenuItem value={dataType.name} key={dataType.id}>{dataType.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -103,7 +103,7 @@ function FieldAccordion(props) {
                             fullWidth
                             label={t("fieldDialog.pattern")}
                             value={pattern}
-                            onChange={(event) => editFieldProperty("pattern", event.target.value)}
+                            onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                         />
                     </Grid>
                     <Grid item sm={6}>
@@ -113,7 +113,7 @@ function FieldAccordion(props) {
                             value={min}
                             disabled={!dataType.allowMin}
                             type={"number"}
-                            onChange={(event) => editFieldProperty("min", event.target.value)}
+                            onChange={(event) => editFieldProperty("fieldValidateRulesMin", event.target.value)}
                         />
                     </Grid>
                     <Grid item sm={6}>
@@ -123,7 +123,7 @@ function FieldAccordion(props) {
                             value={max}
                             type={"number"}
                             disabled={!dataType.allowMax}
-                            onChange={(event) => editFieldProperty("max", event.target.value)}
+                            onChange={(event) => editFieldProperty("fieldValidateRulesMax", event.target.value)}
                         />
                     </Grid>
                     <Grid item sm={12}>
