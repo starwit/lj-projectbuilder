@@ -21,6 +21,9 @@ const translationsEnEN = {
     "home.title": "Home",
     "home.noApps": "No apps created. Please add one on the lower right.",
 
+    "appCard.sureToDelete.title": "Delete app",
+    "appCard.sureToDelete.message": "This operation cannot be reversed.",
+
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
     "appTemplateErrorDialog.title": "Error",

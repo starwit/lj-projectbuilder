@@ -32,6 +32,14 @@ function Home() {
         loadApps();
     }, [loadApps])
 
+    function deleteById(id) {
+        return applicationRest.delete(id)
+            .then(response => {
+                setApps(null);
+                loadApps();
+            })
+    }
+
     function renderApps() {
         if (!apps) {
             return <LoadingSpinner message={t("home.loading")}/>;
@@ -63,8 +71,7 @@ function Home() {
                             onEditClick={() => {
                                 history.push("/app/" + app.id + "/edit")
                             }}
-                            onDeleteClick={() => {
-                            }}
+                            onDeleteClick={deleteById}
                             app={app}/>
                     </Grid>
                 ))}

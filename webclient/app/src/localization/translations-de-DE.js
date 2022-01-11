@@ -23,6 +23,9 @@ const translationsDeDE = {
     "home.title": "Home",
     "home.noApps": "Es wurden keine Apps angelegt. Bitte unten Rechts eine App hinzufügen.",
 
+    "appCard.sureToDelete.title": "App löschen",
+    "appCard.sureToDelete.message": "Diese Operation kann nicht rückgängig gemacht werden.",
+
     "appTemplateDeleteDialog.title": "Template löschen",
     "appTemplateDeleteDialog.message": "Wollen Sie das Template wirklich löschen?",
     "appTemplateErrorDialog.title": "Fehler",
