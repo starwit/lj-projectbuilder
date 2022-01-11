@@ -1,6 +1,8 @@
 package de.starwit.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -14,7 +16,12 @@ public class DownloadAppTemplateDto {
 	
 	private Long appTemplateId;
 
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{1,100}$")
+	@Size(max = 100)
 	private String username;
+
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{1,100}$")
+	@Size(max = 100)
 	private String password;
 
 	private String user;

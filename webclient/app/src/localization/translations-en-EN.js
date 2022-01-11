@@ -23,7 +23,7 @@ const translationsEnEN = {
     "appTemplateDeleteDialog.title": "Delete Template",
     "appTemplateDeleteDialog.message": "Do you want to delete the template?",
     "appTemplateErrorDialog.title": "Error",
-    "appTemplateErrorDialog.deletemessage": "Template could not be deleted.",
+    "appTemplateErrorDialog.deleteMessage": "Template could not be deleted.",
     "appTemplateSuccessDialog.title": "Success Template Upload",
     "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
@@ -82,11 +82,15 @@ const translationsEnEN = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "private Repo with Login",
     "appTemplateDialog.description": "Description",
+    "appTemplateDialog.location.error": "Location has to be a valid git-repository name",
+    "appTemplateDialog.branch.error": "has to be a valid branch name",    
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
     "appTemplateAuthDialog.password": "Password",
-
+    "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
+    "appTemplateAuthDialog.password.error": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
+  
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
@@ -114,9 +118,12 @@ const translationsEnEN = {
     "error.git.directorynotexists": "An internal error occured. Please contact IT-support.",
     "error.git.access.denied": "Not enough rights. For Github you need at least the right 'repo'",
     "error.git.access.tokenusagerequired": "Support for password authentication was removed. A personal access token is required.",
-    "error.git.access.invaliduserpassword": "Invalid username or password.",
+    "error.git.access.invaliduserpassword": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.git.exit": "Error to get data from Git repository",
-    "error.appcheckout.giturlisinvalid": "Invalid Git repository URL",
+    "error.appcheckout.giturlisinvalid": "Invalid Git repository URL. Only letters, numbers and ./_- are allowed.",
+    "error.appcheckout.usernameisinvalid":"Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
     "error.accessdenied": "You are not allowed to execute this action."

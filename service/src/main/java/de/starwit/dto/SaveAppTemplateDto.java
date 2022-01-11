@@ -13,11 +13,11 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     @NotBlank
     @Size(max = 100)
-    @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
+    @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?([a-zA-Z0-9./_-]{2,100})(.git)$")
     private String location;
 
     @Size(max = 100)
-    @Pattern(regexp = "^([a-zA-Z0-9/_\\-]*)$")
+    @Pattern(regexp = "^([a-zA-Z0-9/_-]{2,100})$")
     private String branch = "master";
 
     private boolean credentialsRequired = false;

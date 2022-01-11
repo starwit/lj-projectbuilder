@@ -3,6 +3,7 @@ package de.starwit.generator.services;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -17,29 +18,13 @@ public class Git {
 
 	private final static Logger LOG = LoggerFactory.getLogger(Git.class);
 
-	public static void gitInit(Path directory) throws NotificationException {
-		runCommand(directory, "git", "init");
+	public static void gitClone(Path directory, URL originUrl) throws NotificationException {
+		runCommand(directory, "git", "clone", originUrl.toString(), ".");
 	}
 
-	public static void gitStage(Path directory) throws NotificationException {
-		runCommand(directory, "git", "add", "-A");
-	}
-
-	public static void gitCommit(Path directory, String message) throws NotificationException {
-		runCommand(directory, "git", "commit", "-m", message);
-	}
-
-	public static void gitPush(Path directory) throws NotificationException {
-		runCommand(directory, "git", "push");
-	}
-
-	public static void gitClone(Path directory, String originUrl) throws NotificationException {
-		runCommand(directory, "git", "clone", originUrl, ".");
-	}
-
-	public static void gitClone(Path directory, String originUrl, String branch)
+	public static void gitClone(Path directory, URL originUrl, String branch)
 			throws NotificationException {
-		runCommand(directory, "git", "clone", "-b", branch, originUrl, ".");
+		runCommand(directory, "git", "clone", "-b", branch, originUrl.toString(), ".");
 	}
 
 	public static void runCommand(Path directory, String... command)

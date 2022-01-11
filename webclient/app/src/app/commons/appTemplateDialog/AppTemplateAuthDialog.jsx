@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, TextField, Container, DialogTitle, Typography, IconButton, Box } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { Button, Container, DialogTitle, Typography, IconButton, Box } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import { useTranslation } from 'react-i18next';
@@ -8,10 +8,13 @@ import { CloudSync, Close } from "@mui/icons-material";
 import ErrorAlert from "../alert/ErrorAlert";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import NotificationDialog from "../alert/NotificationDialog";
+import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
+import RegexConfig from "../../../regexConfig";
 
 function AppTemplateAuthDialog(props) {
     const { appTemplate, handleRefresh, setOpenSuccessDialog } = props;
     const appTemplateDialogStyles = AppTemplateDialogStyles();
+    const [hasFormError, setHasFormError] = React.useState(false);    
     const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": "", "password": "" });
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
@@ -38,6 +41,9 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleAppTemplateReload = () => {
+        if(hasFormError && appTemplate.credentialsRequired) {
+            return;
+        }
         downloadRequestData.appTemplateId = appTemplate.id;
         appTemplateRest.updateTemplates(downloadRequestData).then(() => {
             handleRefresh();
@@ -57,6 +63,23 @@ function AppTemplateAuthDialog(props) {
         setDownloadRequestData({ "appTemplateId": null, "username": "", "password": "" });
         setOpenAuthDialog(false);
     }
+
+    useEffect(() => {
+        if (!downloadRequestData) {
+            return;
+        }
+        let hasError = false;
+
+        if (!RegexConfig.appTemplateAuthUser.test(downloadRequestData.username)) {
+            hasError = true;
+        }
+        if (!RegexConfig.appTemplateAuthPassword.test(downloadRequestData.password)) {
+            hasError = true;
+        }
+        setHasFormError(hasError);
+
+    }, [downloadRequestData, hasFormError])
+
 
     return (
         <Container>
@@ -91,24 +114,31 @@ function AppTemplateAuthDialog(props) {
                     autoComplete="off"
                 >
                     <ErrorAlert alert={alert} />
-                    <TextField
+                    <SimpleValidatedTextField
                         fullWidth
-                        label={t("appTemplateAuthDialog.user")}
+                        label={t("appTemplateAuthDialog.user") + "*"}
                         value={downloadRequestData.username}
                         name="username"
                         onChange={handleChange}
+                        iscreate={+true}
+                        errortext={t("appTemplateAuthDialog.user.error")}
+                        regex={RegexConfig.appTemplateAuthUser}
                     />
-                    <TextField
+                    <SimpleValidatedTextField
                         type="password"
                         fullWidth
-                        label={t("appTemplateAuthDialog.password")}
+                        label={t("appTemplateAuthDialog.password") + "*"}
                         value={downloadRequestData.password}
                         name="password"
                         onChange={handleChange}
+                        iscreate={+true}
+                        errortext={t("appTemplateAuthDialog.password.error")}
+                        autoComplete="on"
+                        regex={RegexConfig.appTemplateAuthPassword}
                     />
                     <DialogActions>
                         <Button onClick={onClose}>{t("button.cancel")}</Button>
-                        <Button onClick={handleAppTemplateReload} autoFocus>
+                        <Button disabled={hasFormError} onClick={handleAppTemplateReload} autoFocus>
                             {t("button.ok")}
                         </Button>
                     </DialogActions>
