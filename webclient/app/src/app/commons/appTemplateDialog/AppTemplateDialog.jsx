@@ -160,9 +160,13 @@ function AppTemplateDialog(props) {
                 />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
                     <FormControlLabel 
-                        control={<Checkbox  checked={internalAppTemplate.credentialsRequired} 
-                        value={internalAppTemplate.credentialsRequired} 
-                        name="credentialsRequired" onChange={handleCredentialsCheckbox} />} 
+                        control={
+                            <Checkbox  
+                                checked={internalAppTemplate.credentialsRequired} 
+                                value={internalAppTemplate.credentialsRequired} 
+                                name="credentialsRequired" onChange={handleCredentialsCheckbox} 
+                            />
+                        } 
                         label={t("appTemplateDialog.credentialsRequired")} 
                     />
                 </FormGroup>
