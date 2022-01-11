@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: ${DB_PW_PROJECTBUILDER}
       # Password for root access
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
-      MYSQL_ROOT_PASSWORD: ${DB_PW_pb_ROOT}
+      MYSQL_ROOT_PASSWORD: ${DB_PW_PB_ROOT}
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       interval: 5s
