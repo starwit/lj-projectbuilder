@@ -43,7 +43,7 @@ function AppTemplateCard(props) {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
-    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deletemessage") });
+    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deleteMessage") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     
     const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class AppCheckoutTest {
  	public void cloneGitRepoWithoutAuthTest() throws NotificationException, IOException, InterruptedException {
  		final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
  		LOG.info("Path is " + destDir.toString());
- 		Git.gitClone(destDir, "https://github.com/starwit/lirejarp.git", "master");
+ 		Git.gitClone(destDir, new URL("https://github.com/starwit/lirejarp.git"), "master");
 
  		String[] dirContent = destDir.toFile().list();
  		assertTrue("Cloning repository results in an empty directory.", (dirContent != null && dirContent.length > 0));
@@ -67,7 +68,7 @@ public class AppCheckoutTest {
 		template.setLocation("https://github.com/starwit/project-templates.git");
 		template.setBranch("v2");
 
-		Git.gitClone(destDir, template.getLocation(), template.getBranch());
+		Git.gitClone(destDir, new URL(template.getLocation()), template.getBranch());
 
 		template = appCheckout.saveTemplateFile(template, destDir.toString());
 		assertEquals("lirejarp", template.getTemplateName());

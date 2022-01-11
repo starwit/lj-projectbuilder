@@ -17,5 +17,8 @@ public class Constants {
 	public static final String APP_HOME = "${apphome}";
 	/**deletion of temp files older than 1 minute **/
 	public static final long MILLISECONDS_UNTIL_DELETION = 1 * 60 * 1000;
-	public static final String GIT_URL_REGEX ="^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$";
+	public static final String GIT_URL_REGEX ="^(?:git|ssh|https?|git@[-w.]+):(//)?([a-zA-Z0-9./_-]{2,100})(.git)$";
+	public static final String GIT_BRANCH_REGEX ="^([a-zA-Z0-9/_-]{2,100})$";
+	public static final String GIT_USER_REGEX ="^[a-zA-Z0-9!@#$%^&()*./_-]{1,100}$";
+	public static final String GIT_PASSWORD_REGEX="^[a-zA-Z0-9!@#$%^&()*./_-]{6,100}$";
 }
