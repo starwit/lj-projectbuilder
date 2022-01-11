@@ -47,14 +47,14 @@ services:
   keycloak:
     image: jboss/keycloak
     volumes:
-      - ./../keycloak/imports:/opt/jboss/keycloak/imports
+      - ./imports:/opt/jboss/keycloak/imports
     depends_on:
       db-keycloak:
         condition: service_healthy
     restart: on-failure
     environment:
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm.json
-      KEYCLOAK_USER: admin
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PW}
       DB_VENDOR: mariadb 
       DB_ADDR: db-keycloak
@@ -62,7 +62,7 @@ services:
       DB_USER: 'keycloak'
       DB_PASSWORD: ${DB_PW_KEYCLOAK}
       PROXY_ADDRESS_FORWARDING: 'true'
-      KEYCLOAK_FRONTEND_URL: 'https://pb.starwit.de/auth'
+      KEYCLOAK_FRONTEND_URL: 'https://${DOMAIN}/auth'
     networks: 
       - backend
 
