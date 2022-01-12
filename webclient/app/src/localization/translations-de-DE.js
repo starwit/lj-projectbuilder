@@ -11,6 +11,7 @@ const translationsDeDE = {
     "button.ok": "OK",
     "button.save": "Speichern",
     "button.retry": "Erneut versuchen",
+    "button.download": "Herunterladen",
     "button.no": "Nein",
     "button.yes": "Ja",
     "button.loadtemplate": "Aus Git-Repo aktualisieren",
@@ -84,6 +85,7 @@ const translationsDeDE = {
     "appEditor.section.conclusion.title": "Abschluss",
     "appEditor.section.general.title": "General",
     "appEditor.loading": "App wird geladen",
+    "app.erdiagram": "ER-Diagramm",
 
     "entityDesigner.code": "Code",
 
