@@ -8,11 +8,11 @@ import ErrorAlert from "../alert/ErrorAlert";
 import NotificationDialog from "../alert/NotificationDialog";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
-import GitDownloadButtonStyles from "./GitDownloadButtonStyles";
+import GitDataButtonStyles from "./GitDataButtonStyles";
 
-function GitDownloadButton(props) {
-    const { appTemplate, handleRefresh, handleGitCheckout, setOpenSuccessDialog, buttonName } = props;
-    const gitDownloadButtonStyles = GitDownloadButtonStyles();
+function GitDataButton(props) {
+    const { appTemplate, handleAfterSuccess, handleGit, buttonName } = props;
+    const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);    
     const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": "", "password": "" });
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
@@ -42,10 +42,9 @@ function GitDownloadButton(props) {
             return;
         }
         downloadRequestData.appTemplateId = appTemplate.id;
-        handleGitCheckout(downloadRequestData).then(() => {
-            handleRefresh();
+        handleGit(downloadRequestData).then(() => {
+            handleAfterSuccess();
             setOpenAuthDialog(false);
-            setOpenSuccessDialog(true);
         }).catch(err => {
             setAlert({"open":true, "title": t("alert.error"), "message": t(err.response.data.messageKey)});
             console.log(err.response.data);
@@ -89,7 +88,7 @@ function GitDownloadButton(props) {
                 message={t(alert.message)} 
             />
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
-                <DialogTitle className={gitDownloadButtonStyles.dialogHeaderBar}>
+                <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
                         {t("appTemplateAuthDialog.title")}
                     </Typography>
@@ -144,4 +143,4 @@ function GitDownloadButton(props) {
         </Container>
     );
 }
-export default GitDownloadButton;
+export default GitDataButton;
