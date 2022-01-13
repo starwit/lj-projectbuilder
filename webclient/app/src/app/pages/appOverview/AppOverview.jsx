@@ -49,10 +49,7 @@ function AppOverview(props) {
 
     return (<>
         <ConclusionSection
-            appName={app.baseName}
-            entities={app.entities}
-            packageName={app.packageName}
-            templateName={app.template.name}
+            app={app}
         />
     </>);
 }

@@ -92,7 +92,7 @@ function GitDataButton(props) {
                     <Typography noWrap variant={"h6"} component={"p"}>
                         {t("appTemplateAuthDialog.title")}
                     </Typography>
-                    <div className={appTemplateDialogStyles.flex} />
+                    <div className={gitDataButtonStyles.flex} />
                     <IconButton
                         aria-label="close"
                         onClick={onClose}

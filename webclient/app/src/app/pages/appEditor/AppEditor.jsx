@@ -32,6 +32,7 @@ function AppEditor() {
     const [isNewApp, setIsNewApp] = useState(false);
     const [saveError, setSaveError] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [app, setApp] = useState(null);
     let {appId} = useParams();
 
     useEffect(() => {
@@ -43,6 +44,7 @@ function AppEditor() {
         } else {
             appRest.findById(appId).then(response => {
                 const {baseName, packageName, template, entities} = response.data;
+                setApp(app);
                 setAppName(baseName);
                 setPackageName(packageName);
                 setSelectedTemplate(template);
@@ -89,10 +91,7 @@ function AppEditor() {
             label: t("appEditor.section.conclusion.title"),
             component: (
                 <ConclusionSection
-                    appName={appName}
-                    packageName={packageName}
-                    templateName={selectedTemplate?.name}
-                    entities={entities}
+                    app={app}
                 />
             ),
             condition: true

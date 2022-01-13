@@ -11,11 +11,11 @@ class GitRest {
     }
 
     setupApp = (data) => {
-        return axios.post(this.baseUrl + "api/setup-app", data);
+        return axios.post(this.baseUrl + "setup-app", data);
     }
 
     downloadApp = (data) => {
-        return axios.post(this.baseUrl + "api/download-app", data);
+        return axios.post(this.baseUrl + "download-app", data);
     }
 }
 
