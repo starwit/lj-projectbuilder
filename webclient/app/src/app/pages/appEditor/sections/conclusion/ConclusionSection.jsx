@@ -5,13 +5,27 @@ import ErSection from "../erSection/ErSection";
 import PropTypes from "prop-types";
 import ConclusionSectionStyles from "./ConclusionSectionStyles";
 import {useTranslation} from "react-i18next";
+import AppSetupRest from "../../../../services/AppSetupRest";
 
 function ConclusionSection(props) {
 
     const {entities, appName, packageName, templateName} = props;
     const conclusionSectionStyles = ConclusionSectionStyles();
+    const appSetupRest = new AppSetupRest();
 
     const {t} = useTranslation();
+
+    const handleAppDownload = (toSave) => {
+        appSetupRest.downloadApp(toSave).then(response => {
+            handleDownloadResponse(response);
+        }).catch(err => {
+            setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
+        });
+    }
+
+    const handleDownloadResponse = (response) => {
+        //TODO
+    }
 
     function renderLoadingText(text) {
         if (!text) {
@@ -51,6 +65,7 @@ function ConclusionSection(props) {
                         color={"primary"}
                         variant={"contained"}
                         size={"large"}
+                        onClick={() => handleAppDownload(internalAppTemplate)}
                     >
                         {t("button.download")}
                     </Button>
