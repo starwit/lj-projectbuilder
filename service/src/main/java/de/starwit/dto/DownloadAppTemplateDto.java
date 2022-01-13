@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema
 public class DownloadAppTemplateDto {
 	
-	private Long appTemplateId;
+	private Long appTemplateId = 1L;
 
 	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
 	@Size(max = 100)

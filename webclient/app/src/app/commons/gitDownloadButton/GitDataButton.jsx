@@ -11,10 +11,10 @@ import RegexConfig from "../../../regexConfig";
 import GitDataButtonStyles from "./GitDataButtonStyles";
 
 function GitDataButton(props) {
-    const { appTemplate, handleAfterSuccess, handleGit, buttonName } = props;
+    const { appTemplate, appId, handleAfterSuccess, handleGit, buttonName } = props;
     const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);    
-    const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": "", "password": "" });
+    const [downloadRequestData, setDownloadRequestData] = useState({ "appId": null, "appTemplateId": null, "username": "", "password": "" });
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
 
@@ -42,6 +42,7 @@ function GitDataButton(props) {
             return;
         }
         downloadRequestData.appTemplateId = appTemplate.id;
+        downloadRequestData.appId = appId;
         handleGit(downloadRequestData).then(() => {
             handleAfterSuccess();
             setOpenAuthDialog(false);

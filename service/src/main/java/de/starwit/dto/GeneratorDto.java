@@ -1,6 +1,5 @@
 package de.starwit.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,11 +28,5 @@ public class GeneratorDto extends DownloadAppTemplateDto {
 
 	public void setAppId(Long appId) {
 		this.appId = appId;
-	}
-
-	@Override
-	@JsonIgnore
-	public Long getAppTemplateId() {
-		return super.getAppTemplateId();
 	}
 }

@@ -14,12 +14,12 @@ function ConclusionSection(props) {
     const gitRest = new GitRest();
     const {t} = useTranslation();
 
-    const handleGit = () => {
-        return gitRest.setupApp();
+    const handleGit = (downloadRequestData) => {
+        return gitRest.setupApp(downloadRequestData);
     }
 
     const handleAfterGitSuccess = () => {
-        gitRest.downloadApp();
+        gitRest.downloadApp(app.id);
     };
 
     function renderLoadingText(text) {
@@ -55,7 +55,13 @@ function ConclusionSection(props) {
                     md={3}
                     className={conclusionSectionStyles.downloadGrid}
                 >
-                    <GitDataButton appTemplate={app.template} handleAfter={handleAfterGitSuccess} handleGit={handleGit} buttonName={t("button.download")} />
+                    <GitDataButton 
+                        appTemplate={app.template} 
+                        appId= {app.id} 
+                        handleAfterSuccess={handleAfterGitSuccess} 
+                        handleGit={handleGit} 
+                        buttonName={t("button.download")}
+                    />
                 </Grid>
 
             </Grid>

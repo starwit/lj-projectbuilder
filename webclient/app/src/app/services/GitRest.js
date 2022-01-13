@@ -14,8 +14,8 @@ class GitRest {
         return axios.post(this.baseUrl + "setup-app", data);
     }
 
-    downloadApp = (data) => {
-        return axios.post(this.baseUrl + "download-app", data);
+    downloadApp = (appId) => {
+        return axios.get(this.baseUrl + "download-app/" + appId);
     }
 }
 

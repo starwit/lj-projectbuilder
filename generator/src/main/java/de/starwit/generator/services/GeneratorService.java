@@ -150,6 +150,9 @@ public class GeneratorService {
 			String targetFileUrl = templateFile.getConcreteTargetPath()
 					+ generatePathWithFreemarker(data, templateFile, templateFile.getFileName());
 			writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, true);
+		} catch (TemplateNotFoundException e) {
+			String templateUrl = generatePathWithFreemarker(data, templateFile, templateFile.getFileName());
+			throw new NotificationException("error.generation.templatenotfound", "Template with path " + templateUrl + "not found", templateUrl);
 		} catch (IOException | TemplateException e) {
 			LOG.error("Error during file writing: ", e);
 			throw new NotificationException("error.generation.generateglobal", "Error during file writing");

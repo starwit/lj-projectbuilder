@@ -44,7 +44,7 @@ function AppEditor() {
         } else {
             appRest.findById(appId).then(response => {
                 const {baseName, packageName, template, entities} = response.data;
-                setApp(app);
+                setApp(response.data);
                 setAppName(baseName);
                 setPackageName(packageName);
                 setSelectedTemplate(template);
