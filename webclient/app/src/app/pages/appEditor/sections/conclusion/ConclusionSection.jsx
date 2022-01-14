@@ -5,22 +5,27 @@ import PropTypes from "prop-types";
 import ConclusionSectionStyles from "./ConclusionSectionStyles";
 import {useTranslation} from "react-i18next";
 import GitRest from "../../../../services/GitRest";
+import { Download } from "@mui/icons-material";
 import GitDataButton from "../../../../commons/gitDownloadButton/GitDataButton";
 
 function ConclusionSection(props) {
 
-    const {app} = props;
+    const {entities, appId, appName, packageName, templateName, credentialsRequired} = props;
     const conclusionSectionStyles = ConclusionSectionStyles();
     const gitRest = new GitRest();
     const {t} = useTranslation();
 
     const handleGit = (downloadRequestData) => {
-        return gitRest.setupApp(downloadRequestData);
+        return gitRest.setupApp(appId, downloadRequestData);
     }
 
     const handleAfterGitSuccess = () => {
-        gitRest.downloadApp(app.id);
-    };
+        const link = document.createElement('a');
+        link.href = window.location.pathname + "api/git/download-app/" + appId;
+        link.download = appName + '.zip';
+        link.click();
+        document.body.removeChild(link);
+    }
 
     function renderLoadingText(text) {
         if (!text) {
@@ -40,13 +45,13 @@ function ConclusionSection(props) {
                 <Grid item md={9}>
                     <List className={conclusionSectionStyles.list}>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(app.baseName)} secondary={t("generalSection.nameOfApp")}/>
+                            <ListItemText primary={renderLoadingText(appName)} secondary={t("generalSection.nameOfApp")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(app.template.name)} secondary={t("appEditor.section.template.title")}/>
+                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("appEditor.section.template.title")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(app.packageName)} secondary={t("generalSection.packageNameOfApp")}/>
+                            <ListItemText primary={renderLoadingText(packageName)} secondary={t("generalSection.packageNameOfApp")}/>
                         </ListItem>
                     </List>
                 </Grid>
@@ -56,26 +61,30 @@ function ConclusionSection(props) {
                     className={conclusionSectionStyles.downloadGrid}
                 >
                     <GitDataButton 
-                        appTemplate={app.template} 
-                        appId= {app.id} 
+                        credentialsRequired={credentialsRequired} 
                         handleAfterSuccess={handleAfterGitSuccess} 
-                        handleGit={handleGit} 
+                        handleGit={handleGit}
+                        buttonIcon={<Download/>}
                         buttonName={t("button.download")}
+                        buttonVariant={"contained"}
                     />
                 </Grid>
 
             </Grid>
             <Typography variant={"h4"} gutterBottom>{t("app.erdiagram")}</Typography>
-            <ErSection entities={app.entities} dense editable={false}/>
+            <ErSection entities={entities} dense editable={false}/>
         </Container>
     )
 }
 
+
 ConclusionSection.propTypes = {
+    appId: PropTypes.number,
     entities: PropTypes.array,
     appName: PropTypes.string,
     packageName: PropTypes.string,
-    templateName: PropTypes.string
+    templateName: PropTypes.string,
+    credentialsRequired: PropTypes.bool
 }
 
 ConclusionSection.defaultProps = {
@@ -83,5 +92,6 @@ ConclusionSection.defaultProps = {
     templateName: <Skeleton animation={"wave"}/>,
     packageName: <Skeleton animation={"wave"}/>,
 }
+
 
 export default ConclusionSection

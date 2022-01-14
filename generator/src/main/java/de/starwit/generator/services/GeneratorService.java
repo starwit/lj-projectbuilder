@@ -56,7 +56,7 @@ public class GeneratorService {
 	@Autowired
 	private AppRepository AppRepository;
 
-	public void generate(Long appId) throws de.starwit.persistence.exception.NotificationException {
+	public void generate(Long appId) throws NotificationException {
 		App app = AppRepository.findById(appId).orElseThrow();
 		Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
 		Collection<Domain> domains = app.getDomains();

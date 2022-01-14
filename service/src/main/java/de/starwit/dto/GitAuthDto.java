@@ -12,9 +12,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *
  */
 @Schema
-public class DownloadAppTemplateDto {
+public class GitAuthDto {
 	
-	private Long appTemplateId = 1L;
+	private Long appTemplateId;
 
 	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
 	@Size(max = 100)
@@ -28,8 +28,6 @@ public class DownloadAppTemplateDto {
 	private String pass;
 
 	/********************* GETTER, SETTER **************************/
-	@Schema(defaultValue = "1")
-	@NotNull
 	public Long getAppTemplateId() {
 		return appTemplateId;
 	}

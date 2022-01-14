@@ -81,7 +81,7 @@ function AppTemplateCard(props) {
     };
 
     const handleGit = (downloadRequestData) => {
-        return gitRest.updateTemplates(downloadRequestData);
+        return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
     }
 
     const handleAfterGitSuccess = () => {
@@ -133,7 +133,7 @@ function AppTemplateCard(props) {
                         <Grid item xs={5} align="right">
                             <br /><br />
                             <GitDataButton 
-                                appTemplate={appTemplate} 
+                                credentialsRequired={appTemplate.credentialsRequired} 
                                 handleAfterSuccess={handleAfterGitSuccess} 
                                 handleGit={handleGit} 
                                 buttonName={t("button.loadtemplate")} />

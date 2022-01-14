@@ -6,17 +6,18 @@ class GitRest {
         this.baseUrl = window.location.pathname + "api/git/";
     }
 
-    updateTemplates = (data) => {
-        return axios.post(this.baseUrl + "update-templates", data);
+    updateTemplates = (appTemplateId, data) => {
+        return axios.post(this.baseUrl + "update-templates/" + appTemplateId, data);
     }
 
-    setupApp = (data) => {
-        return axios.post(this.baseUrl + "setup-app", data);
+    setupApp = (appId, data) => {
+        return axios.post(this.baseUrl + "setup-app/" + appId, data);
     }
 
-    downloadApp = (appId) => {
+    getDownloadUrl = (appId) => {
         return axios.get(this.baseUrl + "download-app/" + appId);
     }
+
 }
 
 export default GitRest;

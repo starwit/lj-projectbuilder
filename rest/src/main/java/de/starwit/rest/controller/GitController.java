@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.dto.DownloadAppTemplateDto;
-import de.starwit.dto.GeneratorDto;
+import de.starwit.dto.GitAuthDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.services.AppSetupService;
 import de.starwit.persistence.entity.App;
@@ -47,25 +46,25 @@ public class GitController {
   private AppService appService;
 
   @Operation(summary = "Creates new App from templates.")
-  @PostMapping(value = "/setup-app")
-  public void generateApp(@Valid @RequestBody GeneratorDto dto) throws NotificationException {
-    appSetupService.setupAndGenerateApp(dto);
+  @PostMapping(value = "/setup-app/{appId}")
+  public void generateApp(@PathVariable("appId") Long appId, @Valid @RequestBody GitAuthDto dto) throws NotificationException {
+    appSetupService.setupAndGenerateApp(appId, dto);
   }
 
   @Operation(summary = "Gets template description from git repository and updates template definitions in database.")
-  @PostMapping(value = "/update-templates")
-  public void updateCodeTemplates(@Valid @RequestBody DownloadAppTemplateDto dto) throws NotificationException {
-    appSetupService.updateTemplates(dto);
+  @PostMapping(value = "/update-templates/{appTemplateId}")
+  public void updateCodeTemplates(@PathVariable("appTemplateId") Long appTemplateId, @Valid @RequestBody GitAuthDto dto) throws NotificationException {
+    appSetupService.updateTemplates(appTemplateId, dto);
   }
 
-  @GetMapping("/download-app/{id}")
-  public void downloadApp(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
+  @GetMapping("/download-app/{appId}")
+  public void downloadApp(@PathVariable("appId") Long appId, HttpServletResponse response) throws IOException {
 
     response.setContentType("application/octet-stream");
     response.setHeader("Content-Disposition", "attachment;filename=download.zip");
     response.setStatus(HttpServletResponse.SC_OK);
 
-    App entity = appService.findById(id);
+    App entity = appService.findById(appId);
     if (entity != null && entity.getTargetPath() != null) {
       response.setHeader("Content-Disposition", "attachment;filename=" + entity.getTitle() + ".zip");
       File directory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());

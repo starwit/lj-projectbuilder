@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
-import de.starwit.dto.DownloadAppTemplateDto;
+import de.starwit.dto.GitAuthDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.exception.NotificationException;
@@ -102,7 +102,7 @@ public class AppCheckout {
 	 * @return
 	 * @throws NotificationException
 	 */
-	public AppTemplate checkoutAndUpdateAppTemplate(final DownloadAppTemplateDto dto, final String targetDownloadPath)
+	public AppTemplate checkoutAndUpdateAppTemplate(final GitAuthDto dto, final String targetDownloadPath)
 			throws NotificationException {
 		final AppTemplate appTemplate = appTemplateService.findById(dto.getAppTemplateId());
 		String destDirString = Constants.TMP_DIR + Constants.FILE_SEP + targetDownloadPath;

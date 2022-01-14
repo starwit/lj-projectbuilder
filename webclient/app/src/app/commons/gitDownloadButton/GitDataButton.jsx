@@ -11,10 +11,10 @@ import RegexConfig from "../../../regexConfig";
 import GitDataButtonStyles from "./GitDataButtonStyles";
 
 function GitDataButton(props) {
-    const { appTemplate, appId, handleAfterSuccess, handleGit, buttonName } = props;
+    const { credentialsRequired, handleGit, handleAfterSuccess, buttonIcon, buttonName, buttonVariant } = props;
     const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);    
-    const [downloadRequestData, setDownloadRequestData] = useState({ "appId": null, "appTemplateId": null, "username": "", "password": "" });
+    const [downloadRequestData, setDownloadRequestData] = useState({ "username": "", "password": "" });
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ function GitDataButton(props) {
     }
 
     const handleLogin = () => {
-        if (appTemplate.credentialsRequired) {
+        if (credentialsRequired) {
             handleAlertClose();
             setOpenAuthDialog(true);
         } else {
@@ -38,11 +38,9 @@ function GitDataButton(props) {
     }
 
     const handleAppTemplateReload = () => {
-        if(hasFormError && appTemplate.credentialsRequired) {
+        if(hasFormError && credentialsRequired) {
             return;
         }
-        downloadRequestData.appTemplateId = appTemplate.id;
-        downloadRequestData.appId = appId;
         handleGit(downloadRequestData).then(() => {
             handleAfterSuccess();
             setOpenAuthDialog(false);
@@ -57,7 +55,7 @@ function GitDataButton(props) {
     }
 
     const onClose = () => {
-        setDownloadRequestData({ "appTemplateId": null, "username": "", "password": "" });
+        setDownloadRequestData({ "username": "", "password": "" });
         setOpenAuthDialog(false);
     }
 
@@ -74,15 +72,14 @@ function GitDataButton(props) {
             hasError = true;
         }
         setHasFormError(hasError);
-
     }, [downloadRequestData, hasFormError])
 
 
     return (
         <Container>
-            <Button onClick={handleLogin} startIcon={<CloudSync />} >{buttonName}</Button>
+            <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync />} variant={buttonVariant} >{buttonName}</Button>
             <NotificationDialog 
-                open={alert.open && !appTemplate.credentialsRequired} 
+                open={alert.open && !credentialsRequired} 
                 onClose={handleAlertClose} 
                 severity="error" 
                 title={t(alert.title)} 
