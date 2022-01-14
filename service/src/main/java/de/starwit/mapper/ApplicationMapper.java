@@ -57,6 +57,7 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       if (dto.getId() == null) {
         deleteIdsFromEntityDtos(dto.getEntities());
       }
+      app.setTemplate(appTemplate);
       app.setDomains(entityMapper.convertToEntityList(dto.getEntities()));
       entityMapper.addParent(app.getDomains(), app);
     }
