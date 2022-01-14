@@ -83,6 +83,10 @@ public class ApplicationControllerIntegrationTest extends AbstractControllerInte
         MockHttpServletResponse response = retrieveById(0L);
 
         //then
+        AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
+        //set default tempate
+        dto.setTemplate(appTemplateDto);
+        assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
             .isEqualTo(jsonApplicationDto.write(dto).getJson());
@@ -99,6 +103,10 @@ public class ApplicationControllerIntegrationTest extends AbstractControllerInte
         MockHttpServletResponse response = retrieveById(0L);
 
         //then
+        AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
+        //set default tempate
+        dto.setTemplate(appTemplateDto);
+        assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
             .isEqualTo(jsonApplicationDto.write(dto).getJson());
