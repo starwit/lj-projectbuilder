@@ -4,11 +4,14 @@ import {Download} from "@mui/icons-material";
 import ErSection from "../erSection/ErSection";
 import PropTypes from "prop-types";
 import ConclusionSectionStyles from "./ConclusionSectionStyles";
+import {useTranslation} from "react-i18next";
 
 function ConclusionSection(props) {
 
     const {entities, appName, packageName, templateName} = props;
     const conclusionSectionStyles = ConclusionSectionStyles();
+
+    const {t} = useTranslation();
 
     function renderLoadingText(text) {
         if (!text) {
@@ -28,13 +31,13 @@ function ConclusionSection(props) {
                 <Grid item md={9}>
                     <List className={conclusionSectionStyles.list}>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(appName)} secondary="Name"/>
+                            <ListItemText primary={renderLoadingText(appName)} secondary={t("generalSection.nameOfApp")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(templateName)} secondary="Template"/>
+                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("appEditor.section.template.title")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(packageName)} secondary="Package Name"/>
+                            <ListItemText primary={renderLoadingText(packageName)} secondary={t("generalSection.packageNameOfApp")}/>
                         </ListItem>
                     </List>
                 </Grid>
@@ -49,12 +52,12 @@ function ConclusionSection(props) {
                         variant={"contained"}
                         size={"large"}
                     >
-                        Download
+                        {t("button.download")}
                     </Button>
                 </Grid>
 
             </Grid>
-            <Typography variant={"h4"} gutterBottom>ER-Diagramm</Typography>
+            <Typography variant={"h4"} gutterBottom>{t("app.erdiagram")}</Typography>
             <ErSection entities={entities} dense editable={false}/>
         </Container>
     )

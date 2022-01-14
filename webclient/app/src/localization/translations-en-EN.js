@@ -9,6 +9,7 @@ const translationsEnEN = {
     "button.back": "Back",
     "button.save": "Save",
     "button.retry": "Retry",
+    "button.download": "Download",
     "button.cancel": "Cancel",
     "button.yes": "Yes",
     "button.no": "No",
@@ -80,6 +81,7 @@ const translationsEnEN = {
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
     "appEditor.loading": "App wird geladen",
+    "app.erdiagram": "ER-Diagram",
 
     "appTemplateOverview.title": "Templates",
     "appTemplateDialog.new.title": "Create Template",
