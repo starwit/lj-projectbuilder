@@ -1,6 +1,7 @@
 package de.starwit.rest.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import de.starwit.TestdataConstants;
+import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.ApplicationDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.mapper.EntityMapper;
@@ -61,6 +63,10 @@ public class ApplicationControllerIntegrationTest extends AbstractControllerInte
         MockHttpServletResponse response = retrieveById(0L);
 
         //then
+        AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
+        //set default tempate
+        dto.setTemplate(appTemplateDto);
+        assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
             .isEqualTo(jsonApplicationDto.write(dto).getJson());
