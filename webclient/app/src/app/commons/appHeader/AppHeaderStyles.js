@@ -9,7 +9,6 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.modal + 1,
-        backgroundColor: theme.palette.primary.main,
         height: "5rem",
     },
     drawer: {
@@ -61,7 +60,8 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "#000000",
+        backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
     },
     linkButton: {
         marginRight: theme.spacing(3),
