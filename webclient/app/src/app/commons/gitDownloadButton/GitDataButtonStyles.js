@@ -18,8 +18,7 @@ const GitDataButtonStyles = makeStyles(theme => ({
     },
 
     checkbox: {
-        margin: "8px",
-        width: "95%"
+        margin: theme.spacing(4),
     }
 }))
 export default GitDataButtonStyles;

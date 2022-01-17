@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {TextField} from "@mui/material";
 import PropTypes from "prop-types";
 
-function ValidatedTextField(props) {
+function SimpleValidatedTextField(props) {
 
     const {value, errortext, regex, iscreate} = props;
     const [error, setError] = useState(false);
@@ -24,11 +24,11 @@ function ValidatedTextField(props) {
 
 }
 
-ValidatedTextField.propTypes = {
+SimpleValidatedTextField.propTypes = {
     errortext: PropTypes.string.isRequired,
     regex: PropTypes.any.isRequired,
     value: PropTypes.string,
     iscreate: PropTypes.number
 }
 
-export default ValidatedTextField;
+export default SimpleValidatedTextField;
