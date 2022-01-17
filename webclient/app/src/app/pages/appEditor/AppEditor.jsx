@@ -91,7 +91,7 @@ function AppEditor() {
                 <ConclusionSection
                     appId={+appId}
                     entities={entities}
-                    templateName={selectedTemplate?.templateName}
+                    templateName={selectedTemplate?.name}
                     credentialsRequired={selectedTemplate?.credentialsRequired}
                     appName={appName}
                     packageName={packageName}
