@@ -11,9 +11,10 @@ import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
+import GitRest from "../../services/GitRest";
 import ConfirmationDialog from "../alert/ConfirmationDialog";
-import AppTemplateAuthDialog from "../appTemplateDialog/AppTemplateAuthDialog";
 import NotificationDialog from "../alert/NotificationDialog";
+import GitDataButton from "../gitDownloadButton/GitDataButton";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -34,6 +35,7 @@ function AppTemplateCard(props) {
 
     const { appTemplate, handleRefresh } = props;
     const appTemplateRest = new AppTemplateRest();
+    const gitRest = new GitRest();
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [extendedAppTemplate, setExtendedAppTemplate] = useState(false);
 
@@ -76,6 +78,15 @@ function AppTemplateCard(props) {
                 setOpenDeleteDialog(false);
                 console.log(err.response.data);
             });
+    };
+
+    const handleGit = (downloadRequestData) => {
+        return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
+    }
+
+    const handleAfterGitSuccess = () => {
+        handleRefresh();
+        setOpenSuccessDialog(true);
     };
 
     const loadAppTemplate = (appTemplateId) => {
@@ -121,7 +132,11 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <br /><br />
-                            <AppTemplateAuthDialog appTemplate={appTemplate} handleRefresh={handleRefresh} setOpenSuccessDialog={setOpenSuccessDialog} setOpenErrorDialog={setOpenErrorDialog} />
+                            <GitDataButton 
+                                credentialsRequired={appTemplate.credentialsRequired} 
+                                handleAfterSuccess={handleAfterGitSuccess} 
+                                handleGit={handleGit} 
+                                buttonName={t("button.loadtemplate")} />
                         </Grid>
                     </Grid>
                 </CardContent>

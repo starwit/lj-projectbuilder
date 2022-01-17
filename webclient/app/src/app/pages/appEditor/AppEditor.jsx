@@ -89,10 +89,12 @@ function AppEditor() {
             label: t("appEditor.section.conclusion.title"),
             component: (
                 <ConclusionSection
+                    appId={+appId}
+                    entities={entities}
+                    templateName={selectedTemplate?.templateName}
+                    credentialsRequired={selectedTemplate?.credentialsRequired}
                     appName={appName}
                     packageName={packageName}
-                    templateName={selectedTemplate?.name}
-                    entities={entities}
                 />
             ),
             condition: true
