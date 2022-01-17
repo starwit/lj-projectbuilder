@@ -21,12 +21,14 @@ import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import {LoadingButton} from "@mui/lab";
 
 function EntityDialog(props) {
 
     const [value, setValue] = React.useState(0);
     const [entity, setEntity] = React.useState(null);
     const [hasFormError, setHasFormError] = React.useState(false);
+    const [isSaving, setIsSaving] = React.useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
 
@@ -46,12 +48,10 @@ function EntityDialog(props) {
 
         if (!RegexConfig.entityTitle.test(entity.name)) {
             hasError = true;
-            console.log("entityTitleHasError")
         }
 
         entity.fields?.forEach(field => {
             if (!RegexConfig.fieldName.test(field.fieldName)) {
-                console.log(field.name, "has error");
                 hasError = true;
             }
 
@@ -114,9 +114,25 @@ function EntityDialog(props) {
         };
     }
 
+    function prepareSave() {
+
+        setIsSaving(true);
+        handleSave(entity)
+            .then(() => {
+                onClose()
+                setIsSaving(false);
+            })
+            .catch(() => {
+                setIsSaving(false);
+            });
+    }
+
     function addField() {
 
         let newEntity = {...entity};
+        if (!newEntity.fields) {
+            newEntity.fields = [];
+        }
         // TODO Maybe add an ID to entity
         newEntity.fields.push(
             {
@@ -135,6 +151,11 @@ function EntityDialog(props) {
     function addRelationship() {
 
         let newEntity = {...entity};
+
+        if (!newEntity.relationships) {
+            newEntity.relationships = [];
+        }
+
         newEntity.relationships.push(
             {
                 "relationshipType": "",
@@ -272,7 +293,13 @@ function EntityDialog(props) {
                     </TabPanel>
                 </Box>
                 <DialogActions>
-                    <Button onClick={() => handleSave(entity)} disabled={hasFormError}>{t("button.save")}</Button>
+                    <LoadingButton
+                        onClick={prepareSave}
+                        disabled={hasFormError}
+                        loading={isSaving}
+                    >
+                        {t("button.save")}
+                    </LoadingButton>
                 </DialogActions>
             </Container>
         </Dialog>

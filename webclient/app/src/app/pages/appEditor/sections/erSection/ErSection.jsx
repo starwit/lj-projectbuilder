@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {Button, Drawer, Fab} from "@mui/material";
 import {Add, CheckBoxOutlineBlank, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -11,16 +11,18 @@ import {Line} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
+import EntityRest from "../../../../services/EntityRest";
 
 function ErDesigner(props) {
 
-    const {editable, entities, handleUpdateEntities, dense} = props;
+    const {editable, entities, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
+    const entityRest = useMemo(() => new EntityRest(), [EntityRest]);
 
     const {t} = useTranslation();
 
@@ -32,14 +34,9 @@ function ErDesigner(props) {
             newId = newEntities[newEntities.length - 1].id + 1;
         }
         const newEntity = {
-            id: newId,
-            name: "",
-            fields: [],
-            relationships: []
+            id: newId, name: "", fields: [], relationships: [], isNewEntity: true
         };
-        newEntities.push(
-            newEntity
-        )
+        newEntities.push(newEntity)
         handleUpdateEntities(newEntities);
         setCurrentEntity(newEntity)
     }
@@ -58,13 +55,13 @@ function ErDesigner(props) {
             return;
         }
 
-        const foundEntityIndex = entities.findIndex(entity => entity.id === entityId)
-
-        const newEntities = [...entities];
-        if (foundEntityIndex > -1) {
-            newEntities.splice(foundEntityIndex, 1);
-        }
-        handleUpdateEntities(newEntities)
+        return entityRest.delete(entityId)
+            .then((response) => {
+                return entityRest.findAllEntitiesByApp(appId)
+            })
+            .then(response => {
+                handleUpdateEntities(response.data)
+            })
     }
 
     function updateEntity(updatedEntity) {
@@ -72,17 +69,18 @@ function ErDesigner(props) {
             return;
         }
 
-        const foundEntityIndex = entities.findIndex(entity => entity.id === updatedEntity.id);
-        const newEntities = [...entities];
-
-        if (foundEntityIndex > -1) {
-            newEntities[foundEntityIndex] = updatedEntity
-        } else {
-            newEntities.push(updatedEntity);
+        if (updatedEntity.isNewEntity) {
+            delete updatedEntity.id;
         }
 
-        handleUpdateEntities(newEntities);
-        setCurrentEntity(null)
+        return entityRest.createEntityByApp(appId, updatedEntity)
+            .then(() => {
+                return entityRest.findAllEntitiesByApp(appId)
+            })
+            .then(response => {
+                handleUpdateEntities(response.data)
+            })
+
 
     }
 
@@ -107,10 +105,7 @@ function ErDesigner(props) {
             }
             if (elementTarget && elementSource) {
                 coordinates.push({
-                    x0: elementSource.x,
-                    y0: elementSource.y,
-                    x1: elementTarget.x,
-                    y1: elementTarget.y,
+                    x0: elementSource.x, y0: elementSource.y, x1: elementTarget.x, y1: elementTarget.y,
                 })
             }
         })
@@ -138,23 +133,21 @@ function ErDesigner(props) {
             return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
         }
         return entities.map(entity => {
-            return (
-                <Draggable
-                    axis={"both"}
-                    onStop={updateCoordinates}
-                    key={entity.id}
-                    defaultClassName={erDesignerStyles.draggable}
-                >
-                    <div>
-                        <EntityCard
-                            entity={entity}
-                            handleEdit={setCurrentEntity}
-                            handleDelete={deleteEntity}
-                            editable={editable}
-                        />
-                    </div>
-                </Draggable>
-            )
+            return (<Draggable
+                axis={"both"}
+                onStop={updateCoordinates}
+                key={entity.id}
+                defaultClassName={erDesignerStyles.draggable}
+            >
+                <div>
+                    <EntityCard
+                        entity={entity}
+                        handleEdit={setCurrentEntity}
+                        handleDelete={deleteEntity}
+                        editable={editable}
+                    />
+                </div>
+            </Draggable>)
         })
     }
 
@@ -164,13 +157,11 @@ function ErDesigner(props) {
             return;
         }
 
-        return (
-            <div className={erDesignerStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={addEntity}>
-                    <Add/>
-                </Fab>
-            </div>
-        )
+        return (<div className={erDesignerStyles.addFab}>
+            <Fab color="primary" aria-label="add" onClick={addEntity}>
+                <Add/>
+            </Fab>
+        </div>)
 
     }
 
@@ -181,52 +172,50 @@ function ErDesigner(props) {
         return erDesignerStyles.draggableWrapper
     }
 
-    return (
-        <>
-            {renderAddFab()}
-            <div className={erDesignerStyles.codeButtonWrapper}>
-                <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                    {t("entityDesigner.code")}
-                </Button>
-            </div>
-            <React.Fragment key={"left"}>
-                <Drawer
-                    anchor={"left"}
-                    open={drawerOpen}
-                    onClose={closeDrawer}
-                    className={erDesignerStyles.drawer}
+    return (<>
+        {renderAddFab()}
+        <div className={erDesignerStyles.codeButtonWrapper}>
+            <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
+                {t("entityDesigner.code")}
+            </Button>
+        </div>
+        <React.Fragment key={"left"}>
+            <Drawer
+                anchor={"left"}
+                open={drawerOpen}
+                onClose={closeDrawer}
+                className={erDesignerStyles.drawer}
+            >
+                <SyntaxHighlighter
+                    language="json"
+                    style={docco}
+                    showLineNumbers
+                    customStyle={{
+                        lineHeight: "1.5", fontSize: ".75em"
+                    }}
+                    codeTagProps={{
+                        className: erDesignerStyles.syntaxHighlighterCodeTag
+                    }}
                 >
-                    <SyntaxHighlighter
-                        language="json"
-                        style={docco}
-                        showLineNumbers
-                        customStyle={{
-                            lineHeight: "1.5",
-                            fontSize: ".75em"
-                        }}
-                        codeTagProps={{
-                            className: erDesignerStyles.syntaxHighlighterCodeTag
-                        }}
-                    >
-                        {JSON.stringify(entities, null, 4)}
-                    </SyntaxHighlighter>
-                </Drawer>
-            </React.Fragment>
-            <div className={generateWrapper()}>
-                {renderEntities()}
-                {renderRelations()}
-            </div>
-            <EntityDialog
-                entityId={currentEntity?.id}
-                onClose={() => setCurrentEntity(null)}
-                handleSave={(data) => updateEntity(data)}
-                entities={entities}
-            />
-        </>
-    )
+                    {JSON.stringify(entities, null, 4)}
+                </SyntaxHighlighter>
+            </Drawer>
+        </React.Fragment>
+        <div className={generateWrapper()}>
+            {renderEntities()}
+            {renderRelations()}
+        </div>
+        <EntityDialog
+            entityId={currentEntity?.id}
+            onClose={() => setCurrentEntity(null)}
+            handleSave={(data) => updateEntity(data)}
+            entities={entities}
+        />
+    </>)
 }
 
 ErDesigner.propTypes = {
+    appId: PropTypes.number,
     handleUpdateEntities: PropTypes.func,
     entities: PropTypes.array,
     editable: PropTypes.bool,
@@ -234,9 +223,7 @@ ErDesigner.propTypes = {
 }
 
 ErDesigner.defaultProps = {
-    editable: true,
-    entities: [],
-    dense: false
+    editable: true, entities: [], dense: false
 };
 
 export default ErDesigner;
