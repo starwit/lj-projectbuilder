@@ -5,17 +5,20 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.hibernate.validator.constraints.Length;
+
+import de.starwit.persistence.converter.ListToStringConverter;
 
 @XmlRootElement
 @Entity
@@ -50,9 +53,11 @@ public class App extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "app",  cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Domain> domains;
 
-	@Transient
-	private Set<Domain> selectedDomains;
+	@Column( name = "GROUPS")
+	@Convert(converter = ListToStringConverter.class)
+	private List<String> groups;
 
+	@Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -105,8 +110,11 @@ public class App extends AbstractEntity<Long> {
 		this.domains = domains;
 	}
 
-	public List<Domain> getSelectedDomains() {
-		return getDomains();
+	public List<String> getGroups() {
+		return groups;
 	}
 
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
+	}
 }
