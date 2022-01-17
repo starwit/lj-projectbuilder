@@ -22,7 +22,7 @@ function ErDesigner(props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
-    const entityRest = useMemo(() => new EntityRest(), [EntityRest]);
+    const entityRest = useMemo(() => new EntityRest(), []);
 
     const {t} = useTranslation();
 
