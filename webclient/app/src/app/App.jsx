@@ -5,9 +5,12 @@ import MainTheme from "./assets/themes/MainTheme";
 import AppHeader from "./commons/appHeader/AppHeader";
 import MainContentRouter from "./pages/MainContentRouter";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import AppStyles from "./AppStyles";
 
 
 function App() {
+
+    const appStyles = AppStyles();
 
     // theme settings
     const theme = createTheme(new MainTheme());
@@ -15,10 +18,10 @@ function App() {
     return (
         <React.Fragment>
             <ThemeProvider theme={theme}>
-                <div>
+                <div className={appStyles.background} > 
                     <CssBaseline/>
                     <AppHeader/>
-                    <MainContentRouter/>
+                    <MainContentRouter />
                 </div>
             </ThemeProvider>
         </React.Fragment>
