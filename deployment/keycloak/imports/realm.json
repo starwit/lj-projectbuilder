@@ -32,8 +32,8 @@
   },
   "groups": [
     {
-      "name": "projectbuilder-default",
-      "path": "/projectbuilder-default",
+      "name": "public",
+      "path": "/public",
       "attributes": {},
       "realmRoles": [
         "ROLE_reader"
@@ -43,11 +43,10 @@
     }
   ],
   "defaultGroups": [
-    "/projectbuilder-default"
+    "/public"
   ],
   "clients": [
     {
-      "id": "2f8e4455-dcbc-4535-8ec1-b1c3ced005ae",
       "clientId": "projectbuilder",
       "name": "projectbuilder",
       "rootUrl": "",
