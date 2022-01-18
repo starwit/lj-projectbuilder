@@ -151,7 +151,7 @@ function ErDesigner(props) {
         })
     }
 
-    function renderAddFab() {
+    function renderAddEntityButton() {
 
         if (!editable) {
             return;
@@ -173,7 +173,7 @@ function ErDesigner(props) {
     }
 
     return (<>
-        {renderAddFab()}
+        {renderAddEntityButton()}
         <div className={erDesignerStyles.codeButtonWrapper}>
             <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
                 {t("entityDesigner.code")}
