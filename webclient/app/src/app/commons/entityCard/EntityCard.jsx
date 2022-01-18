@@ -1,6 +1,6 @@
 import {Card, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import {Delete, Edit} from "@mui/icons-material";
-import React from "react";
+import React, {useState} from "react";
 import Statement from "../statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 function EntityCard(props) {
 
     const entityCardStyles = EntityCardStyles();
+    const [isDeleting, setIsDeleting] = useState(false);
+
     const {entity, handleEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
@@ -75,12 +77,19 @@ function EntityCard(props) {
         }
     }
 
-    function renderDeleteClick() {
+    function prepareDelete() {
+        handleDelete(entity.id)
+            .then(setIsDeleting(false))
+            .catch(setIsDeleting(false));
+    }
+
+    function renderDeleteWrapper() {
         if (handleDelete && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton
-                        onClick={() => handleDelete(entity.id)}
+                        onClick={prepareDelete}
+                        disabled={isDeleting}
                     >
                         <Delete fontSize={"small"}/>
                     </IconButton>
@@ -107,7 +116,7 @@ function EntityCard(props) {
                     {renderTitle(entity.name)}
                 </Grid>
                 {renderEditButton()}
-                {renderDeleteClick()}
+                {renderDeleteWrapper()}
             </Grid>
             {renderFieldsTable(entity)}
         </Card>
