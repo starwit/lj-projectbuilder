@@ -15,5 +15,6 @@ public interface AppRepository extends JpaRepository<App, Long> {
 	@Query("SELECT p FROM App p WHERE p.id = ?1")
 	public App findAppByIdOrThrowExeption(Long appid) throws NotificationException;
 
-	List<App> findByGroups(List<String> groups);
+	@Query(value="SELECT * FROM APP p WHERE p.groups REGEXP :groups", nativeQuery=true)
+	List<App> findByGroupString(String groups);
 }

@@ -4,19 +4,19 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
 
 import de.starwit.dto.UpdateGroupsDto;
-import de.starwit.persistence.converter.ListToStringConverter;
+import net.minidev.json.JSONArray;
 
 public interface GroupsInterface {
 
     default UpdateGroupsDto getGroups(Long appId, Principal principal, List<String> appGroups) {
         List<String> managedGroups = getGroups(principal);
-
-       
-
         UpdateGroupsDto groupsToUpdate = new UpdateGroupsDto();
         groupsToUpdate.setId(appId);
         groupsToUpdate.setManagedGroups(managedGroups);
@@ -28,9 +28,9 @@ public interface GroupsInterface {
     default List<String> getGroups(Principal principal) {
         KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
         AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
-        String groups = accessToken.getOtherClaims().get("groups").toString();
-        ListToStringConverter conv = new ListToStringConverter();
-        return conv.convertToEntityAttribute(groups);
+        List<String> groups = (List<String>)accessToken.getOtherClaims().get("groups");
+        
+        return groups;
     }
 
     default List<String> identifyAssignedGroups(UpdateGroupsDto groupsToUpdated, List<String> assignedGroups) {

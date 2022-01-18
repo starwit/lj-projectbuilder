@@ -31,7 +31,7 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 	}
 
 	public List<AppTemplate> findByGroups(List<String> groups) {
-        return this.getRepository().findByGroups(groups);
+        return this.getRepository().findByGroupString(String.join(",|", groups) + ",");
     }
 
 	@Override

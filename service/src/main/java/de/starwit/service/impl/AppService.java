@@ -31,7 +31,8 @@ public class AppService implements ServiceInterface<App, AppRepository> {
 	}
 
 	public List<App> findByGroups(List<String> groups) {
-        return this.getRepository().findByGroups(groups);
+
+        return this.getRepository().findByGroupString(String.join(",|", groups) + ",");
     }
 
 	@Override
