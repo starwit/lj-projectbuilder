@@ -42,5 +42,4 @@ public class AppService implements ServiceInterface<App, AppRepository> {
 		}
         return entity;
     }
-
 }

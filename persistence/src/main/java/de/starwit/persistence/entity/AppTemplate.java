@@ -60,10 +60,6 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Convert(converter = ListToStringConverter.class)
 	private List<String> groups;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 	public String getTemplateName() {
 		return templateName;
 	}
