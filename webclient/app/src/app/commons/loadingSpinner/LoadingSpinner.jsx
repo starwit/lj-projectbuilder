@@ -9,9 +9,13 @@ function LoadingSpinner(props) {
     const loadingSpinnerStyles = LoadingSpinnerStyles();
 
     useEffect(() => {
-        setTimeout(function () {
+        const messageTimer = setTimeout(function () {
             setShowMessage(true);
         }, 1000);
+        
+        return () => {
+            clearTimeout(messageTimer);
+        };
     })
 
     return (
