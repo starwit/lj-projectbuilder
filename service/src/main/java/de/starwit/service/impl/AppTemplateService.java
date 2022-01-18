@@ -1,5 +1,6 @@
 package de.starwit.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -28,6 +29,10 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 	public AppTemplateRepository getRepository() {
 		return appTemplateRepository;
 	}
+
+	public List<AppTemplate> findByGroups(List<String> groups) {
+        return this.getRepository().findByGroups(groups);
+    }
 
 	@Override
 	public AppTemplate saveOrUpdate(AppTemplate entity) {

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("${rest.base-path}/apps")
 public class ApplicationController implements GroupsInterface {
 
-	final static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
+	static final Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
 	@Autowired
 	private AppService appService;
@@ -45,16 +44,16 @@ public class ApplicationController implements GroupsInterface {
 
 	@Operation(summary = "Get all apps")
 	@GetMapping
-	public List<ApplicationDto> findAll() {
-		return appMapper.convertToDtoList(appService.findAll());
+	public List<ApplicationDto> findAll(Principal principal) {
+		List<String> groups = getGroups(principal);
+		return appMapper.convertToDtoList(appService.findByGroups(groups));
 	}
 
 	@Operation(summary = "Get app with id")
 	@GetMapping(value = "/{id}")
 	public ApplicationDto findById(@PathVariable("id") Long id) {
 		App entity = appService.findById(id);
-		ApplicationDto dto = appMapper.convertToDto(entity);
-		return dto;
+		return appMapper.convertToDto(entity);
 	}
 
 	@IsAdmin
@@ -101,7 +100,7 @@ public class ApplicationController implements GroupsInterface {
 	}
 
 	@GetMapping("/assigned-groups/{appId}")
-	public UpdateGroupsDto getGroups(@PathVariable("appId") Long appId, Model model, Principal principal) {
+	public UpdateGroupsDto getGroups(@PathVariable("appId") Long appId, Principal principal) {
 		List<String> appGroups = appService.findById(appId).getGroups();
 		return getGroups(appId, principal, appGroups);
 	}

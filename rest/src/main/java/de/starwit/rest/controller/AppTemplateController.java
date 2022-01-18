@@ -92,8 +92,9 @@ public class AppTemplateController implements GroupsInterface {
 
 	@Operation(summary = "Get all appTemplates")
 	@GetMapping
-	public List<SaveAppTemplateDto> findAll() {
-		return appTemplateMapper.convertToDtoList(appTemplateService.findAll());
+	public List<SaveAppTemplateDto> findAll(Principal principal) {
+		List<String> groups = getGroups(principal);
+		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups));
 	}
 
 	@IsAdmin

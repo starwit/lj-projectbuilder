@@ -1,5 +1,7 @@
 package de.starwit.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,10 @@ public class AppService implements ServiceInterface<App, AppRepository> {
 	public AppRepository getRepository() {
 		return appRepository;
 	}
+
+	public List<App> findByGroups(List<String> groups) {
+        return this.getRepository().findByGroups(groups);
+    }
 
 	@Override
 	public App saveOrUpdate(App entity) {

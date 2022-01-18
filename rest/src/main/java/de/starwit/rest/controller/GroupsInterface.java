@@ -13,12 +13,9 @@ import de.starwit.persistence.converter.ListToStringConverter;
 public interface GroupsInterface {
 
     default UpdateGroupsDto getGroups(Long appId, Principal principal, List<String> appGroups) {
-        KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
-        AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
-        String groups = accessToken.getOtherClaims().get("groups").toString();
+        List<String> managedGroups = getGroups(principal);
 
-        ListToStringConverter conv = new ListToStringConverter();
-        List<String> managedGroups = conv.convertToEntityAttribute(groups);
+       
 
         UpdateGroupsDto groupsToUpdate = new UpdateGroupsDto();
         groupsToUpdate.setId(appId);
@@ -26,6 +23,14 @@ public interface GroupsInterface {
         groupsToUpdate.setGroupsToAdd(appGroups);
 
         return groupsToUpdate;
+    }
+
+    default List<String> getGroups(Principal principal) {
+        KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
+        AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
+        String groups = accessToken.getOtherClaims().get("groups").toString();
+        ListToStringConverter conv = new ListToStringConverter();
+        return conv.convertToEntityAttribute(groups);
     }
 
     default List<String> identifyAssignedGroups(UpdateGroupsDto groupsToUpdated, List<String> assignedGroups) {
