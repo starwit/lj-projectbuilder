@@ -151,13 +151,21 @@ function ErDesigner(props) {
             return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
         }
         return entities.map(entity => {
+            const entityCardPosition = {x: 0, y: 0};
+
+            if (entity.position) {
+                const {positionX, positionY} = entity.position;
+                entityCardPosition.x = positionX;
+                entityCardPosition.y = positionY;
+            }
+
             return (
                 <Draggable
                     axis={"both"}
                     onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
                     key={entity.id}
                     defaultClassName={erDesignerStyles.draggable}
-                    defaultPosition={{x: entity.position?.positionX, y: entity.position?.positionY}}
+                    defaultPosition={entityCardPosition}
                 >
                     <div>
                         <EntityCard
