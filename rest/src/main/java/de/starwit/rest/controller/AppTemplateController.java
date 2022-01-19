@@ -75,7 +75,7 @@ public class AppTemplateController implements GroupsInterface {
 	@GetMapping
 	public List<SaveAppTemplateDto> findAll(Principal principal) {
 		List<String> groups = getGroups(principal);
-		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups), principal);
+		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups));
 	}
 
 	@IsAdmin

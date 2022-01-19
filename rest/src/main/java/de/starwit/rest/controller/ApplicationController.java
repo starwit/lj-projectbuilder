@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import de.starwit.allowedroles.IsAdmin;
 import de.starwit.allowedroles.IsUser;
 import de.starwit.dto.ApplicationDto;
-import de.starwit.dto.UpdateGroupsDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.service.impl.AppService;
@@ -69,7 +68,13 @@ public class ApplicationController implements GroupsInterface {
 	@Operation(summary = "Update app")
 	@PutMapping
 	public ApplicationDto update(@Valid @RequestBody ApplicationDto dto) {
-		App app = appMapper.convertToEntity(dto);
+		App app = new App();
+		if (dto.getId() != null) {
+			app = appService.findById(dto.getId());
+		}
+		List<String> assignedGroups = app.getGroups();
+		assignedGroups = identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups, dto.getUserGroups());
+		app.setGroups(assignedGroups);
 		app = appService.saveOrUpdate(app);
 		return appMapper.convertToDto(app);
 	}
@@ -84,25 +89,6 @@ public class ApplicationController implements GroupsInterface {
 		app.setDomains(appOld.getDomains());
 		app = appService.saveOrUpdate(app);
 		return appMapper.convertToDto(app);
-	}
-
-	@IsAdmin
-	@Operation(summary = "Set groups for app")
-	@PutMapping(value = "/update-groups")
-	public List<String> updateGroups(@Valid @RequestBody UpdateGroupsDto groupsToUpdated) {
-		Long id = groupsToUpdated.getId();
-		App app = appService.findById(id);
-		List<String> assignedGroups = app.getGroups();
-		assignedGroups = identifyAssignedGroups(groupsToUpdated, assignedGroups);
-		app.setGroups(assignedGroups);
-		appService.saveOrUpdate(app);
-		return assignedGroups;
-	}
-
-	@GetMapping("/assigned-groups/{appId}")
-	public UpdateGroupsDto getGroups(@PathVariable("appId") Long appId, Principal principal) {
-		List<String> appGroups = appService.findById(appId).getGroups();
-		return getGroups(appId, principal, appGroups);
 	}
 
 	@IsAdmin
