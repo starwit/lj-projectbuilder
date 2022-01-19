@@ -74,8 +74,8 @@ public class ApplicationController implements GroupsInterface {
 		}
 		List<String> assignedGroups = app.getGroups();
 		assignedGroups = identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups, dto.getUserGroups());
-		app.setGroups(assignedGroups);
-		app = appService.saveOrUpdate(app);
+		dto.setGroupsToAssign(assignedGroups);
+		app = appService.saveOrUpdate(appMapper.convertToEntity(dto));
 		return appMapper.convertToDto(app);
 	}
 

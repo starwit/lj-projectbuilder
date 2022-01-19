@@ -3,6 +3,8 @@ package de.starwit.rest.acceptance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import org.junit.jupiter.api.Test;
@@ -60,6 +62,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         JsonNode jsonNode = mapper.readTree(response.getContentAsString());
         Long id = jsonNode.get("id").asLong();
         dto.setId(id);
+        dto.setGroupsToAssign(new ArrayList<>());
         String applicationString = jsonTester.write(dto).getJson();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(applicationString);
