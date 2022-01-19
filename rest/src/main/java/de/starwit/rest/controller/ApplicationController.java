@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("${rest.base-path}/apps")
-public class ApplicationController implements GroupsInterface {
+public class ApplicationController {
 
 	static final Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
@@ -44,7 +44,7 @@ public class ApplicationController implements GroupsInterface {
 	@Operation(summary = "Get all apps")
 	@GetMapping
 	public List<ApplicationDto> findAll(Principal principal) {
-		List<String> groups = getGroups(principal);
+		List<String> groups = GroupsHelper.getGroups(principal);
 		return appMapper.convertToDtoList(appService.findByGroups(groups));
 	}
 
@@ -73,7 +73,7 @@ public class ApplicationController implements GroupsInterface {
 			app = appService.findById(dto.getId());
 		}
 		List<String> assignedGroups = app.getGroups();
-		assignedGroups = identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups, dto.getUserGroups());
+		assignedGroups = GroupsHelper.identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups, dto.getUserGroups());
 		dto.setGroupsToAssign(assignedGroups);
 		app = appService.saveOrUpdate(appMapper.convertToEntity(dto));
 		return appMapper.convertToDto(app);

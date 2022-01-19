@@ -1,6 +1,6 @@
 package de.starwit.persistence.converter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,7 +14,11 @@ public class ListToStringConverter implements AttributeConverter<List<String>, S
 
     @Override
     public List<String> convertToEntityAttribute(String dbData) {
-        List<String> items = dbData == null ? Collections.emptyList() : Arrays.asList(dbData.split(","));
+        ArrayList<String> items = new ArrayList<>();
+        if (dbData != null) {
+            Collections.addAll(items, dbData.split(","));
+        }
+        items.removeIf(item -> item == null || "".equals(item));
         items.sort(String.CASE_INSENSITIVE_ORDER);
         return items;
     }

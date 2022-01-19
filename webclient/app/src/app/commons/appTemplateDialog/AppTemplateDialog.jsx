@@ -19,6 +19,8 @@ import AppTemplateRest from "../../services/AppTemplateRest"
 import ErrorAlert from "../alert/ErrorAlert";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import MultipleSelectChip from "./ChipSelect";
+import UserRest from "../../services/UserRest";
 
 function AppTemplateDialog(props) {
     const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
@@ -28,31 +30,39 @@ function AppTemplateDialog(props) {
     const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
+    const [userGroups, setUserGroups] = useState(null);
 
     const onDialogClose = () => {
         onClose();
         closeAlert();
         setInternalAppTemplate(appTemplate);
-    }
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = value;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
+
+    const handleGroupChange = (items) => {
+        let appTemplateNew = { ...internalAppTemplate };
+        appTemplateNew['groupsToAssign'] = items;
+        setInternalAppTemplate(appTemplateNew);
+    };
 
     const handleCredentialsCheckbox = (event) => {
         const { name, checked } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = checked;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
 
     const handleSave = (toSave) => {
         if(hasFormError) {
             return;
         }
+        toSave.userGroups = userGroups;
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
@@ -66,17 +76,17 @@ function AppTemplateDialog(props) {
                 setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
             });
         }
-    }
+    };
 
     const closeAlert = () => {
         setAlert({"open":false, "title": t("alert.error"), "message": ""});
-    }
+    };
 
     const handleSaveResponse = (response) => {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
-    }
+    };
 
     useEffect(() => {
         if (!internalAppTemplate) {
@@ -96,6 +106,13 @@ function AppTemplateDialog(props) {
     useEffect(() => {
         setInternalAppTemplate(appTemplate);
     }, [appTemplate]);
+
+    useEffect(() => {
+        const userRest = new UserRest();
+        userRest.getUserGroups().then((response) => {
+            setUserGroups(response.data);
+        });
+    }, [userGroups]);
 
     if (!appTemplate) {
         return null;
@@ -158,6 +175,10 @@ function AppTemplateDialog(props) {
                     name="description" 
                     onChange={handleChange} 
                 />
+                <MultipleSelectChip 
+                    values={userGroups} 
+                    selected={internalAppTemplate.groupsToAssign} 
+                    handleExternalChange={handleGroupChange}/>
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
                     <FormControlLabel 
                         control={

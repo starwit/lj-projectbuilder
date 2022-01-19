@@ -7,11 +7,11 @@ import java.util.List;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
 
-import de.starwit.dto.UpdateGroupsDto;
+public interface GroupsHelper {
 
-public interface GroupsInterface {
+    static final String DEFAULT_GROUP = "public";
 
-    default List<String> getGroups(Principal principal) {
+    public static List<String> getGroups(Principal principal) {
         KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
         AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
         List<String> groups = (List<String>)accessToken.getOtherClaims().get("groups");
@@ -19,7 +19,7 @@ public interface GroupsInterface {
         return groups;
     }
 
-    default List<String> identifyAssignedGroups(List<String> groupsToAssign, List<String> assignedGroups, List<String> userGroups) {
+    public static List<String> identifyAssignedGroups(List<String> groupsToAssign, List<String> assignedGroups, List<String> userGroups) {
         groupsToAssign = (groupsToAssign == null) ? new ArrayList<>() : groupsToAssign;
         assignedGroups = (assignedGroups == null) ? new ArrayList<>() : assignedGroups;
 
@@ -32,6 +32,11 @@ public interface GroupsInterface {
                 }
             }
         }
+
+        if (assignedGroups.isEmpty()) {
+            assignedGroups.add(GroupsHelper.DEFAULT_GROUP);
+        }
+        
         return assignedGroups;
     }
 

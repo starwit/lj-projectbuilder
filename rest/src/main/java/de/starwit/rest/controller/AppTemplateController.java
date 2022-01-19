@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("${rest.base-path}/apptemplates")
-public class AppTemplateController implements GroupsInterface {
+public class AppTemplateController {
 
 	static final Logger LOG = LoggerFactory.getLogger(AppTemplateController.class);
 
@@ -66,7 +66,7 @@ public class AppTemplateController implements GroupsInterface {
 		appTemplate.setDescription(appTemplateDto.getDescription());
 		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
 		List<String> assignedGroups = appTemplate.getGroups();
-		assignedGroups = identifyAssignedGroups(appTemplateDto.getGroupsToAssign(), assignedGroups, appTemplateDto.getUserGroups());
+		assignedGroups = GroupsHelper.identifyAssignedGroups(appTemplateDto.getGroupsToAssign(), assignedGroups, appTemplateDto.getUserGroups());
 		appTemplate.setGroups(assignedGroups);
 		return appTemplateService.saveOrUpdate(appTemplate);
 	}
@@ -74,7 +74,7 @@ public class AppTemplateController implements GroupsInterface {
 	@Operation(summary = "Get all appTemplates")
 	@GetMapping
 	public List<SaveAppTemplateDto> findAll(Principal principal) {
-		List<String> groups = getGroups(principal);
+		List<String> groups = GroupsHelper.getGroups(principal);
 		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups));
 	}
 
