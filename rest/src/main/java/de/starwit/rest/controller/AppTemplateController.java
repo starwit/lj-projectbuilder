@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.starwit.allowedroles.IsAdmin;
 import de.starwit.dto.SaveAppTemplateDto;
-import de.starwit.dto.UpdateGroupsDto;
 import de.starwit.mapper.AppTemplateMapper;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.service.impl.AppTemplateService;
@@ -67,34 +65,17 @@ public class AppTemplateController implements GroupsInterface {
 		appTemplate.setBranch(appTemplateDto.getBranch());
 		appTemplate.setDescription(appTemplateDto.getDescription());
 		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
-		return appTemplateService.saveOrUpdate(appTemplate);
-	}
-
-	@IsAdmin
-	@Operation(summary = "Set groups for appTemplate")
-	@PutMapping(value = "/update-groups")
-	public List<String> updateGroups(@Valid @RequestBody UpdateGroupsDto groupsToUpdated) {
-		Long id = groupsToUpdated.getId();
-		AppTemplate appTemplate = appTemplateService.findById(id);
 		List<String> assignedGroups = appTemplate.getGroups();
-		assignedGroups = identifyAssignedGroups(groupsToUpdated, assignedGroups);
+		assignedGroups = identifyAssignedGroups(appTemplateDto.getGroupsToAssign(), assignedGroups, appTemplateDto.getUserGroups());
 		appTemplate.setGroups(assignedGroups);
-		appTemplateService.saveOrUpdate(appTemplate);
-		return assignedGroups;
-	}
-
-	@GetMapping("/assigned-groups/{appTemplateId}")
-	public UpdateGroupsDto getGroups(@PathVariable("appTemplateId") Long appTemplateId, Model model,
-			Principal principal) {
-		List<String> appGroups = appTemplateService.findById(appTemplateId).getGroups();
-		return getGroups(appTemplateId, principal, appGroups);
+		return appTemplateService.saveOrUpdate(appTemplate);
 	}
 
 	@Operation(summary = "Get all appTemplates")
 	@GetMapping
 	public List<SaveAppTemplateDto> findAll(Principal principal) {
 		List<String> groups = getGroups(principal);
-		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups));
+		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups), principal);
 	}
 
 	@IsAdmin
