@@ -34,7 +34,15 @@ function ErDesigner(props) {
             newId = newEntities[newEntities.length - 1].id + 1;
         }
         const newEntity = {
-            id: newId, name: "", fields: [], relationships: [], isNewEntity: true
+            id: newId,
+            name: "",
+            fields: [],
+            relationships: [],
+            isNewEntity: true,
+            position: {
+                positionX: 0,
+                positionY: 0
+            }
         };
         newEntities.push(newEntity)
         handleUpdateEntities(newEntities);
@@ -84,9 +92,19 @@ function ErDesigner(props) {
 
     }
 
-    function updateCoordinates() {
+    function updateCoordinates(update, draggableData, entity) {
         const relationsList = [];
         const coordinates = [];
+
+        if (!entity.position) {
+            entity.position = {};
+        }
+
+        entity.position.positionX = draggableData.x;
+        entity.position.positionY = draggableData.y;
+
+        entityRest.updateEntityByAppId(appId, entity)
+
         entities.forEach(entity => {
             if (entity.relationships) {
                 return entity?.relationships.forEach(relationship => {
@@ -133,21 +151,31 @@ function ErDesigner(props) {
             return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
         }
         return entities.map(entity => {
-            return (<Draggable
-                axis={"both"}
-                onStop={updateCoordinates}
-                key={entity.id}
-                defaultClassName={erDesignerStyles.draggable}
-            >
-                <div>
-                    <EntityCard
-                        entity={entity}
-                        handleEdit={setCurrentEntity}
-                        handleDelete={deleteEntity}
-                        editable={editable}
-                    />
-                </div>
-            </Draggable>)
+            const entityCardPosition = {x: 0, y: 0};
+
+            if (entity.position) {
+                const {positionX, positionY} = entity.position;
+                entityCardPosition.x = positionX;
+                entityCardPosition.y = positionY;
+            }
+
+            return (
+                <Draggable
+                    axis={"both"}
+                    onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
+                    key={entity.id}
+                    defaultClassName={erDesignerStyles.draggable}
+                    defaultPosition={entityCardPosition}
+                >
+                    <div>
+                        <EntityCard
+                            entity={entity}
+                            handleEdit={setCurrentEntity}
+                            handleDelete={deleteEntity}
+                            editable={editable}
+                        />
+                    </div>
+                </Draggable>)
         })
     }
 
