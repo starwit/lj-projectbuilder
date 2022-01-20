@@ -63,6 +63,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         Long id = jsonNode.get("id").asLong();
         dto.setId(id);
         dto.setGroupsToAssign(new ArrayList<>());
+        dto.getGroupsToAssign().add("public");
         String applicationString = jsonTester.write(dto).getJson();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(applicationString);

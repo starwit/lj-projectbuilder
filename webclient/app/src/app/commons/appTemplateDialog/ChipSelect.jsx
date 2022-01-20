@@ -41,11 +41,12 @@ export default function MultipleSelectChip(props) {
        // On autofill we get a stringified value.
        typeof value === 'string' ? value.split(',') : value,
      );
+     handleExternalChange(typeof value === 'string' ? value.split(',') : value,);
    };
 
    useEffect(() => {
-    handleExternalChange(itemValue);
-}, [itemValue]);
+     setItemValue(selected);
+}, [selected]);
 
   return (
     <div>
