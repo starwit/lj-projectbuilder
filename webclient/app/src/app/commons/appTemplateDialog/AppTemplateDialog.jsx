@@ -166,11 +166,12 @@ function AppTemplateDialog(props) {
                     name="description" 
                     onChange={handleChange} 
                 />
-                <MultipleSelectChip 
-                    values={userGroups} 
-                    selected={internalAppTemplate.groups} 
-                    handleExternalChange={handleGroupChange}/>
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
+                    <MultipleSelectChip 
+                        values={userGroups} 
+                        selected={internalAppTemplate.groups} 
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")} />
                     <FormControlLabel 
                         control={
                             <Checkbox  

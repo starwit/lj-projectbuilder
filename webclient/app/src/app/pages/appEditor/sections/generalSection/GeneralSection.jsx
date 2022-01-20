@@ -38,10 +38,12 @@ function GeneralSection(props) {
                         fullWidth
                         onChange={event => setPackageName(event.target.value)}
                     />
+                    <div className={generalSectionStyles.padding}/>
                     <MultipleSelectChip 
-                    values={userGroups} 
-                    selected={assignedGroups} 
-                    handleExternalChange={handleGroupChange}
+                        values={userGroups} 
+                        selected={assignedGroups} 
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")}
                     />
                 </Grid>
                 <Grid item md={4}>
