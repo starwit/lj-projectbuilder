@@ -20,17 +20,15 @@ import ErrorAlert from "../alert/ErrorAlert";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import MultipleSelectChip from "./ChipSelect";
-import UserRest from "../../services/UserRest";
 
 function AppTemplateDialog(props) {
-    const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
+    const { appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
-    const [userGroups, setUserGroups] = useState(null);
 
     const onDialogClose = () => {
         onClose();
@@ -47,7 +45,7 @@ function AppTemplateDialog(props) {
 
     const handleGroupChange = (items) => {
         let appTemplateNew = { ...internalAppTemplate };
-        appTemplateNew['groupsToAssign'] = items;
+        appTemplateNew['groups'] = items;
         setInternalAppTemplate(appTemplateNew);
     };
 
@@ -106,13 +104,6 @@ function AppTemplateDialog(props) {
     useEffect(() => {
         setInternalAppTemplate(appTemplate);
     }, [appTemplate]);
-
-    useEffect(() => {
-        const userRest = new UserRest();
-        userRest.getUserGroups().then((response) => {
-            setUserGroups(response.data);
-        });
-    }, [userGroups]);
 
     if (!appTemplate) {
         return null;
@@ -177,7 +168,7 @@ function AppTemplateDialog(props) {
                 />
                 <MultipleSelectChip 
                     values={userGroups} 
-                    selected={internalAppTemplate.groupsToAssign} 
+                    selected={internalAppTemplate.groups} 
                     handleExternalChange={handleGroupChange}/>
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
                     <FormControlLabel 

@@ -4,12 +4,14 @@ import { useTranslation } from "react-i18next";
 import AppTemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
+import UserRest from "../../services/UserRest";
 
 function AppTemplateOverview() {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
-    const [data, setData] = useState([]);    
+    const [data, setData] = useState([]);
+    const [userGroups, setUserGroups] = React.useState(false); 
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -25,7 +27,8 @@ function AppTemplateOverview() {
         "location": "",
         "branch": "",
         "credentialsRequired": false,
-        "description": ""
+        "description": "",
+        "groups": ["public"]
     };
 
     const reload = () => {
@@ -34,6 +37,13 @@ function AppTemplateOverview() {
             setData(response.data);
         });
     };
+
+    useEffect(() => {
+        const userRest = new UserRest();
+        userRest.getUserGroups().then((response) => {
+            setUserGroups(response.data);
+        });
+    }, [userGroups]);
 
     useEffect(() => {
         reload();
@@ -55,7 +65,7 @@ function AppTemplateOverview() {
                 <Grid container spacing={2}>
                     {data.map(appTemplate => (
                         <Grid item key={appTemplate.id} sm={12}>
-                            <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} />
+                            <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
                         </Grid>
                     ))}
                 </Grid>
@@ -65,6 +75,7 @@ function AppTemplateOverview() {
                 onClose={handleDialogClose}
                 onRefresh={reload}
                 isCreateDialog={true}
+                userGroups={userGroups}
             />
         </Container>
     )

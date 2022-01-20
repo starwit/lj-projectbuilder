@@ -24,12 +24,12 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     private String description;
 
-    private List<String> groupsToAssign;
+    private List<String> groups;
 
     private List<String> userGroups;
 
     @Schema(hidden = true)
-    @Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+    @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
 	@Size(max = 100)
     private String packagePlaceholder;
 
@@ -71,12 +71,12 @@ public class SaveAppTemplateDto extends AppTemplateDto {
         return super.getName();
     }
 
-    public List<String> getGroupsToAssign() {
-        return groupsToAssign;
+    public List<String> getGroups() {
+        return groups;
     }
 
-    public void setGroupsToAssign(List<String> groupsToAssign) {
-        this.groupsToAssign = groupsToAssign;
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     public List<String> getUserGroups() {

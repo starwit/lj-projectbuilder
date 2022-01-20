@@ -37,7 +37,7 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 	@Override
 	public AppTemplate saveOrUpdate(AppTemplate entity) {
 		Set<TemplateFile> templateFiles = templateFileRepository.findAllByAppTemplate(entity.getId());
-		if (templateFiles != null && templateFiles.isEmpty()) {
+		if (templateFiles != null && !templateFiles.isEmpty()) {
 			for (TemplateFile templateFile : templateFiles) {
 				templateFile.setAppTemplate(entity);
 			}
@@ -48,7 +48,7 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 	public AppTemplate updateFromRepo(AppTemplate entity) {
 		Set<TemplateFile> newTemplateFiles = entity.getTemplateFiles();
 		
-		if (newTemplateFiles != null && newTemplateFiles.isEmpty()) {
+		if (newTemplateFiles != null && !newTemplateFiles.isEmpty()) {
 			for (TemplateFile templateFile : newTemplateFiles) {
 				templateFile.setAppTemplate(entity);
 			}

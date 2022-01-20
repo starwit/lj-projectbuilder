@@ -66,7 +66,7 @@ public class AppTemplateController {
 		appTemplate.setDescription(appTemplateDto.getDescription());
 		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
 		List<String> assignedGroups = appTemplate.getGroups();
-		assignedGroups = GroupsHelper.identifyAssignedGroups(appTemplateDto.getGroupsToAssign(), assignedGroups, appTemplateDto.getUserGroups());
+		assignedGroups = GroupsHelper.identifyAssignedGroups(appTemplateDto.getGroups(), assignedGroups, appTemplateDto.getUserGroups());
 		appTemplate.setGroups(assignedGroups);
 		return appTemplateService.saveOrUpdate(appTemplate);
 	}

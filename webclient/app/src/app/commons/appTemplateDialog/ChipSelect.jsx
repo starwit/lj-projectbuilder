@@ -20,33 +20,37 @@ const MenuProps = {
 };
 
 function getStyles(name, itemValue, theme) {
-  return {
-    fontWeight:
-      itemValue.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+  if (!itemValue) {
+    return null;
+  } else {
+    return {
+      fontWeight:
+        itemValue.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
 }
 
-export default function MultipleSelectChip(props) {
-    const { values, selected, handleExternalChange } = props;
-    const theme = useTheme();
-    const [itemValue, setItemValue] = useState(selected);
+function MultipleSelectChip(props) {
+  const { values, selected, handleExternalChange } = props;
+  const theme = useTheme();
+  const [itemValue, setItemValue] = useState(selected);
 
-   const handleChange = (event) => {
-     const {
-       target: { value },
-     } = event;
-     setItemValue(
-       // On autofill we get a stringified value.
-       typeof value === 'string' ? value.split(',') : value,
-     );
-     handleExternalChange(typeof value === 'string' ? value.split(',') : value,);
-   };
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setItemValue(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    handleExternalChange(typeof value === 'string' ? value.split(',') : value,);
+  };
 
-   useEffect(() => {
-     setItemValue(selected);
-}, [selected]);
+  useEffect(() => {
+    setItemValue(selected);
+  }, [selected]);
 
   return (
     <div>
@@ -59,7 +63,7 @@ export default function MultipleSelectChip(props) {
           value={itemValue}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
+          renderValue={() => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
@@ -82,3 +86,5 @@ export default function MultipleSelectChip(props) {
     </div>
   );
 }
+
+export default MultipleSelectChip;

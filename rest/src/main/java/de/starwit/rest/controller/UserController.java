@@ -2,6 +2,7 @@ package de.starwit.rest.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,19 +36,25 @@ public class UserController {
     @IsAdmin
     @GetMapping("/info")
     public AccessToken getUserInfo(Principal principal) {
-        KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
-        AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
-        String groups = accessToken.getOtherClaims().get("groups").toString();
-        log.info("user groups {}", groups);
-        log.info("user info {},{}", accessToken.getGivenName(), accessToken.getFamilyName());
-        return accessToken;
+        if (principal != null) {
+            KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
+            AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
+            String groups = accessToken.getOtherClaims().get("groups").toString();
+            log.info("user groups {}", groups);
+            log.info("user info {},{}", accessToken.getGivenName(), accessToken.getFamilyName());
+            return accessToken;
+        }
+        return null;
     }
 
     @GetMapping("/roles")
     public Set<String> getRoles(Principal principal) {
-        KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
-        return keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken().getRealmAccess()
-                .getRoles();
+        if (principal != null) {
+            KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
+            return keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken().getRealmAccess()
+                    .getRoles();
+        }
+        return new HashSet<>();
     }
 
     @GetMapping("/groups")

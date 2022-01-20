@@ -12,10 +12,15 @@ public interface GroupsHelper {
     static final String DEFAULT_GROUP = "public";
 
     public static List<String> getGroups(Principal principal) {
-        KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
-        AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
-        List<String> groups = (List<String>)accessToken.getOtherClaims().get("groups");
-        
+        List<String> groups = new ArrayList<>();
+        if (principal != null) {
+            KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
+            AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
+            groups = (ArrayList<String>)accessToken.getOtherClaims().get("groups");
+        }
+        if (groups.isEmpty()) {
+            groups.add(GroupsHelper.DEFAULT_GROUP);
+        }
         return groups;
     }
 
