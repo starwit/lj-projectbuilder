@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import GeneralSectionStyles from "./GeneralSectionStyles";
-import MultipleSelectChip from "../../../../commons/appTemplateDialog/ChipSelect";
+import MultipleSelectChip from "../../../../commons/multipleSelectChip/MultipleSelectChip";
 
 function GeneralSection(props) {
 

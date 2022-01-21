@@ -19,7 +19,7 @@ import AppTemplateRest from "../../services/AppTemplateRest"
 import ErrorAlert from "../alert/ErrorAlert";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
-import MultipleSelectChip from "./ChipSelect";
+import MultipleSelectChip from "../multipleSelectChip/MultipleSelectChip";
 
 function AppTemplateDialog(props) {
     const { appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups } = props;
