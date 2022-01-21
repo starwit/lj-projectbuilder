@@ -18,14 +18,14 @@ function AppHeader() {
                 <Toolbar className={appHeaderStyles.toolbar}>
                     <img className={appHeaderStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
                     <div className={appHeaderStyles.spacer}/>
-                    <Button color="inherit" disableRipple className={appHeaderStyles.linkButton}
+                    <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/")}>{t("appHeader.apps")}</Button>
-                    <Button color="inherit" disableRipple className={appHeaderStyles.linkButton}
+                    <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/apptemplate/all")}>{t("appHeader.apptemplates")}</Button>
-                    <Button color="inherit" disableRipple
+                    <Button color="secondary" disableRipple
                             className={appHeaderStyles.linkButton}>{t("appHeader.store")}</Button>
                     <Avatar className={appHeaderStyles.linkButton}></Avatar>
-                    <IconButton color="inherit" disableRipple className={appHeaderStyles.linkButton}
+                    <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/logout")}><Logout /></IconButton>
                 </Toolbar>
             </AppBar>

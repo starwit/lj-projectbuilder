@@ -1,15 +1,15 @@
 class MainTheme {
     palette = {
         primary: {
-            main: "#dd8833",
+            main: "#de8608",
             contrastText: "#fff"
         },
         secondary: {
-            main: "#4baef3",
+            main: "#fff",
             contrastText: "#fff"
         },
         background: {
-            default: "#F5F5F5",
+            default: "#c7c7c7",
             paper: "#eee"
             
         }
@@ -17,6 +17,7 @@ class MainTheme {
 
     typography = {
         useNextVariants: true,
+        color: "#000",
         fontFamily: "Arial",
         fontSize: 16
     };
@@ -31,27 +32,31 @@ class MainTheme {
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backgroundImage: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)'
+                    backgroundImage: 'linear-gradient(to top, rgb(235 235 235), rgb(255 255 255))',
+                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)'
                 }
             }
         },
         MuiButton: {
             styleOverrides: {
                 // Name of the slot
-                root: {
-                  // Some CSS
-                  variants: [
-                    {
-                      props: { variant: 'custom' },
-                      style: {
-                        backgroundColor:'#ffffff',
-                        backgroundImage: 'linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)'
-                      },
-                    },
-                  ]
+                textPrimary: {
+                    fontWeight: 600
                 },
                 containedPrimary: {
+                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)',
+                },
+                containedSecondary: {
+                    color: '#000'
+                }
+              },
+        },
+        MuiFab: {
+            styleOverrides: {
+                // Name of the slot
+                primary: {
                     backgroundImage: 'linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)',
+                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)',
                 },
                 containedSecondary: {
                     color: '#000'

@@ -60,7 +60,7 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-        backgroundColor: "#000000",
+        backgroundColor: "#c7c7c7",
         backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
     },
     linkButton: {

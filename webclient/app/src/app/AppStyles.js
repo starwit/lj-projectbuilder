@@ -2,9 +2,10 @@ import {makeStyles} from "@mui/styles";
 
 const AppStyles = makeStyles(theme => ({
     background: {
-        backgroundImage: "linear-gradient(to right, rgb(0, 0, 0), rgb(67, 67, 67))",
+        backgroundColor: "#c7c7c7",
+        backgroundImage: "linear-gradient(to top, rgb(199 199 199), rgb(229 229 229))",
         minHeight: '100%',
-        color: "rgba(255, 245, 245, 0.87)"
+        color: "rgba(20, 20, 20, 0.87)"
     }
 }))
 
