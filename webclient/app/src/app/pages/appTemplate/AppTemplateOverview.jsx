@@ -1,5 +1,5 @@
 import { Container, Grid, Typography, Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import AppTemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
@@ -12,6 +12,7 @@ function AppTemplateOverview() {
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [data, setData] = useState([]);
     const [userGroups, setUserGroups] = React.useState(false); 
+    const userRest = useMemo(() => new UserRest(), []);
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -39,11 +40,10 @@ function AppTemplateOverview() {
     };
 
     useEffect(() => {
-        const userRest = new UserRest();
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups]);
+    }, [userGroups, userRest]);
 
     useEffect(() => {
         reload();

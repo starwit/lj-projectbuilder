@@ -24,6 +24,7 @@ function AppEditor() {
     const {t} = useTranslation();
     const history = useHistory();
     const appRest = useMemo(() => new ApplicationRest(), []);
+    const userRest = useMemo(() => new UserRest(), []);
 
     const [isAppLoading, setIsAppLoading] = useState(false);
     const [appName, setAppName] = useState("");
@@ -64,11 +65,10 @@ function AppEditor() {
     }, [packageName, appName])
 
     useEffect(() => {
-        const userRest = new UserRest();
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups]);
+    }, [userGroups, userRest]);
 
     const steps = [
         {
