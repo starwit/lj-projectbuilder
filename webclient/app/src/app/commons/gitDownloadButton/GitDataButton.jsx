@@ -3,23 +3,20 @@ import { Button, Container, DialogTitle, Typography, IconButton, Box } from '@mu
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import { useTranslation } from 'react-i18next';
-import AppTemplateRest from "../../services/AppTemplateRest";
 import { CloudSync, Close } from "@mui/icons-material";
 import ErrorAlert from "../alert/ErrorAlert";
-import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import NotificationDialog from "../alert/NotificationDialog";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import GitDataButtonStyles from "./GitDataButtonStyles";
 
-function AppTemplateAuthDialog(props) {
-    const { appTemplate, handleRefresh, setOpenSuccessDialog } = props;
-    const appTemplateDialogStyles = AppTemplateDialogStyles();
+function GitDataButton(props) {
+    const { credentialsRequired, handleGit, handleAfterSuccess, buttonIcon, buttonName, buttonVariant } = props;
+    const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);    
-    const [downloadRequestData, setDownloadRequestData] = useState({ "appTemplateId": null, "username": "", "password": "" });
+    const [downloadRequestData, setDownloadRequestData] = useState({ "username": "", "password": "" });
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
-
-    const appTemplateRest = new AppTemplateRest();
 
     const [openAuthDialog, setOpenAuthDialog] = useState(false);
   
@@ -32,7 +29,7 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleLogin = () => {
-        if (appTemplate.credentialsRequired) {
+        if (credentialsRequired) {
             handleAlertClose();
             setOpenAuthDialog(true);
         } else {
@@ -41,14 +38,12 @@ function AppTemplateAuthDialog(props) {
     }
 
     const handleAppTemplateReload = () => {
-        if(hasFormError && appTemplate.credentialsRequired) {
+        if(hasFormError && credentialsRequired) {
             return;
         }
-        downloadRequestData.appTemplateId = appTemplate.id;
-        appTemplateRest.updateTemplates(downloadRequestData).then(() => {
-            handleRefresh();
+        handleGit(downloadRequestData).then(() => {
+            handleAfterSuccess();
             setOpenAuthDialog(false);
-            setOpenSuccessDialog(true);
         }).catch(err => {
             setAlert({"open":true, "title": t("alert.error"), "message": t(err.response.data.messageKey)});
             console.log(err.response.data);
@@ -60,7 +55,7 @@ function AppTemplateAuthDialog(props) {
     }
 
     const onClose = () => {
-        setDownloadRequestData({ "appTemplateId": null, "username": "", "password": "" });
+        setDownloadRequestData({ "username": "", "password": "" });
         setOpenAuthDialog(false);
     }
 
@@ -77,26 +72,25 @@ function AppTemplateAuthDialog(props) {
             hasError = true;
         }
         setHasFormError(hasError);
-
     }, [downloadRequestData, hasFormError])
 
 
     return (
         <Container>
-            <Button onClick={handleLogin} startIcon={<CloudSync />} >{t("button.loadtemplate")}</Button>
+            <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync />} variant={buttonVariant} >{buttonName}</Button>
             <NotificationDialog 
-                open={alert.open && !appTemplate.credentialsRequired} 
+                open={alert.open && !credentialsRequired} 
                 onClose={handleAlertClose} 
                 severity="error" 
                 title={t(alert.title)} 
                 message={t(alert.message)} 
             />
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
-                <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
+                <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
                         {t("appTemplateAuthDialog.title")}
                     </Typography>
-                    <div className={appTemplateDialogStyles.flex} />
+                    <div className={gitDataButtonStyles.flex} />
                     <IconButton
                         aria-label="close"
                         onClick={onClose}
@@ -147,4 +141,4 @@ function AppTemplateAuthDialog(props) {
         </Container>
     );
 }
-export default AppTemplateAuthDialog;
+export default GitDataButton;

@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.starwit.dto.GeneratorDto;
-import de.starwit.dto.DownloadAppTemplateDto;
+import de.starwit.dto.GitAuthDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
@@ -39,11 +38,8 @@ public class AppSetupService implements Serializable {
 	
 	@Autowired
 	private AppRenamer appRenamer;
-
-	@Autowired
-	private ApplicationMapper applicationMapper;
 	
-  final static Logger LOG = LoggerFactory.getLogger(AppSetupService.class);
+  	final static Logger LOG = LoggerFactory.getLogger(AppSetupService.class);
 	
   	/**
 	 * Executes all functions needed to setup the new app. These are:
@@ -56,8 +52,8 @@ public class AppSetupService implements Serializable {
 	 * @throws NotificationException
 	 */
 	@Transactional(propagation = Propagation.NEVER)
-	public void setupAndGenerateApp(GeneratorDto dto) throws NotificationException {
-		App app = appService.findById(dto.getAppId());
+	public void setupAndGenerateApp(Long appId, GitAuthDto dto) throws NotificationException {
+		App app = appService.findById(appId);
 		dto.setAppTemplateId(app.getTemplate().getId());
 		String newAppFolder = appCheckout.createTempAppDirectory(app.getTitle());
 		app.setTargetPath(newAppFolder);
@@ -78,7 +74,8 @@ public class AppSetupService implements Serializable {
 	 * @throws NotificationException
 	 */
 	@Transactional(propagation = Propagation.NEVER)
-	public void updateTemplates(DownloadAppTemplateDto dto) throws NotificationException {
+	public void updateTemplates(Long appTemplateId, GitAuthDto dto) throws NotificationException {
+		dto.setAppTemplateId(appTemplateId);
 		String newAppTemplateFolder = appCheckout.createTempAppDirectory("defaultAppTemplatePath");
 		appCheckout.checkoutAndUpdateAppTemplate(dto, newAppTemplateFolder);
 		appCheckout.findFilesAndDelete();

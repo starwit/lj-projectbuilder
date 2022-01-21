@@ -14,7 +14,6 @@ import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 
 
-
 function AppEditor() {
 
     const [activeStep, setActiveStep] = useState(0);
@@ -80,6 +79,7 @@ function AppEditor() {
         {
             label: t("appEditor.section.erDesigner.title"),
             component: <ErDesigner
+                appId={appId}
                 entities={entities}
                 handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
             />,
@@ -89,10 +89,12 @@ function AppEditor() {
             label: t("appEditor.section.conclusion.title"),
             component: (
                 <ConclusionSection
+                    appId={+appId}
+                    entities={entities}
+                    templateName={selectedTemplate?.name}
+                    credentialsRequired={selectedTemplate?.credentialsRequired}
                     appName={appName}
                     packageName={packageName}
-                    templateName={selectedTemplate?.name}
-                    entities={entities}
                 />
             ),
             condition: true
