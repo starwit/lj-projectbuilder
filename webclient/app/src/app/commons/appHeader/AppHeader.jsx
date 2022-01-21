@@ -1,6 +1,6 @@
 import React from "react";
 // Material UI Components
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo-white.png";
 import {AppBar, Avatar, Button, IconButton, Toolbar} from "@mui/material";
 import AppHeaderStyles from "./AppHeaderStyles";
 import {useHistory} from "react-router-dom";
