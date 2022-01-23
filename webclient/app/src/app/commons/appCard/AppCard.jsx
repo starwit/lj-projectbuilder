@@ -91,8 +91,8 @@ function AppCard(props) {
 AppCard.propTypes = {
     app: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired
+        baseName: PropTypes.string.isRequired,
+        packageName: PropTypes.string.isRequired
     }),
     onEditClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired

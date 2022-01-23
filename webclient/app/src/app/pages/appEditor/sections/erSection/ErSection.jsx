@@ -138,9 +138,9 @@ function ErDesigner(props) {
 
     function renderRelations() {
 
-        return coordinates.map(coordinate => {
+        return coordinates.map((coordinate, index) => {
             const {x0, y0, x1, y1} = coordinate;
-            return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + ""}/>
+            return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + index + ""}/>
         })
 
     }
@@ -150,7 +150,8 @@ function ErDesigner(props) {
         if (entities.length === 0) {
             return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
         }
-        return entities.map(entity => {
+        return entities.map((entity, index) => {
+
             const entityCardPosition = {x: 0, y: 0};
 
             if (entity.position) {
@@ -163,7 +164,7 @@ function ErDesigner(props) {
                 <Draggable
                     axis={"both"}
                     onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
-                    key={entity.id}
+                    key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}
                 >
