@@ -11,14 +11,16 @@ function ValidatedTextField(props) {
     }, [overwriteError, value, regex])
 
     useEffect(() => {
-        handleHasError(isError());
+        if (handleHasError) {
+            handleHasError(isError());
+        }
     }, [value, handleHasError, isError])
+
 
     return (
         <TextField
             error={isError()}
             value={value}
-            handleChange
             {...props}
         />
     )
@@ -27,9 +29,6 @@ function ValidatedTextField(props) {
 
 ValidatedTextField.defaultProps = {
     value: "",
-    overwriteError: false,
-    handleHasError: () => {
-    }
 }
 
 ValidatedTextField.propTypes = {

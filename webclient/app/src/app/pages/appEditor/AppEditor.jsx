@@ -71,18 +71,23 @@ function AppEditor() {
         },
         {
             label: t("appEditor.section.template.title"),
-            component: <TemplateSelection
-                onChange={setSelectedTemplate}
-                value={selectedTemplate}/>,
+            component: (
+                <TemplateSelection
+                    onChange={setSelectedTemplate}
+                    value={selectedTemplate}
+                />
+            ),
             condition: selectedTemplate
         },
         {
             label: t("appEditor.section.erDesigner.title"),
-            component: <ErDesigner
-                appId={appId}
-                entities={entities}
-                handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
-            />,
+            component: (
+                <ErDesigner
+                    appId={+appId}
+                    entities={entities}
+                    handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
+                />
+            ),
             condition: entities.length >= 1
         },
         {
@@ -91,8 +96,8 @@ function AppEditor() {
                 <ConclusionSection
                     appId={+appId}
                     entities={entities}
-                    templateName={selectedTemplate?.name}
-                    credentialsRequired={selectedTemplate?.credentialsRequired}
+                    templateName={selectedTemplate ? selectedTemplate?.name : null}
+                    credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
                     appName={appName}
                     packageName={packageName}
                 />
@@ -100,6 +105,7 @@ function AppEditor() {
             condition: true
         },
     ];
+
 
     function handleBack() {
         setIsSaving(true);
@@ -172,7 +178,6 @@ function AppEditor() {
         const restRequest = handleSave();
         restRequest
             .then(response => {
-                console.log("reachedTHen", response)
                 history.replace("/app/" + response.data.id)
             })
             .catch(response => setSaveError(response.data));
@@ -215,7 +220,7 @@ function AppEditor() {
                     const stepProps = {};
                     const labelProps = {};
                     return (
-                        <Step key={step.id} {...stepProps}>
+                        <Step key={index} {...stepProps}>
                             <StepLabel {...labelProps}>{step.label}</StepLabel>
                         </Step>
                     );

@@ -53,8 +53,8 @@ function TemplateSection(props) {
     return (
         <Container>
             <Grid container spacing={5}>
-                {templates.map(template => (
-                    <Grid item sm={3}>
+                {templates.map((template, index) => (
+                    <Grid item sm={3} key={index}>
                         <AppTemplateSelectCard
                             template={template}
                             onSelection={handleSelection}
