@@ -11,18 +11,18 @@ import {
 import { Close } from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
-import RelationDialogStyles from "./RelationDialogStyles";
+import RelationEditDialogStyles from "./RelationEditDialogStyles";
 
-function RelationDialog(props) {
+function RelationEditDialog(props) {
     const { open } = props;
-    const relationDialogStyles = RelationDialogStyles();
+    const relationEditDialogStyles = RelationEditDialogStyles();
     const {t} = useTranslation();
 
     return (
         <Dialog open={open} maxWidth={"xl"} fullWidth>
-            <DialogTitle className={relationDialogStyles.dialogHeaderBar}>
+            <DialogTitle className={relationEditDialogStyles.dialogHeaderBar}>
                 <Typography noWrap variant={"h6"} component={"p"}>{t("entityDialog.editDomain")}</Typography>
-                <div className={relationDialogStyles.flex}/>
+                <div className={relationEditDialogStyles.flex}/>
                 <IconButton
                     aria-label="close"
                 >
@@ -30,7 +30,7 @@ function RelationDialog(props) {
                 </IconButton>
             </DialogTitle>
             <Container>
-                <Box className={relationDialogStyles.tabBox}>
+                <Box className={relationEditDialogStyles.tabBox}>
                 </Box>
                 <DialogActions>
                 </DialogActions>
@@ -39,4 +39,4 @@ function RelationDialog(props) {
     )
 }
 
-export default RelationDialog;
+export default RelationEditDialog;

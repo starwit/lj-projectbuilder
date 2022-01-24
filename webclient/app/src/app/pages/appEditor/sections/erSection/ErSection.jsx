@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import AddEntityRelationButton from "./AddEntityRelationButton";
-import RelationDialog from "./RelationDialog";
+import RelationEditDialog from "./RelationEditDialog";
 
 function ErDesigner(props) {
 
@@ -24,7 +24,7 @@ function ErDesigner(props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
-    const [openRelation, setOpenRelation] = useState([]);
+//    const [openRelation, setOpenRelation] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
 
     const {t} = useTranslation();
@@ -181,7 +181,7 @@ function ErDesigner(props) {
         return (<div className={erDesignerStyles.addFab}>
             <AddEntityRelationButton 
                 addEntity={addEntity}
-                addRelation={setOpenRelation(true)}
+                addRelation={addEntity}
             />
         </div>)
 
@@ -233,7 +233,6 @@ function ErDesigner(props) {
             handleSave={(data) => updateEntity(data)}
             entities={entities}
         />
-        <RelationDialog open={openRelation} />
     </>)
 }
 
