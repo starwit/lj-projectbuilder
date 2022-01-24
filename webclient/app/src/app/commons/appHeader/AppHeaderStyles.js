@@ -43,7 +43,7 @@ const AppHeaderStyles = makeStyles(theme => ({
         }
     },
     menuLogoImg: {
-        height: "100%",
+        height: "70%",
         width: "auto"
     },
     spacer: {
