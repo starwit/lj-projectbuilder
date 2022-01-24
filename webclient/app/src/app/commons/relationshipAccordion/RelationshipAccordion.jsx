@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 import RelationshipAccordionStyles from "./RelationshipAccordionStyles";
 import {useTranslation} from "react-i18next";
 
-
+//some commit
 function RelationshipAccordion(props) {
 
     const {
