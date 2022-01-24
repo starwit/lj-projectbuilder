@@ -21,6 +21,7 @@ import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import { DefaultRelationship } from "../relationshipAccordion/Relationship";
 import {LoadingButton} from "@mui/lab";
 
 function EntityDialog(props) {
@@ -101,12 +102,6 @@ function EntityDialog(props) {
         }
     ];
 
-    const relationshipTypes = [
-        "one-to-one",
-        "one-to-many",
-        "many-to-many"
-    ];
-
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
@@ -156,13 +151,7 @@ function EntityDialog(props) {
             newEntity.relationships = [];
         }
 
-        newEntity.relationships.push(
-            {
-                "relationshipType": "",
-                "otherEntityName": "",
-                "otherEntityRelationshipName": "",
-                "relationshipName": ""
-            }
+        newEntity.relationships.push( DefaultRelationship
         )
         setEntity(newEntity);
     }
@@ -202,16 +191,12 @@ function EntityDialog(props) {
             )
         }
         return entity.relationships.map((relationship, index) => {
-            const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
             return (
                 <RelationshipAccordion
-                    otherEntityRelationshipName={otherEntityRelationshipName}
-                    otherEntityName={otherEntityName}
-                    relationshipName={relationshipName}
+                    relationship = {relationship}
                     entities={entities}
                     editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
                     currentEntity={entity}
-                    relationshipTypes={relationshipTypes}
                 />
             )
         })
@@ -260,7 +245,7 @@ function EntityDialog(props) {
     return (
         <Dialog open={!!entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                <Typography noWrap variant={"h6"} component={"p"}>{t("entityDialog.editDomain")}</Typography>
+                <Typography noWrap variant={"h6"} >{t("entityDialog.editDomain")}</Typography>
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"

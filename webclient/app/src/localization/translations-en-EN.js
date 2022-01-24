@@ -65,11 +65,12 @@ const translationsEnEN = {
 
     "relationshipAccordion.newRelation": "New relation",
     "relationshipAccordion.relationType": "Relation type",
-    "relationshipAccordion.sourceField": "Source field",
-    "relationshipAccordion.source": "Source",
-    "relationshipAccordion.target": "Target",
-    "relationshipAccordion.targetDomain": "Target domain",
-    "relationshipAccordion.targetField": "target field",
+    "relationshipAccordion.sourceEntity": "Entity",
+    "relationshipAccordion.sourceField": "fieldname",
+    "relationshipAccordion.source": "from",
+    "relationshipAccordion.target": "to",
+    "relationshipAccordion.targetEntity": "Entity",
+    "relationshipAccordion.targetField": "fieldname",
 
     "templateCard.select": "Select",
     "templateCard.selected": "Selected",

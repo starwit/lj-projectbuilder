@@ -65,11 +65,12 @@ const translationsDeDE = {
 
     "relationshipAccordion.newRelation": "Neue Relation",
     "relationshipAccordion.relationType": "Relationstyp",
-    "relationshipAccordion.sourceField": "Quell-Feld",
-    "relationshipAccordion.source": "Quelle",
-    "relationshipAccordion.target": "Ziel",
-    "relationshipAccordion.targetDomain": "Ziel-Domain",
-    "relationshipAccordion.targetField": "Ziel-Feld",
+    "relationshipAccordion.sourceEntity": "Entität",
+    "relationshipAccordion.sourceField": "Feldname",
+    "relationshipAccordion.source": "von",
+    "relationshipAccordion.target": "zu",
+    "relationshipAccordion.targetEntity": "Entität",
+    "relationshipAccordion.targetField": "Feldname",
 
     "templateCard.select": "Auswählen",
     "templateCard.selected": "Ausgewählt",

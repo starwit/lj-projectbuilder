@@ -8,51 +8,42 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    TextField,
     Typography
 } from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import RelationshipAccordionStyles from "./RelationshipAccordionStyles";
 import {useTranslation} from "react-i18next";
+import { RelationshipType } from "./Relationship";
 
 //some commit
 function RelationshipAccordion(props) {
 
     const {
-        otherEntityRelationshipName,
-        otherEntityName,
-        relationshipName,
+        relationship,
         entities,
         currentEntity,
-        editRelationshipProperty,
-        relationshipType,
-        relationshipTypes
+        editRelationshipProperty
     } = props;
     const relationshipAccordionStyles = RelationshipAccordionStyles();
     const {t} = useTranslation();
+    const targetEntities = entities.filter(e => e.name !== currentEntity.name);
 
 
     function renderAccordionTitle() {
         let value = t("relationshipAccordion.newRelation");
-        if (relationshipName && otherEntityRelationshipName) {
-            value = `${relationshipName} -> ${otherEntityRelationshipName}`;
+        if (relationship.relationshipName && relationship.otherEntityRelationshipName) {
+            value = `${currentEntity.name} -> ${relationship.otherEntityRelationshipName}`;
         }
         return value;
     }
 
     function prepareEntitiesSelection() {
-        return entities.map(entity => {
+        return targetEntities.map(entity => {
+            relationship.relationshipName = entity.name;
             return entity.name;
         })
-    }
-
-    function prepareEntitiesFieldSelection() {
-        let value = [];
-        const foundSelectedEntity = entities.find(entity => otherEntityName === entity.name);
-        if (foundSelectedEntity) {
-            value = foundSelectedEntity.fields.map(field => field);
-        }
-        return value;
     }
 
     return (
@@ -71,50 +62,51 @@ function RelationshipAccordion(props) {
                     <Grid item sm={12}>
                         <FormControl fullWidth>
                             <InputLabel
-                                id="demo-simple-select-label">{t("relationshipAccordion.relationType")}</InputLabel>
+                                id="relationType">{t("relationshipAccordion.relationType")}</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={relationshipType}
+                                labelId="relationType"
+                                id="relationTypeSelect"
+                                value={relationship.relationshipType}
                                 label={t("relationshipAccordion.sourceField")}
                                 onChange={(event) => editRelationshipProperty("relationshipType", event.target.value)}
-                                disabled={!relationshipTypes}
                             >
-                                {relationshipTypes?.map(relationshipType => (
-                                    <MenuItem value={relationshipType}>{relationshipType}</MenuItem>
+                                {Object.keys(RelationshipType).map(key => (
+                                    <MenuItem value={RelationshipType[key]} key={key} >{RelationshipType[key]}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item sm={6}>
-                        <Typography variant={"h6"} gutterBottom>{t("relationshipAccordion.source")}</Typography>
+                    <Grid item sm={1}>
+                        <Typography gutterBottom>{t("relationshipAccordion.source")}</Typography>
+                    </Grid>
+                    <Grid item sm={5}>
+                        <FormControl fullWidth >
+                            <TextField
+                                label={ t("relationshipAccordion.sourceEntity") }
+                                value={currentEntity.name}
+                                disabled={true}
+                            >
+                            </TextField>
+                        </FormControl>
                         <FormControl fullWidth>
-                            <InputLabel
-                                id="demo-simple-select-label">{t("relationshipAccordion.sourceField")}</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={relationshipName}
-                                label={t("relationshipAccordion.sourceField")}
-                                onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
-                                disabled={!currentEntity.fields}
-                            >
-                                {currentEntity?.fields?.map(field => (
-                                    <MenuItem value={field.fieldName}>{field.fieldName}</MenuItem>
-                                ))}
-                            </Select>
+                            <TextField
+                                label={ t("relationshipAccordion.sourceField") }
+                                value={relationship.relationshipName}
+                            />
                         </FormControl>
                     </Grid>
-                    <Grid item sm={6}>
-                        <Typography variant={"h6"} gutterBottom>{t("relationshipAccordion.target")}</Typography>
+                    <Grid item sm={1}>
+                        <Typography gutterBottom>{t("relationshipAccordion.target")}</Typography>
+                    </Grid>
+                    <Grid item sm={5}>
                         <FormControl fullWidth className={relationshipAccordionStyles.spacerBottom}>
                             <InputLabel
-                                id="demo-simple-select-label">{t("relationshipAccordion.targetDomain")}</InputLabel>
+                                id="targetEntity">{t("relationshipAccordion.targetEntity") + "*"}</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={otherEntityName}
-                                label={t("relationshipAccordion.targetDomain")}
+                                labelId="targetEntity"
+                                id="targetEntitySelect"
+                                value={relationship.otherEntityName}
+                                label={t("relationshipAccordion.targetEntity") + "*" }
                                 onChange={(event) => editRelationshipProperty("otherEntityName", event.target.value)}
                             >
                                 {prepareEntitiesSelection()?.map(entityName => (
@@ -123,22 +115,12 @@ function RelationshipAccordion(props) {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <InputLabel
-                                id="demo-simple-select-label">{t("relationshipAccordion.targetField")}</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={otherEntityRelationshipName}
-                                label={t("relationshipAccordion.targetField")}
-                                onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
-                            >
-                                {prepareEntitiesFieldSelection().map(field => (
-                                    <MenuItem value={field.fieldName}>{field.fieldName}</MenuItem>
-                                ))}
-                            </Select>
+                            <TextField
+                                label={ t("relationshipAccordion.targetField") }
+                                value={relationship.otherEntityRelationshipName}
+                            />
                         </FormControl>
                     </Grid>
-
                 </Grid>
             </AccordionDetails>
         </Accordion>
@@ -146,14 +128,10 @@ function RelationshipAccordion(props) {
 }
 
 RelationshipAccordion.propTypes = {
-    otherEntityRelationshipName: PropTypes.string,
-    otherEntityName: PropTypes.string,
-    relationshipName: PropTypes.string,
+    Relationship: PropTypes.instanceOf(RelationshipType),
     entities: PropTypes.array,
     currentEntity: PropTypes.object,
     editRelationshipProperty: PropTypes.func,
-    relationshipType: PropTypes.string,
-    relationshipTypes: PropTypes.arrayOf(PropTypes.string)
 };
 
 RelationshipAccordion.defaultProps = {}
