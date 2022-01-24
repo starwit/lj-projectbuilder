@@ -85,7 +85,9 @@ function AppEditor() {
                 <ErDesigner
                     appId={+appId}
                     entities={entities}
-                    handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
+                    handleUpdateEntities={updatedEntities => {
+                        setEntities(updatedEntities)
+                    }}
                 />
             ),
             condition: entities.length >= 1
@@ -134,8 +136,6 @@ function AppEditor() {
             entity.id = null;
             return entity;
         });
-
-        console.log(entitiesEdited)
 
         const appPackage = {
             id: (isNewApp ? null : appId),
