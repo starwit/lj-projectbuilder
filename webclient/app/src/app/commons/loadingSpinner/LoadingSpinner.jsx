@@ -10,10 +10,6 @@ function LoadingSpinner(props) {
 
     useEffect(() => {
         const messageTimer = setTimeout(function () {
-            setShowMessage(true);
-        }, 1000);
-        
-        return () => {
             clearTimeout(messageTimer);
         };
     })
