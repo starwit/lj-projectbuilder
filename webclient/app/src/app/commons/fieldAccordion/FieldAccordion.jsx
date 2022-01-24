@@ -77,7 +77,7 @@ function FieldAccordion(props) {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={dataType.name}
+                                value={dataType}
                                 label={t("fieldDialog.dataType")}
                                 onChange={(event) => editFieldProperty("fieldType", event.target.value)}
                             >
