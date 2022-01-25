@@ -29,10 +29,10 @@ function MultipleSelectChip(props) {
 
   return (
       <FormControl fullWidth>
-        <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
+        <InputLabel id="multiple-chip-label">{label}</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
+          labelId="multiple-chip-label"
+          id="multiple-chip"
           multiple
           value={itemValue}
           onChange={handleChange}
