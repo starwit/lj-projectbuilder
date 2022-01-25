@@ -23,28 +23,19 @@ function RelationshipAccordion(props) {
 
     const {
         relationship,
-        entities,
+        targetEntities,
         currentEntity,
         editRelationshipProperty
     } = props;
     const relationshipStyles = RelationshipStyles();
     const {t} = useTranslation();
-    const targetEntities = entities.filter(e => e.name !== currentEntity.name);
-
 
     function renderAccordionTitle() {
         let value = t("relationship.newRelation");
-        if (relationship.relationshipName && relationship.otherEntityRelationshipName) {
-            value = `${currentEntity.name} -> ${relationship.otherEntityRelationshipName}`;
+        if (currentEntity.name && relationship.otherEntityName) {
+            value = `${currentEntity.name} -> ${relationship.otherEntityName} (${relationship.relationshipType})`;
         }
         return value;
-    }
-
-    function prepareEntitiesSelection() {
-        return targetEntities.map(entity => {
-            relationship.relationshipName = entity.name;
-            return entity.name;
-        })
     }
 
     return (
@@ -95,6 +86,7 @@ function RelationshipAccordion(props) {
                             <TextField
                                 label={ t("relationship.sourceField") }
                                 value={relationship.relationshipName}
+                                onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
                                 helperText={ t("relationship.sourceField.description", {entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity")} )}
                             />
                         </FormControl>
@@ -124,6 +116,7 @@ function RelationshipAccordion(props) {
                             <TextField
                                 label={ t("relationship.targetField") }
                                 value={relationship.otherEntityRelationshipName}
+                                onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
                                 helperText={ t("relationship.targetField.description", {entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity")} )}
                             />
                         </FormControl>

@@ -12,9 +12,9 @@ interface RelationshipDataType {
     otherEntityRelationshipName?: string
 }
 
-const DefaultRelationship : RelationshipDataType = {
+const defaultRelationship : RelationshipDataType = {
     relationshipType: RelationshipType.oneToMany,
 }
 
-export {RelationshipType, DefaultRelationship};
+export {RelationshipType, defaultRelationship};
 

@@ -75,6 +75,7 @@ const translationsDeDE = {
     "relationship.targetEntity.description": "Ziel-Entität der Relation",
     "relationship.targetField": "Relationsname",
     "relationship.targetField.description": "Name des Feldes vom Typ {{entityName}}",
+    "relationship.targetEntity.empty": "nicht verfügbar",
 
     "templateCard.select": "Auswählen",
     "templateCard.selected": "Ausgewählt",

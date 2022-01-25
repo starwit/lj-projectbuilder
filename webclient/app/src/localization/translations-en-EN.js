@@ -75,6 +75,7 @@ const translationsEnEN = {
     "relationship.targetEntity.description": "target entity of the relation",
     "relationship.targetField": "relationship name",
     "relationship.targetField.description": "name of the field with type {{entityName}}",
+    "relationship.targetEntity.empty": "not available",
 
     "templateCard.select": "Select",
     "templateCard.selected": "Selected",
