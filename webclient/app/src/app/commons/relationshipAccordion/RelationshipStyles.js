@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const RelationshipAccordionStyles = makeStyles(theme => ({
+const RelationshipStyles = makeStyles(theme => ({
     spacerBottom: {
         paddingBottom: theme.spacing(2)
     },
@@ -12,4 +12,4 @@ const RelationshipAccordionStyles = makeStyles(theme => ({
         color: theme.palette.text.secondary
     }
 }));
-export default RelationshipAccordionStyles;
+export default RelationshipStyles;
