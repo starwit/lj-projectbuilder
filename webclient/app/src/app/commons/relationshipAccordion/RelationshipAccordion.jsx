@@ -90,6 +90,7 @@ function RelationshipAccordion(props) {
                             >
                             </TextField>
                         </FormControl>
+                        <div className={relationshipStyles.spacerBottom}/>
                         <FormControl fullWidth>
                             <TextField
                                 label={ t("relationship.sourceField") }
@@ -102,7 +103,7 @@ function RelationshipAccordion(props) {
                         <Typography gutterBottom>{t("relationship.target")}</Typography>
                     </Grid>
                     <Grid item sm={5}>
-                        <FormControl fullWidth className={relationshipStyles.spacerBottom}>
+                        <FormControl fullWidth>
                             <InputLabel
                                 id="targetEntity">{t("relationship.targetEntity") + "*"}</InputLabel>
                             <Select
@@ -118,6 +119,7 @@ function RelationshipAccordion(props) {
                             </Select>
                             <FormHelperText id="targetEntityHelperText">{ t("relationship.targetEntity.description") }</FormHelperText>
                         </FormControl>
+                        <div className={relationshipStyles.spacerBottom}/>
                         <FormControl fullWidth>
                             <TextField
                                 label={ t("relationship.targetField") }

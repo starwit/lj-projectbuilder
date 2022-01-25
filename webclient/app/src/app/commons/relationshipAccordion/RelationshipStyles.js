@@ -10,6 +10,9 @@ const RelationshipStyles = makeStyles(theme => ({
     },
     subtitle: {
         color: theme.palette.text.secondary
+    },
+    statementWrapper: {
+        height: "15rem"
     }
 }));
 export default RelationshipStyles;
