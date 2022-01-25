@@ -4,12 +4,18 @@ import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import GeneralSectionStyles from "./GeneralSectionStyles";
+import MultipleSelectChip from "../../../../commons/multipleSelectChip/MultipleSelectChip";
 
 function GeneralSection(props) {
 
     const {t} = useTranslation();
-    const {setAppName, setPackageName, appName, packageName} = props;
+    const {setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
     const generalSectionStyles = GeneralSectionStyles();
+
+    const handleGroupChange = (items) => {
+        setAssignedGroups(items);
+    };
+
 
     return (
         <Container maxWidth={false}>
@@ -31,6 +37,13 @@ function GeneralSection(props) {
                         value={packageName}
                         fullWidth
                         onChange={event => setPackageName(event.target.value)}
+                    />
+                    <div className={generalSectionStyles.padding}/>
+                    <MultipleSelectChip 
+                        values={userGroups} 
+                        selected={assignedGroups} 
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")}
                     />
                 </Grid>
                 <Grid item md={4}>

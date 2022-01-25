@@ -19,9 +19,10 @@ import AppTemplateRest from "../../services/AppTemplateRest"
 import ErrorAlert from "../alert/ErrorAlert";
 import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import MultipleSelectChip from "../multipleSelectChip/MultipleSelectChip";
 
 function AppTemplateDialog(props) {
-    const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
+    const { appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
@@ -33,26 +34,33 @@ function AppTemplateDialog(props) {
         onClose();
         closeAlert();
         setInternalAppTemplate(appTemplate);
-    }
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = value;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
+
+    const handleGroupChange = (items) => {
+        let appTemplateNew = { ...internalAppTemplate };
+        appTemplateNew['groups'] = items;
+        setInternalAppTemplate(appTemplateNew);
+    };
 
     const handleCredentialsCheckbox = (event) => {
         const { name, checked } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = checked;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
 
     const handleSave = (toSave) => {
         if(hasFormError) {
             return;
         }
+        toSave.userGroups = userGroups;
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
@@ -66,17 +74,17 @@ function AppTemplateDialog(props) {
                 setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
             });
         }
-    }
+    };
 
     const closeAlert = () => {
         setAlert({"open":false, "title": t("alert.error"), "message": ""});
-    }
+    };
 
     const handleSaveResponse = (response) => {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
-    }
+    };
 
     useEffect(() => {
         if (!internalAppTemplate) {
@@ -159,6 +167,11 @@ function AppTemplateDialog(props) {
                     onChange={handleChange} 
                 />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
+                    <MultipleSelectChip 
+                        values={userGroups} 
+                        selected={internalAppTemplate.groups} 
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")} />
                     <FormControlLabel 
                         control={
                             <Checkbox  

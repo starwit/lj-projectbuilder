@@ -15,6 +15,7 @@ const translationsEnEN = {
     "button.no": "No",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
+    "select.groups": "Groups",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
     "alert.error": "Error",

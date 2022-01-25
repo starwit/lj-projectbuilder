@@ -1,5 +1,6 @@
 package de.starwit.rest.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,10 +32,10 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("${rest.base-path}/apptemplates")
 public class AppTemplateController {
 
-	final static Logger LOG = LoggerFactory.getLogger(AppTemplateController.class);
+	static final Logger LOG = LoggerFactory.getLogger(AppTemplateController.class);
 
-    @Autowired
-    private AppTemplateService appTemplateService;
+	@Autowired
+	private AppTemplateService appTemplateService;
 
 	@Autowired
 	private AppTemplateMapper appTemplateMapper;
@@ -42,8 +43,7 @@ public class AppTemplateController {
 	@Operation(summary = "Get appTemplate with id")
 	@GetMapping(value = "/{templateId}")
 	public AppTemplate findById(@PathVariable("templateId") Long id) {
-		AppTemplate template = appTemplateService.findById(id);
-		return template;
+		return appTemplateService.findById(id);
 	}
 
 	@IsAdmin
@@ -65,13 +65,17 @@ public class AppTemplateController {
 		appTemplate.setBranch(appTemplateDto.getBranch());
 		appTemplate.setDescription(appTemplateDto.getDescription());
 		appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
+		List<String> assignedGroups = appTemplate.getGroups();
+		assignedGroups = GroupsHelper.identifyAssignedGroups(appTemplateDto.getGroups(), assignedGroups, appTemplateDto.getUserGroups());
+		appTemplate.setGroups(assignedGroups);
 		return appTemplateService.saveOrUpdate(appTemplate);
 	}
 
 	@Operation(summary = "Get all appTemplates")
 	@GetMapping
-	public List<SaveAppTemplateDto> findAll() {
-		return appTemplateMapper.convertToDtoList(appTemplateService.findAll());
+	public List<SaveAppTemplateDto> findAll(Principal principal) {
+		List<String> groups = GroupsHelper.getGroups(principal);
+		return appTemplateMapper.convertToDtoList(appTemplateService.findByGroups(groups));
 	}
 
 	@IsAdmin
@@ -82,8 +86,8 @@ public class AppTemplateController {
 	}
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
-    public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-        LOG.info("AppTemplate not found. ", ex.getMessage());
-        return new ResponseEntity<Object>("AppTemplate not found.", HttpStatus.NOT_FOUND);
-    }
+	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
+		LOG.info("AppTemplate not found. {} ", ex.getMessage());
+		return new ResponseEntity<>("AppTemplate not found.", HttpStatus.NOT_FOUND);
+	}
 }
