@@ -66,6 +66,7 @@ function ErDesigner(props) {
         let newEntities = [...entities];
         const locallyFoundIndex = newEntities.findIndex(entity => entity.id === entityId);
         if (newEntities[locallyFoundIndex].isNewEntity) {
+            // Returns a promise so that there is no difference in the data type between a server deleted entity vs a locally deleted item
             return new Promise(resolve => {
                 newEntities.splice(locallyFoundIndex, 1);
                 handleUpdateEntities(newEntities);
