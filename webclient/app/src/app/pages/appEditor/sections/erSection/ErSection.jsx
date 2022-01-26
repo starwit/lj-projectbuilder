@@ -31,7 +31,7 @@ function ErDesigner(props) {
 
         let newId = 1;
         if (newEntities.length > 0) {
-            newId = newEntities[newEntities.length - 1].id + 15;
+            newId = newEntities[newEntities.length - 1].id + 1;
         }
         const newEntity = {
             id: newId,
