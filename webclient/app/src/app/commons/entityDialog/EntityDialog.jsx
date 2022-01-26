@@ -63,7 +63,9 @@ function EntityDialog(props) {
     const dataTypes = [
         {
             id: 1,
-            name: "String"
+            name: "String",
+            allowMin: true,
+            allowMax: true
         },
         {
             id: 2,
