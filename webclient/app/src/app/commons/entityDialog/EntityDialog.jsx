@@ -71,7 +71,7 @@ function EntityDialog(props) {
 
     function getTargetEntities() {
         let newTargetEntities = [];
-        if (entities && entities.length > 1) {
+        if (entities?.length > 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
         } else {
             let emptyEntity = nullEntity;
