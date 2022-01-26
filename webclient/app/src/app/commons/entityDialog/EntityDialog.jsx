@@ -59,7 +59,7 @@ function EntityDialog(props) {
         entity.relationships?.forEach(relationship => {
             if (!RegexConfig.relationship.test(relationship.relationshipName)
                 || !RegexConfig.relationship.test(relationship.otherEntityRelationshipName)
-                || !RegexConfig.entityTitle.test(!relationship.otherEntityName)) {
+                || !RegexConfig.entityTitle.test(relationship.otherEntityName)) {
                 hasError = true;
             }
         });
@@ -270,7 +270,6 @@ function EntityDialog(props) {
                 />
             )
         })
-
     }
 
     if (!entity) {

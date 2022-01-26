@@ -100,10 +100,10 @@ function RelationshipAccordion(props) {
                         <FormControl fullWidth>
                             <InputLabel
                                 id="targetEntity"
-                                error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
+                                error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}
                             >{t("relationship.targetEntity") + "*"}</InputLabel>
                             <Select
-                                error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
+                                error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}
                                 labelId="targetEntity"
                                 id="targetEntitySelect"
                                 value={relationship.otherEntityName}
@@ -115,7 +115,7 @@ function RelationshipAccordion(props) {
                                 ))}
                             </Select>
                             <FormHelperText id="targetEntityHelperText"
-                            error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
+                            error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}
                             >{ t("relationship.targetEntity.description") }</FormHelperText>
                         </FormControl>
                         <div className={relationshipStyles.spacerBottom}/>

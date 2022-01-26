@@ -24,39 +24,43 @@ function EntityCard(props) {
 
     function renderAttributes(entity) {
 
-        return entity.fields.map((field, index) => {
+        if (!entity.fields || entity.fields.length === 0) {
             return (
-
-                <TableRow key={index}>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_l"}/>
-                    </TableCell>
-                    <TableCell>{field.fieldName}</TableCell>
-                    <TableCell>{field.fieldType}</TableCell>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_r"}/>
+                <TableRow key={0}>
+                    <TableCell colSpan={4} >
+                        <div className={entityCardStyles.statementWrapper}>
+                            <Statement message={t("entityCard.noFields")}/>
+                        </div>
                     </TableCell>
                 </TableRow>
             )
-        })
+        } else {
+            return entity.fields.map((field, index) => {
+                    return (
+                    <TableRow key={index}>
+                        <TableCell />
+                        <TableCell>{field.fieldName}</TableCell>
+                        <TableCell>{field.fieldType}</TableCell>
+                        <TableCell />
+                    </TableRow>
+                )
+            })
+        }
     }
 
     function renderFieldsTable(entity) {
-        if (!entity.fields || entity.fields.length === 0) {
-            return (
-                <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={t("entityCard.noFields")}/>
-                </div>
-            )
-        }
         return (
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell/>
+                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
+                            <div className={"anchor_" + entity.name + "_l"}/>
+                        </TableCell>
                         <TableCell>{t("entityCard.name")}</TableCell>
                         <TableCell>{t("entityCard.dataType")}</TableCell>
-                        <TableCell/>
+                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
+                            <div className={"anchor_" + entity.name + "_r"}/>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

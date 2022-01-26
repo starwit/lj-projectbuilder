@@ -92,18 +92,9 @@ function ErDesigner(props) {
 
     }
 
-    function updateCoordinates(update, draggableData, entity) {
+    function calculateCoordinates() {
         const relationsList = [];
         const coordinates = [];
-
-        if (!entity.position) {
-            entity.position = {};
-        }
-
-        entity.position.positionX = draggableData.x;
-        entity.position.positionY = draggableData.y;
-
-        entityRest.updateEntityByAppId(appId, entity)
 
         entities.forEach(entity => {
             if (entity.relationships) {
@@ -114,12 +105,12 @@ function ErDesigner(props) {
             }
         })
         relationsList.forEach(parsedRelation => {
-            let elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_r')
-            let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_l')
+            let elementSource = getElement('anchor_' + parsedRelation.name  + '_r')
+            let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_l')
 
             if (elementSource?.x > elementTarget?.x) {
-                elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_l')
-                elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_r')
+                elementSource = getElement('anchor_' + parsedRelation.name + '_l')
+                elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_r')
             }
             if (elementTarget && elementSource) {
                 coordinates.push({
@@ -127,7 +118,19 @@ function ErDesigner(props) {
                 })
             }
         })
-        setCoordinates(coordinates)
+        return coordinates;
+    }
+
+
+    function updateCoordinates(entity) {
+        if (!entity.position) {
+            entity.position = {};
+        }
+
+        entityRest.updateEntityByAppId(appId, entity);
+        let internalCoordinates = calculateCoordinates();
+
+        setCoordinates(internalCoordinates)
     }
 
     function getElement(className) {
@@ -137,8 +140,11 @@ function ErDesigner(props) {
     }
 
     function renderRelations() {
-
-        return coordinates.map((coordinate, index) => {
+        let internalCoordinates = coordinates;
+        if (!internalCoordinates || internalCoordinates.length === 0) {
+            internalCoordinates = calculateCoordinates();
+        }
+        return internalCoordinates.map((coordinate, index) => {
             const {x0, y0, x1, y1} = coordinate;
             return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + index + ""}/>
         })
@@ -163,7 +169,7 @@ function ErDesigner(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
+                    onStop={() => updateCoordinates(entity)}
                     key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}
