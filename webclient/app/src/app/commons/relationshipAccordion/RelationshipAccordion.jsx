@@ -20,7 +20,6 @@ import { RelationshipType } from "./Relationship";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 
-//some commit
 function RelationshipAccordion(props) {
 
     const {
