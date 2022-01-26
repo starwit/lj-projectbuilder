@@ -34,6 +34,10 @@ public class ApplicationDto extends AbstractEntity<Long> {
     @Valid
     private List<EntityDto> entities;
 
+    private List<String> groupsToAssign;
+
+    private List<String> userGroups;
+
     public String getBaseName() {
         return baseName;
     }
@@ -50,7 +54,6 @@ public class ApplicationDto extends AbstractEntity<Long> {
         this.packageName = packageName;
     }
 
-    
     public AppTemplateDto getTemplate() {
         return template;
     }
@@ -67,4 +70,19 @@ public class ApplicationDto extends AbstractEntity<Long> {
         this.entities = entities;
     }
 
+    public List<String> getGroupsToAssign() {
+        return groupsToAssign;
+    }
+
+    public void setGroupsToAssign(List<String> groupsToAssign) {
+        this.groupsToAssign = groupsToAssign;
+    }
+
+    public List<String> getUserGroups() {
+        return userGroups;
+    }
+
+    public void setUserGroups(List<String> userGroups) {
+        this.userGroups = userGroups;
+    }
 }

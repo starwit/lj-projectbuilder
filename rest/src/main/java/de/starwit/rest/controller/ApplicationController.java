@@ -1,5 +1,6 @@
 package de.starwit.rest.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("${rest.base-path}/apps")
 public class ApplicationController {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
+	static final Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
 	@Autowired
 	private AppService appService;
@@ -41,17 +42,17 @@ public class ApplicationController {
 	private ApplicationMapper appMapper;
 
 	@Operation(summary = "Get all apps")
-    @GetMapping
-	public List<ApplicationDto> findAll() {
-		return appMapper.convertToDtoList(appService.findAll());
+	@GetMapping
+	public List<ApplicationDto> findAll(Principal principal) {
+		List<String> groups = GroupsHelper.getGroups(principal);
+		return appMapper.convertToDtoList(appService.findByGroups(groups));
 	}
 
 	@Operation(summary = "Get app with id")
 	@GetMapping(value = "/{id}")
 	public ApplicationDto findById(@PathVariable("id") Long id) {
 		App entity = appService.findById(id);
-		ApplicationDto dto = appMapper.convertToDto(entity);
-		return dto;
+		return appMapper.convertToDto(entity);
 	}
 
 	@IsAdmin
@@ -67,15 +68,21 @@ public class ApplicationController {
 	@Operation(summary = "Update app")
 	@PutMapping
 	public ApplicationDto update(@Valid @RequestBody ApplicationDto dto) {
-		App app = appMapper.convertToEntity(dto);
-		app = appService.saveOrUpdate(app);
+		App app = new App();
+		if (dto.getId() != null) {
+			app = appService.findById(dto.getId());
+		}
+		List<String> assignedGroups = app.getGroups();
+		assignedGroups = GroupsHelper.identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups, dto.getUserGroups());
+		dto.setGroupsToAssign(assignedGroups);
+		app = appService.saveOrUpdate(appMapper.convertToEntity(dto));
 		return appMapper.convertToDto(app);
 	}
 
 	@IsAdmin
 	@IsUser
 	@Operation(summary = "Updates only app properties. List of entities will not be saved, changed or removed.")
-	@PostMapping(value="/app-properties")
+	@PostMapping(value = "/app-properties")
 	public ApplicationDto updateProperties(@Valid @RequestBody ApplicationDto dto) {
 		App app = appMapper.convertToEntity(dto);
 		App appOld = appService.findById(app.getId());
@@ -93,8 +100,8 @@ public class ApplicationController {
 	}
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
-    public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-        LOG.info("App not found. ", ex.getMessage());
-        return new ResponseEntity<Object>("App not found.", HttpStatus.NOT_FOUND);
-    }  
+	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
+		LOG.info("App not found. {}", ex.getMessage());
+		return new ResponseEntity<>("App not found.", HttpStatus.NOT_FOUND);
+	}
 }

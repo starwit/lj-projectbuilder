@@ -33,7 +33,7 @@ function AppTemplateCard(props) {
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
 
-    const { appTemplate, handleRefresh } = props;
+    const { appTemplate, handleRefresh, userGroups } = props;
     const appTemplateRest = new AppTemplateRest();
     const gitRest = new GitRest();
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
@@ -171,6 +171,7 @@ function AppTemplateCard(props) {
                 onClose={handleDialogClose}
                 onRefresh={() => handleRefresh(appTemplate.id)}
                 isCreateDialog={false}
+                userGroups={userGroups}
             />
             <ConfirmationDialog
                 content={deleteDialogContent}

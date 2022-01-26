@@ -29,6 +29,7 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       dto.setBaseName(entity.getTitle());
       dto.setPackageName(entity.getPackagePrefix());
       dto.setEntities(entityMapper.convertToDtoList(entity.getDomains()));
+      dto.setGroupsToAssign(entity.getGroups());
       AppTemplateDto appTemplateDto = new AppTemplateDto();
       if (entity.getTemplate() != null) {
         appTemplateDto.setId(entity.getTemplate().getId());
@@ -60,6 +61,7 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       }
       app.setTemplate(appTemplate);
       app.setDomains(entityMapper.convertToEntityList(dto.getEntities()));
+      app.setGroups(dto.getGroupsToAssign());
       entityMapper.addParent(app.getDomains(), app);
     }
 

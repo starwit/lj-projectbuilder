@@ -34,7 +34,7 @@ function FieldAccordion(props) {
         name,
         editFieldProperty,
         dataTypes,
-        handleHasError
+        isCreate
     } = props;
     const fieldAccordionStyles = FieldAccordionStyles();
     const {t} = useTranslation();
@@ -62,13 +62,13 @@ function FieldAccordion(props) {
                 <Grid container spacing={4}>
                     <Grid item sm={6}>
                         <ValidatedTextField
+                            isCreate={isCreate}
                             regex={RegexConfig.fieldName}
                             helperText={t("fieldDialog.name.error")}
                             fullWidth
                             value={name}
-                            label={t("fieldDialog.name")}
+                            label={t("fieldDialog.name") + "*"}
                             onChange={(event) => editFieldProperty("fieldName", event.target.value)}
-                            handleHasError={handleHasError}
                         />
                     </Grid>
                     <Grid item sm={6}>
@@ -77,7 +77,7 @@ function FieldAccordion(props) {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={dataType.name}
+                                value={dataType}
                                 label={t("fieldDialog.dataType")}
                                 onChange={(event) => editFieldProperty("fieldType", event.target.value)}
                             >
@@ -150,6 +150,7 @@ FieldAccordion.propTypes = {
     name: PropTypes.string,
     editFieldProperty: PropTypes.func.isRequired,
     dataTypes: PropTypes.array,
+    isCreate: PropTypes.bool
 };
 
 FieldAccordion.defaultProps = {
@@ -160,7 +161,8 @@ FieldAccordion.defaultProps = {
     pattern: "",
     description: "",
     name: "",
-    dataTypes: []
+    dataTypes: [],
+    isCreate: false
 }
 
 export default FieldAccordion;

@@ -258,6 +258,7 @@ function EntityDialog(props) {
                     max={fieldValidateRulesMax}
                     mandatory={mandatory}
                     name={fieldName}
+                    isCreate={!fieldName}
                 />
             )
         })
@@ -282,8 +283,9 @@ function EntityDialog(props) {
             </DialogTitle>
             <Container>
                 <ValidatedTextField
+                    isCreate={entity.isNewEntity}
                     fullWidth
-                    label={t("entityDialog.name")}
+                    label={t("entityDialog.name") + "*"}
                     value={entity.name}
                     onChange={handleEntityTitleText}
                     helperText={t("entityDialog.name.error")}
