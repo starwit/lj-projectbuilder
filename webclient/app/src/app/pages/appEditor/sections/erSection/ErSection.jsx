@@ -219,7 +219,6 @@ function ErDesigner(props) {
 
     function closeEntityDialog() {
         setCurrentEntity(null)
-
     }
 
     return (<>
