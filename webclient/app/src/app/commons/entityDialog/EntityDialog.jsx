@@ -54,7 +54,15 @@ function EntityDialog(props) {
                 hasError = true;
             }
 
-        })
+        });
+
+        entity.relationships?.forEach(relationship => {
+            if (!RegexConfig.relationship.test(relationship.relationshipName)
+                || !RegexConfig.relationship.test(relationship.otherEntityRelationshipName)
+                || !RegexConfig.entityTitle.test(!relationship.otherEntityName)) {
+                hasError = true;
+            }
+        });
         setHasFormError(hasError);
 
 

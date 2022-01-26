@@ -8,15 +8,17 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField,
     Typography,
-    FormHelperText
+    FormHelperText,
+    TextField
 } from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
 import {useTranslation} from "react-i18next";
 import { RelationshipType } from "./Relationship";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
+import RegexConfig from "../../../regexConfig";
 
 //some commit
 function RelationshipAccordion(props) {
@@ -78,16 +80,16 @@ function RelationshipAccordion(props) {
                                 value={currentEntity.name}
                                 disabled={true}
                                 helperText={ t("relationship.sourceEntity.description") }
-                            >
-                            </TextField>
+                            />
                         </FormControl>
                         <div className={relationshipStyles.spacerBottom}/>
                         <FormControl fullWidth>
-                            <TextField
+                            <ValidatedTextField
                                 label={ t("relationship.sourceField") }
                                 value={relationship.relationshipName}
                                 onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
                                 helperText={ t("relationship.sourceField.description", {entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity")} )}
+                                regex={RegexConfig.relationship}
                             />
                         </FormControl>
                     </Grid>
@@ -97,8 +99,11 @@ function RelationshipAccordion(props) {
                     <Grid item sm={5}>
                         <FormControl fullWidth>
                             <InputLabel
-                                id="targetEntity">{t("relationship.targetEntity") + "*"}</InputLabel>
+                                id="targetEntity"
+                                error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
+                            >{t("relationship.targetEntity") + "*"}</InputLabel>
                             <Select
+                                error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
                                 labelId="targetEntity"
                                 id="targetEntitySelect"
                                 value={relationship.otherEntityName}
@@ -109,15 +114,18 @@ function RelationshipAccordion(props) {
                                     <MenuItem value={entity.name} key={entity.id} >{entity.name}</MenuItem>
                                 ))}
                             </Select>
-                            <FormHelperText id="targetEntityHelperText">{ t("relationship.targetEntity.description") }</FormHelperText>
+                            <FormHelperText id="targetEntityHelperText"
+                            error={!RegexConfig.entityTitle.test(!relationship.otherEntityName)}
+                            >{ t("relationship.targetEntity.description") }</FormHelperText>
                         </FormControl>
                         <div className={relationshipStyles.spacerBottom}/>
                         <FormControl fullWidth>
-                            <TextField
+                            <ValidatedTextField
                                 label={ t("relationship.targetField") }
                                 value={relationship.otherEntityRelationshipName}
                                 onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
                                 helperText={ t("relationship.targetField.description", {entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity")} )}
+                                regex={RegexConfig.relationship}
                             />
                         </FormControl>
                     </Grid>
