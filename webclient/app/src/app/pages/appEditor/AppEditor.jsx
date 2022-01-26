@@ -67,7 +67,7 @@ function AppEditor() {
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups, userRest]);
+    }, [userRest]);
 
     const steps = [
         {

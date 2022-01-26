@@ -46,7 +46,7 @@ function AppTemplateOverview() {
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups, userRest]);
+    }, [userRest]);
 
     useEffect(() => {
         reload();
