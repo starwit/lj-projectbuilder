@@ -260,7 +260,13 @@ function EntityDialog(props) {
     return (
         <Dialog open={!!entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                <Typography noWrap variant={"h6"} component={"p"}>{t("entityDialog.editDomain")}</Typography>
+                <Typography
+                    noWrap
+                    variant={"h6"}
+                    component={"p"}
+                >
+                    {t("entityDialog.editDomain", {entityName: entity.name})}
+                </Typography>
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
