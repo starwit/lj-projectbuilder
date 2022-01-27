@@ -78,7 +78,6 @@ function RelationshipAccordion(props) {
                                 label={ t("relationship.sourceEntity") }
                                 value={currentEntity.name}
                                 disabled={true}
-                                helperText={ t("relationship.sourceEntity.description") }
                             />
                         </FormControl>
                         <div className={relationshipStyles.spacerBottom}/>
@@ -113,9 +112,6 @@ function RelationshipAccordion(props) {
                                     <MenuItem value={entity.name} key={entity.id} >{entity.name}</MenuItem>
                                 ))}
                             </Select>
-                            <FormHelperText id="targetEntityHelperText"
-                            error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}
-                            >{ t("relationship.targetEntity.description") }</FormHelperText>
                         </FormControl>
                         <div className={relationshipStyles.spacerBottom}/>
                         <FormControl fullWidth>
