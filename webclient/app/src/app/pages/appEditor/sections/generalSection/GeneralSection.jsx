@@ -9,7 +9,7 @@ import MultipleSelectChip from "../../../../commons/multipleSelectChip/MultipleS
 function GeneralSection(props) {
 
     const {t} = useTranslation();
-    const {setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
+    const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
     const generalSectionStyles = GeneralSectionStyles();
 
     const handleGroupChange = (items) => {
@@ -22,21 +22,23 @@ function GeneralSection(props) {
             <Grid container spacing={5}>
                 <Grid item md={8}>
                     <ValidatedTextField
-                        label={t("generalSection.nameOfApp")}
+                        label={t("generalSection.nameOfApp") + "*"}
                         regex={RegexConfig.applicationBaseName}
                         helperText={t("generalSection.nameOfApp.error")}
                         value={appName}
                         fullWidth
                         onChange={event => setAppName(event.target.value)}
+                        isCreate={isCreate}
                     />
                     <div className={generalSectionStyles.padding}/>
                     <ValidatedTextField
-                        label={t("generalSection.packageNameOfApp")}
+                        label={t("generalSection.packageNameOfApp") + "*"}
                         regex={RegexConfig.packageName}
                         helperText={t("generalSection.packageNameOfApp.error")}
                         value={packageName}
                         fullWidth
                         onChange={event => setPackageName(event.target.value)}
+                        isCreate={isCreate}
                     />
                     <div className={generalSectionStyles.padding}/>
                     <MultipleSelectChip 

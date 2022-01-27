@@ -73,6 +73,7 @@ function AppEditor() {
         {
             label: t("appEditor.section.general.title"),
             component: <GeneralSection
+                isCreate={isNewApp}
                 packageName={packageName}
                 appName={appName}
                 setAppName={setAppName}
