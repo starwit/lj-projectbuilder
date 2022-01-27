@@ -265,7 +265,7 @@ function EntityDialog(props) {
                     variant={"h6"}
                     component={"p"}
                 >
-                    {t("entityDialog.editDomain", {entityName: entity.name})}
+                    {t("entityDialog.editEntity", {entityName: entity.name})}
                 </Typography>
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
