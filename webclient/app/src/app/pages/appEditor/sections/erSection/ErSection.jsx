@@ -88,8 +88,6 @@ function ErDesigner(props) {
             .then(response => {
                 handleUpdateEntities(response.data)
             })
-
-
     }
 
     function calculateCoordinates() {
