@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function ValidatedTextField(props) {
 
-    const {value, regex, isCreate} = props;
+    const {value, regex, isCreate, ...newProps } = props;
     const [error, setError] = useState(false);
     const [changed, setChanged] = useState(false);
 
@@ -17,7 +17,7 @@ function ValidatedTextField(props) {
             error={(!isCreate || changed) && error}
             value={value}
             onBlur={() => setChanged(true)}
-            {...props}
+            {...newProps}
         />
     )
 
