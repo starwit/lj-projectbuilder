@@ -98,8 +98,8 @@ const translationsDeDE = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "privates Repo mit Login",
     "appTemplateDialog.description": "Beschreibung",
-    "appTemplateDialog.location.error": "muss eine valide Git-Repository Adresse sein",
-    "appTemplateDialog.branch.error": "muss ein gültiger Branch Namen sein",
+    "appTemplateDialog.location.error": "Bitte geben Sie eine Git-Repository-URL ein",
+    "appTemplateDialog.branch.error": "Der Branch Name kann 100 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "Nutzername",

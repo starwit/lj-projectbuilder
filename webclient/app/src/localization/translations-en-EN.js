@@ -92,8 +92,8 @@ const translationsEnEN = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "private Repo with Login",
     "appTemplateDialog.description": "Description",
-    "appTemplateDialog.location.error": "Location has to be a valid git-repository name",
-    "appTemplateDialog.branch.error": "has to be a valid branch name",
+    "appTemplateDialog.location.error": "Location has to be a valid git-repository URL",
+    "appTemplateDialog.branch.error": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",

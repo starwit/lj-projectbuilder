@@ -67,12 +67,13 @@ function AppEditor() {
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups, userRest]);
+    }, [userRest]);
 
     const steps = [
         {
             label: t("appEditor.section.general.title"),
             component: <GeneralSection
+                isCreate={isNewApp}
                 packageName={packageName}
                 appName={appName}
                 setAppName={setAppName}
@@ -99,7 +100,9 @@ function AppEditor() {
                 <ErDesigner
                     appId={+appId}
                     entities={entities}
-                    handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
+                    handleUpdateEntities={updatedEntities => {
+                        setEntities(updatedEntities)
+                    }}
                 />
             ),
             condition: entities.length >= 1
@@ -148,8 +151,6 @@ function AppEditor() {
             entity.id = null;
             return entity;
         });
-
-        console.log(entitiesEdited)
 
         const appPackage = {
             id: (isNewApp ? null : appId),

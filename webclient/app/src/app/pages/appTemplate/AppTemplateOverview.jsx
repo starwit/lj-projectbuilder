@@ -13,7 +13,7 @@ function AppTemplateOverview() {
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [data, setData] = useState([]);
-    const [userGroups, setUserGroups] = React.useState(false); 
+    const [userGroups, setUserGroups] = React.useState([]); 
     const userRest = useMemo(() => new UserRest(), []);
     const appTemplateOverviewStyles = AppTemplateOverviewStyles();    
 
@@ -46,7 +46,7 @@ function AppTemplateOverview() {
         userRest.getUserGroups().then((response) => {
             setUserGroups(response.data);
         });
-    }, [userGroups, userRest]);
+    }, [userRest]);
 
     useEffect(() => {
         reload();

@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
 import AppTemplateRest from "../../services/AppTemplateRest"
 import ErrorAlert from "../alert/ErrorAlert";
-import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import MultipleSelectChip from "../multipleSelectChip/MultipleSelectChip";
 
@@ -139,24 +139,24 @@ function AppTemplateDialog(props) {
                 autoComplete="off"
             >
                 <ErrorAlert alert={alert} onClose={closeAlert} />
-                <SimpleValidatedTextField
+                <ValidatedTextField
                     fullWidth
                     label={t("appTemplateDialog.location") + "*" }
                     value={internalAppTemplate.location}
                     name="location" 
                     onChange={handleChange}
-                    iscreate={+isCreateDialog}
-                    errortext={t("appTemplateDialog.location.error")}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplateDialog.location.error")}
                     regex={RegexConfig.appTemplateLocation}
                 />
-                <SimpleValidatedTextField 
+                <ValidatedTextField 
                     fullWidth 
                     label={t("appTemplateDialog.branch")} 
                     value={internalAppTemplate.branch} 
                     name="branch" 
                     onChange={handleChange}
-                    iscreate={+isCreateDialog}
-                    errortext={t("appTemplateDialog.branch.error")}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplateDialog.branch.error")}
                     regex={RegexConfig.appTemplateBranch}
                 />
                 <TextField 
