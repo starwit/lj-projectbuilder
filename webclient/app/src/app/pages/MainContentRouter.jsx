@@ -14,7 +14,7 @@ function MainContentRouter() {
             <Route exact path={"/"} component={Home}/>
             <Route path={"/apptemplate"} component={AppTemplateOverview}/>
             <Route path='/logout' component={() => {                
-                window.location.href = window.location.pathname + "api/usermanagement/logout"; 
+                window.location.href = window.location.pathname + "api/user/logout"; 
                 return null;
             }}/>
         </>

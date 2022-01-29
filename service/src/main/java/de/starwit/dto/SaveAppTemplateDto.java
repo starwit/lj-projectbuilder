@@ -1,5 +1,7 @@
 package de.starwit.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -20,12 +22,14 @@ public class SaveAppTemplateDto extends AppTemplateDto {
     @Pattern(regexp = "^([a-zA-Z0-9/_-]{0,100})$")
     private String branch = "master";
 
-    private boolean credentialsRequired = false;
-
     private String description;
 
+    private List<String> groups;
+
+    private List<String> userGroups;
+
     @Schema(hidden = true)
-    @Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+    @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
 	@Size(max = 100)
     private String packagePlaceholder;
 
@@ -44,15 +48,6 @@ public class SaveAppTemplateDto extends AppTemplateDto {
     public void setBranch(String branch) {
         this.branch = branch;
     }
-
-    public boolean isCredentialsRequired() {
-        return credentialsRequired;
-    }
-
-    public void setCredentialsRequired(boolean credentialsRequired) {
-        this.credentialsRequired = credentialsRequired;
-    }
-
 
     public String getDescription() {
         return description;
@@ -74,5 +69,21 @@ public class SaveAppTemplateDto extends AppTemplateDto {
     @Override
     public String getName() {
         return super.getName();
+    }
+
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    public List<String> getUserGroups() {
+        return userGroups;
+    }
+
+    public void setUserGroups(List<String> userGroups) {
+        this.userGroups = userGroups;
     }
 }

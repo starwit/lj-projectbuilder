@@ -73,7 +73,7 @@ public class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/logout.html").permitAll()
-                .antMatchers("/api/usermanagement/logout").permitAll()
+                .antMatchers("/api/user/logout").permitAll()
                 .antMatchers("/**").hasAnyRole("admin", "user", "reader")
                 .anyRequest().authenticated()
                 .and()

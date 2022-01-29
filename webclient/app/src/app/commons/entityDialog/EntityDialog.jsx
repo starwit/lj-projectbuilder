@@ -258,6 +258,7 @@ function EntityDialog(props) {
                     max={fieldValidateRulesMax}
                     mandatory={mandatory}
                     name={fieldName}
+                    isCreate={!fieldName}
                 />
             )
         })
@@ -271,7 +272,13 @@ function EntityDialog(props) {
     return (
         <Dialog open={!!entityId} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                <Typography noWrap variant={"h6"} >{t("entityDialog.editDomain")}</Typography>
+                <Typography
+                    noWrap
+                    variant={"h6"}
+                    component={"p"}
+                >
+                    {t("entityDialog.editEntity", {entityName: entity.name})}
+                </Typography>
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
@@ -282,8 +289,9 @@ function EntityDialog(props) {
             </DialogTitle>
             <Container>
                 <ValidatedTextField
+                    isCreate={entity.isNewEntity}
                     fullWidth
-                    label={t("entityDialog.name")}
+                    label={t("entityDialog.name") + "*"}
                     value={entity.name}
                     onChange={handleEntityTitleText}
                     helperText={t("entityDialog.name.error")}

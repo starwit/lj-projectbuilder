@@ -162,6 +162,7 @@ public class AppCheckout {
 			appTemplate.setDescription(template.getDescription());
 			appTemplate.setBranch(template.getBranch());
 			appTemplate.setCredentialsRequired(template.isCredentialsRequired());
+			appTemplate.setGroups(template.getGroups());
 
 			return appTemplateService.updateFromRepo(appTemplate);
 		} catch (Exception ex) {

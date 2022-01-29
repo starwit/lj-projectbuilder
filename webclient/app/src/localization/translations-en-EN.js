@@ -15,6 +15,7 @@ const translationsEnEN = {
     "button.no": "No",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
+    "select.groups": "Groups",
     "form.create": "create {{entity}}",
     "form.update": "update {{entity}}",
     "alert.error": "Error",
@@ -42,7 +43,7 @@ const translationsEnEN = {
     "entityDialog.noRelations": "No relations.",
     "entityDialog.noFields": "No fields.",
     "entityDialog.domainIsLoading": "Domain is loading.",
-    "entityDialog.editDomain": "Edit domain.",
+    "entityDialog.editEntity": "Edit {{entityName}}.",
     "entityDialog.tab.fields": "Fields",
     "entityDialog.tab.relations": "Relations",
     "entityDialog.name": "Name",
@@ -97,8 +98,8 @@ const translationsEnEN = {
     "appTemplateDialog.branch": "Branch",
     "appTemplateDialog.credentialsRequired": "private repo with Login",
     "appTemplateDialog.description": "Description",
-    "appTemplateDialog.location.error": "Location has to be a valid git-repository name",
-    "appTemplateDialog.branch.error": "has to be a valid branch name",    
+    "appTemplateDialog.location.error": "Location has to be a valid git-repository URL",
+    "appTemplateDialog.branch.error": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
     "appTemplateAuthDialog.title": "Login Git Template Repository",
     "appTemplateAuthDialog.user": "User",
@@ -110,7 +111,7 @@ const translationsEnEN = {
 
     "appTemplateAuthDialog.user.error": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
     "appTemplateAuthDialog.password.error": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
-  
+
     "generalSection.hello": "Hello!",
     "generalSection.enterInformation": "Please enter as a first step generation information to your app.",
     "generalSection.clickNext": "Afterwards, please click next on the upper right side to continue.",
@@ -141,7 +142,7 @@ const translationsEnEN = {
     "error.git.access.invaliduserpassword": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.git.exit": "Error to get data from Git repository",
     "error.appcheckout.giturlisinvalid": "Invalid Git repository URL. Only letters, numbers and ./_- are allowed.",
-    "error.appcheckout.usernameisinvalid":"Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.usernameisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",

@@ -15,7 +15,7 @@ public class AppTemplateDto extends AbstractEntity<Long> {
 	@Size(max = 100)
     private String name = "default";
 
-    private boolean credentialsRequired;
+    private boolean credentialsRequired = false;
 
     public String getName() {
         return name;
