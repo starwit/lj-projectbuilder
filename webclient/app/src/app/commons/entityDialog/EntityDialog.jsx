@@ -123,7 +123,7 @@ function EntityDialog(props) {
         }
     ];
 
-    function lowerFirstChar(s:string) {
+    function lowerFirstChar(s) {
         return (s && s[0].toLowerCase() + s.slice(1)) || "";
     }
 
