@@ -21,7 +21,9 @@ import Statement from "../statement/Statement";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
+import { defaultRelationship } from "../relationshipAccordion/Relationship";
 import {LoadingButton} from "@mui/lab";
+import { nullEntity } from "../entityCard/Entity";
 
 function EntityDialog(props) {
 
@@ -31,13 +33,10 @@ function EntityDialog(props) {
     const [isSaving, setIsSaving] = React.useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
-
     const {entityId, onClose, handleSave, entities} = props;
-
+    
     useEffect(() => {
-
         setEntity({...entities.find(entity => entity.id === entityId)})
-
     }, [entityId, entities])
 
     useEffect(() => {
@@ -58,7 +57,22 @@ function EntityDialog(props) {
         })
         setHasFormError(hasError);
 
+
     }, [entity])
+
+
+    function getTargetEntities() {
+        let newTargetEntities = [];
+        if (entities && entities.length > 1) {
+            newTargetEntities = entities.filter(e => e.name !== entity.name);
+        } else {
+            let emptyEntity = nullEntity;
+            emptyEntity.name = t("relationship.targetEntity.empty");
+            newTargetEntities.push(emptyEntity)
+        }
+        return newTargetEntities;
+
+    };
 
     const dataTypes = [
         {
@@ -101,11 +115,9 @@ function EntityDialog(props) {
         }
     ];
 
-    const relationshipTypes = [
-        "one-to-one",
-        "one-to-many",
-        "many-to-many"
-    ];
+    function lowerFirstChar(s:string) {
+        return (s && s[0].toLowerCase() + s.slice(1)) || "";
+    }
 
     function a11yProps(index) {
         return {
@@ -156,14 +168,13 @@ function EntityDialog(props) {
             newEntity.relationships = [];
         }
 
-        newEntity.relationships.push(
-            {
-                "relationshipType": "",
-                "otherEntityName": "",
-                "otherEntityRelationshipName": "",
-                "relationshipName": ""
-            }
-        )
+        let targetEntities = getTargetEntities();
+        let relationship = defaultRelationship;
+        relationship.otherEntityName = targetEntities[0].name;
+        relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
+        relationship.otherEntityRelationshipName = lowerFirstChar(newEntity.name);
+
+        newEntity.relationships.push(relationship);
         setEntity(newEntity);
     }
 
@@ -189,8 +200,12 @@ function EntityDialog(props) {
     function editRelationshipProperty(key, value, index) {
         const newEntity = {...entity};
         newEntity.relationships[index][key] = value;
+        if (key === "otherEntityName") {
+            newEntity.relationships[index].relationshipName = lowerFirstChar(value);
+        }
         setEntity(newEntity)
     }
+
 
 
     function renderRelations() {
@@ -202,16 +217,12 @@ function EntityDialog(props) {
             )
         }
         return entity.relationships.map((relationship, index) => {
-            const {otherEntityRelationshipName, otherEntityName, relationshipName} = relationship;
             return (
                 <RelationshipAccordion
-                    otherEntityRelationshipName={otherEntityRelationshipName}
-                    otherEntityName={otherEntityName}
-                    relationshipName={relationshipName}
-                    entities={entities}
+                    relationship = {relationship}
+                    targetEntities={getTargetEntities()}
                     editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
                     currentEntity={entity}
-                    relationshipTypes={relationshipTypes}
                 />
             )
         })
