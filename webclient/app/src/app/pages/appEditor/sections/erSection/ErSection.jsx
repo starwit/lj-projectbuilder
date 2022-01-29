@@ -109,7 +109,7 @@ function ErDesigner(props) {
             if (entity.relationships) {
                 entity?.relationships.forEach(relationship => {
                     coordinates.push({
-                        from: 'anchor_' + relationship.name, to: 'anchor_' + relationship.otherEntityName
+                        from: 'anchor_' + entity.name, to: 'anchor_' + relationship.otherEntityName
                     })
                 })
             }
