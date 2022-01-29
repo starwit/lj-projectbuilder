@@ -53,14 +53,12 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                            <div className={"anchor_" + entity.name + "_l"}/>
+                        <TableCell />
+                        <TableCell>{t("entityCard.name")}
                         </TableCell>
-                        <TableCell>{t("entityCard.name")}</TableCell>
-                        <TableCell>{t("entityCard.dataType")}</TableCell>
-                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                            <div className={"anchor_" + entity.name + "_r"}/>
+                        <TableCell>{t("entityCard.dataType")}
                         </TableCell>
+                        <TableCell />
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -114,6 +112,7 @@ function EntityCard(props) {
     }
 
     return (
+        <div className={"anchor_" + entity.name}>
         <Card className={`${entityCardStyles.entityCard}`}>
             <Grid container>
                 <Grid item sm={calculateTitleWidth()}>
@@ -124,6 +123,7 @@ function EntityCard(props) {
             </Grid>
             {renderFieldsTable(entity)}
         </Card>
+        </div>
     )
 
 }
