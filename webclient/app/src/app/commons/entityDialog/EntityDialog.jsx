@@ -177,7 +177,7 @@ function EntityDialog(props) {
         }
 
         let targetEntities = getTargetEntities();
-        let relationship = defaultRelationship;
+        let relationship = {...defaultRelationship};
         relationship.otherEntityName = targetEntities[0].name;
         relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
         relationship.otherEntityRelationshipName = lowerFirstChar(newEntity.name);
