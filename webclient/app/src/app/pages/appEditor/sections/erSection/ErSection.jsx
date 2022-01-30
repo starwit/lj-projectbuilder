@@ -12,13 +12,14 @@ import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
+import MainTheme from "../../../../assets/themes/MainTheme";
 
 function ErDesigner(props) {
 
     const {editable, entities, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
-
+    const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
@@ -120,7 +121,7 @@ function ErDesigner(props) {
     function renderRelations() {
 
         return coordinates.map((coordinate, index) => {
-            return <SteppedLineTo from={coordinate.from} to={coordinate.to} />
+            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth="0.25em" />
         })
 
     }

@@ -11,7 +11,10 @@ class MainTheme {
         background: {
             default: "#F5F5F5",
             paper: "#fff"
-        }
+        },
+        line: {
+            width: "0.25em"    
+        }    
     };
 
     typography = {
@@ -26,7 +29,7 @@ class MainTheme {
     };
 
     overrides = {}
-
 }
+
 
 export default MainTheme;
