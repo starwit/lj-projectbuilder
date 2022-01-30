@@ -16,13 +16,12 @@ import MainTheme from "../../../../assets/themes/MainTheme";
 
 function ErDesigner(props) {
 
-    const {editable, entities, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, updateCoordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
-    const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
 
     const {t} = useTranslation();
@@ -93,10 +92,7 @@ function ErDesigner(props) {
 
     }
 
-    function updateCoordinates(update, draggableData, entity) {
-        const relationsList = [];
-        const coordinates = [];
-
+    function updatePosition(update, draggableData, entity) {
         if (!entity.position) {
             entity.position = {};
         }
@@ -106,22 +102,13 @@ function ErDesigner(props) {
 
         entityRest.updateEntityByAppId(appId, entity)
 
-        entities.forEach(entity => {
-            if (entity.relationships) {
-                entity?.relationships.forEach(relationship => {
-                    coordinates.push({
-                        from: 'anchor_' + entity.name, to: 'anchor_' + relationship.otherEntityName
-                    })
-                })
-            }
-        })
-        setCoordinates(coordinates)
+        updateCoordinates(entities);
     }
 
     function renderRelations() {
 
         return coordinates.map((coordinate, index) => {
-            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth="0.25em" />
+            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth={theme.palette.line.width} />
         })
 
     }
@@ -144,7 +131,7 @@ function ErDesigner(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
+                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}

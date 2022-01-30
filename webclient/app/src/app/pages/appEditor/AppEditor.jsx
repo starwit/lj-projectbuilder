@@ -30,6 +30,7 @@ function AppEditor() {
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
+    const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
     const [saveError, setSaveError] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
@@ -50,6 +51,7 @@ function AppEditor() {
                 setPackageName(packageName);
                 setSelectedTemplate(template);
                 setEntities(entities);
+                updateEntityRelationCoordinates(entities);
                 setIsAppLoading(false);
                 setIsNewApp(false);
                 setGroupsToAssign(groupsToAssign);
@@ -100,6 +102,8 @@ function AppEditor() {
                 <ErDesigner
                     appId={+appId}
                     entities={entities}
+                    coordinates={entityRelationCoordinates}
+                    updateCoordinates={(entities) => updateEntityRelationCoordinates(entities)}
                     handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
                 />
             ),
@@ -113,6 +117,8 @@ function AppEditor() {
                     entities={entities}
                     templateName={selectedTemplate ? selectedTemplate?.name : null}
                     credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
+                    coordinates={entityRelationCoordinates}
+                    updateCoordinates={(entities) => updateEntityRelationCoordinates(entities)}
                     appName={appName}
                     packageName={packageName}
                 />
@@ -120,6 +126,20 @@ function AppEditor() {
             condition: true
         },
     ];
+
+    function updateEntityRelationCoordinates(entities) {
+        let coordinates = [];
+        entities.forEach(entity => {
+            if (entity.relationships) {
+                entity?.relationships.forEach(relationship => {
+                    coordinates.push({
+                        from: 'anchor_' + entity.name, to: 'anchor_' + relationship.otherEntityName
+                    })
+                })
+            }
+        })
+        setEntityRelationCoordinates(coordinates);
+    }
 
 
     function handleBack() {
