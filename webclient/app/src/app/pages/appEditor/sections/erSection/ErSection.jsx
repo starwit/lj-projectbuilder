@@ -7,21 +7,21 @@ import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
-import {Line} from "react-lineto";
+import {SteppedLineTo} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
+import MainTheme from "../../../../assets/themes/MainTheme";
 
 function ErDesigner(props) {
 
-    const {editable, entities, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, updateCoordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
-
+    const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
-    const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
 
     const {t} = useTranslation();
@@ -103,63 +103,27 @@ function ErDesigner(props) {
             .then(response => {
                 handleUpdateEntities(response.data)
             })
+
+
     }
 
-    function calculateCoordinates() {
-        const relationsList = [];
-        const coordinates = [];
-
-        entities.forEach(entity => {
-            if (entity.relationships) {
-                return entity?.relationships.forEach(relationship => {
-                    relationship.name = entity.name
-                    relationsList.push(relationship)
-                })
-            }
-        })
-        relationsList.forEach(parsedRelation => {
-            let elementSource = getElement('anchor_' + parsedRelation.name  + '_r')
-            let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_l')
-
-            if (elementSource?.x > elementTarget?.x) {
-                elementSource = getElement('anchor_' + parsedRelation.name + '_l')
-                elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_r')
-            }
-            if (elementTarget && elementSource) {
-                coordinates.push({
-                    x0: elementSource.x, y0: elementSource.y, x1: elementTarget.x, y1: elementTarget.y,
-                })
-            }
-        })
-        return coordinates;
-    }
-
-
-    function updateCoordinates(entity) {
+    function updatePosition(update, draggableData, entity) {
         if (!entity.position) {
             entity.position = {};
         }
 
-        entityRest.updateEntityByAppId(appId, entity);
-        let internalCoordinates = calculateCoordinates();
+        entity.position.positionX = draggableData.x;
+        entity.position.positionY = draggableData.y;
 
-        setCoordinates(internalCoordinates)
-    }
+        entityRest.updateEntityByAppId(appId, entity)
 
-    function getElement(className) {
-        const classes = document
-            .getElementsByClassName(className)
-        return classes[0]?.getBoundingClientRect();
+        updateCoordinates(entities);
     }
 
     function renderRelations() {
-        let internalCoordinates = coordinates;
-        if (!internalCoordinates || internalCoordinates.length === 0) {
-            internalCoordinates = calculateCoordinates();
-        }
-        return internalCoordinates.map((coordinate, index) => {
-            const {x0, y0, x1, y1} = coordinate;
-            return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + index + ""}/>
+
+        return coordinates.map((coordinate, index) => {
+            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth={theme.palette.line.width} />
         })
 
     }
@@ -182,7 +146,7 @@ function ErDesigner(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={() => updateCoordinates(entity)}
+                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}

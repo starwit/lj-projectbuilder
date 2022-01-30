@@ -24,42 +24,32 @@ function EntityCard(props) {
 
     function renderAttributes(entity) {
 
-        if (!entity.fields || entity.fields.length === 0) {
+        return entity.fields.map((field, index) => {
             return (
-                <TableRow key={0}>
-                    <TableCell colSpan={4} >
-                        <div className={entityCardStyles.statementWrapper}>
-                            <Statement message={t("entityCard.noFields")}/>
-                        </div>
-                    </TableCell>
+
+                <TableRow key={index}>
+                    <TableCell>{field.fieldName}</TableCell>
+                    <TableCell>{field.fieldType}</TableCell>
                 </TableRow>
             )
-        } else {
-            return entity.fields.map((field, index) => {
-                    return (
-                    <TableRow key={index}>
-                        <TableCell />
-                        <TableCell>{field.fieldName}</TableCell>
-                        <TableCell>{field.fieldType}</TableCell>
-                        <TableCell />
-                    </TableRow>
-                )
-            })
-        }
+        })
     }
 
     function renderFieldsTable(entity) {
+        if (!entity.fields || entity.fields.length === 0) {
+            return (
+                <div className={entityCardStyles.statementWrapper}>
+                    <Statement message={t("entityCard.noFields")}/>
+                </div>
+            )
+        }
         return (
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                            <div className={"anchor_" + entity.name + "_l"}/>
+                        <TableCell>{t("entityCard.name")}
                         </TableCell>
-                        <TableCell>{t("entityCard.name")}</TableCell>
-                        <TableCell>{t("entityCard.dataType")}</TableCell>
-                        <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                            <div className={"anchor_" + entity.name + "_r"}/>
+                        <TableCell>{t("entityCard.dataType")}
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -114,6 +104,7 @@ function EntityCard(props) {
     }
 
     return (
+        <div className={"anchor_" + entity.name}>
         <Card className={`${entityCardStyles.entityCard}`}>
             <Grid container>
                 <Grid item sm={calculateTitleWidth()}>
@@ -124,6 +115,7 @@ function EntityCard(props) {
             </Grid>
             {renderFieldsTable(entity)}
         </Card>
+        </div>
     )
 
 }

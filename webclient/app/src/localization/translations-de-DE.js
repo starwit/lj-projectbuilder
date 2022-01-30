@@ -66,7 +66,7 @@ const translationsDeDE = {
 
     "relationship.newRelation": "Neue Relation",
     "relationship.relationType": "Relationstyp",
-    "relationship.sourceEntity": "Entität - Quelle der Realtion",
+    "relationship.sourceEntity": "Entität - Quelle der Relation",
     "relationship.sourceField": "Relationsname",
     "relationship.sourceField.description": "Name des Feldes vom Typ {{entityName}}",
     "relationship.source": "von",

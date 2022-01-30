@@ -10,7 +10,7 @@ import GitDataButton from "../../../../commons/gitDownloadButton/GitDataButton";
 
 function ConclusionSection(props) {
 
-    const {entities, appId, appName, packageName, templateName, credentialsRequired} = props;
+    const {entities, coordinates, updateCoordinates, appId, appName, packageName, templateName, credentialsRequired} = props;
     const conclusionSectionStyles = ConclusionSectionStyles();
     const gitRest = new GitRest();
     const {t} = useTranslation();
@@ -72,7 +72,10 @@ function ConclusionSection(props) {
 
             </Grid>
             <Typography variant={"h4"} gutterBottom>{t("app.erdiagram")}</Typography>
-            <ErSection entities={entities} dense editable={false}/>
+            <ErSection entities={entities} 
+                coordinates={coordinates}
+                updateCoordinates={updateCoordinates} 
+                dense editable={false}/>
         </Container>
     )
 }
