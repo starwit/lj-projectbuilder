@@ -11,7 +11,7 @@ import { Add } from "@mui/icons-material";
 function AppTemplateOverview() {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [selectedAppTemplate, setSelectedAppTemplate] = useState(null);
+    const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [data, setData] = useState([]);
     const [userGroups, setUserGroups] = React.useState([]); 
     const userRest = useMemo(() => new UserRest(), []);

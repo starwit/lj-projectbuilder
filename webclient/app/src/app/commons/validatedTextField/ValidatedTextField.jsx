@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 function ValidatedTextField(props) {
 
-    const {value, regex, isCreate} = props;
+    const {value, regex, isCreate, ...newProps } = props;
     const [error, setError] = useState(false);
-    const [initial, setInitial] = useState(true);
+    const [changed, setChanged] = useState(false);
 
     useEffect(() => {
         setError(!regex.test(value));
@@ -14,10 +14,10 @@ function ValidatedTextField(props) {
 
     return (
         <TextField
-            error={!(isCreate && initial) && error}
+            error={(!isCreate || changed) && error}
             value={value}
-            onBlur={() => setInitial(false)}
-            {...props}
+            onBlur={() => setChanged(true)}
+            {...newProps}
         />
     )
 

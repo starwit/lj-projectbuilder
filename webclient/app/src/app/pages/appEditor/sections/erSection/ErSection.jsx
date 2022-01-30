@@ -44,7 +44,7 @@ function ErDesigner(props) {
                 positionY: 0
             }
         };
-        newEntities.push(newEntity)
+        newEntities.push(newEntity);
         handleUpdateEntities(newEntities);
         setCurrentEntity(newEntity)
     }
@@ -63,6 +63,16 @@ function ErDesigner(props) {
             return;
         }
 
+        let newEntities = [...entities];
+        const locallyFoundIndex = newEntities.findIndex(entity => entity.id === entityId);
+        if (newEntities[locallyFoundIndex].isNewEntity) {
+            // Returns a promise so that there is no difference in the data type between a server deleted entity vs a locally deleted item
+            return new Promise(resolve => {
+                newEntities.splice(locallyFoundIndex, 1);
+                handleUpdateEntities(newEntities);
+            })
+        }
+
         return entityRest.delete(entityId)
             .then((response) => {
                 return entityRest.findAllEntitiesByApp(appId)
@@ -72,18 +82,23 @@ function ErDesigner(props) {
             })
     }
 
-    function updateEntity(updatedEntity) {
+    function updateEntity(updatedEntityInput) {
+
+        let updatedEntity = {...updatedEntityInput}
+
         if (!editable) {
             return;
         }
 
         if (updatedEntity.isNewEntity) {
             delete updatedEntity.id;
+            updatedEntity.isNewEntity = false;
         }
+        setCurrentEntity(updatedEntity)
 
         return entityRest.createEntityByApp(appId, updatedEntity)
             .then(() => {
-                return entityRest.findAllEntitiesByApp(appId)
+                return entityRest.findAllEntitiesByApp(appId);
             })
             .then(response => {
                 handleUpdateEntities(response.data)
@@ -190,11 +205,13 @@ function ErDesigner(props) {
             return;
         }
 
-        return (<div className={erDesignerStyles.addFab}>
-            <Fab color="primary" aria-label="add" onClick={addEntity}>
-                <Add/>
-            </Fab>
-        </div>)
+        return (
+            <div className={erDesignerStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={addEntity}>
+                    <Add/>
+                </Fab>
+            </div>
+        )
 
     }
 
@@ -203,6 +220,10 @@ function ErDesigner(props) {
             return erDesignerStyles.draggableWrapperDense
         }
         return erDesignerStyles.draggableWrapper
+    }
+
+    function closeEntityDialog() {
+        setCurrentEntity(null)
     }
 
     return (<>
@@ -240,7 +261,7 @@ function ErDesigner(props) {
         </div>
         <EntityDialog
             entityId={currentEntity?.id}
-            onClose={() => setCurrentEntity(null)}
+            onClose={closeEntityDialog}
             handleSave={(data) => updateEntity(data)}
             entities={entities}
         />
