@@ -170,8 +170,6 @@ function AppEditor() {
             return entity;
         });
 
-        console.log(entitiesEdited)
-
         const appPackage = {
             id: (isNewApp ? null : appId),
             baseName: appName,
