@@ -54,7 +54,15 @@ function EntityDialog(props) {
                 hasError = true;
             }
 
-        })
+        });
+
+        entity.relationships?.forEach(relationship => {
+            if (!RegexConfig.relationship.test(relationship.relationshipName)
+                || !RegexConfig.relationship.test(relationship.otherEntityRelationshipName)
+                || !RegexConfig.entityTitle.test(relationship.otherEntityName)) {
+                hasError = true;
+            }
+        });
         setHasFormError(hasError);
 
 
@@ -63,7 +71,7 @@ function EntityDialog(props) {
 
     function getTargetEntities() {
         let newTargetEntities = [];
-        if (entities && entities.length > 1) {
+        if (entities?.length > 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
         } else {
             let emptyEntity = nullEntity;
@@ -115,7 +123,7 @@ function EntityDialog(props) {
         }
     ];
 
-    function lowerFirstChar(s:string) {
+    function lowerFirstChar(s) {
         return (s && s[0].toLowerCase() + s.slice(1)) || "";
     }
 
@@ -169,7 +177,7 @@ function EntityDialog(props) {
         }
 
         let targetEntities = getTargetEntities();
-        let relationship = defaultRelationship;
+        let relationship = {...defaultRelationship};
         relationship.otherEntityName = targetEntities[0].name;
         relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
         relationship.otherEntityRelationshipName = lowerFirstChar(newEntity.name);
@@ -262,7 +270,6 @@ function EntityDialog(props) {
                 />
             )
         })
-
     }
 
     if (!entity) {

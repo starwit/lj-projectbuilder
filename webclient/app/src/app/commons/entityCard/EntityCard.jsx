@@ -28,14 +28,8 @@ function EntityCard(props) {
             return (
 
                 <TableRow key={index}>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_l"}/>
-                    </TableCell>
                     <TableCell>{field.fieldName}</TableCell>
                     <TableCell>{field.fieldType}</TableCell>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.fieldName + "_r"}/>
-                    </TableCell>
                 </TableRow>
             )
         })
@@ -53,10 +47,10 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell/>
-                        <TableCell>{t("entityCard.name")}</TableCell>
-                        <TableCell>{t("entityCard.dataType")}</TableCell>
-                        <TableCell/>
+                        <TableCell>{t("entityCard.name")}
+                        </TableCell>
+                        <TableCell>{t("entityCard.dataType")}
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -110,6 +104,7 @@ function EntityCard(props) {
     }
 
     return (
+        <div className={"anchor_" + entity.name}>
         <Card className={`${entityCardStyles.entityCard}`}>
             <Grid container>
                 <Grid item sm={calculateTitleWidth()}>
@@ -120,6 +115,7 @@ function EntityCard(props) {
             </Grid>
             {renderFieldsTable(entity)}
         </Card>
+        </div>
     )
 
 }

@@ -9,7 +9,8 @@ const EntityCardStyles = makeStyles(theme => ({
     },
     entityCard: {
         padding: "1rem",
-        width: "20rem"
+        width: "20rem",
+        zIndex: "200"
     },
     relationshipPlaceholder: {
         width: "1px"
