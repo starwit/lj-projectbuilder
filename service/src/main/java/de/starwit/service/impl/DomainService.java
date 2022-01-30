@@ -46,7 +46,7 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
 		return domainRepository;
 	}
 
-    public void updateRelationsForAllTargetDomains(Long appId, String sourceDomainName, List<Relationship> relationsSource) {
+    public void createRelationsForAllTargetDomains(Long appId, String sourceDomainName, List<Relationship> relationsSource) {
         List<Domain> targetDomains = null;
 		if (CollectionUtils.isEmpty(relationsSource)){
 			return;
@@ -64,18 +64,17 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
             targetDomains = this.getRepository().findByAppAndDomainName(appId, otherEntityName);
             if (!CollectionUtils.isEmpty(targetDomains)) {
                 for (Domain targetDomain : targetDomains) {
-                    refreshTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName), targetDomain);
+                    createTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName), targetDomain);
                 }
                 
             }
         }
     }
 
-    private void refreshTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource, Domain targetDomain) {
+    private void createTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource, Domain targetDomain) {
 		if(CollectionUtils.isEmpty(relationshipsSource)) {
 			return;
 		}
-        removeExistingRelationsFromTargetDomain(sourceDomainName, targetDomain);
 
 		for (Relationship relationshipSource : relationshipsSource) {
             Relationship targetRelationship = createTargetRelationship(sourceDomainName, relationshipSource);

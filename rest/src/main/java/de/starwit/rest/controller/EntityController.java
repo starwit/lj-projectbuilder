@@ -1,6 +1,5 @@
 package de.starwit.rest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -80,8 +79,11 @@ public class EntityController {
         app.setId(appId);
         domain = mapper.convertToEntity(dto);
         domain.setApp(app);
+        if (domain.getId() != null) {
+            domainService.deleteRelationsForAllTargetDomains(domain.getId());
+        }
         domain = domainService.saveOrUpdate(domain);
-        domainService.updateRelationsForAllTargetDomains(appId, domain.getName(), domain.getRelationships());
+        domainService.createRelationsForAllTargetDomains(appId, domain.getName(), domain.getRelationships());
         return mapper.convertToDto(domain);
     }
 
