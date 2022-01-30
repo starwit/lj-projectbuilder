@@ -13,7 +13,7 @@ class MainTheme {
             paper: "#fff"
         },
         line: {
-            width: "0.25em"    
+            width: 4  
         }    
     };
 
