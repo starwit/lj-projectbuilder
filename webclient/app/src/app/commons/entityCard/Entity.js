@@ -21,7 +21,7 @@ const newEntity : EntityDataType = {
     }
 };
 
-const nullEntity : EntityDataType = {
+const emptyEntity : EntityDataType = {
     id: undefined,
     name: "none",
     fields: [],
@@ -33,4 +33,4 @@ const nullEntity : EntityDataType = {
     }
 }
 
-export {newEntity, nullEntity};
+export {newEntity, emptyEntity};

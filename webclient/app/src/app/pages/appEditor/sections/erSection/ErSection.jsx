@@ -23,30 +23,13 @@ function ErDesigner(props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const entityRest = useMemo(() => new EntityRest(), []);
+    const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
     const {t} = useTranslation();
 
 
     function addEntity() {
-        const newEntities = [...entities];
-
-        let newId = 1;
-        if (newEntities.length > 0) {
-            newId = newEntities[newEntities.length - 1].id + 1;
-        }
-        const newEntity = {
-            id: newId,
-            name: "",
-            fields: [],
-            relationships: [],
-            isNewEntity: true,
-            position: {
-                positionX: 0,
-                positionY: 0
-            }
-        };
-        newEntities.push(newEntity);
-        setCurrentEntity(newEntity)
+        setOpenEntityDialog(true);
     }
 
 
@@ -103,7 +86,7 @@ function ErDesigner(props) {
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
+            return <Statement message={"No entities found"}/>
         }
         return entities.map((entity, index) => {
 
@@ -160,6 +143,7 @@ function ErDesigner(props) {
     }
 
     function closeEntityDialog() {
+        setOpenEntityDialog(false);
         setCurrentEntity(null)
     }
 
@@ -202,6 +186,7 @@ function ErDesigner(props) {
             handleSave={(data) => updateEntity(data)}
             entities={entities}
             handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+            open={openEntityDialog}
             appId={appId}
         />
     </>)

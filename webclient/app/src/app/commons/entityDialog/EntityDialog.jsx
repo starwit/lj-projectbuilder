@@ -23,12 +23,12 @@ import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import { defaultRelationship } from "../relationshipAccordion/Relationship";
 import {LoadingButton} from "@mui/lab";
-import { nullEntity } from "../entityCard/Entity";
+import { emptyEntity, newEntity } from "../entityCard/Entity";
 import EntityRest from "../../services/EntityRest";
 
 
 function EntityDialog(props) {
-    const {entityId, onClose, handleSave, entities, appId, handleUpdateEntities} = props;
+    const {entityId, onClose, handleSave, entities, appId, handleUpdateEntities, open} = props;
     const [value, setValue] = useState(0);
     const [entity, setEntity] = useState(null);
     const [hasFormError, setHasFormError] = useState(false);
@@ -38,7 +38,11 @@ function EntityDialog(props) {
     const entityRest = useMemo(() => new EntityRest(), []);
     
     useEffect(() => {
-        setEntity({...entities.find(entity => entity.id === entityId)});
+        if (entityId) {
+            setEntity({...entities.find(entity_ => entity_.id === entityId)});
+        } else{
+            setEntity({...newEntity})
+        }
     }, [entityId, entities])
 
     useEffect(() => {
@@ -76,9 +80,9 @@ function EntityDialog(props) {
         if (entities?.length > 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
         } else {
-            let emptyEntity = nullEntity;
-            emptyEntity.name = t("relationship.targetEntity.empty");
-            newTargetEntities.push(emptyEntity)
+            let emptyTarget = emptyEntity;
+            emptyTarget.name = t("relationship.targetEntity.empty");
+            newTargetEntities.push(emptyTarget);
         }
         return newTargetEntities;
 
@@ -239,6 +243,7 @@ function EntityDialog(props) {
         return entity.relationships.map((relationship, index) => {
             return (
                 <RelationshipAccordion
+                    key={index}
                     relationship = {relationship}
                     targetEntities={getTargetEntities()}
                     editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
@@ -253,7 +258,7 @@ function EntityDialog(props) {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement icon={<CheckBoxOutlineBlank/>} message={t("entityDialog.noFields")}/>
+                    <Statement message={t("entityDialog.noFields")}/>
                 </div>
             )
         }
@@ -290,7 +295,7 @@ function EntityDialog(props) {
     }
 
     return (
-        <Dialog open={!!entityId} maxWidth={"xl"} fullWidth>
+        <Dialog open={!!entityId || (open && entity.isNewEntity) } maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography
                     noWrap

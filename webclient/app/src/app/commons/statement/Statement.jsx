@@ -19,7 +19,7 @@ function Statement(props) {
         <div className={statementStyles.root}>
             <div className={statementStyles.content}>
                 {React.cloneElement(icon, {fontSize: "large"})}
-                <Typography className={statementStyles.message} gutterBottom>{message}</Typography>
+                <Typography component={'span'} className={statementStyles.message} gutterBottom>{message}</Typography>
                 {renderActionButton()}
             </div>
         </div>
