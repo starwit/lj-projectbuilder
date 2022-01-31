@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import React from "react";
 import TabPanelStyles from "./TabPanelStyles";
 
@@ -16,7 +16,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box className={tabPanel.box}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
