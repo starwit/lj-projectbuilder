@@ -163,7 +163,6 @@ function EntityDialog(props) {
         if (!newEntity.fields) {
             newEntity.fields = [];
         }
-        // TODO Maybe add an ID to entity
         newEntity.fields.push(
             {
                 fieldName: "",
