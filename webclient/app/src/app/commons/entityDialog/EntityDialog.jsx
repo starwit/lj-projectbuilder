@@ -23,7 +23,7 @@ import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import { defaultRelationship } from "../relationshipAccordion/Relationship";
 import {LoadingButton} from "@mui/lab";
-import { emptyEntity, newEntity } from "../entityCard/Entity";
+import { emptyEntity, newEntity } from "./Entity";
 import EntityRest from "../../services/EntityRest";
 
 
