@@ -7,16 +7,16 @@ import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
-import {SteppedLineTo} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
+import { renderRelations } from "../../HandleRelations";
 
 function ErDesigner(props) {
 
-    const {editable, entities, coordinates, updateCoordinates, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
     const theme = new MainTheme();
@@ -25,6 +25,7 @@ function ErDesigner(props) {
     const entityRest = useMemo(() => new EntityRest(), []);
 
     const {t} = useTranslation();
+
 
     function addEntity() {
         const newEntities = [...entities];
@@ -45,7 +46,6 @@ function ErDesigner(props) {
             }
         };
         newEntities.push(newEntity);
-        handleUpdateEntities(newEntities);
         setCurrentEntity(newEntity)
     }
 
@@ -63,21 +63,11 @@ function ErDesigner(props) {
             return;
         }
 
-        //delete non-saved entity from ER-diagram
-        let newEntities = [...entities];
-        const locallyFoundIndex = newEntities.findIndex(entity => entity.id === entityId);
-        if (newEntities[locallyFoundIndex].isNewEntity) {
-            newEntities.splice(locallyFoundIndex, 1);
-            handleUpdateEntities(newEntities);
-        }
-
         return entityRest.delete(entityId)
-            .then((response) => {
-                return entityRest.findAllEntitiesByApp(appId)
-            })
-            .then(response => {
-                updateCoordinates(response.data);
-                handleUpdateEntities(response.data)
+            .then(() => {
+                entityRest.findAllEntitiesByApp(appId).then((response) => {
+                    handleUpdateEntities(response.data);
+                })
             })
     }
 
@@ -93,18 +83,9 @@ function ErDesigner(props) {
             delete updatedEntity.id;
             updatedEntity.isNewEntity = false;
         }
-        setCurrentEntity(updatedEntity)
+        setCurrentEntity(updatedEntity);
 
-        return entityRest.createEntityByApp(appId, updatedEntity)
-            .then(() => {
-                return entityRest.findAllEntitiesByApp(appId);
-            })
-            .then(response => {
-                updateCoordinates(response.data);
-                handleUpdateEntities(response.data);
-            })
-
-
+        return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
     function updatePosition(update, draggableData, entity) {
@@ -117,22 +98,8 @@ function ErDesigner(props) {
 
         entityRest.updateEntityByAppId(appId, entity);
 
-        updateCoordinates(entities);
+        handleUpdateEntities(entities);
     }
-
-    function renderRelations() {
-
-        return coordinates.map((coordinate, index) => {
-            return <SteppedLineTo 
-                from={coordinate.from} 
-                to={coordinate.to} 
-                borderColor={theme.palette.primary.main} 
-                borderWidth={theme.palette.line.width} 
-                key={coordinate.from + coordinate.to + index} />
-        })
-
-    }
-
 
     function renderEntities() {
         if (entities.length === 0) {
@@ -155,6 +122,7 @@ function ErDesigner(props) {
                     key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}
+                    disabled={!editable}
                 >
                     <div>
                         <EntityCard
@@ -226,13 +194,15 @@ function ErDesigner(props) {
         </React.Fragment>
         <div className={generateWrapper()}>
             {renderEntities()}
-            {renderRelations()}
+            {renderRelations(coordinates, theme)}
         </div>
         <EntityDialog
             entityId={currentEntity?.id}
             onClose={closeEntityDialog}
             handleSave={(data) => updateEntity(data)}
             entities={entities}
+            handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+            appId={appId}
         />
     </>)
 }

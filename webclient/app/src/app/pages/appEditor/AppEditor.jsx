@@ -12,6 +12,7 @@ import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
+import { updateRelationCoordinates } from "./HandleRelations";
 import UserRest from "../../services/UserRest";
 
 
@@ -50,8 +51,7 @@ function AppEditor() {
                 setAppName(baseName);
                 setPackageName(packageName);
                 setSelectedTemplate(template);
-                setEntities(entities);
-                updateEntityRelationCoordinates(entities);
+                handleUpdateEntities(entities);
                 setIsAppLoading(false);
                 setIsNewApp(false);
                 setGroupsToAssign(groupsToAssign);
@@ -103,8 +103,9 @@ function AppEditor() {
                     appId={+appId}
                     entities={entities}
                     coordinates={entityRelationCoordinates}
-                    updateCoordinates={(entities) => updateEntityRelationCoordinates(entities)}
-                    handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
+                    handleUpdateEntities={updatedEntities => {
+                        handleUpdateEntities(updatedEntities);
+                    }}
                 />
             ),
             condition: entities.length >= 1
@@ -115,10 +116,9 @@ function AppEditor() {
                 <ConclusionSection
                     appId={+appId}
                     entities={entities}
+                    coordinates={updateRelationCoordinates(entities)}
                     templateName={selectedTemplate ? selectedTemplate?.name : null}
                     credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
-                    coordinates={entityRelationCoordinates}
-                    updateCoordinates={(entities) => updateEntityRelationCoordinates(entities)}
                     appName={appName}
                     packageName={packageName}
                 />
@@ -127,20 +127,10 @@ function AppEditor() {
         },
     ];
 
-    function updateEntityRelationCoordinates(entities) {
-        let coordinates = [];
-        entities.forEach(entity => {
-            if (entity.relationships) {
-                entity?.relationships.forEach(relationship => {
-                    coordinates.push({
-                        from: 'anchor_' + entity.name, to: 'anchor_' + relationship.otherEntityName
-                    })
-                })
-            }
-        })
-        setEntityRelationCoordinates(coordinates);
+    function handleUpdateEntities(updatedEntities) {
+        setEntities(updatedEntities);
+        setEntityRelationCoordinates(updateRelationCoordinates(updatedEntities));
     }
-
 
     function handleBack() {
         setIsSaving(true);
@@ -187,7 +177,7 @@ function AppEditor() {
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);
-                    setEntities(entities);
+                    handleUpdateEntities(entities);
                     setGroupsToAssign(groupsToAssign);
                     history.push(`/app/${id}/edit`);
                     return response;
@@ -200,7 +190,7 @@ function AppEditor() {
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);
-                    setEntities(entities);
+                    handleUpdateEntities(entities);
                     setGroupsToAssign(groupsToAssign);
                     return response;
                 })
@@ -215,7 +205,7 @@ function AppEditor() {
         const restRequest = handleSave();
         restRequest
             .then(response => {
-                history.replace("/app/" + response.data.id)
+                history.replace("/app/" + response.data.id);
             })
             .catch(response => setSaveError(response.data));
     }

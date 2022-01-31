@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo } from "react";
 import {
     Box,
     Button,
@@ -24,26 +24,21 @@ import RegexConfig from "../../../regexConfig";
 import { defaultRelationship } from "../relationshipAccordion/Relationship";
 import {LoadingButton} from "@mui/lab";
 import { nullEntity } from "../entityCard/Entity";
+import EntityRest from "../../services/EntityRest";
+
 
 function EntityDialog(props) {
-
+    const {entityId, onClose, handleSave, entities, appId, handleUpdateEntities} = props;
     const [value, setValue] = useState(0);
     const [entity, setEntity] = useState(null);
     const [hasFormError, setHasFormError] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
-    const {entityId, onClose, handleSave, entities} = props;
-    const [relationships, setRelationships] = useState([]);
-
+    const entityRest = useMemo(() => new EntityRest(), []);
     
     useEffect(() => {
-        const internalEntity = {...entities.find(entity => entity.id === entityId)};
         setEntity({...entities.find(entity => entity.id === entityId)});
-        let internalRelationships = internalEntity?.relationships;
-        if (internalRelationships) {
-            setRelationships([...internalRelationships]);
-        }
     }, [entityId, entities])
 
     useEffect(() => {
@@ -146,8 +141,12 @@ function EntityDialog(props) {
         setIsSaving(true);
         handleSave(entity)
             .then(() => {
-                onClose()
-                setIsSaving(false);
+                entityRest.findAllEntitiesByApp(appId)
+                    .then((response) => {
+                        handleUpdateEntities(response.data);
+                        onClose();
+                        setIsSaving(false);
+                    })
             })
             .catch(() => {
                 setIsSaving(false);
@@ -199,22 +198,6 @@ function EntityDialog(props) {
         setEntity(newEntity);
     }
 
-    function handleClose() {
-        let newEntity = {...entity};
-        if (!newEntity.relationships) {
-            newEntity.relationships = []
-        } else {
-            newEntity.relationships.splice(0,newEntity.relationships.length);
-        }
-        relationships?.forEach(relationship => {
-            if (relationship && newEntity?.relationships) {
-                newEntity.relationships.push(relationship);
-            }
-        });
-        setEntity(newEntity);
-        onClose();
-    }
- 
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -319,7 +302,7 @@ function EntityDialog(props) {
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
-                    onClick={handleClose}
+                    onClick={onClose}
                 >
                     <Close/>
                 </IconButton>

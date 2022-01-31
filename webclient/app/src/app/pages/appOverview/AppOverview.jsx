@@ -6,6 +6,7 @@ import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useTranslation} from "react-i18next";
 import Statement from "../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
+import { updateRelationCoordinates } from "../appEditor/HandleRelations";
 
 function AppOverview(props) {
 
@@ -14,6 +15,7 @@ function AppOverview(props) {
 
     const [app, setApp] = useState(null);
     const [appError, setAppError] = useState(null);
+    const [coordinates, setCoordinates] = useState(null);
     let {appId} = useParams();
 
 
@@ -22,6 +24,7 @@ function AppOverview(props) {
         setAppError(null);
         applicationRest.findById(appId).then(appResponse => {
             setApp(appResponse.data);
+            setCoordinates(updateRelationCoordinates(appResponse.data.entities));
         }).catch(appResponseError => {
             setAppError(appResponseError.response)
         })
@@ -52,6 +55,7 @@ function AppOverview(props) {
             appId={+appId}
             appName={app.baseName}
             entities={app.entities}
+            coordinates={coordinates}
             packageName={app.packageName}
             templateName={app.template.name}
             credentialsRequired={app.template.credentialsRequired}
