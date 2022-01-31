@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from "react";
 import {Button, Drawer, Fab} from "@mui/material";
+import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErSectionStyles";
