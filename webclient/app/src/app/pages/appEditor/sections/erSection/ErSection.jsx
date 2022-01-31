@@ -1,52 +1,35 @@
 import React, {useMemo, useState} from "react";
 import {Button, Drawer, Fab} from "@mui/material";
-import {Add, CheckBoxOutlineBlank, Code} from "@mui/icons-material";
+import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
-import {Line} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
+import MainTheme from "../../../../assets/themes/MainTheme";
+import { renderRelations } from "../../HandleRelations";
 
 function ErDesigner(props) {
 
-    const {editable, entities, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
-
+    const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
-    const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
+    const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
     const {t} = useTranslation();
 
-    function addEntity() {
-        const newEntities = [...entities];
 
-        let newId = 1;
-        if (newEntities.length > 0) {
-            newId = newEntities[newEntities.length - 1].id + 1;
-        }
-        const newEntity = {
-            id: newId,
-            name: "",
-            fields: [],
-            relationships: [],
-            isNewEntity: true,
-            position: {
-                positionX: 0,
-                positionY: 0
-            }
-        };
-        newEntities.push(newEntity)
-        handleUpdateEntities(newEntities);
-        setCurrentEntity(newEntity)
+    function addEntity() {
+        setOpenEntityDialog(true);
     }
 
 
@@ -64,38 +47,31 @@ function ErDesigner(props) {
         }
 
         return entityRest.delete(entityId)
-            .then((response) => {
-                return entityRest.findAllEntitiesByApp(appId)
-            })
-            .then(response => {
-                handleUpdateEntities(response.data)
+            .then(() => {
+                entityRest.findAllEntitiesByApp(appId).then((response) => {
+                    handleUpdateEntities(response.data);
+                })
             })
     }
 
-    function updateEntity(updatedEntity) {
+    function updateEntity(updatedEntityInput) {
+
+        let updatedEntity = {...updatedEntityInput}
+
         if (!editable) {
             return;
         }
 
         if (updatedEntity.isNewEntity) {
             delete updatedEntity.id;
+            updatedEntity.isNewEntity = false;
         }
+        setCurrentEntity(updatedEntity);
 
-        return entityRest.createEntityByApp(appId, updatedEntity)
-            .then(() => {
-                return entityRest.findAllEntitiesByApp(appId)
-            })
-            .then(response => {
-                handleUpdateEntities(response.data)
-            })
-
-
+        return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
-    function updateCoordinates(update, draggableData, entity) {
-        const relationsList = [];
-        const coordinates = [];
-
+    function updatePosition(update, draggableData, entity) {
         if (!entity.position) {
             entity.position = {};
         }
@@ -103,54 +79,17 @@ function ErDesigner(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        entityRest.updateEntityByAppId(appId, entity)
+        entityRest.updateEntityByAppId(appId, entity);
 
-        entities.forEach(entity => {
-            if (entity.relationships) {
-                return entity?.relationships.forEach(relationship => {
-                    relationship.name = entity.name
-                    relationsList.push(relationship)
-                })
-            }
-        })
-        relationsList.forEach(parsedRelation => {
-            let elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_r')
-            let elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_l')
-
-            if (elementSource?.x > elementTarget?.x) {
-                elementSource = getElement('anchor_' + parsedRelation.name + '_' + parsedRelation.relationshipName + '_l')
-                elementTarget = getElement('anchor_' + parsedRelation.otherEntityName + '_' + parsedRelation.otherEntityRelationshipName + '_r')
-            }
-            if (elementTarget && elementSource) {
-                coordinates.push({
-                    x0: elementSource.x, y0: elementSource.y, x1: elementTarget.x, y1: elementTarget.y,
-                })
-            }
-        })
-        setCoordinates(coordinates)
+        handleUpdateEntities(entities);
     }
-
-    function getElement(className) {
-        const classes = document
-            .getElementsByClassName(className)
-        return classes[0]?.getBoundingClientRect();
-    }
-
-    function renderRelations() {
-
-        return coordinates.map(coordinate => {
-            const {x0, y0, x1, y1} = coordinate;
-            return <Line x0={x0} y0={y0} x1={x1} y1={y1} key={x0 + x1 + y0 + y1 + ""}/>
-        })
-
-    }
-
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
+            return <Statement message={"No entities found"}/>
         }
-        return entities.map(entity => {
+        return entities.map((entity, index) => {
+
             const entityCardPosition = {x: 0, y: 0};
 
             if (entity.position) {
@@ -162,10 +101,11 @@ function ErDesigner(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updateCoordinates(update, draggableData, entity)}
-                    key={entity.id}
+                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
+                    key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}
+                    disabled={!editable}
                 >
                     <div>
                         <EntityCard
@@ -185,11 +125,13 @@ function ErDesigner(props) {
             return;
         }
 
-        return (<div className={erDesignerStyles.addFab}>
-            <Fab color="primary" aria-label="add" onClick={addEntity}>
-                <Add/>
-            </Fab>
-        </div>)
+        return (
+            <div className={erDesignerStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={addEntity}>
+                    <Add/>
+                </Fab>
+            </div>
+        )
 
     }
 
@@ -198,6 +140,11 @@ function ErDesigner(props) {
             return erDesignerStyles.draggableWrapperDense
         }
         return erDesignerStyles.draggableWrapper
+    }
+
+    function closeEntityDialog() {
+        setOpenEntityDialog(false);
+        setCurrentEntity(null)
     }
 
     return (<>
@@ -231,13 +178,16 @@ function ErDesigner(props) {
         </React.Fragment>
         <div className={generateWrapper()}>
             {renderEntities()}
-            {renderRelations()}
+            {renderRelations(coordinates, theme)}
         </div>
         <EntityDialog
             entityId={currentEntity?.id}
-            onClose={() => setCurrentEntity(null)}
+            onClose={closeEntityDialog}
             handleSave={(data) => updateEntity(data)}
             entities={entities}
+            handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+            open={openEntityDialog}
+            appId={appId}
         />
     </>)
 }

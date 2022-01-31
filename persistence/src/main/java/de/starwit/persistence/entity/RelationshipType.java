@@ -37,4 +37,15 @@ public enum RelationshipType {
     public String getJsonFormat() {
         return jsonFormat;
     }
+
+    public RelationshipType getOpposite() {
+        switch (this) {
+            case OneToMany:
+                return ManyToOne;
+            case ManyToOne:
+                return OneToMany;
+            default:
+                return this;
+        }
+    }
 }

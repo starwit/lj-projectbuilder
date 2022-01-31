@@ -12,6 +12,8 @@ import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
+import { updateRelationCoordinates } from "./HandleRelations";
+import UserRest from "../../services/UserRest";
 
 
 function AppEditor() {
@@ -22,15 +24,19 @@ function AppEditor() {
     const {t} = useTranslation();
     const history = useHistory();
     const appRest = useMemo(() => new ApplicationRest(), []);
+    const userRest = useMemo(() => new UserRest(), []);
 
     const [isAppLoading, setIsAppLoading] = useState(false);
     const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
+    const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
     const [saveError, setSaveError] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [userGroups, setUserGroups] = useState([]);
+    const [groupsToAssign, setGroupsToAssign] = useState(['public']);
     let {appId} = useParams();
 
     useEffect(() => {
@@ -41,13 +47,14 @@ function AppEditor() {
 
         } else {
             appRest.findById(appId).then(response => {
-                const {baseName, packageName, template, entities} = response.data;
+                const {baseName, packageName, template, entities, groupsToAssign} = response.data;
                 setAppName(baseName);
                 setPackageName(packageName);
                 setSelectedTemplate(template);
-                setEntities(entities);
+                handleUpdateEntities(entities);
                 setIsAppLoading(false);
                 setIsNewApp(false);
+                setGroupsToAssign(groupsToAssign);
             })
         }
     }, [appId, appRest])
@@ -58,31 +65,49 @@ function AppEditor() {
 
     }, [packageName, appName])
 
+    useEffect(() => {
+        userRest.getUserGroups().then((response) => {
+            setUserGroups(response.data);
+        });
+    }, [userRest]);
+
     const steps = [
         {
             label: t("appEditor.section.general.title"),
             component: <GeneralSection
+                isCreate={isNewApp}
                 packageName={packageName}
                 appName={appName}
                 setAppName={setAppName}
                 setPackageName={setPackageName}
+                userGroups={userGroups}
+                assignedGroups={groupsToAssign}
+                setAssignedGroups={setGroupsToAssign}
             />,
             condition: appName !== "" && packageName !== "" && !generalSectionHasFormError
         },
         {
             label: t("appEditor.section.template.title"),
-            component: <TemplateSelection
-                onChange={setSelectedTemplate}
-                value={selectedTemplate}/>,
+            component: (
+                <TemplateSelection
+                    onChange={setSelectedTemplate}
+                    value={selectedTemplate}
+                />
+            ),
             condition: selectedTemplate
         },
         {
             label: t("appEditor.section.erDesigner.title"),
-            component: <ErDesigner
-                appId={appId}
-                entities={entities}
-                handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
-            />,
+            component: (
+                <ErDesigner
+                    appId={+appId}
+                    entities={entities}
+                    coordinates={entityRelationCoordinates}
+                    handleUpdateEntities={updatedEntities => {
+                        handleUpdateEntities(updatedEntities);
+                    }}
+                />
+            ),
             condition: entities.length >= 1
         },
         {
@@ -91,8 +116,9 @@ function AppEditor() {
                 <ConclusionSection
                     appId={+appId}
                     entities={entities}
-                    templateName={selectedTemplate?.name}
-                    credentialsRequired={selectedTemplate?.credentialsRequired}
+                    coordinates={updateRelationCoordinates(entities)}
+                    templateName={selectedTemplate ? selectedTemplate?.name : null}
+                    credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
                     appName={appName}
                     packageName={packageName}
                 />
@@ -100,6 +126,11 @@ function AppEditor() {
             condition: true
         },
     ];
+
+    function handleUpdateEntities(updatedEntities) {
+        setEntities(updatedEntities);
+        setEntityRelationCoordinates(updateRelationCoordinates(updatedEntities));
+    }
 
     function handleBack() {
         setIsSaving(true);
@@ -129,24 +160,25 @@ function AppEditor() {
             return entity;
         });
 
-        console.log(entitiesEdited)
-
         const appPackage = {
             id: (isNewApp ? null : appId),
             baseName: appName,
             packageName: packageName,
             template: selectedTemplate,
             entities: entitiesEdited,
+            groupsToAssign: groupsToAssign,
+            userGroups: userGroups,
         }
 
         if (isNewApp) {
             restRequest = appRest.create(appPackage)
                 .then(response => {
-                    const {baseName, packageName, template, entities, id} = response.data;
+                    const {baseName, packageName, template, entities, groupsToAssign, id} = response.data;
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);
-                    setEntities(entities);
+                    handleUpdateEntities(entities);
+                    setGroupsToAssign(groupsToAssign);
                     history.push(`/app/${id}/edit`);
                     return response;
                 })
@@ -154,11 +186,12 @@ function AppEditor() {
         } else {
             restRequest = appRest.update(appPackage)
                 .then(response => {
-                    const {baseName, packageName, template, entities} = response.data;
+                    const {baseName, packageName, template, entities, groupsToAssign } = response.data;
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);
-                    setEntities(entities);
+                    handleUpdateEntities(entities);
+                    setGroupsToAssign(groupsToAssign);
                     return response;
                 })
                 .catch(response => setSaveError(response.data))
@@ -172,8 +205,7 @@ function AppEditor() {
         const restRequest = handleSave();
         restRequest
             .then(response => {
-                console.log("reachedTHen", response)
-                history.replace("/app/" + response.data.id)
+                history.replace("/app/" + response.data.id);
             })
             .catch(response => setSaveError(response.data));
     }
@@ -215,7 +247,7 @@ function AppEditor() {
                     const stepProps = {};
                     const labelProps = {};
                     return (
-                        <Step key={step.id} {...stepProps}>
+                        <Step key={index} {...stepProps}>
                             <StepLabel {...labelProps}>{step.label}</StepLabel>
                         </Step>
                     );

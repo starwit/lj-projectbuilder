@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { CloudSync, Close } from "@mui/icons-material";
 import ErrorAlert from "../alert/ErrorAlert";
 import NotificationDialog from "../alert/NotificationDialog";
-import SimpleValidatedTextField from "../validatedTextField/SimpleValidatedTextField";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import GitDataButtonStyles from "./GitDataButtonStyles";
 
@@ -108,25 +108,25 @@ function GitDataButton(props) {
                     autoComplete="off"
                 >
                     <ErrorAlert alert={alert} />
-                    <SimpleValidatedTextField
+                    <ValidatedTextField
                         fullWidth
                         label={t("appTemplateAuthDialog.user") + "*"}
                         value={downloadRequestData.username}
                         name="username"
                         onChange={handleChange}
-                        iscreate={+true}
-                        errortext={t("appTemplateAuthDialog.user.error")}
+                        isCreate={true}
+                        helperText={t("appTemplateAuthDialog.user.error")}
                         regex={RegexConfig.appTemplateAuthUser}
                     />
-                    <SimpleValidatedTextField
+                    <ValidatedTextField
                         type="password"
                         fullWidth
                         label={t("appTemplateAuthDialog.password") + "*"}
                         value={downloadRequestData.password}
                         name="password"
                         onChange={handleChange}
-                        iscreate={+true}
-                        errortext={t("appTemplateAuthDialog.password.error")}
+                        isCreate={true}
+                        helperText={t("appTemplateAuthDialog.password.error")}
                         autoComplete="on"
                         regex={RegexConfig.appTemplateAuthPassword}
                     />

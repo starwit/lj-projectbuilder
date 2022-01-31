@@ -54,6 +54,7 @@ public class EntityController {
     @Operation(summary = "Delete entity with id")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) {
+        domainService.deleteRelationsForAllTargetDomains(id);
         domainService.delete(id);
     }
 
@@ -78,7 +79,11 @@ public class EntityController {
         app.setId(appId);
         domain = mapper.convertToEntity(dto);
         domain.setApp(app);
+        if (domain.getId() != null) {
+            domainService.deleteRelationsForAllTargetDomains(domain.getId());
+        }
         domain = domainService.saveOrUpdate(domain);
+        domainService.createRelationsForAllTargetDomains(appId, domain.getName(), domain.getRelationships());
         return mapper.convertToDto(domain);
     }
 
@@ -111,7 +116,7 @@ public class EntityController {
     @GetMapping(value = "/by-app/{appId}/{entityId}")
     public EntityDto findByIdAndApp(@PathVariable("appId") Long appId, @PathVariable("entityId") Long entityId) {
         Domain domain = domainService.findById(entityId);
-        if (domain.getApp() != null && domain.getApp().getId() == appId) {
+        if (domain != null && domain.getApp() != null && domain.getApp().getId().equals(appId)) {
             return mapper.convertToDto(domain);
         } else {
             throw new WrongAppIdException(appId, (domain != null ? domain.getName() : ""));
@@ -120,13 +125,13 @@ public class EntityController {
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-        LOG.info("Entity not found. ", ex.getMessage());
-        return new ResponseEntity<Object>("Entity not found.", HttpStatus.NOT_FOUND);
+        LOG.info("Entity not found. {}", ex.getMessage());
+        return new ResponseEntity<>("Entity not found.", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { WrongAppIdException.class })
     public ResponseEntity<Object> handleException(WrongAppIdException ex) {
         LOG.info(ex.getMessage());
-        return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

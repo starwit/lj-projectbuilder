@@ -1,9 +1,11 @@
 package de.starwit.persistence.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import de.starwit.persistence.converter.ListToStringConverter;
 
 @XmlRootElement
 @Entity
@@ -52,9 +56,9 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column( name = "GROUPS")
+	@Convert(converter = ListToStringConverter.class)
+	private List<String> groups;
 
 	public String getTemplateName() {
 		return templateName;
@@ -110,5 +114,13 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	public void setTemplateFiles(Set<TemplateFile> templateFiles) {
 		this.templateFiles = templateFiles;
+	}
+
+	public List<String> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
 	}
 }
