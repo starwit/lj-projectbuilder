@@ -2,7 +2,8 @@ import React from "react";
 import StatementStyles from "./StatementStyles";
 import {Button, Typography} from "@mui/material";
 import PropTypes from "prop-types";
-import {CheckBoxOutlineBlank} from "@mui/icons-material";
+import iconEmpty from "./icon-empty.png";
+
 
 function Statement(props) {
 
@@ -36,7 +37,7 @@ Statement.propTypes = {
 
 Statement.defaultProps = {
     message: "Keine Nachricht festgelegt",
-    icon: <CheckBoxOutlineBlank/>,
+    icon: <img src={iconEmpty} alt="empty"/>
 }
 
 export default Statement

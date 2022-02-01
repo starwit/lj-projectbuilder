@@ -7,16 +7,16 @@ import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
+import {SteppedLineTo} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import { renderRelations } from "../../HandleRelations";
 
 function ErDesigner(props) {
 
-    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, updateCoordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
     const theme = new MainTheme();
@@ -68,7 +68,15 @@ function ErDesigner(props) {
         }
         setCurrentEntity(updatedEntity);
 
-        return entityRest.createEntityByApp(appId, updatedEntity);
+        return entityRest.createEntityByApp(appId, updatedEntity)
+            .then(() => {
+                return entityRest.findAllEntitiesByApp(appId)
+            })
+            .then(response => {
+                handleUpdateEntities(response.data)
+            })
+
+
     }
 
     function updatePosition(update, draggableData, entity) {
@@ -79,7 +87,16 @@ function ErDesigner(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        entityRest.updateEntityByAppId(appId, entity);
+        entityRest.updateEntityByAppId(appId, entity)
+
+        updateCoordinates(entities);
+    }
+
+    function renderRelations() {
+
+        return coordinates.map((coordinate, index) => {
+            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth={theme.palette.line.width} />
+        })
 
         handleUpdateEntities(entities);
     }
