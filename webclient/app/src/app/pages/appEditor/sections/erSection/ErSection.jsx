@@ -86,7 +86,7 @@ function ErDesigner(props) {
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={"No entities found"}/>
+            return <Statement message={t("app.entity.emtpy")}/>
         }
         return entities.map((entity, index) => {
 

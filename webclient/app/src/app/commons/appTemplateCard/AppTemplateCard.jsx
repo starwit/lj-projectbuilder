@@ -47,7 +47,7 @@ function AppTemplateCard(props) {
 
     const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deleteMessage") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
-    
+
     const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
@@ -98,7 +98,7 @@ function AppTemplateCard(props) {
 
     useEffect(() => {
         SyntaxHighlighter.registerLanguage('javascript', js);
-    },[]);
+    }, []);
 
     return (
         <Container>
@@ -115,7 +115,9 @@ function AppTemplateCard(props) {
                             <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
-                    <Divider />
+                </CardContent>
+                <Divider />
+                <CardContent>
                     <Grid container spacing={0}>
                         <Grid item sm={7}>
                             <Typography variant="body2" color="text.secondary">
@@ -132,10 +134,10 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <br /><br />
-                            <GitDataButton 
-                                credentialsRequired={appTemplate.credentialsRequired} 
-                                handleAfterSuccess={handleAfterGitSuccess} 
-                                handleGit={handleGit} 
+                            <GitDataButton
+                                credentialsRequired={appTemplate.credentialsRequired}
+                                handleAfterSuccess={handleAfterGitSuccess}
+                                handleGit={handleGit}
                                 buttonName={t("button.loadtemplate")} />
                         </Grid>
                     </Grid>
@@ -153,13 +155,13 @@ function AppTemplateCard(props) {
                 </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                    <SyntaxHighlighter
-                        language="json"
-                        style={docco}
-                        showLineNumbers
-                        customStyle={{
-                            lineHeight: "1.5", fontSize: ".75em"
-                        }}>
+                        <SyntaxHighlighter
+                            language="json"
+                            style={docco}
+                            showLineNumbers
+                            customStyle={{
+                                lineHeight: "1.5", fontSize: ".75em"
+                            }}>
                             {JSON.stringify(extendedAppTemplate, null, '\t')}
                         </SyntaxHighlighter>
                     </CardContent>

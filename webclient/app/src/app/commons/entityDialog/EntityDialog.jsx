@@ -11,7 +11,7 @@ import {
     Tabs,
     Typography
 } from "@mui/material";
-import {Add, CheckBoxOutlineBlank, Close} from "@mui/icons-material";
+import {Add, Close} from "@mui/icons-material";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
@@ -235,7 +235,7 @@ function EntityDialog(props) {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement icon={<CheckBoxOutlineBlank/>} message={t("entityDialog.noRelations")}/>
+                    <Statement message={t("entityDialog.noRelations")}/>
                 </div>
             )
         }
