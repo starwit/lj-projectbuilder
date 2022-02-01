@@ -16,10 +16,16 @@ function Statement(props) {
         }
     }
 
+    function renderIcon() {
+        if (icon) {
+            return React.cloneElement(icon, {fontSize: "large"});
+        }
+    }
+
     return (
         <div className={statementStyles.root}>
             <div className={statementStyles.content}>
-                {React.cloneElement(icon, {fontSize: "large"})}
+                {renderIcon()}
                 <Typography component={'span'} className={statementStyles.message} gutterBottom>{message}</Typography>
                 {renderActionButton()}
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 // Material UI Components
 import logo from "../../assets/images/logo-white.png";
-import {AppBar, Avatar, Button, IconButton, Toolbar} from "@mui/material";
+import {AppBar, Button, IconButton, Toolbar} from "@mui/material";
 import AppHeaderStyles from "./AppHeaderStyles";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
