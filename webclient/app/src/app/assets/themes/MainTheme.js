@@ -9,10 +9,13 @@ class MainTheme {
             contrastText: "#fff"
         },
         background: {
-            default: "#c7c7c7",
-            paper: "#eee"
+            default: "#dcdcdc",
+            paper: "#fff"
             
-        }
+        },
+        line: {
+            width: 4  
+        } 
     };
 
     typography = {
@@ -32,7 +35,7 @@ class MainTheme {
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backgroundImage: 'linear-gradient(to top, rgb(235 235 235), rgb(255 255 255))',
+                    backgroundColor: '#fff',
                     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)'
                 }
             }
