@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.13-11](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-10...v0.2.13-11) (2022-02-01)
+
+
+### Features
+
+* changes for production ([c36f83b](https://github.com/mokkapps/changelog-generator-demo/commits/c36f83b7e949fc507827e69e0bdbe6421454fa88))
+* delete and save target relation ([c610121](https://github.com/mokkapps/changelog-generator-demo/commits/c610121acb19add6a38b46b88a5e7c2f58152964))
+* delete relation (ab[#118](https://github.com/starwit/lj-projectbuilder/issues/118)) ([ff8a85f](https://github.com/mokkapps/changelog-generator-demo/commits/ff8a85f9ba9dd9ccfafae0ce67abaca6205fb477))
+* field validation (ab[#49](https://github.com/starwit/lj-projectbuilder/issues/49)) ([8edbebe](https://github.com/mokkapps/changelog-generator-demo/commits/8edbebe756db40a725231ef33677ea67808c4009))
+* field validation (ab[#49](https://github.com/starwit/lj-projectbuilder/issues/49)) ([#240](https://github.com/starwit/lj-projectbuilder/issues/240)) ([bf68903](https://github.com/mokkapps/changelog-generator-demo/commits/bf68903751f7232fc90a6169fc6ab9272dc2b207))
+* limit app & template visibility via groups ([a13ff1e](https://github.com/mokkapps/changelog-generator-demo/commits/a13ff1e455acc0d61bb56f3760a7bfd3389d182d))
+* relationship validation (ab[#79](https://github.com/starwit/lj-projectbuilder/issues/79)) ([80f7b69](https://github.com/mokkapps/changelog-generator-demo/commits/80f7b6915051257cd8677864e9647c3cca57342c))
+* save and draw relations everywhere ([4e388f1](https://github.com/mokkapps/changelog-generator-demo/commits/4e388f10997c86240da3ae12839e9139b1285050))
+* ui for save relations ([b512c74](https://github.com/mokkapps/changelog-generator-demo/commits/b512c74abcbccc0312abaa5de6b84ccc5bed47bd)), closes [Feature/ab#79](https://github.com/Feature/ab/issues/79) [#237](https://github.com/starwit/lj-projectbuilder/issues/237) [feature/ab#79](https://github.com/feature/ab/issues/79)
+* view and save releationships for entity (ab[#79](https://github.com/starwit/lj-projectbuilder/issues/79)) ([a7d43b4](https://github.com/mokkapps/changelog-generator-demo/commits/a7d43b4bb7a45ed2d6d7e77db834250f567c9a5d)), closes [ab#49](https://github.com/starwit/ab/issues/49)
+
 ### [0.2.13-10](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-9...v0.2.13-10) (2022-01-20)
 
 ### [0.2.13-9](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-8...v0.2.13-9) (2022-01-17)
