@@ -119,8 +119,6 @@ function AppEditor() {
                     coordinates={updateRelationCoordinates(entities)}
                     templateName={selectedTemplate ? selectedTemplate?.name : null}
                     credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
-                    coordinates={entityRelationCoordinates}
-                    updateCoordinates={(entities) => updateEntityRelationCoordinates(entities)}
                     appName={appName}
                     packageName={packageName}
                 />
