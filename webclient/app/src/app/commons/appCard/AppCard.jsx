@@ -55,8 +55,8 @@ function AppCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                                <IconButton onClick={onEditClick}><Edit fontSize={"small"} /></IconButton>
-                                <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete fontSize={"small"} /></IconButton>
+                                <IconButton onClick={onEditClick}><Edit /></IconButton>
+                                <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
  
                         </Grid>
                     </Grid>
@@ -68,7 +68,7 @@ function AppCard(props) {
                             {app.packageName}
                         </Typography>
                         <CardActions className={appCardStyles.cardActions}>
-                            <MoreHoriz className={appCardStyles.cardActions} color="secondary" />
+                            <MoreHoriz className={appCardStyles.cardActions} color="primary" />
                         </CardActions>
                     </CardContent>
                 </CardActionArea>
