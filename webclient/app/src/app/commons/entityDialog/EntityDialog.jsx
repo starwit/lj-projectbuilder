@@ -137,7 +137,6 @@ function EntityDialog(props) {
         newEntity.fields.push(
             {
                 fieldName: "",
-                description: "",
                 fieldType: "",
                 fieldValidateRulesPattern: "",
                 fieldValidateRulesMin: "",
@@ -232,7 +231,6 @@ function EntityDialog(props) {
                 fieldValidateRulesMin,
                 fieldValidateRulesMax,
                 fieldValidateRulesPattern,
-                description,
                 fieldName,
                 fieldType
             } = entity.fields[index];
@@ -241,7 +239,6 @@ function EntityDialog(props) {
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
                     dataTypes={dataTypes}
                     dataType={fieldType}
-                    description={description}
                     pattern={fieldValidateRulesPattern}
                     min={fieldValidateRulesMin}
                     max={fieldValidateRulesMax}
