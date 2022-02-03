@@ -75,7 +75,8 @@ function ConclusionSection(props) {
             <ErSection entities={entities} 
                 appId={+appId}
                 coordinates={coordinates}
-                dense editable={false}
+                dense 
+                editable={false}
                 />
         </Container>
     )
