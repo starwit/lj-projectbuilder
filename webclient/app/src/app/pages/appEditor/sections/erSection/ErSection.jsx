@@ -1,52 +1,35 @@
 import React, {useMemo, useState} from "react";
 import {Button, Drawer, Fab} from "@mui/material";
-import {Add, CheckBoxOutlineBlank, Code} from "@mui/icons-material";
+import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ErDesignerStyles from "./ErSectionStyles";
 import Draggable from "react-draggable";
 import EntityDialog from "../../../../commons/entityDialog/EntityDialog";
 import EntityCard from "../../../../commons/entityCard/EntityCard";
-import {SteppedLineTo} from "react-lineto";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
+import { renderRelations } from "../../HandleRelations";
 
 function ErDesigner(props) {
 
-    const {editable, entities, coordinates, updateCoordinates, handleUpdateEntities, dense, appId} = props;
+    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
 
     const erDesignerStyles = ErDesignerStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
     const entityRest = useMemo(() => new EntityRest(), []);
+    const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
     const {t} = useTranslation();
 
-    function addEntity() {
-        const newEntities = [...entities];
 
-        let newId = 1;
-        if (newEntities.length > 0) {
-            newId = newEntities[newEntities.length - 1].id + 1;
-        }
-        const newEntity = {
-            id: newId,
-            name: "",
-            fields: [],
-            relationships: [],
-            isNewEntity: true,
-            position: {
-                positionX: 0,
-                positionY: 0
-            }
-        };
-        newEntities.push(newEntity);
-        handleUpdateEntities(newEntities);
-        setCurrentEntity(newEntity)
+    function addEntity() {
+        setOpenEntityDialog(true);
     }
 
 
@@ -63,22 +46,11 @@ function ErDesigner(props) {
             return;
         }
 
-        let newEntities = [...entities];
-        const locallyFoundIndex = newEntities.findIndex(entity => entity.id === entityId);
-        if (newEntities[locallyFoundIndex].isNewEntity) {
-            // Returns a promise so that there is no difference in the data type between a server deleted entity vs a locally deleted item
-            return new Promise(resolve => {
-                newEntities.splice(locallyFoundIndex, 1);
-                handleUpdateEntities(newEntities);
-            })
-        }
-
         return entityRest.delete(entityId)
-            .then((response) => {
-                return entityRest.findAllEntitiesByApp(appId)
-            })
-            .then(response => {
-                handleUpdateEntities(response.data)
+            .then(() => {
+                entityRest.findAllEntitiesByApp(appId).then((response) => {
+                    handleUpdateEntities(response.data);
+                })
             })
     }
 
@@ -94,17 +66,9 @@ function ErDesigner(props) {
             delete updatedEntity.id;
             updatedEntity.isNewEntity = false;
         }
-        setCurrentEntity(updatedEntity)
+        setCurrentEntity(updatedEntity);
 
-        return entityRest.createEntityByApp(appId, updatedEntity)
-            .then(() => {
-                return entityRest.findAllEntitiesByApp(appId);
-            })
-            .then(response => {
-                handleUpdateEntities(response.data)
-            })
-
-
+        return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
     function updatePosition(update, draggableData, entity) {
@@ -115,23 +79,14 @@ function ErDesigner(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        entityRest.updateEntityByAppId(appId, entity)
+        entityRest.updateEntityByAppId(appId, entity);
 
-        updateCoordinates(entities);
+        handleUpdateEntities(entities);
     }
-
-    function renderRelations() {
-
-        return coordinates.map((coordinate, index) => {
-            return <SteppedLineTo from={coordinate.from} to={coordinate.to} borderColor={theme.palette.primary.main} borderWidth={theme.palette.line.width} />
-        })
-
-    }
-
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={"No entities found"} icon={<CheckBoxOutlineBlank/>}/>
+            return <Statement message={"No entities found"}/>
         }
         return entities.map((entity, index) => {
 
@@ -150,6 +105,7 @@ function ErDesigner(props) {
                     key={entity.id + index + ""}
                     defaultClassName={erDesignerStyles.draggable}
                     defaultPosition={entityCardPosition}
+                    disabled={!editable}
                 >
                     <div>
                         <EntityCard
@@ -187,6 +143,7 @@ function ErDesigner(props) {
     }
 
     function closeEntityDialog() {
+        setOpenEntityDialog(false);
         setCurrentEntity(null)
     }
 
@@ -221,13 +178,16 @@ function ErDesigner(props) {
         </React.Fragment>
         <div className={generateWrapper()}>
             {renderEntities()}
-            {renderRelations()}
+            {renderRelations(coordinates, theme)}
         </div>
         <EntityDialog
             entityId={currentEntity?.id}
             onClose={closeEntityDialog}
             handleSave={(data) => updateEntity(data)}
             entities={entities}
+            handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+            open={openEntityDialog}
+            appId={appId}
         />
     </>)
 }
