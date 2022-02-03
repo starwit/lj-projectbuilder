@@ -30,7 +30,6 @@ function FieldAccordion(props) {
         min,
         max,
         pattern,
-        description,
         name,
         editFieldProperty,
         dataTypes,
@@ -88,14 +87,6 @@ function FieldAccordion(props) {
                         </FormControl>
                     </Grid>
                     <Grid item sm={12}>
-                        <TextField
-                            fullWidth
-                            label={t("fieldDialog.description")}
-                            value={description}
-                            onChange={(event) => editFieldProperty("description", event.target.value)}
-                        />
-                    </Grid>
-                    <Grid item sm={12}>
                         <Divider variant={"middle"}>{t("fieldDialog.restrictions")}</Divider>
                     </Grid>
                     <Grid item sm={12}>
@@ -146,7 +137,6 @@ FieldAccordion.propTypes = {
     min: PropTypes.any,
     max: PropTypes.any,
     pattern: PropTypes.string,
-    description: PropTypes.string,
     name: PropTypes.string,
     editFieldProperty: PropTypes.func.isRequired,
     dataTypes: PropTypes.array,
@@ -159,7 +149,6 @@ FieldAccordion.defaultProps = {
     min: "",
     max: "",
     pattern: "",
-    description: "",
     name: "",
     dataTypes: [],
     isCreate: false
