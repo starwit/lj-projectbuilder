@@ -8,6 +8,7 @@ const translationsEnEN = {
     "button.edit": "Edit",
     "button.back": "Back",
     "button.save": "Save",
+    "button.done": "Done",
     "button.retry": "Retry",
     "button.download": "Download",
     "button.cancel": "Cancel",
@@ -36,13 +37,13 @@ const translationsEnEN = {
     "appTemplateSuccessDialog.message": "Templates were loaded successfully.",
 
     "entityCard.newEntity": "New Domain",
-    "entityCard.noFields": "No fields",
+    "entityCard.noFields": "no fields",
     "entityCard.name": "Name",
     "entityCard.dataType": "Data type",
 
-    "entityDialog.noRelations": "No relations.",
-    "entityDialog.noFields": "No fields.",
-    "entityDialog.domainIsLoading": "Domain is loading.",
+    "entityDialog.noRelations": "no relations",
+    "entityDialog.noFields": "no fields",
+    "entityDialog.domainIsLoading": "Entity is loading.",
     "entityDialog.editEntity": "Edit {{entityName}}.",
     "entityDialog.tab.fields": "Fields",
     "entityDialog.tab.relations": "Relations",
@@ -83,6 +84,7 @@ const translationsEnEN = {
 
     "appEditor.section.template.title": "Template",
     "appEditor.section.erDesigner.title": "ER-Designer",
+    "app.entity.emtpy": "no entities",
     "appEditor.section.conclusion.title": "Conclusion",
     "appEditor.section.general.title": "General",
     "appEditor.loading": "App wird geladen",
@@ -124,9 +126,9 @@ const translationsEnEN = {
 
     "entityDesigner.code": "Code",
 
-    "home.yourApps": "Your Apps",
-    "home.loading": "Your apps are loading",
-    "home.loadingError": "Your apps could not be loaded.",
+    "home.yourApps": "Apps",
+    "home.loading": "apps are loading",
+    "home.loadingError": "apps could not be loaded.",
 
     "default.welcome": "Welcome",
     "default.error.403.title": "No Right",

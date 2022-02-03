@@ -205,7 +205,7 @@ function AppEditor() {
         const restRequest = handleSave();
         restRequest
             .then(response => {
-                history.replace("/app/" + response.data.id);
+                history.replace("/");
             })
             .catch(response => setSaveError(response.data));
     }
@@ -229,7 +229,7 @@ function AppEditor() {
                     loading={isSaving}
                     startIcon={<Done/>}
                 >
-                    {t("button.save")}
+                    {t("button.done")}
                 </LoadingButton>
             )
         }

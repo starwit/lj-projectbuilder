@@ -2,7 +2,8 @@ import React from "react";
 import StatementStyles from "./StatementStyles";
 import {Button, Typography} from "@mui/material";
 import PropTypes from "prop-types";
-import {CheckBoxOutlineBlank} from "@mui/icons-material";
+import iconEmpty from "./icon-empty.png";
+
 
 function Statement(props) {
 
@@ -15,10 +16,16 @@ function Statement(props) {
         }
     }
 
+    function renderIcon() {
+        if (icon) {
+            return React.cloneElement(icon, {fontSize: "large"});
+        }
+    }
+
     return (
         <div className={statementStyles.root}>
             <div className={statementStyles.content}>
-                {React.cloneElement(icon, {fontSize: "large"})}
+                {renderIcon()}
                 <Typography component={'span'} className={statementStyles.message} gutterBottom>{message}</Typography>
                 {renderActionButton()}
             </div>
@@ -36,7 +43,7 @@ Statement.propTypes = {
 
 Statement.defaultProps = {
     message: "Keine Nachricht festgelegt",
-    icon: <CheckBoxOutlineBlank/>,
+    icon: <img src={iconEmpty} alt="empty"/>
 }
 
 export default Statement
