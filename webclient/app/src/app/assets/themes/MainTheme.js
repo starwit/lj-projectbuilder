@@ -9,7 +9,7 @@ class MainTheme {
             contrastText: "#de8608"
         },
         background: {
-            default: "#dcdcdc",
+            default: "#e6e6e6",
             paper: "#fff"
             
         },
@@ -45,7 +45,7 @@ class MainTheme {
             textTransform: "uppercase",
         },
         h5: {
-            fontSize: "1.4rem",
+            fontSize: "1.2rem",
         },
         h6: {
             fontSize: "1.2rem",
