@@ -69,20 +69,12 @@ const translationsDeDE = {
     "relationship.relationType": "Relationstyp",
     "relationship.sourceEntity": "Entität - Quelle der Relation",
     "relationship.sourceField": "Relationsname",
-<<<<<<< HEAD
-    "relationship.sourceField.description": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
-=======
     "relationship.sourceField.description": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
->>>>>>> v2
     "relationship.source": "von",
     "relationship.target": "zu",
     "relationship.targetEntity": "Entität - Ziel der Relation",
     "relationship.targetField": "Relationsname",
-<<<<<<< HEAD
-    "relationship.targetField.description": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
-=======
     "relationship.targetField.description": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
->>>>>>> v2
     "relationship.targetEntity.empty": "nicht verfügbar",
 
     "templateCard.select": "Auswählen",
