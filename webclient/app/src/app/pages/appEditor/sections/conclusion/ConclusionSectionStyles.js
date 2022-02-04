@@ -12,6 +12,9 @@ const ConclusionSectionStyles = makeStyles(theme => ({
     },
     root: {
         paddingTop: "2rem"
+    },
+    listItemText: {
+        fontWeight: "bold"
     }
 }));
 export default ConclusionSectionStyles;

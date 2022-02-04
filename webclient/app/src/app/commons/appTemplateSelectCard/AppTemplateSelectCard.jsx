@@ -1,12 +1,10 @@
 import React from "react";
-import {Alert, Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
-import AppTemplateSelectCardStyles from "./AppTemplateSelectCardStyles";
+import {Alert, Card, CardContent, Typography, CardActionArea} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 
 function AppTemplateSelectCard(props) {
     const {template, selected, onSelection} = props;
-    const appTemplateSelectCardStyles = AppTemplateSelectCardStyles();
     const {t} = useTranslation();
 
     function renderSelectedAlert() {
@@ -18,27 +16,18 @@ function AppTemplateSelectCard(props) {
     }
 
     return (
-        <Card color={"error"}>
-            <CardMedia
-                component="img"
-                height="150rem"
-                image={template.image}
-                alt="green iguana"
-                className={appTemplateSelectCardStyles.cardMedia}
-            />
-            {renderSelectedAlert()}
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {template.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {template.description}
-                </Typography>
-            </CardContent>
-            <CardActions className={appTemplateSelectCardStyles.actionsWrapper}>
-                <Button size="small" disabled={selected}
-                        onClick={() => onSelection(template)}>{t("templateCard.select")}</Button>
-            </CardActions>
+        <Card elevation={5}>
+            <CardActionArea onClick={() => onSelection(template)} disabled={selected}>
+                <CardContent >
+                    <Typography gutterBottom variant="h5" component="div">
+                        {template.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {template.description}
+                    </Typography>
+                </CardContent>
+                {renderSelectedAlert()}
+            </CardActionArea>
         </Card>
     )
 

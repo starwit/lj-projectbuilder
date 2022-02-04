@@ -7,13 +7,14 @@ import GitHub from '@mui/icons-material/GitHub';
 import { Delete, Edit } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
-import dark from 'react-syntax-highlighter/dist/esm/styles/hljs/dark';
+import docco from 'react-syntax-highlighter/dist/esm/styles/hljs/docco';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
+import GitRest from "../../services/GitRest";
 import ConfirmationDialog from "../alert/ConfirmationDialog";
-import AppTemplateAuthDialog from "../appTemplateDialog/AppTemplateAuthDialog";
 import NotificationDialog from "../alert/NotificationDialog";
+import GitDataButton from "../gitDownloadButton/GitDataButton";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -32,8 +33,9 @@ function AppTemplateCard(props) {
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
 
-    const { appTemplate, handleRefresh } = props;
+    const { appTemplate, handleRefresh, userGroups } = props;
     const appTemplateRest = new AppTemplateRest();
+    const gitRest = new GitRest();
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [extendedAppTemplate, setExtendedAppTemplate] = useState(false);
 
@@ -43,9 +45,9 @@ function AppTemplateCard(props) {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
 
-    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deletemessage") });
+    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deleteMessage") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
-    
+
     const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
@@ -78,6 +80,15 @@ function AppTemplateCard(props) {
             });
     };
 
+    const handleGit = (downloadRequestData) => {
+        return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
+    }
+
+    const handleAfterGitSuccess = () => {
+        handleRefresh();
+        setOpenSuccessDialog(true);
+    };
+
     const loadAppTemplate = (appTemplateId) => {
         const appTemplateRest2 = new AppTemplateRest();
         appTemplateRest2.findById(appTemplateId).then(response => {
@@ -87,7 +98,7 @@ function AppTemplateCard(props) {
 
     useEffect(() => {
         SyntaxHighlighter.registerLanguage('javascript', js);
-    },[]);
+    }, []);
 
     return (
         <Container>
@@ -104,7 +115,9 @@ function AppTemplateCard(props) {
                             <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
                         </Grid>
                     </Grid>
-                    <Divider />
+                </CardContent>
+                <Divider />
+                <CardContent>
                     <Grid container spacing={0}>
                         <Grid item sm={7}>
                             <Typography variant="body2" color="text.secondary">
@@ -121,7 +134,11 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <br /><br />
-                            <AppTemplateAuthDialog appTemplate={appTemplate} handleRefresh={handleRefresh} setOpenSuccessDialog={setOpenSuccessDialog} setOpenErrorDialog={setOpenErrorDialog} />
+                            <GitDataButton
+                                credentialsRequired={appTemplate.credentialsRequired}
+                                handleAfterSuccess={handleAfterGitSuccess}
+                                handleGit={handleGit}
+                                buttonName={t("button.loadtemplate")} />
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -138,7 +155,13 @@ function AppTemplateCard(props) {
                 </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <SyntaxHighlighter language="json" style={dark}>
+                        <SyntaxHighlighter
+                            language="json"
+                            style={docco}
+                            showLineNumbers
+                            customStyle={{
+                                lineHeight: "1.5", fontSize: ".75em"
+                            }}>
                             {JSON.stringify(extendedAppTemplate, null, '\t')}
                         </SyntaxHighlighter>
                     </CardContent>
@@ -150,6 +173,7 @@ function AppTemplateCard(props) {
                 onClose={handleDialogClose}
                 onRefresh={() => handleRefresh(appTemplate.id)}
                 isCreateDialog={false}
+                userGroups={userGroups}
             />
             <ConfirmationDialog
                 content={deleteDialogContent}

@@ -1,6 +1,6 @@
 import {Card, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import {Delete, Edit} from "@mui/icons-material";
-import React from "react";
+import React, {useState} from "react";
 import Statement from "../statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 function EntityCard(props) {
 
     const entityCardStyles = EntityCardStyles();
+    const [isDeleting, setIsDeleting] = useState(false);
+
     const {entity, handleEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
@@ -26,14 +28,8 @@ function EntityCard(props) {
             return (
 
                 <TableRow key={index}>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.name + "_l"}/>
-                    </TableCell>
-                    <TableCell>{field.name}</TableCell>
-                    <TableCell>{field.dataType.name}</TableCell>
-                    <TableCell className={entityCardStyles.relationshipPlaceholder}>
-                        <div className={"anchor_" + entity.name + "_" + field.name + "_r"}/>
-                    </TableCell>
+                    <TableCell>{field.fieldName}</TableCell>
+                    <TableCell>{field.fieldType}</TableCell>
                 </TableRow>
             )
         })
@@ -51,11 +47,10 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell/>
-                        <TableCell>{t("entityCard.name")}</TableCell>
-                        <TableCell>{t("entityCard.dataType")}</TableCell>
-                        <TableCell/>
-
+                        <TableCell>{t("entityCard.name")}
+                        </TableCell>
+                        <TableCell>{t("entityCard.dataType")}
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -76,12 +71,19 @@ function EntityCard(props) {
         }
     }
 
-    function renderDeleteClick() {
+    function prepareDelete() {
+        handleDelete(entity.id)
+            .then(setIsDeleting(false))
+            .catch(setIsDeleting(false));
+    }
+
+    function renderDeleteWrapper() {
         if (handleDelete && editable) {
             return (
                 <Grid item sm={2}>
                     <IconButton
-                        onClick={() => handleDelete(entity.id)}
+                        onClick={prepareDelete}
+                        disabled={isDeleting}
                     >
                         <Delete fontSize={"small"}/>
                     </IconButton>
@@ -102,16 +104,18 @@ function EntityCard(props) {
     }
 
     return (
+        <div className={"anchor_" + entity.name}>
         <Card className={`${entityCardStyles.entityCard}`}>
             <Grid container>
                 <Grid item sm={calculateTitleWidth()}>
                     {renderTitle(entity.name)}
                 </Grid>
                 {renderEditButton()}
-                {renderDeleteClick()}
+                {renderDeleteWrapper()}
             </Grid>
             {renderFieldsTable(entity)}
         </Card>
+        </div>
     )
 
 }

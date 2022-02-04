@@ -1,15 +1,21 @@
-import { Container, Grid, Typography, Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { Container, Grid, Typography, Fab } from "@mui/material";
+import React, { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import AppTemplateCard from "../../commons/appTemplateCard/AppTemplateCard";
 import AppTemplateDialog from "../../commons/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
+import UserRest from "../../services/UserRest";
+import AppTemplateOverviewStyles from "./AppTempateOverviewStyles";
+import { Add } from "@mui/icons-material";
 
 function AppTemplateOverview() {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
-    const [data, setData] = useState([]);    
+    const [data, setData] = useState([]);
+    const [userGroups, setUserGroups] = React.useState([]); 
+    const userRest = useMemo(() => new UserRest(), []);
+    const appTemplateOverviewStyles = AppTemplateOverviewStyles();    
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
@@ -25,7 +31,8 @@ function AppTemplateOverview() {
         "location": "",
         "branch": "",
         "credentialsRequired": false,
-        "description": ""
+        "description": "",
+        "groups": ["public"]
     };
 
     const reload = () => {
@@ -34,6 +41,12 @@ function AppTemplateOverview() {
             setData(response.data);
         });
     };
+
+    useEffect(() => {
+        userRest.getUserGroups().then((response) => {
+            setUserGroups(response.data);
+        });
+    }, [userRest]);
 
     useEffect(() => {
         reload();
@@ -47,15 +60,11 @@ function AppTemplateOverview() {
                         {t("appTemplateOverview.title")}
                     </Typography>
                 </Grid>
-                <Grid item xs={3} align="right" >
-                    <br />
-                    <Button variant="contained" onClick={handleDialogOpen} >{t("button.create")}</Button>
-                </Grid>
             </Grid>
                 <Grid container spacing={2}>
                     {data.map(appTemplate => (
                         <Grid item key={appTemplate.id} sm={12}>
-                            <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} />
+                            <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
                         </Grid>
                     ))}
                 </Grid>
@@ -65,7 +74,13 @@ function AppTemplateOverview() {
                 onClose={handleDialogClose}
                 onRefresh={reload}
                 isCreateDialog={true}
+                userGroups={userGroups}
             />
+            <div className={appTemplateOverviewStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
+                    <Add/>
+                </Fab>
+            </div>
         </Container>
     )
 }

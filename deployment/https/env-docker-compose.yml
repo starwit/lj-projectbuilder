@@ -1,0 +1,72 @@
+version: "3.9"
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - ./conf.d:/etc/nginx/conf.d
+      - ./content:/var/www/html
+    ports:
+      - 80:80
+      - 443:443
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+
+  certbot:
+    image: certbot/certbot:latest
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+
+  db-keycloak:
+    image: mariadb:latest
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: 'keycloak'
+      MYSQL_USER: 'keycloak'
+      MYSQL_PASSWORD: ${DB_PW_KEYCLOAK}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_ROOT_PASSWORD: ${DB_PW_KC_ROOT}
+      MYSQL_TCP_PORT: 3307
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -P 3307 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 60s
+      retries: 30
+    volumes:
+      - /mnt/lj-mariadb/keycloak:/var/lib/mysql
+    networks: 
+      - backend
+
+  keycloak:
+    image: jboss/keycloak
+    volumes:
+      - ./imports:/opt/jboss/keycloak/imports
+    depends_on:
+      db-keycloak:
+        condition: service_healthy
+    restart: on-failure
+    environment:
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm.json
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PW}
+      DB_VENDOR: mariadb 
+      DB_ADDR: db-keycloak
+      DB_PORT: 3307
+      DB_USER: 'keycloak'
+      DB_PASSWORD: ${DB_PW_KEYCLOAK}
+      PROXY_ADDRESS_FORWARDING: 'true'
+      KEYCLOAK_FRONTEND_URL: 'https://${DOMAIN}/auth'
+    networks: 
+      - backend
+
+ # Networks to be created to facilitate communication between containers
+networks:
+  backend:
+

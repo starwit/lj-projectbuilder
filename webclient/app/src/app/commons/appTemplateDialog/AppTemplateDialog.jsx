@@ -6,50 +6,61 @@ import {
     DialogActions,
     DialogTitle,
     IconButton,
-    TextField,
     Typography,
     Checkbox,
     FormControlLabel,
-    FormGroup
+    FormGroup,
+    TextField
 } from "@mui/material";
 import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
 import AppTemplateRest from "../../services/AppTemplateRest"
 import ErrorAlert from "../alert/ErrorAlert";
+import ValidatedTextField from "../validatedTextField/ValidatedTextField";
+import RegexConfig from "../../../regexConfig";
+import MultipleSelectChip from "../multipleSelectChip/MultipleSelectChip";
 
 function AppTemplateDialog(props) {
-    const { appTemplate, open, onClose, onRefresh, isCreateDialog } = props;
+    const { appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
-    
     const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
-
+    const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
-
 
     const onDialogClose = () => {
         onClose();
         closeAlert();
         setInternalAppTemplate(appTemplate);
-    }
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = value;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
+
+    const handleGroupChange = (items) => {
+        let appTemplateNew = { ...internalAppTemplate };
+        appTemplateNew['groups'] = items;
+        setInternalAppTemplate(appTemplateNew);
+    };
 
     const handleCredentialsCheckbox = (event) => {
         const { name, checked } = event.target;
         let appTemplateNew = { ...internalAppTemplate };
         appTemplateNew[name] = checked;
         setInternalAppTemplate(appTemplateNew);
-    }
+    };
 
     const handleSave = (toSave) => {
+        if(hasFormError) {
+            return;
+        }
+        toSave.userGroups = userGroups;
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
@@ -63,17 +74,32 @@ function AppTemplateDialog(props) {
                 setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
             });
         }
-    }
+    };
 
     const closeAlert = () => {
         setAlert({"open":false, "title": t("alert.error"), "message": ""});
-    }
+    };
 
     const handleSaveResponse = (response) => {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
-    }
+    };
+
+    useEffect(() => {
+        if (!internalAppTemplate) {
+            return;
+        }
+        let hasError = false;
+        if (!RegexConfig.appTemplateLocation.test(internalAppTemplate.location)) {
+            hasError = true;
+        }
+        if (!RegexConfig.appTemplateBranch.test(internalAppTemplate.branch)) {
+            hasError = true;
+        }
+        setHasFormError(hasError);
+
+    }, [internalAppTemplate, hasFormError])
 
     useEffect(() => {
         setInternalAppTemplate(appTemplate);
@@ -113,20 +139,53 @@ function AppTemplateDialog(props) {
                 autoComplete="off"
             >
                 <ErrorAlert alert={alert} onClose={closeAlert} />
-                <TextField fullWidth label={t("appTemplateDialog.location")} value={internalAppTemplate.location} name="location" onChange={handleChange} />
-                <TextField fullWidth label={t("appTemplateDialog.branch")} value={internalAppTemplate.branch} name="branch" onChange={handleChange} />
-                <TextField fullWidth label={t("appTemplateDialog.description")} value={internalAppTemplate.description} name="description" onChange={handleChange} />
+                <ValidatedTextField
+                    fullWidth
+                    label={t("appTemplateDialog.location") + "*" }
+                    value={internalAppTemplate.location}
+                    name="location" 
+                    onChange={handleChange}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplateDialog.location.error")}
+                    regex={RegexConfig.appTemplateLocation}
+                />
+                <ValidatedTextField 
+                    fullWidth 
+                    label={t("appTemplateDialog.branch")} 
+                    value={internalAppTemplate.branch} 
+                    name="branch" 
+                    onChange={handleChange}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplateDialog.branch.error")}
+                    regex={RegexConfig.appTemplateBranch}
+                />
+                <TextField 
+                    fullWidth 
+                    label={t("appTemplateDialog.description")} 
+                    value={internalAppTemplate.description} 
+                    name="description" 
+                    onChange={handleChange} 
+                />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
+                    <MultipleSelectChip 
+                        values={userGroups} 
+                        selected={internalAppTemplate.groups} 
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")} />
                     <FormControlLabel 
-                        control={<Checkbox  checked={internalAppTemplate.credentialsRequired} 
-                        value={internalAppTemplate.credentialsRequired} 
-                        name="credentialsRequired" onChange={handleCredentialsCheckbox} />} 
+                        control={
+                            <Checkbox  
+                                checked={internalAppTemplate.credentialsRequired} 
+                                value={internalAppTemplate.credentialsRequired} 
+                                name="credentialsRequired" onChange={handleCredentialsCheckbox} 
+                            />
+                        } 
                         label={t("appTemplateDialog.credentialsRequired")} 
                     />
                 </FormGroup>
                 <DialogActions>
                     <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
-                    <Button onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
+                    <Button disabled={hasFormError} onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

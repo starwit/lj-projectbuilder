@@ -54,7 +54,4 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         }
         return entities;
     }
-
-
-    
 }

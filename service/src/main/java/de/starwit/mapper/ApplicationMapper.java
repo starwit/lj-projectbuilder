@@ -1,11 +1,14 @@
 package de.starwit.mapper;
 
 import java.io.Serializable;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 
@@ -26,10 +29,12 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       dto.setBaseName(entity.getTitle());
       dto.setPackageName(entity.getPackagePrefix());
       dto.setEntities(entityMapper.convertToDtoList(entity.getDomains()));
+      dto.setGroupsToAssign(entity.getGroups());
       AppTemplateDto appTemplateDto = new AppTemplateDto();
       if (entity.getTemplate() != null) {
         appTemplateDto.setId(entity.getTemplate().getId());
         appTemplateDto.setName(entity.getTemplate().getTemplateName());
+        appTemplateDto.setCredentialsRequired(entity.getTemplate().isCredentialsRequired());
         dto.setTemplate(appTemplateDto);
       }
     }
@@ -51,11 +56,24 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
       } else {
         appTemplate.setId(dto.getTemplate().getId());
       }
+      if (dto.getId() == null) {
+        deleteIdsFromEntityDtos(dto.getEntities());
+      }
+      app.setTemplate(appTemplate);
       app.setDomains(entityMapper.convertToEntityList(dto.getEntities()));
+      app.setGroups(dto.getGroupsToAssign());
       entityMapper.addParent(app.getDomains(), app);
     }
 
     return app;
+  }
+
+  private void deleteIdsFromEntityDtos(Collection<EntityDto> dtos) {
+    if (dtos != null) {
+        for (EntityDto dto  : dtos) {
+            dto.setId(null);
+        }
+    }
   }
 
 }

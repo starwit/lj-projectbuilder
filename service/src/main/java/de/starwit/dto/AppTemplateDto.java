@@ -11,9 +11,11 @@ import de.starwit.persistence.entity.AbstractEntity;
 public class AppTemplateDto extends AbstractEntity<Long> {
 
     @NotBlank
-	@Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
 	@Size(max = 100)
     private String name = "default";
+
+    private boolean credentialsRequired = false;
 
     public String getName() {
         return name;
@@ -21,6 +23,14 @@ public class AppTemplateDto extends AbstractEntity<Long> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCredentialsRequired() {
+        return credentialsRequired;
+    }
+
+    public void setCredentialsRequired(boolean credentialsRequired) {
+        this.credentialsRequired = credentialsRequired;
     }
     
 }

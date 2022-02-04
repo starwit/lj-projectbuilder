@@ -3,6 +3,8 @@ package de.starwit.rest.acceptance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import org.junit.jupiter.api.Test;
@@ -60,10 +62,33 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         JsonNode jsonNode = mapper.readTree(response.getContentAsString());
         Long id = jsonNode.get("id").asLong();
         dto.setId(id);
+        dto.setGroupsToAssign(new ArrayList<>());
+        dto.getGroupsToAssign().add("public");
         String applicationString = jsonTester.write(dto).getJson();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(applicationString);
     }
+
+    @Test
+    public void canCreateTest() throws Exception {
+        // given
+        String jsonString = readJsonStringFromFile(data + "app-test.json");
+        // when
+        MockHttpServletResponse response = createFromString(jsonString);
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    public void canCreateTest2() throws Exception {
+        // given
+        String jsonString = readJsonStringFromFile(data + "app-test2.json");
+        // when
+        MockHttpServletResponse response = createFromString(jsonString);
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
 
     @Test
     public void isValidated() throws Exception {

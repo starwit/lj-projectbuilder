@@ -1,0 +1,49 @@
+[ {
+  "realm" : "projectbuilder",
+  "users" : [ {
+    "username" : "admin",
+    "enabled" : true,
+    "credentials" : [ {
+        "type" : "password",
+        "secretData" : "{\"value\":\"o2sxyw56EK8jKnh0CQSV2FiN9plXTSzwOWNlt7SiIUd/Ox+huiDWYGlCL4gqSM0R/3Q+PONjG0Dl7dQrvtfU2A==\",\"salt\":\"m63ldw2Y1VagMqRIEhQZOg==\",\"additionalParameters\":{}}",
+        "credentialData" : "{\"hashIterations\":100000,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+      } ],
+    "realmRoles" : [ "ROLE_admin" ]
+  } ]
+}, {
+  "realm" : "projectbuilder",
+  "users" : [ {
+    "username" : "user",
+    "enabled" : true,
+    "credentials" : [ {
+        "type" : "password",
+        "secretData" : "{\"value\":\"o2sxyw56EK8jKnh0CQSV2FiN9plXTSzwOWNlt7SiIUd/Ox+huiDWYGlCL4gqSM0R/3Q+PONjG0Dl7dQrvtfU2A==\",\"salt\":\"m63ldw2Y1VagMqRIEhQZOg==\",\"additionalParameters\":{}}",
+        "credentialData" : "{\"hashIterations\":100000,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+      } ],
+    "realmRoles" : [ "ROLE_user" ]
+  } ]
+}, {
+  "realm" : "projectbuilder",
+  "users" : [ {
+    "username" : "reader",
+    "enabled" : true,
+    "credentials" : [ {
+        "type" : "password",
+        "secretData" : "{\"value\":\"o2sxyw56EK8jKnh0CQSV2FiN9plXTSzwOWNlt7SiIUd/Ox+huiDWYGlCL4gqSM0R/3Q+PONjG0Dl7dQrvtfU2A==\",\"salt\":\"m63ldw2Y1VagMqRIEhQZOg==\",\"additionalParameters\":{}}",
+        "credentialData" : "{\"hashIterations\":100000,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+      } ],
+    "realmRoles" : [ "ROLE_reader" ]
+  } ]
+}, {
+  "realm" : "master",
+  "users" : [ {
+    "username" : "admin",
+    "enabled" : true,
+    "credentials" : [ {
+      "type" : "password",
+      "secretData" : "{\"value\":\"o2sxyw56EK8jKnh0CQSV2FiN9plXTSzwOWNlt7SiIUd/Ox+huiDWYGlCL4gqSM0R/3Q+PONjG0Dl7dQrvtfU2A==\",\"salt\":\"m63ldw2Y1VagMqRIEhQZOg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":100000,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "realmRoles" : [ "admin" ]
+  } ]
+} ]

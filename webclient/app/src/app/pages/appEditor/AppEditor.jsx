@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import React, {useEffect, useMemo, useState} from "react";
+import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
 import TemplateSelection from "./sections/templateSection/TemplateSection";
 import ErDesigner from "./sections/erSection/ErSection";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
@@ -9,6 +9,11 @@ import ConclusionSection from "./sections/conclusion/ConclusionSection";
 import GeneralSection from "./sections/generalSection/GeneralSection";
 import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
+import ApplicationRest from "../../services/ApplicationRest";
+import {LoadingButton} from "@mui/lab";
+import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
+import { updateRelationCoordinates } from "./HandleRelations";
+import UserRest from "../../services/UserRest";
 
 
 function AppEditor() {
@@ -18,91 +23,41 @@ function AppEditor() {
     const appEditorStyles = AppEditorStyles();
     const {t} = useTranslation();
     const history = useHistory();
+    const appRest = useMemo(() => new ApplicationRest(), []);
+    const userRest = useMemo(() => new UserRest(), []);
 
+    const [isAppLoading, setIsAppLoading] = useState(false);
     const [appName, setAppName] = useState("");
     const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
-    const [entities, setEntities] = useState([
-        {
-            "id": 1,
-            "name": "D1",
-            "fields": [
-                {
-                    "name": "D1-f1-s",
-                    "description": "",
-                    "dataType": {
-                        "id": 1,
-                        "name": "string"
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                },
-                {
-                    "name": "D1-f1-i",
-                    "description": "",
-                    "dataType": {
-                        "id": 2,
-                        "name": "integer",
-                        "allowMin": true,
-                        "allowMax": true
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                }
-            ],
-            "relationships": []
-        },
-        {
-            "id": 2,
-            "name": "D2",
-            "fields": [
-                {
-                    "name": "D2-f1-i",
-                    "description": "",
-                    "dataType": {
-                        "id": 2,
-                        "name": "integer",
-                        "allowMin": true,
-                        "allowMax": true
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                },
-                {
-                    "name": "D2-f2-s",
-                    "description": "",
-                    "dataType": {
-                        "id": 1,
-                        "name": "string"
-                    },
-                    "pattern": "",
-                    "min": "",
-                    "max": "",
-                    "mandatory": false
-                }
-            ],
-            "relationships": [
-                {
-                    "relationshipType": "one-to-many",
-                    "otherEntityName": "D1",
-                    "otherEntityRelationshipName": "D1-f1-i",
-                    "relationshipName": "D2-f1-i",
-                    "name": "D2"
-                }
-            ]
-        }
-    ]);
+    const [entities, setEntities] = useState([]);
+    const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
+    const [isNewApp, setIsNewApp] = useState(false);
+    const [saveError, setSaveError] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [userGroups, setUserGroups] = useState([]);
+    const [groupsToAssign, setGroupsToAssign] = useState(['public']);
     let {appId} = useParams();
 
     useEffect(() => {
-        // TODO Load app data here
-    }, [appId])
+        setIsAppLoading(true);
+        if (appId === "create") {
+            setIsNewApp(true);
+            setIsAppLoading(false);
+
+        } else {
+            appRest.findById(appId).then(response => {
+                const {baseName, packageName, template, entities, groupsToAssign} = response.data;
+                setAppName(baseName);
+                setPackageName(packageName);
+                setSelectedTemplate(template);
+                handleUpdateEntities(entities);
+                setIsAppLoading(false);
+                setIsNewApp(false);
+                setGroupsToAssign(groupsToAssign);
+            })
+        }
+    }, [appId, appRest])
 
     useEffect(() => {
 
@@ -110,52 +65,88 @@ function AppEditor() {
 
     }, [packageName, appName])
 
+    useEffect(() => {
+        userRest.getUserGroups().then((response) => {
+            setUserGroups(response.data);
+        });
+    }, [userRest]);
+
     const steps = [
         {
             label: t("appEditor.section.general.title"),
             component: <GeneralSection
+                isCreate={isNewApp}
                 packageName={packageName}
                 appName={appName}
                 setAppName={setAppName}
                 setPackageName={setPackageName}
+                userGroups={userGroups}
+                assignedGroups={groupsToAssign}
+                setAssignedGroups={setGroupsToAssign}
             />,
             condition: appName !== "" && packageName !== "" && !generalSectionHasFormError
         },
         {
             label: t("appEditor.section.template.title"),
-            component: <TemplateSelection
-                onChange={setSelectedTemplate}
-                value={selectedTemplate}/>,
+            component: (
+                <TemplateSelection
+                    onChange={setSelectedTemplate}
+                    value={selectedTemplate}
+                />
+            ),
             condition: selectedTemplate
         },
         {
             label: t("appEditor.section.erDesigner.title"),
-            component: <ErDesigner
-                entities={entities}
-                handleUpdateEntities={updatedEntities => setEntities(updatedEntities)}
-            />,
-            condition: entities.length > 1
+            component: (
+                <ErDesigner
+                    appId={+appId}
+                    entities={entities}
+                    coordinates={entityRelationCoordinates}
+                    handleUpdateEntities={updatedEntities => {
+                        handleUpdateEntities(updatedEntities);
+                    }}
+                />
+            ),
+            condition: entities.length >= 1
         },
         {
             label: t("appEditor.section.conclusion.title"),
             component: (
                 <ConclusionSection
+                    appId={+appId}
+                    entities={entities}
+                    coordinates={updateRelationCoordinates(entities)}
+                    templateName={selectedTemplate ? selectedTemplate?.name : null}
+                    credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
                     appName={appName}
                     packageName={packageName}
-                    templateName={selectedTemplate?.name}
-                    entities={entities}
                 />
             ),
             condition: true
         },
     ];
 
+    function handleUpdateEntities(updatedEntities) {
+        setEntities(updatedEntities);
+        setEntityRelationCoordinates(updateRelationCoordinates(updatedEntities));
+    }
+
     function handleBack() {
-        setActiveStep((activeStep - 1))
+        setIsSaving(true);
+        handleSave().then(() => {
+            setActiveStep((activeStep - 1));
+            setIsSaving(false);
+        });
     }
 
     function handleNext() {
-        setActiveStep((activeStep + 1))
+        setIsSaving(true);
+        handleSave()
+            .then(() => {
+                setActiveStep((activeStep + 1));
+                setIsSaving(false);
+            });
     }
 
     function isLastStep() {
@@ -163,25 +154,90 @@ function AppEditor() {
     }
 
     function handleSave() {
-        //TODO send to server
+        let restRequest;
+        let entitiesEdited = [...entities].map(entity => {
+            entity.id = null;
+            return entity;
+        });
 
-        history.push("/app/" + appId)
+        const appPackage = {
+            id: (isNewApp ? null : appId),
+            baseName: appName,
+            packageName: packageName,
+            template: selectedTemplate,
+            entities: entitiesEdited,
+            groupsToAssign: groupsToAssign,
+            userGroups: userGroups,
+        }
+
+        if (isNewApp) {
+            restRequest = appRest.create(appPackage)
+                .then(response => {
+                    const {baseName, packageName, template, entities, groupsToAssign, id} = response.data;
+                    setAppName(baseName);
+                    setPackageName(packageName);
+                    setSelectedTemplate(template);
+                    handleUpdateEntities(entities);
+                    setGroupsToAssign(groupsToAssign);
+                    history.push(`/app/${id}/edit`);
+                    return response;
+                })
+                .catch(response => setSaveError(response.data))
+        } else {
+            restRequest = appRest.update(appPackage)
+                .then(response => {
+                    const {baseName, packageName, template, entities, groupsToAssign } = response.data;
+                    setAppName(baseName);
+                    setPackageName(packageName);
+                    setSelectedTemplate(template);
+                    handleUpdateEntities(entities);
+                    setGroupsToAssign(groupsToAssign);
+                    return response;
+                })
+                .catch(response => setSaveError(response.data))
+        }
+
+        return restRequest;
+    }
+
+    function handleFinishButton() {
+
+        const restRequest = handleSave();
+        restRequest
+            .then(response => {
+                history.replace("/");
+            })
+            .catch(response => setSaveError(response.data));
     }
 
     function renderNextButton() {
         let content = (
-            <Button onClick={handleNext} disabled={!steps[activeStep].condition} startIcon={<ChevronRight/>}>
+            <LoadingButton
+                onClick={handleNext}
+                disabled={!steps[activeStep].condition}
+                startIcon={<ChevronRight/>}
+                loading={isSaving}
+            >
                 {t("button.next")}
-            </Button>
+            </LoadingButton>
         )
         if (isLastStep()) {
             content = (
-                <Button onClick={handleSave} disabled={!steps[activeStep].condition} startIcon={<Done/>}>
-                    {t("button.save")}
-                </Button>
+                <LoadingButton
+                    onClick={handleFinishButton}
+                    disabled={!steps[activeStep].condition}
+                    loading={isSaving}
+                    startIcon={<Done/>}
+                >
+                    {t("button.done")}
+                </LoadingButton>
             )
         }
         return content;
+    }
+
+    if (isAppLoading) {
+        return <LoadingSpinner message={t("appEditor.loading")}/>;
     }
 
     return (
@@ -191,26 +247,32 @@ function AppEditor() {
                     const stepProps = {};
                     const labelProps = {};
                     return (
-                        <Step key={step.id} {...stepProps}>
+                        <Step key={index} {...stepProps}>
                             <StepLabel {...labelProps}>{step.label}</StepLabel>
                         </Step>
                     );
                 })}
             </Stepper>
             <Box className={appEditorStyles.navigationButtonsArray}>
-                <Button
+                <LoadingButton
                     color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={appEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
+                    loading={isSaving}
                 >
                     {t("button.back")}
-                </Button>
+                </LoadingButton>
                 <Box className={appEditorStyles.navigationButtonNext}/>
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}
+            <Snackbar open={!!saveError} autoHideDuration={6000} onClose={() => setSaveError(null)}>
+                <Alert onClose={() => setSaveError(null)} severity="error" sx={{width: '30%'}}>
+                    This is a success message!
+                </Alert>
+            </Snackbar>
         </div>
     )
 

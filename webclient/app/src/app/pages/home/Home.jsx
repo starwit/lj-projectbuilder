@@ -1,18 +1,19 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {Container, Grid, Typography} from "@mui/material";
+import {Container, Fab, Grid, Typography} from "@mui/material";
 import AppCard from "../../commons/appCard/AppCard";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ApplicationRest from "../../services/ApplicationRest";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
-import AddCard from "../../commons/addCard/AddCard";
 import Statement from "../../commons/statement/Statement";
-import {Clear} from "@mui/icons-material";
+import {Add, Clear} from "@mui/icons-material";
+import HomeStyles from "./HomeStyles";
 
 function Home() {
     const history = useHistory();
     const {t} = useTranslation();
     const applicationRest = useMemo(() => new ApplicationRest(), []);
+    const homeStyles = HomeStyles();
 
     const [apps, setApps] = useState(null);
     const [appsError, setAppsError] = useState(null);
@@ -31,6 +32,14 @@ function Home() {
         loadApps();
     }, [loadApps])
 
+    function deleteById(id) {
+        return applicationRest.delete(id)
+            .then(response => {
+                setApps(null);
+                loadApps();
+            })
+    }
+
     function renderApps() {
         if (!apps) {
             return <LoadingSpinner message={t("home.loading")}/>;
@@ -45,25 +54,27 @@ function Home() {
             />;
         }
 
+        if (apps.length === 0) {
+            return (
+                <Statement
+                    icon={<Add/>}
+                    message={t("home.noApps")}
+                />
+            )
+        }
+
         return (
             <Grid container spacing={5}>
                 {apps.map(app => (
-                    <Grid item sm={4}>
+                    <Grid item sm={4} key={app.id}>
                         <AppCard
                             onEditClick={() => {
                                 history.push("/app/" + app.id + "/edit")
                             }}
-                            onDeleteClick={() => {
-                            }}
+                            onDeleteClick={deleteById}
                             app={app}/>
                     </Grid>
                 ))}
-                <Grid item sm={4}>
-                    <AddCard
-                        onClick={() => {
-                        }}
-                    />
-                </Grid>
             </Grid>
         )
     }
@@ -74,8 +85,11 @@ function Home() {
                 {t("home.yourApps")}
             </Typography>
             {renderApps()}
-
-
+            <div className={homeStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={() => history.push("/app/create/edit")}>
+                    <Add/>
+                </Fab>
+            </div>
         </Container>
     )
 

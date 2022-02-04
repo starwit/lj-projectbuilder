@@ -1,5 +1,6 @@
 package de.starwit.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import de.starwit.persistence.repository.TemplateFileRepository;
 @Service
 public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemplateRepository> {
 
-	final static Logger LOG = LoggerFactory.getLogger(AppTemplateService.class);
+	static final Logger LOG = LoggerFactory.getLogger(AppTemplateService.class);
 
 	@Autowired
 	private AppTemplateRepository appTemplateRepository;
@@ -29,26 +30,29 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 		return appTemplateRepository;
 	}
 
+	public List<AppTemplate> findByGroups(List<String> groups) {
+        return this.getRepository().findByGroupString("," + String.join(",|,", groups) + ",");
+    }
+
 	@Override
 	public AppTemplate saveOrUpdate(AppTemplate entity) {
 		Set<TemplateFile> templateFiles = templateFileRepository.findAllByAppTemplate(entity.getId());
-		if (templateFiles != null && templateFiles.size() > 0) {
+		if (templateFiles != null && !templateFiles.isEmpty()) {
 			for (TemplateFile templateFile : templateFiles) {
 				templateFile.setAppTemplate(entity);
 			}
 		}
-		return appTemplateRepository.save(entity);
+		return this.getRepository().save(entity);
 	}
 
 	public AppTemplate updateFromRepo(AppTemplate entity) {
 		Set<TemplateFile> newTemplateFiles = entity.getTemplateFiles();
 		
-		if (newTemplateFiles != null && newTemplateFiles.size() > 0) {
+		if (newTemplateFiles != null && !newTemplateFiles.isEmpty()) {
 			for (TemplateFile templateFile : newTemplateFiles) {
 				templateFile.setAppTemplate(entity);
 			}
 		}
-		return appTemplateRepository.save(entity);
+		return this.getRepository().save(entity);
 	}
-
 }
