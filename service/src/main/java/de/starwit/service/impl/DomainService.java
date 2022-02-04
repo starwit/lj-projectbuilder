@@ -1,35 +1,24 @@
 package de.starwit.service.impl;
 
-<<<<<<< HEAD
-=======
 import de.starwit.mapper.Mapper;
 import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.Relationship;
 import de.starwit.persistence.repository.DomainRepository;
->>>>>>> v2
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-<<<<<<< HEAD
-
-=======
->>>>>>> v2
 import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-<<<<<<< HEAD
-
 import de.starwit.mapper.Mapper;
 import de.starwit.persistence.entity.Domain;
 import de.starwit.persistence.entity.Relationship;
 import de.starwit.persistence.repository.DomainRepository;
-=======
->>>>>>> v2
 
 @Service
 public class DomainService implements ServiceInterface<Domain, DomainRepository> {
