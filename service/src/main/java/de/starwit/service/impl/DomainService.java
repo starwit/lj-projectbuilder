@@ -15,10 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.Domain;
-import de.starwit.persistence.entity.Relationship;
-import de.starwit.persistence.repository.DomainRepository;
 
 @Service
 public class DomainService implements ServiceInterface<Domain, DomainRepository> {
