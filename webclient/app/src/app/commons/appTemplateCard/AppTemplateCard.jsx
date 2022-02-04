@@ -101,7 +101,7 @@ function AppTemplateCard(props) {
     }, []);
 
     return (
-        <Container>
+        <Container disableGutters={true}>
             <Card color={"error"}>
                 <CardContent className={appTemplateCardStyles.CardContent}>
                     <Grid container spacing={0}>
