@@ -66,7 +66,7 @@ function Home() {
         return (
             <Grid container spacing={5}>
                 {apps.map(app => (
-                    <Grid item sm={4} key={app.id}>
+                    <Grid item sm={6} xs={12} key={app.id}>
                         <AppCard
                             onEditClick={() => {
                                 history.push("/app/" + app.id + "/edit")

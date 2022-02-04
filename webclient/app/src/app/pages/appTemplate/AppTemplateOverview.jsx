@@ -53,21 +53,17 @@ function AppTemplateOverview() {
     },[]);
 
     return (
-        <Container >
+        <Container>
+            <Typography variant={"h2"} gutterBottom>
+                {t("appTemplateOverview.title")}
+            </Typography>
             <Grid container spacing={2}>
-                <Grid item xs={9}>
-                    <Typography variant={"h2"} gutterBottom>
-                        {t("appTemplateOverview.title")}
-                    </Typography>
-                </Grid>
+                {data.map(appTemplate => (
+                    <Grid item key={appTemplate.id} sm={12} xs={12}>
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
+                    </Grid>
+                ))}
             </Grid>
-                <Grid container spacing={2}>
-                    {data.map(appTemplate => (
-                        <Grid item key={appTemplate.id} sm={12}>
-                            <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
-                        </Grid>
-                    ))}
-                </Grid>
             <AppTemplateDialog
                 appTemplate={selectedAppTemplate}
                 open={openDialog}
