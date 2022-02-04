@@ -1,7 +1,7 @@
 import {makeStyles} from "@mui/styles"
 
 const drawerWidth = 240;
-const appBarHeight = "5rem";
+const appBarHeight = "3rem";
 
 const AppHeaderStyles = makeStyles(theme => ({
     root: {
@@ -9,7 +9,7 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.modal + 1,
-        height: "5rem",
+        height: "3rem",
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {

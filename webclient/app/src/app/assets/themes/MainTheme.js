@@ -18,11 +18,39 @@ class MainTheme {
         } 
     };
 
+    mixins = {
+        toolbar: {
+            minHeight: 48
+        }
+    }
+    
+
     typography = {
         useNextVariants: true,
         color: "#000",
-        fontFamily: "Arial",
-        fontSize: 16
+        fontFamily: "Lato, sans-serif",
+        fontSize: 16,
+        body1: {
+        },
+        body2: {
+        },
+        h1: {
+            fontSize: "2rem",
+            fontWeight: 400,
+            textTransform: "uppercase",
+        },
+        h2: {
+            fontSize: "2rem",
+            fontWeight: 400,
+            textTransform: "uppercase",
+        },
+        h5: {
+            fontSize: "1.4rem",
+        },
+        h6: {
+            fontSize: "1.2rem",
+            marginBottom: 5
+        }
     };
 
     shape = {
@@ -32,6 +60,13 @@ class MainTheme {
     overrides = {};
 
     components = {
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    padding: 0
+                }
+            }
+        },
         MuiCard: {
             styleOverrides: {
                 root: {
@@ -45,6 +80,10 @@ class MainTheme {
                 // Name of the slot
                 textPrimary: {
                     fontWeight: 600
+                },
+                textSecondary: {
+                    fontWeight: "medium",
+                    fontSize: "1rem"
                 },
                 containedPrimary: {
                     boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)',
