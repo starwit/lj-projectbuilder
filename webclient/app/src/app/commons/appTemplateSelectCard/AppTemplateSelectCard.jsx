@@ -18,15 +18,15 @@ function AppTemplateSelectCard(props) {
     return (
         <Card elevation={5}>
             <CardActionArea onClick={() => onSelection(template)} disabled={selected}>
-            <CardContent >
-                <Typography gutterBottom variant="h5" component="div">
-                    {template.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {template.description}
-                </Typography>
-            </CardContent>
-            {renderSelectedAlert()}
+                <CardContent >
+                    <Typography gutterBottom variant="h5" component="div">
+                        {template.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {template.description}
+                    </Typography>
+                </CardContent>
+                {renderSelectedAlert()}
             </CardActionArea>
         </Card>
     )

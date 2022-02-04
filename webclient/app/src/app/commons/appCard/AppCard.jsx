@@ -55,8 +55,8 @@ function AppCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                                <IconButton onClick={onEditClick}><Edit /></IconButton>
-                                <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete /></IconButton>
+                                <IconButton onClick={onEditClick}><Edit fontSize={"small"} /></IconButton>
+                                <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete fontSize={"small"} /></IconButton>
  
                         </Grid>
                     </Grid>
