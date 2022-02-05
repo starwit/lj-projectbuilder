@@ -1,6 +1,6 @@
 import React from "react";
 import {Skeleton, Typography, Container, Grid, List, ListItem, ListItemText} from "@mui/material";
-import ErSection from "../entities/EntityDiagram";
+import EntityDiagram from "../entities/entityDiagram/EntityDiagram";
 import PropTypes from "prop-types";
 import AppStepsStyles from "./AppStepsStyles";
 import {useTranslation} from "react-i18next";
@@ -72,7 +72,7 @@ function AppConclusion(props) {
 
             </Grid>
             <Typography variant={"h4"} gutterBottom>{t("app.erdiagram")}</Typography>
-            <ErSection entities={entities} 
+            <EntityDiagram entities={entities} 
                 appId={+appId}
                 coordinates={coordinates}
                 dense 

@@ -1,12 +1,12 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
-import TemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
-import ErDesigner from "../../features/apps/entities/EntityDiagram";
+import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
+import ErDesigner from "../../features/apps/entities/entityDiagram/EntityDiagram";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
-import ConclusionSection from "../../features/apps/appSteps/AppConclusion";
-import GeneralSection from "../../features/apps/appSteps/AppGeneral";
+import AppConclusion from "../../features/apps/appSteps/AppConclusion";
+import AppGeneral from "../../features/apps/appSteps/AppGeneral";
 import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
@@ -28,7 +28,7 @@ function AppEditor() {
 
     const [isAppLoading, setIsAppLoading] = useState(false);
     const [appName, setAppName] = useState("");
-    const [generalSectionHasFormError, setGeneralSectionHasFormError] = useState(false)
+    const [appGeneralHasFormError, setAppGeneralHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
     const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
@@ -61,7 +61,7 @@ function AppEditor() {
 
     useEffect(() => {
 
-        setGeneralSectionHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName))
+        setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName))
 
     }, [packageName, appName])
 
@@ -74,7 +74,7 @@ function AppEditor() {
     const steps = [
         {
             label: t("appEditor.section.general.title"),
-            component: <GeneralSection
+            component: <AppGeneral
                 isCreate={isNewApp}
                 packageName={packageName}
                 appName={appName}
@@ -84,12 +84,12 @@ function AppEditor() {
                 assignedGroups={groupsToAssign}
                 setAssignedGroups={setGroupsToAssign}
             />,
-            condition: appName !== "" && packageName !== "" && !generalSectionHasFormError
+            condition: appName !== "" && packageName !== "" && !appGeneralHasFormError
         },
         {
             label: t("appEditor.section.template.title"),
             component: (
-                <TemplateSelection
+                <AppTemplateSelection
                     onChange={setSelectedTemplate}
                     value={selectedTemplate}
                 />
@@ -113,7 +113,7 @@ function AppEditor() {
         {
             label: t("appEditor.section.conclusion.title"),
             component: (
-                <ConclusionSection
+                <AppConclusion
                     appId={+appId}
                     entities={entities}
                     coordinates={updateRelationCoordinates(entities)}
@@ -179,7 +179,7 @@ function AppEditor() {
                     setSelectedTemplate(template);
                     handleUpdateEntities(entities);
                     setGroupsToAssign(groupsToAssign);
-                    history.push(`/app/${id}/edit`);
+                    history.push(`/apps/${id}/edit`);
                     return response;
                 })
                 .catch(response => setSaveError(response.data))
@@ -277,6 +277,5 @@ function AppEditor() {
     )
 
 }
-
 
 export default AppEditor;

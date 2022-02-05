@@ -62,7 +62,7 @@ function AppCard(props) {
                     </Grid>
                 </CardContent>
                 <Divider />
-                <CardActionArea onClick={() => history.push("/app/" + app.id)}>
+                <CardActionArea onClick={() => history.push("/apps/" + app.id)}>
                     <CardContent>
                         <Typography variant="body2" className={appCardStyles.description}>
                             {app.packageName}

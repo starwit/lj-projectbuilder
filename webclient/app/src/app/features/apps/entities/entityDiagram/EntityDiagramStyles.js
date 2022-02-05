@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const ErSectionStyles = makeStyles(theme => ({
+const EntityDiagramStyles = makeStyles(theme => ({
 
     addFab: {
         position: "absolute",
@@ -45,4 +45,4 @@ const ErSectionStyles = makeStyles(theme => ({
     }
 
 }))
-export default ErSectionStyles;
+export default EntityDiagramStyles;

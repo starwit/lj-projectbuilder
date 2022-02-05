@@ -3,22 +3,22 @@ import {Button, Drawer, Fab} from "@mui/material";
 import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import ErDesignerStyles from "./ErSectionStyles";
+import EntityDiagramStyles from "./EntityDiagramStyles";
 import Draggable from "react-draggable";
-import EntityDialog from "./entityDialog/EntityDialog";
-import EntityCard from "./entityCard/EntityCard";
+import EntityDialog from "../entityDialog/EntityDialog";
+import EntityCard from "../entityCard/EntityCard";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
-import Statement from "../../../commons/statement/Statement";
-import EntityRest from "../../../services/EntityRest";
-import MainTheme from "../../../assets/themes/MainTheme";
-import { renderRelations } from "./HandleRelations";
+import Statement from "../../../../commons/statement/Statement";
+import EntityRest from "../../../../services/EntityRest";
+import MainTheme from "../../../../assets/themes/MainTheme";
+import { renderRelations } from "../HandleRelations";
 
-function ErDesigner(props) {
+function EntityDiagram(props) {
 
     const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
 
-    const erDesignerStyles = ErDesignerStyles();
+    const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentEntity, setCurrentEntity] = useState(false);
@@ -103,7 +103,7 @@ function ErDesigner(props) {
                     axis={"both"}
                     onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
                     key={entity.id + index + ""}
-                    defaultClassName={erDesignerStyles.draggable}
+                    defaultClassName={entityDiagramStyles.draggable}
                     defaultPosition={entityCardPosition}
                     disabled={!editable}
                 >
@@ -126,7 +126,7 @@ function ErDesigner(props) {
         }
 
         return (
-            <div className={erDesignerStyles.addFab}>
+            <div className={entityDiagramStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={addEntity}>
                     <Add/>
                 </Fab>
@@ -137,9 +137,9 @@ function ErDesigner(props) {
 
     function generateWrapper() {
         if (dense) {
-            return erDesignerStyles.draggableWrapperDense
+            return entityDiagramStyles.draggableWrapperDense
         }
-        return erDesignerStyles.draggableWrapper
+        return entityDiagramStyles.draggableWrapper
     }
 
     function closeEntityDialog() {
@@ -149,7 +149,7 @@ function ErDesigner(props) {
 
     return (<>
         {renderAddEntityButton()}
-        <div className={erDesignerStyles.codeButtonWrapper}>
+        <div className={entityDiagramStyles.codeButtonWrapper}>
             <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
                 {t("entityDesigner.code")}
             </Button>
@@ -159,7 +159,7 @@ function ErDesigner(props) {
                 anchor={"left"}
                 open={drawerOpen}
                 onClose={closeDrawer}
-                className={erDesignerStyles.drawer}
+                className={entityDiagramStyles.drawer}
             >
                 <SyntaxHighlighter
                     language="json"
@@ -169,7 +169,7 @@ function ErDesigner(props) {
                         lineHeight: "1.5", fontSize: ".75em"
                     }}
                     codeTagProps={{
-                        className: erDesignerStyles.syntaxHighlighterCodeTag
+                        className: entityDiagramStyles.syntaxHighlighterCodeTag
                     }}
                 >
                     {JSON.stringify(entities, null, 4)}
@@ -192,7 +192,7 @@ function ErDesigner(props) {
     </>)
 }
 
-ErDesigner.propTypes = {
+EntityDiagram.propTypes = {
     appId: PropTypes.number,
     handleUpdateEntities: PropTypes.func,
     entities: PropTypes.array,
@@ -200,8 +200,8 @@ ErDesigner.propTypes = {
     dense: PropTypes.bool
 }
 
-ErDesigner.defaultProps = {
+EntityDiagram.defaultProps = {
     editable: true, entities: [], dense: false
 };
 
-export default ErDesigner;
+export default EntityDiagram;

@@ -16,7 +16,7 @@ import { Delete, ExpandMore } from "@mui/icons-material";
 import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
 import { useTranslation } from "react-i18next";
-import { RelationshipType } from "./Relationship";
+import { RelationshipType } from "../Relationship";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 

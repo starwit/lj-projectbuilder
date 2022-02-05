@@ -21,7 +21,7 @@ function AppHeader() {
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/")}>{t("appHeader.apps")}</Button>
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/apptemplate/all")}>{t("appHeader.apptemplates")}</Button>
+                            onClick={() => history.push("/apptemplates/all")}>{t("appHeader.apptemplates")}</Button>
                     <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/logout")}><Logout /></IconButton>
                 </Toolbar>

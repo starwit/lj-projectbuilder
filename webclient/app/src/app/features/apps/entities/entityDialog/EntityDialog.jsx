@@ -21,9 +21,9 @@ import Statement from "../../../../commons/statement/Statement";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
-import { defaultRelationship } from "../relationshipAccordion/Relationship";
+import { defaultRelationship } from "../Relationship";
 import {LoadingButton} from "@mui/lab";
-import { emptyEntity, newEntity } from "./Entity";
+import { emptyEntity, newEntity } from "../Entity";
 import EntityRest from "../../../../services/EntityRest";
 
 

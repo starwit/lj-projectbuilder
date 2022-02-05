@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import ConclusionSection from "../../features/apps/appSteps/AppConclusion";
+import AppConclusion from "../../features/apps/appSteps/AppConclusion";
 import ApplicationRest from "../../services/ApplicationRest";
 import {useParams} from "react-router-dom";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
@@ -51,7 +51,7 @@ function AppOverview(props) {
     }
 
     return (<>
-        <ConclusionSection
+        <AppConclusion
             appId={+appId}
             appName={app.baseName}
             entities={app.entities}

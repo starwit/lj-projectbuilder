@@ -9,7 +9,7 @@ import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
 import AppOverviewStyles from "./AppOverviewStyles";
 
-function Home() {
+function AppOverview() {
     const history = useHistory();
     const {t} = useTranslation();
     const applicationRest = useMemo(() => new ApplicationRest(), []);
@@ -69,7 +69,7 @@ function Home() {
                     <Grid item sm={6} xs={12} key={app.id}>
                         <AppCard
                             onEditClick={() => {
-                                history.push("/app/" + app.id + "/edit")
+                                history.push("/apps/" + app.id + "/edit")
                             }}
                             onDeleteClick={deleteById}
                             app={app}/>
@@ -95,4 +95,4 @@ function Home() {
 
 }
 
-export default Home;
+export default AppOverview;
