@@ -82,7 +82,6 @@ function AppConclusion(props) {
     )
 }
 
-
 AppConclusion.propTypes = {
     appId: PropTypes.number,
     entities: PropTypes.array,

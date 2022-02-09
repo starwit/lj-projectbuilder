@@ -86,7 +86,7 @@ function EntityDiagram(props) {
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={t("app.entitys.emtpy")}/>
+            return <Statement message={t("app.entities.empty")}/>
         }
         return entities.map((entity, index) => {
 

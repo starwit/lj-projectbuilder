@@ -8,7 +8,7 @@ import {Clear} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
 
-function TemplateSection(props) {
+function AppTemplateSelection(props) {
 
     const {onChange, value} = props;
 
@@ -69,10 +69,10 @@ function TemplateSection(props) {
 
 }
 
-TemplateSection.defaultProps = {
+AppTemplateSelection.defaultProps = {
     onChange: () => {
         //This is intentional
     }
 }
 
-export default TemplateSection;
+export default AppTemplateSelection;

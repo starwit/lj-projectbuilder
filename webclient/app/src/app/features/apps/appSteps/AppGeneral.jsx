@@ -6,7 +6,7 @@ import RegexConfig from "../../../../regexConfig";
 import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
 
-function app.section.general(props) {
+function AppGeneral(props) {
 
     const {t} = useTranslation();
     const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
@@ -60,4 +60,4 @@ function app.section.general(props) {
 
 }
 
-export default app.section.general;
+export default AppGeneral;

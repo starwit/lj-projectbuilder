@@ -42,7 +42,7 @@ const translationsDeDE = {
     "app.packageName.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "app.template.select": "Auswählen",
     "app.template.selected": "Ausgewählt",
-    "app.entitys.emtpy": "keine Entitäten vorhanden",
+    "app.entities.empty": "keine Entitäten vorhanden",
     
     "app.section.general": "General",
     "app.section.general.hello": "Hallo!",

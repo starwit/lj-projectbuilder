@@ -42,7 +42,7 @@ const translationsEnEN = {
     "app.packageName.hint": "Upper and lower cased chars and numbers are allowed",
     "app.template.select": "Select",
     "app.template.selected": "Selected",
-    "app.entitys.emtpy": "no entities",
+    "app.entities.empty": "no entities",
 
     "app.section.general": "General",
     "app.section.general.hello": "Hello!",
