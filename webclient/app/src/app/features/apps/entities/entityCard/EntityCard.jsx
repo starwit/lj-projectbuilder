@@ -47,7 +47,7 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell>{t("field.name")}
+                        <TableCell>{t("field.fieldName")}
                         </TableCell>
                         <TableCell>{t("field.fieldType")}
                         </TableCell>

@@ -57,7 +57,7 @@ function AppOverview(props) {
             entities={app.entities}
             coordinates={coordinates}
             packageName={app.packageName}
-            templateName={app.section.template.name}
+            templateName={app.template.name}
             credentialsRequired={app.template.credentialsRequired}
         />
     </>);
