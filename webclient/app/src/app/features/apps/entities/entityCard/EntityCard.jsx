@@ -15,7 +15,7 @@ function EntityCard(props) {
     const {t} = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entityCard.newEntity")}</Typography>
+        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>
         if (name) {
             value = <Typography variant={"h6"}>{name}</Typography>
         }
@@ -39,7 +39,7 @@ function EntityCard(props) {
         if (!entity.fields || entity.fields.length === 0) {
             return (
                 <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={t("entityCard.noFields")}/>
+                    <Statement message={t("entity.fields.empty")}/>
                 </div>
             )
         }
@@ -47,9 +47,9 @@ function EntityCard(props) {
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell>{t("entityCard.name")}
+                        <TableCell>{t("entity.name")}
                         </TableCell>
-                        <TableCell>{t("entityCard.dataType")}
+                        <TableCell>{t("field.fieldType")}
                         </TableCell>
                     </TableRow>
                 </TableHead>

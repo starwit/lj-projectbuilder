@@ -33,7 +33,7 @@ function RelationshipAccordion(props) {
     const { t } = useTranslation();
 
     function renderAccordionTitle() {
-        let value = t("relationship.newRelation");
+        let value = t("relationship.new");
         if (currentEntity.name && relationship.otherEntityName) {
             value = `${currentEntity.name} -> ${relationship.otherEntityName} (${relationship.relationshipType})`;
         }
@@ -58,7 +58,7 @@ function RelationshipAccordion(props) {
                             <Grid item sm={12}>
                                 <FormControl fullWidth>
                                     <InputLabel
-                                        id="relationType">{t("relationship.relationType")}</InputLabel>
+                                        id="relationType">{t("relationship.relationshipType")}</InputLabel>
                                     <Select
                                         labelId="relationType"
                                         id="relationTypeSelect"
@@ -89,7 +89,7 @@ function RelationshipAccordion(props) {
                                         label={ t("relationship.sourceField") }
                                         value={relationship.relationshipName}
                                         onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
-                                        helperText={ t("relationship.sourceField.description", {entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity")} )}
+                                        helperText={ t("relationship.sourceField.hint", {entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity")} )}
                                         regex={RegexConfig.relationship}
                                     />
                                 </FormControl>
@@ -122,7 +122,7 @@ function RelationshipAccordion(props) {
                                         label={ t("relationship.targetField") }
                                         value={relationship.otherEntityRelationshipName}
                                         onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
-                                        helperText={ t("relationship.targetField.description", {entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity")} )}
+                                        helperText={ t("relationship.targetField.hint", {entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity")} )}
                                         regex={RegexConfig.relationship}
                                     />
                                 </FormControl>

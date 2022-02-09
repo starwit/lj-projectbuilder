@@ -234,7 +234,7 @@ function EntityDialog(props) {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entityDialog.noRelations")}/>
+                    <Statement message={t("entity.relations.empty")}/>
                 </div>
             )
         }
@@ -256,7 +256,7 @@ function EntityDialog(props) {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entityDialog.noFields")}/>
+                    <Statement message={t("entity.fields.empty")}/>
                 </div>
             )
         }
@@ -287,7 +287,7 @@ function EntityDialog(props) {
     }
 
     if (!entity) {
-        return <LoadingSpinner message={t("entityDialog.domainIsLoading")}/>
+        return <LoadingSpinner message={t("entity.isLoading")}/>
     }
 
     return (
@@ -298,7 +298,7 @@ function EntityDialog(props) {
                     variant={"h6"}
                     component={"p"}
                 >
-                    {t("entityDialog.editEntity", {entityName: entity.name})}
+                    {t("entity.edit", {entityName: entity.name})}
                 </Typography>
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
@@ -312,16 +312,16 @@ function EntityDialog(props) {
                 <ValidatedTextField
                     isCreate={entity.isNewEntity}
                     fullWidth
-                    label={t("entityDialog.name") + "*"}
+                    label={t("entity.name") + "*"}
                     value={entity.name}
                     onChange={handleEntityTitleText}
-                    helperText={t("entityDialog.name.error")}
+                    helperText={t("entity.name.hint")}
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
                     <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
-                        <Tab label={t("entityDialog.tab.fields")} {...a11yProps(0)} />
-                        <Tab label={t("entityDialog.tab.relations")} {...a11yProps(1)} />
+                        <Tab label={t("entity.fields")} {...a11yProps(0)} />
+                        <Tab label={t("entity.relations")} {...a11yProps(1)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
                         {renderFields()}
