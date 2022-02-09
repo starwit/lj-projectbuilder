@@ -287,7 +287,7 @@ function EntityDialog(props) {
     }
 
     if (!entity) {
-        return <LoadingSpinner message={t("entity.isLoading")}/>
+        return <LoadingSpinner message={t("entity.loading")}/>
     }
 
     return (

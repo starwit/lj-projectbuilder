@@ -88,7 +88,7 @@ function GitDataButton(props) {
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
                 <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
-                        {t("appTemplateAuthDialog.title")}
+                        {t("gitAuth.title")}
                     </Typography>
                     <div className={gitDataButtonStyles.flex} />
                     <IconButton
@@ -110,23 +110,23 @@ function GitDataButton(props) {
                     <ErrorAlert alert={alert} />
                     <ValidatedTextField
                         fullWidth
-                        label={t("appTemplateAuthDialog.user") + "*"}
+                        label={t("gitAuth.username") + "*"}
                         value={downloadRequestData.username}
                         name="username"
                         onChange={handleChange}
                         isCreate={true}
-                        helperText={t("appTemplateAuthDialog.user.error")}
+                        helperText={t("gitAuth.username.hint")}
                         regex={RegexConfig.appTemplateAuthUser}
                     />
                     <ValidatedTextField
                         type="password"
                         fullWidth
-                        label={t("appTemplateAuthDialog.password") + "*"}
+                        label={t("gitAuth.password") + "*"}
                         value={downloadRequestData.password}
                         name="password"
                         onChange={handleChange}
                         isCreate={true}
-                        helperText={t("appTemplateAuthDialog.password.error")}
+                        helperText={t("gitAuth.password.hint")}
                         autoComplete="on"
                         regex={RegexConfig.appTemplateAuthPassword}
                     />

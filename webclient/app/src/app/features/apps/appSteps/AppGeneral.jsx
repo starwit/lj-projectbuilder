@@ -6,7 +6,7 @@ import RegexConfig from "../../../../regexConfig";
 import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
 
-function GeneralSection(props) {
+function app.section.general(props) {
 
     const {t} = useTranslation();
     const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
@@ -22,9 +22,9 @@ function GeneralSection(props) {
             <Grid container spacing={5}>
                 <Grid item md={8}>
                     <ValidatedTextField
-                        label={t("generalSection.nameOfApp") + "*"}
+                        label={t("app.name") + "*"}
                         regex={RegexConfig.applicationBaseName}
-                        helperText={t("generalSection.nameOfApp.error")}
+                        helperText={t("app.name.hint")}
                         value={appName}
                         fullWidth
                         onChange={event => setAppName(event.target.value)}
@@ -32,9 +32,9 @@ function GeneralSection(props) {
                     />
                     <div className={appStepsStyles.padding}/>
                     <ValidatedTextField
-                        label={t("generalSection.packageNameOfApp") + "*"}
+                        label={t("app.packageName") + "*"}
                         regex={RegexConfig.packageName}
-                        helperText={t("generalSection.packageNameOfApp.error")}
+                        helperText={t("app.packageName.hint")}
                         value={packageName}
                         fullWidth
                         onChange={event => setPackageName(event.target.value)}
@@ -49,9 +49,9 @@ function GeneralSection(props) {
                     />
                 </Grid>
                 <Grid item md={4}>
-                    <Typography variant={"h3"} gutterBottom>{t("generalSection.hello")}</Typography>
-                    <Typography variant={"body1"} gutterBottom>{t("generalSection.enterInformation")}</Typography>
-                    <Typography variant={"body1"} gutterBottom>{t("generalSection.clickNext")}</Typography>
+                    <Typography variant={"h3"} gutterBottom>{t("app.section.general.hello")}</Typography>
+                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.enterInformation")}</Typography>
+                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.clickNext")}</Typography>
                 </Grid>
             </Grid>
 
@@ -60,4 +60,4 @@ function GeneralSection(props) {
 
 }
 
-export default GeneralSection;
+export default app.section.general;

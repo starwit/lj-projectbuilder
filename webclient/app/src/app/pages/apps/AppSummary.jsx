@@ -37,13 +37,13 @@ function AppOverview(props) {
 
     if (!app && !appError) {
         return <LoadingSpinner
-            message={t("appOverview.app.isLoading")}
+            message={t("app.loading")}
         />
     }
 
     if (appError) {
         return <Statement
-            message={t("appOverview.app.error")}
+            message={t("app.LoadingError")}
             icon={<Clear/>}
             actionMessage={t("button.retry")}
             onActionClick={() => loadApp(appId)}
@@ -57,7 +57,7 @@ function AppOverview(props) {
             entities={app.entities}
             coordinates={coordinates}
             packageName={app.packageName}
-            templateName={app.template.name}
+            templateName={app.section.template.name}
             credentialsRequired={app.template.credentialsRequired}
         />
     </>);

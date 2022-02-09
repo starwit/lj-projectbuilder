@@ -73,7 +73,7 @@ function AppEditor() {
 
     const steps = [
         {
-            label: t("appEditor.section.general.title"),
+            label: t("app.section.general"),
             component: <AppGeneral
                 isCreate={isNewApp}
                 packageName={packageName}
@@ -87,7 +87,7 @@ function AppEditor() {
             condition: appName !== "" && packageName !== "" && !appGeneralHasFormError
         },
         {
-            label: t("appEditor.section.template.title"),
+            label: t("app.section.template"),
             component: (
                 <AppTemplateSelection
                     onChange={setSelectedTemplate}
@@ -97,7 +97,7 @@ function AppEditor() {
             condition: selectedTemplate
         },
         {
-            label: t("appEditor.section.erDesigner.title"),
+            label: t("app.section.entityDiagram"),
             component: (
                 <ErDesigner
                     appId={+appId}
@@ -111,7 +111,7 @@ function AppEditor() {
             condition: entities.length >= 1
         },
         {
-            label: t("appEditor.section.conclusion.title"),
+            label: t("app.section.conclusion"),
             component: (
                 <AppConclusion
                     appId={+appId}
@@ -237,7 +237,7 @@ function AppEditor() {
     }
 
     if (isAppLoading) {
-        return <LoadingSpinner message={t("appEditor.loading")}/>;
+        return <LoadingSpinner message={t("app.loading")}/>;
     }
 
     return (
