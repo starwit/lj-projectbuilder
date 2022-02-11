@@ -43,12 +43,12 @@ function AppTemplateCard(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialogContent = ({ "title": t("appTemplateDeleteDialog.title"), "message": t("appTemplateDeleteDialog.message") });
+    const deleteDialogContent = ({ "title": t("appTemplate.delete.title"), "message": t("appTemplate.delete.message") });
 
-    const deleteErrorDialogContent = ({ "title": t("appTemplateErrorDialog.title"), "message": t("appTemplateErrorDialog.deleteMessage") });
+    const deleteErrorDialogContent = ({ "title": t("appTemplate.error.title"), "message": t("appTemplate.error.message") });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
-    const successDialogContent = ({ "title": t("appTemplateSuccessDialog.title"), "message": t("appTemplateSuccessDialog.message") });
+    const successDialogContent = ({ "title": t("appTemplate.success.title"), "message": t("appTemplate.success.message") });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
     const closeDeleteDialog = () => {
@@ -128,7 +128,7 @@ function AppTemplateCard(props) {
                                     <ListItemIcon>
                                         <GitHub />
                                     </ListItemIcon>
-                                    <ListItemText primary={appTemplate.location} secondary={t("templateCard.branch") + ": " + appTemplate.branch} />
+                                    <ListItemText primary={appTemplate.location} secondary={t("appTemplate.branch") + ": " + appTemplate.branch} />
                                 </ListItem>
                             </List>
                         </Grid>
@@ -144,7 +144,7 @@ function AppTemplateCard(props) {
                 </CardContent>
 
                 <Divider>
-                    <Chip label={t("templateCard.config")} />
+                    <Chip label={t("appTemplate.config")} />
                     <ExpandMore
                         expand={expanded}
                         onClick={() => handleExpandClick(appTemplate.id)}

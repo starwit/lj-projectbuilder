@@ -83,11 +83,11 @@ function AppCard(props) {
                 onClose={() => setOpenDeleteDialog(false)}
             >
                 <DialogTitle>
-                    {t("appCard.sureToDelete.title")}
+                    {t("app.delete.title")}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t("appCard.sureToDelete.message")}
+                        {t("app.delete.message")}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

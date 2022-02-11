@@ -111,9 +111,9 @@ function AppTemplateDialog(props) {
 
     const insertTitle = () => {
         if (isCreateDialog) {
-            return (<Typography noWrap variant={"h6"} component={"p"}>{t("appTemplateDialog.new.title")}</Typography>);
+            return (<Typography noWrap variant={"h6"} component={"p"}>{t("apptemplate.new")}</Typography>);
         } else {
-            return (<Typography noWrap variant={"h6"} component={"p"}>{t("appTemplateDialog.title", { appTemplateName: internalAppTemplate.name })}</Typography>);
+            return (<Typography noWrap variant={"h6"} component={"p"}>{t("apptemplate.edit", { appTemplateName: internalAppTemplate.name })}</Typography>);
         }
     }
 
@@ -141,27 +141,27 @@ function AppTemplateDialog(props) {
                 <ErrorAlert alert={alert} onClose={closeAlert} />
                 <ValidatedTextField
                     fullWidth
-                    label={t("appTemplateDialog.location") + "*" }
+                    label={t("apptemplate.location") + "*" }
                     value={internalAppTemplate.location}
                     name="location" 
                     onChange={handleChange}
                     isCreate={isCreateDialog}
-                    helperText={t("appTemplateDialog.location.error")}
+                    helperText={t("apptemplate.location.hint")}
                     regex={RegexConfig.appTemplateLocation}
                 />
                 <ValidatedTextField 
                     fullWidth 
-                    label={t("appTemplateDialog.branch")} 
+                    label={t("appTemplate.branch")} 
                     value={internalAppTemplate.branch} 
                     name="branch" 
                     onChange={handleChange}
                     isCreate={isCreateDialog}
-                    helperText={t("appTemplateDialog.branch.error")}
+                    helperText={t("appTemplate.branch.hint")}
                     regex={RegexConfig.appTemplateBranch}
                 />
                 <TextField 
                     fullWidth 
-                    label={t("appTemplateDialog.description")} 
+                    label={t("appTemplate.description")} 
                     value={internalAppTemplate.description} 
                     name="description" 
                     onChange={handleChange} 
@@ -180,7 +180,7 @@ function AppTemplateDialog(props) {
                                 name="credentialsRequired" onChange={handleCredentialsCheckbox} 
                             />
                         } 
-                        label={t("appTemplateDialog.credentialsRequired")} 
+                        label={t("appTemplate.credentialsRequired")} 
                     />
                 </FormGroup>
                 <DialogActions>

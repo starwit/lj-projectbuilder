@@ -42,12 +42,12 @@ function AppOverview() {
 
     function renderApps() {
         if (!apps) {
-            return <LoadingSpinner message={t("home.loading")}/>;
+            return <LoadingSpinner message={t("apps.loading")}/>;
         }
 
         if (appsError) {
             return <Statement
-                message={t("home.loadingError")}
+                message={t("apps.loadingError")}
                 icon={<Clear/>}
                 actionMessage={t("button.retry")}
                 onActionClick={loadApps}
@@ -58,7 +58,7 @@ function AppOverview() {
             return (
                 <Statement
                     icon={<Add/>}
-                    message={t("home.noApps")}
+                    message={t("apps.empty")}
                 />
             )
         }
@@ -82,7 +82,7 @@ function AppOverview() {
     return (
         <Container>
             <Typography variant={"h2"} gutterBottom>
-                {t("home.yourApps")}
+                {t("apps.title")}
             </Typography>
             {renderApps()}
             <div className={appOverviewStyles.addFab}>

@@ -55,7 +55,7 @@ function AppTemplateOverview() {
     return (
         <Container>
             <Typography variant={"h2"} gutterBottom>
-                {t("appTemplateOverview.title")}
+                {t("apptemplates.title")}
             </Typography>
             <Grid container spacing={2}>
                 {data.map(appTemplate => (
