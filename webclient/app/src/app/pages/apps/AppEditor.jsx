@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
 import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
-import ErDesigner from "../../features/apps/entities/entityDiagram/EntityDiagram";
+import EntityDiagram from "../../features/apps/entities/entityDiagram/EntityDiagram";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
@@ -99,13 +99,11 @@ function AppEditor() {
         {
             label: t("app.section.entityDiagram"),
             component: (
-                <ErDesigner
+                <EntityDiagram
                     appId={+appId}
                     entities={entities}
                     coordinates={entityRelationCoordinates}
-                    handleUpdateEntities={updatedEntities => {
-                        handleUpdateEntities(updatedEntities);
-                    }}
+                    handleUpdateEntities={handleUpdateEntities}
                 />
             ),
             condition: entities.length >= 1
