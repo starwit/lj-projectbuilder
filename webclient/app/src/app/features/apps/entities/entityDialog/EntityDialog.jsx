@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {
     Box,
     Button,
@@ -21,9 +21,9 @@ import Statement from "../../../../commons/statement/Statement";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
-import { defaultRelationship } from "../Relationship";
+import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
-import { emptyEntity, newEntity } from "../Entity";
+import {emptyEntity, newEntity} from "../Entity";
 import EntityRest from "../../../../services/EntityRest";
 
 
@@ -36,11 +36,11 @@ function EntityDialog(props) {
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
     const entityRest = useMemo(() => new EntityRest(), []);
-    
+
     useEffect(() => {
         if (entityId) {
             setEntity({...entities.find(entity_ => entity_.id === entityId)});
-        } else{
+        } else {
             setEntity({...newEntity})
         }
     }, [entityId, entities])
@@ -143,6 +143,7 @@ function EntityDialog(props) {
     function prepareSave() {
 
         setIsSaving(true);
+        console.log("saving", entity)
         handleSave(entity)
             .then(() => {
                 entityRest.findAllEntitiesByApp(appId)
@@ -229,7 +230,6 @@ function EntityDialog(props) {
     }
 
 
-
     function renderRelations() {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
@@ -242,7 +242,7 @@ function EntityDialog(props) {
             return (
                 <RelationshipAccordion
                     key={index}
-                    relationship = {relationship}
+                    relationship={relationship}
                     targetEntities={getTargetEntities()}
                     editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
                     currentEntity={entity}
@@ -291,7 +291,7 @@ function EntityDialog(props) {
     }
 
     return (
-        <Dialog open={!!entityId || (open && entity.isNewEntity) } maxWidth={"xl"} fullWidth>
+        <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography
                     noWrap

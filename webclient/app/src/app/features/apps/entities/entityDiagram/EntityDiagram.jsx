@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import { renderRelations } from "../HandleRelations";
+import {renderRelations} from "../HandleRelations";
 
 function EntityDiagram(props) {
 
@@ -68,6 +68,7 @@ function EntityDiagram(props) {
         }
         setCurrentEntity(updatedEntity);
 
+        console.log("entity before send", updatedEntity);
         return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
