@@ -62,16 +62,18 @@ public class GeneratorService {
 		Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 
 		for (TemplateFile templateFile : templateFiles) {
-			generatePath(templateData, templateFile);
 			if (templateFile.isAppend()) {
+				generatePath(templateData, templateFile);
 				generateAdditionalContent(templateData, templateFile);
 			} else if (templateFile.getFileName().contains("${domain")
 					|| templateFile.getFileName().contains("${entity")) {
 				for (Domain domain : domains) {
 					templateData.putAll(fillTemplateDomainParameter(domain));
+					generatePath(templateData, templateFile);
 					generateFileWithOverride(templateData, templateFile);
 				}
 			} else {
+				generatePath(templateData, templateFile);
 				generateFileWithOverride(templateData, templateFile);
 			}
 		}
