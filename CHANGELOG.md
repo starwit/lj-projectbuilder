@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-10...v0.3.0) (2022-02-16)
+
+
+### Features
+
+*  improved error handling of generator ab[#157](https://github.com/starwit/lj-projectbuilder/issues/157) ([fd7ca49](https://github.com/mokkapps/changelog-generator-demo/commits/fd7ca49de96a0d1c5145ac6592e28698f8113e0c))
+* field validation (ab[#49](https://github.com/starwit/lj-projectbuilder/issues/49)) ([#240](https://github.com/starwit/lj-projectbuilder/issues/240)) ([bf68903](https://github.com/mokkapps/changelog-generator-demo/commits/bf68903751f7232fc90a6169fc6ab9272dc2b207))
+* limit app & template visibility via groups ([a13ff1e](https://github.com/mokkapps/changelog-generator-demo/commits/a13ff1e455acc0d61bb56f3760a7bfd3389d182d))
+* ui for save relations ([b512c74](https://github.com/mokkapps/changelog-generator-demo/commits/b512c74abcbccc0312abaa5de6b84ccc5bed47bd)), closes [Feature/ab#79](https://github.com/Feature/ab/issues/79) [#237](https://github.com/starwit/lj-projectbuilder/issues/237) [feature/ab#79](https://github.com/feature/ab/issues/79)
+* view and save releationships for entity (ab[#79](https://github.com/starwit/lj-projectbuilder/issues/79)) ([a7d43b4](https://github.com/mokkapps/changelog-generator-demo/commits/a7d43b4bb7a45ed2d6d7e77db834250f567c9a5d)), closes [ab#49](https://github.com/starwit/ab/issues/49)
+
 ### [0.2.13-13](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-12...v0.2.13-13) (2022-02-04)
 
 ### [0.2.13-12](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-11...v0.2.13-12) (2022-02-04)
