@@ -10,7 +10,7 @@ function AppTemplateSelectCard(props) {
     function renderSelectedAlert() {
         if (selected) {
             return (
-                <Alert severity={"success"}>{t("templateCard.selected")}</Alert>
+                <Alert severity={"success"}>{t("app.template.selected")}</Alert>
             )
         }
     }

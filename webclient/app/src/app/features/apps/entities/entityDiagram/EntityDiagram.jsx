@@ -86,7 +86,7 @@ function EntityDiagram(props) {
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={t("app.entity.emtpy")}/>
+            return <Statement message={t("app.entities.empty")}/>
         }
         return entities.map((entity, index) => {
 
@@ -151,7 +151,7 @@ function EntityDiagram(props) {
         {renderAddEntityButton()}
         <div className={entityDiagramStyles.codeButtonWrapper}>
             <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                {t("entityDesigner.code")}
+                {t("entity.code")}
             </Button>
         </div>
         <React.Fragment key={"left"}>

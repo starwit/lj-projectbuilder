@@ -45,13 +45,13 @@ function AppConclusion(props) {
                 <Grid item md={9}>
                     <List className={appStepsStyles.list}>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(appName)} secondary={t("generalSection.nameOfApp")}/>
+                            <ListItemText primary={renderLoadingText(appName)} secondary={t("app.name")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("appEditor.section.template.title")}/>
+                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("app.section.template")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(packageName)} secondary={t("generalSection.packageNameOfApp")}/>
+                            <ListItemText primary={renderLoadingText(packageName)} secondary={t("app.packageName")}/>
                         </ListItem>
                     </List>
                 </Grid>
@@ -71,7 +71,7 @@ function AppConclusion(props) {
                 </Grid>
 
             </Grid>
-            <Typography variant={"h4"} gutterBottom>{t("app.erdiagram")}</Typography>
+            <Typography variant={"h4"} gutterBottom>{t("app.section.entityDiagram")}</Typography>
             <EntityDiagram entities={entities} 
                 appId={+appId}
                 coordinates={coordinates}
@@ -81,7 +81,6 @@ function AppConclusion(props) {
         </Container>
     )
 }
-
 
 AppConclusion.propTypes = {
     appId: PropTypes.number,

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
 import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
-import ErDesigner from "../../features/apps/entities/entityDiagram/EntityDiagram";
+import EntityDiagram from "../../features/apps/entities/entityDiagram/EntityDiagram";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
 import {useTranslation} from "react-i18next";
@@ -73,7 +73,7 @@ function AppEditor() {
 
     const steps = [
         {
-            label: t("appEditor.section.general.title"),
+            label: t("app.section.general"),
             component: <AppGeneral
                 isCreate={isNewApp}
                 packageName={packageName}
@@ -87,7 +87,7 @@ function AppEditor() {
             condition: appName !== "" && packageName !== "" && !appGeneralHasFormError
         },
         {
-            label: t("appEditor.section.template.title"),
+            label: t("app.section.template"),
             component: (
                 <AppTemplateSelection
                     onChange={setSelectedTemplate}
@@ -97,21 +97,19 @@ function AppEditor() {
             condition: selectedTemplate
         },
         {
-            label: t("appEditor.section.erDesigner.title"),
+            label: t("app.section.entityDiagram"),
             component: (
-                <ErDesigner
+                <EntityDiagram
                     appId={+appId}
                     entities={entities}
                     coordinates={entityRelationCoordinates}
-                    handleUpdateEntities={updatedEntities => {
-                        handleUpdateEntities(updatedEntities);
-                    }}
+                    handleUpdateEntities={handleUpdateEntities}
                 />
             ),
             condition: entities.length >= 1
         },
         {
-            label: t("appEditor.section.conclusion.title"),
+            label: t("app.section.conclusion"),
             component: (
                 <AppConclusion
                     appId={+appId}
@@ -237,7 +235,7 @@ function AppEditor() {
     }
 
     if (isAppLoading) {
-        return <LoadingSpinner message={t("appEditor.loading")}/>;
+        return <LoadingSpinner message={t("app.loading")}/>;
     }
 
     return (

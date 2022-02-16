@@ -19,9 +19,9 @@ function AppHeader() {
                     <img className={appHeaderStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
                     <div className={appHeaderStyles.spacer}/>
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/")}>{t("appHeader.apps")}</Button>
+                            onClick={() => history.push("/")}>{t("apps.title")}</Button>
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/apptemplates/all")}>{t("appHeader.apptemplates")}</Button>
+                            onClick={() => history.push("/apptemplates/all")}>{t("apptemplates.title")}</Button>
                     <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
                             onClick={() => history.push("/logout")}><Logout /></IconButton>
                 </Toolbar>
