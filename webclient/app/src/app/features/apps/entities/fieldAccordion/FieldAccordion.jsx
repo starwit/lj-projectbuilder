@@ -63,14 +63,6 @@ function FieldAccordion(props) {
         return value;
     }
 
-    function loadMaxFieldValue() {
-        if (fullDataType?.useMaxLength) {
-            return maxLength
-        }
-        return max;
-    }
-
-
     function renderMinField() {
         let value = min;
         let propertyField = "fieldValidateRulesMin"
