@@ -32,8 +32,6 @@ public class AppRenamer {
 	 * @param properties
 	 */
 	public void renameAppTitle(App entity) throws NotificationException {
-		LOG.info("Try to rename app " + entity.getTemplate().getPackagePlaceholder() + ".");
-
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		String currentAppName = entity.getTemplate().getTemplateName();
@@ -46,8 +44,6 @@ public class AppRenamer {
 	 * @param properties
 	 */
 	public void renamePackage(App entity) throws NotificationException {
-		LOG.info("Try to rename package " + entity.getTitle() + ".");
-
 		File parentdirectory;
 		parentdirectory = new File(Constants.TMP_DIR + Constants.FILE_SEP + entity.getTargetPath());
 		renameDirectories(entity.getTemplate().getPackagePlaceholder(), entity.getPackagePrefix(), parentdirectory, true);
@@ -70,7 +66,6 @@ public class AppRenamer {
 			return;
 		}
 		for (File childdirectory : childfiles) {
-			LOG.info("FileName: " + childdirectory.getAbsolutePath());
 			try {
 				if (oldAppName.equals(childdirectory.getName())) {
 					String path = childdirectory.getParent() + Constants.FILE_SEP + newAppName;
@@ -99,7 +94,6 @@ public class AppRenamer {
 	private void renameFiles(String oldAppName, String newAppName, File directory) throws NotificationException {
 		Collection<File> files = FileUtils.listFiles(directory, EXT, true);
 		for (File file : files) {
-			LOG.info("FileName: " + file.getAbsolutePath());
 			renameFileContent(oldAppName, newAppName, file);
 		}
 	}
