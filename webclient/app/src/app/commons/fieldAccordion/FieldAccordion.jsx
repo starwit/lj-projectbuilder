@@ -93,7 +93,7 @@ function FieldAccordion(props) {
                         <TextField
                             fullWidth
                             label={t("fieldDialog.pattern")}
-                            value={pattern}
+                            value={pattern ?? ""}
                             onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                         />
                     </Grid>
@@ -101,7 +101,7 @@ function FieldAccordion(props) {
                         <TextField
                             fullWidth
                             label={t("fieldDialog.min")}
-                            value={min}
+                            value={min ?? ""}
                             disabled={!dataType.allowMin}
                             type={"number"}
                             onChange={(event) => editFieldProperty("fieldValidateRulesMin", event.target.value)}
@@ -111,7 +111,7 @@ function FieldAccordion(props) {
                         <TextField
                             fullWidth
                             label={t("fieldDialog.max")}
-                            value={max}
+                            value={max ?? ""}
                             type={"number"}
                             disabled={!dataType.allowMax}
                             onChange={(event) => editFieldProperty("fieldValidateRulesMax", event.target.value)}
@@ -132,7 +132,7 @@ function FieldAccordion(props) {
 }
 
 FieldAccordion.propTypes = {
-    dataType: PropTypes.object,
+    dataType: PropTypes.string,
     mandatory: PropTypes.bool,
     min: PropTypes.any,
     max: PropTypes.any,
