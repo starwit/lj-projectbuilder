@@ -172,8 +172,11 @@ function EntityDialog(props) {
                 field.fieldValidateRules.push("max");
             }
 
-        })
+            if (field.fieldValidateRulesPattern) {
+                field.fieldValidateRules.push("pattern");
+            }
 
+        })
 
         handleSave(entityModified)
             .then(() => {

@@ -68,11 +68,11 @@ function EntityDiagram(props) {
         }
         setCurrentEntity(updatedEntity);
 
-        console.log("entity before send", updatedEntity);
         return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
     function updatePosition(update, draggableData, entity) {
+
         if (!entity.position) {
             entity.position = {};
         }
