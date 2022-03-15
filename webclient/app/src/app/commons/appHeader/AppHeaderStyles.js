@@ -1,7 +1,7 @@
 import {makeStyles} from "@mui/styles"
 
 const drawerWidth = 240;
-const appBarHeight = "5rem";
+const appBarHeight = "3rem";
 
 const AppHeaderStyles = makeStyles(theme => ({
     root: {
@@ -9,8 +9,7 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.modal + 1,
-        backgroundColor: theme.palette.primary.main,
-        height: "5rem",
+        height: "3rem",
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -61,7 +60,8 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "#c7c7c7",
+        backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
     },
     linkButton: {
         marginRight: theme.spacing(3),
