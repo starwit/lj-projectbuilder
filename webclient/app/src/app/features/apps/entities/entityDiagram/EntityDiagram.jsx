@@ -1,18 +1,18 @@
 import React, {useMemo, useState} from "react";
-import {Button, Drawer, Fab} from "@mui/material";
 import {Add, Code} from "@mui/icons-material";
 import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {Button, Drawer, Fab} from "@mui/material";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import EntityDiagramStyles from "./EntityDiagramStyles";
 import Draggable from "react-draggable";
-import EntityDialog from "../entityDialog/EntityDialog";
-import EntityCard from "../entityCard/EntityCard";
 import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
+import EntityDiagramStyles from "./EntityDiagramStyles";
+import EntityDialog from "../entityDialog/EntityDialog";
+import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import { renderRelations } from "../HandleRelations";
+import {renderRelations} from "../HandleRelations";
 
 function EntityDiagram(props) {
 

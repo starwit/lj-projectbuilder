@@ -146,7 +146,36 @@ function EntityDialog(props) {
     function prepareSave() {
 
         setIsSaving(true);
-        handleSave(entity)
+
+        const entityModified = {...entity};
+
+        entityModified.fields.map(field => {
+            field.fieldValidateRules = [];
+
+            if (field.fieldValidateRulesMinlength) {
+                field.fieldValidateRules.push("minlength");
+            }
+
+            if (field.fieldValidateRulesMaxlength) {
+                field.fieldValidateRules.push("maxlength");
+            }
+
+            if (field.mandatory) {
+                field.fieldValidateRules.push("required");
+            }
+
+            if (field.fieldValidateRulesMin) {
+                field.fieldValidateRules.push("min");
+            }
+
+            if (field.fieldValidateRulesMax) {
+                field.fieldValidateRules.push("max");
+            }
+
+        })
+
+
+        handleSave(entityModified)
             .then(() => {
                 entityRest.findAllEntitiesByApp(appId)
                     .then((response) => {

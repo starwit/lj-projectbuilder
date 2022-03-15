@@ -82,7 +82,7 @@ function FieldAccordion(props) {
             <TextField
                 fullWidth
                 label={t("field.min")}
-                value={value}
+                value={value ?? ""}
                 disabled={isMinDisabled}
                 type={"number"}
                 onChange={(event) => editFieldProperty(propertyField, event.target.value)}
@@ -91,7 +91,7 @@ function FieldAccordion(props) {
     }
 
     function renderMaxField() {
-        let value = min;
+        let value = max;
         let propertyField = "fieldValidateRulesMax"
         if (fullDataType?.usesLengthLimit) {
             value = maxLength;
@@ -101,7 +101,7 @@ function FieldAccordion(props) {
             <TextField
                 fullWidth
                 label={t("field.max")}
-                value={value}
+                value={value ?? ""}
                 type={"number"}
                 disabled={isMaxDisabled}
                 onChange={(event) => editFieldProperty(propertyField, event.target.value)}
