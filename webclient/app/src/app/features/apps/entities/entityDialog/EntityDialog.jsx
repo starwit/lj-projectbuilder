@@ -89,6 +89,50 @@ function EntityDialog(props) {
 
     }
 
+    const dataTypes = [
+        {
+            id: 1,
+            name: "String",
+            allowMin: true,
+            allowMax: true,
+            usesLengthLimit: true
+        },
+        {
+            id: 2,
+            name: "Integer",
+            allowMin: true,
+            allowMax: true
+        },
+        {
+            id: 3,
+            name: "Double",
+            allowMin: true,
+            allowMax: true
+        },
+        {
+            id: 4,
+            name: "Date"
+        },
+        {
+            id: 5,
+            name: "Time"
+        },
+        {
+            id: 6,
+            name: "Timestamp"
+        },
+        {
+            id: 7,
+            name: "BigDecimal",
+            allowMin: true,
+            allowMax: true
+        },
+        {
+            id: 8,
+            name: "Enum"
+        }
+    ];
+
     function lowerFirstChar(s) {
         return (s && s[0].toLowerCase() + s.slice(1)) || "";
     }
@@ -103,7 +147,39 @@ function EntityDialog(props) {
     function prepareSave() {
 
         setIsSaving(true);
-        handleSave(entity)
+
+        const entityModified = {...entity};
+
+        entityModified.fields.forEach(field => {
+            field.fieldValidateRules = [];
+
+            if (field.fieldValidateRulesMinlength) {
+                field.fieldValidateRules.push("minlength");
+            }
+
+            if (field.fieldValidateRulesMaxlength) {
+                field.fieldValidateRules.push("maxlength");
+            }
+
+            if (field.mandatory) {
+                field.fieldValidateRules.push("required");
+            }
+
+            if (field.fieldValidateRulesMin) {
+                field.fieldValidateRules.push("min");
+            }
+
+            if (field.fieldValidateRulesMax) {
+                field.fieldValidateRules.push("max");
+            }
+
+            if (field.fieldValidateRulesPattern) {
+                field.fieldValidateRules.push("pattern");
+            }
+
+        })
+
+        handleSave(entityModified)
             .then(() => {
                 entityRest.findAllEntitiesByApp(appId)
                     .then((response) => {
@@ -129,7 +205,9 @@ function EntityDialog(props) {
                 fieldType: "",
                 fieldValidateRulesPattern: "",
                 fieldValidateRulesMin: "",
+                fieldValidateRulesMinlength: "",
                 fieldValidateRulesMax: "",
+                fieldValidateRulesMaxlength: "",
                 mandatory: false
             }
         );
@@ -172,9 +250,6 @@ function EntityDialog(props) {
 
     function editFieldProperty(key, value, index) {
         const newEntity = {...entity};
-        if (key === "dataType") {
-            value = DataTypes.find(dataType => dataType.id === value);
-        }
         newEntity.fields[index][key] = value;
         setEntity(newEntity)
     }
@@ -224,7 +299,9 @@ function EntityDialog(props) {
             const {
                 mandatory,
                 fieldValidateRulesMin,
+                fieldValidateRulesMinlength,
                 fieldValidateRulesMax,
+                fieldValidateRulesMaxlength,
                 fieldValidateRulesPattern,
                 fieldName,
                 fieldType
@@ -237,6 +314,8 @@ function EntityDialog(props) {
                     pattern={fieldValidateRulesPattern}
                     min={fieldValidateRulesMin}
                     max={fieldValidateRulesMax}
+                    minLength={fieldValidateRulesMinlength}
+                    maxLength={fieldValidateRulesMaxlength}
                     mandatory={mandatory}
                     name={fieldName}
                     isCreate={!fieldName}
