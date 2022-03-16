@@ -149,10 +149,9 @@ function FieldAccordion(props) {
                         <TextField
                             fullWidth
                             label={t("field.pattern")}
-                            value={pattern}
+                            value={pattern ?? ""}
                             onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                         />
-                        {console.log("pattern", pattern)}
                     </Grid>
                     <Grid item sm={6}>
                         {renderMinField()}
@@ -175,7 +174,7 @@ function FieldAccordion(props) {
 }
 
 FieldAccordion.propTypes = {
-    dataType: PropTypes.object,
+    dataType: PropTypes.string,
     mandatory: PropTypes.bool,
     min: PropTypes.any,
     max: PropTypes.any,
