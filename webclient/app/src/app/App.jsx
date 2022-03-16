@@ -18,7 +18,6 @@ function App() {
 
     useEffect(() => {
         if (axios.interceptors.response.handlers.length > 0) {
-            console.log("returning null");
             return;
         }
 
@@ -53,6 +52,8 @@ function App() {
                     case "put":
                         errorMessage = "error.general.update";
                         break;
+                    default:
+                        errorMessage = "error.unknown";
                 }
 
                 if (data.locKey) {
@@ -66,7 +67,7 @@ function App() {
 
             return Promise.reject(error);
         });
-    }, [])
+    }, [enqueueSnackbar, t]);
 
 
     return (

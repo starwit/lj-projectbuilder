@@ -33,7 +33,6 @@ function AppEditor() {
     const [entities, setEntities] = useState([]);
     const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
-    const [saveError, setSaveError] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [userGroups, setUserGroups] = useState([]);
     const [groupsToAssign, setGroupsToAssign] = useState(['public']);
