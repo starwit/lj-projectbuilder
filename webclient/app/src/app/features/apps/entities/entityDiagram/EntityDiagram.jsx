@@ -72,6 +72,7 @@ function EntityDiagram(props) {
     }
 
     function updatePosition(update, draggableData, entity) {
+
         if (!entity.position) {
             entity.position = {};
         }

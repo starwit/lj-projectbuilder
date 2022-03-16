@@ -152,6 +152,7 @@ function FieldAccordion(props) {
                             value={pattern}
                             onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                         />
+                        {console.log("pattern", pattern)}
                     </Grid>
                     <Grid item sm={6}>
                         {renderMinField()}
