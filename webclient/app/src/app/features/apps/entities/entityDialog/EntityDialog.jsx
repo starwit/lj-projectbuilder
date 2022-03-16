@@ -240,6 +240,7 @@ function EntityDialog(props) {
                     mandatory={mandatory}
                     name={fieldName}
                     isCreate={!fieldName}
+                    key={index}
                 />
             )
         })
