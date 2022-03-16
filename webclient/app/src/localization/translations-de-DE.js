@@ -43,7 +43,7 @@ const translationsDeDE = {
     "app.template.select": "Auswählen",
     "app.template.selected": "Ausgewählt",
     "app.entities.empty": "keine Entitäten vorhanden",
-    
+
     "app.section.general": "General",
     "app.section.general.hello": "Hallo!",
     "app.section.general.enterInformation": "Bitte geben Sie als ersten Schritt die allgemeinen Informationen zu Ihrer App ein.",
@@ -120,6 +120,13 @@ const translationsDeDE = {
     "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
-    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt."
+    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
+    "error.general.delete": "Dieses Element konnte nicht gelöscht werden.",
+    "error.general.create": "Dieses Element konnte nicht erstellt werden.",
+    "error.general.update": "Dieses Element konnte nicht aktualisiert werden.",
+    "error.general.get": "Das Element konnte nicht geladen werden.",
+    "error.serverOffline": "Der Server scheint offline zu sein.",
+    "error.userOffline": "Sie scheinen offline zu sein.",
+    "error.unknown": "Ein unbekannter Fehler ist aufgetreten.",
 };
 export default translationsDeDE;

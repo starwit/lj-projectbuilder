@@ -1,38 +1,36 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
     Button,
     Card,
     CardActionArea,
+    CardActions,
     CardContent,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    IconButton,
-    Snackbar,
+    Divider,
     Grid,
-    Typography,
-    CardActions,
-    Divider
+    IconButton,
+    Typography
 } from "@mui/material";
-import { Delete, Edit, MoreHoriz } from "@mui/icons-material";
+import {Delete, Edit, MoreHoriz} from "@mui/icons-material";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
-import { useTranslation } from "react-i18next";
-import { Alert, LoadingButton } from "@mui/lab";
+import {useTranslation} from "react-i18next";
+import {LoadingButton} from "@mui/lab";
 
 function AppCard(props) {
 
-    const { app, onDeleteClick, onEditClick } = props;
+    const {app, onDeleteClick, onEditClick} = props;
     const history = useHistory();
     const appCardStyles = AppCardStyles();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [isDeletingError, setIsDeletingError] = useState(null);
 
     function prepareDelete() {
         setIsDeleting(true)
@@ -41,7 +39,6 @@ function AppCard(props) {
                 setOpenDeleteDialog(false);
                 setIsDeleting(false);
             })
-            .catch(response => setIsDeleting(response.data));
     }
 
     return (
@@ -55,29 +52,25 @@ function AppCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                                <IconButton onClick={onEditClick}><Edit fontSize={"small"} /></IconButton>
-                                <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete fontSize={"small"} /></IconButton>
- 
+                            <IconButton onClick={onEditClick}><Edit fontSize={"small"}/></IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete
+                                fontSize={"small"}/></IconButton>
+
                         </Grid>
                     </Grid>
                 </CardContent>
-                <Divider />
+                <Divider/>
                 <CardActionArea onClick={() => history.push("/apps/" + app.id)}>
                     <CardContent>
                         <Typography variant="body2" className={appCardStyles.description}>
                             {app.packageName}
                         </Typography>
                         <CardActions className={appCardStyles.cardActions}>
-                            <MoreHoriz className={appCardStyles.cardActions} color="primary" />
+                            <MoreHoriz className={appCardStyles.cardActions} color="primary"/>
                         </CardActions>
                     </CardContent>
                 </CardActionArea>
             </Card>
-            <Snackbar open={!!isDeletingError} autoHideDuration={6000} onClose={() => setIsDeletingError(null)}>
-                <Alert onClose={() => setIsDeletingError(null)} severity="error">
-                    {JSON.stringify(isDeletingError)}
-                </Alert>
-            </Snackbar>
             <Dialog
                 open={openDeleteDialog}
                 onClose={() => setOpenDeleteDialog(false)}

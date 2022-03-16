@@ -101,7 +101,7 @@ const translationsEnEN = {
     "appTemplate.config": "Template Configuration",
     "appTemplate.credentialsRequired": "private repo with Login",
     "appTemplate.description": "Description",
-    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",    
+    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "User",
@@ -120,6 +120,14 @@ const translationsEnEN = {
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
-    "error.accessdenied": "You are not allowed to execute this action."
+    "error.accessdenied": "You are not allowed to execute this action.",
+    "error.general.delete": "This element could not be deleted.",
+    "error.general.create": "This element could not be created.",
+    "error.general.update": "This element could not be updated.",
+    "error.general.get": "This element could not be loaded.",
+    "error.serverOffline": "The server seems to be offline.",
+    "error.userOffline": "You appear to be offline.",
+    "error.unknown": "An unknown error occurred.",
+
 };
 export default translationsEnEN;

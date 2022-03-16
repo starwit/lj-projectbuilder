@@ -5,12 +5,22 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import {HashRouter as Router} from "react-router-dom";
 import './localization/i18n';
+import {SnackbarProvider} from "notistack";
+import StarwitTheme from "./app/commons/starwitTheme/StarwitTheme";
+
 
 ReactDOM.render((
-    <Router>
-        <App/>
-    </Router>
-), document.getElementById('root'));
+        <Router>
+            <StarwitTheme>
+                <SnackbarProvider maxSnack={5}>
+                    <App/>
+                </SnackbarProvider>
+            </StarwitTheme>
+        </Router>
+    ),
+    document.getElementById('root')
+)
+;
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
