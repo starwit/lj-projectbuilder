@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -29,6 +29,8 @@ function FieldAccordion(props) {
         mandatory,
         min,
         max,
+        minLength,
+        maxLength,
         pattern,
         name,
         editFieldProperty,
@@ -38,12 +40,65 @@ function FieldAccordion(props) {
     const fieldAccordionStyles = FieldAccordionStyles();
     const {t} = useTranslation();
 
+    const [isMinDisabled, setIsMinDisabled] = useState(false);
+    const [isMaxDisabled, setIsMaxDisabled] = useState(false);
+    const [fullDataType, setFullDataType] = useState(null);
+
+    useEffect(() => {
+        const foundDataType = dataTypes.find(dataTypeElement => {
+            return dataTypeElement.name === dataType
+        });
+        if (foundDataType) {
+            setIsMinDisabled(!foundDataType.allowMin);
+            setIsMaxDisabled(!foundDataType.allowMax);
+            setFullDataType(foundDataType);
+        }
+    }, [dataTypes, dataType])
+
     function renderAccordionTitle(name) {
         let value = t("field.new");
         if (name) {
             value = name;
         }
         return value;
+    }
+
+    function renderMinField() {
+        let value = min;
+        let propertyField = "fieldValidateRulesMin"
+        if (fullDataType?.usesLengthLimit) {
+            value = minLength;
+            propertyField = "fieldValidateRulesMinlength"
+        }
+        return (
+            <TextField
+                fullWidth
+                label={t("field.min")}
+                value={value ?? ""}
+                disabled={isMinDisabled}
+                type={"number"}
+                onChange={(event) => editFieldProperty(propertyField, event.target.value)}
+            />
+        )
+    }
+
+    function renderMaxField() {
+        let value = max;
+        let propertyField = "fieldValidateRulesMax"
+        if (fullDataType?.usesLengthLimit) {
+            value = maxLength;
+            propertyField = "fieldValidateRulesMaxlength"
+        }
+        return (
+            <TextField
+                fullWidth
+                label={t("field.max")}
+                value={value ?? ""}
+                type={"number"}
+                disabled={isMaxDisabled}
+                onChange={(event) => editFieldProperty(propertyField, event.target.value)}
+            />
+        )
     }
 
     return (
@@ -80,8 +135,9 @@ function FieldAccordion(props) {
                                 label={t("field.fieldType")}
                                 onChange={(event) => editFieldProperty("fieldType", event.target.value)}
                             >
-                                {dataTypes.map(dataType => (
-                                    <MenuItem value={dataType.name} key={dataType.id}>{dataType.name}</MenuItem>
+                                {dataTypes.map(dataTypeElement => (
+                                    <MenuItem value={dataTypeElement.name}
+                                              key={dataTypeElement.id}>{dataTypeElement.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -93,29 +149,15 @@ function FieldAccordion(props) {
                         <TextField
                             fullWidth
                             label={t("field.pattern")}
-                            value={pattern}
+                            value={pattern ?? ""}
                             onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                         />
                     </Grid>
                     <Grid item sm={6}>
-                        <TextField
-                            fullWidth
-                            label={t("field.min")}
-                            value={min}
-                            disabled={!dataType.allowMin}
-                            type={"number"}
-                            onChange={(event) => editFieldProperty("fieldValidateRulesMin", event.target.value)}
-                        />
+                        {renderMinField()}
                     </Grid>
                     <Grid item sm={6}>
-                        <TextField
-                            fullWidth
-                            label={t("field.max")}
-                            value={max}
-                            type={"number"}
-                            disabled={!dataType.allowMax}
-                            onChange={(event) => editFieldProperty("fieldValidateRulesMax", event.target.value)}
-                        />
+                        {renderMaxField()}
                     </Grid>
                     <Grid item sm={12}>
                         <FormControlLabel
@@ -132,7 +174,7 @@ function FieldAccordion(props) {
 }
 
 FieldAccordion.propTypes = {
-    dataType: PropTypes.object,
+    dataType: PropTypes.string,
     mandatory: PropTypes.bool,
     min: PropTypes.any,
     max: PropTypes.any,
