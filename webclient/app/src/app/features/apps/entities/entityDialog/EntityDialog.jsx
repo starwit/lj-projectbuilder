@@ -36,11 +36,11 @@ function EntityDialog(props) {
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
     const entityRest = useMemo(() => new EntityRest(), []);
-    
+
     useEffect(() => {
         if (entityId) {
             setEntity({...entities.find(entity_ => entity_.id === entityId)});
-        } else{
+        } else {
             setEntity({...newEntity})
         }
     }, [entityId, entities])
@@ -229,7 +229,6 @@ function EntityDialog(props) {
     }
 
 
-
     function renderRelations() {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
@@ -242,7 +241,7 @@ function EntityDialog(props) {
             return (
                 <RelationshipAccordion
                     key={index}
-                    relationship = {relationship}
+                    relationship={relationship}
                     targetEntities={getTargetEntities()}
                     editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
                     currentEntity={entity}
@@ -281,6 +280,7 @@ function EntityDialog(props) {
                     mandatory={mandatory}
                     name={fieldName}
                     isCreate={!fieldName}
+                    key={index}
                 />
             )
         })
@@ -291,7 +291,7 @@ function EntityDialog(props) {
     }
 
     return (
-        <Dialog open={!!entityId || (open && entity.isNewEntity) } maxWidth={"xl"} fullWidth>
+        <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography
                     noWrap
