@@ -25,7 +25,7 @@ import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
 import {emptyEntity, newEntity} from "../Entity";
 import EntityRest from "../../../../services/EntityRest";
-import DataTypes from "../../../../config/DataTypes";
+import DataTypes from "./DataTypes";
 
 
 function EntityDialog(props) {
@@ -88,50 +88,6 @@ function EntityDialog(props) {
         return newTargetEntities;
 
     }
-
-    const dataTypes = [
-        {
-            id: 1,
-            name: "String",
-            allowMin: true,
-            allowMax: true,
-            usesLengthLimit: true
-        },
-        {
-            id: 2,
-            name: "Integer",
-            allowMin: true,
-            allowMax: true
-        },
-        {
-            id: 3,
-            name: "Double",
-            allowMin: true,
-            allowMax: true
-        },
-        {
-            id: 4,
-            name: "Date"
-        },
-        {
-            id: 5,
-            name: "Time"
-        },
-        {
-            id: 6,
-            name: "Timestamp"
-        },
-        {
-            id: 7,
-            name: "BigDecimal",
-            allowMin: true,
-            allowMax: true
-        },
-        {
-            id: 8,
-            name: "Enum"
-        }
-    ];
 
     function lowerFirstChar(s) {
         return (s && s[0].toLowerCase() + s.slice(1)) || "";
