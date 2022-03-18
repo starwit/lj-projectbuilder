@@ -49,7 +49,7 @@ function ErrorHandler(props) {
                         errorMessage = "error.unknown";
                 }
 
-                if (data.locKey) {
+                if (data.messageKey) {
                     errorMessage = data.locKey;
                 }
 
