@@ -137,7 +137,7 @@ function FieldAccordion(props) {
                             >
                                 {dataTypes.map(dataTypeElement => (
                                     <MenuItem value={dataTypeElement.name}
-                                              key={dataTypeElement.id}>{dataTypeElement.name}</MenuItem>
+                                              key={dataTypeElement.name}>{dataTypeElement.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
