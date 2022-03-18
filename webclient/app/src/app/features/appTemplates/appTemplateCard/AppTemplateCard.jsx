@@ -1,10 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { styled } from '@mui/material/styles';
-import { Chip, Container, Collapse, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Grid, IconButton } from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {styled} from '@mui/material/styles';
+import {
+    Card,
+    CardContent,
+    Chip,
+    Collapse,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Typography
+} from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import GitHub from '@mui/icons-material/GitHub';
-import { Delete, Edit } from "@mui/icons-material";
+import {Delete, Edit} from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import docco from 'react-syntax-highlighter/dist/esm/styles/hljs/docco';
@@ -17,9 +31,9 @@ import NotificationDialog from "../../../commons/alert/NotificationDialog";
 import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
 
 const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
+    const {expand, ...other} = props;
     return <IconButton {...other} />;
-})(({ theme, expand }) => ({
+})(({theme, expand}) => ({
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
@@ -31,9 +45,9 @@ const ExpandMore = styled((props) => {
 function AppTemplateCard(props) {
 
     const appTemplateCardStyles = AppTemplateCardStyles();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
-    const { appTemplate, handleRefresh, userGroups } = props;
+    const {appTemplate, handleRefresh, userGroups} = props;
     const appTemplateRest = new AppTemplateRest();
     const gitRest = new GitRest();
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
@@ -43,12 +57,17 @@ function AppTemplateCard(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const deleteDialogContent = ({ "title": t("appTemplate.delete.title"), "message": t("appTemplate.delete.message") });
 
-    const deleteErrorDialogContent = ({ "title": t("appTemplate.error.title"), "message": t("appTemplate.error.message") });
+    const deleteErrorDialogContent = ({
+        "title": t("appTemplate.error.title"),
+        "message": t("appTemplate.error.message")
+    });
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
-    const successDialogContent = ({ "title": t("appTemplate.success.title"), "message": t("appTemplate.success.message") });
+    const successDialogContent = ({
+        "title": t("appTemplate.success.title"),
+        "message": t("appTemplate.success.message")
+    });
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
     const closeDeleteDialog = () => {
@@ -74,10 +93,10 @@ function AppTemplateCard(props) {
             .then(() => {
                 handleRefresh();
             }).catch(err => {
-                setOpenErrorDialog(true);
-                setOpenDeleteDialog(false);
-                console.log(err.response.data);
-            });
+            setOpenErrorDialog(true);
+            setOpenDeleteDialog(false);
+            console.log(err.response.data);
+        });
     };
 
     const handleGit = (downloadRequestData) => {
@@ -111,46 +130,48 @@ function AppTemplateCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <IconButton onClick={handleDialogOpen}><Edit  fontSize={"small"} /></IconButton>
-                            <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete  fontSize={"small"} /></IconButton>
+                            <IconButton onClick={handleDialogOpen}><Edit fontSize={"small"}/></IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete
+                                fontSize={"small"}/></IconButton>
                         </Grid>
                     </Grid>
                 </CardContent>
-                <Divider />
+                <Divider/>
                 <CardContent>
                     <Grid container spacing={0}>
                         <Grid item sm={7}>
                             <Typography variant="body2" color="text.secondary">
-                                <br />{appTemplate.description}
+                                <br/>{appTemplate.description}
                             </Typography>
                             <List>
                                 <ListItem disablePadding>
                                     <ListItemIcon>
-                                        <GitHub />
+                                        <GitHub/>
                                     </ListItemIcon>
-                                    <ListItemText primary={appTemplate.location} secondary={t("appTemplate.branch") + ": " + appTemplate.branch} />
+                                    <ListItemText primary={appTemplate.location}
+                                                  secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
                                 </ListItem>
                             </List>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <br /><br />
+                            <br/><br/>
                             <GitDataButton
                                 credentialsRequired={appTemplate.credentialsRequired}
                                 handleAfterSuccess={handleAfterGitSuccess}
                                 handleGit={handleGit}
-                                buttonName={t("button.loadtemplate")} />
+                                buttonName={t("button.loadtemplate")}/>
                         </Grid>
                     </Grid>
                 </CardContent>
 
                 <Divider>
-                    <Chip label={t("appTemplate.config")} />
+                    <Chip label={t("appTemplate.config")}/>
                     <ExpandMore
                         expand={expanded}
                         onClick={() => handleExpandClick(appTemplate.id)}
                         aria-expanded={expanded}
-                        aria-label="show more" >
-                        <ExpandMoreIcon />
+                        aria-label="show more">
+                        <ExpandMoreIcon/>
                     </ExpandMore>
                 </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -176,12 +197,15 @@ function AppTemplateCard(props) {
                 userGroups={userGroups}
             />
             <ConfirmationDialog
-                content={deleteDialogContent}
+                title={t("appTemplate.delete.title")}
+                message={t("appTemplate.delete.message")}
                 open={openDeleteDialog}
                 onClose={closeDeleteDialog}
                 onSubmit={
                     () => handleDelete(appTemplate.id)
                 }
+                confirmTitle={t("button.delete")}
+
             />
             <NotificationDialog
                 severity="error"
@@ -189,6 +213,7 @@ function AppTemplateCard(props) {
                 open={openErrorDialog}
                 onClose={() => setOpenErrorDialog(false)}
             />
+
             <NotificationDialog
                 severity="success"
                 content={successDialogContent}

@@ -31,10 +31,10 @@ const translationsDeDE = {
     "apptemplates.loading": "die Templates werden geladen",
     "apptemplates.loadingError": "Die Templates konnten nicht geladen werden.",
 
-    "app.loading": "App wird geladen",
+    "app.loading": "Apps wird geladen",
     "app.LoadingError": "Es ist ein Fehler beim Laden aufgetreten.",
     "app.doesNotExist": "Die angegebene App exisitert nicht.",
-    "app.delete.title": "App löschen",
+    "app.delete.title": "Wollen Sie diese App wirklich löschen?",
     "app.delete.message": "Diese Operation kann nicht rückgängig gemacht werden.",
     "app.name": "Name der App",
     "app.name.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
@@ -43,7 +43,7 @@ const translationsDeDE = {
     "app.template.select": "Auswählen",
     "app.template.selected": "Ausgewählt",
     "app.entities.empty": "keine Entitäten vorhanden",
-    
+
     "app.section.general": "General",
     "app.section.general.hello": "Hallo!",
     "app.section.general.enterInformation": "Bitte geben Sie als ersten Schritt die allgemeinen Informationen zu Ihrer App ein.",

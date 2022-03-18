@@ -34,7 +34,7 @@ const translationsEnEN = {
     "app.loading": "app is loading",
     "app.LoadingError": "An error occurred while loading the app.",
     "app.doesNotExist": "The provided App does not exist",
-    "app.delete.title": "Delete app",
+    "app.delete.title": "Are you sure to delete this App?",
     "app.delete.message": "This operation cannot be reversed.",
     "app.name": "Name of App",
     "app.name.hint": "Upper and lower cased chars and numbers are allowed",
@@ -85,8 +85,8 @@ const translationsEnEN = {
     "relationship.targetField.hint": "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "relationship.targetEntity.empty": "not available",
 
-    "appTemplate.delete.title": "Delete Template",
-    "appTemplate.delete.message": "Do you want to delete the template?",
+    "appTemplate.delete.title": "Are you sure to delete this App Template?",
+    "appTemplate.delete.message": "This operation cannot be reversed.",
     "appTemplate.error.title": "Error",
     "appTemplate.error.message": "Template could not be deleted.",
     "appTemplate.success.title": "Success Template Upload",
@@ -101,7 +101,7 @@ const translationsEnEN = {
     "appTemplate.config": "Template Configuration",
     "appTemplate.credentialsRequired": "private repo with Login",
     "appTemplate.description": "Description",
-    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",    
+    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "User",
