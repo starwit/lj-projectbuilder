@@ -237,6 +237,12 @@ function EntityDialog(props) {
         setEntity(newEntity);
     }
 
+    function deleteField(index) {
+        let newEntity = {...entity};
+        newEntity.fields.splice(index, 1);
+        setEntity(newEntity);
+    }
+
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -319,6 +325,7 @@ function EntityDialog(props) {
                     name={fieldName}
                     isCreate={!fieldName}
                     key={index}
+                    handleDelete={() => deleteField(index)}
                 />
             )
         })

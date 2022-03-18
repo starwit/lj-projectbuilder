@@ -8,13 +8,14 @@ import {
     FormControl,
     FormControlLabel,
     Grid,
+    IconButton,
     InputLabel,
     MenuItem,
     Select,
     TextField,
     Typography
 } from "@mui/material";
-import {ExpandMore} from "@mui/icons-material";
+import {Delete, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
 import {useTranslation} from "react-i18next";
@@ -35,7 +36,8 @@ function FieldAccordion(props) {
         name,
         editFieldProperty,
         dataTypes,
-        isCreate
+        isCreate,
+        handleDelete
     } = props;
     const fieldAccordionStyles = FieldAccordionStyles();
     const {t} = useTranslation();
@@ -102,74 +104,87 @@ function FieldAccordion(props) {
     }
 
     return (
-        <Accordion>
-            <AccordionSummary
-                expandIcon={<ExpandMore/>}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-            >
-                <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
-                <Typography
-                    className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-                <Grid container spacing={4}>
-                    <Grid item sm={6}>
-                        <ValidatedTextField
-                            isCreate={isCreate}
-                            regex={RegexConfig.fieldName}
-                            helperText={t("field.fieldName.hint")}
-                            fullWidth
-                            value={name}
-                            label={t("field.fieldName") + "*"}
-                            onChange={(event) => editFieldProperty("fieldName", event.target.value)}
-                        />
-                    </Grid>
-                    <Grid item sm={6}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">{t("field.fieldType")}</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={dataType}
-                                label={t("field.fieldType")}
-                                onChange={(event) => editFieldProperty("fieldType", event.target.value)}
-                            >
-                                {dataTypes.map(dataTypeElement => (
-                                    <MenuItem value={dataTypeElement.name}
-                                              key={dataTypeElement.id}>{dataTypeElement.name}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item sm={12}>
-                        <Divider variant={"middle"}>{t("field.restrictions")}</Divider>
-                    </Grid>
-                    <Grid item sm={12}>
-                        <TextField
-                            fullWidth
-                            label={t("field.pattern")}
-                            value={pattern ?? ""}
-                            onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
-                        />
-                    </Grid>
-                    <Grid item sm={6}>
-                        {renderMinField()}
-                    </Grid>
-                    <Grid item sm={6}>
-                        {renderMaxField()}
-                    </Grid>
-                    <Grid item sm={12}>
-                        <FormControlLabel
-                            control={<Checkbox defaultChecked/>}
-                            label={t("field.required")}
-                            value={mandatory}
-                            onChange={(event) => editFieldProperty("mandatory", !mandatory)}
-                        />
-                    </Grid>
-                </Grid>
-            </AccordionDetails>
-        </Accordion>
+        <Grid container spacing={2} alignItems={"center"} justifyItems={"center"}>
+            <Grid item sm={11}>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMore/>}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
+                        <Typography
+                            className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container spacing={4}>
+                            <Grid item sm={6}>
+                                <ValidatedTextField
+                                    isCreate={isCreate}
+                                    regex={RegexConfig.fieldName}
+                                    helperText={t("field.fieldName.hint")}
+                                    fullWidth
+                                    value={name}
+                                    label={t("field.fieldName") + "*"}
+                                    onChange={(event) => editFieldProperty("fieldName", event.target.value)}
+                                />
+                            </Grid>
+                            <Grid item sm={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">{t("field.fieldType")}</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={dataType}
+                                        label={t("field.fieldType")}
+                                        onChange={(event) => editFieldProperty("fieldType", event.target.value)}
+                                    >
+                                        {dataTypes.map(dataTypeElement => (
+                                            <MenuItem value={dataTypeElement.name}
+                                                      key={dataTypeElement.id}>{dataTypeElement.name}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item sm={12}>
+                                <Divider variant={"middle"}>{t("field.restrictions")}</Divider>
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    fullWidth
+                                    label={t("field.pattern")}
+                                    value={pattern ?? ""}
+                                    onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                />
+                            </Grid>
+                            <Grid item sm={6}>
+                                {renderMinField()}
+                            </Grid>
+                            <Grid item sm={6}>
+                                {renderMaxField()}
+                            </Grid>
+                            <Grid item sm={12}>
+                                <FormControlLabel
+                                    control={<Checkbox defaultChecked/>}
+                                    label={t("field.required")}
+                                    value={mandatory}
+                                    onChange={(event) => editFieldProperty("mandatory", !mandatory)}
+                                />
+                            </Grid>
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
+            </Grid>
+            <Grid item sm={1}>
+                <IconButton
+                    aria-label="delete"
+                    onClick={handleDelete}
+                >
+                    <Delete/>
+                </IconButton>
+            </Grid>
+        </Grid>
+
     )
 }
 
