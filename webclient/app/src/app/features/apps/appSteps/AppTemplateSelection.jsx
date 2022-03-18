@@ -12,7 +12,6 @@ function AppTemplateSelection(props) {
 
     const {onChange, value} = props;
 
-
     const [templates, setTemplates] = useState(null);
     const [appTemplatesError, setAppTemplatesError] = useState(null);
     const appTemplateRest = useMemo(() => new AppTemplateRest(), []);

@@ -124,7 +124,7 @@ const translationsDeDE = {
     "error.general.delete": "Dieses Element konnte nicht gelöscht werden.",
     "error.general.create": "Dieses Element konnte nicht erstellt werden.",
     "error.general.update": "Dieses Element konnte nicht aktualisiert werden.",
-    "error.general.get": "Das Element konnte nicht geladen werden.",
+    "error.general.get": "Dieses Element konnte nicht geladen werden.",
     "error.serverOffline": "Der Server scheint offline zu sein.",
     "error.userOffline": "Sie scheinen offline zu sein.",
     "error.unknown": "Ein unbekannter Fehler ist aufgetreten.",
