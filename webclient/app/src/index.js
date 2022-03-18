@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
-import {HashRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import './localization/i18n';
 
 ReactDOM.render((
-    <Router>
+    <Router basename={"/ljprojectbuilder"}>
         <App/>
     </Router>
 ), document.getElementById('root'));
