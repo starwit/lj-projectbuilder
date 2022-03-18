@@ -5,14 +5,7 @@ const RelationshipType = {
     manyToMany: "many-to-many"
 }
 
-interface RelationshipDataType {
-    relationshipType: RelationshipType,
-    otherEntityName?: string,
-    relationshipName?: string,
-    otherEntityRelationshipName?: string
-}
-
-const defaultRelationship : RelationshipDataType = {
+const defaultRelationship = {
     relationshipType: RelationshipType.oneToMany,
 }
 
