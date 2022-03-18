@@ -26,6 +26,7 @@ import de.starwit.allowedroles.IsUser;
 import de.starwit.dto.ApplicationDto;
 import de.starwit.mapper.ApplicationMapper;
 import de.starwit.persistence.entity.App;
+import de.starwit.rest.exception.NotificationDto;
 import de.starwit.service.impl.AppService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -102,6 +103,7 @@ public class ApplicationController {
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
 		LOG.info("App not found. {}", ex.getMessage());
-		return new ResponseEntity<>("App not found.", HttpStatus.NOT_FOUND);
+		NotificationDto output = new NotificationDto("error.appnotfound", "App not found.");
+		return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
 	}
 }
