@@ -158,7 +158,7 @@ function EntityDialog(props) {
         newEntity.fields.push(
             {
                 fieldName: "",
-                fieldType: "",
+                fieldType: "String",
                 fieldValidateRulesPattern: "",
                 fieldValidateRulesMin: "",
                 fieldValidateRulesMinlength: "",
