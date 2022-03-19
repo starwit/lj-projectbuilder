@@ -88,7 +88,8 @@ public class AppTemplateController {
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-		NotificationDto output = new NotificationDto("error.apptemplatenotfound", "AppTemplate not found.");
+		NotificationDto output = new NotificationDto("error.apptemplate.notfound", "AppTemplate not found.");
+
 		return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
 	}
 }
