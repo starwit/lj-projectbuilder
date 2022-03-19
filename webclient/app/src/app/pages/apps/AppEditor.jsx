@@ -76,7 +76,7 @@ function AppEditor() {
     useEffect(() => {
         let hasError = false;
 
-        entities.map(entity => {
+        entities.forEach(entity => {
             let currentEntityValidation = hasEntityFieldValidationError(entity);
             if (currentEntityValidation) {
                 hasError = true;
