@@ -24,9 +24,9 @@ import ValidatedTextField from "../../../../commons/validatedTextField/Validated
 import RegexConfig from "../../../../../regexConfig";
 import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
-import {emptyEntity, newEntity} from "../Entity";
+import {emptyEntity, newEntity} from "../DefaultEntities";
 import EntityRest from "../../../../services/EntityRest";
-import DataTypes from "./DataTypes";
+import FieldTypes from "./FieldTypes";
 import hasEntityFieldValidationError from "../../../../commons/entityValidation/HasEntityFieldValidationError";
 
 
@@ -149,11 +149,11 @@ function EntityDialog(props) {
 
     function addField() {
 
-        let newEntity = {...entity};
-        if (!newEntity.fields) {
-            newEntity.fields = [];
+        let copiedEntity = {...entity};
+        if (!copiedEntity.fields) {
+            copiedEntity.fields = [];
         }
-        newEntity.fields.push(
+        copiedEntity.fields.push(
             {
                 fieldName: "",
                 fieldType: "String",
@@ -165,37 +165,37 @@ function EntityDialog(props) {
                 mandatory: false
             }
         );
-        setEntity(newEntity);
+        setEntity(copiedEntity);
     }
 
     function addRelationship() {
 
-        let newEntity = {...entity};
+        let copiedEntity = {...entity};
 
-        if (!newEntity.relationships) {
-            newEntity.relationships = [];
+        if (!copiedEntity.relationships) {
+            copiedEntity.relationships = [];
         }
 
         let targetEntities = getTargetEntities();
         let relationship = {...defaultRelationship};
         relationship.otherEntityName = targetEntities[0].name;
         relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
-        relationship.otherEntityRelationshipName = lowerFirstChar(newEntity.name);
+        relationship.otherEntityRelationshipName = lowerFirstChar(copiedEntity.name);
 
-        newEntity.relationships.push(relationship);
-        setEntity(newEntity);
+        copiedEntity.relationships.push(relationship);
+        setEntity(copiedEntity);
     }
 
     function deleteRelationship(index) {
-        let newEntity = {...entity};
-        newEntity.relationships.splice(index, 1);
-        setEntity(newEntity);
+        let copiedEntity = {...entity};
+        copiedEntity.relationships.splice(index, 1);
+        setEntity(copiedEntity);
     }
 
     function deleteField(index) {
-        let newEntity = {...entity};
-        newEntity.fields.splice(index, 1);
-        setEntity(newEntity);
+        let copiedEntity = {...entity};
+        copiedEntity.fields.splice(index, 1);
+        setEntity(copiedEntity);
     }
 
     const handleTabChange = (event, newValue) => {
@@ -203,24 +203,24 @@ function EntityDialog(props) {
     };
 
     function handleEntityTitleText(event) {
-        const newEntity = {...entity};
-        newEntity.name = event.target.value;
-        setEntity(newEntity);
+        const copiedEntity = {...entity};
+        copiedEntity.name = event.target.value;
+        setEntity(copiedEntity);
     }
 
     function editFieldProperty(key, value, index) {
-        const newEntity = {...entity};
-        newEntity.fields[index][key] = value;
-        setEntity(newEntity)
+        const copiedEntity = {...entity};
+        copiedEntity.fields[index][key] = value;
+        setEntity(copiedEntity)
     }
 
     function editRelationshipProperty(key, value, index) {
-        const newEntity = {...entity};
-        newEntity.relationships[index][key] = value;
+        const copiedEntity = {...entity};
+        copiedEntity.relationships[index][key] = value;
         if (key === "otherEntityName") {
-            newEntity.relationships[index].relationshipName = lowerFirstChar(value);
+            copiedEntity.relationships[index].relationshipName = lowerFirstChar(value);
         }
-        setEntity(newEntity)
+        setEntity(copiedEntity)
     }
 
 
@@ -269,8 +269,8 @@ function EntityDialog(props) {
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
-                    dataTypes={DataTypes}
-                    dataType={fieldType}
+                    fieldTypes={FieldTypes}
+                    fieldType={fieldType}
                     pattern={fieldValidateRulesPattern}
                     min={fieldValidateRulesMin}
                     max={fieldValidateRulesMax}
@@ -319,7 +319,6 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-
                     <Tabs value={value} onChange={handleTabChange} className={entityEditorStyles.tabHeader}
                           aria-label="basic tabs example">
                         <Tab label={t("entity.fields")} {...a11yProps(0)} />

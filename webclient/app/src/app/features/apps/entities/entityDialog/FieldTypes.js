@@ -1,9 +1,10 @@
-const DataTypes = [
+const FieldTypes = [
     {
         name: "String",
         allowMin: true,
         allowMax: true,
-        usesLengthLimit: true
+        usesLengthLimit: true,
+        allowPattern: true
     },
     {
         name: "Integer",
@@ -35,4 +36,4 @@ const DataTypes = [
     }
 ];
 
-export default DataTypes;
+export default FieldTypes;
