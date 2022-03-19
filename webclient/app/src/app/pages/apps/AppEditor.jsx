@@ -12,8 +12,9 @@ import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
-import { updateRelationCoordinates } from "../../features/apps/entities/HandleRelations";
+import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
 import UserRest from "../../services/UserRest";
+import hasEntityFieldValidationError from "../../commons/entityValidation/HasEntityFieldValidationError";
 
 
 function AppEditor() {
@@ -31,6 +32,7 @@ function AppEditor() {
     const [appGeneralHasFormError, setAppGeneralHasFormError] = useState(false)
     const [packageName, setPackageName] = useState("");
     const [entities, setEntities] = useState([]);
+    const [hasEntityFormError, setHasEntityFormError] = useState([]);
     const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
     const [saveError, setSaveError] = useState(null);
@@ -71,6 +73,20 @@ function AppEditor() {
         });
     }, [userRest]);
 
+    useEffect(() => {
+        let hasError = false;
+
+        entities.map(entity => {
+            let currentEntityValidation = hasEntityFieldValidationError(entity);
+            if (currentEntityValidation) {
+                hasError = true;
+            }
+        })
+        setHasEntityFormError(hasError);
+
+
+    }, [entities])
+
     const steps = [
         {
             label: t("app.section.general"),
@@ -106,7 +122,7 @@ function AppEditor() {
                     handleUpdateEntities={handleUpdateEntities}
                 />
             ),
-            condition: entities.length >= 1
+            condition: entities.length >= 1 && !hasEntityFormError
         },
         {
             label: t("app.section.conclusion"),
@@ -184,7 +200,7 @@ function AppEditor() {
         } else {
             restRequest = appRest.update(appPackage)
                 .then(response => {
-                    const {baseName, packageName, template, entities, groupsToAssign } = response.data;
+                    const {baseName, packageName, template, entities, groupsToAssign} = response.data;
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);

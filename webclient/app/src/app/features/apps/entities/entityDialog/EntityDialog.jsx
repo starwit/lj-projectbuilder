@@ -27,6 +27,7 @@ import {LoadingButton} from "@mui/lab";
 import {emptyEntity, newEntity} from "../Entity";
 import EntityRest from "../../../../services/EntityRest";
 import DataTypes from "./DataTypes";
+import hasEntityFieldValidationError from "../../../../commons/entityValidation/HasEntityFieldValidationError";
 
 
 function EntityDialog(props) {
@@ -52,33 +53,25 @@ function EntityDialog(props) {
     }, [entityId, entities])
 
     useEffect(() => {
-        if (!entity) {
-            return;
-        }
-        let hasError = false;
-
-        if (!RegexConfig.entityTitle.test(entity.name)) {
-            hasError = true;
-        }
-
-        entity.fields?.forEach(field => {
-            if (!RegexConfig.fieldName.test(field.fieldName)) {
-                hasError = true;
-            }
-
-        });
-
-        entity.relationships?.forEach(relationship => {
-            if (!RegexConfig.relationship.test(relationship.relationshipName)
-                || !RegexConfig.relationship.test(relationship.otherEntityRelationshipName)
-                || !RegexConfig.entityTitle.test(relationship.otherEntityName)) {
-                hasError = true;
-            }
-        });
-        setHasFormError(hasError);
-
-
+        setHasFormError(hasEntityFieldValidationError(entity));
     }, [entity])
+
+    function prepareClose() {
+        let newEntity = {...entity};
+        let newEntities = [...entities];
+
+        newEntity.fields = [...newEntity.fields.filter(field => !!field.fieldName)];
+
+        setEntity(newEntity);
+
+        const index = newEntities.findIndex(entityFind => entityFind.id === newEntity.id)
+        if (index >= 0) {
+            newEntities[index] = newEntity;
+            handleUpdateEntities(newEntities)
+        }
+
+        onClose()
+    }
 
 
     function getTargetEntities() {
@@ -310,7 +303,7 @@ function EntityDialog(props) {
                 <div className={entityEditorStyles.flex}/>
                 <IconButton
                     aria-label="close"
-                    onClick={onClose}
+                    onClick={prepareClose}
                 >
                     <Close/>
                 </IconButton>
