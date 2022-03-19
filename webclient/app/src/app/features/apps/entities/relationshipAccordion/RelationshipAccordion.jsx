@@ -41,7 +41,7 @@ function RelationshipAccordion(props) {
     }
 
     return (
-        <Grid container spacing={2} alignItems={"center"} justifyItems={"center"}>
+        <Grid container spacing={0} alignItems={"center"} justifyItems={"center"}>
             <Grid item sm={11}>
                 <Accordion>
                     <AccordionSummary

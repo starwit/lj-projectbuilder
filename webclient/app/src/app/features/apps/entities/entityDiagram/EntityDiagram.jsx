@@ -148,49 +148,51 @@ function EntityDiagram(props) {
         setCurrentEntity(null)
     }
 
-    return (<>
-        {renderAddEntityButton()}
-        <div className={entityDiagramStyles.codeButtonWrapper}>
-            <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                {t("entity.code")}
-            </Button>
-        </div>
-        <React.Fragment key={"left"}>
-            <Drawer
-                anchor={"left"}
-                open={drawerOpen}
-                onClose={closeDrawer}
-                className={entityDiagramStyles.drawer}
-            >
-                <SyntaxHighlighter
-                    language="json"
-                    style={docco}
-                    showLineNumbers
-                    customStyle={{
-                        lineHeight: "1.5", fontSize: ".75em"
-                    }}
-                    codeTagProps={{
-                        className: entityDiagramStyles.syntaxHighlighterCodeTag
-                    }}
+    return (
+        <>
+            {renderAddEntityButton()}
+            <div className={entityDiagramStyles.codeButtonWrapper}>
+                <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
+                    {t("entity.code")}
+                </Button>
+            </div>
+            <React.Fragment key={"left"}>
+                <Drawer
+                    anchor={"left"}
+                    open={drawerOpen}
+                    onClose={closeDrawer}
+                    className={entityDiagramStyles.drawer}
                 >
-                    {JSON.stringify(entities, null, 4)}
-                </SyntaxHighlighter>
-            </Drawer>
-        </React.Fragment>
-        <div className={generateWrapper()}>
-            {renderEntities()}
-            {renderRelations(coordinates, theme)}
-        </div>
-        <EntityDialog
-            entityId={currentEntity?.id}
-            onClose={closeEntityDialog}
-            handleSave={(data) => updateEntity(data)}
-            entities={entities}
-            handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
-            open={openEntityDialog}
-            appId={appId}
-        />
-    </>)
+                    <SyntaxHighlighter
+                        language="json"
+                        style={docco}
+                        showLineNumbers
+                        customStyle={{
+                            lineHeight: "1.5", fontSize: ".75em"
+                        }}
+                        codeTagProps={{
+                            className: entityDiagramStyles.syntaxHighlighterCodeTag
+                        }}
+                    >
+                        {JSON.stringify(entities, null, 4)}
+                    </SyntaxHighlighter>
+                </Drawer>
+            </React.Fragment>
+            <div className={generateWrapper()}>
+                {renderEntities()}
+                {renderRelations(coordinates, theme)}
+            </div>
+            <EntityDialog
+                entityId={currentEntity?.id}
+                onClose={closeEntityDialog}
+                handleSave={(data) => updateEntity(data)}
+                entities={entities}
+                handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+                open={openEntityDialog}
+                appId={appId}
+            />
+        </>
+    )
 }
 
 EntityDiagram.propTypes = {

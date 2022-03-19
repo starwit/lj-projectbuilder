@@ -7,6 +7,7 @@ import {
     DialogActions,
     DialogTitle,
     IconButton,
+    Stack,
     Tab,
     Tabs,
     Typography
@@ -40,7 +41,11 @@ function EntityDialog(props) {
 
     useEffect(() => {
         if (entityId) {
-            setEntity({...entities.find(entity_ => entity_.id === entityId)});
+            const newEntity = {...entities.find(entity_ => entity_.id === entityId)};
+            newEntity.fields?.forEach(field => {
+                field.mandatory = field.fieldValidateRules?.includes("required")
+            })
+            setEntity(newEntity);
         } else {
             setEntity({...newEntity})
         }
@@ -266,7 +271,7 @@ function EntityDialog(props) {
                 fieldValidateRulesMaxlength,
                 fieldValidateRulesPattern,
                 fieldName,
-                fieldType
+                fieldType,
             } = entity.fields[index];
             return (
                 <FieldAccordion
@@ -321,17 +326,23 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
+
+                    <Tabs value={value} onChange={handleTabChange} className={entityEditorStyles.tabHeader}
+                          aria-label="basic tabs example">
                         <Tab label={t("entity.fields")} {...a11yProps(0)} />
                         <Tab label={t("entity.relations")} {...a11yProps(1)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                        {renderFields()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addField}>{t("button.create")}</Button>
+                        <Stack spacing={1}>
+                            {renderFields()}
+                            <Button fullWidth startIcon={<Add/>} onClick={addField}>{t("button.create")}</Button>
+                        </Stack>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        {renderRelations()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>{t("button.create")}</Button>
+                        <Stack spacing={1}>
+                            {renderRelations()}
+                            <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>{t("button.create")}</Button>
+                        </Stack>
                     </TabPanel>
                 </Box>
                 <DialogActions>

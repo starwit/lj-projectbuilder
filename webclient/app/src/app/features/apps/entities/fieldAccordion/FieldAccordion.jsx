@@ -104,9 +104,9 @@ function FieldAccordion(props) {
     }
 
     return (
-        <Grid container spacing={2} alignItems={"center"} justifyItems={"center"}>
+        <Grid container alignItems={"center"} justifyItems={"center"}>
             <Grid item sm={11}>
-                <Accordion>
+                <Accordion elevation={2}>
                     <AccordionSummary
                         expandIcon={<ExpandMore/>}
                         aria-controls="panel1a-content"
@@ -169,10 +169,12 @@ function FieldAccordion(props) {
                             </Grid>
                             <Grid item sm={12}>
                                 <FormControlLabel
-                                    control={<Checkbox defaultChecked/>}
+                                    control={<Checkbox checked={mandatory}/>}
                                     label={t("field.required")}
                                     value={mandatory}
-                                    onChange={(event) => editFieldProperty("mandatory", !mandatory)}
+                                    onChange={(event) => {
+                                        editFieldProperty("mandatory", !mandatory)
+                                    }}
                                 />
                             </Grid>
                         </Grid>
