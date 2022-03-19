@@ -126,7 +126,7 @@ public class EntityController {
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-        NotificationDto output = new NotificationDto("error.entitynotfound", "Entity not found.");
+        NotificationDto output = new NotificationDto("error.entity.notfound", "Entity not found.");
         return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
