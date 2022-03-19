@@ -3,7 +3,8 @@ const DataTypes = [
         name: "String",
         allowMin: true,
         allowMax: true,
-        usesLengthLimit: true
+        usesLengthLimit: true,
+        allowPattern: true
     },
     {
         name: "Integer",

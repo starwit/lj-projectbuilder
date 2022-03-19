@@ -44,6 +44,7 @@ function FieldAccordion(props) {
 
     const [isMinDisabled, setIsMinDisabled] = useState(false);
     const [isMaxDisabled, setIsMaxDisabled] = useState(false);
+    const [isPatternDisabled, setIsPatternDisabled] = useState(false);
     const [fullDataType, setFullDataType] = useState(null);
 
     useEffect(() => {
@@ -53,6 +54,7 @@ function FieldAccordion(props) {
         if (foundDataType) {
             setIsMinDisabled(!foundDataType.allowMin);
             setIsMaxDisabled(!foundDataType.allowMax);
+            setIsPatternDisabled(!foundDataType.allowPattern);
             setFullDataType(foundDataType);
         }
     }, [dataTypes, dataType])
@@ -103,6 +105,13 @@ function FieldAccordion(props) {
         )
     }
 
+    function handleDataTypeChange(event) {
+
+        editFieldProperty("fieldType", event.target.value)
+        editFieldProperty("fieldValidateRulesPattern", "")
+
+    }
+
     return (
         <Grid container spacing={2} alignItems={"center"} justifyItems={"center"}>
             <Grid item sm={11}>
@@ -137,7 +146,7 @@ function FieldAccordion(props) {
                                         id="demo-simple-select"
                                         value={dataType}
                                         label={t("field.fieldType")}
-                                        onChange={(event) => editFieldProperty("fieldType", event.target.value)}
+                                        onChange={handleDataTypeChange}
                                     >
                                         {dataTypes.map(dataTypeElement => (
                                             <MenuItem value={dataTypeElement.name}
@@ -155,6 +164,7 @@ function FieldAccordion(props) {
                                     label={t("field.pattern")}
                                     value={pattern ?? ""}
                                     onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                    disabled={isPatternDisabled}
                                 />
                             </Grid>
                             <Grid item sm={6}>
