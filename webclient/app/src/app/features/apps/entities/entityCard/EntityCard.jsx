@@ -105,16 +105,16 @@ function EntityCard(props) {
 
     return (
         <div className={"anchor_" + entity.name}>
-        <Card className={`${entityCardStyles.entityCard}`}>
-            <Grid container>
-                <Grid item sm={calculateTitleWidth()}>
-                    {renderTitle(entity.name)}
+            <Card className={`${entityCardStyles.entityCard}`}>
+                <Grid container>
+                    <Grid item sm={calculateTitleWidth()}>
+                        {renderTitle(entity.name)}
+                    </Grid>
+                    {renderEditButton()}
+                    {renderDeleteWrapper()}
                 </Grid>
-                {renderEditButton()}
-                {renderDeleteWrapper()}
-            </Grid>
-            {renderFieldsTable(entity)}
-        </Card>
+                {renderFieldsTable(entity)}
+            </Card>
         </div>
     )
 

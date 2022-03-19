@@ -122,7 +122,8 @@ function AppEditor() {
                     handleUpdateEntities={handleUpdateEntities}
                 />
             ),
-            condition: entities.length >= 1 && !hasEntityFormError
+            condition: entities.length >= 1 && !hasEntityFormError,
+            backConditionTied: true
         },
         {
             label: t("app.section.conclusion"),
@@ -270,7 +271,7 @@ function AppEditor() {
             <Box className={appEditorStyles.navigationButtonsArray}>
                 <LoadingButton
                     color="inherit"
-                    disabled={activeStep === 0}
+                    disabled={activeStep === 0 || (steps[activeStep].backConditionTied ? !steps[activeStep].condition : false)}
                     onClick={handleBack}
                     className={appEditorStyles.navigationButtonBack}
                     startIcon={<ChevronLeft/>}
