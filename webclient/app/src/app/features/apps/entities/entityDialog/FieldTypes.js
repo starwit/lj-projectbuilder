@@ -1,4 +1,4 @@
-const DataTypes = [
+const FieldTypes = [
     {
         name: "String",
         allowMin: true,
@@ -36,4 +36,4 @@ const DataTypes = [
     }
 ];
 
-export default DataTypes;
+export default FieldTypes;
