@@ -103,7 +103,7 @@ public class ApplicationController {
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
 		LOG.info("App not found. {}", ex.getMessage());
-		NotificationDto output = new NotificationDto("error.appnotfound", "App not found.");
+		NotificationDto output = new NotificationDto("error.app.notfound", "App not found.");
 		return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
 	}
 }
