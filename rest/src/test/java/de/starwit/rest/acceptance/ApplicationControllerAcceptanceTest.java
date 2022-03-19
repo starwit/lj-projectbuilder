@@ -130,7 +130,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.appnotfound\",\"message\":\"App not found.\"}");
+        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
     }
 
     @Test
