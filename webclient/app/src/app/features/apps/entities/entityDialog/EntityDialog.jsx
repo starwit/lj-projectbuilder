@@ -25,7 +25,7 @@ import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
 import {emptyEntity, newEntity} from "../DefaultEntities";
 import EntityRest from "../../../../services/EntityRest";
-import DataTypes from "./DataTypes";
+import FieldTypes from "./FieldTypes";
 
 
 function EntityDialog(props) {
@@ -271,8 +271,8 @@ function EntityDialog(props) {
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
-                    dataTypes={DataTypes}
-                    dataType={fieldType}
+                    fieldTypes={FieldTypes}
+                    fieldType={fieldType}
                     pattern={fieldValidateRulesPattern}
                     min={fieldValidateRulesMin}
                     max={fieldValidateRulesMax}

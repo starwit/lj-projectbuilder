@@ -26,7 +26,7 @@ import RegexConfig from "../../../../../regexConfig";
 function FieldAccordion(props) {
 
     const {
-        dataType,
+        fieldType,
         mandatory,
         min,
         max,
@@ -35,7 +35,7 @@ function FieldAccordion(props) {
         pattern,
         name,
         editFieldProperty,
-        dataTypes,
+        fieldTypes,
         isCreate,
         handleDelete
     } = props;
@@ -44,18 +44,20 @@ function FieldAccordion(props) {
 
     const [isMinDisabled, setIsMinDisabled] = useState(false);
     const [isMaxDisabled, setIsMaxDisabled] = useState(false);
-    const [fullDataType, setFullDataType] = useState(null);
+    const [isPatternDisabled, setIsPatternDisabled] = useState(false);
+    const [fullFieldType, setFullFieldType] = useState(null);
 
     useEffect(() => {
-        const foundDataType = dataTypes.find(dataTypeElement => {
-            return dataTypeElement.name === dataType
+        const foundFieldType = fieldTypes.find(fieldTypeElement => {
+            return fieldTypeElement.name === fieldType
         });
-        if (foundDataType) {
-            setIsMinDisabled(!foundDataType.allowMin);
-            setIsMaxDisabled(!foundDataType.allowMax);
-            setFullDataType(foundDataType);
+        if (foundFieldType) {
+            setIsMinDisabled(!foundFieldType.allowMin);
+            setIsMaxDisabled(!foundFieldType.allowMax);
+            setIsPatternDisabled(!foundFieldType.allowPattern);
+            setFullFieldType(foundFieldType);
         }
-    }, [dataTypes, dataType])
+    }, [fieldTypes, fieldType])
 
     function renderAccordionTitle(name) {
         let value = t("field.new");
@@ -68,7 +70,7 @@ function FieldAccordion(props) {
     function renderMinField() {
         let value = min;
         let propertyField = "fieldValidateRulesMin"
-        if (fullDataType?.usesLengthLimit) {
+        if (fullFieldType?.usesLengthLimit) {
             value = minLength;
             propertyField = "fieldValidateRulesMinlength"
         }
@@ -87,7 +89,7 @@ function FieldAccordion(props) {
     function renderMaxField() {
         let value = max;
         let propertyField = "fieldValidateRulesMax"
-        if (fullDataType?.usesLengthLimit) {
+        if (fullFieldType?.usesLengthLimit) {
             value = maxLength;
             propertyField = "fieldValidateRulesMaxlength"
         }
@@ -101,6 +103,13 @@ function FieldAccordion(props) {
                 onChange={(event) => editFieldProperty(propertyField, event.target.value)}
             />
         )
+    }
+
+    function handleFieldTypeChange(event) {
+
+        editFieldProperty("fieldType", event.target.value)
+        editFieldProperty("fieldValidateRulesPattern", "")
+
     }
 
     return (
@@ -135,13 +144,13 @@ function FieldAccordion(props) {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={dataType}
+                                        value={fieldType}
                                         label={t("field.fieldType")}
-                                        onChange={(event) => editFieldProperty("fieldType", event.target.value)}
+                                        onChange={handleFieldTypeChange}
                                     >
-                                        {dataTypes.map(dataTypeElement => (
-                                            <MenuItem value={dataTypeElement.name}
-                                                      key={dataTypeElement.name}>{dataTypeElement.name}</MenuItem>
+                                        {fieldTypes.map(fieldTypeElement => (
+                                            <MenuItem value={fieldTypeElement.name}
+                                                      key={fieldTypeElement.name}>{fieldTypeElement.name}</MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
@@ -155,6 +164,7 @@ function FieldAccordion(props) {
                                     label={t("field.pattern")}
                                     value={pattern ?? ""}
                                     onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                    disabled={isPatternDisabled}
                                 />
                             </Grid>
                             <Grid item sm={6}>
@@ -189,25 +199,25 @@ function FieldAccordion(props) {
 }
 
 FieldAccordion.propTypes = {
-    dataType: PropTypes.string,
+    fieldType: PropTypes.string,
     mandatory: PropTypes.bool,
     min: PropTypes.any,
     max: PropTypes.any,
     pattern: PropTypes.string,
     name: PropTypes.string,
     editFieldProperty: PropTypes.func.isRequired,
-    dataTypes: PropTypes.array,
+    fieldTypes: PropTypes.array,
     isCreate: PropTypes.bool
 };
 
 FieldAccordion.defaultProps = {
-    dataType: "",
+    fieldType: "",
     mandatory: false,
     min: "",
     max: "",
     pattern: "",
     name: "",
-    dataTypes: [],
+    fieldTypes: [],
     isCreate: false
 }
 
