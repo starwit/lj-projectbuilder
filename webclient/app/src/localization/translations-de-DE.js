@@ -35,7 +35,7 @@ const translationsDeDE = {
     "app.LoadingError": "Es ist ein Fehler beim Laden aufgetreten.",
     "app.doesNotExist": "Die angegebene App exisitert nicht.",
     "app.delete.title": "Wollen Sie diese App wirklich löschen?",
-    "app.delete.message": "Diese Operation kann nicht rückgängig gemacht werden.",
+    "app.delete.message": "Wollen Sie diese App wirklich löschen?",
     "app.name": "Name der App",
     "app.name.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "app.packageName": "Package Name",
