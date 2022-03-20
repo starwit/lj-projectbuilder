@@ -34,64 +34,72 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
-        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        NotificationDto output = new NotificationDto("error.internalServerError", "Internal Server Error");
+        return new ResponseEntity<>(output, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = { InvalidDefinitionException.class })
     public ResponseEntity<Object> handleInvalidDefinitionException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
-        String output = "Invalid Definition: " + ex.getMessage() + ".";
+        String outputString = "Invalid Definition: " + ex.getMessage() + ".";
+        NotificationDto output = new NotificationDto("error.invalidDefinition", outputString);
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { Unauthorized.class })
     public ResponseEntity<Object> handleUnauthorizedException(Unauthorized ex) {
         LOG.info("Unauthorized Exception: {}", ex.getMessage());
-        return new ResponseEntity<>("Unauthorized request", HttpStatus.UNAUTHORIZED);
+        NotificationDto output = new NotificationDto("error.unauthorized", "Unauthorized requests");
+        return new ResponseEntity<>(output, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
     public ResponseEntity<Object> handleException(MethodArgumentTypeMismatchException ex) {
         LOG.info("Wrong input value {}", ex.getMessage());
-        String output = "Wrong input value " + ex.getValue() + ". Failed to convert value of type "
-                + ClassUtils.getShortName(ex.getValue().getClass()) + " to required type "
-                + ClassUtils.getShortName(ex.getRequiredType()) + ".";
+        Object exValue = ex.getValue();
+        Class<?> exType = ex.getRequiredType();
+        String className = exValue != null ? ClassUtils.getShortName(exValue.getClass()) : "";
+        String reqType = exType != null ? ClassUtils.getShortName(exType) : "";
+        String outputString = "Wrong input value " + ex.getValue() + ". Failed to convert value of type "
+                + className + " to required type "
+                + reqType + ".";
+        NotificationDto output = new NotificationDto("error.wrongInputValue", outputString);
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { NotificationException.class })
     public ResponseEntity<Object> handleException(NotificationException ex) {
         LOG.info("Wrong input value {}", ex.getMessage());
-        NotificationDto output = new NotificationDto();
-        output.setMessageKey(ex.getExceptionKey());
-        output.setMessage(ex.getExceptionMessage());
+        NotificationDto output = new NotificationDto(ex.getExceptionKey(), ex.getExceptionMessage());
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
     public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
         LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
-        return new ResponseEntity<>(ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.", HttpStatus.BAD_REQUEST);
+        NotificationDto output = new NotificationDto("error.badrequest", ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.");
+        return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
         LOG.info("Entity not found Exception: {}", ex.getMessage());
-        return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        NotificationDto output = new NotificationDto("error.notfound", "Entity not found");
+        return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleException(EmptyResultDataAccessException ex) {
         LOG.info(ex.getMessage());
-        return new ResponseEntity<>("Does not exists and cannot be deleted.", HttpStatus.NOT_FOUND);
+        NotificationDto output = new NotificationDto("error.notexists", "Does not exists and cannot be deleted.");
+        return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { AccessDeniedException.class })
     public ResponseEntity<Object> handleException(AccessDeniedException ex) {
         LOG.info(ex.getMessage());
-        NotificationDto output = new NotificationDto();
+        NotificationDto output = new NotificationDto("error.accessdenied", "access denied");
         output.setMessageKey("error.accessdenied");
-        output.setMessage("access denied");
         return new ResponseEntity<>(output, HttpStatus.FORBIDDEN);
     }
 

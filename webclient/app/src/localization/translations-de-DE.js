@@ -43,7 +43,7 @@ const translationsDeDE = {
     "app.template.select": "Auswählen",
     "app.template.selected": "Ausgewählt",
     "app.entities.empty": "keine Entitäten vorhanden",
-    
+
     "app.section.general": "General",
     "app.section.general.hello": "Hallo!",
     "app.section.general.enterInformation": "Bitte geben Sie als ersten Schritt die allgemeinen Informationen zu Ihrer App ein.",
@@ -120,6 +120,17 @@ const translationsDeDE = {
     "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
-    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt."
+    "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
+    "error.apptemplate.notfound": "Das Template konnte nicht gefunden werden.",
+    "error.app.notfound": "Die App konnte nicht gefunden werden.",
+    "error.entity.notfound": "Das Element konnte nicht gefunden werden.",
+    "error.wrongAppId": "Die App ID ist falsch.",
+    "error.internalServerError": "Ein Server Fehler ist aufgetreten.",
+    "error.invalidDefinition": "Die angegebene Definition ist nicht gültig.",
+    "error.unauthorized": "Sie haben keine Berechtigung.",
+    "error.wrongInputValue": "Die angegebenen Daten sind falsch.",
+    "error.badrequest": "Die Anfrage ist fehlerhaft.",
+    "error.notfound": "Das Element wurde nicht gefunden.",
+    "error.notexists": "Das Element existiert nicht.",
 };
 export default translationsDeDE;
