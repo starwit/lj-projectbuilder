@@ -101,7 +101,7 @@ const translationsEnEN = {
     "appTemplate.config": "Template Configuration",
     "appTemplate.credentialsRequired": "private repo with Login",
     "appTemplate.description": "Description",
-    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",    
+    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "User",
@@ -120,6 +120,17 @@ const translationsEnEN = {
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
-    "error.accessdenied": "You are not allowed to execute this action."
+    "error.accessdenied": "You are not allowed to execute this action.",
+    "error.apptemplate.notfound": "This App Template could not be found.",
+    "error.app.notfound": "This App could not be found.",
+    "error.entity.notfound": "This element could not be found.",
+    "error.wrongAppId": "This app id is wrong.",
+    "error.internalServerError": "An Server error occurred.",
+    "error.invalidDefinition": "The given definition is invalid.",
+    "error.unauthorized": "You are not authorized to perform this action.",
+    "error.wrongInputValue": "The input valid is invalid.",
+    "error.badrequest": "This request is invalid.",
+    "error.notfound": "This element could not be found.",
+    "error.notexists": "This element does not exist."
 };
 export default translationsEnEN;
