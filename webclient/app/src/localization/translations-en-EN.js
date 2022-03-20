@@ -34,7 +34,7 @@ const translationsEnEN = {
     "app.loading": "app is loading",
     "app.LoadingError": "An error occurred while loading the app.",
     "app.doesNotExist": "The provided App does not exist",
-    "app.delete.title": "Are you sure to delete this App?",
+    "app.delete.title": "Delete App",
     "app.delete.message": "Are you sure to delete this App?",
     "app.name": "Name of App",
     "app.name.hint": "Upper and lower cased chars and numbers are allowed",
