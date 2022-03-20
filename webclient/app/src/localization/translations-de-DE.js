@@ -34,7 +34,7 @@ const translationsDeDE = {
     "app.loading": "Apps wird geladen",
     "app.LoadingError": "Es ist ein Fehler beim Laden aufgetreten.",
     "app.doesNotExist": "Die angegebene App exisitert nicht.",
-    "app.delete.title": "Wollen Sie diese App wirklich löschen?",
+    "app.delete.title": "App löschen",
     "app.delete.message": "Wollen Sie diese App wirklich löschen?",
     "app.name": "Name der App",
     "app.name.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
