@@ -128,6 +128,18 @@ const translationsEnEN = {
     "error.serverOffline": "The server seems to be offline.",
     "error.userOffline": "You appear to be offline.",
     "error.unknown": "An unknown error occurred.",
+    "error.apptemplate.notfound": "The Template could not be found.",
+    "error.app.notfound": "This App could not be found.",
+    "error.entity.notfound": "This element could not be found.",
+    "error.wrongAppId": "This app id is wrong.",
+    "error.internalServerError": "An Server error occurred.",
+    "error.invalidDefinition": "The given definition is invalid.",
+    "error.unauthorized": "You are not authorized to perform this action.",
+    "error.wrongInputValue": "The input valid is invalid.",
+    "error.badrequest": "This request is invalid.",
+    "error.notfound": "This element could not be found.",
+    "error.notexists": "This element does not exist."
+
 
 };
 export default translationsEnEN;

@@ -128,5 +128,18 @@ const translationsDeDE = {
     "error.serverOffline": "Der Server scheint offline zu sein.",
     "error.userOffline": "Sie scheinen offline zu sein.",
     "error.unknown": "Ein unbekannter Fehler ist aufgetreten.",
+    "error.apptemplate.notfound": "Das Template konnte nicht gefunden werden.",
+    "error.app.notfound": "Die App konnte nicht gefunden werden.",
+    "error.entity.notfound": "Das Element konnte nicht gefunden werden.",
+    "error.wrongAppId": "Die App ID ist falsch.",
+    "error.internalServerError": "Ein Server Fehler ist aufgetreten.",
+    "error.invalidDefinition": "Die angegebene Definition ist nicht gültig.",
+    "error.unauthorized": "Sie haben keine Berechtigung.",
+    "error.wrongInputValue": "Die angegebenen Daten sind falsch.",
+    "error.badrequest": "Die Anfrage ist fehlerhaft.",
+    "error.notfound": "Das Element wurde nicht gefunden.",
+    "error.notexists": "Das Element existiert nicht.",
+
+
 };
 export default translationsDeDE;

@@ -1,16 +1,4 @@
-interface EntityDataType {
-    id?: number,
-    name?: string,
-    fields?: [],
-    relationships?: [],
-    isNewEntity: boolean,
-    position?: {
-        positionX: number,
-        positionY: number
-    }
-}
-
-const newEntity : EntityDataType = {
+const newEntity = {
     name: "",
     fields: [],
     relationships: [],
@@ -21,7 +9,7 @@ const newEntity : EntityDataType = {
     }
 };
 
-const emptyEntity : EntityDataType = {
+const emptyEntity = {
     id: undefined,
     name: "none",
     fields: [],

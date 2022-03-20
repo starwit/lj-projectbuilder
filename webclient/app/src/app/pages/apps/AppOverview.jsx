@@ -86,7 +86,7 @@ function AppOverview() {
             </Typography>
             {renderApps()}
             <div className={appOverviewStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={() => history.push("/app/create/edit")}>
+                <Fab color="primary" aria-label="add" onClick={() => history.push("/apps/create/edit")}>
                     <Add/>
                 </Fab>
             </div>

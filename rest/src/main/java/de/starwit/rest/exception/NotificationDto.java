@@ -5,6 +5,14 @@ public class NotificationDto {
     private String messageKey;
     private String message;
 
+    public NotificationDto() {
+    }
+
+    public NotificationDto(String messageKey, String message) {
+        this.messageKey = messageKey;
+        this.message = message;
+    }
+
     public String getMessageKey() {
         return messageKey;
     }
