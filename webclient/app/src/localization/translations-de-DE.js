@@ -121,7 +121,7 @@ const translationsDeDE = {
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
     "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
-    "error.apptemplate.notfound": "Das App Template konnte nicht gefunden werden.",
+    "error.apptemplate.notfound": "Das Template konnte nicht gefunden werden.",
     "error.app.notfound": "Die App konnte nicht gefunden werden.",
     "error.entity.notfound": "Das Element konnte nicht gefunden werden.",
     "error.wrongAppId": "Die App ID ist falsch.",
