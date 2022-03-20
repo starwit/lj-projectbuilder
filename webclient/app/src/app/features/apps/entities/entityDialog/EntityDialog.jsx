@@ -88,7 +88,7 @@ function EntityDialog(props) {
 
         const entityModified = { ...entity };
 
-        entityModified.fields.forEach((field) => {
+        entityModified.fields?.forEach(field => {
             field.fieldValidateRules = [];
 
             if (field.fieldValidateRulesMinlength) {
@@ -233,8 +233,16 @@ function EntityDialog(props) {
         }
 
         return entity.fields.map((field, index) => {
-            const { mandatory, fieldValidateRulesMin, fieldValidateRulesMinlength, fieldValidateRulesMax, fieldValidateRulesMaxlength, fieldValidateRulesPattern, fieldName, fieldType } =
-                entity.fields[index];
+            const {
+                mandatory,
+                fieldValidateRulesMin,
+                fieldValidateRulesMinlength,
+                fieldValidateRulesMax,
+                fieldValidateRulesMaxlength,
+                fieldValidateRulesPattern,
+                fieldName,
+                fieldType
+            } = entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}

@@ -118,7 +118,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
         LOG.info(response.getContentAsString());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
         assertThat(response.getContentAsString()).isEqualTo(
-                "Wrong input value wrongvalue. Failed to convert value of type String to required type Long.");
+                "{\"messageKey\":\"error.wrongInputValue\",\"message\":\"Wrong input value wrongvalue. Failed to convert value of type String to required type Long.\"}");
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("App not found.");
+        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
     }
 
     @Test
