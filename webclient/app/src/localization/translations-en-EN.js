@@ -121,7 +121,7 @@ const translationsEnEN = {
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
     "error.accessdenied": "You are not allowed to execute this action.",
-    "error.apptemplate.notfound": "This App Template could not be found.",
+    "error.apptemplate.notfound": "The Template could not be found.",
     "error.app.notfound": "This App could not be found.",
     "error.entity.notfound": "This element could not be found.",
     "error.wrongAppId": "This app id is wrong.",
