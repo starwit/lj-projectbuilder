@@ -106,7 +106,7 @@ function EntityDialog(props) {
 
         const entityModified = {...entity};
 
-        entityModified.fields.forEach(field => {
+        entityModified.fields?.forEach(field => {
             field.fieldValidateRules = [];
 
             if (field.fieldValidateRulesMinlength) {
