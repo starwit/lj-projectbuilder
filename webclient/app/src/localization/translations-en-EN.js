@@ -85,7 +85,7 @@ const translationsEnEN = {
     "relationship.targetField.hint": "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "relationship.targetEntity.empty": "not available",
 
-    "appTemplate.delete.title": "Are you sure to delete this App Template?",
+    "appTemplate.delete.title": "Delete Template",
     "appTemplate.delete.message": "This operation cannot be reversed.",
     "appTemplate.error.title": "Error",
     "appTemplate.error.message": "Template could not be deleted.",
