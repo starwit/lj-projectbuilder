@@ -121,6 +121,13 @@ const translationsDeDE = {
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
     "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
+    "error.general.delete": "Dieses Element konnte nicht gelöscht werden.",
+    "error.general.create": "Dieses Element konnte nicht erstellt werden.",
+    "error.general.update": "Dieses Element konnte nicht aktualisiert werden.",
+    "error.general.get": "Dieses Element konnte nicht geladen werden.",
+    "error.serverOffline": "Der Server scheint offline zu sein.",
+    "error.userOffline": "Sie scheinen offline zu sein.",
+    "error.unknown": "Ein unbekannter Fehler ist aufgetreten.",
     "error.apptemplate.notfound": "Das Template konnte nicht gefunden werden.",
     "error.app.notfound": "Die App konnte nicht gefunden werden.",
     "error.entity.notfound": "Das Element konnte nicht gefunden werden.",
@@ -132,5 +139,7 @@ const translationsDeDE = {
     "error.badrequest": "Die Anfrage ist fehlerhaft.",
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
+
+
 };
 export default translationsDeDE;

@@ -86,7 +86,7 @@ const translationsEnEN = {
     "relationship.targetEntity.empty": "not available",
 
     "appTemplate.delete.title": "Delete Template",
-    "appTemplate.delete.message": "This operation cannot be reversed.",
+    "appTemplate.delete.message": "Do you want to delete the template?",
     "appTemplate.error.title": "Error",
     "appTemplate.error.message": "Template could not be deleted.",
     "appTemplate.success.title": "Success Template Upload",
@@ -121,6 +121,13 @@ const translationsEnEN = {
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
     "error.accessdenied": "You are not allowed to execute this action.",
+    "error.general.delete": "This element could not be deleted.",
+    "error.general.create": "This element could not be created.",
+    "error.general.update": "This element could not be updated.",
+    "error.general.get": "This element could not be loaded.",
+    "error.serverOffline": "The server seems to be offline.",
+    "error.userOffline": "You appear to be offline.",
+    "error.unknown": "An unknown error occurred.",
     "error.apptemplate.notfound": "The Template could not be found.",
     "error.app.notfound": "This App could not be found.",
     "error.entity.notfound": "This element could not be found.",
@@ -131,6 +138,6 @@ const translationsEnEN = {
     "error.wrongInputValue": "The input valid is invalid.",
     "error.badrequest": "This request is invalid.",
     "error.notfound": "This element could not be found.",
-    "error.notexists": "This element does not exist."
+    "error.notexists": "This element does not exist.",
 };
 export default translationsEnEN;

@@ -16,7 +16,6 @@ import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
 import AppTemplateRest from "../../../services/AppTemplateRest"
-import ErrorAlert from "../../../commons/alert/ErrorAlert";
 import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
@@ -25,14 +24,12 @@ function AppTemplateDialog(props) {
     const { appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups } = props;
     const { t } = useTranslation();
     const [internalAppTemplate, setInternalAppTemplate] = useState(null);
-    const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
 
     const onDialogClose = () => {
         onClose();
-        closeAlert();
         setInternalAppTemplate(appTemplate);
     };
 
@@ -64,20 +61,12 @@ function AppTemplateDialog(props) {
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
-            }).catch(err => {
-                setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
-            });
+            })
         } else {
             appTemplateRest.update(toSave).then(response => {
                 handleSaveResponse(response);
-            }).catch(err => {
-                setAlert({"open":true, "title": t("alert.error"), "message": JSON.stringify(err.response.data)});
-            });
+            })
         }
-    };
-
-    const closeAlert = () => {
-        setAlert({"open":false, "title": t("alert.error"), "message": ""});
     };
 
     const handleSaveResponse = (response) => {
@@ -138,7 +127,6 @@ function AppTemplateDialog(props) {
                 noValidate
                 autoComplete="off"
             >
-                <ErrorAlert alert={alert} onClose={closeAlert} />
                 <ValidatedTextField
                     fullWidth
                     label={t("apptemplate.location") + "*" }

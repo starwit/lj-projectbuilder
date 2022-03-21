@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Alert, Box, Snackbar, Step, StepLabel, Stepper} from "@mui/material";
+import {Box, Step, StepLabel, Stepper} from "@mui/material";
 import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
 import EntityDiagram from "../../features/apps/entities/entityDiagram/EntityDiagram";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
@@ -12,7 +12,7 @@ import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
-import { updateRelationCoordinates } from "../../features/apps/entities/HandleRelations";
+import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
 import UserRest from "../../services/UserRest";
 
 
@@ -33,7 +33,6 @@ function AppEditor() {
     const [entities, setEntities] = useState([]);
     const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isNewApp, setIsNewApp] = useState(false);
-    const [saveError, setSaveError] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [userGroups, setUserGroups] = useState([]);
     const [groupsToAssign, setGroupsToAssign] = useState(['public']);
@@ -180,11 +179,10 @@ function AppEditor() {
                     history.push(`/apps/${id}/edit`);
                     return response;
                 })
-                .catch(response => setSaveError(response.data))
         } else {
             restRequest = appRest.update(appPackage)
                 .then(response => {
-                    const {baseName, packageName, template, entities, groupsToAssign } = response.data;
+                    const {baseName, packageName, template, entities, groupsToAssign} = response.data;
                     setAppName(baseName);
                     setPackageName(packageName);
                     setSelectedTemplate(template);
@@ -192,7 +190,6 @@ function AppEditor() {
                     setGroupsToAssign(groupsToAssign);
                     return response;
                 })
-                .catch(response => setSaveError(response.data))
         }
 
         return restRequest;
@@ -205,7 +202,6 @@ function AppEditor() {
             .then(response => {
                 history.replace("/");
             })
-            .catch(response => setSaveError(response.data));
     }
 
     function renderNextButton() {
@@ -266,11 +262,6 @@ function AppEditor() {
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}
-            <Snackbar open={!!saveError} autoHideDuration={6000} onClose={() => setSaveError(null)}>
-                <Alert onClose={() => setSaveError(null)} severity="error" sx={{width: '30%'}}>
-                    This is a success message!
-                </Alert>
-            </Snackbar>
         </div>
     )
 
