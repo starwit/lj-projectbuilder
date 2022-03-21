@@ -86,7 +86,7 @@ const translationsEnEN = {
     "relationship.targetEntity.empty": "not available",
 
     "appTemplate.delete.title": "Delete Template",
-    "appTemplate.delete.message": "This operation cannot be reversed.",
+    "appTemplate.delete.message": "Do you want to delete the template?",
     "appTemplate.error.title": "Error",
     "appTemplate.error.message": "Template could not be deleted.",
     "appTemplate.success.title": "Success Template Upload",
@@ -138,8 +138,6 @@ const translationsEnEN = {
     "error.wrongInputValue": "The input valid is invalid.",
     "error.badrequest": "This request is invalid.",
     "error.notfound": "This element could not be found.",
-    "error.notexists": "This element does not exist."
-
-
+    "error.notexists": "This element does not exist.",
 };
 export default translationsEnEN;
