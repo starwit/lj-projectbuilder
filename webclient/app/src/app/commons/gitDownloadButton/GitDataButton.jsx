@@ -4,8 +4,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import { useTranslation } from 'react-i18next';
 import { CloudSync, Close } from "@mui/icons-material";
-import ErrorAlert from "../alert/ErrorAlert";
-import NotificationDialog from "../alert/NotificationDialog";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import GitDataButtonStyles from "./GitDataButtonStyles";
@@ -15,7 +13,6 @@ function GitDataButton(props) {
     const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);    
     const [downloadRequestData, setDownloadRequestData] = useState({ "username": "", "password": "" });
-    const [alert, setAlert] = useState({"open":false, "title": "ERROR", "message": ""});
     const { t } = useTranslation();
 
     const [openAuthDialog, setOpenAuthDialog] = useState(false);
@@ -30,7 +27,6 @@ function GitDataButton(props) {
 
     const handleLogin = () => {
         if (credentialsRequired) {
-            handleAlertClose();
             setOpenAuthDialog(true);
         } else {
             handleAppTemplateReload();
@@ -44,14 +40,7 @@ function GitDataButton(props) {
         handleGit(downloadRequestData).then(() => {
             handleAfterSuccess();
             setOpenAuthDialog(false);
-        }).catch(err => {
-            setAlert({"open":true, "title": t("alert.error"), "message": t(err.response.data.messageKey)});
-            console.log(err.response.data);
         });
-    }
-
-    const handleAlertClose = () => {
-        setAlert({"open":false, "title": "ERROR", "message": ""});
     }
 
     const onClose = () => {
@@ -78,13 +67,6 @@ function GitDataButton(props) {
     return (
         <Container>
             <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync />} variant={buttonVariant} >{buttonName}</Button>
-            <NotificationDialog 
-                open={alert.open && !credentialsRequired} 
-                onClose={handleAlertClose} 
-                severity="error" 
-                title={t(alert.title)} 
-                message={t(alert.message)} 
-            />
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
                 <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
@@ -107,7 +89,6 @@ function GitDataButton(props) {
                     noValidate
                     autoComplete="off"
                 >
-                    <ErrorAlert alert={alert} />
                     <ValidatedTextField
                         fullWidth
                         label={t("gitAuth.username") + "*"}
