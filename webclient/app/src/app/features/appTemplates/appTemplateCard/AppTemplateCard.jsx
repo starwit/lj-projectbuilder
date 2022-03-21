@@ -13,8 +13,8 @@ import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../../services/AppTemplateRest";
 import GitRest from "../../../services/GitRest";
 import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
-import NotificationDialog from "../../../commons/alert/NotificationDialog";
 import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
+import { useSnackbar } from "notistack";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -30,6 +30,7 @@ const ExpandMore = styled((props) => {
 function AppTemplateCard(props) {
     const appTemplateCardStyles = AppTemplateCardStyles();
     const { t } = useTranslation();
+    const { enqueueSnackbar } = useSnackbar();
 
     const { appTemplate, handleRefresh, userGroups } = props;
     const appTemplateRest = new AppTemplateRest();
@@ -41,18 +42,6 @@ function AppTemplateCard(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-
-    const deleteErrorDialogContent = {
-        title: t("appTemplate.error.title"),
-        message: t("appTemplate.error.message"),
-    };
-    const [openErrorDialog, setOpenErrorDialog] = useState(false);
-
-    const successDialogContent = {
-        title: t("appTemplate.success.title"),
-        message: t("appTemplate.success.message"),
-    };
-    const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
 
     const closeDeleteDialog = () => {
         setOpenDeleteDialog(false);
@@ -73,16 +62,9 @@ function AppTemplateCard(props) {
     };
 
     const handleDelete = (appTemplateId) => {
-        appTemplateRest
-            .delete(appTemplateId)
-            .then(() => {
-                handleRefresh();
-            })
-            .catch((err) => {
-                setOpenErrorDialog(true);
-                setOpenDeleteDialog(false);
-                console.log(err.response.data);
-            });
+        appTemplateRest.delete(appTemplateId).then(() => {
+            handleRefresh();
+        });
     };
 
     const handleGit = (downloadRequestData) => {
@@ -91,7 +73,7 @@ function AppTemplateCard(props) {
 
     const handleAfterGitSuccess = () => {
         handleRefresh();
-        setOpenSuccessDialog(true);
+        enqueueSnackbar(t("appTemplate.success.message"), { variant: "success" });
     };
 
     const loadAppTemplate = (appTemplateId) => {
@@ -193,9 +175,6 @@ function AppTemplateCard(props) {
                 onSubmit={() => handleDelete(appTemplate.id)}
                 confirmTitle={t("button.delete")}
             />
-            <NotificationDialog severity="error" content={deleteErrorDialogContent} open={openErrorDialog} onClose={() => setOpenErrorDialog(false)} />
-
-            <NotificationDialog severity="success" content={successDialogContent} open={openSuccessDialog} onClose={() => setOpenSuccessDialog(false)} />
         </Container>
     );
 }
