@@ -1,18 +1,13 @@
 import React, {useState} from "react";
 import {
-    Button,
     Card,
     CardActionArea,
     CardActions,
     CardContent,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     Divider,
     Grid,
     IconButton,
+    Snackbar,
     Typography
 } from "@mui/material";
 import {Delete, Edit, MoreHoriz} from "@mui/icons-material";
@@ -20,7 +15,7 @@ import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
 import {useTranslation} from "react-i18next";
-import {LoadingButton} from "@mui/lab";
+import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
 
 function AppCard(props) {
 
@@ -30,16 +25,6 @@ function AppCard(props) {
     const {t} = useTranslation();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
-
-    function prepareDelete() {
-        setIsDeleting(true)
-        onDeleteClick(app.id)
-            .then(response => {
-                setOpenDeleteDialog(false);
-                setIsDeleting(false);
-            })
-    }
 
     return (
         <>
@@ -52,9 +37,12 @@ function AppCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <IconButton onClick={onEditClick}><Edit fontSize={"small"}/></IconButton>
-                            <IconButton onClick={() => setOpenDeleteDialog(true)}><Delete
-                                fontSize={"small"}/></IconButton>
+                            <IconButton onClick={onEditClick}>
+                                <Edit fontSize={"small"}/>
+                            </IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                                <Delete fontSize={"small"}/>
+                            </IconButton>
 
                         </Grid>
                     </Grid>
@@ -71,25 +59,17 @@ function AppCard(props) {
                     </CardContent>
                 </CardActionArea>
             </Card>
-            <Dialog
+            <ConfirmationDialog
+                title={t("app.delete.title")}
+                message={t("app.delete.message")}
                 open={openDeleteDialog}
                 onClose={() => setOpenDeleteDialog(false)}
-            >
-                <DialogTitle>
-                    {t("app.delete.title")}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {t("app.delete.message")}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpenDeleteDialog(true)}>{t("button.cancel")}</Button>
-                    <LoadingButton loading={isDeleting} onClick={prepareDelete} autoFocus>
-                        {t("button.delete")}
-                    </LoadingButton>
-                </DialogActions>
-            </Dialog>
+                onSubmit={
+                    () => onDeleteClick(app.id)
+                }
+                confirmTitle={t("button.delete")}
+            />
+
         </>
     )
 }

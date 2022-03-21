@@ -31,11 +31,11 @@ const translationsDeDE = {
     "apptemplates.loading": "die Templates werden geladen",
     "apptemplates.loadingError": "Die Templates konnten nicht geladen werden.",
 
-    "app.loading": "App wird geladen",
+    "app.loading": "Apps wird geladen",
     "app.LoadingError": "Es ist ein Fehler beim Laden aufgetreten.",
     "app.doesNotExist": "Die angegebene App exisitert nicht.",
     "app.delete.title": "App löschen",
-    "app.delete.message": "Diese Operation kann nicht rückgängig gemacht werden.",
+    "app.delete.message": "Wollen Sie diese App wirklich löschen?",
     "app.name": "Name der App",
     "app.name.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "app.packageName": "Package Name",
