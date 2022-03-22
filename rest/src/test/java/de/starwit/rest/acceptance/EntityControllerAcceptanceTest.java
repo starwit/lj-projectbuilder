@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import de.starwit.TestdataConstants;
-import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
 
 public class EntityControllerAcceptanceTest extends AbstractControllerAcceptanceTest<EntityDto> {
@@ -28,7 +28,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
 
     private static final String apprestpath = "/api/apps/";
 
-    private JacksonTester<ApplicationDto> jsonAppTester;
+    private JacksonTester<AppDto> jsonAppTester;
 
     private JacksonTester<EntityDto> jsonTester;
 
@@ -51,11 +51,11 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     public void isValidatedRegEx() throws Exception {
 
         // given
-        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity-wrong-name.json");
         String requestObject = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, requestObject);
-        Long appId = mapper.readValue(response.getContentAsString(), ApplicationDto.class).getId();
+        Long appId = mapper.readValue(response.getContentAsString(), AppDto.class).getId();
 
         // when
         requestObject = jsonTester.write(dto).getJson();
@@ -70,11 +70,11 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     @Test
     public void canCreate() throws Exception {
         // given
-        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         String requestObject = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, requestObject);
-        Long appId = mapper.readValue(response.getContentAsString(), ApplicationDto.class).getId();
+        Long appId = mapper.readValue(response.getContentAsString(), AppDto.class).getId();
 
         // when
         requestObject = jsonTester.write(dto).getJson();
@@ -94,13 +94,13 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     public void canRetrieveById() throws Exception {
 
         // given
-        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, applicationString);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto appDto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
         dto.setId(appDto2.getEntities().get(0).getId());
 
         // when
@@ -134,11 +134,11 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         return response;
     }
 
-    private ApplicationDto readAppFromFile(String path) throws Exception {
+    private AppDto readAppFromFile(String path) throws Exception {
         try {
             URL res = getClass().getClassLoader().getResource(path);
             File file = new File(res.getFile());
-            ApplicationDto dto = mapper.readValue(file, ApplicationDto.class);
+            AppDto dto = mapper.readValue(file, AppDto.class);
             return dto;
         } catch (IOException e) {
             LOG.error("JSON mapper failed", e);
@@ -150,13 +150,13 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     @Test
     public void canUpdate() throws Exception {
         // given
-        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, applicationString);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto appDto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
         dto.setId(appDto2.getEntities().get(0).getId());
         dto.setName("Changed");
 
@@ -177,13 +177,13 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     @Test
     public void canDelete() throws Exception {
         // given
-        ApplicationDto appDto = readAppFromFile(appdata + "app.json");
+        AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, applicationString);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto appDto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto appDto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
         Long entityId = appDto2.getEntities().get(0).getId();
         response = retrieveById(entityId);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());

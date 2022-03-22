@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.starwit.dto.AppTemplateDto;
-import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 
 @Component
-public class ApplicationMapper implements Serializable, CustomMapper<App, ApplicationDto> {
+public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
 
   @Autowired
   EntityMapper entityMapper;
@@ -21,10 +21,10 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
   private static final long serialVersionUID = 1L;
   public static final long defaultAppTemplateID = 1L;
 
-  public ApplicationDto convertToDto(App entity) {
-    ApplicationDto dto = null;
+  public AppDto convertToDto(App entity) {
+    AppDto dto = null;
     if (entity != null) {
-      dto = new ApplicationDto();
+      dto = new AppDto();
       dto.setId(entity.getId());
       dto.setBaseName(entity.getTitle());
       dto.setPackageName(entity.getPackagePrefix());
@@ -42,7 +42,7 @@ public class ApplicationMapper implements Serializable, CustomMapper<App, Applic
     return dto;
   }
 
-  public App convertToEntity(ApplicationDto dto) {
+  public App convertToEntity(AppDto dto) {
     App app = null;
     if (dto != null) {
       app = new App();

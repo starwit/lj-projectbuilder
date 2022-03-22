@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
 import de.starwit.dto.FieldDto;
 import de.starwit.dto.FieldType;
@@ -26,9 +26,9 @@ import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.Domain;
 
 @RunWith(SpringRunner.class)
-public class ApplicationMapperTest {
+public class AppMapperTest {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationMapperTest.class);
+    final static Logger LOG = LoggerFactory.getLogger(AppMapperTest.class);
 
         /**
      * <pre>
@@ -41,8 +41,8 @@ public class ApplicationMapperTest {
      static class ApplicationMapperTestConfiguration {
 
         @Bean
-        public ApplicationMapper createApplicationMapper() {
-            ApplicationMapper applicationMapper = new ApplicationMapper();
+        public AppMapper createApplicationMapper() {
+            AppMapper applicationMapper = new AppMapper();
             return applicationMapper;
         }
 
@@ -60,10 +60,10 @@ public class ApplicationMapperTest {
     }
 
     private App app;
-    private ApplicationDto dto;
+    private AppDto dto;
 
     @Autowired
-    private ApplicationMapper applicationMapper;
+    private AppMapper applicationMapper;
 
     @Before
     public void createApp() {
@@ -82,15 +82,15 @@ public class ApplicationMapperTest {
         app.setDomains(new ArrayList<Domain>());
         app.getDomains().add(domain);
         AppTemplate template = new AppTemplate();
-        template.setId(ApplicationMapper.defaultAppTemplateID);
+        template.setId(AppMapper.defaultAppTemplateID);
         template.setBranch("master");
         template.setTemplateName("testtemplate");
         app.setTemplate(template);
     }
 
     @Before
-    public void createApplicationDto() {
-        dto = new ApplicationDto();
+    public void createAppDto() {
+        dto = new AppDto();
         dto.setBaseName("testAppTitle");
         dto.setPackageName("testpackage");
         EntityDto entity = new EntityDto();
@@ -106,7 +106,7 @@ public class ApplicationMapperTest {
 
     @Test
     public void convertToAppTest() throws Exception {
-        ApplicationDto dto = applicationMapper.convertToDto(app);
+        AppDto dto = applicationMapper.convertToDto(app);
         assertEquals( "testAppTitle", dto.getBaseName());
         assertEquals("testpackage", dto.getPackageName());
         assertEquals("testdomain", dto.getEntities().get(0).getName());

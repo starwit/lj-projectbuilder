@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.starwit.allowedroles.IsAdmin;
 import de.starwit.allowedroles.IsUser;
-import de.starwit.dto.ApplicationDto;
-import de.starwit.mapper.ApplicationMapper;
+import de.starwit.dto.AppDto;
+import de.starwit.mapper.AppMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.rest.exception.NotificationDto;
 import de.starwit.service.impl.AppService;
@@ -32,26 +32,26 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("${rest.base-path}/apps")
-public class ApplicationController {
+public class AppController {
 
-	static final Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
+	static final Logger LOG = LoggerFactory.getLogger(AppController.class);
 
 	@Autowired
 	private AppService appService;
 
 	@Autowired
-	private ApplicationMapper appMapper;
+	private AppMapper appMapper;
 
 	@Operation(summary = "Get all apps")
 	@GetMapping
-	public List<ApplicationDto> findAll(Principal principal) {
+	public List<AppDto> findAll(Principal principal) {
 		List<String> groups = GroupsHelper.getGroups(principal);
 		return appMapper.convertToDtoList(appService.findByGroups(groups));
 	}
 
 	@Operation(summary = "Get app with id")
 	@GetMapping(value = "/{id}")
-	public ApplicationDto findById(@PathVariable("id") Long id) {
+	public AppDto findById(@PathVariable("id") Long id) {
 		App entity = appService.findById(id);
 		return appMapper.convertToDto(entity);
 	}
@@ -60,7 +60,7 @@ public class ApplicationController {
 	@IsUser
 	@Operation(summary = "Create app")
 	@PostMapping
-	public ApplicationDto save(@Valid @RequestBody ApplicationDto dto) {
+	public AppDto save(@Valid @RequestBody AppDto dto) {
 		return update(dto);
 	}
 
@@ -68,7 +68,7 @@ public class ApplicationController {
 	@IsUser
 	@Operation(summary = "Update app")
 	@PutMapping
-	public ApplicationDto update(@Valid @RequestBody ApplicationDto dto) {
+	public AppDto update(@Valid @RequestBody AppDto dto) {
 		App app = new App();
 		if (dto.getId() != null) {
 			app = appService.findById(dto.getId());
@@ -84,7 +84,7 @@ public class ApplicationController {
 	@IsUser
 	@Operation(summary = "Updates only app properties. List of entities will not be saved, changed or removed.")
 	@PostMapping(value = "/app-properties")
-	public ApplicationDto updateProperties(@Valid @RequestBody ApplicationDto dto) {
+	public AppDto updateProperties(@Valid @RequestBody AppDto dto) {
 		App app = appMapper.convertToEntity(dto);
 		App appOld = appService.findById(app.getId());
 		app.setDomains(appOld.getDomains());
