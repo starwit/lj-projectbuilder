@@ -17,6 +17,7 @@ function AppTemplateOverview() {
     const [appTemplates, setAppTemplates] = useState(null);
     const [userGroups, setUserGroups] = React.useState([]);
     const userRest = useMemo(() => new UserRest(), []);
+    const appTemplateRest = useMemo(() => new AppTemplateRest(), []);
     const appTemplateOverviewStyles = AppTemplateOverviewStyles();
 
     const handleDialogOpen = () => {
@@ -38,7 +39,6 @@ function AppTemplateOverview() {
         };
 
     const reload = () => {
-        const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
         });
@@ -52,7 +52,7 @@ function AppTemplateOverview() {
 
     useEffect(() => {
         reload();
-    }, []);
+    }, [appTemplateRest]);
 
     function renderContent() {
         if (!appTemplates) {
