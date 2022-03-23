@@ -18,14 +18,14 @@ function AppConclusion(props) {
     const gitRest = new GitRest();
     const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
-    const [generatorErrorMessage, setGeneratorErrorMessage] = useState(false);
+    const [generatorErrorMessage, setGeneratorErrorMessage] = useState(null);
 
     function openInformationDialog(errorMessage) {
         setGeneratorErrorMessage(errorMessage);
     }
 
     function closeInformationDialog() {
-        setGeneratorErrorMessage(false);
+        setGeneratorErrorMessage(null);
     }
 
     const handleGit = (downloadRequestData) => {
@@ -37,7 +37,6 @@ function AppConclusion(props) {
                     });
                 }, 1000);
             }
-            console.log("error", error.response.data.message);
         });
     };
 
@@ -91,7 +90,7 @@ function AppConclusion(props) {
                 {t("app.section.entityDiagram")}
             </Typography>
             <EntityDiagram entities={entities} appId={+appId} coordinates={coordinates} dense editable={false} />
-            <Dialog onClose={closeInformationDialog} open={generatorErrorMessage}>
+            <Dialog onClose={closeInformationDialog} open={!!generatorErrorMessage} fullWidth maxWidth={"xl"}>
                 <DialogTitle>{t("appConclusion.generationError.title")}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>{t("appConclusion.generationError.message")}</DialogContentText>
@@ -102,13 +101,8 @@ function AppConclusion(props) {
                             lineHeight: "1.5",
                             fontSize: ".75em",
                         }}
-                        codeTagProps={
-                            {
-                                //className: entityDiagramStyles.syntaxHighlighterCodeTag,
-                            }
-                        }
                     >
-                        {generatorErrorMessage}
+                        {generatorErrorMessage ? generatorErrorMessage : ""}
                     </SyntaxHighlighter>
                 </DialogContent>
                 <DialogActions>
