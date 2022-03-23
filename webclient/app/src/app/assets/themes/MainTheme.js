@@ -2,38 +2,34 @@ class MainTheme {
     palette = {
         primary: {
             main: "#de8608",
-            contrastText: "#fff"
+            contrastText: "#fff",
         },
         secondary: {
             main: "#fff",
-            contrastText: "#de8608"
+            contrastText: "#de8608",
         },
         background: {
             default: "#e6e6e6",
-            paper: "#fff"
-            
+            paper: "#fff",
         },
         line: {
-            width: 4  
-        } 
+            width: 4,
+        },
     };
 
     mixins = {
         toolbar: {
-            minHeight: 48
-        }
-    }
-    
+            minHeight: 48,
+        },
+    };
 
     typography = {
         useNextVariants: true,
         color: "#000",
         fontFamily: "Lato, sans-serif",
         fontSize: 16,
-        body1: {
-        },
-        body2: {
-        },
+        body1: {},
+        body2: {},
         h1: {
             fontSize: "2rem",
             fontWeight: 400,
@@ -49,8 +45,8 @@ class MainTheme {
         },
         h6: {
             fontSize: "1.2rem",
-            marginBottom: 5
-        }
+            marginBottom: 5,
+        },
     };
 
     shape = {
@@ -63,51 +59,53 @@ class MainTheme {
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    padding: 0
-                }
-            }
+                    padding: 0,
+                },
+            },
         },
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#fff',
-                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)'
-                }
-            }
+                    backgroundColor: "#fff",
+                    boxShadow:
+                        "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)",
+                },
+            },
         },
         MuiButton: {
             styleOverrides: {
                 // Name of the slot
                 textPrimary: {
-                    fontWeight: 600
+                    fontWeight: 600,
                 },
                 textSecondary: {
                     fontWeight: "medium",
-                    fontSize: "1rem"
+                    fontSize: "1rem",
                 },
                 containedPrimary: {
-                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)',
+                    boxShadow:
+                        "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)",
                 },
                 containedSecondary: {
-                    color: '#000'
-                }
-              },
+                    color: "#000",
+                },
+            },
         },
         MuiFab: {
             styleOverrides: {
                 // Name of the slot
                 primary: {
-                    backgroundImage: 'linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)',
-                    boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)',
+                    backgroundImage:
+                        "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)",
+                    boxShadow:
+                        "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)",
                 },
                 containedSecondary: {
-                    color: '#000'
-                }
-              },
-        }
-      };
+                    color: "#000",
+                },
+            },
+        },
+    };
 }
 
-
 export default MainTheme;
-                    

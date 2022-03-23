@@ -1,16 +1,14 @@
 package de.starwit.dto;
 
-import java.util.List;
+import de.starwit.persistence.entity.AbstractEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.Length;
-
-import de.starwit.persistence.entity.AbstractEntity;
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 
 @Schema
 @XmlRootElement
@@ -19,13 +17,13 @@ public class ApplicationDto extends AbstractEntity<Long> {
     @Schema(defaultValue = "defaultapp")
     @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Length(max = 100)
+    @Length(max = 100)
     private String baseName;
 
     @Schema(defaultValue = "defaultpackage")
     @NotBlank
-	@Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Length(max = 100)
+    @Pattern(regexp = "^[A-Za-z0-9]*$")
+    @Length(max = 100)
     private String packageName;
 
     @Valid

@@ -1,10 +1,10 @@
 package de.starwit.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
+import de.starwit.dto.FieldDto;
+import de.starwit.dto.FieldType;
+import de.starwit.persistence.entity.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,53 +15,17 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.starwit.dto.ApplicationDto;
-import de.starwit.dto.EntityDto;
-import de.starwit.dto.FieldDto;
-import de.starwit.dto.FieldType;
-import de.starwit.persistence.entity.App;
-import de.starwit.persistence.entity.AppTemplate;
-import de.starwit.persistence.entity.Attribute;
-import de.starwit.persistence.entity.DataType;
-import de.starwit.persistence.entity.Domain;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 public class ApplicationMapperTest {
 
     final static Logger LOG = LoggerFactory.getLogger(ApplicationMapperTest.class);
-
-        /**
-     * <pre>
-     * To check the Service class, we need to have an instance of Service class created and available as a
-     * &#64;Bean so that we can @Autowire it in our test class.
-     * This configuration is achieved by using the @TestConfiguration annotation.
-     * </pre>
-     */
-    @TestConfiguration
-     static class ApplicationMapperTestConfiguration {
-
-        @Bean
-        public ApplicationMapper createApplicationMapper() {
-            ApplicationMapper applicationMapper = new ApplicationMapper();
-            return applicationMapper;
-        }
-
-        @Bean
-        public EntityMapper createEntityMapper() {
-            EntityMapper entityMapper = new EntityMapper();
-            return entityMapper;
-        }
-
-        @Bean
-        public FieldMapper createFieldMapper() {
-            FieldMapper fieldMapper = new FieldMapper();
-            return fieldMapper;
-        }
-    }
-
     private App app;
     private ApplicationDto dto;
-
     @Autowired
     private ApplicationMapper applicationMapper;
 
@@ -70,7 +34,7 @@ public class ApplicationMapperTest {
         app = new App();
         app.setTitle("testAppTitle");
         app.setPackagePrefix("testpackage");
-        
+
         Domain domain = new Domain();
         domain.setName("testdomain");
         Attribute attr = new Attribute();
@@ -107,20 +71,49 @@ public class ApplicationMapperTest {
     @Test
     public void convertToAppTest() throws Exception {
         ApplicationDto dto = applicationMapper.convertToDto(app);
-        assertEquals( "testAppTitle", dto.getBaseName());
+        assertEquals("testAppTitle", dto.getBaseName());
         assertEquals("testpackage", dto.getPackageName());
         assertEquals("testdomain", dto.getEntities().get(0).getName());
         assertEquals("testattribute", dto.getEntities().get(0).getFields().get(0).getFieldName());
-      }
-    
+    }
+
     @Test
     public void convertToDtoTest() throws Exception {
         App app = applicationMapper.convertToEntity(dto);
-        assertEquals( "testAppTitle", app.getTitle());
+        assertEquals("testAppTitle", app.getTitle());
         assertEquals("testpackage", app.getPackagePrefix());
         assertEquals("testentity", app.getDomains().get(0).getName());
         assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().get(0)).getName());
     }
-    
-    
+
+    /**
+     * <pre>
+     * To check the Service class, we need to have an instance of Service class created and available as a
+     * &#64;Bean so that we can @Autowire it in our test class.
+     * This configuration is achieved by using the @TestConfiguration annotation.
+     * </pre>
+     */
+    @TestConfiguration
+    static class ApplicationMapperTestConfiguration {
+
+        @Bean
+        public ApplicationMapper createApplicationMapper() {
+            ApplicationMapper applicationMapper = new ApplicationMapper();
+            return applicationMapper;
+        }
+
+        @Bean
+        public EntityMapper createEntityMapper() {
+            EntityMapper entityMapper = new EntityMapper();
+            return entityMapper;
+        }
+
+        @Bean
+        public FieldMapper createFieldMapper() {
+            FieldMapper fieldMapper = new FieldMapper();
+            return fieldMapper;
+        }
+    }
+
+
 }

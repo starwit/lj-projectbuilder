@@ -27,7 +27,9 @@ function ErrorHandler(props) {
                         console.error("Server cannot be reached.");
                     } else {
                         errorMessage = "error.userOffline";
-                        console.log("User seems to be offline. Cannot complete request.");
+                        console.log(
+                            "User seems to be offline. Cannot complete request."
+                        );
                     }
                 }
                 if (error?.response) {
@@ -53,7 +55,11 @@ function ErrorHandler(props) {
                         errorMessage = data.messageKey;
                     }
 
-                    console.error(`A ${config.method} request failed with status code ${status}:`, data, config);
+                    console.error(
+                        `A ${config.method} request failed with status code ${status}:`,
+                        data,
+                        config
+                    );
                 }
 
                 enqueueSnackbar(t(errorMessage), { variant: "error" });

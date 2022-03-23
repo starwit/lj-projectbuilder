@@ -1,42 +1,56 @@
 import React from "react";
-import {Skeleton, Typography, Container, Grid, List, ListItem, ListItemText} from "@mui/material";
+import {
+    Container,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
+    Skeleton,
+    Typography,
+} from "@mui/material";
 import EntityDiagram from "../entities/entityDiagram/EntityDiagram";
 import PropTypes from "prop-types";
 import AppStepsStyles from "./AppStepsStyles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import GitRest from "../../../services/GitRest";
 import { Download } from "@mui/icons-material";
 import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
 
 function AppConclusion(props) {
-
-    const {entities, appId, coordinates, appName, packageName, templateName, credentialsRequired} = props;
+    const {
+        entities,
+        appId,
+        coordinates,
+        appName,
+        packageName,
+        templateName,
+        credentialsRequired,
+    } = props;
     const appStepsStyles = AppStepsStyles();
     const gitRest = new GitRest();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const handleGit = (downloadRequestData) => {
+    const handleGit = downloadRequestData => {
         return gitRest.setupApp(appId, downloadRequestData);
-    }
+    };
 
     const handleAfterGitSuccess = () => {
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = window.location.pathname + "api/git/download-app/" + appId;
-        link.download = appName + '.zip';
+        link.download = appName + ".zip";
         link.click();
         document.body.removeChild(link);
-    }
+    };
 
     function renderLoadingText(text) {
         if (!text) {
-            return <Skeleton animation={"wave"}/>
+            return <Skeleton animation={"wave"} />;
         }
-        return <Typography
-            variant={"h6"}
-            className={appStepsStyles.listItemText}
-        >
-            {text}
-        </Typography>;
+        return (
+            <Typography variant={"h6"} className={appStepsStyles.listItemText}>
+                {text}
+            </Typography>
+        );
     }
 
     return (
@@ -45,41 +59,48 @@ function AppConclusion(props) {
                 <Grid item md={9}>
                     <List className={appStepsStyles.list}>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(appName)} secondary={t("app.name")}/>
+                            <ListItemText
+                                primary={renderLoadingText(appName)}
+                                secondary={t("app.name")}
+                            />
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("app.section.template")}/>
+                            <ListItemText
+                                primary={renderLoadingText(templateName)}
+                                secondary={t("app.section.template")}
+                            />
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(packageName)} secondary={t("app.packageName")}/>
+                            <ListItemText
+                                primary={renderLoadingText(packageName)}
+                                secondary={t("app.packageName")}
+                            />
                         </ListItem>
                     </List>
                 </Grid>
-                <Grid
-                    item
-                    md={3}
-                    className={appStepsStyles.downloadGrid}
-                >
-                    <GitDataButton 
-                        credentialsRequired={credentialsRequired} 
-                        handleAfterSuccess={handleAfterGitSuccess} 
+                <Grid item md={3} className={appStepsStyles.downloadGrid}>
+                    <GitDataButton
+                        credentialsRequired={credentialsRequired}
+                        handleAfterSuccess={handleAfterGitSuccess}
                         handleGit={handleGit}
-                        buttonIcon={<Download/>}
+                        buttonIcon={<Download />}
                         buttonName={t("button.download")}
                         buttonVariant={"contained"}
                     />
                 </Grid>
-
             </Grid>
-            <Typography variant={"h4"} gutterBottom>{t("app.section.entityDiagram")}</Typography>
-            <EntityDiagram entities={entities} 
+            <Typography variant={"h4"} gutterBottom>
+                {t("app.section.entityDiagram")}
+            </Typography>
+            <EntityDiagram
+                entities={entities}
                 appId={+appId}
                 coordinates={coordinates}
-                dense 
+                dense
                 editable={false}
-                />
+            />
         </Container>
-    )
+    );
 }
 
 AppConclusion.propTypes = {
@@ -89,14 +110,13 @@ AppConclusion.propTypes = {
     packageName: PropTypes.string,
     templateName: PropTypes.string,
     coordinates: PropTypes.array,
-    credentialsRequired: PropTypes.bool
-}
+    credentialsRequired: PropTypes.bool,
+};
 
 AppConclusion.defaultProps = {
-    appName: <Skeleton animation={"wave"}/>,
-    templateName: <Skeleton animation={"wave"}/>,
-    packageName: <Skeleton animation={"wave"}/>,
-}
+    appName: <Skeleton animation={"wave"} />,
+    templateName: <Skeleton animation={"wave"} />,
+    packageName: <Skeleton animation={"wave"} />,
+};
 
-
-export default AppConclusion
+export default AppConclusion;

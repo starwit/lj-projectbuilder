@@ -1,15 +1,8 @@
 package de.starwit.rest.integration;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import de.starwit.persistence.entity.AbstractEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +15,15 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import de.starwit.persistence.entity.AbstractEntity;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
-@WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
+@WithMockUser(username = "admin", roles = {"ADMIN", "PBUSER"})
 @WebMvcTest()
 @Import({})
 public abstract class AbstractControllerIntegrationTest<DTO extends AbstractEntity<Long>> {
@@ -69,13 +66,13 @@ public abstract class AbstractControllerIntegrationTest<DTO extends AbstractEnti
     protected MockHttpServletResponse retrieveById(Long id) throws Exception {
         // when
         MockHttpServletResponse response = mvc.perform(
-        get(getRestPath() + id)
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andReturn().getResponse();
+                        get(getRestPath() + id)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
     }
-    
+
 }

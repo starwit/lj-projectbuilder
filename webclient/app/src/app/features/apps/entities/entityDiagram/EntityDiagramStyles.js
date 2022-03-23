@@ -1,48 +1,46 @@
-import {makeStyles} from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 
 const EntityDiagramStyles = makeStyles(theme => ({
-
     addFab: {
         position: "absolute",
         bottom: "5%",
-        right: "2%"
+        right: "2%",
     },
     drawer: {
         width: "50vw",
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
+        "& .MuiDrawer-paper": {
             width: "50vw",
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
         },
     },
     draggableWrapper: {
-        height: "70vh"
+        height: "70vh",
     },
     draggableWrapperDense: {
-        height: "20vh"
+        height: "20vh",
     },
     statementWrapper: {
-        height: "10rem"
+        height: "10rem",
     },
     codeButtonWrapper: {
         position: "absolute",
         bottom: "5%",
-        left: "2%"
+        left: "2%",
     },
     draggable: {
         position: "absolute",
         width: "20rem",
-        zIndex: "200"
+        zIndex: "200",
     },
     syntaxHighlighterCodeTag: {
         lineHeight: "inherit",
-        fontSize: "inherit"
+        fontSize: "inherit",
     },
     line: {
         position: "absolute",
         zIndex: "-2",
-        borderWidth: "0.25em"
-    }
-
-}))
+        borderWidth: "0.25em",
+    },
+}));
 export default EntityDiagramStyles;

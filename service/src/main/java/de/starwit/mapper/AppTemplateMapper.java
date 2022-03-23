@@ -1,9 +1,8 @@
 package de.starwit.mapper;
 
-import org.springframework.stereotype.Component;
-
 import de.starwit.dto.SaveAppTemplateDto;
 import de.starwit.persistence.entity.AppTemplate;
+import org.springframework.stereotype.Component;
 
 @Component
 public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTemplateDto> {
@@ -35,5 +34,5 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         entity.setGroups(dto.getGroups());
         return entity;
     }
-   
+
 }

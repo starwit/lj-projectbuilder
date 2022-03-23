@@ -1,12 +1,10 @@
 package de.starwit.rest.acceptance;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.databind.JsonNode;
-
+import de.starwit.TestdataConstants;
+import de.starwit.dto.AppTemplateDto;
+import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.AppTemplateDto;
-import de.starwit.dto.ApplicationDto;
-import de.starwit.dto.EntityDto;
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 public class ApplicationControllerAcceptanceTest extends AbstractControllerAcceptanceTest<ApplicationDto> {
 

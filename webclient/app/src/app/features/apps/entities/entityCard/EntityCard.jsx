@@ -1,63 +1,70 @@
-import {Card, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
-import {Delete, Edit} from "@mui/icons-material";
-import React, {useState} from "react";
+import {
+    Card,
+    Grid,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+} from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+import React, { useState } from "react";
 import Statement from "../../../../commons/statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function EntityCard(props) {
-
     const entityCardStyles = EntityCardStyles();
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const {entity, handleEdit, handleDelete, editable} = props;
-    const {t} = useTranslation();
+    const { entity, handleEdit, handleDelete, editable } = props;
+    const { t } = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>
+        let value = (
+            <Typography variant={"h6"} color={"text.secondary"}>
+                {t("entity.new")}
+            </Typography>
+        );
         if (name) {
-            value = <Typography variant={"h6"}>{name}</Typography>
+            value = <Typography variant={"h6"}>{name}</Typography>;
         }
         return value;
     }
 
     function renderAttributes(entity) {
-
         return entity.fields.map((field, index) => {
             return (
-
                 <TableRow key={index}>
                     <TableCell>{field.fieldName}</TableCell>
                     <TableCell>{field.fieldType}</TableCell>
                 </TableRow>
-            )
-        })
+            );
+        });
     }
 
     function renderFieldsTable(entity) {
         if (!entity.fields || entity.fields.length === 0) {
             return (
                 <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={t("entity.fields.empty")}/>
+                    <Statement message={t("entity.fields.empty")} />
                 </div>
-            )
+            );
         }
         return (
             <Table size={"small"}>
                 <TableHead>
                     <TableRow className={entityCardStyles.tableRow}>
-                        <TableCell>{t("field.fieldName")}
-                        </TableCell>
-                        <TableCell>{t("field.fieldType")}
-                        </TableCell>
+                        <TableCell>{t("field.fieldName")}</TableCell>
+                        <TableCell>{t("field.fieldType")}</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {renderAttributes(entity)}
-                </TableBody>
+                <TableBody>{renderAttributes(entity)}</TableBody>
             </Table>
-        )
+        );
     }
 
     function renderEditButton() {
@@ -65,9 +72,10 @@ function EntityCard(props) {
             return (
                 <Grid item sm={2}>
                     <IconButton onClick={() => handleEdit(entity)}>
-                        <Edit fontSize={"small"}/></IconButton>
+                        <Edit fontSize={"small"} />
+                    </IconButton>
                 </Grid>
-            )
+            );
         }
     }
 
@@ -81,14 +89,11 @@ function EntityCard(props) {
         if (handleDelete && editable) {
             return (
                 <Grid item sm={2}>
-                    <IconButton
-                        onClick={prepareDelete}
-                        disabled={isDeleting}
-                    >
-                        <Delete fontSize={"small"}/>
+                    <IconButton onClick={prepareDelete} disabled={isDeleting}>
+                        <Delete fontSize={"small"} />
                     </IconButton>
                 </Grid>
-            )
+            );
         }
     }
 
@@ -105,30 +110,29 @@ function EntityCard(props) {
 
     return (
         <div className={"anchor_" + entity.name}>
-        <Card className={`${entityCardStyles.entityCard}`}>
-            <Grid container>
-                <Grid item sm={calculateTitleWidth()}>
-                    {renderTitle(entity.name)}
+            <Card className={`${entityCardStyles.entityCard}`}>
+                <Grid container>
+                    <Grid item sm={calculateTitleWidth()}>
+                        {renderTitle(entity.name)}
+                    </Grid>
+                    {renderEditButton()}
+                    {renderDeleteWrapper()}
                 </Grid>
-                {renderEditButton()}
-                {renderDeleteWrapper()}
-            </Grid>
-            {renderFieldsTable(entity)}
-        </Card>
+                {renderFieldsTable(entity)}
+            </Card>
         </div>
-    )
-
+    );
 }
 
 EntityCard.propTypes = {
     entity: PropTypes.object.isRequired,
     handleEdit: PropTypes.func,
     handleDelete: PropTypes.func,
-    editable: PropTypes.bool
-}
+    editable: PropTypes.bool,
+};
 
 EntityCard.defaultProps = {
-    editable: true
-}
+    editable: true,
+};
 
 export default EntityCard;

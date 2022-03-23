@@ -22,12 +22,14 @@ const translationsDeDE = {
     "alert.error": "Fehler",
 
     "apps.title": "Apps",
-    "apps.empty": "Es wurden keine Apps angelegt. Bitte unten Rechts eine App hinzufügen.",
+    "apps.empty":
+        "Es wurden keine Apps angelegt. Bitte unten Rechts eine App hinzufügen.",
     "apps.loading": "die Apps werden geladen",
     "apps.loadingError": "Die Apps konnten nicht geladen werden.",
 
     "apptemplates.title": "Templates",
-    "apptemplates.empty": "Es wurden keine Templates angelegt. Bitte fügen Sie unten rechts ein Template hinzu.",
+    "apptemplates.empty":
+        "Es wurden keine Templates angelegt. Bitte fügen Sie unten rechts ein Template hinzu.",
     "apptemplates.loading": "die Templates werden geladen",
     "apptemplates.loadingError": "Die Templates konnten nicht geladen werden.",
 
@@ -39,15 +41,18 @@ const translationsDeDE = {
     "app.name": "Name der App",
     "app.name.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "app.packageName": "Package Name",
-    "app.packageName.hint": "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
+    "app.packageName.hint":
+        "Zugelassen sind Groß- / Kleinbuchstaben und Zahlen",
     "app.template.select": "Auswählen",
     "app.template.selected": "Ausgewählt",
     "app.entities.empty": "keine Entitäten vorhanden",
 
     "app.section.general": "General",
     "app.section.general.hello": "Hallo!",
-    "app.section.general.enterInformation": "Bitte geben Sie als ersten Schritt die allgemeinen Informationen zu Ihrer App ein.",
-    "app.section.general.clickNext": "Klicken Sie dann auf Weiter auf der oberen rechten Seite.",
+    "app.section.general.enterInformation":
+        "Bitte geben Sie als ersten Schritt die allgemeinen Informationen zu Ihrer App ein.",
+    "app.section.general.clickNext":
+        "Klicken Sie dann auf Weiter auf der oberen rechten Seite.",
     "app.section.template": "Template",
     "app.section.entityDiagram": "Entity-Relationship-Diagramm",
     "app.section.conclusion": "Abschluss",
@@ -57,7 +62,8 @@ const translationsDeDE = {
     "entity.loading": "Entität wird geladen",
     "entity.code": "Code",
     "entity.name": "Name",
-    "entity.name.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
+    "entity.name.hint":
+        "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
     "entity.fields": "Felder",
     "entity.fields.empty": "keine Felder angelegt",
     "entity.relations": "Relationen",
@@ -65,7 +71,8 @@ const translationsDeDE = {
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",
-    "field.fieldName.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
+    "field.fieldName.hint":
+        "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "field.fieldType": "Datentyp",
     "field.restrictions": "Restriktionen",
     "field.pattern": "Pattern",
@@ -77,12 +84,14 @@ const translationsDeDE = {
     "relationship.relationshipType": "Relationstyp",
     "relationship.sourceEntity": "Entität - Quelle der Relation",
     "relationship.sourceField": "Relationsname",
-    "relationship.sourceField.hint": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
+    "relationship.sourceField.hint":
+        "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "relationship.source": "von",
     "relationship.target": "zu",
     "relationship.targetEntity": "Entität - Ziel der Relation",
     "relationship.targetField": "Relationsname",
-    "relationship.targetField.hint": "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
+    "relationship.targetField.hint":
+        "Name des Feldes vom Typ {{entityName}}. Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "relationship.targetEntity.empty": "nicht verfügbar",
 
     "appTemplate.delete.title": "Template löschen",
@@ -90,7 +99,8 @@ const translationsDeDE = {
     "appTemplate.error.title": "Fehler",
     "appTemplate.error.message": "Das Template konnte nicht gelöscht werden.",
     "appTemplate.success.title": "Template Aktualisierung erfolgreich",
-    "appTemplate.success.message": "Die Templates wurden erfolgreich aus dem Git-Repository geladen.",
+    "appTemplate.success.message":
+        "Die Templates wurden erfolgreich aus dem Git-Repository geladen.",
 
     "apptemplate.new": "Neues Template",
     "apptemplate.edit": "{{appTemplateName}} bearbeiten",
@@ -98,28 +108,41 @@ const translationsDeDE = {
     "apptemplate.location": "Git-Repository",
     "apptemplate.location.hint": "Bitte geben Sie eine Git-Repository-URL ein",
     "appTemplate.branch": "Branch",
-    "appTemplate.branch.hint": "Der Branch Name kann 100 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
+    "appTemplate.branch.hint":
+        "Der Branch Name kann 100 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
     "appTemplate.config": "Template Konfiguration",
     "appTemplate.credentialsRequired": "privates Repo mit Login",
     "appTemplate.description": "Beschreibung",
 
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "Nutzername",
-    "gitAuth.username.hint": "Nutzer darf nicht leer sein und kann Buchstaben, Ziffern und ./_- enthalten",
+    "gitAuth.username.hint":
+        "Nutzer darf nicht leer sein und kann Buchstaben, Ziffern und ./_- enthalten",
     "gitAuth.password": "Passwort",
-    "gitAuth.password.hint": "Passwort / PAT darf nicht leer sein und kann Buchstaben, Ziffern und Sonderzeichen enthalten",
+    "gitAuth.password.hint":
+        "Passwort / PAT darf nicht leer sein und kann Buchstaben, Ziffern und Sonderzeichen enthalten",
 
-    "error.git.directorynotexists": "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
-    "error.git.access.denied": "Sie benötigen Rechte zum Ausführen von git clone. In Github verwenden Sie das Recht 'repo'.",
-    "error.git.access.tokenusagerequired": "Der Support für Nutzer/Passwort Authetifizierung ist ausgelaufen. Sie müssen einen Personal Access Token verwenden.",
-    "error.git.access.invaliduserpassword": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
+    "error.git.directorynotexists":
+        "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den IT-Support.",
+    "error.git.access.denied":
+        "Sie benötigen Rechte zum Ausführen von git clone. In Github verwenden Sie das Recht 'repo'.",
+    "error.git.access.tokenusagerequired":
+        "Der Support für Nutzer/Passwort Authetifizierung ist ausgelaufen. Sie müssen einen Personal Access Token verwenden.",
+    "error.git.access.invaliduserpassword":
+        "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
     "error.git.exit": "Fehler beim Abrufen der Daten vom Git-Repository.",
-    "error.appcheckout.giturlisinvalid": "Ungültige Git-Repository URL. Es sind nur Buchstaben, Zahlen und ./_- erlaubt.",
-    "error.appcheckout.usernameisinvalid": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
-    "error.appcheckout.passworisinvalid": "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
-    "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
-    "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
-    "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
+    "error.appcheckout.giturlisinvalid":
+        "Ungültige Git-Repository URL. Es sind nur Buchstaben, Zahlen und ./_- erlaubt.",
+    "error.appcheckout.usernameisinvalid":
+        "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
+    "error.appcheckout.passworisinvalid":
+        "Nutzer oder Passwort sind ungültig. Es sind nur Buchstaben, Zahlen und !@#$%^&()*./_- erlaub.",
+    "error.appcheckout.branchisinvalid":
+        "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
+    "error.appcheckout.jsonmapping.git":
+        "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
+    "error.git.access.repositorynotfound":
+        "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
     "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
     "error.general.delete": "Dieses Element konnte nicht gelöscht werden.",
     "error.general.create": "Dieses Element konnte nicht erstellt werden.",
@@ -139,7 +162,5 @@ const translationsDeDE = {
     "error.badrequest": "Die Anfrage ist fehlerhaft.",
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
-
-
 };
 export default translationsDeDE;

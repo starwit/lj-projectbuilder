@@ -1,29 +1,26 @@
 package de.starwit.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-
+import de.starwit.mapper.Mapper;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.Relationship;
+import de.starwit.persistence.repository.DomainRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.Domain;
-import de.starwit.persistence.entity.Relationship;
-import de.starwit.persistence.repository.DomainRepository;
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class DomainService implements ServiceInterface<Domain, DomainRepository> {
 
+    static final Logger LOG = LoggerFactory.getLogger(DomainService.class);
     @Autowired
     private DomainRepository domainRepository;
-
-    static final Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
     public List<Domain> findAllDomainsByApp(Long appId) {
         List<Domain> entities = this.domainRepository.findAllDomainsByApp(appId);

@@ -1,11 +1,8 @@
 package de.starwit.rest.acceptance;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
+import de.starwit.TestdataConstants;
+import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.EntityDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
@@ -14,9 +11,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.ApplicationDto;
-import de.starwit.dto.EntityDto;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EntityControllerAcceptanceTest extends AbstractControllerAcceptanceTest<EntityDto> {
 

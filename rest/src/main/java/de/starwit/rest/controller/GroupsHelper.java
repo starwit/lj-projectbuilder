@@ -1,11 +1,11 @@
 package de.starwit.rest.controller;
 
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.AccessToken;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.keycloak.representations.AccessToken;
 
 public interface GroupsHelper {
 
@@ -16,7 +16,7 @@ public interface GroupsHelper {
         if (principal != null) {
             KeycloakAuthenticationToken keycloakAuthenticationToken = (KeycloakAuthenticationToken) principal;
             AccessToken accessToken = keycloakAuthenticationToken.getAccount().getKeycloakSecurityContext().getToken();
-            groups = (ArrayList<String>)accessToken.getOtherClaims().get("groups");
+            groups = (ArrayList<String>) accessToken.getOtherClaims().get("groups");
         }
         if (groups.isEmpty()) {
             groups.add(GroupsHelper.DEFAULT_GROUP);
@@ -41,7 +41,7 @@ public interface GroupsHelper {
         if (assignedGroups.isEmpty()) {
             assignedGroups.add(GroupsHelper.DEFAULT_GROUP);
         }
-        
+
         return assignedGroups;
     }
 

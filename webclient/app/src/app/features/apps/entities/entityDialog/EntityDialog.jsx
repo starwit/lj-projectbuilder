@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
     Box,
     Button,
@@ -9,42 +9,49 @@ import {
     IconButton,
     Tab,
     Tabs,
-    Typography
+    Typography,
 } from "@mui/material";
-import {Add, Close} from "@mui/icons-material";
+import { Add, Close } from "@mui/icons-material";
 import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
 import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../../../../commons/tabPanel/TabPanel";
 import Statement from "../../../../commons/statement/Statement";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
-import {defaultRelationship} from "../Relationship";
-import {LoadingButton} from "@mui/lab";
-import {emptyEntity, newEntity} from "../DefaultEntities";
+import { defaultRelationship } from "../Relationship";
+import { LoadingButton } from "@mui/lab";
+import { emptyEntity, newEntity } from "../DefaultEntities";
 import EntityRest from "../../../../services/EntityRest";
 import FieldTypes from "./FieldTypes";
 
-
 function EntityDialog(props) {
-    const {entityId, onClose, handleSave, entities, appId, handleUpdateEntities, open} = props;
+    const {
+        entityId,
+        onClose,
+        handleSave,
+        entities,
+        appId,
+        handleUpdateEntities,
+        open,
+    } = props;
     const [value, setValue] = useState(0);
     const [entity, setEntity] = useState(null);
     const [hasFormError, setHasFormError] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const entityEditorStyles = EntityDialogStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const entityRest = useMemo(() => new EntityRest(), []);
 
     useEffect(() => {
         if (entityId) {
-            setEntity({...entities.find(entity_ => entity_.id === entityId)});
+            setEntity({ ...entities.find(entity_ => entity_.id === entityId) });
         } else {
-            setEntity({...newEntity})
+            setEntity({ ...newEntity });
         }
-    }, [entityId, entities])
+    }, [entityId, entities]);
 
     useEffect(() => {
         if (!entity) {
@@ -60,21 +67,21 @@ function EntityDialog(props) {
             if (!RegexConfig.fieldName.test(field.fieldName)) {
                 hasError = true;
             }
-
         });
 
         entity.relationships?.forEach(relationship => {
-            if (!RegexConfig.relationship.test(relationship.relationshipName)
-                || !RegexConfig.relationship.test(relationship.otherEntityRelationshipName)
-                || !RegexConfig.entityTitle.test(relationship.otherEntityName)) {
+            if (
+                !RegexConfig.relationship.test(relationship.relationshipName) ||
+                !RegexConfig.relationship.test(
+                    relationship.otherEntityRelationshipName
+                ) ||
+                !RegexConfig.entityTitle.test(relationship.otherEntityName)
+            ) {
                 hasError = true;
             }
         });
         setHasFormError(hasError);
-
-
-    }, [entity])
-
+    }, [entity]);
 
     function getTargetEntities() {
         let newTargetEntities = [];
@@ -86,7 +93,6 @@ function EntityDialog(props) {
             newTargetEntities.push(emptyTarget);
         }
         return newTargetEntities;
-
     }
 
     function lowerFirstChar(s) {
@@ -96,15 +102,14 @@ function EntityDialog(props) {
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
+            "aria-controls": `simple-tabpanel-${index}`,
         };
     }
 
     function prepareSave() {
-
         setIsSaving(true);
 
-        const entityModified = {...entity};
+        const entityModified = { ...entity };
 
         entityModified.fields?.forEach(field => {
             field.fieldValidateRules = [];
@@ -132,17 +137,15 @@ function EntityDialog(props) {
             if (field.fieldValidateRulesPattern) {
                 field.fieldValidateRules.push("pattern");
             }
-
-        })
+        });
 
         handleSave(entityModified)
             .then(() => {
-                entityRest.findAllEntitiesByApp(appId)
-                    .then((response) => {
-                        handleUpdateEntities(response.data);
-                        onClose();
-                        setIsSaving(false);
-                    })
+                entityRest.findAllEntitiesByApp(appId).then(response => {
+                    handleUpdateEntities(response.data);
+                    onClose();
+                    setIsSaving(false);
+                });
             })
             .catch(() => {
                 setIsSaving(false);
@@ -150,52 +153,50 @@ function EntityDialog(props) {
     }
 
     function addField() {
-
-        let copiedEntity = {...entity};
+        let copiedEntity = { ...entity };
         if (!copiedEntity.fields) {
             copiedEntity.fields = [];
         }
-        copiedEntity.fields.push(
-            {
-                fieldName: "",
-                fieldType: "",
-                fieldValidateRulesPattern: "",
-                fieldValidateRulesMin: "",
-                fieldValidateRulesMinlength: "",
-                fieldValidateRulesMax: "",
-                fieldValidateRulesMaxlength: "",
-                mandatory: false
-            }
-        );
+        copiedEntity.fields.push({
+            fieldName: "",
+            fieldType: "",
+            fieldValidateRulesPattern: "",
+            fieldValidateRulesMin: "",
+            fieldValidateRulesMinlength: "",
+            fieldValidateRulesMax: "",
+            fieldValidateRulesMaxlength: "",
+            mandatory: false,
+        });
         setEntity(copiedEntity);
     }
 
     function addRelationship() {
-
-        let copiedEntity = {...entity};
+        let copiedEntity = { ...entity };
 
         if (!copiedEntity.relationships) {
             copiedEntity.relationships = [];
         }
 
         let targetEntities = getTargetEntities();
-        let relationship = {...defaultRelationship};
+        let relationship = { ...defaultRelationship };
         relationship.otherEntityName = targetEntities[0].name;
         relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
-        relationship.otherEntityRelationshipName = lowerFirstChar(copiedEntity.name);
+        relationship.otherEntityRelationshipName = lowerFirstChar(
+            copiedEntity.name
+        );
 
         copiedEntity.relationships.push(relationship);
         setEntity(copiedEntity);
     }
 
     function deleteRelationship(index) {
-        let copiedEntity = {...entity};
+        let copiedEntity = { ...entity };
         copiedEntity.relationships.splice(index, 1);
         setEntity(copiedEntity);
     }
 
     function deleteField(index) {
-        let copiedEntity = {...entity};
+        let copiedEntity = { ...entity };
         copiedEntity.fields.splice(index, 1);
         setEntity(copiedEntity);
     }
@@ -205,34 +206,34 @@ function EntityDialog(props) {
     };
 
     function handleEntityTitleText(event) {
-        const copiedEntity = {...entity};
+        const copiedEntity = { ...entity };
         copiedEntity.name = event.target.value;
         setEntity(copiedEntity);
     }
 
     function editFieldProperty(key, value, index) {
-        const copiedEntity = {...entity};
+        const copiedEntity = { ...entity };
         copiedEntity.fields[index][key] = value;
-        setEntity(copiedEntity)
+        setEntity(copiedEntity);
     }
 
     function editRelationshipProperty(key, value, index) {
-        const copiedEntity = {...entity};
+        const copiedEntity = { ...entity };
         copiedEntity.relationships[index][key] = value;
         if (key === "otherEntityName") {
-            copiedEntity.relationships[index].relationshipName = lowerFirstChar(value);
+            copiedEntity.relationships[index].relationshipName =
+                lowerFirstChar(value);
         }
-        setEntity(copiedEntity)
+        setEntity(copiedEntity);
     }
-
 
     function renderRelations() {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entity.relations.empty")}/>
+                    <Statement message={t("entity.relations.empty")} />
                 </div>
-            )
+            );
         }
         return entity.relationships.map((relationship, index) => {
             return (
@@ -240,21 +241,23 @@ function EntityDialog(props) {
                     key={index}
                     relationship={relationship}
                     targetEntities={getTargetEntities()}
-                    editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
+                    editRelationshipProperty={(key, value) =>
+                        editRelationshipProperty(key, value, index)
+                    }
                     currentEntity={entity}
                     handleDelete={() => deleteRelationship(index)}
                 />
-            )
-        })
+            );
+        });
     }
 
     function renderFields() {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
                 <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entity.fields.empty")}/>
+                    <Statement message={t("entity.fields.empty")} />
                 </div>
-            )
+            );
         }
 
         return entity.fields.map((field, index) => {
@@ -266,11 +269,13 @@ function EntityDialog(props) {
                 fieldValidateRulesMaxlength,
                 fieldValidateRulesPattern,
                 fieldName,
-                fieldType
+                fieldType,
             } = entity.fields[index];
             return (
                 <FieldAccordion
-                    editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
+                    editFieldProperty={(key, value) =>
+                        editFieldProperty(key, value, index)
+                    }
                     fieldTypes={FieldTypes}
                     fieldType={fieldType}
                     pattern={fieldValidateRulesPattern}
@@ -284,30 +289,27 @@ function EntityDialog(props) {
                     key={index}
                     handleDelete={() => deleteField(index)}
                 />
-            )
-        })
+            );
+        });
     }
 
     if (!entity) {
-        return <LoadingSpinner message={t("entity.loading")}/>
+        return <LoadingSpinner message={t("entity.loading")} />;
     }
 
     return (
-        <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
+        <Dialog
+            open={!!entityId || (open && entity.isNewEntity)}
+            maxWidth={"xl"}
+            fullWidth
+        >
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                <Typography
-                    noWrap
-                    variant={"h6"}
-                    component={"p"}
-                >
-                    {t("entity.edit", {entityName: entity.name})}
+                <Typography noWrap variant={"h6"} component={"p"}>
+                    {t("entity.edit", { entityName: entity.name })}
                 </Typography>
-                <div className={entityEditorStyles.flex}/>
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                >
-                    <Close/>
+                <div className={entityEditorStyles.flex} />
+                <IconButton aria-label="close" onClick={onClose}>
+                    <Close />
                 </IconButton>
             </DialogTitle>
             <Container>
@@ -321,17 +323,33 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
+                    <Tabs
+                        value={value}
+                        onChange={handleTabChange}
+                        aria-label="basic tabs example"
+                    >
                         <Tab label={t("entity.fields")} {...a11yProps(0)} />
                         <Tab label={t("entity.relations")} {...a11yProps(1)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
                         {renderFields()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addField}>{t("button.create")}</Button>
+                        <Button
+                            fullWidth
+                            startIcon={<Add />}
+                            onClick={addField}
+                        >
+                            {t("button.create")}
+                        </Button>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         {renderRelations()}
-                        <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>{t("button.create")}</Button>
+                        <Button
+                            fullWidth
+                            startIcon={<Add />}
+                            onClick={addRelationship}
+                        >
+                            {t("button.create")}
+                        </Button>
                     </TabPanel>
                 </Box>
                 <DialogActions>
@@ -345,7 +363,7 @@ function EntityDialog(props) {
                 </DialogActions>
             </Container>
         </Dialog>
-    )
+    );
 }
 
 export default EntityDialog;

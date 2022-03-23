@@ -1,30 +1,27 @@
 package de.starwit.service.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-
+import de.starwit.persistence.entity.AbstractEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import de.starwit.persistence.entity.AbstractEntity;
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 /**
- * AbstractService used as template for all service implementations and implements the basic 
+ * AbstractService used as template for all service implementations and implements the basic
  * functionality (create, read, update, delete, and other basic stuff).
- * 
- * @author Anett
  *
  * @param <E>
+ * @author Anett
  */
 public interface ServiceInterface<E extends AbstractEntity<Long>, R extends JpaRepository<E, Long>> {
 
-	static Logger LOG = LoggerFactory.getLogger(ServiceInterface.class);
+    static Logger LOG = LoggerFactory.getLogger(ServiceInterface.class);
 
-	public R getRepository();
+    public R getRepository();
 
-	default public List<E> findAll() {
+    default public List<E> findAll() {
         return this.getRepository().findAll();
     }
 

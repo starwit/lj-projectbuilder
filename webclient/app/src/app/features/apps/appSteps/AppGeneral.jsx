@@ -1,21 +1,28 @@
 import React from "react";
-import {Container, Grid, Typography} from "@mui/material";
-import {useTranslation} from "react-i18next";
+import { Container, Grid, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
 import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
-
-    const {t} = useTranslation();
-    const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
+    const { t } = useTranslation();
+    const {
+        isCreate,
+        setAppName,
+        setPackageName,
+        appName,
+        packageName,
+        userGroups,
+        assignedGroups,
+        setAssignedGroups,
+    } = props;
     const appStepsStyles = AppStepsStyles();
 
-    const handleGroupChange = (items) => {
+    const handleGroupChange = items => {
         setAssignedGroups(items);
     };
-
 
     return (
         <Container maxWidth={false}>
@@ -30,7 +37,7 @@ function AppGeneral(props) {
                         onChange={event => setAppName(event.target.value)}
                         isCreate={isCreate}
                     />
-                    <div className={appStepsStyles.padding}/>
+                    <div className={appStepsStyles.padding} />
                     <ValidatedTextField
                         label={t("app.packageName") + "*"}
                         regex={RegexConfig.packageName}
@@ -40,24 +47,28 @@ function AppGeneral(props) {
                         onChange={event => setPackageName(event.target.value)}
                         isCreate={isCreate}
                     />
-                    <div className={appStepsStyles.padding}/>
-                    <MultipleSelectChip 
-                        values={userGroups} 
-                        selected={assignedGroups} 
+                    <div className={appStepsStyles.padding} />
+                    <MultipleSelectChip
+                        values={userGroups}
+                        selected={assignedGroups}
                         handleExternalChange={handleGroupChange}
                         label={t("select.groups")}
                     />
                 </Grid>
                 <Grid item md={4}>
-                    <Typography variant={"h3"} gutterBottom>{t("app.section.general.hello")}</Typography>
-                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.enterInformation")}</Typography>
-                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.clickNext")}</Typography>
+                    <Typography variant={"h3"} gutterBottom>
+                        {t("app.section.general.hello")}
+                    </Typography>
+                    <Typography variant={"body1"} gutterBottom>
+                        {t("app.section.general.enterInformation")}
+                    </Typography>
+                    <Typography variant={"body1"} gutterBottom>
+                        {t("app.section.general.clickNext")}
+                    </Typography>
                 </Grid>
             </Grid>
-
         </Container>
-    )
-
+    );
 }
 
 export default AppGeneral;

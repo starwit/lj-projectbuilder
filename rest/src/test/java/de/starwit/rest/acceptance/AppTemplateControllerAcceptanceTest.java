@@ -1,8 +1,8 @@
 package de.starwit.rest.acceptance;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import de.starwit.TestdataConstants;
+import de.starwit.dto.SaveAppTemplateDto;
+import de.starwit.persistence.entity.AppTemplate;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.SaveAppTemplateDto;
-import de.starwit.persistence.entity.AppTemplate;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 public class AppTemplateControllerAcceptanceTest extends AbstractControllerAcceptanceTest<SaveAppTemplateDto> {
 
@@ -44,7 +43,7 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     public void canCreate() throws Exception {
         // given
         SaveAppTemplateDto dto = readFromFile(data + "apptemplate.json");
-  
+
         // when
         MockHttpServletResponse response = create(dto);
 

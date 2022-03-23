@@ -1,69 +1,69 @@
 package de.starwit.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * Contains all configuration for app setup and generator.
- * @author Anett Huebner
  *
+ * @author Anett Huebner
  */
 @Schema
 public class GitAuthDto {
-	
-	private Long appTemplateId;
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
-	@Size(max = 100)
-	private String username;
+    private Long appTemplateId;
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
-	@Size(max = 100)
-	private String password;
+    @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
+    @Size(max = 100)
+    private String username;
 
-	private String user;
-	private String pass;
+    @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&()*./_-]{0,100}$")
+    @Size(max = 100)
+    private String password;
 
-	/********************* GETTER, SETTER **************************/
-	public Long getAppTemplateId() {
-		return appTemplateId;
-	}
+    private String user;
+    private String pass;
 
-	public void setAppTemplateId(Long appTemplateId) {
-		this.appTemplateId = appTemplateId;
-	}
+    /********************* GETTER, SETTER **************************/
+    public Long getAppTemplateId() {
+        return appTemplateId;
+    }
 
-	public String getUsername() {
-		return this.username;
-	}
+    public void setAppTemplateId(Long appTemplateId) {
+        this.appTemplateId = appTemplateId;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return this.username;
+    }
 
-	public String getPassword() {
-		return this.password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return this.password;
+    }
 
-	public String getUser() {
-		return user;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+    public String getUser() {
+        return user;
+    }
 
-	public String getPass() {
-		return pass;
-	}
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }

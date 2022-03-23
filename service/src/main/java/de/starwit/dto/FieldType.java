@@ -13,7 +13,6 @@ public enum FieldType {
     Boolean(new FieldValidateRulesType[]{FieldValidateRulesType.required, FieldValidateRulesType.unique});
 
 
-
     private final FieldValidateRulesType[] validation;
 
     private FieldType(FieldValidateRulesType[] validation) {

@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import { Card, CardContent, Chip, Collapse, Container, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import {
+    Card,
+    CardContent,
+    Chip,
+    Collapse,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Typography,
+} from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
 import { useTranslation } from "react-i18next";
 import GitHub from "@mui/icons-material/GitHub";
@@ -16,7 +30,7 @@ import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
 import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
 import { useSnackbar } from "notistack";
 
-const ExpandMore = styled((props) => {
+const ExpandMore = styled(props => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -47,7 +61,7 @@ function AppTemplateCard(props) {
         setOpenDeleteDialog(false);
     };
 
-    const handleExpandClick = (appTemplateId) => {
+    const handleExpandClick = appTemplateId => {
         loadAppTemplate(appTemplateId);
         setExpanded(!expanded);
     };
@@ -61,24 +75,26 @@ function AppTemplateCard(props) {
         setOpenDialog(false);
     };
 
-    const handleDelete = (appTemplateId) => {
+    const handleDelete = appTemplateId => {
         appTemplateRest.delete(appTemplateId).then(() => {
             handleRefresh();
         });
     };
 
-    const handleGit = (downloadRequestData) => {
+    const handleGit = downloadRequestData => {
         return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
     };
 
     const handleAfterGitSuccess = () => {
         handleRefresh();
-        enqueueSnackbar(t("appTemplate.success.message"), { variant: "success" });
+        enqueueSnackbar(t("appTemplate.success.message"), {
+            variant: "success",
+        });
     };
 
-    const loadAppTemplate = (appTemplateId) => {
+    const loadAppTemplate = appTemplateId => {
         const appTemplateRest2 = new AppTemplateRest();
-        appTemplateRest2.findById(appTemplateId).then((response) => {
+        appTemplateRest2.findById(appTemplateId).then(response => {
             setExtendedAppTemplate(response.data);
         });
     };
@@ -93,7 +109,11 @@ function AppTemplateCard(props) {
                 <CardContent className={appTemplateCardStyles.CardContent}>
                     <Grid container spacing={0}>
                         <Grid item xs={7}>
-                            <Typography gutterBottom variant="h5" component="span">
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="span"
+                            >
                                 {appTemplate.name}
                             </Typography>
                         </Grid>
@@ -101,7 +121,9 @@ function AppTemplateCard(props) {
                             <IconButton onClick={handleDialogOpen}>
                                 <Edit fontSize={"small"} />
                             </IconButton>
-                            <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                            <IconButton
+                                onClick={() => setOpenDeleteDialog(true)}
+                            >
                                 <Delete fontSize={"small"} />
                             </IconButton>
                         </Grid>
@@ -120,7 +142,14 @@ function AppTemplateCard(props) {
                                     <ListItemIcon>
                                         <GitHub />
                                     </ListItemIcon>
-                                    <ListItemText primary={appTemplate.location} secondary={t("appTemplate.branch") + ": " + appTemplate.branch} />
+                                    <ListItemText
+                                        primary={appTemplate.location}
+                                        secondary={
+                                            t("appTemplate.branch") +
+                                            ": " +
+                                            appTemplate.branch
+                                        }
+                                    />
                                 </ListItem>
                             </List>
                         </Grid>
@@ -128,7 +157,9 @@ function AppTemplateCard(props) {
                             <br />
                             <br />
                             <GitDataButton
-                                credentialsRequired={appTemplate.credentialsRequired}
+                                credentialsRequired={
+                                    appTemplate.credentialsRequired
+                                }
                                 handleAfterSuccess={handleAfterGitSuccess}
                                 handleGit={handleGit}
                                 buttonName={t("button.loadtemplate")}
@@ -139,7 +170,12 @@ function AppTemplateCard(props) {
 
                 <Divider>
                     <Chip label={t("appTemplate.config")} />
-                    <ExpandMore expand={expanded} onClick={() => handleExpandClick(appTemplate.id)} aria-expanded={expanded} aria-label="show more">
+                    <ExpandMore
+                        expand={expanded}
+                        onClick={() => handleExpandClick(appTemplate.id)}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                    >
                         <ExpandMoreIcon />
                     </ExpandMore>
                 </Divider>

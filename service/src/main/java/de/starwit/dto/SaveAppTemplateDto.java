@@ -1,13 +1,12 @@
 package de.starwit.dto;
 
-import java.util.List;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 
 @Schema
 @XmlRootElement
@@ -30,7 +29,7 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     @Schema(hidden = true)
     @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
-	@Size(max = 100)
+    @Size(max = 100)
     private String packagePlaceholder;
 
     public String getLocation() {

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Card, CardActionArea, CardActions, CardContent, Divider, Grid, IconButton, Typography } from "@mui/material";
+import {
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    Divider,
+    Grid,
+    IconButton,
+    Typography,
+} from "@mui/material";
 import { Delete, Edit, MoreHoriz } from "@mui/icons-material";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
@@ -21,7 +30,11 @@ function AppCard(props) {
                 <CardContent>
                     <Grid container spacing={0}>
                         <Grid item xs={7}>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                            >
                                 {app.baseName}
                             </Typography>
                         </Grid>
@@ -29,7 +42,9 @@ function AppCard(props) {
                             <IconButton onClick={onEditClick}>
                                 <Edit fontSize={"small"} />
                             </IconButton>
-                            <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                            <IconButton
+                                onClick={() => setOpenDeleteDialog(true)}
+                            >
                                 <Delete fontSize={"small"} />
                             </IconButton>
                         </Grid>
@@ -38,11 +53,17 @@ function AppCard(props) {
                 <Divider />
                 <CardActionArea onClick={() => history.push("/apps/" + app.id)}>
                     <CardContent>
-                        <Typography variant="body2" className={appCardStyles.description}>
+                        <Typography
+                            variant="body2"
+                            className={appCardStyles.description}
+                        >
                             {app.packageName}
                         </Typography>
                         <CardActions className={appCardStyles.cardActions}>
-                            <MoreHoriz className={appCardStyles.cardActions} color="primary" />
+                            <MoreHoriz
+                                className={appCardStyles.cardActions}
+                                color="primary"
+                            />
                         </CardActions>
                     </CardContent>
                 </CardActionArea>

@@ -1,4 +1,3 @@
-
 {
     "packageName": "testpackage",
     "baseName": "testname",
@@ -6,65 +5,57 @@
         {
             "name": "TestEntityName",
             "fields": [
-            {
-                "fieldName": "myfield",
-                "fieldType": "String"
-            },
-            {
-                "fieldName": "stringPatternField",
-                "fieldType": "String",
-                "fieldValidateRules": [
-                    "pattern"
-                ],
-                "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
-            }
-
+                {
+                    "fieldName": "myfield",
+                    "fieldType": "String"
+                },
+                {
+                    "fieldName": "stringPatternField",
+                    "fieldType": "String",
+                    "fieldValidateRules": ["pattern"],
+                    "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+                }
             ]
         },
         {
             "name": "Employee",
             "fields": [
-            {
-                "fieldName": "firstName",
-                "fieldType": "String",
-                "javadoc": "The firstname attribute.",
-                "fieldValidateRules": [
-                "required",
-                "minlength",
-                "maxlength"
-                ],
-                "fieldValidateRulesMinlength": "1",
-                "fieldValidateRulesMaxlength": "42"
-            },
-            {
-                "fieldName": "lastName",
-                "fieldType": "String",
-                "fieldValidateRules": [
-                "required",
-                "minlength"
-                ],
-                "fieldValidateRulesMinlength": "42"
-            },
-            {
-                "fieldName": "email",
-                "fieldType": "String"
-            },
-            {
-                "fieldName": "phoneNumber",
-                "fieldType": "String",
-                "fieldValidateRules": [
-                "pattern"
-                ],
-                "fieldValidateRulesPattern": "^[0-9]+\\d$"
-            },
-            {
-                "fieldName": "salary",
-                "fieldType": "Long"
-            },
-            {
-                "fieldName": "commissionPct",
-                "fieldType": "Long"
-            }
+                {
+                    "fieldName": "firstName",
+                    "fieldType": "String",
+                    "javadoc": "The firstname attribute.",
+                    "fieldValidateRules": [
+                        "required",
+                        "minlength",
+                        "maxlength"
+                    ],
+                    "fieldValidateRulesMinlength": "1",
+                    "fieldValidateRulesMaxlength": "42"
+                },
+                {
+                    "fieldName": "lastName",
+                    "fieldType": "String",
+                    "fieldValidateRules": ["required", "minlength"],
+                    "fieldValidateRulesMinlength": "42"
+                },
+                {
+                    "fieldName": "email",
+                    "fieldType": "String"
+                },
+                {
+                    "fieldName": "phoneNumber",
+                    "fieldType": "String",
+                    "fieldValidateRules": ["pattern"],
+                    "fieldValidateRulesPattern": "^[0-9]+\\d$"
+                },
+                {
+                    "fieldName": "salary",
+                    "fieldType": "Long"
+                },
+                {
+                    "fieldName": "commissionPct",
+                    "fieldType": "Long"
+                }
             ]
         }
     ]

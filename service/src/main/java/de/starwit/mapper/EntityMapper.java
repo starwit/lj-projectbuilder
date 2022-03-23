@@ -1,13 +1,12 @@
 package de.starwit.mapper;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class EntityMapper implements CustomMapper<Domain, EntityDto> {
