@@ -14,6 +14,8 @@ const translationsEnEN = {
     "button.cancel": "Cancel",
     "button.yes": "Yes",
     "button.no": "No",
+    "button.showMore": "Show more",
+    "button.close": "Close",
     "button.ok": "OK",
     "button.loadtemplate": "Refresh from Git-Repo",
     "select.groups": "Groups",
@@ -103,6 +105,10 @@ const translationsEnEN = {
     "appTemplate.description": "Description",
     "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
 
+    "appConclusion.generationError.title": "Error while generating.",
+    "appConclusion.generationError.message": "While generating the app following error occurred:",
+    "appConclusion.generationError.snackbar": "There are template issues.",
+
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "User",
     "gitAuth.username.hint": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
@@ -139,5 +145,6 @@ const translationsEnEN = {
     "error.badrequest": "This request is invalid.",
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
+    "error.generation.template": "This project could not be generated.",
 };
 export default translationsEnEN;
