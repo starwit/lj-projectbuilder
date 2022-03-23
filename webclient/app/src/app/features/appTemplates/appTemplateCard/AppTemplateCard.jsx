@@ -62,7 +62,7 @@ function AppTemplateCard(props) {
     };
 
     const handleDelete = (appTemplateId) => {
-        appTemplateRest.delete(appTemplateId).then(() => {
+        return appTemplateRest.delete(appTemplateId).then(() => {
             handleRefresh();
         });
     };
