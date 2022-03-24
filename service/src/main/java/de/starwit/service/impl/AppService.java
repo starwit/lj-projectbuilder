@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.starwit.mapper.ApplicationMapper;
+import de.starwit.mapper.AppMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.repository.AppRepository;
@@ -42,7 +42,7 @@ public class AppService implements ServiceInterface<App, AppRepository> {
 			if (entity.getTemplate() != null) {
 				appTempate = this.appTemplateRepository.getById(entity.getTemplate().getId());
 			} else {
-				appTempate = this.appTemplateRepository.getById(ApplicationMapper.defaultAppTemplateID);
+				appTempate = this.appTemplateRepository.getById(AppMapper.defaultAppTemplateID);
 			}
 			entity.setTemplate(appTempate);
         	entity = this.getRepository().save(entity);

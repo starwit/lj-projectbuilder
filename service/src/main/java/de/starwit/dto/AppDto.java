@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema
 @XmlRootElement
-public class ApplicationDto extends AbstractEntity<Long> {
+public class AppDto extends AbstractEntity<Long> {
 
     @Schema(defaultValue = "defaultapp")
     @NotBlank
