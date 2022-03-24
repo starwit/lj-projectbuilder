@@ -40,11 +40,15 @@ function EntityDialog(props) {
 
     useEffect(() => {
         if (entityId) {
-            setEntity({...entities.find(entity_ => entity_.id === entityId)});
+            const newEntity = { ...entities.find((entity_) => entity_.id === entityId) };
+            newEntity.fields?.forEach((field) => {
+                field.mandatory = field.fieldValidateRules?.includes("required");
+            });
+            setEntity(newEntity);
         } else {
-            setEntity({...newEntity})
+            setEntity({ ...newEntity });
         }
-    }, [entityId, entities])
+    }, [entityId, entities]);
 
     useEffect(() => {
         if (!entity) {
