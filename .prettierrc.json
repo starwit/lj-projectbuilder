@@ -8,7 +8,7 @@
     "insertPragma": false,
     "jsxBracketSameLine": false,
     "jsxSingleQuote": false,
-    "printWidth": 80,
+    "printWidth": 200,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,
