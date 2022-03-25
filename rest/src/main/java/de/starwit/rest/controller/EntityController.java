@@ -26,6 +26,7 @@ import de.starwit.dto.EntityDto;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.exception.NotificationException;
 import de.starwit.rest.exception.NotificationDto;
 import de.starwit.rest.exception.WrongAppIdException;
 import de.starwit.service.impl.DomainService;
@@ -54,7 +55,7 @@ public class EntityController {
     @IsUser
     @Operation(summary = "Delete entity with id")
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Long id) throws NotificationException {
         domainService.deleteRelationsForAllTargetDomains(id);
         domainService.delete(id);
     }

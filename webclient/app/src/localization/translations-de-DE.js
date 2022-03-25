@@ -139,6 +139,7 @@ const translationsDeDE = {
     "error.badrequest": "Die Anfrage ist fehlerhaft.",
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
+    "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet."
 
 
 };

@@ -139,5 +139,6 @@ const translationsEnEN = {
     "error.badrequest": "This request is invalid.",
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
+    "error.apptemplate.delete.appexists": "The template is still used by an app."
 };
 export default translationsEnEN;
