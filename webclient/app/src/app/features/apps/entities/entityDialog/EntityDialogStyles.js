@@ -17,7 +17,7 @@ const EntityDialogStyles = makeStyles((theme) => ({
         flex: 1,
     },
     tabHeader: {
-        paddingBottom: "1rem",
+        paddingBottom: theme.spacing(2),
     },
 }));
 export default EntityDialogStyles;
