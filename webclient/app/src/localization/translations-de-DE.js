@@ -15,6 +15,8 @@ const translationsDeDE = {
     "button.download": "Herunterladen",
     "button.no": "Nein",
     "button.yes": "Ja",
+    "button.showMore": "Mehr anzeigen",
+    "button.close": "Schließen",
     "button.loadtemplate": "Aus Git-Repo aktualisieren",
     "select.groups": "Gruppen",
     "form.create": "{{entity}} anlegen",
@@ -103,6 +105,10 @@ const translationsDeDE = {
     "appTemplate.credentialsRequired": "privates Repo mit Login",
     "appTemplate.description": "Beschreibung",
 
+    "appConclusion.generationError.title": "Fehler beim generieren.",
+    "appConclusion.generationError.message": "Beim generieren der App ist folgender Fehler aufgetreten:",
+    "appConclusion.generationError.snackbar": "Es sind Template Fehler aufgetreten.",
+
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "Nutzername",
     "gitAuth.username.hint": "Nutzer darf nicht leer sein und kann Buchstaben, Ziffern und ./_- enthalten",
@@ -139,7 +145,6 @@ const translationsDeDE = {
     "error.badrequest": "Die Anfrage ist fehlerhaft.",
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
-
-
+    "error.generation.template": "Das Projekt konnte nicht generiert werden.",
 };
 export default translationsDeDE;
