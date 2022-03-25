@@ -115,7 +115,7 @@ function FieldAccordion(props) {
                             </Grid>
                             <Grid item sm={12}>
                                 <FormControlLabel
-                                    control={<Checkbox defaultChecked />}
+                                    control={<Checkbox checked={mandatory} />}
                                     label={t("field.required")}
                                     value={mandatory}
                                     onChange={(event) => editFieldProperty("mandatory", !mandatory)}

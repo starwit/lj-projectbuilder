@@ -17,22 +17,22 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import de.starwit.TestdataConstants;
 import de.starwit.dto.AppTemplateDto;
-import de.starwit.dto.ApplicationDto;
+import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
 
-public class ApplicationControllerAcceptanceTest extends AbstractControllerAcceptanceTest<ApplicationDto> {
+public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTest<AppDto> {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerAcceptanceTest.class);
+    final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
 
     private static final String data = TestdataConstants.TESTDATA_APP_DIR;
 
     private static final String restpath = "/api/apps/";
 
-    private JacksonTester<ApplicationDto> jsonTester;
+    private JacksonTester<AppDto> jsonTester;
 
     @Override
-    public Class<ApplicationDto> getDtoClass() {
-        return ApplicationDto.class;
+    public Class<AppDto> getDtoClass() {
+        return AppDto.class;
     }
 
     @Override
@@ -41,14 +41,14 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     }
 
     @Override
-    public JacksonTester<ApplicationDto> getJsonTester() {
+    public JacksonTester<AppDto> getJsonTester() {
         return jsonTester;
     }
 
     @Test
     public void canCreate() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app.json");
+        AppDto dto = readFromFile(data + "app.json");
         AppTemplateDto templateDto = new AppTemplateDto();
         templateDto.setId(1L);
         templateDto.setName("lirejarp");
@@ -93,7 +93,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     @Test
     public void isValidated() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app-wrong-format.json");
+        AppDto dto = readFromFile(data + "app-wrong-format.json");
         AppTemplateDto templateDto = new AppTemplateDto();
         templateDto.setId(1L);
         templateDto.setName("lirejarp");
@@ -136,9 +136,9 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     @Test
     public void canRetrieveById() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app.json");
+        AppDto dto = readFromFile(data + "app.json");
         MockHttpServletResponse response = create(dto);
-        ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
 
         // when
         response = retrieveById(dto2.getId());
@@ -151,32 +151,32 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     @Test
     public void canRetrieveByIdWithFields() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app-with-fields.json");
+        AppDto dto = readFromFile(data + "app-with-fields.json");
         MockHttpServletResponse response = create(dto);
-        ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
 
         // when
         response = retrieveById(dto2.getId());
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto result = mapper.readValue(response.getContentAsString(), AppDto.class);
         assertThat(jsonTester.write(result).getJson()).isEqualTo(jsonTester.write(dto2).getJson());
     }
 
     @Test
     public void canRetrieveByIdWithRelations() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app-with-relations.json");
+        AppDto dto = readFromFile(data + "app-with-relations.json");
         MockHttpServletResponse response = create(dto);
-        ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
 
         // when
         response = retrieveById(dto2.getId());
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto result = mapper.readValue(response.getContentAsString(), AppDto.class);
         assertThat(jsonTester.write(result).getJson()).isEqualTo(jsonTester.write(dto2).getJson());
     }
 
@@ -184,9 +184,9 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     public void canUpdate() throws Exception {
 
         // given
-        ApplicationDto dto = readFromFile(data + "app-with-fields.json");
+        AppDto dto = readFromFile(data + "app-with-fields.json");
         MockHttpServletResponse response = create(dto);
-        ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
         dto2.setBaseName("secondName");
         EntityDto entityDto = dto2.getEntities().get(0);
         entityDto.setName("SecondEntityName");
@@ -199,7 +199,7 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ApplicationDto result = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto result = mapper.readValue(response.getContentAsString(), AppDto.class);
         assertThat(result.getId()).isEqualTo(dto2.getId());
         assertThat(result.getBaseName()).isEqualTo("secondName");
         assertThat(result.getEntities().get(0).getFields().size()).isEqualTo(fieldcount - 1);
@@ -216,9 +216,9 @@ public class ApplicationControllerAcceptanceTest extends AbstractControllerAccep
     @Test
     public void canDelete() throws Exception {
         // given
-        ApplicationDto dto = readFromFile(data + "app.json");
+        AppDto dto = readFromFile(data + "app.json");
         MockHttpServletResponse response = create(dto);
-        ApplicationDto dto2 = mapper.readValue(response.getContentAsString(), ApplicationDto.class);
+        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
         response = retrieveById(dto2.getId());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
