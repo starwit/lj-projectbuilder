@@ -162,7 +162,7 @@ function EntityDialog(props) {
         copiedEntity.fields.push(
             {
                 fieldName: "",
-                fieldType: "",
+                fieldType: "String",
                 fieldValidateRulesPattern: "",
                 fieldValidateRulesMin: "",
                 fieldValidateRulesMinlength: "",
