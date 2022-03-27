@@ -25,6 +25,7 @@ import de.starwit.allowedroles.IsAdmin;
 import de.starwit.dto.SaveAppTemplateDto;
 import de.starwit.mapper.AppTemplateMapper;
 import de.starwit.persistence.entity.AppTemplate;
+import de.starwit.persistence.exception.NotificationException;
 import de.starwit.rest.exception.NotificationDto;
 import de.starwit.service.impl.AppTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -82,7 +83,7 @@ public class AppTemplateController {
 	@IsAdmin
 	@Operation(summary = "Delete appTemplate")
 	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Long id) throws NotificationException {
 		appTemplateService.delete(id);
 	}
 

@@ -26,6 +26,7 @@ import de.starwit.allowedroles.IsUser;
 import de.starwit.dto.AppDto;
 import de.starwit.mapper.AppMapper;
 import de.starwit.persistence.entity.App;
+import de.starwit.persistence.exception.NotificationException;
 import de.starwit.rest.exception.NotificationDto;
 import de.starwit.service.impl.AppService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -96,7 +97,7 @@ public class AppController {
 	@IsUser
 	@Operation(summary = "Delete app with id")
 	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Long id) throws NotificationException {
 		appService.delete(id);
 	}
 
