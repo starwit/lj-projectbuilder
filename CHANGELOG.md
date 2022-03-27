@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.0...v0.3.1-0) (2022-03-27)
+
+
+### Features
+
+* improve error messaging ([e503bd7](https://github.com/mokkapps/changelog-generator-demo/commits/e503bd7b5e114e52beb911060808ac8fa62b1ade))
+
 ## [0.3.0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.2.13-10...v0.3.0) (2022-02-16)
 
 
