@@ -28,13 +28,14 @@ function EntityDialog(props) {
 
     useEffect(() => {
         if (entityId) {
-            const newEntity = { ...entities.find((entity_) => entity_.id === entityId) };
-            newEntity.fields?.forEach((field) => {
+            const existingEntity = { ...entities.find((entity_) => entity_.id === entityId) };
+            existingEntity.fields?.forEach((field) => {
                 field.mandatory = field.fieldValidateRules?.includes("required");
             });
-            setEntity(newEntity);
+            setEntity(existingEntity);
         } else {
-            setEntity({ ...newEntity });
+            const newEntity1 = JSON.parse(JSON.stringify(newEntity));
+            setEntity(newEntity1);
         }
     }, [entityId, entities]);
 
@@ -124,11 +125,12 @@ function EntityDialog(props) {
 
         handleSave(entityModified)
             .then(() => {
-                entityRest.findAllEntitiesByApp(appId).then((response) => {
-                    handleUpdateEntities(response.data);
-                    onClose();
-                    setIsSaving(false);
-                });
+                entityRest.findAllEntitiesByApp(appId)
+                    .then((response) => {
+                        handleUpdateEntities(response.data);
+                        onClose();
+                        setIsSaving(false);
+                    });
             })
             .catch(() => {
                 setIsSaving(false);
