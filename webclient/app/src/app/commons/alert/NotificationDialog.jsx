@@ -29,4 +29,5 @@ function NotificationDialog(props) {
         </Dialog>
     );
 }
+
 export default NotificationDialog;
