@@ -7,7 +7,7 @@
 **/.classpath
 **/target
 
-**/.vscode
+
 /vs-workspace.code-workspace
 .drawio-chrome/chrome-data/Local State
 .drawio-chrome/chrome-data/Default/Network Persistent State
