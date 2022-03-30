@@ -1,5 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Checkbox, Divider, FormControl, FormControlLabel, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Checkbox,
+    Divider,
+    FormControl,
+    FormControlLabel,
+    Grid,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
+} from "@mui/material";
 import { Delete, ExpandMore } from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
@@ -8,7 +23,20 @@ import ValidatedTextField from "../../../../commons/validatedTextField/Validated
 import RegexConfig from "../../../../../regexConfig";
 
 function FieldAccordion(props) {
-    const { fieldType, mandatory, min, max, minLength, maxLength, pattern, name, editFieldProperty, fieldTypes, isCreate, handleDelete } = props;
+    const {
+        fieldType,
+        mandatory,
+        min,
+        max,
+        minLength,
+        maxLength,
+        pattern,
+        name,
+        editFieldProperty,
+        fieldTypes,
+        isCreate,
+        handleDelete,
+    } = props;
     const fieldAccordionStyles = FieldAccordionStyles();
     const { t } = useTranslation();
 
@@ -18,7 +46,7 @@ function FieldAccordion(props) {
     const [fullFieldType, setFullFieldType] = useState(null);
 
     useEffect(() => {
-        const foundFieldType = fieldTypes.find((fieldTypeElement) => {
+        const foundFieldType = fieldTypes.find(fieldTypeElement => {
             return fieldTypeElement.name === fieldType;
         });
         if (foundFieldType) {
@@ -44,7 +72,16 @@ function FieldAccordion(props) {
             value = minLength;
             propertyField = "fieldValidateRulesMinlength";
         }
-        return <TextField fullWidth label={t("field.min")} value={value ?? ""} disabled={isMinDisabled} type={"number"} onChange={(event) => editFieldProperty(propertyField, event.target.value)} />;
+        return (
+            <TextField
+                fullWidth
+                label={t("field.min")}
+                value={value ?? ""}
+                disabled={isMinDisabled}
+                type={"number"}
+                onChange={event => editFieldProperty(propertyField, event.target.value)}
+            />
+        );
     }
 
     function renderMaxField() {
@@ -54,7 +91,16 @@ function FieldAccordion(props) {
             value = maxLength;
             propertyField = "fieldValidateRulesMaxlength";
         }
-        return <TextField fullWidth label={t("field.max")} value={value ?? ""} type={"number"} disabled={isMaxDisabled} onChange={(event) => editFieldProperty(propertyField, event.target.value)} />;
+        return (
+            <TextField
+                fullWidth
+                label={t("field.max")}
+                value={value ?? ""}
+                type={"number"}
+                disabled={isMaxDisabled}
+                onChange={event => editFieldProperty(propertyField, event.target.value)}
+            />
+        );
     }
 
     function handleFieldTypeChange(event) {
@@ -68,7 +114,9 @@ function FieldAccordion(props) {
                 <Accordion elevation={2}>
                     <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
                         <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
-                        <Typography className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
+                        <Typography className={fieldAccordionStyles.subtitle}>
+                            {/* Add something interesting here */}
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={4}>
@@ -80,14 +128,20 @@ function FieldAccordion(props) {
                                     fullWidth
                                     value={name}
                                     label={t("field.fieldName") + "*"}
-                                    onChange={(event) => editFieldProperty("fieldName", event.target.value)}
+                                    onChange={event => editFieldProperty("fieldName", event.target.value)}
                                 />
                             </Grid>
                             <Grid item sm={6}>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">{t("field.fieldType")}</InputLabel>
-                                    <Select labelId="demo-simple-select-label" id="demo-simple-select" value={fieldType} label={t("field.fieldType")} onChange={handleFieldTypeChange}>
-                                        {fieldTypes.map((fieldTypeElement) => (
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={fieldType}
+                                        label={t("field.fieldType")}
+                                        onChange={handleFieldTypeChange}
+                                    >
+                                        {fieldTypes.map(fieldTypeElement => (
                                             <MenuItem value={fieldTypeElement.name} key={fieldTypeElement.name}>
                                                 {fieldTypeElement.name}
                                             </MenuItem>
@@ -103,7 +157,9 @@ function FieldAccordion(props) {
                                     fullWidth
                                     label={t("field.pattern")}
                                     value={pattern ?? ""}
-                                    onChange={(event) => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                    onChange={event =>
+                                        editFieldProperty("fieldValidateRulesPattern", event.target.value)
+                                    }
                                     disabled={isPatternDisabled}
                                 />
                             </Grid>
@@ -118,7 +174,7 @@ function FieldAccordion(props) {
                                     control={<Checkbox checked={mandatory} />}
                                     label={t("field.required")}
                                     value={mandatory}
-                                    onChange={(event) => editFieldProperty("mandatory", !mandatory)}
+                                    onChange={event => editFieldProperty("mandatory", !mandatory)}
                                 />
                             </Grid>
                         </Grid>
@@ -143,7 +199,7 @@ FieldAccordion.propTypes = {
     name: PropTypes.string,
     editFieldProperty: PropTypes.func.isRequired,
     fieldTypes: PropTypes.array,
-    isCreate: PropTypes.bool
+    isCreate: PropTypes.bool,
 };
 
 FieldAccordion.defaultProps = {
@@ -154,7 +210,7 @@ FieldAccordion.defaultProps = {
     pattern: "",
     name: "",
     fieldTypes: [],
-    isCreate: false
-}
+    isCreate: false,
+};
 
 export default FieldAccordion;

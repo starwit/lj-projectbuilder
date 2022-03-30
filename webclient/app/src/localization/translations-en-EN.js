@@ -59,7 +59,8 @@ const translationsEnEN = {
     "entity.loading": "entity is loading",
     "entity.code": "Code",
     "entity.name": "Name",
-    "entity.name.hint": "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
+    "entity.name.hint":
+        "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
     "entity.fields": "Fields",
     "entity.fields.empty": "no fields",
     "entity.relations": "Relations",
@@ -67,7 +68,8 @@ const translationsEnEN = {
 
     "field.new": "New field",
     "field.fieldName": "Name",
-    "field.fieldName.hint": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
+    "field.fieldName.hint":
+        "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "field.fieldType": "Type",
     "field.restrictions": "Restrictions",
     "field.pattern": "Pattern",
@@ -79,12 +81,14 @@ const translationsEnEN = {
     "relationship.relationshipType": "Relation type",
     "relationship.sourceEntity": "Source Entity",
     "relationship.sourceField": "Relationship Name",
-    "relationship.sourceField.hint": "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
+    "relationship.sourceField.hint":
+        "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "relationship.source": "from",
     "relationship.target": "to",
     "relationship.targetEntity": "Target Entity",
     "relationship.targetField": "Relationship Name",
-    "relationship.targetField.hint": "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
+    "relationship.targetField.hint":
+        "Name of field with type {{entityName}}. Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "relationship.targetEntity.empty": "not available",
 
     "appTemplate.delete.title": "Delete Template",
@@ -111,21 +115,29 @@ const translationsEnEN = {
 
     "gitAuth.title": "Login Git Template Repository",
     "gitAuth.username": "User",
-    "gitAuth.username.hint": "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
+    "gitAuth.username.hint":
+        "User should not be empty and can contain letters, numbers and special characters -!@#$%^&",
     "gitAuth.password": "Password",
-    "gitAuth.password.hint": "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
+    "gitAuth.password.hint":
+        "Password / PAT should not be empty and can contain letters, numbers and special characters -!@#$%^&",
 
     "error.git.directorynotexists": "An internal error occured. Please contact IT-support.",
     "error.git.access.denied": "Not enough rights. For Github you need at least the right 'repo'",
-    "error.git.access.tokenusagerequired": "Support for password authentication was removed. A personal access token is required.",
-    "error.git.access.invaliduserpassword": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.git.access.tokenusagerequired":
+        "Support for password authentication was removed. A personal access token is required.",
+    "error.git.access.invaliduserpassword":
+        "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.git.exit": "Error to get data from Git repository",
     "error.appcheckout.giturlisinvalid": "Invalid Git repository URL. Only letters, numbers and ./_- are allowed.",
-    "error.appcheckout.usernameisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
-    "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.usernameisinvalid":
+        "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
+    "error.appcheckout.passworisinvalid":
+        "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
-    "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
-    "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
+    "error.appcheckout.jsonmapping.git":
+        "Template configuration could not be loaded. Please check config file (template-config.json).",
+    "error.git.access.repositorynotfound":
+        "Git repository could not be found. Please check repository name and branch name.",
     "error.accessdenied": "You are not allowed to execute this action.",
     "error.general.delete": "This element could not be deleted.",
     "error.general.create": "This element could not be created.",
@@ -146,6 +158,6 @@ const translationsEnEN = {
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
     "error.generation.template": "This project could not be generated.",
-    "error.apptemplate.delete.appexists": "The template is still used by an app."
+    "error.apptemplate.delete.appexists": "The template is still used by an app.",
 };
 export default translationsEnEN;

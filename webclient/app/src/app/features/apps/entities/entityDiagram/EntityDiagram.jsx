@@ -44,7 +44,7 @@ function EntityDiagram(props) {
         }
 
         return entityRest.delete(entityId).then(() => {
-            entityRest.findAllEntitiesByApp(appId).then((response) => {
+            entityRest.findAllEntitiesByApp(appId).then(response => {
                 handleUpdateEntities(response.data);
             });
         });
@@ -102,7 +102,12 @@ function EntityDiagram(props) {
                     disabled={!editable}
                 >
                     <div>
-                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity} editable={editable} />
+                        <EntityCard
+                            entity={entity}
+                            handleEdit={setCurrentEntity}
+                            handleDelete={deleteEntity}
+                            editable={editable}
+                        />
                     </div>
                 </Draggable>
             );
@@ -168,9 +173,9 @@ function EntityDiagram(props) {
             <EntityDialog
                 entityId={currentEntity?.id}
                 onClose={closeEntityDialog}
-                handleSave={(data) => updateEntity(data)}
+                handleSave={data => updateEntity(data)}
                 entities={entities}
-                handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
+                handleUpdateEntities={updatedEntities => handleUpdateEntities(updatedEntities)}
                 open={openEntityDialog}
                 appId={appId}
             />

@@ -4,36 +4,36 @@ const FieldTypes = [
         allowMin: true,
         allowMax: true,
         usesLengthLimit: true,
-        allowPattern: true
+        allowPattern: true,
     },
     {
         name: "Integer",
         allowMin: true,
-        allowMax: true
+        allowMax: true,
     },
     {
         name: "Long",
         allowMin: true,
-        allowMax: true
+        allowMax: true,
     },
     {
         name: "BigDecimal",
         allowMin: true,
-        allowMax: true
+        allowMax: true,
     },
     {
         name: "Float",
         allowMin: true,
-        allowMax: true
+        allowMax: true,
     },
     {
         name: "Double",
         allowMin: true,
-        allowMax: true
+        allowMax: true,
     },
     {
-        name: "Boolean"
-    }
+        name: "Boolean",
+    },
 ];
 
 export default FieldTypes;

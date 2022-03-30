@@ -1,5 +1,4 @@
 const RegexConfig = {
-
     entityTitle: /^[A-Z][a-zA-Z0-9]{1,100}$/,
     fieldName: /^[a-z][a-zA-Z0-9]{1,100}$/,
     applicationBaseName: /^[A-Za-z0-9]{1,100}$/,
@@ -10,6 +9,6 @@ const RegexConfig = {
     appTemplateAuthUser: /^[a-zA-Z0-9!@#$%^&()*./_-]{2,20}$/,
     appTemplateAuthPassword: /^[a-zA-Z0-9!@#$%^&()*./_-]{6,100}$/,
 
-    relationship: /^(|([a-z][a-zA-Z0-9]{0,100}))$/
-}
+    relationship: /^(|([a-z][a-zA-Z0-9]{0,100}))$/,
+};
 export default RegexConfig;

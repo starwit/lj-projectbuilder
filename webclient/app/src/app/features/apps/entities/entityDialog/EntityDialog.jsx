@@ -1,5 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Button, Container, Dialog, DialogActions, DialogTitle, IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    IconButton,
+    Stack,
+    Tab,
+    Tabs,
+    Typography,
+} from "@mui/material";
 import { Add, Close } from "@mui/icons-material";
 import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
@@ -28,8 +40,8 @@ function EntityDialog(props) {
 
     useEffect(() => {
         if (entityId) {
-            const existingEntity = { ...entities.find((entity_) => entity_.id === entityId) };
-            existingEntity.fields?.forEach((field) => {
+            const existingEntity = { ...entities.find(entity_ => entity_.id === entityId) };
+            existingEntity.fields?.forEach(field => {
                 field.mandatory = field.fieldValidateRules?.includes("required");
             });
             setEntity(existingEntity);
@@ -49,13 +61,13 @@ function EntityDialog(props) {
             hasError = true;
         }
 
-        entity.fields?.forEach((field) => {
+        entity.fields?.forEach(field => {
             if (!RegexConfig.fieldName.test(field.fieldName)) {
                 hasError = true;
             }
         });
 
-        entity.relationships?.forEach((relationship) => {
+        entity.relationships?.forEach(relationship => {
             if (
                 !RegexConfig.relationship.test(relationship.relationshipName) ||
                 !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
@@ -70,7 +82,7 @@ function EntityDialog(props) {
     function getTargetEntities() {
         let newTargetEntities = [];
         if (entities?.length > 1) {
-            newTargetEntities = entities.filter((e) => e.name !== entity.name);
+            newTargetEntities = entities.filter(e => e.name !== entity.name);
         } else {
             let emptyTarget = emptyEntity;
             emptyTarget.name = t("relationship.targetEntity.empty");
@@ -95,7 +107,7 @@ function EntityDialog(props) {
 
         const entityModified = { ...entity };
 
-        entityModified.fields?.forEach((field) => {
+        entityModified.fields?.forEach(field => {
             field.fieldValidateRules = [];
 
             if (field.fieldValidateRulesMinlength) {
@@ -125,12 +137,11 @@ function EntityDialog(props) {
 
         handleSave(entityModified)
             .then(() => {
-                entityRest.findAllEntitiesByApp(appId)
-                    .then((response) => {
-                        handleUpdateEntities(response.data);
-                        onClose();
-                        setIsSaving(false);
-                    });
+                entityRest.findAllEntitiesByApp(appId).then(response => {
+                    handleUpdateEntities(response.data);
+                    onClose();
+                    setIsSaving(false);
+                });
             })
             .catch(() => {
                 setIsSaving(false);
@@ -241,8 +252,16 @@ function EntityDialog(props) {
         }
 
         return entity.fields.map((field, index) => {
-            const { mandatory, fieldValidateRulesMin, fieldValidateRulesMinlength, fieldValidateRulesMax, fieldValidateRulesMaxlength, fieldValidateRulesPattern, fieldName, fieldType } =
-                entity.fields[index];
+            const {
+                mandatory,
+                fieldValidateRulesMin,
+                fieldValidateRulesMinlength,
+                fieldValidateRulesMax,
+                fieldValidateRulesMaxlength,
+                fieldValidateRulesPattern,
+                fieldName,
+                fieldType,
+            } = entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
@@ -289,7 +308,12 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example" className={entityEditorStyles.tabHeader}>
+                    <Tabs
+                        value={value}
+                        onChange={handleTabChange}
+                        aria-label="basic tabs example"
+                        className={entityEditorStyles.tabHeader}
+                    >
                         <Tab label={t("entity.fields")} {...a11yProps(0)} />
                         <Tab label={t("entity.relations")} {...a11yProps(1)} />
                     </Tabs>

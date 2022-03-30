@@ -1,16 +1,16 @@
-import * as React from 'react';
-import {useState} from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import {useTranslation} from 'react-i18next';
-import {DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import * as React from "react";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import { useTranslation } from "react-i18next";
+import { DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import PropTypes from "prop-types";
-import {LoadingButton} from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
 
 export default function ConfirmationDialog(props) {
-    const {open, onClose, onSubmit, title, message, confirmTitle} = props;
-    const {t} = useTranslation();
+    const { open, onClose, onSubmit, title, message, confirmTitle } = props;
+    const { t } = useTranslation();
     const [isProcessing, setIsProcessing] = useState(false);
 
     function confirmAction() {
@@ -21,8 +21,8 @@ export default function ConfirmationDialog(props) {
                 setIsProcessing(false);
             })
             .catch(() => {
-                setIsProcessing(false)
-            })
+                setIsProcessing(false);
+            });
     }
 
     return (
@@ -32,13 +32,9 @@ export default function ConfirmationDialog(props) {
             aria-labelledby="confirm-dialog-title"
             aria-describedby="confirm-dialog-description"
         >
-            <DialogTitle id="confirm-dialog-title">
-                {title}
-            </DialogTitle>
+            <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="confirm-dialog-description">
-                    {message}
-                </DialogContentText>
+                <DialogContentText id="confirm-dialog-description">{message}</DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>{t("button.cancel")}</Button>
@@ -57,4 +53,4 @@ ConfirmationDialog.propTypes = {
     message: PropTypes.string,
     open: PropTypes.bool,
     confirmTitle: PropTypes.string,
-}
+};

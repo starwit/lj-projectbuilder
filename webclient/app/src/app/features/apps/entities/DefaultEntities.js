@@ -5,8 +5,8 @@ const newEntity = {
     isNewEntity: true,
     position: {
         positionX: 0,
-        positionY: 0
-    }
+        positionY: 0,
+    },
 };
 
 const emptyEntity = {
@@ -17,8 +17,8 @@ const emptyEntity = {
     isNewEntity: false,
     position: {
         positionX: 0,
-        positionY: 0
-    }
-}
+        positionY: 0,
+    },
+};
 
-export {newEntity, emptyEntity};
+export { newEntity, emptyEntity };

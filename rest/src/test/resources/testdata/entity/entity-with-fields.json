@@ -4,22 +4,14 @@
         {
             "fieldName": "testField",
             "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "minlength",
-                "maxlength"
-            ],
+            "fieldValidateRules": ["required", "minlength", "maxlength"],
             "fieldValidateRulesMinlength": 2,
             "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "testField2",
             "fieldType": "Long",
-            "fieldValidateRules": [
-                "required",
-                "min",
-                "max"
-            ],
+            "fieldValidateRules": ["required", "min", "max"],
             "fieldValidateRulesMin": 0,
             "fieldValidateRulesMax": 200
         }

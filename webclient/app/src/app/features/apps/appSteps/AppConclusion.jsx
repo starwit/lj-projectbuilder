@@ -1,5 +1,18 @@
 import React, { useState } from "react";
-import { Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, List, ListItem, ListItemText, Skeleton, Typography } from "@mui/material";
+import {
+    Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
+    Skeleton,
+    Typography,
+} from "@mui/material";
 import EntityDiagram from "../entities/entityDiagram/EntityDiagram";
 import PropTypes from "prop-types";
 import AppStepsStyles from "./AppStepsStyles";
@@ -28,12 +41,16 @@ function AppConclusion(props) {
         setGeneratorErrorMessage(null);
     }
 
-    const handleGit = (downloadRequestData) => {
-        return gitRest.setupApp(appId, downloadRequestData).catch((error) => {
+    const handleGit = downloadRequestData => {
+        return gitRest.setupApp(appId, downloadRequestData).catch(error => {
             if (error.response.data.messageKey === "error.generation.template") {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
-                        action: (key) => <Button onClick={() => openInformationDialog(error.response.data.message)}>{t("button.showMore")}</Button>,
+                        action: key => (
+                            <Button onClick={() => openInformationDialog(error.response.data.message)}>
+                                {t("button.showMore")}
+                            </Button>
+                        ),
                     });
                 }, 1000);
             }
@@ -68,7 +85,10 @@ function AppConclusion(props) {
                             <ListItemText primary={renderLoadingText(appName)} secondary={t("app.name")} />
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(templateName)} secondary={t("app.section.template")} />
+                            <ListItemText
+                                primary={renderLoadingText(templateName)}
+                                secondary={t("app.section.template")}
+                            />
                         </ListItem>
                         <ListItem>
                             <ListItemText primary={renderLoadingText(packageName)} secondary={t("app.packageName")} />

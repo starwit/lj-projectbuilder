@@ -1,17 +1,17 @@
-import {Container, Fab, Grid, Typography} from "@mui/material";
-import React, {useEffect, useMemo, useState} from "react";
-import {useTranslation} from "react-i18next";
+import { Container, Fab, Grid, Typography } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AppTemplateCard from "../../features/appTemplates/appTemplateCard/AppTemplateCard";
 import AppTemplateDialog from "../../features/appTemplates/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
 import UserRest from "../../services/UserRest";
 import AppTemplateOverviewStyles from "./AppTempateOverviewStyles";
-import {Add} from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 
 function AppTemplateOverview() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [selectedAppTemplate, setSelectedAppTemplate] = useState(false);
     const [appTemplates, setAppTemplates] = useState(null);
@@ -28,14 +28,13 @@ function AppTemplateOverview() {
         setOpenDialog(false);
     };
 
-    const defaultAppTemplate =
-        {
-            "location": "",
-            "branch": "",
-            "credentialsRequired": false,
-            "description": "",
-            "groups": ["public"]
-        };
+    const defaultAppTemplate = {
+        location: "",
+        branch: "",
+        credentialsRequired: false,
+        description: "",
+        groups: ["public"],
+    };
 
     const reload = () => {
         const appTemplateRest = new AppTemplateRest();
@@ -45,7 +44,7 @@ function AppTemplateOverview() {
     };
 
     useEffect(() => {
-        userRest.getUserGroups().then((response) => {
+        userRest.getUserGroups().then(response => {
             setUserGroups(response.data);
         });
     }, [userRest]);
@@ -56,30 +55,22 @@ function AppTemplateOverview() {
 
     function renderContent() {
         if (!appTemplates) {
-            return (
-                <LoadingSpinner message={t("apptemplates.loading")}/>
-            )
+            return <LoadingSpinner message={t("apptemplates.loading")} />;
         }
 
         if (appTemplates.length === 0) {
-            return (
-                <Statement
-                    icon={<Add/>}
-                    message={t("apptemplates.empty")}
-                />
-            )
+            return <Statement icon={<Add />} message={t("apptemplates.empty")} />;
         }
 
         return (
             <Grid container spacing={2}>
                 {appTemplates.map(appTemplate => (
                     <Grid item key={appTemplate.id} sm={12} xs={12}>
-                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups}/>
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
                     </Grid>
                 ))}
             </Grid>
-
-        )
+        );
     }
 
     return (
@@ -98,11 +89,11 @@ function AppTemplateOverview() {
             />
             <div className={appTemplateOverviewStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
-                    <Add/>
+                    <Add />
                 </Fab>
             </div>
         </Container>
-    )
+    );
 }
 
-export default AppTemplateOverview
+export default AppTemplateOverview;
