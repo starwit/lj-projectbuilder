@@ -5,7 +5,7 @@
 // 	private String sshCloneURL;
 // 	private String httpCloneURL;
 // 	private boolean isPublic;
-	
+
 // 	public String getName() {
 // 		return name;
 // 	}
@@ -30,7 +30,7 @@
 // 	public void setPublic(boolean isPublic) {
 // 		this.isPublic = isPublic;
 // 	}
-	
+
 // 	@Override
 // 	public String toString() {
 // 		String output ="";

@@ -1,10 +1,19 @@
 package de.starwit.rest.controller;
 
+import de.starwit.allowedroles.IsAdmin;
+import de.starwit.allowedroles.IsUser;
+import de.starwit.dto.EntityDto;
+import de.starwit.mapper.EntityMapper;
+import de.starwit.persistence.entity.App;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.rest.exception.NotificationDto;
+import de.starwit.rest.exception.WrongAppIdException;
+import de.starwit.service.impl.DomainService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +29,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.starwit.allowedroles.IsAdmin;
-import de.starwit.allowedroles.IsUser;
-import de.starwit.dto.EntityDto;
-import de.starwit.mapper.EntityMapper;
-import de.starwit.persistence.entity.App;
-import de.starwit.persistence.entity.Domain;
-import de.starwit.persistence.exception.NotificationException;
-import de.starwit.rest.exception.NotificationDto;
-import de.starwit.rest.exception.WrongAppIdException;
-import de.starwit.service.impl.DomainService;
-import io.swagger.v3.oas.annotations.Operation;
-
 @RestController
 @RequestMapping("${rest.base-path}/entities")
 public class EntityController {
 
-    final static Logger LOG = LoggerFactory.getLogger(EntityController.class);
+    static final Logger LOG = LoggerFactory.getLogger(EntityController.class);
 
     @Autowired
     private DomainService domainService;

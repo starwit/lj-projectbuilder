@@ -1,12 +1,11 @@
 package de.starwit.persistence.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema
 @XmlRootElement
@@ -37,6 +36,4 @@ public class Position extends AbstractEntity<Long> {
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }
-
- 
 }

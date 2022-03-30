@@ -1,5 +1,8 @@
 package de.starwit.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,19 +12,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 @Schema
 @XmlRootElement
 @Entity
 @Table(name = "RELATIONSHIP")
 public class Relationship extends AbstractEntity<Long> {
 
-    @Schema(required = true, allowableValues = { "one-to-one",
-    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
+    @Schema(
+        required = true,
+        allowableValues = { "one-to-one", "many-to-one", "many-to-many", "one-to-one" },
+        defaultValue = "one-to-many"
+    )
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
@@ -41,7 +42,6 @@ public class Relationship extends AbstractEntity<Long> {
     @Column(name = "OWNER")
     private boolean ownerSide = false;
 
- 
     public String getRelationshipName() {
         return relationshipName;
     }
@@ -60,15 +60,21 @@ public class Relationship extends AbstractEntity<Long> {
         this.relationshipType = relationshipType;
     }
 
-    @Schema(required = true, allowableValues = { "one-to-one",
-    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
+    @Schema(
+        required = true,
+        allowableValues = { "one-to-one", "many-to-one", "many-to-many", "one-to-one" },
+        defaultValue = "one-to-many"
+    )
     @JsonProperty("relationshipType")
     public String getRelationshipTypeAsJson() {
         return relationshipType.getJsonFormat();
     }
 
-    @Schema(required = true, allowableValues = { "one-to-one",
-    "many-to-one", "many-to-many", "one-to-one"}, defaultValue = "one-to-many")
+    @Schema(
+        required = true,
+        allowableValues = { "one-to-one", "many-to-one", "many-to-many", "one-to-one" },
+        defaultValue = "one-to-many"
+    )
     @JsonProperty("relationshipType")
     public void setRelationshipTypeAsJson(String relationshipType) {
         this.relationshipType = RelationshipType.setJsonFormat(relationshipType);
@@ -77,7 +83,7 @@ public class Relationship extends AbstractEntity<Long> {
     public String getOtherEntityName() {
         return otherEntityName;
     }
-    
+
     public void setOtherEntityName(String otherEntityName) {
         this.otherEntityName = otherEntityName;
     }
@@ -97,5 +103,4 @@ public class Relationship extends AbstractEntity<Long> {
     public void setOwnerSide(boolean ownerSide) {
         this.ownerSide = ownerSide;
     }
- 
 }

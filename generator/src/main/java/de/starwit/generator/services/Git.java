@@ -1,5 +1,6 @@
 package de.starwit.generator.services;
 
+import de.starwit.persistence.exception.NotificationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,68 +8,64 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.starwit.persistence.exception.NotificationException;
 
 /** Class for running git commands. */
 public class Git {
 
-	private final static Logger LOG = LoggerFactory.getLogger(Git.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Git.class);
 
-	public static void gitClone(Path directory, URL originUrl) throws NotificationException {
-		runCommand(directory, "git", "clone", originUrl.toString(), ".");
-	}
+    public static void gitClone(Path directory, URL originUrl) throws NotificationException {
+        runCommand(directory, "git", "clone", originUrl.toString(), ".");
+    }
 
-	public static void gitClone(Path directory, URL originUrl, String branch)
-			throws NotificationException {
-		runCommand(directory, "git", "clone", "-b", branch, originUrl.toString(), ".");
-	}
+    public static void gitClone(Path directory, URL originUrl, String branch) throws NotificationException {
+        runCommand(directory, "git", "clone", "-b", branch, originUrl.toString(), ".");
+    }
 
-	public static void runCommand(Path directory, String... command)
-			throws NotificationException {
-		Objects.requireNonNull(directory, "directory");
-		if (!Files.exists(directory)) {
-			throw new NotificationException("error.git.directorynotexists", "can't run command in non-existing directory " + directory);
-		}
-		ProcessBuilder pb = new ProcessBuilder()
-				.command(command)
-				.directory(directory.toFile());
-		try {
-			Process p = pb.start();
-			int exitVal = p.waitFor();
+    public static void runCommand(Path directory, String... command) throws NotificationException {
+        Objects.requireNonNull(directory, "directory");
+        if (!Files.exists(directory)) {
+            throw new NotificationException(
+                "error.git.directorynotexists",
+                "can't run command in non-existing directory " + directory
+            );
+        }
+        ProcessBuilder pb = new ProcessBuilder().command(command).directory(directory.toFile());
+        try {
+            Process p = pb.start();
+            int exitVal = p.waitFor();
 
-			if (exitVal == 0) {
-				LOG.info("git commad SUCCESS in directory {}", directory.toFile());
-			} else {
-				final BufferedReader b = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-				String line = b.readLine();
-				String output = "";
-				while (line != null) {
-					output = output + line + " ";
-					line = b.readLine();
-				}
-				if (output.contains("403")) {
-					throw new NotificationException("error.git.access.denied", output);
-				} else if (output.contains("use a personal access token")) {
-					throw new NotificationException("error.git.access.tokenusagerequired", output);
-				} else if (output.contains("Invalid username or password")) {
-					throw new NotificationException("error.git.access.invaliduserpassword", output);
-				} else if (output.contains("Repository not found")) {
-					throw new NotificationException("error.git.access.repositorynotfound", output);
-				}
-				p.destroy();
-				throw new NotificationException("error.git.exit", "Git clone runs into error.");
-			}
-		} catch (final InterruptedException ex ) {
-			LOG.warn("interrupted", ex);
-			// Restore interrupted state...
-			Thread.currentThread().interrupt();
-			throw new NotificationException("error.git.exit", "Git clone runs into error.");
-		} catch (final IOException ex) {
-			throw new NotificationException("error.git.exit", "Git clone runs into error.");
-		}
-	}
+            if (exitVal == 0) {
+                LOG.info("git commad SUCCESS in directory {}", directory.toFile());
+            } else {
+                final BufferedReader b = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                String line = b.readLine();
+                String output = "";
+                while (line != null) {
+                    output = output + line + " ";
+                    line = b.readLine();
+                }
+                if (output.contains("403")) {
+                    throw new NotificationException("error.git.access.denied", output);
+                } else if (output.contains("use a personal access token")) {
+                    throw new NotificationException("error.git.access.tokenusagerequired", output);
+                } else if (output.contains("Invalid username or password")) {
+                    throw new NotificationException("error.git.access.invaliduserpassword", output);
+                } else if (output.contains("Repository not found")) {
+                    throw new NotificationException("error.git.access.repositorynotfound", output);
+                }
+                p.destroy();
+                throw new NotificationException("error.git.exit", "Git clone runs into error.");
+            }
+        } catch (final InterruptedException ex) {
+            LOG.warn("interrupted", ex);
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
+            throw new NotificationException("error.git.exit", "Git clone runs into error.");
+        } catch (final IOException ex) {
+            throw new NotificationException("error.git.exit", "Git clone runs into error.");
+        }
+    }
 }

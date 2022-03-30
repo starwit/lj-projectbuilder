@@ -3,6 +3,13 @@ package de.starwit.rest.integration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import de.starwit.TestdataConstants;
+import de.starwit.dto.EntityDto;
+import de.starwit.mapper.EntityMapper;
+import de.starwit.mapper.FieldMapper;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.rest.controller.EntityController;
+import de.starwit.service.impl.DomainService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,19 +21,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.EntityDto;
-import de.starwit.mapper.EntityMapper;
-import de.starwit.mapper.FieldMapper;
-import de.starwit.persistence.entity.Domain;
-import de.starwit.rest.controller.EntityController;
-import de.starwit.service.impl.DomainService;
-
 @WebMvcTest(controllers = EntityController.class)
-@Import({EntityMapper.class, FieldMapper.class})
+@Import({ EntityMapper.class, FieldMapper.class })
 public class EntityControllerIntegrationTest extends AbstractControllerIntegrationTest<EntityDto> {
 
-    final static Logger LOG = LoggerFactory.getLogger(EntityControllerIntegrationTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(EntityControllerIntegrationTest.class);
 
     @MockBean
     private DomainService domainService;
@@ -61,9 +60,7 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
 
         //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
-
+        assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
     @Test
@@ -76,9 +73,7 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
 
         //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
-
+        assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
     @Test
@@ -92,13 +87,9 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
 
             //then
             assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-            assertThat(response.getContentAsString())
-                .isEqualTo(jsonTester.write(dto).getJson());
-        } catch(Exception e) {
+            assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
-
 }

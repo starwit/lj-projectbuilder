@@ -3,10 +3,12 @@ package de.starwit.rest.acceptance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.databind.JsonNode;
-
+import de.starwit.TestdataConstants;
+import de.starwit.dto.AppDto;
+import de.starwit.dto.AppTemplateDto;
+import de.starwit.dto.EntityDto;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.AppTemplateDto;
-import de.starwit.dto.AppDto;
-import de.starwit.dto.EntityDto;
-
 public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTest<AppDto> {
 
-    final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
 
     private static final String data = TestdataConstants.TESTDATA_APP_DIR;
 
@@ -89,7 +86,6 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
-
     @Test
     public void isValidated() throws Exception {
         // given
@@ -111,26 +107,31 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
     public void isValidatedInputParam() throws Exception {
         // when
         MockHttpServletResponse response = mvc
-                .perform(get(getRestPath() + "/wrongvalue").contentType(MediaType.APPLICATION_JSON)).andReturn()
-                .getResponse();
+            .perform(get(getRestPath() + "/wrongvalue").contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
 
         // then
         LOG.info(response.getContentAsString());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                "{\"messageKey\":\"error.wrongInputValue\",\"message\":\"Wrong input value wrongvalue. Failed to convert value of type String to required type Long.\"}");
+        assertThat(response.getContentAsString())
+            .isEqualTo(
+                "{\"messageKey\":\"error.wrongInputValue\",\"message\":\"Wrong input value wrongvalue. Failed to convert value of type String to required type Long.\"}"
+            );
     }
 
     @Test
     public void canNotFindById() throws Exception {
         // when
         MockHttpServletResponse response = mvc
-                .perform(get(getRestPath() + "/4242").contentType(MediaType.APPLICATION_JSON)).andReturn()
-                .getResponse();
+            .perform(get(getRestPath() + "/4242").contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
+        assertThat(response.getContentAsString())
+            .isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
     }
 
     @Test
@@ -182,7 +183,6 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
 
     @Test
     public void canUpdate() throws Exception {
-
         // given
         AppDto dto = readFromFile(data + "app-with-fields.json");
         MockHttpServletResponse response = create(dto);
@@ -206,7 +206,7 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         assertThat(result.getEntities().get(0).getId()).isEqualTo(entityDto.getId());
         assertThat(result.getEntities().get(0).getName()).isEqualTo("SecondEntityName");
         assertThat(result.getEntities().get(0).getFields().get(0).getId())
-                .isEqualTo(entityDto.getFields().get(0).getId());
+            .isEqualTo(entityDto.getFields().get(0).getId());
         assertThat(result.getEntities().get(0).getFields().get(0).getFieldName()).isEqualTo("secondFieldName");
 
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto2).getJson());

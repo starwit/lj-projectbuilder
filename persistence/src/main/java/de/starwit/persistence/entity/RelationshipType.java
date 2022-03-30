@@ -11,12 +11,10 @@ public enum RelationshipType {
 
     private String jsonFormat;
 
-    private static final Map<String, RelationshipType>  lookup = new HashMap<>();
+    private static final Map<String, RelationshipType> lookup = new HashMap<>();
 
-    static
-    {
-        for(RelationshipType relType : RelationshipType.values())
-        {
+    static {
+        for (RelationshipType relType : RelationshipType.values()) {
             lookup.put(relType.jsonFormat, relType);
         }
     }
@@ -30,7 +28,7 @@ public enum RelationshipType {
      * @param jsonFormat
      * @return RelationshipType from json string value
      */
-    static public RelationshipType setJsonFormat(String jsonFormat) {
+    public static RelationshipType setJsonFormat(String jsonFormat) {
         return lookup.get(jsonFormat);
     }
 

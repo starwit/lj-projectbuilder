@@ -3,6 +3,9 @@ package de.starwit.rest.acceptance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import de.starwit.TestdataConstants;
+import de.starwit.dto.SaveAppTemplateDto;
+import de.starwit.persistence.entity.AppTemplate;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import de.starwit.TestdataConstants;
-import de.starwit.dto.SaveAppTemplateDto;
-import de.starwit.persistence.entity.AppTemplate;
-
 public class AppTemplateControllerAcceptanceTest extends AbstractControllerAcceptanceTest<SaveAppTemplateDto> {
 
-    final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
 
     private static final String data = TestdataConstants.TESTDATA_APPTEMPLATE_DIR;
 
@@ -44,7 +43,7 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     public void canCreate() throws Exception {
         // given
         SaveAppTemplateDto dto = readFromFile(data + "apptemplate.json");
-  
+
         // when
         MockHttpServletResponse response = create(dto);
 
@@ -71,8 +70,9 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     public void canNotFindById() throws Exception {
         // when
         MockHttpServletResponse response = mvc
-                .perform(get(getRestPath() + "/4242").contentType(MediaType.APPLICATION_JSON)).andReturn()
-                .getResponse();
+            .perform(get(getRestPath() + "/4242").contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
@@ -97,7 +97,6 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
 
     @Test
     public void canUpdate() throws Exception {
-
         // given
         SaveAppTemplateDto dto = readFromFile(data + "apptemplate.json");
         MockHttpServletResponse response = create(dto);

@@ -1,6 +1,3 @@
 package find;
 
-
-public class FindClass {
-
-}
+public class FindClass {}

@@ -34,9 +34,7 @@ public class DatabasePhysicalNamingStrategy implements PhysicalNamingStrategy {
     private Identifier toUpperSnakeCase(final Identifier identifier) {
         final String regex = "([a-z])([A-Z])";
         final String replacement = "$1_$2";
-        final String upperSnakeIdentifier = identifier.getText()
-                .replaceAll(regex, replacement)
-                .toUpperCase();
+        final String upperSnakeIdentifier = identifier.getText().replaceAll(regex, replacement).toUpperCase();
         return Identifier.toIdentifier(upperSnakeIdentifier);
     }
 }

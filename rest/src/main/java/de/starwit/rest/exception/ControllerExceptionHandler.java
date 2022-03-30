@@ -1,12 +1,10 @@
 package de.starwit.rest.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
+import de.starwit.persistence.exception.NotificationException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.persistence.EntityNotFoundException;
-
-import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,10 +23,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import de.starwit.persistence.exception.NotificationException;
-
 @ControllerAdvice(basePackages = "de.starwit.rest")
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+
     private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler(value = { Exception.class })
@@ -60,9 +57,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         Class<?> exType = ex.getRequiredType();
         String className = exValue != null ? ClassUtils.getShortName(exValue.getClass()) : "";
         String reqType = exType != null ? ClassUtils.getShortName(exType) : "";
-        String outputString = "Wrong input value " + ex.getValue() + ". Failed to convert value of type "
-                + className + " to required type "
-                + reqType + ".";
+        String outputString =
+            "Wrong input value " +
+            ex.getValue() +
+            ". Failed to convert value of type " +
+            className +
+            " to required type " +
+            reqType +
+            ".";
         NotificationDto output = new NotificationDto("error.wrongInputValue", outputString);
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
@@ -77,7 +79,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
     public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
         LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
-        NotificationDto output = new NotificationDto("error.badrequest", ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.");
+        NotificationDto output = new NotificationDto(
+            "error.badrequest",
+            ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created."
+        );
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
@@ -104,17 +109,21 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
-
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+        MethodArgumentNotValidException ex,
+        HttpHeaders headers,
+        HttpStatus status,
+        WebRequest request
+    ) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-
-            String fieldName = ((FieldError) error).getField();
-            String message = error.getDefaultMessage();
-            errors.put(fieldName, message);
-        });
+        ex
+            .getBindingResult()
+            .getAllErrors()
+            .forEach(error -> {
+                String fieldName = ((FieldError) error).getField();
+                String message = error.getDefaultMessage();
+                errors.put(fieldName, message);
+            });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
 }

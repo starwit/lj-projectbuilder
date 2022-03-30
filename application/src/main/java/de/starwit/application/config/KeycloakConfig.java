@@ -31,7 +31,7 @@ public class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
         "/webjars/**",
         // -- Swagger UI v3 (OpenAPI)
         "/v3/api-docs/**",
-        "/swagger-ui/**"
+        "/swagger-ui/**",
         // other public endpoints of your API may be appended to this array
     };
 
@@ -67,17 +67,26 @@ public class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
 
         http
-                //.csrf().disable()
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-                .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/logout.html").permitAll()
-                .antMatchers("/api/user/logout").permitAll()
-                .antMatchers("/**").hasAnyRole("admin", "user", "reader")
-                .anyRequest().authenticated()
-                .and()
-                .logout().logoutSuccessUrl("/myLogout.html")
-                .and().exceptionHandling().accessDeniedPage("/accessDenied.html");
+            //.csrf().disable()
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .and()
+            .authorizeRequests()
+            .antMatchers(AUTH_WHITELIST)
+            .permitAll()
+            .antMatchers("/logout.html")
+            .permitAll()
+            .antMatchers("/api/user/logout")
+            .permitAll()
+            .antMatchers("/**")
+            .hasAnyRole("admin", "user", "reader")
+            .anyRequest()
+            .authenticated()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/myLogout.html")
+            .and()
+            .exceptionHandling()
+            .accessDeniedPage("/accessDenied.html");
     }
 }

@@ -13,35 +13,35 @@
 
 // @Service
 // public class TargetRepoService {
-	
+
 // 	private RepoServerData repoServerData;
 
 //     public static void main(String[] args) {
 //         //String targetUrl = "https://devstack.vwgroup.com/bitbucket/rest/api/1.0/projects/SPL/repos";
 //         //String repoURL = "https://devstack.vwgroup.com/bitbucket/rest/api/1.0/users/vwtdzwz/repos";
 //     }
-    
+
 //     private Invocation.Builder buildRequester(RepoServerData repoServerData) {
-    	
+
 //     	Client client = ClientBuilder.newClient();
 //         final WebTarget webTarget = client.target(repoServerData.getRepoRequestURL());
 //         final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().build();
 //         webTarget.register(feature);
-        
+
 //         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 //         invocationBuilder.property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, repoServerData.getUsername());
 //         invocationBuilder.property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, repoServerData.getPassword());
 //         return invocationBuilder;
 //     }
-    
+
 //     public List<RepoData> listRepos() {
 //         Invocation.Builder invocationBuilder = buildRequester(repoServerData);
-//         Response response = invocationBuilder.get();   
+//         Response response = invocationBuilder.get();
 //         String output = response.readEntity(String.class);
 //         prettyPrintJSON(output);
 //         return deserializeRepoList(output);
 //     }
-    
+
 //     private List<RepoData> deserializeRepoList(String jsonData) {
 //     	List<RepoData> repoDatas = new ArrayList<>();
 //     	try {
@@ -49,7 +49,7 @@
 // 			if(jsonNode.get("errors") != null) {
 // 				return null;
 // 			}
-			
+
 // 			JsonNode values = jsonNode.get("values");
 // 			if(values.isArray()) {
 // 				for(final JsonNode repoNode : values) {
@@ -81,7 +81,7 @@
 //         String postResponse = invocationBuilder.post(Entity.entity(repoData, MediaType.APPLICATION_JSON), String.class);
 
 //         prettyPrintJSON(postResponse);
-    	
+
 //         return false;
 //     }
 
@@ -97,7 +97,7 @@
 //         }
 //         System.out.println(prettyJsonString);
 //     }
-    
+
 //     public boolean initialCheckin() {
 //         return false;
 //     }
@@ -109,5 +109,5 @@
 // 	public void setRepoServerData(RepoServerData repoServerData) {
 // 		this.repoServerData = repoServerData;
 // 	}
-    
+
 // }

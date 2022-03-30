@@ -1,10 +1,10 @@
 package de.starwit.persistence.entity;
 
+import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
 
 /**
  * AbstractEntity as basis for all entities in Lirejarp-Spring projects
@@ -33,8 +33,7 @@ public abstract class AbstractEntity<PK extends Serializable> {
         return this.id;
     }
 
-	public void setId(PK id) {
-		this.id = id;
-	}
-
+    public void setId(PK id) {
+        this.id = id;
+    }
 }

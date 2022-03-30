@@ -2,10 +2,12 @@ package de.starwit.rest.acceptance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import de.starwit.TestdataConstants;
+import de.starwit.dto.AppDto;
+import de.starwit.dto.EntityDto;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import de.starwit.TestdataConstants;
-import de.starwit.dto.AppDto;
-import de.starwit.dto.EntityDto;
 
 public class EntityControllerAcceptanceTest extends AbstractControllerAcceptanceTest<EntityDto> {
 
@@ -49,7 +47,6 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
 
     @Test
     public void isValidatedRegEx() throws Exception {
-
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity-wrong-name.json");
@@ -84,15 +81,16 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
         dto.getPosition().setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getId());
-        assertThat(2).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionX());
-        assertThat(4).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionY());
+        assertThat(2)
+            .isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionX());
+        assertThat(4)
+            .isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionY());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 
     @Override
     @Test
     public void canRetrieveById() throws Exception {
-
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
         EntityDto dto = readFromFile(data + "entity.json");
@@ -113,9 +111,12 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     }
 
     private MockHttpServletResponse create(String path, String applicationString) throws Exception {
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(path)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8").content(applicationString);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+            .post(path)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .accept(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .content(applicationString);
 
         MockHttpServletResponse response = mvc.perform(builder).andReturn().getResponse();
 
@@ -124,9 +125,12 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     }
 
     private MockHttpServletResponse update(String path, String requestObjectString) throws Exception {
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(path)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8").content(requestObjectString);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+            .put(path)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .accept(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .content(requestObjectString);
 
         MockHttpServletResponse response = mvc.perform(builder).andReturn().getResponse();
 

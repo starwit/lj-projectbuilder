@@ -9,11 +9,11 @@
 
 // 	private String username;
 // 	private String password;
-	
+
 // 	private String repoName;
 
 // 	/**
-// 	 * Bitbucket specific implementation for request url. 
+// 	 * Bitbucket specific implementation for request url.
 // 	 * It's either a user or a app repo.
 // 	 * @return
 // 	 */
@@ -26,7 +26,7 @@
 // 		}
 // 		return requestUrl;
 // 	}
-	
+
 // 	public void setUsername(String username) {
 // 		this.username = username;
 // 	}

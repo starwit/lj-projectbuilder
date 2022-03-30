@@ -1,21 +1,18 @@
 package de.starwit.service.impl;
 
+import de.starwit.mapper.Mapper;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.Relationship;
+import de.starwit.persistence.repository.DomainRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
-import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.Domain;
-import de.starwit.persistence.entity.Relationship;
-import de.starwit.persistence.repository.DomainRepository;
 
 @Service
 public class DomainService implements ServiceInterface<Domain, DomainRepository> {
@@ -31,7 +28,9 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
     }
 
     public Domain findByAppAndDomainId(Long appId, Long domainId) {
-        return this.getRepository().findByAppAndDomainId(appId, domainId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
+        return this.getRepository()
+            .findByAppAndDomainId(appId, domainId)
+            .orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
     }
 
     public List<Domain> findByAppAndDomainName(Long appId, String domainName) {
@@ -43,7 +42,11 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
         return domainRepository;
     }
 
-    public void createRelationsForAllTargetDomains(Long appId, String sourceDomainName, List<Relationship> relationsSource) {
+    public void createRelationsForAllTargetDomains(
+        Long appId,
+        String sourceDomainName,
+        List<Relationship> relationsSource
+    ) {
         List<Domain> targetDomains = null;
         if (CollectionUtils.isEmpty(relationsSource)) {
             return;
@@ -61,13 +64,21 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
             targetDomains = this.getRepository().findByAppAndDomainName(appId, otherEntityName);
             if (!CollectionUtils.isEmpty(targetDomains)) {
                 for (Domain targetDomain : targetDomains) {
-                    createTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName), targetDomain);
+                    createTargetDomainRelations(
+                        sourceDomainName,
+                        sourceRelationshipMap.get(otherEntityName),
+                        targetDomain
+                    );
                 }
             }
         }
     }
 
-    private void createTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource, Domain targetDomain) {
+    private void createTargetDomainRelations(
+        String sourceDomainName,
+        List<Relationship> relationshipsSource,
+        Domain targetDomain
+    ) {
         if (CollectionUtils.isEmpty(relationshipsSource)) {
             return;
         }
@@ -102,7 +113,10 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
     }
 
     public void deleteRelationsForAllTargetDomains(Long sourceDomainId) {
-        Domain domain = this.getRepository().findById(sourceDomainId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(sourceDomainId)));
+        Domain domain =
+            this.getRepository()
+                .findById(sourceDomainId)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(sourceDomainId)));
         Long appId = domain.getApp().getId();
         String sourceDomainName = domain.getName();
         List<Relationship> relationsSource = domain.getRelationships();
