@@ -7,5 +7,5 @@ const AppCardStyles = makeStyles(theme => ({
     description: {
         color: theme.palette.text.secondary
     }
-}))
+}));
 export default AppCardStyles;

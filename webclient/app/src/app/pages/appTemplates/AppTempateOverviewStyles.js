@@ -5,6 +5,6 @@ const AppTemplateOverviewStyles = makeStyles(theme => ({
         position: "absolute",
         bottom: "5%",
         right: "2%"
-    },
+    }
 }));
 export default AppTemplateOverviewStyles;

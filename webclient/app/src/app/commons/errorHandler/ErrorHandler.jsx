@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useSnackbar } from "notistack";
+import {useEffect} from "react";
+import {useSnackbar} from "notistack";
 import axios from "axios";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 function ErrorHandler(props) {
-    const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation();
+    const {enqueueSnackbar} = useSnackbar();
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (axios.interceptors.response.handlers.length > 0) {
@@ -13,26 +13,26 @@ function ErrorHandler(props) {
         }
 
         axios.interceptors.response.use(
-            function (response) {
-                // Any status code that lie within the range of 2xx cause this function to trigger
-                // Do something with response data
-                return response;
-            },
-            function (error) {
-                let errorMessage = "error.unknown";
+                function(response) {
+                    // Any status code that lie within the range of 2xx cause this function to trigger
+                    // Do something with response data
+                    return response;
+                },
+                function(error) {
+                    let errorMessage = "error.unknown";
 
-                if (error?.request) {
-                    if (navigator.onLine) {
-                        errorMessage = "error.serverOffline";
-                        console.error("Server cannot be reached.");
-                    } else {
-                        errorMessage = "error.userOffline";
-                        console.log("User seems to be offline. Cannot complete request.");
+                    if (error?.request) {
+                        if (navigator.onLine) {
+                            errorMessage = "error.serverOffline";
+                            console.error("Server cannot be reached.");
+                        } else {
+                            errorMessage = "error.userOffline";
+                            console.log("User seems to be offline. Cannot complete request.");
+                        }
                     }
-                }
-                if (error?.response) {
-                    const { config, data, status } = error.response;
-                    switch (config.method) {
+                    if (error?.response) {
+                        const {config, data, status} = error.response;
+                        switch (config.method) {
                         case "get":
                             errorMessage = "error.general.get";
                             break;
@@ -47,19 +47,19 @@ function ErrorHandler(props) {
                             break;
                         default:
                             errorMessage = "error.unknown";
+                        }
+
+                        if (data.messageKey) {
+                            errorMessage = data.messageKey;
+                        }
+
+                        console.error(`A ${config.method} request failed with status code ${status}:`, data, config);
                     }
 
-                    if (data.messageKey) {
-                        errorMessage = data.messageKey;
-                    }
+                    enqueueSnackbar(t(errorMessage), {variant: "error"});
 
-                    console.error(`A ${config.method} request failed with status code ${status}:`, data, config);
+                    return Promise.reject(error);
                 }
-
-                enqueueSnackbar(t(errorMessage), { variant: "error" });
-
-                return Promise.reject(error);
-            }
         );
     }, [enqueueSnackbar, t]);
 
