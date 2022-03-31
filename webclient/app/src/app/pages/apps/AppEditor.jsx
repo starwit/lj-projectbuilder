@@ -1,18 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Box, Step, StepLabel, Stepper } from "@mui/material";
+import React, {useEffect, useMemo, useState} from "react";
+import {Box, Step, StepLabel, Stepper} from "@mui/material";
 import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
 import EntityDiagram from "../../features/apps/entities/entityDiagram/EntityDiagram";
-import { ChevronLeft, ChevronRight, Done } from "@mui/icons-material";
+import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
 import AppEditorStyles from "./AppEditorStyles";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import AppConclusion from "../../features/apps/appSteps/AppConclusion";
 import AppGeneral from "../../features/apps/appSteps/AppGeneral";
-import { useHistory, useParams } from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import RegexConfig from "../../../regexConfig";
 import ApplicationRest from "../../services/ApplicationRest";
-import { LoadingButton } from "@mui/lab";
+import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
-import { updateRelationCoordinates } from "../../features/apps/entities/HandleRelations";
+import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
 import UserRest from "../../services/UserRest";
 import EntityRest from "../../services/EntityRest";
 
@@ -22,7 +22,7 @@ function AppEditor() {
     const [activeStep, setActiveStep] = useState(0);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const appEditorStyles = AppEditorStyles();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const history = useHistory();
     const appRest = useMemo(() => new ApplicationRest(), []);
     const userRest = useMemo(() => new UserRest(), []);
@@ -38,7 +38,7 @@ function AppEditor() {
     const [isSaving, setIsSaving] = useState(false);
     const [userGroups, setUserGroups] = useState([]);
     const [groupsToAssign, setGroupsToAssign] = useState(["public"]);
-    let { appId } = useParams();
+    let {appId} = useParams();
 
     useEffect(() => {
         setIsAppLoading(true);
@@ -48,14 +48,10 @@ function AppEditor() {
 
         } else {
             appRest.findById(appId).then(response => {
-                const { baseName, packageName, template, entities, groupsToAssign } = response.data;
-                setAppName(baseName);
-                setPackageName(packageName);
-                setSelectedTemplate(template);
-                handleUpdateEntities(entities);
+                const {baseName, packageName, template, entities, groupsToAssign} = response.data;
+                setAppState(baseName, packageName, template, entities, groupsToAssign);
                 setIsAppLoading(false);
                 setIsNewApp(false);
-                setGroupsToAssign(groupsToAssign);
             });
         }
     }, [appId, appRest]);
@@ -109,7 +105,7 @@ function AppEditor() {
                 assignedGroups={groupsToAssign}
                 setAssignedGroups={setGroupsToAssign}
             />,
-            condition: appName !== "" && packageName !== "" && !appGeneralHasFormError,
+            condition: appName !== "" && packageName !== "" && !appGeneralHasFormError
         },
         {
             label: t("app.section.template"),
@@ -119,7 +115,7 @@ function AppEditor() {
                     value={selectedTemplate}
                 />
             ),
-            condition: selectedTemplate,
+            condition: selectedTemplate
         },
         {
             label: t("app.section.entityDiagram"),
@@ -131,7 +127,7 @@ function AppEditor() {
                     updateEntity={updateEntity}
                 />
             ),
-            condition: entities.length >= 1,
+            condition: entities.length >= 1
         },
         {
             label: t("app.section.conclusion"),
@@ -146,13 +142,17 @@ function AppEditor() {
                     packageName={packageName}
                 />
             ),
-            condition: true,
-        },
+            condition: true
+        }
     ];
 
-    function handleUpdateEntities(updatedEntities) {
-        setEntities(updatedEntities);
-        setEntityRelationCoordinates(updateRelationCoordinates(updatedEntities));
+    function setAppState(baseName, packageName, template, entities, groupsToAssign) {
+        setAppName(baseName);
+        setPackageName(packageName);
+        setSelectedTemplate(template);
+        setEntities(entities);
+        setEntityRelationCoordinates(updateRelationCoordinates(entities));
+        setGroupsToAssign(groupsToAssign);
     }
 
     function handleBack() {
@@ -190,30 +190,22 @@ function AppEditor() {
             template: selectedTemplate,
             entities: entitiesEdited,
             groupsToAssign: groupsToAssign,
-            userGroups: userGroups,
+            userGroups: userGroups
         };
 
         if (isNewApp) {
             restRequest = appRest.create(appPackage)
                 .then(response => {
-                    const { baseName, packageName, template, entities, groupsToAssign, id } = response.data;
-                    setAppName(baseName);
-                    setPackageName(packageName);
-                    setSelectedTemplate(template);
-                    handleUpdateEntities(entities);
-                    setGroupsToAssign(groupsToAssign);
+                    const {baseName, packageName, template, entities, groupsToAssign, id} = response.data;
+                    setAppState(baseName, packageName, template, entities, groupsToAssign);
                     history.push(`/apps/${id}/edit`);
                     return response;
                 });
         } else {
             restRequest = appRest.update(appPackage)
                 .then(response => {
-                    const { baseName, packageName, template, entities, groupsToAssign } = response.data;
-                    setAppName(baseName);
-                    setPackageName(packageName);
-                    setSelectedTemplate(template);
-                    handleUpdateEntities(entities);
-                    setGroupsToAssign(groupsToAssign);
+                    const {baseName, packageName, template, entities, groupsToAssign} = response.data;
+                    setAppState(baseName, packageName, template, entities, groupsToAssign);
                     return response;
                 });
         }
@@ -225,7 +217,7 @@ function AppEditor() {
 
         const restRequest = handleSave();
         restRequest
-            .then(response => {
+            .then(() => {
                 history.replace("/");
             });
     }
