@@ -7,9 +7,7 @@ import Statement from "../../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
-
 function AppTemplateSelection(props) {
-
     const {onChange, value} = props;
 
     const [templates, setTemplates] = useState(null);
@@ -23,17 +21,16 @@ function AppTemplateSelection(props) {
         appTemplateRest.findAll().then(allAppsResponse => {
             setTemplates(allAppsResponse.data);
         }).catch(allAppsResponseError => {
-            setAppTemplatesError(allAppsResponseError.response)
-        })
-    }, [appTemplateRest, setTemplates, setAppTemplatesError])
-
+            setAppTemplatesError(allAppsResponseError.response);
+        });
+    }, [appTemplateRest, setTemplates, setAppTemplatesError]);
 
     useEffect(() => {
-        loadAppTemplates()
+        loadAppTemplates();
     }, [loadAppTemplates]);
 
     function handleSelection(template) {
-        onChange(template)
+        onChange(template);
     }
 
     if (!templates) {
@@ -42,36 +39,35 @@ function AppTemplateSelection(props) {
 
     if (appTemplatesError) {
         return <Statement
-            message={t("appTemplates.loading.error")}
-            icon={<Clear/>}
-            actionMessage={t("button.retry")}
-            onActionClick={loadAppTemplates}
+                message={t("appTemplates.loading.error")}
+                icon={<Clear/>}
+                actionMessage={t("button.retry")}
+                onActionClick={loadAppTemplates}
         />;
     }
 
     return (
-        <Container>
-            <Grid container spacing={5}>
-                {templates.map((template, index) => (
-                    <Grid item sm={3} key={index}>
-                        <AppTemplateSelectCard
-                            template={template}
-                            onSelection={handleSelection}
-                            selected={value?.id === template.id}
-                        />
-                    </Grid>
-                ))}
+            <Container>
+                <Grid container spacing={5}>
+                    {templates.map((template, index) => (
+                            <Grid item sm={3} key={index}>
+                                <AppTemplateSelectCard
+                                        template={template}
+                                        onSelection={handleSelection}
+                                        selected={value?.id === template.id}
+                                />
+                            </Grid>
+                    ))}
 
-            </Grid>
-        </Container>
-    )
-
+                </Grid>
+            </Container>
+    );
 }
 
 AppTemplateSelection.defaultProps = {
     onChange: () => {
-        //This is intentional
+        // This is intentional
     }
-}
+};
 
 export default AppTemplateSelection;

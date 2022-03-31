@@ -16,9 +16,7 @@ import {updateRelationCoordinates} from "../../features/apps/entities/HandleRela
 import UserRest from "../../services/UserRest";
 import EntityRest from "../../services/EntityRest";
 
-
 function AppEditor() {
-
     const [activeStep, setActiveStep] = useState(0);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const appEditorStyles = AppEditorStyles();
@@ -38,14 +36,13 @@ function AppEditor() {
     const [isSaving, setIsSaving] = useState(false);
     const [userGroups, setUserGroups] = useState([]);
     const [groupsToAssign, setGroupsToAssign] = useState(["public"]);
-    let {appId} = useParams();
+    const {appId} = useParams();
 
     useEffect(() => {
         setIsAppLoading(true);
         if (appId === "create") {
             setIsNewApp(true);
             setIsAppLoading(false);
-
         } else {
             appRest.findById(appId).then(response => {
                 const {baseName, packageName, template, entities, groupsToAssign} = response.data;
@@ -57,13 +54,11 @@ function AppEditor() {
     }, [appId, appRest]);
 
     useEffect(() => {
-
         setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName));
-
     }, [packageName, appName]);
 
     useEffect(() => {
-        userRest.getUserGroups().then((response) => {
+        userRest.getUserGroups().then(response => {
             setUserGroups(response.data);
         });
     }, [userRest]);
@@ -79,12 +74,11 @@ function AppEditor() {
         newEntities[foundIndex] = entity;
         setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
         return entityRest.createEntityByApp(appId, entity)
-            .then(reloadEntities);
-
+                .then(reloadEntities);
     }
 
     function reloadEntities() {
-        return entityRest.findAllEntitiesByApp(appId).then((response) => {
+        return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
             setEntities(newEntities);
             setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
@@ -96,51 +90,51 @@ function AppEditor() {
         {
             label: t("app.section.general"),
             component: <AppGeneral
-                isCreate={isNewApp}
-                packageName={packageName}
-                appName={appName}
-                setAppName={setAppName}
-                setPackageName={setPackageName}
-                userGroups={userGroups}
-                assignedGroups={groupsToAssign}
-                setAssignedGroups={setGroupsToAssign}
+                    isCreate={isNewApp}
+                    packageName={packageName}
+                    appName={appName}
+                    setAppName={setAppName}
+                    setPackageName={setPackageName}
+                    userGroups={userGroups}
+                    assignedGroups={groupsToAssign}
+                    setAssignedGroups={setGroupsToAssign}
             />,
             condition: appName !== "" && packageName !== "" && !appGeneralHasFormError
         },
         {
             label: t("app.section.template"),
             component: (
-                <AppTemplateSelection
-                    onChange={setSelectedTemplate}
-                    value={selectedTemplate}
-                />
+                    <AppTemplateSelection
+                            onChange={setSelectedTemplate}
+                            value={selectedTemplate}
+                    />
             ),
             condition: selectedTemplate
         },
         {
             label: t("app.section.entityDiagram"),
             component: (
-                <EntityDiagram
-                    entities={entities}
-                    coordinates={entityRelationCoordinates}
-                    reloadEntities={reloadEntities}
-                    updateEntity={updateEntity}
-                />
+                    <EntityDiagram
+                            entities={entities}
+                            coordinates={entityRelationCoordinates}
+                            reloadEntities={reloadEntities}
+                            updateEntity={updateEntity}
+                    />
             ),
             condition: entities.length >= 1
         },
         {
             label: t("app.section.conclusion"),
             component: (
-                <AppConclusion
-                    appId={+appId}
-                    entities={entities}
-                    coordinates={updateRelationCoordinates(entities)}
-                    templateName={selectedTemplate ? selectedTemplate?.name : null}
-                    credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
-                    appName={appName}
-                    packageName={packageName}
-                />
+                    <AppConclusion
+                            appId={+appId}
+                            entities={entities}
+                            coordinates={updateRelationCoordinates(entities)}
+                            templateName={selectedTemplate ? selectedTemplate?.name : null}
+                            credentialsRequired={selectedTemplate ? selectedTemplate?.credentialsRequired : null}
+                            appName={appName}
+                            packageName={packageName}
+                    />
             ),
             condition: true
         }
@@ -166,10 +160,10 @@ function AppEditor() {
     function handleNext() {
         setIsSaving(true);
         handleSave()
-            .then(() => {
-                setActiveStep((activeStep + 1));
-                setIsSaving(false);
-            });
+                .then(() => {
+                    setActiveStep((activeStep + 1));
+                    setIsSaving(false);
+                });
     }
 
     function isLastStep() {
@@ -178,7 +172,7 @@ function AppEditor() {
 
     function handleSave() {
         let restRequest;
-        let entitiesEdited = [...entities].map(entity => {
+        const entitiesEdited = [...entities].map(entity => {
             entity.id = null;
             return entity;
         });
@@ -195,94 +189,92 @@ function AppEditor() {
 
         if (isNewApp) {
             restRequest = appRest.create(appPackage)
-                .then(response => {
-                    const {baseName, packageName, template, entities, groupsToAssign, id} = response.data;
-                    setAppState(baseName, packageName, template, entities, groupsToAssign);
-                    history.push(`/apps/${id}/edit`);
-                    return response;
-                });
+                    .then(response => {
+                        const {baseName, packageName, template, entities, groupsToAssign, id} = response.data;
+                        setAppState(baseName, packageName, template, entities, groupsToAssign);
+                        history.push(`/apps/${id}/edit`);
+                        return response;
+                    });
         } else {
             restRequest = appRest.update(appPackage)
-                .then(response => {
-                    const {baseName, packageName, template, entities, groupsToAssign} = response.data;
-                    setAppState(baseName, packageName, template, entities, groupsToAssign);
-                    return response;
-                });
+                    .then(response => {
+                        const {baseName, packageName, template, entities, groupsToAssign} = response.data;
+                        setAppState(baseName, packageName, template, entities, groupsToAssign);
+                        return response;
+                    });
         }
 
         return restRequest;
     }
 
     function handleFinishButton() {
-
         const restRequest = handleSave();
         restRequest
-            .then(() => {
-                history.replace("/");
-            });
+                .then(() => {
+                    history.replace("/");
+                });
     }
 
     function renderNextButton() {
         let content = (
-            <LoadingButton
-                onClick={handleNext}
-                disabled={!steps[activeStep].condition}
-                startIcon={<ChevronRight />}
-                loading={isSaving}
-            >
-                {t("button.next")}
-            </LoadingButton>
+                <LoadingButton
+                        onClick={handleNext}
+                        disabled={!steps[activeStep].condition}
+                        startIcon={<ChevronRight/>}
+                        loading={isSaving}
+                >
+                    {t("button.next")}
+                </LoadingButton>
         );
         if (isLastStep()) {
             content = (
-                <LoadingButton
-                    onClick={handleFinishButton}
-                    disabled={!steps[activeStep].condition}
-                    loading={isSaving}
-                    startIcon={<Done />}
-                >
-                    {t("button.done")}
-                </LoadingButton>
+                    <LoadingButton
+                            onClick={handleFinishButton}
+                            disabled={!steps[activeStep].condition}
+                            loading={isSaving}
+                            startIcon={<Done/>}
+                    >
+                        {t("button.done")}
+                    </LoadingButton>
             );
         }
         return content;
     }
 
     if (isAppLoading) {
-        return <LoadingSpinner message={t("app.loading")} />;
+        return <LoadingSpinner message={t("app.loading")}/>;
     }
 
     return (
-        <div className={appEditorStyles.root}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((step, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    return (
-                        <Step key={index} {...stepProps}>
-                            <StepLabel {...labelProps}>{step.label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-            <Box className={appEditorStyles.navigationButtonsArray}>
-                <LoadingButton
-                    color="inherit"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={appEditorStyles.navigationButtonBack}
-                    startIcon={<ChevronLeft />}
-                    loading={isSaving}
-                >
-                    {t("button.back")}
-                </LoadingButton>
-                <Box className={appEditorStyles.navigationButtonNext} />
-                {renderNextButton()}
-            </Box>
-            {steps[activeStep].component}
-        </div>
+            <div className={appEditorStyles.root}>
+                <Stepper activeStep={activeStep}>
+                    {steps.map((step, index) => {
+                        const stepProps = {};
+                        const labelProps = {};
+                        return (
+                                <Step key={index} {...stepProps}>
+                                    <StepLabel {...labelProps}>{step.label}</StepLabel>
+                                </Step>
+                        );
+                    })}
+                </Stepper>
+                <Box className={appEditorStyles.navigationButtonsArray}>
+                    <LoadingButton
+                            color="inherit"
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            className={appEditorStyles.navigationButtonBack}
+                            startIcon={<ChevronLeft/>}
+                            loading={isSaving}
+                    >
+                        {t("button.back")}
+                    </LoadingButton>
+                    <Box className={appEditorStyles.navigationButtonNext}/>
+                    {renderNextButton()}
+                </Box>
+                {steps[activeStep].component}
+            </div>
     );
-
 }
 
 export default AppEditor;
