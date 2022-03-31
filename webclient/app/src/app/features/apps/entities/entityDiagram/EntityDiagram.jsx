@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "react";
-import { Add, Code } from "@mui/icons-material";
-import { Button, Drawer, Fab } from "@mui/material";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import React, {useMemo, useState} from "react";
+import {Add, Adjust, Code} from "@mui/icons-material";
+import {Button, Drawer, Fab} from "@mui/material";
+import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import Draggable from "react-draggable";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import EntityDiagramStyles from "./EntityDiagramStyles";
 import EntityDialog from "../entityDialog/EntityDialog";
@@ -12,10 +12,10 @@ import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import { renderRelations } from "../HandleRelations";
+import {renderRelations} from "../HandleRelations";
 
 function EntityDiagram(props) {
-    const { editable, entities, coordinates, handleUpdateEntities, dense, appId } = props;
+    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
@@ -24,7 +24,7 @@ function EntityDiagram(props) {
     const entityRest = useMemo(() => new EntityRest(), []);
     const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     function addEntity() {
         setOpenEntityDialog(true);
@@ -51,7 +51,7 @@ function EntityDiagram(props) {
     }
 
     function updateEntity(updatedEntityInput) {
-        let updatedEntity = { ...updatedEntityInput };
+        let updatedEntity = {...updatedEntityInput};
 
         if (!editable) {
             return;
@@ -66,14 +66,17 @@ function EntityDiagram(props) {
         return entityRest.createEntityByApp(appId, updatedEntity);
     }
 
-    function updatePosition(update, draggableData, entity) {
+    function updatePosition(draggableData, entity) {
         if (!entity.position) {
             entity.position = {};
         }
 
+        console.log("new pos ", draggableData.x, draggableData.y)
+
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
+        console.log("sending to update")
         entityRest.updateEntityByAppId(appId, entity);
 
         handleUpdateEntities(entities);
@@ -84,10 +87,10 @@ function EntityDiagram(props) {
             return <Statement message={t("app.entities.empty")} />;
         }
         return entities.map((entity, index) => {
-            const entityCardPosition = { x: 0, y: 0 };
+            const entityCardPosition = {x: 0, y: 0};
 
             if (entity.position) {
-                const { positionX, positionY } = entity.position;
+                const {positionX, positionY} = entity.position;
                 entityCardPosition.x = positionX;
                 entityCardPosition.y = positionY;
             }
@@ -95,14 +98,15 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
+                    onStop={(draggableData) => updatePosition(draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
                     defaultPosition={entityCardPosition}
                     disabled={!editable}
                 >
                     <div>
-                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity} editable={editable} />
+                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
+                                    editable={editable} />
                     </div>
                 </Draggable>
             );
@@ -135,12 +139,26 @@ function EntityDiagram(props) {
         setCurrentEntity(null);
     }
 
+    function centerEntities() {
+        const newEntities = [...entities];
+        console.log("centering Entities")
+        newEntities.forEach((entity, index) => {
+            console.log("newPos ",index+100 )
+            updatePosition({x: index + 100, y: index + 100}, entity);
+        });
+    }
+
     return (
         <>
             {renderAddEntityButton()}
             <div className={entityDiagramStyles.codeButtonWrapper}>
                 <Button variant={"contained"} startIcon={<Code />} onClick={openDrawer}>
                     {t("entity.code")}
+                </Button>
+            </div>
+            <div className={entityDiagramStyles.centerButtonWrapper}>
+                <Button variant={"outlined"} startIcon={<Adjust />} onClick={centerEntities}>
+                    {t("entity.center")}
                 </Button>
             </div>
             <React.Fragment key={"left"}>
@@ -151,10 +169,10 @@ function EntityDiagram(props) {
                         showLineNumbers
                         customStyle={{
                             lineHeight: "1.5",
-                            fontSize: ".75em",
+                            fontSize: ".75em"
                         }}
                         codeTagProps={{
-                            className: entityDiagramStyles.syntaxHighlighterCodeTag,
+                            className: entityDiagramStyles.syntaxHighlighterCodeTag
                         }}
                     >
                         {JSON.stringify(entities, null, 4)}
@@ -183,13 +201,13 @@ EntityDiagram.propTypes = {
     handleUpdateEntities: PropTypes.func,
     entities: PropTypes.array,
     editable: PropTypes.bool,
-    dense: PropTypes.bool,
+    dense: PropTypes.bool
 };
 
 EntityDiagram.defaultProps = {
     editable: true,
     entities: [],
-    dense: false,
+    dense: false
 };
 
 export default EntityDiagram;
