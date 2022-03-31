@@ -24,7 +24,7 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>npm run build (compile) --loglevel=error</id>
+                                <id>npm run build (compile)</id>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
