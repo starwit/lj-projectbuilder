@@ -21,34 +21,34 @@ function AppOverview() {
     const loadApps = useCallback(() => {
         setApps(null);
         setAppsError(null);
-        applicationRest.findAll().then(allAppsResponse => {
+        applicationRest.findAll().then((allAppsResponse) => {
             setApps(allAppsResponse.data);
-        }).catch(allAppsResponseError => {
-            setAppsError(allAppsResponseError.response)
-        })
-    }, [applicationRest, setApps, setAppsError])
+        }).catch((allAppsResponseError) => {
+            setAppsError(allAppsResponseError.response);
+        });
+    }, [applicationRest, setApps, setAppsError]);
 
     useEffect(() => {
         loadApps();
-    }, [loadApps])
+    }, [loadApps]);
 
     function deleteById(id) {
         return applicationRest.delete(id)
-            .then(response => {
+            .then((response) => {
                 setApps(null);
                 loadApps();
-            })
+            });
     }
 
     function renderApps() {
         if (!apps) {
-            return <LoadingSpinner message={t("apps.loading")}/>;
+            return <LoadingSpinner message={t("apps.loading")} />;
         }
 
         if (appsError) {
             return <Statement
                 message={t("apps.loadingError")}
-                icon={<Clear/>}
+                icon={<Clear />}
                 actionMessage={t("button.retry")}
                 onActionClick={loadApps}
             />;
@@ -57,26 +57,26 @@ function AppOverview() {
         if (apps.length === 0) {
             return (
                 <Statement
-                    icon={<Add/>}
+                    icon={<Add />}
                     message={t("apps.empty")}
                 />
-            )
+            );
         }
 
         return (
             <Grid container spacing={5}>
-                {apps.map(app => (
+                {apps.map((app) => (
                     <Grid item sm={6} xs={12} key={app.id}>
                         <AppCard
                             onEditClick={() => {
-                                history.push("/apps/" + app.id + "/edit")
+                                history.push("/apps/" + app.id + "/edit");
                             }}
                             onDeleteClick={deleteById}
-                            app={app}/>
+                            app={app} />
                     </Grid>
                 ))}
             </Grid>
-        )
+        );
     }
 
     return (
@@ -87,12 +87,11 @@ function AppOverview() {
             {renderApps()}
             <div className={appOverviewStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={() => history.push("/apps/create/edit")}>
-                    <Add/>
+                    <Add />
                 </Fab>
             </div>
         </Container>
-    )
-
+    );
 }
 
 export default AppOverview;

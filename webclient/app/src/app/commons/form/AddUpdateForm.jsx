@@ -7,9 +7,7 @@ import {compose} from "recompose";
 import TextField from "@material-ui/core/TextField";
 
 class AddUpdateForm extends Component {
-
     render() {
-
         const {t, classes, entity, attributes, prefix, handleSubmit, handleChange} = this.props;
 
         return (
@@ -18,13 +16,13 @@ class AddUpdateForm extends Component {
                 autoComplete="off"
                 onSubmit={handleSubmit}>
 
-                {attributes.map(attribute =>
+                {attributes.map((attribute) =>
                     <React.Fragment key={attribute.name}>
                         <TextField
                             inputProps={attribute.inputProps}
                             key={attribute.name}
                             id={"input-" + attribute.name}
-                            label={t(prefix + '.' + attribute.name)}
+                            label={t(prefix + "." + attribute.name)}
                             name={attribute.name}
                             type={attribute.type}
                             value={entity[attribute.name] !== null ? entity[attribute.name] : ""}
@@ -32,17 +30,16 @@ class AddUpdateForm extends Component {
                             onChange={handleChange}
                             margin="normal"
                         />
-                        <br/>
+                        <br />
                     </React.Fragment>
                 )}
-                <br/>
+                <br />
                 <Button type="submit" variant="contained" color="primary">
-                    {t('button.submit')}
+                    {t("button.submit")}
                 </Button>
             </form>
-        )
+        );
     }
-
 }
 
 export default compose(withStyles(AddUpdateFormStyles), withTranslation())(AddUpdateForm);

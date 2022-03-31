@@ -1,9 +1,9 @@
-import * as React from 'react';
-import {useState} from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import {useTranslation} from 'react-i18next';
+import * as React from "react";
+import {useState} from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import {useTranslation} from "react-i18next";
 import {DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import PropTypes from "prop-types";
 import {LoadingButton} from "@mui/lab";
@@ -21,8 +21,8 @@ export default function ConfirmationDialog(props) {
                 setIsProcessing(false);
             })
             .catch(() => {
-                setIsProcessing(false)
-            })
+                setIsProcessing(false);
+            });
     }
 
     return (
@@ -56,5 +56,5 @@ ConfirmationDialog.propTypes = {
     title: PropTypes.string,
     message: PropTypes.string,
     open: PropTypes.bool,
-    confirmTitle: PropTypes.string,
-}
+    confirmTitle: PropTypes.string
+};

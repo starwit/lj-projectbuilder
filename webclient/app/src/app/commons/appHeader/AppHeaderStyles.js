@@ -1,15 +1,15 @@
-import {makeStyles} from "@mui/styles"
+import {makeStyles} from "@mui/styles";
 
 const drawerWidth = 240;
 const appBarHeight = "3rem";
 
-const AppHeaderStyles = makeStyles(theme => ({
+const AppHeaderStyles = makeStyles((theme) => ({
     root: {
-        display: "flex",
+        display: "flex"
     },
     appBar: {
         zIndex: theme.zIndex.modal + 1,
-        height: "3rem",
+        height: "3rem"
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -24,21 +24,21 @@ const AppHeaderStyles = makeStyles(theme => ({
         [theme.breakpoints.up("sm")]: {
             display: "flex",
             width: "100%",
-            justifyContent: "center",
+            justifyContent: "center"
         }
     },
     menuLogo: {
         display: "none",
         [theme.breakpoints.up("sm")]: {
             display: "flex",
-            width: 350,
+            width: 350
         }
     },
     menuLogoResponsive: {
         display: "flex",
         width: 50,
         [theme.breakpoints.up("sm")]: {
-            display: "none",
+            display: "none"
         }
     },
     menuLogoImg: {
@@ -65,10 +65,10 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     linkButton: {
         marginRight: theme.spacing(3),
-        marginLeft: theme.spacing(3),
+        marginLeft: theme.spacing(3)
     },
     contentSpacer: {
         height: `calc(${appBarHeight} + ${theme.spacing(3)})`
     }
-}))
+}));
 export default AppHeaderStyles;

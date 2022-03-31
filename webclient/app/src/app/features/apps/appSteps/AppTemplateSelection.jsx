@@ -9,7 +9,6 @@ import {useTranslation} from "react-i18next";
 
 
 function AppTemplateSelection(props) {
-
     const {onChange, value} = props;
 
     const [templates, setTemplates] = useState(null);
@@ -20,30 +19,30 @@ function AppTemplateSelection(props) {
     const loadAppTemplates = useCallback(() => {
         setTemplates(null);
         setAppTemplatesError(null);
-        appTemplateRest.findAll().then(allAppsResponse => {
+        appTemplateRest.findAll().then((allAppsResponse) => {
             setTemplates(allAppsResponse.data);
-        }).catch(allAppsResponseError => {
-            setAppTemplatesError(allAppsResponseError.response)
-        })
-    }, [appTemplateRest, setTemplates, setAppTemplatesError])
+        }).catch((allAppsResponseError) => {
+            setAppTemplatesError(allAppsResponseError.response);
+        });
+    }, [appTemplateRest, setTemplates, setAppTemplatesError]);
 
 
     useEffect(() => {
-        loadAppTemplates()
+        loadAppTemplates();
     }, [loadAppTemplates]);
 
     function handleSelection(template) {
-        onChange(template)
+        onChange(template);
     }
 
     if (!templates) {
-        return <LoadingSpinner message={t("appTemplates.loading")}/>;
+        return <LoadingSpinner message={t("appTemplates.loading")} />;
     }
 
     if (appTemplatesError) {
         return <Statement
             message={t("appTemplates.loading.error")}
-            icon={<Clear/>}
+            icon={<Clear />}
             actionMessage={t("button.retry")}
             onActionClick={loadAppTemplates}
         />;
@@ -64,14 +63,13 @@ function AppTemplateSelection(props) {
 
             </Grid>
         </Container>
-    )
-
+    );
 }
 
 AppTemplateSelection.defaultProps = {
     onChange: () => {
-        //This is intentional
+        // This is intentional
     }
-}
+};
 
 export default AppTemplateSelection;

@@ -7,9 +7,17 @@ import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
-
     const {t} = useTranslation();
-    const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
+    const {
+        isCreate,
+        setAppName,
+        setPackageName,
+        appName,
+        packageName,
+        userGroups,
+        assignedGroups,
+        setAssignedGroups
+    } = props;
     const appStepsStyles = AppStepsStyles();
 
     const handleGroupChange = (items) => {
@@ -27,23 +35,23 @@ function AppGeneral(props) {
                         helperText={t("app.name.hint")}
                         value={appName}
                         fullWidth
-                        onChange={event => setAppName(event.target.value)}
+                        onChange={(event) => setAppName(event.target.value)}
                         isCreate={isCreate}
                     />
-                    <div className={appStepsStyles.padding}/>
+                    <div className={appStepsStyles.padding} />
                     <ValidatedTextField
                         label={t("app.packageName") + "*"}
                         regex={RegexConfig.packageName}
                         helperText={t("app.packageName.hint")}
                         value={packageName}
                         fullWidth
-                        onChange={event => setPackageName(event.target.value)}
+                        onChange={(event) => setPackageName(event.target.value)}
                         isCreate={isCreate}
                     />
-                    <div className={appStepsStyles.padding}/>
-                    <MultipleSelectChip 
-                        values={userGroups} 
-                        selected={assignedGroups} 
+                    <div className={appStepsStyles.padding} />
+                    <MultipleSelectChip
+                        values={userGroups}
+                        selected={assignedGroups}
                         handleExternalChange={handleGroupChange}
                         label={t("select.groups")}
                     />
@@ -56,8 +64,7 @@ function AppGeneral(props) {
             </Grid>
 
         </Container>
-    )
-
+    );
 }
 
 export default AppGeneral;
