@@ -1,5 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Box, Button, Container, Dialog, DialogActions, DialogTitle, IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+    Box,
+    Button,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    IconButton,
+    Stack,
+    Tab,
+    Tabs,
+    Typography,
+} from "@mui/material";
 import { Add, Close } from "@mui/icons-material";
 import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
@@ -13,18 +25,16 @@ import RegexConfig from "../../../../../regexConfig";
 import { defaultRelationship } from "../Relationship";
 import { LoadingButton } from "@mui/lab";
 import { emptyEntity, newEntity } from "../DefaultEntities";
-import EntityRest from "../../../../services/EntityRest";
 import FieldTypes from "./FieldTypes";
 
 function EntityDialog(props) {
-    const { entityId, onClose, handleSave, entities, appId, handleUpdateEntities, open } = props;
+    const { entityId, onClose, handleSave, entities, open } = props;
     const [value, setValue] = useState(0);
     const [entity, setEntity] = useState(null);
     const [hasFormError, setHasFormError] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const { t } = useTranslation();
-    const entityRest = useMemo(() => new EntityRest(), []);
 
     useEffect(() => {
         if (entityId) {
@@ -90,6 +100,10 @@ function EntityDialog(props) {
         };
     }
 
+    function deepCopyEntity(){
+        return JSON.parse(JSON.stringify(entity))
+    }
+
     function prepareSave() {
         setIsSaving(true);
 
@@ -125,12 +139,8 @@ function EntityDialog(props) {
 
         handleSave(entityModified)
             .then(() => {
-                entityRest.findAllEntitiesByApp(appId)
-                    .then((response) => {
-                        handleUpdateEntities(response.data);
-                        onClose();
-                        setIsSaving(false);
-                    });
+                onClose();
+                setIsSaving(false);
             })
             .catch(() => {
                 setIsSaving(false);
@@ -138,7 +148,7 @@ function EntityDialog(props) {
     }
 
     function addField() {
-        let copiedEntity = { ...entity };
+        let copiedEntity = deepCopyEntity();
         if (!copiedEntity.fields) {
             copiedEntity.fields = [];
         }
@@ -156,7 +166,7 @@ function EntityDialog(props) {
     }
 
     function addRelationship() {
-        let copiedEntity = { ...entity };
+        let copiedEntity = deepCopyEntity();
 
         if (!copiedEntity.relationships) {
             copiedEntity.relationships = [];
@@ -173,13 +183,13 @@ function EntityDialog(props) {
     }
 
     function deleteRelationship(index) {
-        let copiedEntity = { ...entity };
+        let copiedEntity = deepCopyEntity();
         copiedEntity.relationships.splice(index, 1);
         setEntity(copiedEntity);
     }
 
     function deleteField(index) {
-        let copiedEntity = { ...entity };
+        let copiedEntity = deepCopyEntity();
         copiedEntity.fields.splice(index, 1);
         setEntity(copiedEntity);
     }
@@ -195,13 +205,13 @@ function EntityDialog(props) {
     }
 
     function editFieldProperty(key, value, index) {
-        const copiedEntity = { ...entity };
+        const copiedEntity = deepCopyEntity();
         copiedEntity.fields[index][key] = value;
         setEntity(copiedEntity);
     }
 
     function editRelationshipProperty(key, value, index) {
-        const copiedEntity = { ...entity };
+        const copiedEntity = deepCopyEntity();
         copiedEntity.relationships[index][key] = value;
         if (key === "otherEntityName") {
             copiedEntity.relationships[index].relationshipName = lowerFirstChar(value);
@@ -241,7 +251,16 @@ function EntityDialog(props) {
         }
 
         return entity.fields.map((field, index) => {
-            const { mandatory, fieldValidateRulesMin, fieldValidateRulesMinlength, fieldValidateRulesMax, fieldValidateRulesMaxlength, fieldValidateRulesPattern, fieldName, fieldType } =
+            const {
+                mandatory,
+                fieldValidateRulesMin,
+                fieldValidateRulesMinlength,
+                fieldValidateRulesMax,
+                fieldValidateRulesMaxlength,
+                fieldValidateRulesPattern,
+                fieldName,
+                fieldType,
+            } =
                 entity.fields[index];
             return (
                 <FieldAccordion
@@ -289,7 +308,8 @@ function EntityDialog(props) {
                     regex={RegexConfig.entityTitle}
                 />
                 <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example" className={entityEditorStyles.tabHeader}>
+                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
+                          className={entityEditorStyles.tabHeader}>
                         <Tab label={t("entity.fields")} {...a11yProps(0)} />
                         <Tab label={t("entity.relations")} {...a11yProps(1)} />
                     </Tabs>
