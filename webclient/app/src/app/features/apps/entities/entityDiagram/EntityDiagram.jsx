@@ -71,12 +71,9 @@ function EntityDiagram(props) {
             entity.position = {};
         }
 
-        console.log("new pos ", draggableData.x, draggableData.y)
-
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        console.log("sending to update")
 
         prepareUpdateEntity(entity)
 
@@ -98,10 +95,10 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(draggableData) => updatePosition(draggableData, entity)}
+                    onStop={(data,draggableData) => updatePosition(draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
-                    defaultPosition={entityCardPosition}
+                    position={entityCardPosition}
                     disabled={!editable}
                 >
                     <div>
@@ -141,10 +138,8 @@ function EntityDiagram(props) {
 
     function centerEntities() {
         const newEntities = [...entities];
-        console.log("centering Entities")
         newEntities.forEach((entity, index) => {
-            console.log("newPos ",index+100 )
-            updatePosition({x: index + 100, y: index + 100}, entity);
+            updatePosition({x: index*30+100, y: index*10 }, entity);
         });
     }
 

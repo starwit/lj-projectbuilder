@@ -69,7 +69,7 @@ function AppEditor() {
     }, [userRest]);
 
     function updateEntity(entity) {
-        const newEntities = [...entities];
+        const newEntities = JSON.parse(JSON.stringify(entities));
 
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
         if (foundIndex < 0) {
@@ -78,6 +78,7 @@ function AppEditor() {
         }
         newEntities[foundIndex] = entity;
         setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
+        setEntities(newEntities);
         return entityRest.createEntityByApp(appId, entity)
             .then(reloadEntities);
 
