@@ -3,6 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import MainTheme from "../../assets/themes/MainTheme";
 
 function StarwitTheme(props) {
+
     // theme settings
     const theme = createTheme(new MainTheme());
 
@@ -10,7 +11,8 @@ function StarwitTheme(props) {
         <ThemeProvider theme={theme}>
             {props.children}
         </ThemeProvider>
-    );
+    )
+
 }
 
 export default StarwitTheme;

@@ -1,11 +1,11 @@
-import {useEffect} from "react";
-import {useSnackbar} from "notistack";
+import { useEffect } from "react";
+import { useSnackbar } from "notistack";
 import axios from "axios";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function ErrorHandler(props) {
-    const {enqueueSnackbar} = useSnackbar();
-    const {t} = useTranslation();
+    const { enqueueSnackbar } = useSnackbar();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (axios.interceptors.response.handlers.length > 0) {
@@ -13,12 +13,12 @@ function ErrorHandler(props) {
         }
 
         axios.interceptors.response.use(
-            function(response) {
+            function (response) {
                 // Any status code that lie within the range of 2xx cause this function to trigger
                 // Do something with response data
                 return response;
             },
-            function(error) {
+            function (error) {
                 let errorMessage = "error.unknown";
 
                 if (error?.request) {
@@ -31,22 +31,22 @@ function ErrorHandler(props) {
                     }
                 }
                 if (error?.response) {
-                    const {config, data, status} = error.response;
+                    const { config, data, status } = error.response;
                     switch (config.method) {
-                    case "get":
-                        errorMessage = "error.general.get";
-                        break;
-                    case "delete":
-                        errorMessage = "error.general.delete";
-                        break;
-                    case "post":
-                        errorMessage = "error.general.create";
-                        break;
-                    case "put":
-                        errorMessage = "error.general.update";
-                        break;
-                    default:
-                        errorMessage = "error.unknown";
+                        case "get":
+                            errorMessage = "error.general.get";
+                            break;
+                        case "delete":
+                            errorMessage = "error.general.delete";
+                            break;
+                        case "post":
+                            errorMessage = "error.general.create";
+                            break;
+                        case "put":
+                            errorMessage = "error.general.update";
+                            break;
+                        default:
+                            errorMessage = "error.unknown";
                     }
 
                     if (data.messageKey) {
@@ -56,7 +56,7 @@ function ErrorHandler(props) {
                     console.error(`A ${config.method} request failed with status code ${status}:`, data, config);
                 }
 
-                enqueueSnackbar(t(errorMessage), {variant: "error"});
+                enqueueSnackbar(t(errorMessage), { variant: "error" });
 
                 return Promise.reject(error);
             }

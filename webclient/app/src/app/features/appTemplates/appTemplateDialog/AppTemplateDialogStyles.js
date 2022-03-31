@@ -1,9 +1,9 @@
 import {makeStyles} from "@mui/styles";
 
-const AppTemplateDialogStyles = makeStyles((theme) => ({
+const AppTemplateDialogStyles = makeStyles(theme => ({
     tabBox: {
         borderBottom: 1,
-        borderColor: "divider"
+        borderColor: 'divider'
     },
     dialogHeaderBar: {
         display: "flex",
@@ -21,5 +21,5 @@ const AppTemplateDialogStyles = makeStyles((theme) => ({
         margin: "8px",
         width: "95%"
     }
-}));
+}))
 export default AppTemplateDialogStyles;

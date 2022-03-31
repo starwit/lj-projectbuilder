@@ -1,29 +1,17 @@
 import React from "react";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    FormControl,
-    Grid,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography
-} from "@mui/material";
-import {Delete, ExpandMore} from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Delete, ExpandMore } from "@mui/icons-material";
 import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
-import {useTranslation} from "react-i18next";
-import {RelationshipType} from "../Relationship";
+import { useTranslation } from "react-i18next";
+import { RelationshipType } from "../Relationship";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 
 function RelationshipAccordion(props) {
-    const {relationship, targetEntities, currentEntity, editRelationshipProperty, handleDelete} = props;
+    const { relationship, targetEntities, currentEntity, editRelationshipProperty, handleDelete } = props;
     const relationshipStyles = RelationshipStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     function renderAccordionTitle() {
         let value = t("relationship.new");
@@ -39,8 +27,7 @@ function RelationshipAccordion(props) {
                 <Accordion elevation={2}>
                     <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
                         <Typography className={relationshipStyles.title}>{renderAccordionTitle()}</Typography>
-                        <Typography
-                            className={relationshipStyles.subtitle}>{/* Add something interesting here */}</Typography>
+                        <Typography className={relationshipStyles.subtitle}>{/* Add something interesting here */}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={4}>
@@ -67,8 +54,7 @@ function RelationshipAccordion(props) {
                             </Grid>
                             <Grid item sm={5}>
                                 <FormControl fullWidth>
-                                    <TextField label={t("relationship.sourceEntity")} value={currentEntity.name}
-                                        disabled={true} />
+                                    <TextField label={t("relationship.sourceEntity")} value={currentEntity.name} disabled={true} />
                                 </FormControl>
                                 <div className={relationshipStyles.spacerBottom} />
                                 <FormControl fullWidth>
@@ -76,7 +62,7 @@ function RelationshipAccordion(props) {
                                         label={t("relationship.sourceField")}
                                         value={relationship.relationshipName}
                                         onChange={(event) => editRelationshipProperty("relationshipName", event.target.value)}
-                                        helperText={t("relationship.sourceField.hint", {entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity")})}
+                                        helperText={t("relationship.sourceField.hint", { entityName: relationship.otherEntityName ? relationship.otherEntityName : t("relationship.targetEntity") })}
                                         regex={RegexConfig.relationship}
                                     />
                                 </FormControl>
@@ -86,8 +72,7 @@ function RelationshipAccordion(props) {
                             </Grid>
                             <Grid item sm={5}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="targetEntity"
-                                        error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}>
+                                    <InputLabel id="targetEntity" error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}>
                                         {t("relationship.targetEntity") + "*"}
                                     </InputLabel>
                                     <Select
@@ -111,7 +96,7 @@ function RelationshipAccordion(props) {
                                         label={t("relationship.targetField")}
                                         value={relationship.otherEntityRelationshipName}
                                         onChange={(event) => editRelationshipProperty("otherEntityRelationshipName", event.target.value)}
-                                        helperText={t("relationship.targetField.hint", {entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity")})}
+                                        helperText={t("relationship.targetField.hint", { entityName: currentEntity.name ? currentEntity.name : t("relationship.sourceEntity") })}
                                         regex={RegexConfig.relationship}
                                     />
                                 </FormControl>
@@ -133,9 +118,9 @@ RelationshipAccordion.propTypes = {
     Relationship: PropTypes.instanceOf(RelationshipType),
     entities: PropTypes.array,
     currentEntity: PropTypes.object,
-    editRelationshipProperty: PropTypes.func
+    editRelationshipProperty: PropTypes.func,
 };
 
-RelationshipAccordion.defaultProps = {};
+RelationshipAccordion.defaultProps = {}
 
 export default RelationshipAccordion;

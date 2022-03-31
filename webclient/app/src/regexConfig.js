@@ -11,5 +11,5 @@ const RegexConfig = {
     appTemplateAuthPassword: /^[a-zA-Z0-9!@#$%^&()*./_-]{6,100}$/,
 
     relationship: /^(|([a-z][a-zA-Z0-9]{0,100}))$/
-};
+}
 export default RegexConfig;

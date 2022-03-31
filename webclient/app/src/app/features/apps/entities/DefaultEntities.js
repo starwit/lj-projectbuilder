@@ -19,6 +19,6 @@ const emptyEntity = {
         positionX: 0,
         positionY: 0
     }
-};
+}
 
 export {newEntity, emptyEntity};

@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import {Card, CardActionArea, CardActions, CardContent, Divider, Grid, IconButton, Typography} from "@mui/material";
-import {Delete, Edit, MoreHoriz} from "@mui/icons-material";
+import React, { useState } from "react";
+import { Card, CardActionArea, CardActions, CardContent, Divider, Grid, IconButton, Typography } from "@mui/material";
+import { Delete, Edit, MoreHoriz } from "@mui/icons-material";
 import PropTypes from "prop-types";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
 
 function AppCard(props) {
-    const {app, onDeleteClick, onEditClick} = props;
+    const { app, onDeleteClick, onEditClick } = props;
     const history = useHistory();
     const appCardStyles = AppCardStyles();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
@@ -63,10 +63,10 @@ AppCard.propTypes = {
     app: PropTypes.shape({
         id: PropTypes.number.isRequired,
         baseName: PropTypes.string.isRequired,
-        packageName: PropTypes.string.isRequired
+        packageName: PropTypes.string.isRequired,
     }),
     onEditClick: PropTypes.func.isRequired,
-    onDeleteClick: PropTypes.func.isRequired
+    onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default AppCard;

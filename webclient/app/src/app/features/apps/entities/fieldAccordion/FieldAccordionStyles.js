@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const FieldAccordionStyles = makeStyles((theme) => ({
+const FieldAccordionStyles = makeStyles(theme => ({
     title: {
         flexShrink: 0,
         width: "50%"
@@ -8,5 +8,5 @@ const FieldAccordionStyles = makeStyles((theme) => ({
     subtitle: {
         color: theme.palette.text.secondary
     }
-}));
+}))
 export default FieldAccordionStyles;

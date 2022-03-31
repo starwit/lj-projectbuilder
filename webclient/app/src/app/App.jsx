@@ -7,6 +7,7 @@ import ErrorHandler from "./commons/errorHandler/ErrorHandler";
 
 
 function App() {
+
     const appStyles = AppStyles();
 
 
@@ -14,13 +15,14 @@ function App() {
         <React.Fragment>
             <ErrorHandler>
                 <div className={appStyles.background}>
-                    <CssBaseline />
-                    <AppHeader />
-                    <MainContentRouter />
+                    <CssBaseline/>
+                    <AppHeader/>
+                    <MainContentRouter/>
                 </div>
             </ErrorHandler>
         </React.Fragment>
     );
+
 }
 
 export default App;

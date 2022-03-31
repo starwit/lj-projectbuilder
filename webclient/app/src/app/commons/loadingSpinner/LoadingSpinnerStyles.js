@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 
-const LoadingSpinnerStyles = makeStyles((theme) => ({
+const LoadingSpinnerStyles = makeStyles(theme => ({
     root: {
         height: "100%",
         display: "flex",
@@ -19,5 +19,5 @@ const LoadingSpinnerStyles = makeStyles((theme) => ({
     message: {
         color: theme.palette.text.secondary
     }
-}));
+}))
 export default LoadingSpinnerStyles;

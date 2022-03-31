@@ -39,7 +39,7 @@ function AppTemplateOverview() {
 
     const reload = () => {
         const appTemplateRest = new AppTemplateRest();
-        appTemplateRest.findAll().then((response) => {
+        appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
         });
     };
@@ -57,29 +57,29 @@ function AppTemplateOverview() {
     function renderContent() {
         if (!appTemplates) {
             return (
-                <LoadingSpinner message={t("apptemplates.loading")} />
-            );
+                <LoadingSpinner message={t("apptemplates.loading")}/>
+            )
         }
 
         if (appTemplates.length === 0) {
             return (
                 <Statement
-                    icon={<Add />}
+                    icon={<Add/>}
                     message={t("apptemplates.empty")}
                 />
-            );
+            )
         }
 
         return (
             <Grid container spacing={2}>
-                {appTemplates.map((appTemplate) => (
+                {appTemplates.map(appTemplate => (
                     <Grid item key={appTemplate.id} sm={12} xs={12}>
-                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups} />
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups}/>
                     </Grid>
                 ))}
             </Grid>
 
-        );
+        )
     }
 
     return (
@@ -98,11 +98,11 @@ function AppTemplateOverview() {
             />
             <div className={appTemplateOverviewStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
-                    <Add />
+                    <Add/>
                 </Fab>
             </div>
         </Container>
-    );
+    )
 }
 
-export default AppTemplateOverview;
+export default AppTemplateOverview
