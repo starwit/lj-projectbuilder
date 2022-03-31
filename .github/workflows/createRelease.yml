@@ -4,12 +4,12 @@ name: Create release and tag
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  
+  workflow_dispatch:
     inputs:
       release-type: # id of input
         description: "prerelease, patch, minor or major"
         required: true
-        default: "prerelease"  
+        default: "prerelease"
 
 env:
   REGISTRY: ghcr.io
@@ -60,15 +60,17 @@ jobs:
       uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
-        java-version: 17    
+        java-version: 17
     - name: npm install
       run: |
         if [ -d "webclient/app" ]; then
           cd webclient/app
           npm install --legacy-peer-deps
-        fi 
+        fi
     - name: Build with Maven
       run: mvn -B package -P frontend --file pom.xml
+      env:
+         CI: false
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
@@ -88,7 +90,7 @@ jobs:
         context: .
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.publish_tag.outputs.tag_name }}
-        
+
     - name: Build docker image with tag version and push to dockerhub
       uses: docker/build-push-action@v1
       with:
