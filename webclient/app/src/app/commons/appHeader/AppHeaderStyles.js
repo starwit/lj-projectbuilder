@@ -1,16 +1,15 @@
-import {makeStyles} from "@mui/styles"
+import {makeStyles} from "@mui/styles";
 
 const drawerWidth = 240;
-const appBarHeight = "5rem";
+const appBarHeight = "3rem";
 
 const AppHeaderStyles = makeStyles(theme => ({
     root: {
-        display: "flex",
+        display: "flex"
     },
     appBar: {
         zIndex: theme.zIndex.modal + 1,
-        backgroundColor: theme.palette.primary.main,
-        height: "5rem",
+        height: "3rem"
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -25,21 +24,21 @@ const AppHeaderStyles = makeStyles(theme => ({
         [theme.breakpoints.up("sm")]: {
             display: "flex",
             width: "100%",
-            justifyContent: "center",
+            justifyContent: "center"
         }
     },
     menuLogo: {
         display: "none",
         [theme.breakpoints.up("sm")]: {
             display: "flex",
-            width: 350,
+            width: 350
         }
     },
     menuLogoResponsive: {
         display: "flex",
         width: 50,
         [theme.breakpoints.up("sm")]: {
-            display: "none",
+            display: "none"
         }
     },
     menuLogoImg: {
@@ -61,14 +60,15 @@ const AppHeaderStyles = makeStyles(theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "#c7c7c7",
+        backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
     },
     linkButton: {
         marginRight: theme.spacing(3),
-        marginLeft: theme.spacing(3),
+        marginLeft: theme.spacing(3)
     },
     contentSpacer: {
         height: `calc(${appBarHeight} + ${theme.spacing(3)})`
     }
-}))
+}));
 export default AppHeaderStyles;

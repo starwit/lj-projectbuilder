@@ -1,29 +1,24 @@
 import React from "react";
-
-import MainTheme from "./assets/themes/MainTheme";
-
 import AppHeader from "./commons/appHeader/AppHeader";
 import MainContentRouter from "./pages/MainContentRouter";
-import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-
+import {CssBaseline} from "@mui/material";
+import AppStyles from "./AppStyles";
+import ErrorHandler from "./commons/errorHandler/ErrorHandler";
 
 function App() {
-
-    // theme settings
-    const theme = createTheme(new MainTheme());
+    const appStyles = AppStyles();
 
     return (
-        <React.Fragment>
-            <ThemeProvider theme={theme}>
-                <div>
-                    <CssBaseline/>
-                    <AppHeader/>
-                    <MainContentRouter/>
-                </div>
-            </ThemeProvider>
-        </React.Fragment>
+            <React.Fragment>
+                <ErrorHandler>
+                    <div className={appStyles.background}>
+                        <CssBaseline/>
+                        <AppHeader/>
+                        <MainContentRouter/>
+                    </div>
+                </ErrorHandler>
+            </React.Fragment>
     );
-
 }
 
 export default App;

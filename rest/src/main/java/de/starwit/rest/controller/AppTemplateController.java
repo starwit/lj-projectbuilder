@@ -25,6 +25,8 @@ import de.starwit.allowedroles.IsAdmin;
 import de.starwit.dto.SaveAppTemplateDto;
 import de.starwit.mapper.AppTemplateMapper;
 import de.starwit.persistence.entity.AppTemplate;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.rest.exception.NotificationDto;
 import de.starwit.service.impl.AppTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -81,13 +83,14 @@ public class AppTemplateController {
 	@IsAdmin
 	@Operation(summary = "Delete appTemplate")
 	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Long id) throws NotificationException {
 		appTemplateService.delete(id);
 	}
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-		LOG.info("AppTemplate not found. {} ", ex.getMessage());
-		return new ResponseEntity<>("AppTemplate not found.", HttpStatus.NOT_FOUND);
+		NotificationDto output = new NotificationDto("error.apptemplate.notfound", "AppTemplate not found.");
+
+		return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
 	}
 }

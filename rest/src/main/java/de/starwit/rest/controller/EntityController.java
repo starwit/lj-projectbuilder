@@ -26,6 +26,8 @@ import de.starwit.dto.EntityDto;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.rest.exception.NotificationDto;
 import de.starwit.rest.exception.WrongAppIdException;
 import de.starwit.service.impl.DomainService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,7 +55,7 @@ public class EntityController {
     @IsUser
     @Operation(summary = "Delete entity with id")
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Long id) throws NotificationException {
         domainService.deleteRelationsForAllTargetDomains(id);
         domainService.delete(id);
     }
@@ -125,13 +127,14 @@ public class EntityController {
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
     public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
-        LOG.info("Entity not found. {}", ex.getMessage());
-        return new ResponseEntity<>("Entity not found.", HttpStatus.NOT_FOUND);
+        NotificationDto output = new NotificationDto("error.entity.notfound", "Entity not found.");
+        return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { WrongAppIdException.class })
     public ResponseEntity<Object> handleException(WrongAppIdException ex) {
         LOG.info(ex.getMessage());
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        NotificationDto output = new NotificationDto("error.wrongAppId", ex.getMessage());
+        return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 }

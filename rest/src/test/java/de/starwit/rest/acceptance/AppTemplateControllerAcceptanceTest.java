@@ -17,7 +17,7 @@ import de.starwit.persistence.entity.AppTemplate;
 
 public class AppTemplateControllerAcceptanceTest extends AbstractControllerAcceptanceTest<SaveAppTemplateDto> {
 
-    final static Logger LOG = LoggerFactory.getLogger(ApplicationControllerAcceptanceTest.class);
+    final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
 
     private static final String data = TestdataConstants.TESTDATA_APPTEMPLATE_DIR;
 

@@ -17,4 +17,8 @@ public interface AppRepository extends JpaRepository<App, Long> {
 
 	@Query(value="SELECT * FROM APP p WHERE p.groups REGEXP :groups", nativeQuery=true)
 	List<App> findByGroupString(String groups);
+
+    @Query(value = "SELECT count(p) FROM App p WHERE p.template.id = ?1")
+    int countAppUsingTemplate(Long templateId);
+
 }

@@ -1,45 +1,53 @@
 {
-    "name": "app",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@emotion/react": "^11.4.1",
-        "@emotion/styled": "^11.3.0",
-        "@mui/icons-material": "^5.0.0",
-        "@mui/lab": "^5.0.0-alpha.63",
-        "@mui/material": "^5.0.0",
-        "@mui/styles": "^5.0.0",
-        "axios": "^0.24.0",
-        "i18next": "^21.0.1",
-        "i18next-browser-languagedetector": "^6.1.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "react-draggable": "^4.4.4",
-        "react-i18next": "^11.12.0",
-        "react-lineto": "^3.3.0",
-        "react-router-dom": "^5.3.0",
-        "react-scripts": "^5.0.0",
-        "react-syntax-highlighter": "^15.4.4"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "stop": "taskkill -F -IM node.exe"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ],
-    "proxy": "http://localhost:8081",
-    "homepage": "./",
-    "devDependencies": {
-        "prop-types": "^15.7.2"
-    }
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/lab": "^5.0.0-alpha.63",
+    "@mui/material": "^5.0.0",
+    "@mui/styles": "^5.0.0",
+    "axios": "^0.24.0",
+    "i18next": "^21.0.1",
+    "i18next-browser-languagedetector": "^6.1.2",
+    "notistack": "^2.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-draggable": "^4.4.4",
+    "react-i18next": "^11.12.0",
+    "react-lineto": "^3.3.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^5.0.0",
+    "react-syntax-highlighter": "^15.4.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build --loglevel=error",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "stop": "taskkill -F -IM node.exe"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "proxy": "http://localhost:8081",
+  "homepage": "./",
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-react": "^7.29.4",
+    "prop-types": "^15.7.2"
+  }
 }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.exception.NotificationException;
 
 /**
  * AbstractService used as template for all service implementations and implements the basic 
@@ -37,7 +38,7 @@ public interface ServiceInterface<E extends AbstractEntity<Long>, R extends JpaR
         return entity;
     }
 
-    default public void delete(Long id) {
+    default public void delete(Long id) throws NotificationException {
         this.getRepository().deleteById(id);
     }
 

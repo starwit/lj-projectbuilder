@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.persistence.entity.TemplateFile;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.repository.AppRepository;
 import de.starwit.persistence.repository.AppTemplateRepository;
 import de.starwit.persistence.repository.TemplateFileRepository;
 
@@ -18,6 +20,9 @@ import de.starwit.persistence.repository.TemplateFileRepository;
 public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemplateRepository> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AppTemplateService.class);
+
+    @Autowired
+    private AppRepository appRepository;
 
 	@Autowired
 	private AppTemplateRepository appTemplateRepository;
@@ -55,4 +60,13 @@ public class AppTemplateService implements ServiceInterface<AppTemplate, AppTemp
 		}
 		return this.getRepository().save(entity);
 	}
+
+    @Override
+    public void delete(Long id) throws NotificationException {
+        int count = appRepository.countAppUsingTemplate(id);
+        if (count > 0) {
+            throw new NotificationException("error.apptemplate.delete.appexists", "Deletion of apptemplate used by app not possible");
+        }
+        this.getRepository().deleteById(id);
+    }
 }
