@@ -17,6 +17,7 @@
     "plugins": [
         "react"
     ],
+    "ignorePatterns": ["**/*.ico", "**/*.css", "**/translations*.js","**/*.svg","**/*.png"],
     "rules": {
         "max-len": [
             "warn", {"code": 120, "tabWidth": 4,
