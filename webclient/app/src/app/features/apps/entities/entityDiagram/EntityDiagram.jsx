@@ -15,7 +15,7 @@ import MainTheme from "../../../../assets/themes/MainTheme";
 import {renderRelations} from "../HandleRelations";
 
 function EntityDiagram(props) {
-    const {editable, entities, coordinates, handleUpdateEntities, dense, appId} = props;
+    const { editable, entities, coordinates, dense, reloadEntities, updateEntity } = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
@@ -43,15 +43,12 @@ function EntityDiagram(props) {
             return;
         }
 
-        return entityRest.delete(entityId).then(() => {
-            entityRest.findAllEntitiesByApp(appId).then((response) => {
-                handleUpdateEntities(response.data);
-            });
-        });
+        return entityRest.delete(entityId)
+            .then(reloadEntities);
     }
 
-    function updateEntity(updatedEntityInput) {
-        let updatedEntity = {...updatedEntityInput};
+    function prepareUpdateEntity(updatedEntityInput) {
+        let updatedEntity = { ...updatedEntityInput };
 
         if (!editable) {
             return;
@@ -61,9 +58,12 @@ function EntityDiagram(props) {
             delete updatedEntity.id;
             updatedEntity.isNewEntity = false;
         }
-        setCurrentEntity(updatedEntity);
 
-        return entityRest.createEntityByApp(appId, updatedEntity);
+        if (currentEntity) {
+            setCurrentEntity(updatedEntity);
+        }
+
+        return updateEntity(updatedEntity);
     }
 
     function updatePosition(draggableData, entity) {
@@ -77,9 +77,9 @@ function EntityDiagram(props) {
         entity.position.positionY = draggableData.y;
 
         console.log("sending to update")
-        entityRest.updateEntityByAppId(appId, entity);
 
-        handleUpdateEntities(entities);
+        prepareUpdateEntity(entity)
+
     }
 
     function renderEntities() {
@@ -186,19 +186,15 @@ function EntityDiagram(props) {
             <EntityDialog
                 entityId={currentEntity?.id}
                 onClose={closeEntityDialog}
-                handleSave={(data) => updateEntity(data)}
+                handleSave={(data) => prepareUpdateEntity(data)}
                 entities={entities}
-                handleUpdateEntities={(updatedEntities) => handleUpdateEntities(updatedEntities)}
                 open={openEntityDialog}
-                appId={appId}
             />
         </>
     );
 }
 
 EntityDiagram.propTypes = {
-    appId: PropTypes.number,
-    handleUpdateEntities: PropTypes.func,
     entities: PropTypes.array,
     editable: PropTypes.bool,
     dense: PropTypes.bool
