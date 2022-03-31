@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ develop, v2 ]
   workflow_dispatch:
-  
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -20,15 +20,17 @@ jobs:
       uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
-        java-version: 17    
+        java-version: 17
     - name: npm install
       run: |
         if [ -d "webclient/app" ]; then
           cd webclient/app
           npm install --legacy-peer-deps
-        fi    
+        fi
     - name: Build with Maven
       run: mvn clean -B package -P frontend --file pom.xml
+      env:
+         CI: false
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v1
       with:
