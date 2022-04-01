@@ -16,9 +16,7 @@ import {updateRelationCoordinates} from "../../features/apps/entities/HandleRela
 import UserRest from "../../services/UserRest";
 import EntityRest from "../../services/EntityRest";
 
-
 function AppEditor() {
-
     const [activeStep, setActiveStep] = useState(0);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const appEditorStyles = AppEditorStyles();
@@ -38,14 +36,13 @@ function AppEditor() {
     const [isSaving, setIsSaving] = useState(false);
     const [userGroups, setUserGroups] = useState([]);
     const [groupsToAssign, setGroupsToAssign] = useState(["public"]);
-    let {appId} = useParams();
+    const {appId} = useParams();
 
     useEffect(() => {
         setIsAppLoading(true);
         if (appId === "create") {
             setIsNewApp(true);
             setIsAppLoading(false);
-
         } else {
             appRest.findById(appId).then(response => {
                 const {baseName, packageName, template, entities, groupsToAssign} = response.data;
@@ -57,13 +54,11 @@ function AppEditor() {
     }, [appId, appRest]);
 
     useEffect(() => {
-
         setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName));
-
     }, [packageName, appName]);
 
     useEffect(() => {
-        userRest.getUserGroups().then((response) => {
+        userRest.getUserGroups().then(response => {
             setUserGroups(response.data);
         });
     }, [userRest]);
@@ -81,11 +76,10 @@ function AppEditor() {
         setEntities(newEntities);
         return entityRest.createEntityByApp(appId, entity)
             .then(reloadEntities);
-
     }
 
     function reloadEntities() {
-        return entityRest.findAllEntitiesByApp(appId).then((response) => {
+        return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
             setEntities(newEntities);
             setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
@@ -179,7 +173,7 @@ function AppEditor() {
 
     function handleSave() {
         let restRequest;
-        let entitiesEdited = [...entities].map(entity => {
+        const entitiesEdited = [...entities].map(entity => {
             entity.id = null;
             return entity;
         });
@@ -215,7 +209,6 @@ function AppEditor() {
     }
 
     function handleFinishButton() {
-
         const restRequest = handleSave();
         restRequest
             .then(() => {
@@ -228,7 +221,7 @@ function AppEditor() {
             <LoadingButton
                 onClick={handleNext}
                 disabled={!steps[activeStep].condition}
-                startIcon={<ChevronRight />}
+                startIcon={<ChevronRight/>}
                 loading={isSaving}
             >
                 {t("button.next")}
@@ -240,7 +233,7 @@ function AppEditor() {
                     onClick={handleFinishButton}
                     disabled={!steps[activeStep].condition}
                     loading={isSaving}
-                    startIcon={<Done />}
+                    startIcon={<Done/>}
                 >
                     {t("button.done")}
                 </LoadingButton>
@@ -250,7 +243,7 @@ function AppEditor() {
     }
 
     if (isAppLoading) {
-        return <LoadingSpinner message={t("app.loading")} />;
+        return <LoadingSpinner message={t("app.loading")}/>;
     }
 
     return (
@@ -272,18 +265,17 @@ function AppEditor() {
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={appEditorStyles.navigationButtonBack}
-                    startIcon={<ChevronLeft />}
+                    startIcon={<ChevronLeft/>}
                     loading={isSaving}
                 >
                     {t("button.back")}
                 </LoadingButton>
-                <Box className={appEditorStyles.navigationButtonNext} />
+                <Box className={appEditorStyles.navigationButtonNext}/>
                 {renderNextButton()}
             </Box>
             {steps[activeStep].component}
         </div>
     );
-
 }
 
 export default AppEditor;

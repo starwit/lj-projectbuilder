@@ -8,5 +8,5 @@ const FieldAccordionStyles = makeStyles(theme => ({
     subtitle: {
         color: theme.palette.text.secondary
     }
-}))
+}));
 export default FieldAccordionStyles;

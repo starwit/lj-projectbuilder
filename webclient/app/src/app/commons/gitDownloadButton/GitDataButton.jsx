@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Button, Container, DialogTitle, Typography, IconButton, Box } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import { useTranslation } from 'react-i18next';
-import { CloudSync, Close } from "@mui/icons-material";
+import React, {useEffect, useState} from "react";
+import {Box, Button, Container, DialogTitle, IconButton, Typography} from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import {useTranslation} from "react-i18next";
+import {Close, CloudSync} from "@mui/icons-material";
 import ValidatedTextField from "../validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../regexConfig";
 import GitDataButtonStyles from "./GitDataButtonStyles";
 
 function GitDataButton(props) {
-    const { credentialsRequired, handleGit, handleAfterSuccess, buttonIcon, buttonName, buttonVariant } = props;
+    const {credentialsRequired, handleGit, handleAfterSuccess, buttonIcon, buttonName, buttonVariant} = props;
     const gitDataButtonStyles = GitDataButtonStyles();
-    const [hasFormError, setHasFormError] = React.useState(false);    
-    const [downloadRequestData, setDownloadRequestData] = useState({ "username": "", "password": "" });
-    const { t } = useTranslation();
+    const [hasFormError, setHasFormError] = React.useState(false);
+    const [downloadRequestData, setDownloadRequestData] = useState({"username": "", "password": ""});
+    const {t} = useTranslation();
 
     const [openAuthDialog, setOpenAuthDialog] = useState(false);
-  
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        let downloadRequestDataNew = { ...downloadRequestData };
+    const handleChange = event => {
+        const {name, value} = event.target;
+        const downloadRequestDataNew = {...downloadRequestData};
         downloadRequestDataNew[name] = value;
         setDownloadRequestData(downloadRequestDataNew);
-    }
+    };
 
     const handleLogin = () => {
         if (credentialsRequired) {
@@ -31,22 +30,22 @@ function GitDataButton(props) {
         } else {
             handleAppTemplateReload();
         }
-    }
+    };
 
     const handleAppTemplateReload = () => {
-        if(hasFormError && credentialsRequired) {
+        if (hasFormError && credentialsRequired) {
             return;
         }
         handleGit(downloadRequestData).then(() => {
             handleAfterSuccess();
             setOpenAuthDialog(false);
         });
-    }
+    };
 
     const onClose = () => {
-        setDownloadRequestData({ "username": "", "password": "" });
+        setDownloadRequestData({"username": "", "password": ""});
         setOpenAuthDialog(false);
-    }
+    };
 
     useEffect(() => {
         if (!downloadRequestData) {
@@ -61,29 +60,29 @@ function GitDataButton(props) {
             hasError = true;
         }
         setHasFormError(hasError);
-    }, [downloadRequestData, hasFormError])
-
+    }, [downloadRequestData, hasFormError]);
 
     return (
         <Container>
-            <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync />} variant={buttonVariant} >{buttonName}</Button>
+            <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync/>}
+                variant={buttonVariant}>{buttonName}</Button>
             <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
                 <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
                     <Typography noWrap variant={"h6"} component={"p"}>
                         {t("gitAuth.title")}
                     </Typography>
-                    <div className={gitDataButtonStyles.flex} />
+                    <div className={gitDataButtonStyles.flex}/>
                     <IconButton
                         aria-label="close"
                         onClick={onClose}
                     >
-                        <Close />
+                        <Close/>
                     </IconButton>
                 </DialogTitle>
                 <Box
                     component="form"
                     sx={{
-                        '& .MuiTextField-root': { m: 1, width: '95%' },
+                        "& .MuiTextField-root": {m: 1, width: "95%"}
 
                     }}
                     noValidate
@@ -122,4 +121,5 @@ function GitDataButton(props) {
         </Container>
     );
 }
+
 export default GitDataButton;

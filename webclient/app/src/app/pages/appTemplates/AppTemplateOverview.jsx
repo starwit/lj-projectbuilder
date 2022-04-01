@@ -29,13 +29,13 @@ function AppTemplateOverview() {
     };
 
     const defaultAppTemplate =
-        {
-            "location": "",
-            "branch": "",
-            "credentialsRequired": false,
-            "description": "",
-            "groups": ["public"]
-        };
+            {
+                "location": "",
+                "branch": "",
+                "credentialsRequired": false,
+                "description": "",
+                "groups": ["public"]
+            };
 
     const reload = () => {
         const appTemplateRest = new AppTemplateRest();
@@ -45,7 +45,7 @@ function AppTemplateOverview() {
     };
 
     useEffect(() => {
-        userRest.getUserGroups().then((response) => {
+        userRest.getUserGroups().then(response => {
             setUserGroups(response.data);
         });
     }, [userRest]);
@@ -58,7 +58,7 @@ function AppTemplateOverview() {
         if (!appTemplates) {
             return (
                 <LoadingSpinner message={t("apptemplates.loading")}/>
-            )
+            );
         }
 
         if (appTemplates.length === 0) {
@@ -67,19 +67,20 @@ function AppTemplateOverview() {
                     icon={<Add/>}
                     message={t("apptemplates.empty")}
                 />
-            )
+            );
         }
 
         return (
             <Grid container spacing={2}>
                 {appTemplates.map(appTemplate => (
                     <Grid item key={appTemplate.id} sm={12} xs={12}>
-                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload} userGroups={userGroups}/>
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload}
+                            userGroups={userGroups}/>
                     </Grid>
                 ))}
             </Grid>
 
-        )
+        );
     }
 
     return (
@@ -102,7 +103,7 @@ function AppTemplateOverview() {
                 </Fab>
             </div>
         </Container>
-    )
+    );
 }
 
-export default AppTemplateOverview
+export default AppTemplateOverview;

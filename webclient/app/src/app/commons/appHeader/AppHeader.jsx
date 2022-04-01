@@ -5,7 +5,7 @@ import {AppBar, Button, IconButton, Toolbar} from "@mui/material";
 import AppHeaderStyles from "./AppHeaderStyles";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import { Logout } from "@mui/icons-material";
+import {Logout} from "@mui/icons-material";
 
 function AppHeader() {
     const appHeaderStyles = AppHeaderStyles();
@@ -19,11 +19,11 @@ function AppHeader() {
                     <img className={appHeaderStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
                     <div className={appHeaderStyles.spacer}/>
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/")}>{t("apps.title")}</Button>
+                        onClick={() => history.push("/")}>{t("apps.title")}</Button>
                     <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/apptemplates/all")}>{t("apptemplates.title")}</Button>
+                        onClick={() => history.push("/apptemplates/all")}>{t("apptemplates.title")}</Button>
                     <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                            onClick={() => history.push("/logout")}><Logout /></IconButton>
+                        onClick={() => history.push("/logout")}><Logout/></IconButton>
                 </Toolbar>
             </AppBar>
             <div className={appHeaderStyles.contentSpacer}/>

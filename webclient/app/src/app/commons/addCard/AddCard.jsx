@@ -6,7 +6,6 @@ import AddCardStyles from "./AddCardStyles";
 import {useTranslation} from "react-i18next";
 
 function AddCard(props) {
-
     const {onClick} = props;
     const addCardStyles = AddCardStyles();
     const {t} = useTranslation();
@@ -20,12 +19,11 @@ function AddCard(props) {
                 </div>
             </CardActionArea>
         </Card>
-    )
-
+    );
 }
 
 AddCard.defaultProps = {
     onClick: PropTypes.func.isRequired
-}
+};
 
 export default AddCard;

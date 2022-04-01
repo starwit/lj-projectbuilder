@@ -6,39 +6,36 @@ import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useTranslation} from "react-i18next";
 import Statement from "../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
-import { updateRelationCoordinates } from "../../features/apps/entities/HandleRelations";
+import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
 
 function AppOverview(props) {
-
     const applicationRest = useMemo(() => new ApplicationRest(), []);
     const {t} = useTranslation();
 
     const [app, setApp] = useState(null);
     const [appError, setAppError] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
-    let {appId} = useParams();
+    const {appId} = useParams();
 
-
-    const loadApp = useCallback((appId) => {
+    const loadApp = useCallback(appId => {
         setApp(null);
         setAppError(null);
         applicationRest.findById(appId).then(appResponse => {
             setApp(appResponse.data);
             setCoordinates(updateRelationCoordinates(appResponse.data.entities));
         }).catch(appResponseError => {
-            setAppError(appResponseError.response)
-        })
-    }, [applicationRest, setApp, setAppError])
+            setAppError(appResponseError.response);
+        });
+    }, [applicationRest, setApp, setAppError]);
 
     useEffect(() => {
         loadApp(appId);
-    }, [loadApp, appId])
-
+    }, [loadApp, appId]);
 
     if (!app && !appError) {
         return <LoadingSpinner
             message={t("app.loading")}
-        />
+        />;
     }
 
     if (appError) {
@@ -63,4 +60,4 @@ function AppOverview(props) {
     </>);
 }
 
-export default AppOverview
+export default AppOverview;

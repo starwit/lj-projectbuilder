@@ -9,14 +9,14 @@ function LoadingSpinner(props) {
     const loadingSpinnerStyles = LoadingSpinnerStyles();
 
     useEffect(() => {
-        const messageTimer = setTimeout(function () {
+        const messageTimer = setTimeout(function() {
             setShowMessage(true);
         }, 1000);
-        
+
         return () => {
             clearTimeout(messageTimer);
         };
-    })
+    });
 
     return (
         <div className={loadingSpinnerStyles.root}>
@@ -27,14 +27,14 @@ function LoadingSpinner(props) {
                 </Fade>
             </div>
         </div>
-    )
+    );
 }
 
 LoadingSpinner.defaultProps = {
     message: "Loading..."
-}
+};
 
 LoadingSpinner.propTypes = {
     message: PropTypes.string
-}
+};
 export default LoadingSpinner;

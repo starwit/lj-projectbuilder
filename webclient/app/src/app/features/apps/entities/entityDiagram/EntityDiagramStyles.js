@@ -8,12 +8,12 @@ const EntityDiagramStyles = makeStyles(theme => ({
         right: "2%"
     },
     drawer: {
-        width: "50vw",
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
+        "width": "50vw",
+        "flexShrink": 0,
+        "& .MuiDrawer-paper": {
             width: "50vw",
-            boxSizing: 'border-box',
-        },
+            boxSizing: "border-box"
+        }
     },
     draggableWrapper: {
         height: "70vh"
@@ -49,5 +49,5 @@ const EntityDiagramStyles = makeStyles(theme => ({
         borderWidth: "0.25em"
     }
 
-}))
+}));
 export default EntityDiagramStyles;

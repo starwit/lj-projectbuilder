@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
 
 function EntityCard(props) {
-
     const entityCardStyles = EntityCardStyles();
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -15,15 +14,14 @@ function EntityCard(props) {
     const {t} = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>
+        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>;
         if (name) {
-            value = <Typography variant={"h6"}>{name}</Typography>
+            value = <Typography variant={"h6"}>{name}</Typography>;
         }
         return value;
     }
 
     function renderAttributes(entity) {
-
         return entity.fields.map((field, index) => {
             return (
 
@@ -31,8 +29,8 @@ function EntityCard(props) {
                     <TableCell>{field.fieldName}</TableCell>
                     <TableCell>{field.fieldType}</TableCell>
                 </TableRow>
-            )
-        })
+            );
+        });
     }
 
     function renderFieldsTable(entity) {
@@ -41,7 +39,7 @@ function EntityCard(props) {
                 <div className={entityCardStyles.statementWrapper}>
                     <Statement message={t("entity.fields.empty")}/>
                 </div>
-            )
+            );
         }
         return (
             <Table size={"small"}>
@@ -57,7 +55,7 @@ function EntityCard(props) {
                     {renderAttributes(entity)}
                 </TableBody>
             </Table>
-        )
+        );
     }
 
     function renderEditButton() {
@@ -67,7 +65,7 @@ function EntityCard(props) {
                     <IconButton onClick={() => handleEdit(entity)}>
                         <Edit fontSize={"small"}/></IconButton>
                 </Grid>
-            )
+            );
         }
     }
 
@@ -88,7 +86,7 @@ function EntityCard(props) {
                         <Delete fontSize={"small"}/>
                     </IconButton>
                 </Grid>
-            )
+            );
         }
     }
 
@@ -105,19 +103,18 @@ function EntityCard(props) {
 
     return (
         <div className={"anchor_" + entity.name}>
-        <Card className={`${entityCardStyles.entityCard}`}>
-            <Grid container>
-                <Grid item sm={calculateTitleWidth()}>
-                    {renderTitle(entity.name)}
+            <Card className={`${entityCardStyles.entityCard}`}>
+                <Grid container>
+                    <Grid item sm={calculateTitleWidth()}>
+                        {renderTitle(entity.name)}
+                    </Grid>
+                    {renderEditButton()}
+                    {renderDeleteWrapper()}
                 </Grid>
-                {renderEditButton()}
-                {renderDeleteWrapper()}
-            </Grid>
-            {renderFieldsTable(entity)}
-        </Card>
+                {renderFieldsTable(entity)}
+            </Card>
         </div>
-    )
-
+    );
 }
 
 EntityCard.propTypes = {
@@ -125,10 +122,10 @@ EntityCard.propTypes = {
     handleEdit: PropTypes.func,
     handleDelete: PropTypes.func,
     editable: PropTypes.bool
-}
+};
 
 EntityCard.defaultProps = {
     editable: true
-}
+};
 
 export default EntityCard;

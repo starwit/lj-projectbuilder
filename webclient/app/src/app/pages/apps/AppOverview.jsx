@@ -24,20 +24,20 @@ function AppOverview() {
         applicationRest.findAll().then(allAppsResponse => {
             setApps(allAppsResponse.data);
         }).catch(allAppsResponseError => {
-            setAppsError(allAppsResponseError.response)
-        })
-    }, [applicationRest, setApps, setAppsError])
+            setAppsError(allAppsResponseError.response);
+        });
+    }, [applicationRest, setApps, setAppsError]);
 
     useEffect(() => {
         loadApps();
-    }, [loadApps])
+    }, [loadApps]);
 
     function deleteById(id) {
         return applicationRest.delete(id)
             .then(response => {
                 setApps(null);
                 loadApps();
-            })
+            });
     }
 
     function renderApps() {
@@ -60,7 +60,7 @@ function AppOverview() {
                     icon={<Add/>}
                     message={t("apps.empty")}
                 />
-            )
+            );
         }
 
         return (
@@ -69,14 +69,14 @@ function AppOverview() {
                     <Grid item sm={6} xs={12} key={app.id}>
                         <AppCard
                             onEditClick={() => {
-                                history.push("/apps/" + app.id + "/edit")
+                                history.push("/apps/" + app.id + "/edit");
                             }}
                             onDeleteClick={deleteById}
                             app={app}/>
                     </Grid>
                 ))}
             </Grid>
-        )
+        );
     }
 
     return (
@@ -91,8 +91,7 @@ function AppOverview() {
                 </Fab>
             </div>
         </Container>
-    )
-
+    );
 }
 
 export default AppOverview;

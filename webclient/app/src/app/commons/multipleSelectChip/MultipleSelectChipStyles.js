@@ -6,5 +6,5 @@ const MultiSelectShipStyles = makeStyles(theme => ({
         flexWrap: "wrap",
         gap: "4px"
     }
-}))
+}));
 export default MultiSelectShipStyles;

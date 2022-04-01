@@ -7,5 +7,5 @@ const TemplateCardStyles = makeStyles(theme => ({
     cardMedia: {
         backgroundColor: "#000"
     }
-}))
+}));
 export default TemplateCardStyles;

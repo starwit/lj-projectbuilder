@@ -5,11 +5,8 @@ import {CssBaseline} from "@mui/material";
 import AppStyles from "./AppStyles";
 import ErrorHandler from "./commons/errorHandler/ErrorHandler";
 
-
 function App() {
-
     const appStyles = AppStyles();
-
 
     return (
         <React.Fragment>
@@ -22,7 +19,6 @@ function App() {
             </ErrorHandler>
         </React.Fragment>
     );
-
 }
 
 export default App;

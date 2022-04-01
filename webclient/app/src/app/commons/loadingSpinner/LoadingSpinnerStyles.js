@@ -19,5 +19,5 @@ const LoadingSpinnerStyles = makeStyles(theme => ({
     message: {
         color: theme.palette.text.secondary
     }
-}))
+}));
 export default LoadingSpinnerStyles;

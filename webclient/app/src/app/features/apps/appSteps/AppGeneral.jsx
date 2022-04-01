@@ -7,15 +7,22 @@ import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
-
     const {t} = useTranslation();
-    const {isCreate, setAppName, setPackageName, appName, packageName, userGroups, assignedGroups, setAssignedGroups} = props;
+    const {
+        isCreate,
+        setAppName,
+        setPackageName,
+        appName,
+        packageName,
+        userGroups,
+        assignedGroups,
+        setAssignedGroups
+    } = props;
     const appStepsStyles = AppStepsStyles();
 
-    const handleGroupChange = (items) => {
+    const handleGroupChange = items => {
         setAssignedGroups(items);
     };
-
 
     return (
         <Container maxWidth={false}>
@@ -41,23 +48,23 @@ function AppGeneral(props) {
                         isCreate={isCreate}
                     />
                     <div className={appStepsStyles.padding}/>
-                    <MultipleSelectChip 
-                        values={userGroups} 
-                        selected={assignedGroups} 
+                    <MultipleSelectChip
+                        values={userGroups}
+                        selected={assignedGroups}
                         handleExternalChange={handleGroupChange}
                         label={t("select.groups")}
                     />
                 </Grid>
                 <Grid item md={4}>
                     <Typography variant={"h3"} gutterBottom>{t("app.section.general.hello")}</Typography>
-                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.enterInformation")}</Typography>
+                    <Typography variant={"body1"}
+                        gutterBottom>{t("app.section.general.enterInformation")}</Typography>
                     <Typography variant={"body1"} gutterBottom>{t("app.section.general.clickNext")}</Typography>
                 </Grid>
             </Grid>
 
         </Container>
-    )
-
+    );
 }
 
 export default AppGeneral;

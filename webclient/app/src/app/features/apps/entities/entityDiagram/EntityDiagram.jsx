@@ -15,7 +15,7 @@ import MainTheme from "../../../../assets/themes/MainTheme";
 import {renderRelations} from "../HandleRelations";
 
 function EntityDiagram(props) {
-    const { editable, entities, coordinates, dense, reloadEntities, updateEntity } = props;
+    const {editable, entities, coordinates, dense, reloadEntities, updateEntity} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
@@ -48,7 +48,7 @@ function EntityDiagram(props) {
     }
 
     function prepareUpdateEntity(updatedEntityInput) {
-        let updatedEntity = { ...updatedEntityInput };
+        const updatedEntity = {...updatedEntityInput};
 
         if (!editable) {
             return;
@@ -74,14 +74,12 @@ function EntityDiagram(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-
-        prepareUpdateEntity(entity)
-
+        prepareUpdateEntity(entity);
     }
 
     function renderEntities() {
         if (entities.length === 0) {
-            return <Statement message={t("app.entities.empty")} />;
+            return <Statement message={t("app.entities.empty")}/>;
         }
         return entities.map((entity, index) => {
             const entityCardPosition = {x: 0, y: 0};
@@ -95,7 +93,7 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(data,draggableData) => updatePosition(draggableData, entity)}
+                    onStop={(data, draggableData) => updatePosition(draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
                     position={entityCardPosition}
@@ -103,7 +101,7 @@ function EntityDiagram(props) {
                 >
                     <div>
                         <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
-                                    editable={editable} />
+                            editable={editable}/>
                     </div>
                 </Draggable>
             );
@@ -118,7 +116,7 @@ function EntityDiagram(props) {
         return (
             <div className={entityDiagramStyles.addFab}>
                 <Fab color="primary" aria-label="add" onClick={addEntity}>
-                    <Add />
+                    <Add/>
                 </Fab>
             </div>
         );
@@ -139,7 +137,7 @@ function EntityDiagram(props) {
     function centerEntities() {
         const newEntities = [...entities];
         newEntities.forEach((entity, index) => {
-            updatePosition({x: index*30+100, y: index*10 }, entity);
+            updatePosition({x: index * 30 + 100, y: index * 10}, entity);
         });
     }
 
@@ -147,17 +145,18 @@ function EntityDiagram(props) {
         <>
             {renderAddEntityButton()}
             <div className={entityDiagramStyles.codeButtonWrapper}>
-                <Button variant={"contained"} startIcon={<Code />} onClick={openDrawer}>
+                <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
                     {t("entity.code")}
                 </Button>
             </div>
             <div className={entityDiagramStyles.centerButtonWrapper}>
-                <Button variant={"outlined"} startIcon={<Adjust />} onClick={centerEntities}>
+                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
                     {t("entity.center")}
                 </Button>
             </div>
             <React.Fragment key={"left"}>
-                <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer} className={entityDiagramStyles.drawer}>
+                <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer}
+                    className={entityDiagramStyles.drawer}>
                     <SyntaxHighlighter
                         language="json"
                         style={docco}
@@ -181,7 +180,7 @@ function EntityDiagram(props) {
             <EntityDialog
                 entityId={currentEntity?.id}
                 onClose={closeEntityDialog}
-                handleSave={(data) => prepareUpdateEntity(data)}
+                handleSave={data => prepareUpdateEntity(data)}
                 entities={entities}
                 open={openEntityDialog}
             />

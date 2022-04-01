@@ -7,9 +7,7 @@ import {compose} from "recompose";
 import TextField from "@material-ui/core/TextField";
 
 class AddUpdateForm extends Component {
-
     render() {
-
         const {t, classes, entity, attributes, prefix, handleSubmit, handleChange} = this.props;
 
         return (
@@ -24,7 +22,7 @@ class AddUpdateForm extends Component {
                             inputProps={attribute.inputProps}
                             key={attribute.name}
                             id={"input-" + attribute.name}
-                            label={t(prefix + '.' + attribute.name)}
+                            label={t(prefix + "." + attribute.name)}
                             name={attribute.name}
                             type={attribute.type}
                             value={entity[attribute.name] !== null ? entity[attribute.name] : ""}
@@ -37,12 +35,11 @@ class AddUpdateForm extends Component {
                 )}
                 <br/>
                 <Button type="submit" variant="contained" color="primary">
-                    {t('button.submit')}
+                    {t("button.submit")}
                 </Button>
             </form>
-        )
+        );
     }
-
 }
 
 export default compose(withStyles(AddUpdateFormStyles), withTranslation())(AddUpdateForm);

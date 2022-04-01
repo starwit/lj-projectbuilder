@@ -7,9 +7,7 @@ import Statement from "../../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
-
 function AppTemplateSelection(props) {
-
     const {onChange, value} = props;
 
     const [templates, setTemplates] = useState(null);
@@ -23,17 +21,16 @@ function AppTemplateSelection(props) {
         appTemplateRest.findAll().then(allAppsResponse => {
             setTemplates(allAppsResponse.data);
         }).catch(allAppsResponseError => {
-            setAppTemplatesError(allAppsResponseError.response)
-        })
-    }, [appTemplateRest, setTemplates, setAppTemplatesError])
-
+            setAppTemplatesError(allAppsResponseError.response);
+        });
+    }, [appTemplateRest, setTemplates, setAppTemplatesError]);
 
     useEffect(() => {
-        loadAppTemplates()
+        loadAppTemplates();
     }, [loadAppTemplates]);
 
     function handleSelection(template) {
-        onChange(template)
+        onChange(template);
     }
 
     if (!templates) {
@@ -64,14 +61,13 @@ function AppTemplateSelection(props) {
 
             </Grid>
         </Container>
-    )
-
+    );
 }
 
 AppTemplateSelection.defaultProps = {
     onChange: () => {
-        //This is intentional
+        // This is intentional
     }
-}
+};
 
 export default AppTemplateSelection;

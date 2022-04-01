@@ -6,7 +6,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 
 class AllTable extends Component {
-
     render() {
         const {entities, columns, selected, onRowClick} = this.props;
 
@@ -20,7 +19,7 @@ class AllTable extends Component {
                 <TableBody>
                     {entities.map(entity =>
                         <TableRow key={entity.id} onClick={() => onRowClick(entity)}
-                                  selected={selected && entity.id === selected.id}>
+                            selected={selected && entity.id === selected.id}>
                             {columns.map(column => <TableCell
                                 key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
                         </TableRow>
