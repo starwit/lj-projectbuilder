@@ -2,7 +2,6 @@ import CrudRest from "./CrudRest";
 import axios from "axios";
 
 class EntityRest extends CrudRest {
-
     constructor() {
         super(window.location.pathname + "api/entities");
     }
@@ -30,7 +29,6 @@ class EntityRest extends CrudRest {
     findEntityByAppIdAndEntityId(appId, entityId) {
         return axios.get(this.baseUrl + "/by-app/" + appId + "/" + entityId);
     }
-
 }
 
 export default EntityRest;

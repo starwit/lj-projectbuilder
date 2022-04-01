@@ -102,82 +102,82 @@ function AppTemplateDialog(props) {
             return (<Typography noWrap variant={"h6"} component={"p"}>{t("apptemplate.new")}</Typography>);
         } else {
             return (<Typography noWrap variant={"h6"}
-                                component={"p"}>{t("apptemplate.edit", {appTemplateName: internalAppTemplate.name})}</Typography>);
+                component={"p"}>{t("apptemplate.edit", {appTemplateName: internalAppTemplate.name})}</Typography>);
         }
     };
 
     return (
-            <Dialog onClose={onDialogClose} open={open} spacing={2}>
-                <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
-                    {insertTitle()}
-                    <div className={appTemplateDialogStyles.flex}/>
-                    <IconButton
-                            aria-label="close"
-                            onClick={onDialogClose}
-                    >
-                        <Close/>
-                    </IconButton>
-                </DialogTitle>
-                <Box
-                        component="form"
-                        sx={{
-                            "& .MuiTextField-root": {m: 1, width: "95%"}
-
-                        }}
-                        noValidate
-                        autoComplete="off"
+        <Dialog onClose={onDialogClose} open={open} spacing={2}>
+            <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
+                {insertTitle()}
+                <div className={appTemplateDialogStyles.flex}/>
+                <IconButton
+                    aria-label="close"
+                    onClick={onDialogClose}
                 >
-                    <ValidatedTextField
-                            fullWidth
-                            label={t("apptemplate.location") + "*"}
-                            value={internalAppTemplate.location}
-                            name="location"
-                            onChange={handleChange}
-                            isCreate={isCreateDialog}
-                            helperText={t("apptemplate.location.hint")}
-                            regex={RegexConfig.appTemplateLocation}
+                    <Close/>
+                </IconButton>
+            </DialogTitle>
+            <Box
+                component="form"
+                sx={{
+                    "& .MuiTextField-root": {m: 1, width: "95%"}
+
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <ValidatedTextField
+                    fullWidth
+                    label={t("apptemplate.location") + "*"}
+                    value={internalAppTemplate.location}
+                    name="location"
+                    onChange={handleChange}
+                    isCreate={isCreateDialog}
+                    helperText={t("apptemplate.location.hint")}
+                    regex={RegexConfig.appTemplateLocation}
+                />
+                <ValidatedTextField
+                    fullWidth
+                    label={t("appTemplate.branch")}
+                    value={internalAppTemplate.branch}
+                    name="branch"
+                    onChange={handleChange}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplate.branch.hint")}
+                    regex={RegexConfig.appTemplateBranch}
+                />
+                <TextField
+                    fullWidth
+                    label={t("appTemplate.description")}
+                    value={internalAppTemplate.description}
+                    name="description"
+                    onChange={handleChange}
+                />
+                <FormGroup className={appTemplateDialogStyles.checkbox}>
+                    <MultipleSelectChip
+                        values={userGroups}
+                        selected={internalAppTemplate.groups}
+                        handleExternalChange={handleGroupChange}
+                        label={t("select.groups")}/>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={internalAppTemplate.credentialsRequired}
+                                value={internalAppTemplate.credentialsRequired}
+                                name="credentialsRequired" onChange={handleCredentialsCheckbox}
+                            />
+                        }
+                        label={t("appTemplate.credentialsRequired")}
                     />
-                    <ValidatedTextField
-                            fullWidth
-                            label={t("appTemplate.branch")}
-                            value={internalAppTemplate.branch}
-                            name="branch"
-                            onChange={handleChange}
-                            isCreate={isCreateDialog}
-                            helperText={t("appTemplate.branch.hint")}
-                            regex={RegexConfig.appTemplateBranch}
-                    />
-                    <TextField
-                            fullWidth
-                            label={t("appTemplate.description")}
-                            value={internalAppTemplate.description}
-                            name="description"
-                            onChange={handleChange}
-                    />
-                    <FormGroup className={appTemplateDialogStyles.checkbox}>
-                        <MultipleSelectChip
-                                values={userGroups}
-                                selected={internalAppTemplate.groups}
-                                handleExternalChange={handleGroupChange}
-                                label={t("select.groups")}/>
-                        <FormControlLabel
-                                control={
-                                    <Checkbox
-                                            checked={internalAppTemplate.credentialsRequired}
-                                            value={internalAppTemplate.credentialsRequired}
-                                            name="credentialsRequired" onChange={handleCredentialsCheckbox}
-                                    />
-                                }
-                                label={t("appTemplate.credentialsRequired")}
-                        />
-                    </FormGroup>
-                    <DialogActions>
-                        <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
-                        <Button disabled={hasFormError}
-                                onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
-                    </DialogActions>
-                </Box>
-            </Dialog>
+                </FormGroup>
+                <DialogActions>
+                    <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
+                    <Button disabled={hasFormError}
+                        onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
+                </DialogActions>
+            </Box>
+        </Dialog>
     );
 }
 

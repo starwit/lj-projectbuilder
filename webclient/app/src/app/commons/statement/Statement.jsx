@@ -21,14 +21,14 @@ function Statement(props) {
     }
 
     return (
-            <div className={statementStyles.root}>
-                <div className={statementStyles.content}>
-                    {renderIcon()}
-                    <Typography component={"span"} className={statementStyles.message}
-                                gutterBottom>{message}</Typography>
-                    {renderActionButton()}
-                </div>
+        <div className={statementStyles.root}>
+            <div className={statementStyles.content}>
+                {renderIcon()}
+                <Typography component={"span"} className={statementStyles.message}
+                    gutterBottom>{message}</Typography>
+                {renderActionButton()}
             </div>
+        </div>
     );
 }
 

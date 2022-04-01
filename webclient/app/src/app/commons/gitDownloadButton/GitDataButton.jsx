@@ -63,62 +63,62 @@ function GitDataButton(props) {
     }, [downloadRequestData, hasFormError]);
 
     return (
-            <Container>
-                <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync/>}
-                        variant={buttonVariant}>{buttonName}</Button>
-                <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
-                    <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
-                        <Typography noWrap variant={"h6"} component={"p"}>
-                            {t("gitAuth.title")}
-                        </Typography>
-                        <div className={gitDataButtonStyles.flex}/>
-                        <IconButton
-                                aria-label="close"
-                                onClick={onClose}
-                        >
-                            <Close/>
-                        </IconButton>
-                    </DialogTitle>
-                    <Box
-                            component="form"
-                            sx={{
-                                "& .MuiTextField-root": {m: 1, width: "95%"}
-
-                            }}
-                            noValidate
-                            autoComplete="off"
+        <Container>
+            <Button onClick={handleLogin} startIcon={buttonIcon ? buttonIcon : <CloudSync/>}
+                variant={buttonVariant}>{buttonName}</Button>
+            <Dialog open={openAuthDialog} onClose={onClose} spacing={2}>
+                <DialogTitle className={gitDataButtonStyles.dialogHeaderBar}>
+                    <Typography noWrap variant={"h6"} component={"p"}>
+                        {t("gitAuth.title")}
+                    </Typography>
+                    <div className={gitDataButtonStyles.flex}/>
+                    <IconButton
+                        aria-label="close"
+                        onClick={onClose}
                     >
-                        <ValidatedTextField
-                                fullWidth
-                                label={t("gitAuth.username") + "*"}
-                                value={downloadRequestData.username}
-                                name="username"
-                                onChange={handleChange}
-                                isCreate={true}
-                                helperText={t("gitAuth.username.hint")}
-                                regex={RegexConfig.appTemplateAuthUser}
-                        />
-                        <ValidatedTextField
-                                type="password"
-                                fullWidth
-                                label={t("gitAuth.password") + "*"}
-                                value={downloadRequestData.password}
-                                name="password"
-                                onChange={handleChange}
-                                isCreate={true}
-                                helperText={t("gitAuth.password.hint")}
-                                autoComplete="on"
-                                regex={RegexConfig.appTemplateAuthPassword}
-                        />
-                        <DialogActions>
-                            <Button onClick={onClose}>{t("button.cancel")}</Button>
-                            <Button disabled={hasFormError} onClick={handleAppTemplateReload} autoFocus>
-                                {t("button.ok")}
-                            </Button>
-                        </DialogActions>
-                    </Box>
-                </Dialog>
-            </Container>
+                        <Close/>
+                    </IconButton>
+                </DialogTitle>
+                <Box
+                    component="form"
+                    sx={{
+                        "& .MuiTextField-root": {m: 1, width: "95%"}
+
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <ValidatedTextField
+                        fullWidth
+                        label={t("gitAuth.username") + "*"}
+                        value={downloadRequestData.username}
+                        name="username"
+                        onChange={handleChange}
+                        isCreate={true}
+                        helperText={t("gitAuth.username.hint")}
+                        regex={RegexConfig.appTemplateAuthUser}
+                    />
+                    <ValidatedTextField
+                        type="password"
+                        fullWidth
+                        label={t("gitAuth.password") + "*"}
+                        value={downloadRequestData.password}
+                        name="password"
+                        onChange={handleChange}
+                        isCreate={true}
+                        helperText={t("gitAuth.password.hint")}
+                        autoComplete="on"
+                        regex={RegexConfig.appTemplateAuthPassword}
+                    />
+                    <DialogActions>
+                        <Button onClick={onClose}>{t("button.cancel")}</Button>
+                        <Button disabled={hasFormError} onClick={handleAppTemplateReload} autoFocus>
+                            {t("button.ok")}
+                        </Button>
+                    </DialogActions>
+                </Box>
+            </Dialog>
+        </Container>
     );
 }
 

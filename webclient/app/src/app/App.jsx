@@ -9,15 +9,15 @@ function App() {
     const appStyles = AppStyles();
 
     return (
-            <React.Fragment>
-                <ErrorHandler>
-                    <div className={appStyles.background}>
-                        <CssBaseline/>
-                        <AppHeader/>
-                        <MainContentRouter/>
-                    </div>
-                </ErrorHandler>
-            </React.Fragment>
+        <React.Fragment>
+            <ErrorHandler>
+                <div className={appStyles.background}>
+                    <CssBaseline/>
+                    <AppHeader/>
+                    <MainContentRouter/>
+                </div>
+            </ErrorHandler>
+        </React.Fragment>
     );
 }
 

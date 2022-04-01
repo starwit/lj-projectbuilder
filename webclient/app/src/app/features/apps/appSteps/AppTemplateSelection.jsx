@@ -39,28 +39,28 @@ function AppTemplateSelection(props) {
 
     if (appTemplatesError) {
         return <Statement
-                message={t("appTemplates.loading.error")}
-                icon={<Clear/>}
-                actionMessage={t("button.retry")}
-                onActionClick={loadAppTemplates}
+            message={t("appTemplates.loading.error")}
+            icon={<Clear/>}
+            actionMessage={t("button.retry")}
+            onActionClick={loadAppTemplates}
         />;
     }
 
     return (
-            <Container>
-                <Grid container spacing={5}>
-                    {templates.map((template, index) => (
-                            <Grid item sm={3} key={index}>
-                                <AppTemplateSelectCard
-                                        template={template}
-                                        onSelection={handleSelection}
-                                        selected={value?.id === template.id}
-                                />
-                            </Grid>
-                    ))}
+        <Container>
+            <Grid container spacing={5}>
+                {templates.map((template, index) => (
+                    <Grid item sm={3} key={index}>
+                        <AppTemplateSelectCard
+                            template={template}
+                            onSelection={handleSelection}
+                            selected={value?.id === template.id}
+                        />
+                    </Grid>
+                ))}
 
-                </Grid>
-            </Container>
+            </Grid>
+        </Container>
     );
 }
 

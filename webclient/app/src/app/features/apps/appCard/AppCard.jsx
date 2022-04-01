@@ -16,46 +16,46 @@ function AppCard(props) {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
     return (
-            <>
-                <Card elevation={5}>
-                    <CardContent>
-                        <Grid container spacing={0}>
-                            <Grid item xs={7}>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {app.baseName}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={5} align="right">
-                                <IconButton onClick={onEditClick}>
-                                    <Edit fontSize={"small"}/>
-                                </IconButton>
-                                <IconButton onClick={() => setOpenDeleteDialog(true)}>
-                                    <Delete fontSize={"small"}/>
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                    <Divider/>
-                    <CardActionArea onClick={() => history.push("/apps/" + app.id)}>
-                        <CardContent>
-                            <Typography variant="body2" className={appCardStyles.description}>
-                                {app.packageName}
+        <>
+            <Card elevation={5}>
+                <CardContent>
+                    <Grid container spacing={0}>
+                        <Grid item xs={7}>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {app.baseName}
                             </Typography>
-                            <CardActions className={appCardStyles.cardActions}>
-                                <MoreHoriz className={appCardStyles.cardActions} color="primary"/>
-                            </CardActions>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <ConfirmationDialog
-                        title={t("app.delete.title")}
-                        message={t("app.delete.message")}
-                        open={openDeleteDialog}
-                        onClose={() => setOpenDeleteDialog(false)}
-                        onSubmit={() => onDeleteClick(app.id)}
-                        confirmTitle={t("button.delete")}
-                />
-            </>
+                        </Grid>
+                        <Grid item xs={5} align="right">
+                            <IconButton onClick={onEditClick}>
+                                <Edit fontSize={"small"}/>
+                            </IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                                <Delete fontSize={"small"}/>
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+                <Divider/>
+                <CardActionArea onClick={() => history.push("/apps/" + app.id)}>
+                    <CardContent>
+                        <Typography variant="body2" className={appCardStyles.description}>
+                            {app.packageName}
+                        </Typography>
+                        <CardActions className={appCardStyles.cardActions}>
+                            <MoreHoriz className={appCardStyles.cardActions} color="primary"/>
+                        </CardActions>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+            <ConfirmationDialog
+                title={t("app.delete.title")}
+                message={t("app.delete.message")}
+                open={openDeleteDialog}
+                onClose={() => setOpenDeleteDialog(false)}
+                onSubmit={() => onDeleteClick(app.id)}
+                confirmTitle={t("button.delete")}
+            />
+        </>
     );
 }
 

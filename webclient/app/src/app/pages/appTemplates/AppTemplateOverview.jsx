@@ -57,52 +57,52 @@ function AppTemplateOverview() {
     function renderContent() {
         if (!appTemplates) {
             return (
-                    <LoadingSpinner message={t("apptemplates.loading")}/>
+                <LoadingSpinner message={t("apptemplates.loading")}/>
             );
         }
 
         if (appTemplates.length === 0) {
             return (
-                    <Statement
-                            icon={<Add/>}
-                            message={t("apptemplates.empty")}
-                    />
+                <Statement
+                    icon={<Add/>}
+                    message={t("apptemplates.empty")}
+                />
             );
         }
 
         return (
-                <Grid container spacing={2}>
-                    {appTemplates.map(appTemplate => (
-                            <Grid item key={appTemplate.id} sm={12} xs={12}>
-                                <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload}
-                                                 userGroups={userGroups}/>
-                            </Grid>
-                    ))}
-                </Grid>
+            <Grid container spacing={2}>
+                {appTemplates.map(appTemplate => (
+                    <Grid item key={appTemplate.id} sm={12} xs={12}>
+                        <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload}
+                            userGroups={userGroups}/>
+                    </Grid>
+                ))}
+            </Grid>
 
         );
     }
 
     return (
-            <Container>
-                <Typography variant={"h2"} gutterBottom>
-                    {t("apptemplates.title")}
-                </Typography>
-                {renderContent()}
-                <AppTemplateDialog
-                        appTemplate={selectedAppTemplate}
-                        open={openDialog}
-                        onClose={handleDialogClose}
-                        onRefresh={reload}
-                        isCreateDialog={true}
-                        userGroups={userGroups}
-                />
-                <div className={appTemplateOverviewStyles.addFab}>
-                    <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
-                        <Add/>
-                    </Fab>
-                </div>
-            </Container>
+        <Container>
+            <Typography variant={"h2"} gutterBottom>
+                {t("apptemplates.title")}
+            </Typography>
+            {renderContent()}
+            <AppTemplateDialog
+                appTemplate={selectedAppTemplate}
+                open={openDialog}
+                onClose={handleDialogClose}
+                onRefresh={reload}
+                isCreateDialog={true}
+                userGroups={userGroups}
+            />
+            <div className={appTemplateOverviewStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
+                    <Add/>
+                </Fab>
+            </div>
+        </Container>
     );
 }
 

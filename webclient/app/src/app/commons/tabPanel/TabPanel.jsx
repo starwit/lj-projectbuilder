@@ -7,19 +7,19 @@ function TabPanel(props) {
     const tabPanel = TabPanelStyles();
 
     return (
-            <div
-                    role="tabpanel"
-                    hidden={value !== index}
-                    id={`simple-tabpanel-${index}`}
-                    aria-labelledby={`simple-tab-${index}`}
-                    {...other}
-            >
-                {value === index && (
-                        <Box className={tabPanel.box}>
-                            {children}
-                        </Box>
-                )}
-            </div>
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box className={tabPanel.box}>
+                    {children}
+                </Box>
+            )}
+        </div>
     );
 }
 

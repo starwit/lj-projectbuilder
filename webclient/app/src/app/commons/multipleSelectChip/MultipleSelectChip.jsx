@@ -28,30 +28,30 @@ function MultipleSelectChip(props) {
     }, [selected]);
 
     return (
-            <FormControl fullWidth>
-                <InputLabel id="multiple-chip-label">{label}</InputLabel>
-                <Select
-                        labelId="multiple-chip-label"
-                        id="multiple-chip"
-                        multiple
-                        value={itemValue}
-                        onChange={handleChange}
-                        input={<OutlinedInput id="select-multiple-chip" label={label}/>}
-                        renderValue={() => (
-                                <Box className={multipleSelectChipStyles.selectBox}>
-                                    {selected.map(value => (
-                                            <Chip key={value} label={value}/>
-                                    ))}
-                                </Box>
-                        )}
-                >
-                    {values.map(item => (
-                            <MenuItem key={item} value={item}>
-                                {item}
-                            </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+        <FormControl fullWidth>
+            <InputLabel id="multiple-chip-label">{label}</InputLabel>
+            <Select
+                labelId="multiple-chip-label"
+                id="multiple-chip"
+                multiple
+                value={itemValue}
+                onChange={handleChange}
+                input={<OutlinedInput id="select-multiple-chip" label={label}/>}
+                renderValue={() => (
+                    <Box className={multipleSelectChipStyles.selectBox}>
+                        {selected.map(value => (
+                            <Chip key={value} label={value}/>
+                        ))}
+                    </Box>
+                )}
+            >
+                {values.map(item => (
+                    <MenuItem key={item} value={item}>
+                        {item}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 }
 

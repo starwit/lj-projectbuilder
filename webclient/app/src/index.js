@@ -9,15 +9,15 @@ import {SnackbarProvider} from "notistack";
 import StarwitTheme from "./app/commons/starwitTheme/StarwitTheme";
 
 ReactDOM.render((
-        <Router>
-            <StarwitTheme>
-                <SnackbarProvider maxSnack={5}>
-                    <App/>
-                </SnackbarProvider>
-            </StarwitTheme>
-        </Router>
-    ),
-    document.getElementById("root")
+    <Router>
+        <StarwitTheme>
+            <SnackbarProvider maxSnack={5}>
+                <App/>
+            </SnackbarProvider>
+        </StarwitTheme>
+    </Router>
+),
+document.getElementById("root")
 )
 ;
 

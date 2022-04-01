@@ -11,14 +11,14 @@ function AddCard(props) {
     const {t} = useTranslation();
 
     return (
-            <Card elevation={5}>
-                <CardActionArea onClick={onClick}>
-                    <div className={addCardStyles.actionArea}>
-                        <Add className={addCardStyles.addIcon}/>
-                        <Typography variant={"body1"}>{t("button.create")}</Typography>
-                    </div>
-                </CardActionArea>
-            </Card>
+        <Card elevation={5}>
+            <CardActionArea onClick={onClick}>
+                <div className={addCardStyles.actionArea}>
+                    <Add className={addCardStyles.addIcon}/>
+                    <Typography variant={"body1"}>{t("button.create")}</Typography>
+                </div>
+            </CardActionArea>
+        </Card>
     );
 }
 

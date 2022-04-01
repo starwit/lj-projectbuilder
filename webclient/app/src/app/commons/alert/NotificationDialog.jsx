@@ -11,20 +11,20 @@ function NotificationDialog(props) {
     const {t} = useTranslation();
 
     return (
-            <Dialog
-                    open={open}
-                    onClose={onClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-            >
-                <Alert severity={severity ? severity : "success"}>
-                    <AlertTitle>{content ? content.title : title}</AlertTitle>
-                    {content ? content.message : message}
-                </Alert>
-                <DialogActions>
-                    <Button onClick={onClose} autoFocus>{t("button.ok")}</Button>
-                </DialogActions>
-            </Dialog>
+        <Dialog
+            open={open}
+            onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <Alert severity={severity ? severity : "success"}>
+                <AlertTitle>{content ? content.title : title}</AlertTitle>
+                {content ? content.message : message}
+            </Alert>
+            <DialogActions>
+                <Button onClick={onClose} autoFocus>{t("button.ok")}</Button>
+            </DialogActions>
+        </Dialog>
     );
 }
 
