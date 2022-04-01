@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.starwit</groupId>
@@ -29,13 +28,13 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> 
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -94,7 +93,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-version}</version>
+                <version>${spring-boot-version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -138,14 +137,14 @@
                         <configuration>
                             <target>
                                 <concat destfile="${project.build.outputDirectory}/static/info.txt">
-                                    <fileset file="${project.build.outputDirectory}/META-INF/build-info.properties"/>
-                                    <fileset file="${project.build.outputDirectory}/git.properties"/>
+                                    <fileset file="${project.build.outputDirectory}/META-INF/build-info.properties" />
+                                    <fileset file="${project.build.outputDirectory}/git.properties" />
                                     <filterchain>
                                         <filterreader classname="org.apache.tools.ant.filters.LineContains">
-                                            <param type="negate" value="true"/>
-                                            <param type="contains" value="#"/>
+                                            <param type="negate" value="true" />
+                                            <param type="contains" value="#" />
                                         </filterreader>
-                                        <replaceregex pattern="=" replace=":    "/>
+                                        <replaceregex pattern="=" replace=":    " />
                                     </filterchain>
                                 </concat>
                             </target>
