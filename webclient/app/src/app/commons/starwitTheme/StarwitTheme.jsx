@@ -7,9 +7,9 @@ function StarwitTheme(props) {
     const theme = createTheme(new MainTheme());
 
     return (
-            <ThemeProvider theme={theme}>
-                {props.children}
-            </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            {props.children}
+        </ThemeProvider>
     );
 }
 

@@ -34,10 +34,10 @@ function AppOverview() {
 
     function deleteById(id) {
         return applicationRest.delete(id)
-                .then(response => {
-                    setApps(null);
-                    loadApps();
-                });
+            .then(response => {
+                setApps(null);
+                loadApps();
+            });
     }
 
     function renderApps() {
@@ -47,50 +47,50 @@ function AppOverview() {
 
         if (appsError) {
             return <Statement
-                    message={t("apps.loadingError")}
-                    icon={<Clear/>}
-                    actionMessage={t("button.retry")}
-                    onActionClick={loadApps}
+                message={t("apps.loadingError")}
+                icon={<Clear/>}
+                actionMessage={t("button.retry")}
+                onActionClick={loadApps}
             />;
         }
 
         if (apps.length === 0) {
             return (
-                    <Statement
-                            icon={<Add/>}
-                            message={t("apps.empty")}
-                    />
+                <Statement
+                    icon={<Add/>}
+                    message={t("apps.empty")}
+                />
             );
         }
 
         return (
-                <Grid container spacing={5}>
-                    {apps.map(app => (
-                            <Grid item sm={6} xs={12} key={app.id}>
-                                <AppCard
-                                        onEditClick={() => {
-                                            history.push("/apps/" + app.id + "/edit");
-                                        }}
-                                        onDeleteClick={deleteById}
-                                        app={app}/>
-                            </Grid>
-                    ))}
-                </Grid>
+            <Grid container spacing={5}>
+                {apps.map(app => (
+                    <Grid item sm={6} xs={12} key={app.id}>
+                        <AppCard
+                            onEditClick={() => {
+                                history.push("/apps/" + app.id + "/edit");
+                            }}
+                            onDeleteClick={deleteById}
+                            app={app}/>
+                    </Grid>
+                ))}
+            </Grid>
         );
     }
 
     return (
-            <Container>
-                <Typography variant={"h2"} gutterBottom>
-                    {t("apps.title")}
-                </Typography>
-                {renderApps()}
-                <div className={appOverviewStyles.addFab}>
-                    <Fab color="primary" aria-label="add" onClick={() => history.push("/apps/create/edit")}>
-                        <Add/>
-                    </Fab>
-                </div>
-            </Container>
+        <Container>
+            <Typography variant={"h2"} gutterBottom>
+                {t("apps.title")}
+            </Typography>
+            {renderApps()}
+            <div className={appOverviewStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={() => history.push("/apps/create/edit")}>
+                    <Add/>
+                </Fab>
+            </div>
+        </Container>
     );
 }
 

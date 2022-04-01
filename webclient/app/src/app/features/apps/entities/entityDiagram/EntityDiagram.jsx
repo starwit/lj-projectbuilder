@@ -44,7 +44,7 @@ function EntityDiagram(props) {
         }
 
         return entityRest.delete(entityId)
-                .then(reloadEntities);
+            .then(reloadEntities);
     }
 
     function prepareUpdateEntity(updatedEntityInput) {
@@ -91,19 +91,19 @@ function EntityDiagram(props) {
             }
 
             return (
-                    <Draggable
-                            axis={"both"}
-                            onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
-                            key={entity.id + index + ""}
-                            defaultClassName={entityDiagramStyles.draggable}
-                            defaultPosition={entityCardPosition}
-                            disabled={!editable}
-                    >
-                        <div>
-                            <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
-                                        editable={editable}/>
-                        </div>
-                    </Draggable>
+                <Draggable
+                    axis={"both"}
+                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
+                    key={entity.id + index + ""}
+                    defaultClassName={entityDiagramStyles.draggable}
+                    defaultPosition={entityCardPosition}
+                    disabled={!editable}
+                >
+                    <div>
+                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
+                            editable={editable}/>
+                    </div>
+                </Draggable>
             );
         });
     }
@@ -114,11 +114,11 @@ function EntityDiagram(props) {
         }
 
         return (
-                <div className={entityDiagramStyles.addFab}>
-                    <Fab color="primary" aria-label="add" onClick={addEntity}>
-                        <Add/>
-                    </Fab>
-                </div>
+            <div className={entityDiagramStyles.addFab}>
+                <Fab color="primary" aria-label="add" onClick={addEntity}>
+                    <Add/>
+                </Fab>
+            </div>
         );
     }
 
@@ -135,44 +135,44 @@ function EntityDiagram(props) {
     }
 
     return (
-            <>
-                {renderAddEntityButton()}
-                <div className={entityDiagramStyles.codeButtonWrapper}>
-                    <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
-                        {t("entity.code")}
-                    </Button>
-                </div>
-                <React.Fragment key={"left"}>
-                    <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer}
-                            className={entityDiagramStyles.drawer}>
-                        <SyntaxHighlighter
-                                language="json"
-                                style={docco}
-                                showLineNumbers
-                                customStyle={{
-                                    lineHeight: "1.5",
-                                    fontSize: ".75em"
-                                }}
-                                codeTagProps={{
-                                    className: entityDiagramStyles.syntaxHighlighterCodeTag
-                                }}
-                        >
-                            {JSON.stringify(entities, null, 4)}
-                        </SyntaxHighlighter>
-                    </Drawer>
-                </React.Fragment>
-                <div className={generateWrapper()}>
-                    {renderEntities()}
-                    {renderRelations(coordinates, theme)}
-                </div>
-                <EntityDialog
-                        entityId={currentEntity?.id}
-                        onClose={closeEntityDialog}
-                        handleSave={data => prepareUpdateEntity(data)}
-                        entities={entities}
-                        open={openEntityDialog}
-                />
-            </>
+        <>
+            {renderAddEntityButton()}
+            <div className={entityDiagramStyles.codeButtonWrapper}>
+                <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
+                    {t("entity.code")}
+                </Button>
+            </div>
+            <React.Fragment key={"left"}>
+                <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer}
+                    className={entityDiagramStyles.drawer}>
+                    <SyntaxHighlighter
+                        language="json"
+                        style={docco}
+                        showLineNumbers
+                        customStyle={{
+                            lineHeight: "1.5",
+                            fontSize: ".75em"
+                        }}
+                        codeTagProps={{
+                            className: entityDiagramStyles.syntaxHighlighterCodeTag
+                        }}
+                    >
+                        {JSON.stringify(entities, null, 4)}
+                    </SyntaxHighlighter>
+                </Drawer>
+            </React.Fragment>
+            <div className={generateWrapper()}>
+                {renderEntities()}
+                {renderRelations(coordinates, theme)}
+            </div>
+            <EntityDialog
+                entityId={currentEntity?.id}
+                onClose={closeEntityDialog}
+                handleSave={data => prepareUpdateEntity(data)}
+                entities={entities}
+                open={openEntityDialog}
+            />
+        </>
     );
 }
 

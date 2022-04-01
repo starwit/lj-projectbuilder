@@ -10,22 +10,22 @@ class AllTable extends Component {
         const {entities, columns, selected, onRowClick} = this.props;
 
         return (
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {columns.map(column => <TableCell key={column.title}>{column.title}</TableCell>)}
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        {columns.map(column => <TableCell key={column.title}>{column.title}</TableCell>)}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {entities.map(entity =>
+                        <TableRow key={entity.id} onClick={() => onRowClick(entity)}
+                            selected={selected && entity.id === selected.id}>
+                            {columns.map(column => <TableCell
+                                key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {entities.map(entity =>
-                                <TableRow key={entity.id} onClick={() => onRowClick(entity)}
-                                          selected={selected && entity.id === selected.id}>
-                                    {columns.map(column => <TableCell
-                                            key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
-                                </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                    )}
+                </TableBody>
+            </Table>
         );
     }
 }

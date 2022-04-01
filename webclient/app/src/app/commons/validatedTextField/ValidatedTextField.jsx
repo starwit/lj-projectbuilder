@@ -12,12 +12,12 @@ function ValidatedTextField(props) {
     }, [value, regex]);
 
     return (
-            <TextField
-                    error={(!isCreate || changed) && error}
-                    value={value}
-                    onBlur={() => setChanged(true)}
-                    {...newProps}
-            />
+        <TextField
+            error={(!isCreate || changed) && error}
+            value={value}
+            onBlur={() => setChanged(true)}
+            {...newProps}
+        />
     );
 }
 

@@ -67,7 +67,7 @@ function EntityDialog(props) {
 
         entity.relationships?.forEach(relationship => {
             if (
-                    !RegexConfig.relationship.test(relationship.relationshipName) ||
+                !RegexConfig.relationship.test(relationship.relationshipName) ||
                     !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
                     !RegexConfig.entityTitle.test(relationship.otherEntityName)
             ) {
@@ -138,13 +138,13 @@ function EntityDialog(props) {
         });
 
         handleSave(entityModified)
-                .then(() => {
-                    onClose();
-                    setIsSaving(false);
-                })
-                .catch(() => {
-                    setIsSaving(false);
-                });
+            .then(() => {
+                onClose();
+                setIsSaving(false);
+            })
+            .catch(() => {
+                setIsSaving(false);
+            });
     }
 
     function addField() {
@@ -222,21 +222,21 @@ function EntityDialog(props) {
     function renderRelations() {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
-                    <div className={entityEditorStyles.statementWrapper}>
-                        <Statement message={t("entity.relations.empty")}/>
-                    </div>
+                <div className={entityEditorStyles.statementWrapper}>
+                    <Statement message={t("entity.relations.empty")}/>
+                </div>
             );
         }
         return entity.relationships.map((relationship, index) => {
             return (
-                    <RelationshipAccordion
-                            key={index}
-                            relationship={relationship}
-                            targetEntities={getTargetEntities()}
-                            editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
-                            currentEntity={entity}
-                            handleDelete={() => deleteRelationship(index)}
-                    />
+                <RelationshipAccordion
+                    key={index}
+                    relationship={relationship}
+                    targetEntities={getTargetEntities()}
+                    editRelationshipProperty={(key, value) => editRelationshipProperty(key, value, index)}
+                    currentEntity={entity}
+                    handleDelete={() => deleteRelationship(index)}
+                />
             );
         });
     }
@@ -244,9 +244,9 @@ function EntityDialog(props) {
     function renderFields() {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
-                    <div className={entityEditorStyles.statementWrapper}>
-                        <Statement message={t("entity.fields.empty")}/>
-                    </div>
+                <div className={entityEditorStyles.statementWrapper}>
+                    <Statement message={t("entity.fields.empty")}/>
+                </div>
             );
         }
 
@@ -263,21 +263,21 @@ function EntityDialog(props) {
             } =
                     entity.fields[index];
             return (
-                    <FieldAccordion
-                            editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
-                            fieldTypes={FieldTypes}
-                            fieldType={fieldType}
-                            pattern={fieldValidateRulesPattern}
-                            min={fieldValidateRulesMin}
-                            max={fieldValidateRulesMax}
-                            minLength={fieldValidateRulesMinlength}
-                            maxLength={fieldValidateRulesMaxlength}
-                            mandatory={mandatory}
-                            name={fieldName}
-                            isCreate={!fieldName}
-                            key={index}
-                            handleDelete={() => deleteField(index)}
-                    />
+                <FieldAccordion
+                    editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
+                    fieldTypes={FieldTypes}
+                    fieldType={fieldType}
+                    pattern={fieldValidateRulesPattern}
+                    min={fieldValidateRulesMin}
+                    max={fieldValidateRulesMax}
+                    minLength={fieldValidateRulesMinlength}
+                    maxLength={fieldValidateRulesMaxlength}
+                    mandatory={mandatory}
+                    name={fieldName}
+                    isCreate={!fieldName}
+                    key={index}
+                    handleDelete={() => deleteField(index)}
+                />
             );
         });
     }
@@ -287,56 +287,56 @@ function EntityDialog(props) {
     }
 
     return (
-            <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
-                <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
-                    <Typography noWrap variant={"h6"} component={"p"}>
-                        {t("entity.edit", {entityName: entity.name})}
-                    </Typography>
-                    <div className={entityEditorStyles.flex}/>
-                    <IconButton aria-label="close" onClick={onClose}>
-                        <Close/>
-                    </IconButton>
-                </DialogTitle>
-                <Container>
-                    <ValidatedTextField
-                            isCreate={entity.isNewEntity}
-                            fullWidth
-                            label={t("entity.name") + "*"}
-                            value={entity.name}
-                            onChange={handleEntityTitleText}
-                            helperText={t("entity.name.hint")}
-                            regex={RegexConfig.entityTitle}
-                    />
-                    <Box className={entityEditorStyles.tabBox}>
-                        <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
-                              className={entityEditorStyles.tabHeader}>
-                            <Tab label={t("entity.fields")} {...a11yProps(0)} />
-                            <Tab label={t("entity.relations")} {...a11yProps(1)} />
-                        </Tabs>
-                        <TabPanel value={value} index={0}>
-                            <Stack spacing={1}>
-                                {renderFields()}
-                                <Button fullWidth startIcon={<Add/>} onClick={addField}>
-                                    {t("button.create")}
-                                </Button>
-                            </Stack>
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            <Stack spacing={1}>
-                                {renderRelations()}
-                                <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>
-                                    {t("button.create")}
-                                </Button>
-                            </Stack>
-                        </TabPanel>
-                    </Box>
-                    <DialogActions>
-                        <LoadingButton onClick={prepareSave} disabled={hasFormError} loading={isSaving}>
-                            {t("button.save")}
-                        </LoadingButton>
-                    </DialogActions>
-                </Container>
-            </Dialog>
+        <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
+            <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
+                <Typography noWrap variant={"h6"} component={"p"}>
+                    {t("entity.edit", {entityName: entity.name})}
+                </Typography>
+                <div className={entityEditorStyles.flex}/>
+                <IconButton aria-label="close" onClick={onClose}>
+                    <Close/>
+                </IconButton>
+            </DialogTitle>
+            <Container>
+                <ValidatedTextField
+                    isCreate={entity.isNewEntity}
+                    fullWidth
+                    label={t("entity.name") + "*"}
+                    value={entity.name}
+                    onChange={handleEntityTitleText}
+                    helperText={t("entity.name.hint")}
+                    regex={RegexConfig.entityTitle}
+                />
+                <Box className={entityEditorStyles.tabBox}>
+                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
+                        className={entityEditorStyles.tabHeader}>
+                        <Tab label={t("entity.fields")} {...a11yProps(0)} />
+                        <Tab label={t("entity.relations")} {...a11yProps(1)} />
+                    </Tabs>
+                    <TabPanel value={value} index={0}>
+                        <Stack spacing={1}>
+                            {renderFields()}
+                            <Button fullWidth startIcon={<Add/>} onClick={addField}>
+                                {t("button.create")}
+                            </Button>
+                        </Stack>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <Stack spacing={1}>
+                            {renderRelations()}
+                            <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>
+                                {t("button.create")}
+                            </Button>
+                        </Stack>
+                    </TabPanel>
+                </Box>
+                <DialogActions>
+                    <LoadingButton onClick={prepareSave} disabled={hasFormError} loading={isSaving}>
+                        {t("button.save")}
+                    </LoadingButton>
+                </DialogActions>
+            </Container>
+        </Dialog>
     );
 }
 

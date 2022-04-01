@@ -16,37 +16,37 @@ export default function ConfirmationDialog(props) {
     function confirmAction() {
         setIsProcessing(true);
         onSubmit()
-                .then(() => {
-                    onClose();
-                    setIsProcessing(false);
-                })
-                .catch(() => {
-                    setIsProcessing(false);
-                });
+            .then(() => {
+                onClose();
+                setIsProcessing(false);
+            })
+            .catch(() => {
+                setIsProcessing(false);
+            });
     }
 
     return (
-            <Dialog
-                    open={open}
-                    onClose={onClose}
-                    aria-labelledby="confirm-dialog-title"
-                    aria-describedby="confirm-dialog-description"
-            >
-                <DialogTitle id="confirm-dialog-title">
-                    {title}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="confirm-dialog-description">
-                        {message}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose}>{t("button.cancel")}</Button>
-                    <LoadingButton loading={isProcessing} onClick={confirmAction} autoFocus>
-                        {confirmTitle ? confirmTitle : t("button.yes")}
-                    </LoadingButton>
-                </DialogActions>
-            </Dialog>
+        <Dialog
+            open={open}
+            onClose={onClose}
+            aria-labelledby="confirm-dialog-title"
+            aria-describedby="confirm-dialog-description"
+        >
+            <DialogTitle id="confirm-dialog-title">
+                {title}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="confirm-dialog-description">
+                    {message}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose}>{t("button.cancel")}</Button>
+                <LoadingButton loading={isProcessing} onClick={confirmAction} autoFocus>
+                    {confirmTitle ? confirmTitle : t("button.yes")}
+                </LoadingButton>
+            </DialogActions>
+        </Dialog>
     );
 }
 

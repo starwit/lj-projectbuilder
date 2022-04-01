@@ -19,14 +19,14 @@ function LoadingSpinner(props) {
     });
 
     return (
-            <div className={loadingSpinnerStyles.root}>
-                <div className={loadingSpinnerStyles.contentWrapper}>
-                    <CircularProgress color={"secondary"} className={loadingSpinnerStyles.loadingSpinner}/>
-                    <Fade in={showMessage}>
-                        <Typography variant={"body1"} className={loadingSpinnerStyles.message}>{message}</Typography>
-                    </Fade>
-                </div>
+        <div className={loadingSpinnerStyles.root}>
+            <div className={loadingSpinnerStyles.contentWrapper}>
+                <CircularProgress color={"secondary"} className={loadingSpinnerStyles.loadingSpinner}/>
+                <Fade in={showMessage}>
+                    <Typography variant={"body1"} className={loadingSpinnerStyles.message}>{message}</Typography>
+                </Fade>
             </div>
+        </div>
     );
 }
 

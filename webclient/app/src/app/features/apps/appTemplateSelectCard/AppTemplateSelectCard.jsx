@@ -9,25 +9,25 @@ function AppTemplateSelectCard(props) {
     function renderSelectedAlert() {
         if (selected) {
             return (
-                    <Alert severity={"success"}>{t("app.template.selected")}</Alert>
+                <Alert severity={"success"}>{t("app.template.selected")}</Alert>
             );
         }
     }
 
     return (
-            <Card elevation={5}>
-                <CardActionArea onClick={() => onSelection(template)} disabled={selected}>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {template.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {template.description}
-                        </Typography>
-                    </CardContent>
-                    {renderSelectedAlert()}
-                </CardActionArea>
-            </Card>
+        <Card elevation={5}>
+            <CardActionArea onClick={() => onSelection(template)} disabled={selected}>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {template.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {template.description}
+                    </Typography>
+                </CardContent>
+                {renderSelectedAlert()}
+            </CardActionArea>
+        </Card>
     );
 }
 

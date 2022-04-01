@@ -34,28 +34,28 @@ function AppOverview(props) {
 
     if (!app && !appError) {
         return <LoadingSpinner
-                message={t("app.loading")}
+            message={t("app.loading")}
         />;
     }
 
     if (appError) {
         return <Statement
-                message={t("app.LoadingError")}
-                icon={<Clear/>}
-                actionMessage={t("button.retry")}
-                onActionClick={() => loadApp(appId)}
+            message={t("app.LoadingError")}
+            icon={<Clear/>}
+            actionMessage={t("button.retry")}
+            onActionClick={() => loadApp(appId)}
         />;
     }
 
     return (<>
         <AppConclusion
-                appId={+appId}
-                appName={app.baseName}
-                entities={app.entities}
-                coordinates={coordinates}
-                packageName={app.packageName}
-                templateName={app.template.name}
-                credentialsRequired={app.template.credentialsRequired}
+            appId={+appId}
+            appName={app.baseName}
+            entities={app.entities}
+            coordinates={coordinates}
+            packageName={app.packageName}
+            templateName={app.template.name}
+            credentialsRequired={app.template.credentialsRequired}
         />
     </>);
 }

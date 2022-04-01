@@ -102,96 +102,96 @@ function AppTemplateCard(props) {
     }, []);
 
     return (
-            <Container disableGutters={true}>
-                <Card color={"error"}>
-                    <CardContent className={appTemplateCardStyles.CardContent}>
-                        <Grid container spacing={0}>
-                            <Grid item xs={7}>
-                                <Typography gutterBottom variant="h5" component="span">
-                                    {appTemplate.name}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={5} align="right">
-                                <IconButton onClick={handleDialogOpen}>
-                                    <Edit fontSize={"small"}/>
-                                </IconButton>
-                                <IconButton onClick={() => setOpenDeleteDialog(true)}>
-                                    <Delete fontSize={"small"}/>
-                                </IconButton>
-                            </Grid>
+        <Container disableGutters={true}>
+            <Card color={"error"}>
+                <CardContent className={appTemplateCardStyles.CardContent}>
+                    <Grid container spacing={0}>
+                        <Grid item xs={7}>
+                            <Typography gutterBottom variant="h5" component="span">
+                                {appTemplate.name}
+                            </Typography>
                         </Grid>
-                    </CardContent>
-                    <Divider/>
-                    <CardContent>
-                        <Grid container spacing={0}>
-                            <Grid item sm={7}>
-                                <Typography variant="body2" color="text.secondary">
-                                    <br/>
-                                    {appTemplate.description}
-                                </Typography>
-                                <List>
-                                    <ListItem disablePadding>
-                                        <ListItemIcon>
-                                            <GitHub/>
-                                        </ListItemIcon>
-                                        <ListItemText primary={appTemplate.location}
-                                                      secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
-                                    </ListItem>
-                                </List>
-                            </Grid>
-                            <Grid item xs={5} align="right">
-                                <br/>
-                                <br/>
-                                <GitDataButton
-                                        credentialsRequired={appTemplate.credentialsRequired}
-                                        handleAfterSuccess={handleAfterGitSuccess}
-                                        handleGit={handleGit}
-                                        buttonName={t("button.loadtemplate")}
-                                />
-                            </Grid>
+                        <Grid item xs={5} align="right">
+                            <IconButton onClick={handleDialogOpen}>
+                                <Edit fontSize={"small"}/>
+                            </IconButton>
+                            <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                                <Delete fontSize={"small"}/>
+                            </IconButton>
                         </Grid>
-                    </CardContent>
+                    </Grid>
+                </CardContent>
+                <Divider/>
+                <CardContent>
+                    <Grid container spacing={0}>
+                        <Grid item sm={7}>
+                            <Typography variant="body2" color="text.secondary">
+                                <br/>
+                                {appTemplate.description}
+                            </Typography>
+                            <List>
+                                <ListItem disablePadding>
+                                    <ListItemIcon>
+                                        <GitHub/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={appTemplate.location}
+                                        secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
+                                </ListItem>
+                            </List>
+                        </Grid>
+                        <Grid item xs={5} align="right">
+                            <br/>
+                            <br/>
+                            <GitDataButton
+                                credentialsRequired={appTemplate.credentialsRequired}
+                                handleAfterSuccess={handleAfterGitSuccess}
+                                handleGit={handleGit}
+                                buttonName={t("button.loadtemplate")}
+                            />
+                        </Grid>
+                    </Grid>
+                </CardContent>
 
-                    <Divider>
-                        <Chip label={t("appTemplate.config")}/>
-                        <ExpandMore expand={expanded} onClick={() => handleExpandClick(appTemplate.id)}
-                                    aria-expanded={expanded} aria-label="show more">
-                            <ExpandMoreIcon/>
-                        </ExpandMore>
-                    </Divider>
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <SyntaxHighlighter
-                                    language="json"
-                                    style={docco}
-                                    showLineNumbers
-                                    customStyle={{
-                                        lineHeight: "1.5",
-                                        fontSize: ".75em"
-                                    }}
-                            >
-                                {JSON.stringify(extendedAppTemplate, null, "\t")}
-                            </SyntaxHighlighter>
-                        </CardContent>
-                    </Collapse>
-                </Card>
-                <AppTemplateDialog
-                        appTemplate={selectedAppTemplate}
-                        open={openDialog}
-                        onClose={handleDialogClose}
-                        onRefresh={() => handleRefresh(appTemplate.id)}
-                        isCreateDialog={false}
-                        userGroups={userGroups}
-                />
-                <ConfirmationDialog
-                        title={t("appTemplate.delete.title")}
-                        message={t("appTemplate.delete.message")}
-                        open={openDeleteDialog}
-                        onClose={closeDeleteDialog}
-                        onSubmit={() => handleDelete(appTemplate.id)}
-                        confirmTitle={t("button.delete")}
-                />
-            </Container>
+                <Divider>
+                    <Chip label={t("appTemplate.config")}/>
+                    <ExpandMore expand={expanded} onClick={() => handleExpandClick(appTemplate.id)}
+                        aria-expanded={expanded} aria-label="show more">
+                        <ExpandMoreIcon/>
+                    </ExpandMore>
+                </Divider>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <SyntaxHighlighter
+                            language="json"
+                            style={docco}
+                            showLineNumbers
+                            customStyle={{
+                                lineHeight: "1.5",
+                                fontSize: ".75em"
+                            }}
+                        >
+                            {JSON.stringify(extendedAppTemplate, null, "\t")}
+                        </SyntaxHighlighter>
+                    </CardContent>
+                </Collapse>
+            </Card>
+            <AppTemplateDialog
+                appTemplate={selectedAppTemplate}
+                open={openDialog}
+                onClose={handleDialogClose}
+                onRefresh={() => handleRefresh(appTemplate.id)}
+                isCreateDialog={false}
+                userGroups={userGroups}
+            />
+            <ConfirmationDialog
+                title={t("appTemplate.delete.title")}
+                message={t("appTemplate.delete.message")}
+                open={openDeleteDialog}
+                onClose={closeDeleteDialog}
+                onSubmit={() => handleDelete(appTemplate.id)}
+                confirmTitle={t("button.delete")}
+            />
+        </Container>
     );
 }
 

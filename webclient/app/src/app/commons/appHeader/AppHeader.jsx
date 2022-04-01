@@ -13,21 +13,21 @@ function AppHeader() {
     const {t} = useTranslation();
 
     return (
-            <>
-                <AppBar position="fixed" color="inherit" className={appHeaderStyles.appBar}>
-                    <Toolbar className={appHeaderStyles.toolbar}>
-                        <img className={appHeaderStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
-                        <div className={appHeaderStyles.spacer}/>
-                        <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                                onClick={() => history.push("/")}>{t("apps.title")}</Button>
-                        <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                                onClick={() => history.push("/apptemplates/all")}>{t("apptemplates.title")}</Button>
-                        <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
-                                    onClick={() => history.push("/logout")}><Logout/></IconButton>
-                    </Toolbar>
-                </AppBar>
-                <div className={appHeaderStyles.contentSpacer}/>
-            </>
+        <>
+            <AppBar position="fixed" color="inherit" className={appHeaderStyles.appBar}>
+                <Toolbar className={appHeaderStyles.toolbar}>
+                    <img className={appHeaderStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
+                    <div className={appHeaderStyles.spacer}/>
+                    <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
+                        onClick={() => history.push("/")}>{t("apps.title")}</Button>
+                    <Button color="secondary" disableRipple className={appHeaderStyles.linkButton}
+                        onClick={() => history.push("/apptemplates/all")}>{t("apptemplates.title")}</Button>
+                    <IconButton color="secondary" disableRipple className={appHeaderStyles.linkButton}
+                        onClick={() => history.push("/logout")}><Logout/></IconButton>
+                </Toolbar>
+            </AppBar>
+            <div className={appHeaderStyles.contentSpacer}/>
+        </>
     );
 }
 
