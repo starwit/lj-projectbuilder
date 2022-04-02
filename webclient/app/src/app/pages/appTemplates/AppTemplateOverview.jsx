@@ -19,25 +19,25 @@ function AppTemplateOverview() {
     const userRest = useMemo(() => new UserRest(), []);
     const appTemplateOverviewStyles = AppTemplateOverviewStyles();
 
-    const handleDialogOpen = () => {
+    function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(defaultAppTemplate);
     };
 
-    const handleDialogClose = () => {
+    function handleDialogClose() {
         setOpenDialog(false);
     };
 
     const defaultAppTemplate =
-            {
-                "location": "",
-                "branch": "",
-                "credentialsRequired": false,
-                "description": "",
-                "groups": ["public"]
-            };
+        {
+            "location": "",
+            "branch": "",
+            "credentialsRequired": false,
+            "description": "",
+            "groups": ["public"]
+        };
 
-    const reload = () => {
+    function reload() {
         const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
