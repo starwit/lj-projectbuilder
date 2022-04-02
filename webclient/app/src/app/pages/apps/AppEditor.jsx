@@ -63,7 +63,7 @@ function AppEditor() {
         });
     }, [userRest]);
 
-    function updateEntity(entity) {
+    function updateEntity(entity, shallReloadEntities = true) {
         const newEntities = JSON.parse(JSON.stringify(entities));
 
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
@@ -74,8 +74,12 @@ function AppEditor() {
         newEntities[foundIndex] = entity;
         setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
         setEntities(newEntities);
-        return entityRest.createEntityByApp(appId, entity)
-            .then(reloadEntities);
+        let createEntity = entityRest.createEntityByApp(appId, entity);
+        if (shallReloadEntities) {
+            createEntity = createEntity
+                .then(reloadEntities);
+        }
+        return createEntity;
     }
 
     function reloadEntities() {

@@ -47,7 +47,7 @@ function EntityDiagram(props) {
             .then(reloadEntities);
     }
 
-    function prepareUpdateEntity(updatedEntityInput) {
+    function prepareUpdateEntity(updatedEntityInput, shallReloadEntities = true) {
         const updatedEntity = {...updatedEntityInput};
 
         if (!editable) {
@@ -63,7 +63,7 @@ function EntityDiagram(props) {
             setCurrentEntity(updatedEntity);
         }
 
-        return updateEntity(updatedEntity);
+        return updateEntity(updatedEntity, shallReloadEntities);
     }
 
     function updatePosition(draggableData, entity) {
@@ -74,7 +74,7 @@ function EntityDiagram(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        prepareUpdateEntity(entity);
+        prepareUpdateEntity(entity, false);
     }
 
     function renderEntities() {
