@@ -63,6 +63,10 @@ function AppEditor() {
         });
     }, [userRest]);
 
+    useEffect(() => {
+        setEntityRelationCoordinates(updateRelationCoordinates(entities));
+    }, [entities]);
+
     function updateEntity(entity, shallReloadEntities = true) {
         const newEntities = JSON.parse(JSON.stringify(entities));
 
@@ -72,7 +76,6 @@ function AppEditor() {
             return;
         }
         newEntities[foundIndex] = entity;
-        setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
         setEntities(newEntities);
         let createEntity = entityRest.createEntityByApp(appId, entity);
         if (shallReloadEntities) {
@@ -86,7 +89,6 @@ function AppEditor() {
         return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
             setEntities(newEntities);
-            setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
             return newEntities;
         });
     }
@@ -150,7 +152,6 @@ function AppEditor() {
         setPackageName(packageName);
         setSelectedTemplate(template);
         setEntities(entities);
-        setEntityRelationCoordinates(updateRelationCoordinates(entities));
         setGroupsToAssign(groupsToAssign);
     }
 
