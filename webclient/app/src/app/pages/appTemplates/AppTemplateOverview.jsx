@@ -22,11 +22,11 @@ function AppTemplateOverview() {
     function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(defaultAppTemplate);
-    };
+    }
 
     function handleDialogClose() {
         setOpenDialog(false);
-    };
+    }
 
     const defaultAppTemplate =
         {
@@ -42,7 +42,7 @@ function AppTemplateOverview() {
         appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
         });
-    };
+    }
 
     useEffect(() => {
         userRest.getUserGroups().then(response => {

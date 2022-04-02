@@ -196,7 +196,7 @@ function EntityDialog(props) {
 
     function handleTabChange(event, newValue) {
         setValue(newValue);
-    };
+    }
 
     function handleEntityTitleText(event) {
         const copiedEntity = {...entity};
