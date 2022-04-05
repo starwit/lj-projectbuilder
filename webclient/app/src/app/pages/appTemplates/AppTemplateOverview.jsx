@@ -1,4 +1,4 @@
-import {Container, Fab, Grid, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import React, {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import AppTemplateCard from "../../features/appTemplates/appTemplateCard/AppTemplateCard";
@@ -9,6 +9,7 @@ import AppTemplateOverviewStyles from "./AppTempateOverviewStyles";
 import {Add} from "@mui/icons-material";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
+import AddFabButton from "../../commons/addFabButton/AddFabButton";
 
 function AppTemplateOverview() {
     const {t} = useTranslation();
@@ -97,11 +98,7 @@ function AppTemplateOverview() {
                 isCreateDialog={true}
                 userGroups={userGroups}
             />
-            <div className={appTemplateOverviewStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
-                    <Add/>
-                </Fab>
-            </div>
+            <AddFabButton onClick={handleDialogOpen}/>
         </Container>
     );
 }
