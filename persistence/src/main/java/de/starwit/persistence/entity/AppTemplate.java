@@ -1,22 +1,14 @@
 package de.starwit.persistence.entity;
 
-import java.util.List;
-import java.util.Set;
+import de.starwit.persistence.converter.ListToStringConverter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import de.starwit.persistence.converter.ListToStringConverter;
+import java.util.List;
+import java.util.Set;
 
 @XmlRootElement
 @Entity
@@ -34,6 +26,10 @@ public class AppTemplate extends AbstractEntity<Long> {
 	@Size(max = 100)
 	@Column(name = "PACKAGE", nullable = false, length = 100)
 	private String packagePlaceholder = "starwit";
+
+	@Column(name = "IMAGE_URL")
+	@Pattern(regexp = "^(https?:\\/\\/.*\\.(?:png|jpg|jpeg))$")
+	private String imageUrl;
 
 	@NotBlank
   	@Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?(.*?)(.git)(/?|#[-dw._]+?)$")
@@ -99,7 +95,7 @@ public class AppTemplate extends AbstractEntity<Long> {
 	public void setCredentialsRequired(boolean credentialsRequired) {
 		this.credentialsRequired = credentialsRequired;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -122,5 +118,13 @@ public class AppTemplate extends AbstractEntity<Long> {
 
 	public void setGroups(List<String> groups) {
 		this.groups = groups;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }
