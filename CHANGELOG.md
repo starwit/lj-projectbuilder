@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.1-1...v0.3.1) (2022-04-01)
+
+
+### Features
+
+* added code formatter ([#282](https://github.com/starwit/lj-projectbuilder/issues/282)) ([063da50](https://github.com/mokkapps/changelog-generator-demo/commits/063da5064d5e5c8c7b5d7a2eab7555a452544c24)), closes [ab#200](https://github.com/starwit/ab/issues/200)
+
+
+### Bug Fixes
+
+* spring patch to version 5.3.18 ([8181184](https://github.com/mokkapps/changelog-generator-demo/commits/81811847845ff3f41b55e7ceff7a0c38a8f557d4))
+
 ### [0.3.1-1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.1-0...v0.3.1-1) (2022-03-29)
 
 ### [0.3.1-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.0...v0.3.1-0) (2022-03-27)
