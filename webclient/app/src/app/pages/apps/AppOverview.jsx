@@ -7,14 +7,12 @@ import ApplicationRest from "../../services/ApplicationRest";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
-import AppOverviewStyles from "./AppOverviewStyles";
 import AddFabButton from "../../commons/addFabButton/AddFabButton";
 
 function AppOverview() {
     const history = useHistory();
     const {t} = useTranslation();
     const applicationRest = useMemo(() => new ApplicationRest(), []);
-    const appOverviewStyles = AppOverviewStyles();
 
     const [apps, setApps] = useState(null);
     const [appsError, setAppsError] = useState(null);

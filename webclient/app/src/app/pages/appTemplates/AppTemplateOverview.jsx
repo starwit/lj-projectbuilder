@@ -5,7 +5,6 @@ import AppTemplateCard from "../../features/appTemplates/appTemplateCard/AppTemp
 import AppTemplateDialog from "../../features/appTemplates/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
 import UserRest from "../../services/UserRest";
-import AppTemplateOverviewStyles from "./AppTempateOverviewStyles";
 import {Add} from "@mui/icons-material";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
@@ -18,7 +17,6 @@ function AppTemplateOverview() {
     const [appTemplates, setAppTemplates] = useState(null);
     const [userGroups, setUserGroups] = React.useState([]);
     const userRest = useMemo(() => new UserRest(), []);
-    const appTemplateOverviewStyles = AppTemplateOverviewStyles();
 
     const handleDialogOpen = () => {
         setOpenDialog(true);
