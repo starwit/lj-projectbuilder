@@ -1,6 +1,7 @@
 import React from "react";
-import {Alert, Card, CardActionArea, CardContent, Typography} from "@mui/material";
+import {Alert, Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
+import DefaultTemplateImage from "../../../assets/images/DefaultAppTemplate.jpg";
 
 function AppTemplateSelectCard(props) {
     const {template, selected, onSelection} = props;
@@ -14,8 +15,22 @@ function AppTemplateSelectCard(props) {
         }
     }
 
+    function getTemplateUrl() {
+        if (template.imageUrl) {
+            return template.imageUrl;
+        }
+
+        return DefaultTemplateImage;
+    }
+
     return (
         <Card elevation={5}>
+            <CardMedia
+                component="img"
+                height="140"
+                image={getTemplateUrl()}
+                alt={"preview image of " + template.name}
+            />
             <CardActionArea onClick={() => onSelection(template)} disabled={selected}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

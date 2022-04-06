@@ -100,7 +100,8 @@ function FieldAccordion(props) {
                         id="panel1a-header">
                         <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
                         <Typography
-                            className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
+                            className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={4}>
@@ -137,7 +138,8 @@ function FieldAccordion(props) {
                                     fullWidth
                                     label={t("field.pattern")}
                                     value={pattern ?? ""}
-                                    onChange={event => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                    onChange=
+                                        {event => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                                     disabled={isPatternDisabled}
                                 />
                             </Grid>

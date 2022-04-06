@@ -28,32 +28,32 @@ function AppTemplateDialog(props) {
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
 
-    const onDialogClose = () => {
+    function onDialogClose() {
         onClose();
         setInternalAppTemplate(appTemplate);
-    };
+    }
 
-    const handleChange = event => {
+    function handleChange(event) {
         const {name, value} = event.target;
         const appTemplateNew = {...internalAppTemplate};
         appTemplateNew[name] = value;
         setInternalAppTemplate(appTemplateNew);
-    };
+    }
 
-    const handleGroupChange = items => {
+    function handleGroupChange(items) {
         const appTemplateNew = {...internalAppTemplate};
         appTemplateNew["groups"] = items;
         setInternalAppTemplate(appTemplateNew);
-    };
+    }
 
-    const handleCredentialsCheckbox = event => {
+    function handleCredentialsCheckbox(event) {
         const {name, checked} = event.target;
         const appTemplateNew = {...internalAppTemplate};
         appTemplateNew[name] = checked;
         setInternalAppTemplate(appTemplateNew);
-    };
+    }
 
-    const handleSave = toSave => {
+    function handleSave(toSave) {
         if (hasFormError) {
             return;
         }
@@ -67,13 +67,13 @@ function AppTemplateDialog(props) {
                 handleSaveResponse(response);
             });
         }
-    };
+    }
 
-    const handleSaveResponse = response => {
+    function handleSaveResponse(response) {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
-    };
+    }
 
     useEffect(() => {
         if (!internalAppTemplate) {
@@ -97,14 +97,14 @@ function AppTemplateDialog(props) {
         return null;
     }
 
-    const insertTitle = () => {
+    function insertTitle() {
         if (isCreateDialog) {
             return (<Typography noWrap variant={"h6"} component={"p"}>{t("apptemplate.new")}</Typography>);
         } else {
             return (<Typography noWrap variant={"h6"}
                 component={"p"}>{t("apptemplate.edit", {appTemplateName: internalAppTemplate.name})}</Typography>);
         }
-    };
+    }
 
     return (
         <Dialog onClose={onDialogClose} open={open} spacing={2}>

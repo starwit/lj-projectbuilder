@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
-import {Add, Code} from "@mui/icons-material";
-import {Button, Drawer, Fab} from "@mui/material";
+import {Code} from "@mui/icons-material";
+import {Button, Drawer} from "@mui/material";
 import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import Draggable from "react-draggable";
@@ -13,6 +13,7 @@ import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
 import {renderRelations} from "../HandleRelations";
+import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
 
 function EntityDiagram(props) {
     const {editable, entities, coordinates, dense, reloadEntities, updateEntity} = props;
@@ -114,11 +115,7 @@ function EntityDiagram(props) {
         }
 
         return (
-            <div className={entityDiagramStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={addEntity}>
-                    <Add/>
-                </Fab>
-            </div>
+            <AddFabButton onClick={addEntity}/>
         );
     }
 

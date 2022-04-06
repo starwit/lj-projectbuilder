@@ -1,14 +1,14 @@
-import {Container, Fab, Grid, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import React, {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import AppTemplateCard from "../../features/appTemplates/appTemplateCard/AppTemplateCard";
 import AppTemplateDialog from "../../features/appTemplates/appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../services/AppTemplateRest";
 import UserRest from "../../services/UserRest";
-import AppTemplateOverviewStyles from "./AppTempateOverviewStyles";
 import {Add} from "@mui/icons-material";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
+import AddFabButton from "../../commons/addFabButton/AddFabButton";
 
 function AppTemplateOverview() {
     const {t} = useTranslation();
@@ -17,32 +17,31 @@ function AppTemplateOverview() {
     const [appTemplates, setAppTemplates] = useState(null);
     const [userGroups, setUserGroups] = React.useState([]);
     const userRest = useMemo(() => new UserRest(), []);
-    const appTemplateOverviewStyles = AppTemplateOverviewStyles();
 
-    const handleDialogOpen = () => {
+    function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(defaultAppTemplate);
-    };
+    }
 
-    const handleDialogClose = () => {
+    function handleDialogClose() {
         setOpenDialog(false);
-    };
+    }
 
     const defaultAppTemplate =
-            {
-                "location": "",
-                "branch": "",
-                "credentialsRequired": false,
-                "description": "",
-                "groups": ["public"]
-            };
+        {
+            "location": "",
+            "branch": "",
+            "credentialsRequired": false,
+            "description": "",
+            "groups": ["public"]
+        };
 
-    const reload = () => {
+    function reload() {
         const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
         });
-    };
+    }
 
     useEffect(() => {
         userRest.getUserGroups().then(response => {
@@ -97,11 +96,7 @@ function AppTemplateOverview() {
                 isCreateDialog={true}
                 userGroups={userGroups}
             />
-            <div className={appTemplateOverviewStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={handleDialogOpen}>
-                    <Add/>
-                </Fab>
-            </div>
+            <AddFabButton onClick={handleDialogOpen}/>
         </Container>
     );
 }
