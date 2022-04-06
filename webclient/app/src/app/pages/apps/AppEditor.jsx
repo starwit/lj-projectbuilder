@@ -151,10 +151,14 @@ function AppEditor() {
 
     function handleBack() {
         setIsSaving(true);
-        handleSave().then(() => {
-            setActiveStep((activeStep - 1));
-            setIsSaving(false);
-        });
+        handleSave()
+            .then(() => {
+                setActiveStep((activeStep - 1));
+                setIsSaving(false);
+            })
+            .catch(() => {
+                setIsSaving(false);
+            });
     }
 
     function handleNext() {
@@ -163,7 +167,11 @@ function AppEditor() {
             .then(() => {
                 setActiveStep((activeStep + 1));
                 setIsSaving(false);
-            });
+            })
+            .catch(() => {
+                setIsSaving(false);
+            })
+        ;
     }
 
     function isLastStep() {
