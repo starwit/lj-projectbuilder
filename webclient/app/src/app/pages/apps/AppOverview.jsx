@@ -8,6 +8,7 @@ import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
 import AppOverviewStyles from "./AppOverviewStyles";
+import {convert} from "generator-jhipster/jdl/converters/jdl-to-json/jdl-without-application-to-json-converter";
 
 function AppOverview() {
     const history = useHistory();
@@ -31,6 +32,47 @@ function AppOverview() {
     useEffect(() => {
         loadApps();
     }, [loadApps]);
+
+    useEffect(() => {
+        convert(
+            "application {\n" +
+            "  config {\n" +
+            "    baseName blog\n" +
+            "    applicationType monolith\n" +
+            "    packageName com.jhipster.demo.blog\n" +
+            "    buildTool maven,\n" +
+            "    testFrameworks [cypress]\n" +
+            "  }\n" +
+            "  entities *\n" +
+            "}\n" +
+            "\n" +
+            "entity Blog {\n" +
+            "  name String required minlength(3)\n" +
+            "  handle String required minlength(2)\n" +
+            "}\n" +
+            "\n" +
+            "entity Post {\n" +
+            "  title String required\n" +
+            "  content TextBlob required\n" +
+            "  date Instant required\n" +
+            "}\n" +
+            "\n" +
+            "entity Tag {\n" +
+            "  name String required minlength(2)\n" +
+            "}\n" +
+            "\n" +
+            "relationship ManyToOne {\n" +
+            "  Blog{user(login)} to User\n" +
+            "  Post{blog(name)} to Blog\n" +
+            "}\n" +
+            "\n" +
+            "relationship ManyToMany {\n" +
+            "  Post{tag(name)} to Tag{entry}\n" +
+            "}\n" +
+            "\n" +
+            "paginate Post, Tag with infinite-scroll"
+        );
+    }, []);
 
     function deleteById(id) {
         return applicationRest.delete(id)
