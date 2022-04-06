@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.1...v0.3.2-0) (2022-04-06)
+
+
+### Features
+
+* ab[#190](https://github.com/starwit/lj-projectbuilder/issues/190) add center button for er diagram ([#288](https://github.com/starwit/lj-projectbuilder/issues/288)) ([31409ed](https://github.com/mokkapps/changelog-generator-demo/commits/31409edc995430557772bd7cca47da573a8de59f))
+* AB[#69](https://github.com/starwit/lj-projectbuilder/issues/69) Handle Preview image of apptemplate ([#291](https://github.com/starwit/lj-projectbuilder/issues/291)) ([7963e8e](https://github.com/mokkapps/changelog-generator-demo/commits/7963e8e0138789e5b7cf09649624884a7f753d6d))
+
+
+### Bug Fixes
+
+* AB[#210](https://github.com/starwit/lj-projectbuilder/issues/210) AppEditor: Loading Spinner runns, even if error was returned from backend ([#293](https://github.com/starwit/lj-projectbuilder/issues/293)) ([26aa767](https://github.com/mokkapps/changelog-generator-demo/commits/26aa767e6c89a59196dccc98f122157ac4c84947))
+* ab213 find default template ([3e01dd5](https://github.com/mokkapps/changelog-generator-demo/commits/3e01dd538bb2323da39b6aa8e084f23acc13ef4c))
+
 ### [0.3.1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.1-1...v0.3.1) (2022-04-01)
 
 
