@@ -54,8 +54,9 @@ function AppEditor() {
     }, [appId, appRest]);
 
     useEffect(() => {
-        setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) ||
-            !RegexConfig.packageName.test(packageName));
+        setAppGeneralHasFormError(
+            !RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName)
+        );
     }, [packageName, appName]);
 
     useEffect(() => {
