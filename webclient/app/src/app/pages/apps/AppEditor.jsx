@@ -64,25 +64,33 @@ function AppEditor() {
         });
     }, [userRest]);
 
-    function updateEntity(entity) {
-        const newEntities = [...entities];
+    useEffect(() => {
+        setEntityRelationCoordinates(updateRelationCoordinates(entities));
+    }, [entities]);
+
+    function updateEntity(entity, shallReloadEntities = true) {
+        const newEntities = JSON.parse(JSON.stringify(entities));
 
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
         if (foundIndex < 0) {
             newEntities.push(entity);
-        } else {
+        }else {
             newEntities[foundIndex] = entity;
         }
-        setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
-        return entityRest.createEntityByApp(appId, entity)
-            .then(reloadEntities);
+        newEntities[foundIndex] = entity;
+        setEntities(newEntities);
+        let createEntity = entityRest.createEntityByApp(appId, entity);
+        if (shallReloadEntities) {
+            createEntity = createEntity
+                .then(reloadEntities);
+        }
+        return createEntity;
     }
 
     function reloadEntities() {
         return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
             setEntities(newEntities);
-            setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
             return newEntities;
         });
     }
@@ -146,7 +154,6 @@ function AppEditor() {
         setPackageName(packageName);
         setSelectedTemplate(template);
         setEntities(entities);
-        setEntityRelationCoordinates(updateRelationCoordinates(entities));
         setGroupsToAssign(groupsToAssign);
     }
 

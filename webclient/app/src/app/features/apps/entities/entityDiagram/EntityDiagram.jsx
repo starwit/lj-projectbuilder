@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {Code} from "@mui/icons-material";
+import {Code, Adjust} from "@mui/icons-material";
 import {Button, Drawer} from "@mui/material";
 import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
@@ -48,7 +48,7 @@ function EntityDiagram(props) {
             .then(reloadEntities);
     }
 
-    function prepareUpdateEntity(updatedEntityInput) {
+    function prepareUpdateEntity(updatedEntityInput, shallReloadEntities = true) {
         const updatedEntity = {...updatedEntityInput};
 
         if (!editable) {
@@ -64,10 +64,10 @@ function EntityDiagram(props) {
             setCurrentEntity(updatedEntity);
         }
 
-        return updateEntity(updatedEntity);
+        return updateEntity(updatedEntity, shallReloadEntities);
     }
 
-    function updatePosition(update, draggableData, entity) {
+    function updatePosition(draggableData, entity) {
         if (!entity.position) {
             entity.position = {};
         }
@@ -75,7 +75,7 @@ function EntityDiagram(props) {
         entity.position.positionX = draggableData.x;
         entity.position.positionY = draggableData.y;
 
-        prepareUpdateEntity(entity);
+        prepareUpdateEntity(entity, false);
     }
 
     function renderEntities() {
@@ -94,10 +94,10 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updatePosition(update, draggableData, entity)}
+                    onStop={(update, draggableData) => updatePosition(draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
-                    defaultPosition={entityCardPosition}
+                    position={entityCardPosition}
                     disabled={!editable}
                 >
                     <div>
@@ -131,12 +131,24 @@ function EntityDiagram(props) {
         setCurrentEntity(null);
     }
 
+    function centerEntities() {
+        const newEntities = [...entities];
+        newEntities.forEach((entity, index) => {
+            updatePosition({x: index * 30 + 100, y: index * 10}, entity);
+        });
+    }
+
     return (
         <>
             {renderAddEntityButton()}
             <div className={entityDiagramStyles.codeButtonWrapper}>
                 <Button variant={"contained"} startIcon={<Code/>} onClick={openDrawer}>
                     {t("entity.code")}
+                </Button>
+            </div>
+            <div className={entityDiagramStyles.centerButtonWrapper}>
+                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
+                    {t("entity.center")}
                 </Button>
             </div>
             <React.Fragment key={"left"}>

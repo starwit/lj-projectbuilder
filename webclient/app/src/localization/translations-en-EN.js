@@ -64,6 +64,7 @@ const translationsEnEN = {
     "entity.fields.empty": "no fields",
     "entity.relations": "Relations",
     "entity.relations.empty": "no relations",
+    "entity.center": "Center",
 
     "field.new": "New field",
     "field.fieldName": "Name",

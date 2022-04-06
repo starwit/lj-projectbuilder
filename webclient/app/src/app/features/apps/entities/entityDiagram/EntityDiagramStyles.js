@@ -24,6 +24,11 @@ const EntityDiagramStyles = makeStyles(theme => ({
         bottom: "5%",
         left: "2%"
     },
+    centerButtonWrapper: {
+        position: "absolute",
+        bottom: "12%",
+        left: "2%"
+    },
     draggable: {
         position: "absolute",
         width: "20rem",

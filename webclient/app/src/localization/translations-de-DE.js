@@ -64,6 +64,7 @@ const translationsDeDE = {
     "entity.fields.empty": "keine Felder angelegt",
     "entity.relations": "Relationen",
     "entity.relations.empty": "keine Relationen angelegt",
+    "entity.center": "Zentrieren",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",
