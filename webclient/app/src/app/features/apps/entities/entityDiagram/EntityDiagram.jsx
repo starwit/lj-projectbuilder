@@ -93,7 +93,7 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(data, draggableData) => updatePosition(draggableData, entity)}
+                    onStop={(update, draggableData) => updatePosition(draggableData, entity)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
                     position={entityCardPosition}
