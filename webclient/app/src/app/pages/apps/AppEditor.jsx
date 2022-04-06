@@ -65,6 +65,15 @@ function AppEditor() {
     }, [userRest]);
 
     function updateEntity(entity) {
+        const newEntities = [...entities];
+
+        const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
+        if (foundIndex < 0) {
+            newEntities.push(entity);
+        } else {
+            newEntities[foundIndex] = entity;
+        }
+        setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
         return entityRest.createEntityByApp(appId, entity)
             .then(reloadEntities);
     }
