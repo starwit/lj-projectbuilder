@@ -54,9 +54,8 @@ function AppEditor() {
     }, [appId, appRest]);
 
     useEffect(() => {
-        setAppGeneralHasFormError(
-            !RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName)
-        );
+        setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) ||
+            !RegexConfig.packageName.test(packageName));
     }, [packageName, appName]);
 
     useEffect(() => {
@@ -70,10 +69,10 @@ function AppEditor() {
 
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
         if (foundIndex < 0) {
-            console.warn("Could not update Entity because it was not found.");
-            return;
+            newEntities.push(entity);
+        } else {
+            newEntities[foundIndex] = entity;
         }
-        newEntities[foundIndex] = entity;
         setEntityRelationCoordinates(updateRelationCoordinates(newEntities));
         return entityRest.createEntityByApp(appId, entity)
             .then(reloadEntities);
