@@ -31,7 +31,7 @@ import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
 import {useSnackbar} from "notistack";
 
 const ExpandMore = styled(props => {
-    const {expand, ...other} = props;
+    const {...other} = props;
     return <IconButton {...other} />;
 })(({theme, expand}) => ({
     transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
@@ -61,41 +61,41 @@ function AppTemplateCard(props) {
         setOpenDeleteDialog(false);
     };
 
-    const handleExpandClick = appTemplateId => {
+    function handleExpandClick(appTemplateId) {
         loadAppTemplate(appTemplateId);
         setExpanded(!expanded);
-    };
+    }
 
-    const handleDialogOpen = () => {
+    function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(appTemplate);
-    };
+    }
 
-    const handleDialogClose = () => {
+    function handleDialogClose() {
         setOpenDialog(false);
-    };
+    }
 
-    const handleDelete = appTemplateId => {
+    function handleDelete(appTemplateId) {
         return appTemplateRest.delete(appTemplateId).then(() => {
             handleRefresh();
         });
-    };
+    }
 
-    const handleGit = downloadRequestData => {
+    function handleGit(downloadRequestData) {
         return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
-    };
+    }
 
-    const handleAfterGitSuccess = () => {
+    function handleAfterGitSuccess() {
         handleRefresh();
         enqueueSnackbar(t("appTemplate.success.message"), {variant: "success"});
-    };
+    }
 
-    const loadAppTemplate = appTemplateId => {
+    function loadAppTemplate(appTemplateId) {
         const appTemplateRest2 = new AppTemplateRest();
         appTemplateRest2.findById(appTemplateId).then(response => {
             setExtendedAppTemplate(response.data);
         });
-    };
+    }
 
     useEffect(() => {
         SyntaxHighlighter.registerLanguage("javascript", js);

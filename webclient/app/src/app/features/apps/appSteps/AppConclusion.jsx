@@ -47,7 +47,8 @@ function AppConclusion(props) {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
                         action: key => <Button
-                            onClick={() => openInformationDialog(error.response.data.message)}>{t("button.showMore")}</Button>
+                            onClick={() =>
+                                openInformationDialog(error.response.data.message)}>{t("button.showMore")}</Button>
                     });
                 }, 1000);
             }

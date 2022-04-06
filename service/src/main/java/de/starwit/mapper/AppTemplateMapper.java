@@ -19,6 +19,7 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         dto.setCredentialsRequired(entity.isCredentialsRequired());
         dto.setPackagePlaceholder(entity.getPackagePlaceholder());
         dto.setGroups(entity.getGroups());
+        dto.setImageUrl(entity.getImageUrl());
         return dto;
     }
 
@@ -33,7 +34,8 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         entity.setCredentialsRequired(dto.isCredentialsRequired());
         entity.setPackagePlaceholder(dto.getPackagePlaceholder());
         entity.setGroups(dto.getGroups());
+        entity.setImageUrl(dto.getImageUrl());
         return entity;
     }
-   
+
 }

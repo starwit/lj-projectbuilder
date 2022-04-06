@@ -79,7 +79,7 @@ function EntityDialog(props) {
 
     function getTargetEntities() {
         let newTargetEntities = [];
-        if (entities?.length > 1) {
+        if (entities?.length >= 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
         } else {
             const emptyTarget = emptyEntity;
@@ -194,9 +194,9 @@ function EntityDialog(props) {
         setEntity(copiedEntity);
     }
 
-    const handleTabChange = (event, newValue) => {
+    function handleTabChange(event, newValue) {
         setValue(newValue);
-    };
+    }
 
     function handleEntityTitleText(event) {
         const copiedEntity = {...entity};

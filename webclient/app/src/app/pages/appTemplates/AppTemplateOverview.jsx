@@ -18,30 +18,30 @@ function AppTemplateOverview() {
     const [userGroups, setUserGroups] = React.useState([]);
     const userRest = useMemo(() => new UserRest(), []);
 
-    const handleDialogOpen = () => {
+    function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(defaultAppTemplate);
-    };
+    }
 
-    const handleDialogClose = () => {
+    function handleDialogClose() {
         setOpenDialog(false);
-    };
+    }
 
     const defaultAppTemplate =
-            {
-                "location": "",
-                "branch": "",
-                "credentialsRequired": false,
-                "description": "",
-                "groups": ["public"]
-            };
+        {
+            "location": "",
+            "branch": "",
+            "credentialsRequired": false,
+            "description": "",
+            "groups": ["public"]
+        };
 
-    const reload = () => {
+    function reload() {
         const appTemplateRest = new AppTemplateRest();
         appTemplateRest.findAll().then(response => {
             setAppTemplates(response.data);
         });
-    };
+    }
 
     useEffect(() => {
         userRest.getUserGroups().then(response => {
