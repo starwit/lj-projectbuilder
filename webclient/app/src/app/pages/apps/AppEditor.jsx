@@ -54,7 +54,8 @@ function AppEditor() {
     }, [appId, appRest]);
 
     useEffect(() => {
-        setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) || !RegexConfig.packageName.test(packageName));
+        setAppGeneralHasFormError(!RegexConfig.applicationBaseName.test(appName) ||
+            !RegexConfig.packageName.test(packageName));
     }, [packageName, appName]);
 
     useEffect(() => {
@@ -72,8 +73,9 @@ function AppEditor() {
 
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
         if (foundIndex < 0) {
-            console.warn("Could not update Entity because it was not found.");
-            return;
+            newEntities.push(entity);
+        }else {
+            newEntities[foundIndex] = entity;
         }
         newEntities[foundIndex] = entity;
         setEntities(newEntities);
@@ -157,10 +159,14 @@ function AppEditor() {
 
     function handleBack() {
         setIsSaving(true);
-        handleSave().then(() => {
-            setActiveStep((activeStep - 1));
-            setIsSaving(false);
-        });
+        handleSave()
+            .then(() => {
+                setActiveStep((activeStep - 1));
+                setIsSaving(false);
+            })
+            .catch(() => {
+                setIsSaving(false);
+            });
     }
 
     function handleNext() {
@@ -169,7 +175,11 @@ function AppEditor() {
             .then(() => {
                 setActiveStep((activeStep + 1));
                 setIsSaving(false);
-            });
+            })
+            .catch(() => {
+                setIsSaving(false);
+            })
+        ;
     }
 
     function isLastStep() {

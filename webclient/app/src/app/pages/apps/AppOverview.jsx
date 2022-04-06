@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {Container, Fab, Grid, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import AppCard from "../../features/apps/appCard/AppCard";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -7,13 +7,12 @@ import ApplicationRest from "../../services/ApplicationRest";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
-import AppOverviewStyles from "./AppOverviewStyles";
+import AddFabButton from "../../commons/addFabButton/AddFabButton";
 
 function AppOverview() {
     const history = useHistory();
     const {t} = useTranslation();
     const applicationRest = useMemo(() => new ApplicationRest(), []);
-    const appOverviewStyles = AppOverviewStyles();
 
     const [apps, setApps] = useState(null);
     const [appsError, setAppsError] = useState(null);
@@ -85,11 +84,7 @@ function AppOverview() {
                 {t("apps.title")}
             </Typography>
             {renderApps()}
-            <div className={appOverviewStyles.addFab}>
-                <Fab color="primary" aria-label="add" onClick={() => history.push("/apps/create/edit")}>
-                    <Add/>
-                </Fab>
-            </div>
+            <AddFabButton onClick={() => history.push("/apps/create/edit")}/>
         </Container>
     );
 }

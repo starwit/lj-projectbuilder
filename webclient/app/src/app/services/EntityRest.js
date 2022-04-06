@@ -6,7 +6,7 @@ class EntityRest extends CrudRest {
         super(window.location.pathname + "api/entities");
     }
 
-    updateEntityByAppId(appId, entity) {
+    updateEntityByApp(appId, entity) {
         return axios.put(this.baseUrl + "/by-app/" + appId, entity);
     }
 
