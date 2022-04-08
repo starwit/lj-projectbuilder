@@ -74,7 +74,7 @@ function AppEditor() {
         const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
         if (foundIndex < 0) {
             newEntities.push(entity);
-        }else {
+        } else {
             newEntities[foundIndex] = entity;
         }
         newEntities[foundIndex] = entity;
