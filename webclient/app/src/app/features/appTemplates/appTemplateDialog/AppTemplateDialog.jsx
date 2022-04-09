@@ -45,7 +45,6 @@ function AppTemplateDialog(props) {
 
     function handleCredentialsCheckbox(event) {
         const {name, checked} = event.target;
-        appTemplateNew[name] = checked;
         setInternalAppTemplate(draft => {draft[name] = checked;});
     }
 
