@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {
     Box,
     Button,
@@ -19,11 +19,12 @@ import AppTemplateRest from "../../../services/AppTemplateRest";
 import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
 import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
+import {useImmer} from "use-immer";
 
 function AppTemplateDialog(props) {
     const {appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups} = props;
     const {t} = useTranslation();
-    const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    const [internalAppTemplate, setInternalAppTemplate] = useImmer(null);
     const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
@@ -35,22 +36,17 @@ function AppTemplateDialog(props) {
 
     function handleChange(event) {
         const {name, value} = event.target;
-        const appTemplateNew = {...internalAppTemplate};
-        appTemplateNew[name] = value;
-        setInternalAppTemplate(appTemplateNew);
+        setInternalAppTemplate(draft => {draft[name] = value;});
     }
 
     function handleGroupChange(items) {
-        const appTemplateNew = {...internalAppTemplate};
-        appTemplateNew["groups"] = items;
-        setInternalAppTemplate(appTemplateNew);
+        setInternalAppTemplate(draft => {draft["groups"] = items;});
     }
 
     function handleCredentialsCheckbox(event) {
         const {name, checked} = event.target;
-        const appTemplateNew = {...internalAppTemplate};
         appTemplateNew[name] = checked;
-        setInternalAppTemplate(appTemplateNew);
+        setInternalAppTemplate(draft => {draft[name] = checked;});
     }
 
     function handleSave(toSave) {
