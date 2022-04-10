@@ -79,6 +79,9 @@ function AppEditor() {
     function reloadEntities() {
         return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
+            setApp(draft => {
+                draft.entities = newEntities;
+            });
             setEntities(newEntities);
             return newEntities;
         });
@@ -120,13 +123,8 @@ function AppEditor() {
             label: t("app.section.conclusion"),
             component: (
                 <AppConclusion
-                    appId={+appId}
-                    entities={entities}
+                    app={app}
                     coordinates={updateRelationCoordinates(entities)}
-                    templateName={app?.template ? app.template?.name : null}
-                    credentialsRequired={app?.template ? app.template?.credentialsRequired : null}
-                    appName={app.general.appName}
-                    packageName={app.general.packageName}
                 />
             ),
             condition: true

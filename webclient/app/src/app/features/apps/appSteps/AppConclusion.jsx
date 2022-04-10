@@ -26,7 +26,7 @@ import {docco} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
 
 function AppConclusion(props) {
-    const {entities, appId, coordinates, appName, packageName, templateName, credentialsRequired} = props;
+    const {app, coordinates} = props;
     const appStepsStyles = AppStepsStyles();
     const gitRest = new GitRest();
     const {t} = useTranslation();
@@ -42,7 +42,7 @@ function AppConclusion(props) {
     }
 
     const handleGit = downloadRequestData => {
-        return gitRest.setupApp(appId, downloadRequestData).catch(error => {
+        return gitRest.setupApp(app.id, downloadRequestData).catch(error => {
             if (error.response.data.messageKey === "error.generation.template") {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
@@ -57,8 +57,8 @@ function AppConclusion(props) {
 
     const handleAfterGitSuccess = () => {
         const link = document.createElement("a");
-        link.href = window.location.pathname + "api/git/download-app/" + appId;
-        link.download = appName + ".zip";
+        link.href = window.location.pathname + "api/git/download-app/" + app.id;
+        link.download = app.general.appName + ".zip";
         link.click();
         document.body.removeChild(link);
     };
@@ -80,21 +80,21 @@ function AppConclusion(props) {
                 <Grid item md={9}>
                     <List className={appStepsStyles.list}>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(appName)} secondary={t("app.name")}/>
+                            <ListItemText primary={renderLoadingText(app.general.appName)} secondary={t("app.name")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(templateName)}
+                            <ListItemText primary={renderLoadingText(app.template.name)}
                                 secondary={t("app.section.template")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(packageName)}
+                            <ListItemText primary={renderLoadingText(app.general.packageName)}
                                 secondary={t("app.packageName")}/>
                         </ListItem>
                     </List>
                 </Grid>
                 <Grid item md={3} className={appStepsStyles.downloadGrid}>
                     <GitDataButton
-                        credentialsRequired={credentialsRequired}
+                        credentialsRequired={app.template.credentialsRequired}
                         handleAfterSuccess={handleAfterGitSuccess}
                         handleGit={handleGit}
                         buttonIcon={<Download/>}
@@ -106,7 +106,7 @@ function AppConclusion(props) {
             <Typography variant={"h4"} gutterBottom>
                 {t("app.section.entityDiagram")}
             </Typography>
-            <EntityDiagram entities={entities} appId={+appId} coordinates={coordinates} dense editable={false}/>
+            <EntityDiagram entities={app.entities} appId={app.id} coordinates={coordinates} dense editable={false}/>
             <Dialog onClose={closeInformationDialog} open={!!generatorErrorMessage} fullWidth maxWidth={"xl"}>
                 <DialogTitle>{t("appConclusion.generationError.title")}</DialogTitle>
                 <DialogContent>
@@ -133,19 +133,8 @@ function AppConclusion(props) {
 }
 
 AppConclusion.propTypes = {
-    appId: PropTypes.number,
-    entities: PropTypes.array,
-    appName: PropTypes.string,
-    packageName: PropTypes.string,
-    templateName: PropTypes.string,
-    coordinates: PropTypes.array,
-    credentialsRequired: PropTypes.bool
-};
-
-AppConclusion.defaultProps = {
-    appName: <Skeleton animation={"wave"}/>,
-    templateName: <Skeleton animation={"wave"}/>,
-    packageName: <Skeleton animation={"wave"}/>
+    app: PropTypes.object,
+    coordinates: PropTypes.array
 };
 
 export default AppConclusion;
