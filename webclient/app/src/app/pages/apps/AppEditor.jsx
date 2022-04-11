@@ -11,10 +11,8 @@ import {useHistory, useParams} from "react-router-dom";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
-import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
-import EntityRest from "../../services/EntityRest";
 import {useImmer} from "use-immer";
-import {newApp, updateApp, updateTemplate, updateGeneral, toDatabaseApp} from "../../model/App";
+import {newApp, updateApp, updateTemplate, updateGeneral, updateEntities, toDatabaseApp} from "../../model/App";
 import UserRest from "../../services/UserRest";
 
 function AppEditor() {
@@ -23,13 +21,9 @@ function AppEditor() {
     const {t} = useTranslation();
     const history = useHistory();
     const appRest = useMemo(() => new ApplicationRest(), []);
-    const entityRest = useMemo(() => new EntityRest(), []);
     const userRest = useMemo(() => new UserRest(), []);
     const [userGroups, setUserGroups] = useState(["public"]);
-
     const [isAppLoading, setIsAppLoading] = useState(false);
-    const [entities, setEntities] = useState([]);
-    const [entityRelationCoordinates, setEntityRelationCoordinates] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
     const {appId} = useParams();
     const [app, setApp] = useImmer(newApp);
@@ -41,51 +35,16 @@ function AppEditor() {
         } else {
             appRest.findById(appId).then(response => {
                 setApp(updateApp(app, response.data));
-                setEntities(response.data.entities);
                 setIsAppLoading(false);
             });
         }
     }, [appId, appRest]);
 
     useEffect(() => {
-        setEntityRelationCoordinates(updateRelationCoordinates(entities));
-    }, [entities]);
-
-    useEffect(() => {
         userRest.getUserGroups().then(response => {
             setUserGroups(response.data);
         });
     }, [userRest]);
-
-    function updateEntity(entity, shallReloadEntities = true) {
-        const newEntities = JSON.parse(JSON.stringify(entities));
-
-        const foundIndex = newEntities.findIndex(searchEntity => searchEntity.id === entity.id);
-        if (foundIndex < 0) {
-            newEntities.push(entity);
-        } else {
-            newEntities[foundIndex] = entity;
-        }
-        newEntities[foundIndex] = entity;
-        setEntities(newEntities);
-        let createEntity = entityRest.createEntityByApp(appId, entity);
-        if (shallReloadEntities) {
-            createEntity = createEntity
-                .then(reloadEntities);
-        }
-        return createEntity;
-    }
-
-    function reloadEntities() {
-        return entityRest.findAllEntitiesByApp(appId).then(response => {
-            const newEntities = response.data;
-            setApp(draft => {
-                draft.entities = newEntities;
-            });
-            setEntities(newEntities);
-            return newEntities;
-        });
-    }
 
     const steps = [
         {
@@ -111,20 +70,18 @@ function AppEditor() {
             label: t("app.section.entityDiagram"),
             component: (
                 <EntityDiagram
-                    entities={entities}
-                    coordinates={entityRelationCoordinates}
-                    reloadEntities={reloadEntities}
-                    updateEntity={updateEntity}
+                    appId={app.id}
+                    entities={app.entities}
+                    onChange={entities => setApp(updateEntities(app, entities))}
                 />
             ),
-            condition: entities?.length >= 1
+            condition: app.entities?.length >= 1
         },
         {
             label: t("app.section.conclusion"),
             component: (
                 <AppConclusion
                     app={app}
-                    coordinates={updateRelationCoordinates(entities)}
                 />
             ),
             condition: true
@@ -157,8 +114,7 @@ function AppEditor() {
 
     function handleSave() {
         let restRequest;
-        setApp(draft => {draft.entities = entities;});
-        if (app.isNew) {
+        if (app.general.isNew) {
             restRequest = appRest.create(toDatabaseApp(app))
                 .then(response => {
                     history.push(`/apps/${id}/edit`);
@@ -168,7 +124,6 @@ function AppEditor() {
             restRequest = appRest.update(toDatabaseApp(app))
                 .then(response => {
                     setApp(updateApp(app, response.data));
-                    setEntities(response.data.entities);
                     return response;
                 });
         }

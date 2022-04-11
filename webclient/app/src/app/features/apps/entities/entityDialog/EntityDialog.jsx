@@ -37,16 +37,17 @@ function EntityDialog(props) {
     const {t} = useTranslation();
 
     useEffect(() => {
+        let currEntity = {};
         if (entityId) {
-            const existingEntity = {...entities.find(entity_ => entity_.id === entityId)};
-            existingEntity.fields?.forEach(field => {
-                field.mandatory = field.fieldValidateRules?.includes("required");
-            });
-            setEntity(existingEntity);
+            currEntity = entities.find(entity_ => entity_.id === entityId);
         } else {
-            const newEntity1 = JSON.parse(JSON.stringify(newEntity));
-            setEntity(newEntity1);
+            currEntity = newEntity;
         }
+        const tmpEntity = JSON.parse(JSON.stringify(currEntity));
+        tmpEntity.fields?.forEach(field => {
+            field.mandatory = field.fieldValidateRules?.includes("required");
+        });
+        setEntity(tmpEntity);
     }, [entityId, entities]);
 
     useEffect(() => {

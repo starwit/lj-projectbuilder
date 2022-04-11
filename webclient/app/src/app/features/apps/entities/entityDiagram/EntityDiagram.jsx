@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
 import {Code, Adjust} from "@mui/icons-material";
 import {Button, Drawer} from "@mui/material";
 import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -12,20 +12,27 @@ import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import {renderRelations} from "../HandleRelations";
+import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
+import {updatePosition} from "../DefaultEntities";
+import {useImmer} from "use-immer";
 
 function EntityDiagram(props) {
-    const {editable, entities, coordinates, dense, reloadEntities, updateEntity} = props;
+    const {appId, editable, entities, dense, onChange} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [currentEntity, setCurrentEntity] = useState(false);
+    const [currentEntity, setCurrentEntity] = useImmer(false);
+    const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
     const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
     const {t} = useTranslation();
+
+    useEffect(() => {
+        setCoordinates(updateRelationCoordinates(entities));
+    }, [entities]);
 
     function addEntity() {
         setOpenEntityDialog(true);
@@ -43,12 +50,23 @@ function EntityDiagram(props) {
         if (!editable) {
             return;
         }
-
         return entityRest.delete(entityId)
             .then(reloadEntities);
     }
 
-    function prepareUpdateEntity(updatedEntityInput, shallReloadEntities = true) {
+    function updateEntity(entity) {
+        return entityRest.createEntityByApp(appId, entity);
+    }
+
+    function reloadEntities() {
+        return entityRest.findAllEntitiesByApp(appId).then(response => {
+            const newEntities = response.data;
+            onChange(newEntities);
+            return newEntities;
+        });
+    }
+
+    function prepareUpdateEntity(updatedEntityInput) {
         const updatedEntity = {...updatedEntityInput};
 
         if (!editable) {
@@ -63,19 +81,17 @@ function EntityDiagram(props) {
         if (currentEntity) {
             setCurrentEntity(updatedEntity);
         }
-
-        return updateEntity(updatedEntity, shallReloadEntities);
+        let createEntity = updateEntity(updatedEntity);
+        createEntity = createEntity.then(reloadEntities);
+        return createEntity;
     }
 
-    function updatePosition(draggableData, entity) {
-        if (!entity.position) {
-            entity.position = {};
-        }
-
-        entity.position.positionX = draggableData.x;
-        entity.position.positionY = draggableData.y;
-
-        prepareUpdateEntity(entity, false);
+    function savePosition(entity, index, draggableData) {
+        const updatedEntity = updatePosition(entity, draggableData);
+        const newEntities = [...entities];
+        newEntities[index] = updatedEntity;
+        onChange(newEntities);
+        updateEntity(updatedEntity);
     }
 
     function renderEntities() {
@@ -94,7 +110,7 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updatePosition(draggableData, entity)}
+                    onStop={(update, draggableData) => savePosition(entity, index, draggableData)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
                     position={entityCardPosition}
@@ -134,8 +150,11 @@ function EntityDiagram(props) {
     function centerEntities() {
         const newEntities = [...entities];
         newEntities.forEach((entity, index) => {
-            updatePosition({x: index * 30 + 100, y: index * 10}, entity);
+            const updatedEntity = updatePosition(entity, {x: index * 30 + 100, y: index * 10});
+            newEntities[index] = updatedEntity;
+            updateEntity(updatedEntity);
         });
+        onChange(newEntities);
     }
 
     return (

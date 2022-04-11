@@ -36,6 +36,29 @@ function updateTemplate(app, template) {
     });
 }
 
+function updateEntities(app, entities) {
+    return produce(app, draft => {
+        draft.entities = entities;
+    });
+}
+
+function updateEntityInApp(app, entity) {
+    return produce(app, draft => {
+        const foundIndex = draft.entities?.findIndex(searchEntity => searchEntity.id === entity.id);
+        if (foundIndex < 0) {
+            draft.entities.push(entity);
+        } else {
+            draft.entities[foundIndex] = entity;
+        }
+    });
+}
+
+function updateEntityInAppByIndex(app, entity, index) {
+    return produce(app, draft => {
+        draft.entities[index] = entity;
+    });
+}
+
 function updateGeneral(app, event) {
     if (event?.target?.name === "appName" || event?.target?.name === "packageName") {
         return produce(app, draft => {
@@ -52,4 +75,12 @@ function isValid(general) {
             RegexConfig.packageName.test(general.packageName);
 }
 
-export {newApp, updateApp, updateTemplate, updateGeneral, toDatabaseApp};
+export {
+    newApp,
+    updateApp,
+    updateTemplate,
+    updateGeneral,
+    updateEntities,
+    updateEntityInApp,
+    updateEntityInAppByIndex,
+    toDatabaseApp};

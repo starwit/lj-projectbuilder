@@ -1,3 +1,5 @@
+import {produce} from "immer";
+
 const newEntity = {
     name: "",
     fields: [],
@@ -21,4 +23,14 @@ const emptyEntity = {
     }
 };
 
-export {newEntity, emptyEntity};
+function updatePosition(entity, draggableData) {
+    const updatedEntity = {...entity};
+    updatedEntity.position = {};
+    updatedEntity.position.positionX = draggableData.x;
+    updatedEntity.position.positionY = draggableData.y;
+    return updatedEntity;
+};
+
+// // example compl
+
+export {newEntity, emptyEntity, updatePosition};
