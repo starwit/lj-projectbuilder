@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Box,
     Button,
@@ -23,7 +23,14 @@ import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import {LoadingButton} from "@mui/lab";
-import {emptyEntity, newEntity, addField, addRelationship, toDatabaseEntity, initEntity} from "../DefaultEntities";
+import {
+    emptyEntity,
+    newEntity,
+    addFieldToEntity,
+    addRelationshipToEntity,
+    toDatabaseEntity,
+    initEntity
+} from "../DefaultEntities";
 import FieldTypes from "./FieldTypes";
 import {useImmer} from "use-immer";
 
@@ -46,39 +53,40 @@ function EntityDialog(props) {
         setEntity(initEntity(currEntity));
     }, [entityId, entities]);
 
-    // useEffect(() => {
-    //     if (!entity) {
-    //         return;
-    //     }
-    //     let hasError = false;
+    useEffect(() => {
+        if (!entity) {
+            return;
+        }
+        let hasError = false;
 
-    //     if (!RegexConfig.entityTitle.test(entity.name)) {
-    //         hasError = true;
-    //     }
+        if (!RegexConfig.entityTitle.test(entity.name)) {
+            hasError = true;
+        }
 
-    //     entity.fields?.forEach(field => {
-    //         if (!RegexConfig.fieldName.test(field.fieldName)) {
-    //             hasError = true;
-    //         }
-    //     });
+        entity.fields?.forEach(field => {
+            if (!RegexConfig.fieldName.test(field.fieldName)) {
+                hasError = true;
+            }
+        });
 
-    //     entity.relationships?.forEach(relationship => {
-    //         if (
-    //             !RegexConfig.relationship.test(relationship.relationshipName) ||
-    //                 !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
-    //                 !RegexConfig.entityTitle.test(relationship.otherEntityName)
-    //         ) {
-    //             hasError = true;
-    //         }
-    //     });
-    //     setHasFormError(hasError);
-    // }, [entity]);
+        entity.relationships?.forEach(relationship => {
+            if (
+                !RegexConfig.relationship.test(relationship.relationshipName) ||
+                    !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
+                    !RegexConfig.entityTitle.test(relationship.otherEntityName)
+            ) {
+                hasError = true;
+            }
+        });
+        setHasFormError(hasError);
+    }, [entity]);
 
     function getTargetEntities() {
         let newTargetEntities = [];
         if (entities?.length >= 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
-        } else {
+        }
+        if (newTargetEntities.length === 0) {
             const emptyTarget = emptyEntity;
             emptyTarget.name = t("relationship.targetEntity.empty");
             newTargetEntities.push(emptyTarget);
@@ -105,12 +113,20 @@ function EntityDialog(props) {
             });
     }
 
+    function addRelationship() {
+        setEntity(addRelationshipToEntity(entity, getTargetEntities()));
+    }
+
+    function addField() {
+        setEntity(addFieldToEntity(entity));
+    }
+
     function deleteRelationship(index) {
-        setEntity(draft => draft.relationships.splice(index, 1));
+        setEntity(draft => {draft.relationships.splice(index, 1);});
     }
 
     function deleteField(index) {
-        setEntity(draft => draft.fields.splice(index, 1));
+        setEntity(draft => {draft.fields.splice(index, 1);});
     }
 
     function handleTabChange(event, newValue) {
@@ -118,11 +134,11 @@ function EntityDialog(props) {
     }
 
     function handleEntityTitleText(event) {
-        setEntity(draft => draft.name = event.target.value);
+        setEntity(draft => {draft.name = event.target.value;});
     }
 
     function editFieldProperty(key, value, index) {
-        setEntity(draft => draft.fields[index][key] = value);
+        setEntity(draft => {draft.fields[index][key] = value;});
     }
 
     function editRelationshipProperty(key, value, index) {
@@ -231,7 +247,7 @@ function EntityDialog(props) {
                     <TabPanel value={value} index={0}>
                         <Stack spacing={1}>
                             {renderFields()}
-                            <Button fullWidth startIcon={<Add/>} onClick={setEntity(addField(entity))}>
+                            <Button fullWidth startIcon={<Add/>} onClick={addField}>
                                 {t("button.create")}
                             </Button>
                         </Stack>
@@ -239,13 +255,7 @@ function EntityDialog(props) {
                     <TabPanel value={value} index={1}>
                         <Stack spacing={1}>
                             {renderRelations()}
-                            <Button fullWidth startIcon={<Add/>}
-                                onClick={
-                                    setEntity(
-                                        addRelationship(entity, getTargetEntities())
-                                    )
-                                }
-                            >
+                            <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>
                                 {t("button.create")}
                             </Button>
                         </Stack>

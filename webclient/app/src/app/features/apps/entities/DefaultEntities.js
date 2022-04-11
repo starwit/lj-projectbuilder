@@ -34,7 +34,7 @@ function updatePosition(entity, draggableData) {
     return updatedEntity;
 }
 
-function addField(entity) {
+function addFieldToEntity(entity) {
     return produce(entity, draft => {
         if (!draft.fields) {
             draft.fields = [];
@@ -52,7 +52,7 @@ function addField(entity) {
     });
 }
 
-function addRelationship(entity, targetEntities) {
+function addRelationshipToEntity(entity, targetEntities) {
     return produce(entity, draft => {
         if (!draft.relationships) {
             draft.relationships = [];
@@ -106,4 +106,12 @@ function initEntity(entity) {
     });
 }
 
-export {newEntity, emptyEntity, updatePosition, addField, addRelationship, toDatabaseEntity, initEntity};
+export {
+    newEntity,
+    emptyEntity,
+    updatePosition,
+    addFieldToEntity,
+    addRelationshipToEntity,
+    toDatabaseEntity,
+    initEntity
+};
