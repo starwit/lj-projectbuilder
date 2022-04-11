@@ -15,7 +15,6 @@ import MainTheme from "../../../../assets/themes/MainTheme";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
 import {updatePosition} from "../DefaultEntities";
-import {useImmer} from "use-immer";
 
 function EntityDiagram(props) {
     const {appId, editable, entities, dense, onChange} = props;
@@ -23,7 +22,7 @@ function EntityDiagram(props) {
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [currentEntity, setCurrentEntity] = useImmer(false);
+    const [selectedEntityId, setSelectedEntityId] = useState(null);
     const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
     const [openEntityDialog, setOpenEntityDialog] = useState(false);
@@ -66,20 +65,9 @@ function EntityDiagram(props) {
         });
     }
 
-    function prepareUpdateEntity(updatedEntityInput) {
-        const updatedEntity = {...updatedEntityInput};
-
+    function prepareUpdateEntity(updatedEntity) {
         if (!editable) {
             return;
-        }
-
-        if (updatedEntity.isNewEntity) {
-            delete updatedEntity.id;
-            updatedEntity.isNewEntity = false;
-        }
-
-        if (currentEntity) {
-            setCurrentEntity(updatedEntity);
         }
         let createEntity = updateEntity(updatedEntity);
         createEntity = createEntity.then(reloadEntities);
@@ -117,7 +105,7 @@ function EntityDiagram(props) {
                     disabled={!editable}
                 >
                     <div>
-                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
+                        <EntityCard entity={entity} onSelect={setSelectedEntityId} handleDelete={deleteEntity}
                             editable={editable}/>
                     </div>
                 </Draggable>
@@ -144,7 +132,7 @@ function EntityDiagram(props) {
 
     function closeEntityDialog() {
         setOpenEntityDialog(false);
-        setCurrentEntity(null);
+        setSelectedEntityId(null);
     }
 
     function centerEntities() {
@@ -194,7 +182,7 @@ function EntityDiagram(props) {
                 {renderRelations(coordinates, theme)}
             </div>
             <EntityDialog
-                entityId={currentEntity?.id}
+                entityId={selectedEntityId}
                 onClose={closeEntityDialog}
                 handleSave={data => prepareUpdateEntity(data)}
                 entities={entities}

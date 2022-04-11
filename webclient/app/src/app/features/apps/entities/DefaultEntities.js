@@ -1,10 +1,10 @@
 import {produce} from "immer";
+import {defaultRelationship} from "./Relationship";
 
 const newEntity = {
     name: "",
     fields: [],
     relationships: [],
-    isNewEntity: true,
     position: {
         positionX: 0,
         positionY: 0
@@ -16,12 +16,15 @@ const emptyEntity = {
     name: "none",
     fields: [],
     relationships: [],
-    isNewEntity: false,
     position: {
         positionX: 0,
         positionY: 0
     }
 };
+
+function lowerFirstChar(s) {
+    return (s && s[0].toLowerCase() + s.slice(1)) || "";
+}
 
 function updatePosition(entity, draggableData) {
     const updatedEntity = {...entity};
@@ -29,8 +32,78 @@ function updatePosition(entity, draggableData) {
     updatedEntity.position.positionX = draggableData.x;
     updatedEntity.position.positionY = draggableData.y;
     return updatedEntity;
-};
+}
 
-// // example compl
+function addField(entity) {
+    return produce(entity, draft => {
+        if (!draft.fields) {
+            draft.fields = [];
+        }
+        draft.fields.push({
+            fieldName: "",
+            fieldType: "String",
+            fieldValidateRulesPattern: "",
+            fieldValidateRulesMin: "",
+            fieldValidateRulesMinlength: "",
+            fieldValidateRulesMax: "",
+            fieldValidateRulesMaxlength: "",
+            mandatory: false
+        });
+    });
+}
 
-export {newEntity, emptyEntity, updatePosition};
+function addRelationship(entity, targetEntities) {
+    return produce(entity, draft => {
+        if (!draft.relationships) {
+            draft.relationships = [];
+        }
+        const relationship = {...defaultRelationship};
+        relationship.otherEntityName = targetEntities[0].name;
+        relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
+        relationship.otherEntityRelationshipName = lowerFirstChar(draft.name);
+
+        draft.relationships.push(relationship);
+    });
+}
+
+function toDatabaseEntity(entity) {
+    return produce(entity, draft => {
+        draft.fields?.forEach(field => {
+            field.fieldValidateRules = [];
+
+            if (field.fieldValidateRulesMinlength) {
+                field.fieldValidateRules.push("minlength");
+            }
+
+            if (field.fieldValidateRulesMaxlength) {
+                field.fieldValidateRules.push("maxlength");
+            }
+
+            if (field.mandatory) {
+                field.fieldValidateRules.push("required");
+            }
+
+            if (field.fieldValidateRulesMin) {
+                field.fieldValidateRules.push("min");
+            }
+
+            if (field.fieldValidateRulesMax) {
+                field.fieldValidateRules.push("max");
+            }
+
+            if (field.fieldValidateRulesPattern) {
+                field.fieldValidateRules.push("pattern");
+            }
+        });
+    });
+}
+
+function initEntity(entity) {
+    return produce(entity, draft => {
+        draft.fields?.forEach(field => {
+            field.mandatory = field.fieldValidateRules?.includes("required");
+        });
+    });
+}
+
+export {newEntity, emptyEntity, updatePosition, addField, addRelationship, toDatabaseEntity, initEntity};
