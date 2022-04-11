@@ -42,23 +42,6 @@ function updateEntities(app, entities) {
     });
 }
 
-function updateEntityInApp(app, entity) {
-    return produce(app, draft => {
-        const foundIndex = draft.entities?.findIndex(searchEntity => searchEntity.id === entity.id);
-        if (foundIndex < 0) {
-            draft.entities.push(entity);
-        } else {
-            draft.entities[foundIndex] = entity;
-        }
-    });
-}
-
-function updateEntityInAppByIndex(app, entity, index) {
-    return produce(app, draft => {
-        draft.entities[index] = entity;
-    });
-}
-
 function updateGeneral(app, event) {
     if (event?.target?.name === "appName" || event?.target?.name === "packageName") {
         return produce(app, draft => {
@@ -81,6 +64,4 @@ export {
     updateTemplate,
     updateGeneral,
     updateEntities,
-    updateEntityInApp,
-    updateEntityInAppByIndex,
     toDatabaseApp};
