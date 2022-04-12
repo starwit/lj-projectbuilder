@@ -113,5 +113,6 @@ export {
     addFieldToEntity,
     addRelationshipToEntity,
     toDatabaseEntity,
-    initEntity
+    initEntity,
+    lowerFirstChar
 };
