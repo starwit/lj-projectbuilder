@@ -29,7 +29,8 @@ import {
     addFieldToEntity,
     addRelationshipToEntity,
     toDatabaseEntity,
-    initEntity
+    initEntity,
+    lowerFirstChar
 } from "../DefaultEntities";
 import FieldTypes from "./FieldTypes";
 import {useImmer} from "use-immer";
