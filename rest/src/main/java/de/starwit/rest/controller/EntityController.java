@@ -89,6 +89,21 @@ public class EntityController {
         return mapper.convertToDto(domain);
     }
 
+    @IsAdmin
+    @IsUser
+    @Operation(summary = "Update entity in app with appid")
+    @PutMapping(value = "/position-by-app/{appId}")
+    public EntityDto updatePosition(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
+        Domain domain = null;
+        if (dto.getId() != null) {
+            domain = domainService.findByAppAndDomainId(appId, dto.getId());
+            domain.setPosition(dto.getPosition());
+            domain = domainService.saveOrUpdate(domain);
+            return mapper.convertToDto(domain);
+        }
+        throw new EntityNotFoundException();
+    }
+
     @Operation(summary = "Get all entities in app with appid")
     @GetMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> findAllByApp(@PathVariable("appId") Long id) {
