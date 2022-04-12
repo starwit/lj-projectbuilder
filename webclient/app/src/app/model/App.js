@@ -22,11 +22,11 @@ function updateApp(app, data) {
         draft.general = {appName: "", packageName: "", assignedGroups: []};
         draft.general.appName = data.baseName;
         draft.general.packageName = data.packageName;
-        draft.template = data.template;
-        draft.entities = data.entities;
         draft.general.assignedGroups = data.groupsToAssign;
         draft.general.isNew = !data.id;
         draft.general.isValid = isValid(draft.general);
+        draft.template = data.template;
+        draft.entities = data.entities;
     });
 }
 

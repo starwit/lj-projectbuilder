@@ -83,7 +83,7 @@ function AppConclusion(props) {
                             <ListItemText primary={renderLoadingText(app.general.appName)} secondary={t("app.name")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(app.template.name)}
+                            <ListItemText primary={renderLoadingText(app.template?.name)}
                                 secondary={t("app.section.template")}/>
                         </ListItem>
                         <ListItem>

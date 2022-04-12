@@ -136,6 +136,9 @@ function EntityDiagram(props) {
     }
 
     function centerEntities() {
+        if (!editable) {
+            return;
+        }
         const newEntities = [...entities];
         newEntities.forEach((entity, index) => {
             const updatedEntity = updatePosition(entity, {x: index * 30 + 100, y: index * 10});
@@ -143,6 +146,20 @@ function EntityDiagram(props) {
             updateEntity(updatedEntity);
         });
         onChange(newEntities);
+    }
+
+    function renderCenterButton() {
+        if (!editable) {
+            return;
+        }
+
+        return (
+            <div className={entityDiagramStyles.centerButtonWrapper}>
+                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
+                    {t("entity.center")}
+                </Button>
+            </div>
+        );
     }
 
     return (
@@ -153,11 +170,7 @@ function EntityDiagram(props) {
                     {t("entity.code")}
                 </Button>
             </div>
-            <div className={entityDiagramStyles.centerButtonWrapper}>
-                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
-                    {t("entity.center")}
-                </Button>
-            </div>
+            {renderCenterButton()}
             <React.Fragment key={"left"}>
                 <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer}
                     className={entityDiagramStyles.drawer}>
