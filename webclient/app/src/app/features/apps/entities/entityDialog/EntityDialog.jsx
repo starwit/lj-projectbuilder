@@ -68,8 +68,8 @@ function EntityDialog(props) {
         entity.relationships?.forEach(relationship => {
             if (
                 !RegexConfig.relationship.test(relationship.relationshipName) ||
-                    !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
-                    !RegexConfig.entityTitle.test(relationship.otherEntityName)
+                !RegexConfig.relationship.test(relationship.otherEntityRelationshipName) ||
+                !RegexConfig.entityTitle.test(relationship.otherEntityName)
             ) {
                 hasError = true;
             }
@@ -257,7 +257,7 @@ function EntityDialog(props) {
                 fieldName,
                 fieldType
             } =
-                    entity.fields[index];
+                entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
@@ -294,43 +294,45 @@ function EntityDialog(props) {
                 </IconButton>
             </DialogTitle>
             <Container>
-                <ValidatedTextField
-                    isCreate={entity.isNewEntity}
-                    fullWidth
-                    label={t("entity.name") + "*"}
-                    value={entity.name}
-                    onChange={handleEntityTitleText}
-                    helperText={t("entity.name.hint")}
-                    regex={RegexConfig.entityTitle}
-                />
-                <Box className={entityEditorStyles.tabBox}>
-                    <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
-                        className={entityEditorStyles.tabHeader}>
-                        <Tab label={t("entity.fields")} {...a11yProps(0)} />
-                        <Tab label={t("entity.relations")} {...a11yProps(1)} />
-                    </Tabs>
-                    <TabPanel value={value} index={0}>
-                        <Stack spacing={1}>
-                            {renderFields()}
-                            <Button fullWidth startIcon={<Add/>} onClick={addField}>
-                                {t("button.create")}
-                            </Button>
-                        </Stack>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <Stack spacing={1}>
-                            {renderRelations()}
-                            <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>
-                                {t("button.create")}
-                            </Button>
-                        </Stack>
-                    </TabPanel>
-                </Box>
-                <DialogActions>
-                    <LoadingButton onClick={prepareSave} disabled={hasFormError} loading={isSaving}>
-                        {t("button.save")}
-                    </LoadingButton>
-                </DialogActions>
+                <Stack spacing={2}>
+                    <ValidatedTextField
+                        isCreate={entity.isNewEntity}
+                        fullWidth
+                        label={t("entity.name") + "*"}
+                        value={entity.name}
+                        onChange={handleEntityTitleText}
+                        helperText={t("entity.name.hint")}
+                        regex={RegexConfig.entityTitle}
+                    />
+                    <Box className={entityEditorStyles.tabBox}>
+                        <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
+                              className={entityEditorStyles.tabHeader}>
+                            <Tab label={t("entity.fields")} {...a11yProps(0)} />
+                            <Tab label={t("entity.relations")} {...a11yProps(1)} />
+                        </Tabs>
+                        <TabPanel value={value} index={0}>
+                            <Stack spacing={1}>
+                                {renderFields()}
+                                <Button fullWidth startIcon={<Add/>} onClick={addField}>
+                                    {t("button.create")}
+                                </Button>
+                            </Stack>
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            <Stack spacing={1}>
+                                {renderRelations()}
+                                <Button fullWidth startIcon={<Add/>} onClick={addRelationship}>
+                                    {t("button.create")}
+                                </Button>
+                            </Stack>
+                        </TabPanel>
+                    </Box>
+                    <DialogActions>
+                        <LoadingButton onClick={prepareSave} disabled={hasFormError} loading={isSaving}>
+                            {t("button.save")}
+                        </LoadingButton>
+                    </DialogActions>
+                </Stack>
             </Container>
         </Dialog>
     );

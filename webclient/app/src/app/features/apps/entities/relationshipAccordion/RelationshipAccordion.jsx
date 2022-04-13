@@ -69,7 +69,7 @@ function RelationshipAccordion(props) {
                                 <Typography gutterBottom>{t("relationship.source")}</Typography>
                             </Grid>
                             <Grid item sm={5}>
-                                <Stack spacing={2}>
+                                <Stack spacing={3}>
                                     <FormControl fullWidth>
                                         <TextField
                                             label={t("relationship.sourceEntity")}
@@ -102,7 +102,7 @@ function RelationshipAccordion(props) {
                                 <Typography gutterBottom>{t("relationship.target")}</Typography>
                             </Grid>
                             <Grid item sm={5}>
-                                <Stack spacing={2}>
+                                <Stack spacing={3}>
                                     <FormControl fullWidth>
                                         <InputLabel id="targetEntity"
                                                     error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}>
