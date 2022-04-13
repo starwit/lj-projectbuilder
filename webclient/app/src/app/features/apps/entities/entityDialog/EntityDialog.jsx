@@ -219,7 +219,7 @@ function EntityDialog(props) {
     }
 
     return (
-        <Dialog open={!!entityId || (open && !entityId)} maxWidth={"xl"} fullWidth>
+        <Dialog open={!!entityId || open} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography noWrap variant={"h6"} component={"p"}>
                     {t("entity.edit", {entityName: entity.name})}
