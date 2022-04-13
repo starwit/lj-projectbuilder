@@ -75,8 +75,7 @@ function EntityDiagram(props) {
         if (!editable) {
             return;
         }
-        let createEntity = updateEntity(updatedEntity);
-        createEntity = createEntity.then(reloadEntities);
+        let createEntity = updateEntity(updatedEntity).then(reloadEntities);
         return createEntity;
     }
 
