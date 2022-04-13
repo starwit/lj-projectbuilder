@@ -111,7 +111,7 @@ function EntityDiagram(props) {
                     disabled={!editable}
                 >
                     <div>
-                        <EntityCard entity={entity} onSelect={setSelectedEntityId} handleDelete={deleteEntity}
+                        <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
                             editable={editable}/>
                     </div>
                 </Draggable>

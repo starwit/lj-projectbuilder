@@ -10,7 +10,7 @@ function EntityCard(props) {
     const entityCardStyles = EntityCardStyles();
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const {entity, onSelect, handleDelete, editable} = props;
+    const {entity, onEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
     function renderTitle(name) {
@@ -59,10 +59,10 @@ function EntityCard(props) {
     }
 
     function renderEditButton(entityId) {
-        if (onSelect && editable) {
+        if (onEdit && editable) {
             return (
                 <Grid item sm={2}>
-                    <IconButton onClick={() => onSelect(entityId)}>
+                    <IconButton onClick={() => onEdit(entityId)}>
                         <Edit fontSize={"small"}/></IconButton>
                 </Grid>
             );
@@ -95,7 +95,7 @@ function EntityCard(props) {
         if (handleDelete) {
             titleWidth -= 2;
         }
-        if (onSelect) {
+        if (onEdit) {
             titleWidth -= 2;
         }
         return titleWidth;
@@ -119,7 +119,7 @@ function EntityCard(props) {
 
 EntityCard.propTypes = {
     entity: PropTypes.object.isRequired,
-    onSelect: PropTypes.func,
+    onEdit: PropTypes.func,
     handleDelete: PropTypes.func,
     editable: PropTypes.bool
 };
