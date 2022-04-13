@@ -13,7 +13,7 @@ import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
 import {renderRelations} from "../HandleRelations";
-import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
+import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
 
 function EntityDiagram(props) {
     const {editable, entities, coordinates, dense, reloadEntities, updateEntity} = props;

@@ -16,9 +16,9 @@ import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import {useTranslation} from "react-i18next";
 import {Close} from "@mui/icons-material";
 import AppTemplateRest from "../../../services/AppTemplateRest";
-import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../commons/inputfields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
-import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
+import MultipleSelectChip from "../../../commons/inputfields/multipleSelectChip/MultipleSelectChip";
 
 function AppTemplateDialog(props) {
     const {appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups} = props;

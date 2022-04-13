@@ -4,12 +4,14 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import {useTranslation} from "react-i18next";
 import {Close, CloudSync} from "@mui/icons-material";
-import ValidatedTextField from "../validatedTextField/ValidatedTextField";
-import RegexConfig from "../../../regexConfig";
+import ValidatedTextField from "../../inputfields/validatedTextField/ValidatedTextField";
 import GitDataButtonStyles from "./GitDataButtonStyles";
 
 function GitDataButton(props) {
     const {credentialsRequired, handleGit, handleAfterSuccess, buttonIcon, buttonName, buttonVariant} = props;
+    const authUser= "/^[a-zA-Z0-9!@#$%^&()*./_-]{2,20}$/";
+    const authPassword= "/^[a-zA-Z0-9!@#$%^&()*./_-]{6,100}$/";
+
     const gitDataButtonStyles = GitDataButtonStyles();
     const [hasFormError, setHasFormError] = React.useState(false);
     const [downloadRequestData, setDownloadRequestData] = useState({"username": "", "password": ""});
@@ -28,11 +30,11 @@ function GitDataButton(props) {
         if (credentialsRequired) {
             setOpenAuthDialog(true);
         } else {
-            handleAppTemplateReload();
+            handleSuccess();
         }
     };
 
-    const handleAppTemplateReload = () => {
+    const handleSuccess = () => {
         if (hasFormError && credentialsRequired) {
             return;
         }
@@ -53,10 +55,10 @@ function GitDataButton(props) {
         }
         let hasError = false;
 
-        if (!RegexConfig.appTemplateAuthUser.test(downloadRequestData.username)) {
+        if (!authUser.test(downloadRequestData.username)) {
             hasError = true;
         }
-        if (!RegexConfig.appTemplateAuthPassword.test(downloadRequestData.password)) {
+        if (!authPassword.test(downloadRequestData.password)) {
             hasError = true;
         }
         setHasFormError(hasError);
@@ -96,7 +98,7 @@ function GitDataButton(props) {
                         onChange={handleChange}
                         isCreate={true}
                         helperText={t("gitAuth.username.hint")}
-                        regex={RegexConfig.appTemplateAuthUser}
+                        regex={authUser}
                     />
                     <ValidatedTextField
                         type="password"
@@ -108,7 +110,7 @@ function GitDataButton(props) {
                         isCreate={true}
                         helperText={t("gitAuth.password.hint")}
                         autoComplete="on"
-                        regex={RegexConfig.appTemplateAuthPassword}
+                        regex={authPassword}
                     />
                     <DialogActions>
                         <Button onClick={onClose}>{t("button.cancel")}</Button>
