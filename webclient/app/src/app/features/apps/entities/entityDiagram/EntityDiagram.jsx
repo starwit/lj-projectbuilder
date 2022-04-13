@@ -54,10 +54,16 @@ function EntityDiagram(props) {
     }
 
     function updateEntity(entity) {
+        if (!editable) {
+            return;
+        }
         return entityRest.createEntityByApp(appId, entity);
     }
 
     function reloadEntities() {
+        if (!editable) {
+            return;
+        }
         return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
             onChange(newEntities);
