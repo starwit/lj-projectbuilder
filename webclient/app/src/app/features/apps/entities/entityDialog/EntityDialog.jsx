@@ -222,9 +222,7 @@ function EntityDialog(props) {
     function renderRelations() {
         if (!entity.relationships || entity.relationships.length <= 0) {
             return (
-                <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entity.relations.empty")}/>
-                </div>
+                <Statement message={t("entity.relations.empty")} enableSpacing/>
             );
         }
         return entity.relationships.map((relationship, index) => {
@@ -244,9 +242,7 @@ function EntityDialog(props) {
     function renderFields() {
         if (!entity.fields || entity.fields.length <= 0) {
             return (
-                <div className={entityEditorStyles.statementWrapper}>
-                    <Statement message={t("entity.fields.empty")}/>
-                </div>
+                <Statement message={t("entity.fields.empty")} enableSpacing/>
             );
         }
 

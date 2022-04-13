@@ -11,7 +11,7 @@ const AppStepsStyles = makeStyles(theme => ({
         width: "100%"
     },
     root: {
-        paddingTop: "2rem"
+        paddingTop: theme.spacing(2)
     },
     listItemText: {
         fontWeight: "bold"

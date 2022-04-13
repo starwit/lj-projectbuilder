@@ -2,13 +2,13 @@ import {makeStyles} from "@mui/styles";
 
 const StatementStyles = makeStyles(theme => ({
 
-    root: {
+    root: props => ({
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        height: "100%",
+        height: props.height,
         width: "100%"
-    },
+    }),
     content: {
         display: "flex",
         justifyContent: "center",
