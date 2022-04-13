@@ -306,7 +306,7 @@ function EntityDialog(props) {
                     />
                     <Box className={entityEditorStyles.tabBox}>
                         <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example"
-                              className={entityEditorStyles.tabHeader}>
+                            className={entityEditorStyles.tabHeader}>
                             <Tab label={t("entity.fields")} {...a11yProps(0)} />
                             <Tab label={t("entity.relations")} {...a11yProps(1)} />
                         </Tabs>

@@ -105,7 +105,7 @@ function RelationshipAccordion(props) {
                                 <Stack spacing={3}>
                                     <FormControl fullWidth>
                                         <InputLabel id="targetEntity"
-                                                    error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}>
+                                            error={!RegexConfig.entityTitle.test(relationship.otherEntityName)}>
                                             {t("relationship.targetEntity") + "*"}
                                         </InputLabel>
                                         <Select

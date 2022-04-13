@@ -136,7 +136,7 @@ function AppTemplateCard(props) {
                                             <GitHub/>
                                         </ListItemIcon>
                                         <ListItemText primary={appTemplate.location}
-                                                      secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
+                                            secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
                                     </ListItem>
                                 </List>
                             </Stack>
