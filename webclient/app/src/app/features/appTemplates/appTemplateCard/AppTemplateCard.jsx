@@ -26,7 +26,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../../services/AppTemplateRest";
 import GitRest from "../../../services/GitRest";
-import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
+import ConfirmationDialog from "../../../commons/confirmationDialog/ConfirmationDialog";
 import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
 import {useSnackbar} from "notistack";
 
