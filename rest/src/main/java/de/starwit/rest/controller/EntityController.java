@@ -94,14 +94,14 @@ public class EntityController {
     @Operation(summary = "Update entity in app with appid")
     @PutMapping(value = "/position-by-app/{appId}")
     public EntityDto updatePosition(@PathVariable("appId") Long appId, @Valid @RequestBody EntityDto dto) {
-        Domain domain = null;
-        if (dto.getId() != null) {
-            domain = domainService.findByAppAndDomainId(appId, dto.getId());
-            domain.setPosition(dto.getPosition());
-            domain = domainService.saveOrUpdate(domain);
-            return mapper.convertToDto(domain);
+        if (dto.getId() == null) {
+            throw new EntityNotFoundException();
         }
-        throw new EntityNotFoundException();
+        Domain domain = null;
+        domain = domainService.findByAppAndDomainId(appId, dto.getId());
+        domain.setPosition(dto.getPosition());
+        domain = domainService.saveOrUpdate(domain);
+        return mapper.convertToDto(domain);
     }
 
     @Operation(summary = "Get all entities in app with appid")
