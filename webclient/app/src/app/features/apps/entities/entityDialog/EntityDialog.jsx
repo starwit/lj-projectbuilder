@@ -38,7 +38,7 @@ import {useImmer} from "use-immer";
 function EntityDialog(props) {
     const {entityId, onClose, handleSave, entities, open} = props;
     const [value, setValue] = useState(0);
-    const [entity, setEntity] = useImmer({});
+    const [entity, setEntity] = useImmer(null);
     const [hasFormError, setHasFormError] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const entityEditorStyles = EntityDialogStyles();
