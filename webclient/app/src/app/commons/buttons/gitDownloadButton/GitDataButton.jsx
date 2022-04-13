@@ -114,7 +114,7 @@ function GitDataButton(props) {
                     />
                     <DialogActions>
                         <Button onClick={onClose}>{t("button.cancel")}</Button>
-                        <Button disabled={hasFormError} onClick={handleAppTemplateReload} autoFocus>
+                        <Button disabled={hasFormError} onClick={handleSuccess} autoFocus>
                             {t("button.ok")}
                         </Button>
                     </DialogActions>
