@@ -15,9 +15,6 @@ const AppStepsStyles = makeStyles(theme => ({
     },
     listItemText: {
         fontWeight: "bold"
-    },
-    padding: {
-        paddingBottom: "2rem"
     }
 }));
 export default AppStepsStyles;

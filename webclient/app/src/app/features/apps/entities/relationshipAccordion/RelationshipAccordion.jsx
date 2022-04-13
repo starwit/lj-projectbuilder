@@ -71,15 +71,19 @@ function RelationshipAccordion(props) {
                             <Grid item sm={5}>
                                 <Stack spacing={2}>
                                     <FormControl fullWidth>
-                                        <TextField label={t("relationship.sourceEntity")} value={currentEntity.name}
-                                                   disabled={true}/>
+                                        <TextField
+                                            label={t("relationship.sourceEntity")}
+                                            value={currentEntity.name}
+                                            disabled={true}
+                                        />
                                     </FormControl>
                                     <FormControl fullWidth>
                                         <ValidatedTextField
                                             label={t("relationship.sourceField")}
                                             value={relationship.relationshipName}
-                                            onChange=
-                                                {event => editRelationshipProperty("relationshipName", event.target.value)}
+                                            onChange={event => {
+                                                editRelationshipProperty("relationshipName", event.target.value);
+                                            }}
                                             helperText=
                                                 {t("relationship.sourceField.hint",
                                                     {
