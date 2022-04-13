@@ -14,6 +14,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.ClassUtils;
 import org.springframework.validation.FieldError;
@@ -77,7 +78,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
     public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
         LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
-        NotificationDto output = new NotificationDto("error.badrequest", ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.");
+        NotificationDto output = new NotificationDto("error.badrequest",
+                ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.");
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
@@ -101,6 +103,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         NotificationDto output = new NotificationDto("error.accessdenied", "access denied");
         output.setMessageKey("error.accessdenied");
         return new ResponseEntity<>(output, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(value = { ObjectOptimisticLockingFailureException.class })
+    public ResponseEntity<Object> handleException(ObjectOptimisticLockingFailureException ex) {
+        LOG.info(ex.getMessage());
+        // this is on purpose. optimistic locks cannot be prevented
+        NotificationDto output = new NotificationDto("error.optimisticLock", "Parallel saving to the database");
+        return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @Override
