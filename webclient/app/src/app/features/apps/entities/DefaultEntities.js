@@ -22,8 +22,8 @@ const emptyEntity = {
     }
 };
 
-function lowerFirstChar(s) {
-    return (s && s[0].toLowerCase() + s.slice(1)) || "";
+function lowerFirstChar(string) {
+    return (string && string[0].toLowerCase() + string.slice(1)) || "";
 }
 
 function updatePosition(entity, draggableData) {
