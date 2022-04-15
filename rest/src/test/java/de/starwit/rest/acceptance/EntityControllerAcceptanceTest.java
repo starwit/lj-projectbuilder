@@ -84,8 +84,10 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         dto.setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getId());
         dto.getPosition().setId(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getId());
-        assertThat(2).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionX());
-        assertThat(4).isEqualTo(mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionY());
+        assertThat(2).isEqualTo(
+                mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionX());
+        assertThat(4).isEqualTo(
+                mapper.readValue(response.getContentAsString(), EntityDto.class).getPosition().getPositionY());
         assertThat(response.getContentAsString()).isEqualTo(jsonTester.write(dto).getJson());
     }
 

@@ -10,15 +10,15 @@ import de.starwit.persistence.entity.AbstractEntity;
 
 public interface CustomMapper<ENTITY extends AbstractEntity<Long>, DTO extends AbstractEntity<Long>> {
 
-    public  DTO convertToDto(ENTITY entity);
-    
+    public DTO convertToDto(ENTITY entity);
+
     public ENTITY convertToEntity(DTO dto);
 
-   default public List<DTO> convertToDtoList(Collection<ENTITY> entities) {
+    default public List<DTO> convertToDtoList(Collection<ENTITY> entities) {
         List<DTO> dtos = null;
         if (entities != null) {
             dtos = new ArrayList<>();
-            for (ENTITY entity  : entities) {
+            for (ENTITY entity : entities) {
                 dtos.add(convertToDto(entity));
             }
         }
@@ -29,7 +29,7 @@ public interface CustomMapper<ENTITY extends AbstractEntity<Long>, DTO extends A
         List<ENTITY> entities = null;
         if (dtos != null) {
             entities = new ArrayList<>();
-            for (DTO dto  : dtos) {
+            for (DTO dto : dtos) {
                 entities.add(convertToEntity(dto));
             }
         }
@@ -40,11 +40,11 @@ public interface CustomMapper<ENTITY extends AbstractEntity<Long>, DTO extends A
         Set<ENTITY> entities = null;
         if (dtos != null) {
             entities = new HashSet<>();
-            for (DTO dto  : dtos) {
+            for (DTO dto : dtos) {
                 entities.add(convertToEntity(dto));
             }
         }
         return entities;
     }
-    
+
 }

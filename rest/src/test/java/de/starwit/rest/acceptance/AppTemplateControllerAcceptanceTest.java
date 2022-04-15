@@ -44,7 +44,7 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     public void canCreate() throws Exception {
         // given
         SaveAppTemplateDto dto = readFromFile(data + "apptemplate.json");
-  
+
         // when
         MockHttpServletResponse response = create(dto);
 

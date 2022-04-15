@@ -30,7 +30,7 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     @Schema(hidden = true)
     @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
-	@Size(max = 100)
+    @Size(max = 100)
     private String packagePlaceholder;
 
     @Size(max = 100)

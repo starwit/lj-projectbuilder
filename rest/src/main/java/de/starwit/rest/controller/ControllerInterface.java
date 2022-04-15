@@ -18,17 +18,17 @@ import de.starwit.persistence.entity.AbstractEntity;
 public interface ControllerInterface<DTO extends AbstractEntity<Long>> {
 
     @GetMapping
-	public List<DTO> findAll();
+    public List<DTO> findAll();
 
-	@GetMapping(value = "/{id}")
-	public DTO findById(@PathVariable("id") Long id);
+    @GetMapping(value = "/{id}")
+    public DTO findById(@PathVariable("id") Long id);
 
-	@PutMapping
-	public DTO save(@Valid @RequestBody DTO dto);
+    @PutMapping
+    public DTO save(@Valid @RequestBody DTO dto);
 
-	@PostMapping
-	public DTO update(@Valid @RequestBody DTO dto);
+    @PostMapping
+    public DTO update(@Valid @RequestBody DTO dto);
 
-	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id);
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") Long id);
 }

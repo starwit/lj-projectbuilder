@@ -11,5 +11,5 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("hasRole('user')")
 public @interface IsUser {
-    
+
 }
