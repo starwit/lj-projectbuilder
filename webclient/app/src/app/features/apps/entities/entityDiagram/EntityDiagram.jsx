@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
 import {Code, Adjust} from "@mui/icons-material";
 import {Button, Drawer} from "@mui/material";
 import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -12,20 +12,26 @@ import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
-import {renderRelations} from "../HandleRelations";
+import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
+import {updatePosition} from "../DefaultEntities";
 
 function EntityDiagram(props) {
-    const {editable, entities, coordinates, dense, reloadEntities, updateEntity} = props;
+    const {appId, editable, entities, dense, onChange} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new MainTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [currentEntity, setCurrentEntity] = useState(false);
+    const [selectedEntityId, setSelectedEntityId] = useState(null);
+    const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
     const [openEntityDialog, setOpenEntityDialog] = useState(false);
 
     const {t} = useTranslation();
+
+    useEffect(() => {
+        setCoordinates(updateRelationCoordinates(entities));
+    }, [entities]);
 
     function addEntity() {
         setOpenEntityDialog(true);
@@ -43,39 +49,46 @@ function EntityDiagram(props) {
         if (!editable) {
             return;
         }
-
         return entityRest.delete(entityId)
             .then(reloadEntities);
     }
 
-    function prepareUpdateEntity(updatedEntityInput, shallReloadEntities = true) {
-        const updatedEntity = {...updatedEntityInput};
-
+    function updateEntity(entity) {
         if (!editable) {
             return;
         }
-
-        if (updatedEntity.isNewEntity) {
-            delete updatedEntity.id;
-            updatedEntity.isNewEntity = false;
-        }
-
-        if (currentEntity) {
-            setCurrentEntity(updatedEntity);
-        }
-
-        return updateEntity(updatedEntity, shallReloadEntities);
+        return entityRest.createEntityByApp(appId, entity);
     }
 
-    function updatePosition(draggableData, entity) {
-        if (!entity.position) {
-            entity.position = {};
+    function updatePositionInDB(entity) {
+        return entityRest.updatePositionByApp(appId, entity);
+    }
+
+    function reloadEntities() {
+        if (!editable) {
+            return;
         }
+        return entityRest.findAllEntitiesByApp(appId).then(response => {
+            const newEntities = response.data;
+            onChange(newEntities);
+            return newEntities;
+        });
+    }
 
-        entity.position.positionX = draggableData.x;
-        entity.position.positionY = draggableData.y;
+    function prepareUpdateEntity(updatedEntity) {
+        if (!editable) {
+            return;
+        }
+        let createEntity = updateEntity(updatedEntity).then(reloadEntities);
+        return createEntity;
+    }
 
-        prepareUpdateEntity(entity, false);
+    function savePosition(entity, index, draggableData) {
+        const updatedEntity = updatePosition(entity, draggableData);
+        const newEntities = [...entities];
+        newEntities[index] = updatedEntity;
+        onChange(newEntities);
+        updatePositionInDB(entity);
     }
 
     function renderEntities() {
@@ -94,14 +107,14 @@ function EntityDiagram(props) {
             return (
                 <Draggable
                     axis={"both"}
-                    onStop={(update, draggableData) => updatePosition(draggableData, entity)}
+                    onStop={(update, draggableData) => savePosition(entity, index, draggableData)}
                     key={entity.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
                     position={entityCardPosition}
                     disabled={!editable}
                 >
                     <div>
-                        <EntityCard entity={entity} handleEdit={setCurrentEntity} handleDelete={deleteEntity}
+                        <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
                             editable={editable}/>
                     </div>
                 </Draggable>
@@ -128,14 +141,34 @@ function EntityDiagram(props) {
 
     function closeEntityDialog() {
         setOpenEntityDialog(false);
-        setCurrentEntity(null);
+        setSelectedEntityId(null);
     }
 
     function centerEntities() {
+        if (!editable) {
+            return;
+        }
         const newEntities = [...entities];
         newEntities.forEach((entity, index) => {
-            updatePosition({x: index * 30 + 100, y: index * 10}, entity);
+            const updatedEntity = updatePosition(entity, {x: index * 30 + 100, y: index * 10});
+            newEntities[index] = updatedEntity;
+            updatePositionInDB(entity);
         });
+        onChange(newEntities);
+    }
+
+    function renderCenterButton() {
+        if (!editable) {
+            return;
+        }
+
+        return (
+            <div className={entityDiagramStyles.centerButtonWrapper}>
+                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
+                    {t("entity.center")}
+                </Button>
+            </div>
+        );
     }
 
     return (
@@ -146,11 +179,7 @@ function EntityDiagram(props) {
                     {t("entity.code")}
                 </Button>
             </div>
-            <div className={entityDiagramStyles.centerButtonWrapper}>
-                <Button variant={"outlined"} startIcon={<Adjust/>} onClick={centerEntities}>
-                    {t("entity.center")}
-                </Button>
-            </div>
+            {renderCenterButton()}
             <React.Fragment key={"left"}>
                 <Drawer anchor={"left"} open={drawerOpen} onClose={closeDrawer}
                     className={entityDiagramStyles.drawer}>
@@ -175,7 +204,7 @@ function EntityDiagram(props) {
                 {renderRelations(coordinates, theme)}
             </div>
             <EntityDialog
-                entityId={currentEntity?.id}
+                entityId={selectedEntityId}
                 onClose={closeEntityDialog}
                 handleSave={data => prepareUpdateEntity(data)}
                 entities={entities}

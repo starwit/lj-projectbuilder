@@ -69,5 +69,4 @@ AppTemplateSelection.defaultProps = {
         // This is intentional
     }
 };
-
 export default AppTemplateSelection;

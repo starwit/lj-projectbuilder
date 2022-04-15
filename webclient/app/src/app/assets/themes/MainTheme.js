@@ -68,6 +68,7 @@ class MainTheme {
             styleOverrides: {
                 root: {
                     backgroundColor: "#fff",
+                    // eslint-disable-next-line
                     boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
                 }
             }
@@ -83,6 +84,7 @@ class MainTheme {
                     fontSize: "1rem"
                 },
                 containedPrimary: {
+                    // eslint-disable-next-line
                     boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
                 },
                 containedSecondary: {
@@ -95,6 +97,7 @@ class MainTheme {
                 // Name of the slot
                 primary: {
                     backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)",
+                    // eslint-disable-next-line
                     boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
                 },
                 containedSecondary: {
