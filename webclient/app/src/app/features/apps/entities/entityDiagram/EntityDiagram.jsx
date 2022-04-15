@@ -60,6 +60,10 @@ function EntityDiagram(props) {
         return entityRest.createEntityByApp(appId, entity);
     }
 
+    function updatePositionInDB(entity) {
+        return entityRest.updatePositionByApp(appId, entity);
+    }
+
     function reloadEntities() {
         if (!editable) {
             return;
@@ -84,7 +88,7 @@ function EntityDiagram(props) {
         const newEntities = [...entities];
         newEntities[index] = updatedEntity;
         onChange(newEntities);
-        updateEntity(updatedEntity);
+        updatePositionInDB(entity);
     }
 
     function renderEntities() {
@@ -148,7 +152,7 @@ function EntityDiagram(props) {
         newEntities.forEach((entity, index) => {
             const updatedEntity = updatePosition(entity, {x: index * 30 + 100, y: index * 10});
             newEntities[index] = updatedEntity;
-            updateEntity(updatedEntity);
+            updatePositionInDB(entity);
         });
         onChange(newEntities);
     }

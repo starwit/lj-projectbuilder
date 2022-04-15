@@ -147,8 +147,7 @@ const translationsDeDE = {
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
     "error.generation.template": "Das Projekt konnte nicht generiert werden.",
-    "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet."
-
-
+    "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet.",
+    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut."
 };
 export default translationsDeDE;
