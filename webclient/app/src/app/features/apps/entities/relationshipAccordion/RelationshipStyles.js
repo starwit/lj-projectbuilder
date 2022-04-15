@@ -1,15 +1,10 @@
 import {makeStyles} from "@mui/styles";
+import AccordionStyles from "../AccordionStyles";
 
 const RelationshipStyles = makeStyles(theme => ({
+    ...AccordionStyles(theme),
     spacerBottom: {
         paddingBottom: theme.spacing(2)
-    },
-    title: {
-        flexShrink: 0,
-        width: "50%"
-    },
-    subtitle: {
-        color: theme.palette.text.secondary
     },
     statementWrapper: {
         height: "15rem"

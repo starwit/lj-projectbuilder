@@ -2,7 +2,7 @@ import {SteppedLineTo} from "react-lineto";
 
 function updateRelationCoordinates(entities) {
     const coordinates = [];
-    entities.forEach(entity => {
+    entities?.forEach(entity => {
         if (entity.relationships) {
             entity?.relationships.forEach(relationship => {
                 coordinates.push({
