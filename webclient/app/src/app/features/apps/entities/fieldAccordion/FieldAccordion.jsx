@@ -19,7 +19,7 @@ import {Delete, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputfields/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 
 function FieldAccordion(props) {

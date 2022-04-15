@@ -10,6 +10,10 @@ class EntityRest extends CrudRest {
         return axios.put(this.baseUrl + "/by-app/" + appId, entity);
     }
 
+    updatePositionByApp(appId, entity) {
+        return axios.put(this.baseUrl + "/position-by-app/" + appId, entity);
+    }
+
     createEntityByApp(appId, entity) {
         return axios.post(this.baseUrl + "/by-app/" + appId, entity);
     }

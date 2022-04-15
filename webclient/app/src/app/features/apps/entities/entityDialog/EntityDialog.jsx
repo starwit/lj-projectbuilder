@@ -20,33 +20,38 @@ import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../../../../commons/tabPanel/TabPanel";
 import Statement from "../../../../commons/statement/Statement";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputfields/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
-import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
-import {emptyEntity, newEntity} from "../DefaultEntities";
+import {
+    emptyEntity,
+    newEntity,
+    addFieldToEntity,
+    addRelationshipToEntity,
+    toDatabaseEntity,
+    initEntity,
+    lowerFirstChar
+} from "../DefaultEntities";
 import FieldTypes from "./FieldTypes";
+import {useImmer} from "use-immer";
 
 function EntityDialog(props) {
     const {entityId, onClose, handleSave, entities, open} = props;
     const [value, setValue] = useState(0);
-    const [entity, setEntity] = useState(null);
+    const [entity, setEntity] = useImmer(null);
     const [hasFormError, setHasFormError] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const entityEditorStyles = EntityDialogStyles();
     const {t} = useTranslation();
 
     useEffect(() => {
+        let currEntity = {};
         if (entityId) {
-            const existingEntity = {...entities.find(entity_ => entity_.id === entityId)};
-            existingEntity.fields?.forEach(field => {
-                field.mandatory = field.fieldValidateRules?.includes("required");
-            });
-            setEntity(existingEntity);
+            currEntity = entities.find(entity_ => entity_.id === entityId);
         } else {
-            const newEntity1 = JSON.parse(JSON.stringify(newEntity));
-            setEntity(newEntity1);
+            currEntity = newEntity;
         }
+        setEntity(initEntity(currEntity));
     }, [entityId, entities]);
 
     useEffect(() => {
@@ -81,16 +86,13 @@ function EntityDialog(props) {
         let newTargetEntities = [];
         if (entities?.length >= 1) {
             newTargetEntities = entities.filter(e => e.name !== entity.name);
-        } else {
+        }
+        if (newTargetEntities.length === 0) {
             const emptyTarget = emptyEntity;
             emptyTarget.name = t("relationship.targetEntity.empty");
             newTargetEntities.push(emptyTarget);
         }
         return newTargetEntities;
-    }
-
-    function lowerFirstChar(s) {
-        return (s && s[0].toLowerCase() + s.slice(1)) || "";
     }
 
     function a11yProps(index) {
@@ -100,44 +102,9 @@ function EntityDialog(props) {
         };
     }
 
-    function deepCopyEntity() {
-        return JSON.parse(JSON.stringify(entity));
-    }
-
     function prepareSave() {
         setIsSaving(true);
-
-        const entityModified = {...entity};
-
-        entityModified.fields?.forEach(field => {
-            field.fieldValidateRules = [];
-
-            if (field.fieldValidateRulesMinlength) {
-                field.fieldValidateRules.push("minlength");
-            }
-
-            if (field.fieldValidateRulesMaxlength) {
-                field.fieldValidateRules.push("maxlength");
-            }
-
-            if (field.mandatory) {
-                field.fieldValidateRules.push("required");
-            }
-
-            if (field.fieldValidateRulesMin) {
-                field.fieldValidateRules.push("min");
-            }
-
-            if (field.fieldValidateRulesMax) {
-                field.fieldValidateRules.push("max");
-            }
-
-            if (field.fieldValidateRulesPattern) {
-                field.fieldValidateRules.push("pattern");
-            }
-        });
-
-        handleSave(entityModified)
+        handleSave(toDatabaseEntity(entity))
             .then(() => {
                 onClose();
                 setIsSaving(false);
@@ -147,51 +114,20 @@ function EntityDialog(props) {
             });
     }
 
-    function addField() {
-        const copiedEntity = deepCopyEntity();
-        if (!copiedEntity.fields) {
-            copiedEntity.fields = [];
-        }
-        copiedEntity.fields.push({
-            fieldName: "",
-            fieldType: "String",
-            fieldValidateRulesPattern: "",
-            fieldValidateRulesMin: "",
-            fieldValidateRulesMinlength: "",
-            fieldValidateRulesMax: "",
-            fieldValidateRulesMaxlength: "",
-            mandatory: false
-        });
-        setEntity(copiedEntity);
+    function addRelationship() {
+        setEntity(addRelationshipToEntity(entity, getTargetEntities()));
     }
 
-    function addRelationship() {
-        const copiedEntity = deepCopyEntity();
-
-        if (!copiedEntity.relationships) {
-            copiedEntity.relationships = [];
-        }
-
-        const targetEntities = getTargetEntities();
-        const relationship = {...defaultRelationship};
-        relationship.otherEntityName = targetEntities[0].name;
-        relationship.relationshipName = lowerFirstChar(targetEntities[0].name);
-        relationship.otherEntityRelationshipName = lowerFirstChar(copiedEntity.name);
-
-        copiedEntity.relationships.push(relationship);
-        setEntity(copiedEntity);
+    function addField() {
+        setEntity(addFieldToEntity(entity));
     }
 
     function deleteRelationship(index) {
-        const copiedEntity = deepCopyEntity();
-        copiedEntity.relationships.splice(index, 1);
-        setEntity(copiedEntity);
+        setEntity(draft => {draft.relationships.splice(index, 1);});
     }
 
     function deleteField(index) {
-        const copiedEntity = deepCopyEntity();
-        copiedEntity.fields.splice(index, 1);
-        setEntity(copiedEntity);
+        setEntity(draft => {draft.fields.splice(index, 1);});
     }
 
     function handleTabChange(event, newValue) {
@@ -199,24 +135,20 @@ function EntityDialog(props) {
     }
 
     function handleEntityTitleText(event) {
-        const copiedEntity = {...entity};
-        copiedEntity.name = event.target.value;
-        setEntity(copiedEntity);
+        setEntity(draft => {draft.name = event.target.value;});
     }
 
     function editFieldProperty(key, value, index) {
-        const copiedEntity = deepCopyEntity();
-        copiedEntity.fields[index][key] = value;
-        setEntity(copiedEntity);
+        setEntity(draft => {draft.fields[index][key] = value;});
     }
 
     function editRelationshipProperty(key, value, index) {
-        const copiedEntity = deepCopyEntity();
-        copiedEntity.relationships[index][key] = value;
-        if (key === "otherEntityName") {
-            copiedEntity.relationships[index].relationshipName = lowerFirstChar(value);
-        }
-        setEntity(copiedEntity);
+        setEntity(draft => {
+            draft.relationships[index][key] = value;
+            if (key === "otherEntityName") {
+                draft.relationships[index].relationshipName = lowerFirstChar(value);
+            }
+        });
     }
 
     function renderRelations() {
@@ -287,7 +219,7 @@ function EntityDialog(props) {
     }
 
     return (
-        <Dialog open={!!entityId || (open && entity.isNewEntity)} maxWidth={"xl"} fullWidth>
+        <Dialog open={!!entityId || open} maxWidth={"xl"} fullWidth>
             <DialogTitle className={entityEditorStyles.dialogHeaderBar}>
                 <Typography noWrap variant={"h6"} component={"p"}>
                     {t("entity.edit", {entityName: entity.name})}
@@ -299,7 +231,7 @@ function EntityDialog(props) {
             </DialogTitle>
             <Container>
                 <ValidatedTextField
-                    isCreate={entity.isNewEntity}
+                    isCreate={!entityId}
                     fullWidth
                     label={t("entity.name") + "*"}
                     value={entity.name}

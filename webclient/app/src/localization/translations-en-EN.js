@@ -147,6 +147,7 @@ const translationsEnEN = {
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
     "error.generation.template": "This project could not be generated.",
-    "error.apptemplate.delete.appexists": "The template is still used by an app."
+    "error.apptemplate.delete.appexists": "The template is still used by an app.",
+    "error.optimisticLock": "Parallel attempt of saving an object. Please save again."
 };
 export default translationsEnEN;
