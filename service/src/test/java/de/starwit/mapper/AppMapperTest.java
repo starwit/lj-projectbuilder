@@ -30,7 +30,7 @@ public class AppMapperTest {
 
     final static Logger LOG = LoggerFactory.getLogger(AppMapperTest.class);
 
-        /**
+    /**
      * <pre>
      * To check the Service class, we need to have an instance of Service class created and available as a
      * &#64;Bean so that we can @Autowire it in our test class.
@@ -38,7 +38,7 @@ public class AppMapperTest {
      * </pre>
      */
     @TestConfiguration
-     static class ApplicationMapperTestConfiguration {
+    static class ApplicationMapperTestConfiguration {
 
         @Bean
         public AppMapper createApplicationMapper() {
@@ -70,7 +70,7 @@ public class AppMapperTest {
         app = new App();
         app.setTitle("testAppTitle");
         app.setPackagePrefix("testpackage");
-        
+
         Domain domain = new Domain();
         domain.setName("testdomain");
         Attribute attr = new Attribute();
@@ -107,20 +107,19 @@ public class AppMapperTest {
     @Test
     public void convertToAppTest() throws Exception {
         AppDto dto = applicationMapper.convertToDto(app);
-        assertEquals( "testAppTitle", dto.getBaseName());
+        assertEquals("testAppTitle", dto.getBaseName());
         assertEquals("testpackage", dto.getPackageName());
         assertEquals("testdomain", dto.getEntities().get(0).getName());
         assertEquals("testattribute", dto.getEntities().get(0).getFields().get(0).getFieldName());
-      }
-    
+    }
+
     @Test
     public void convertToDtoTest() throws Exception {
         App app = applicationMapper.convertToEntity(dto);
-        assertEquals( "testAppTitle", app.getTitle());
+        assertEquals("testAppTitle", app.getTitle());
         assertEquals("testpackage", app.getPackagePrefix());
         assertEquals("testentity", app.getDomains().get(0).getName());
         assertEquals("testfield", ((Attribute) app.getDomains().get(0).getAttributes().get(0)).getName());
     }
-    
-    
+
 }
