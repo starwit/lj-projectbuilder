@@ -12,8 +12,8 @@ import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import MainTheme from "../../../../assets/themes/MainTheme";
+import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
-import AddFabButton from "../../../../commons/addFabButton/AddFabButton";
 import {updatePosition} from "../DefaultEntities";
 
 function EntityDiagram(props) {

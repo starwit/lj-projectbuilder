@@ -19,7 +19,7 @@ import AppStepsStyles from "./AppStepsStyles";
 import {useTranslation} from "react-i18next";
 import GitRest from "../../../services/GitRest";
 import {Download} from "@mui/icons-material";
-import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
+import GitDataButton from "../../../commons/buttons/gitDownloadButton/GitDataButton";
 import {useSnackbar} from "notistack";
 import Button from "@mui/material/Button";
 import {docco} from "react-syntax-highlighter/dist/cjs/styles/hljs";
