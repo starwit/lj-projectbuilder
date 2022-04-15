@@ -1,10 +1,10 @@
 import React from "react";
 import {Container, Grid, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../commons/inputfields/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
 import AppStepsStyles from "./AppStepsStyles";
-import MultipleSelectChip from "../../../commons/inputfields/multipleSelectChip/MultipleSelectChip";
+import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
     const {t} = useTranslation();

@@ -20,7 +20,7 @@ import EntityDialogStyles from "./EntityDialogStyles";
 import TabPanel from "../../../../commons/tabPanel/TabPanel";
 import Statement from "../../../../commons/statement/Statement";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputfields/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import {defaultRelationship} from "../Relationship";
 import {LoadingButton} from "@mui/lab";
