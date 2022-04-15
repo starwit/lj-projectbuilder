@@ -26,7 +26,7 @@ import {docco} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
 
 function AppConclusion(props) {
-    const {app, coordinates} = props;
+    const {app} = props;
     const appStepsStyles = AppStepsStyles();
     const gitRest = new GitRest();
     const {t} = useTranslation();
@@ -83,7 +83,7 @@ function AppConclusion(props) {
                             <ListItemText primary={renderLoadingText(app.general.appName)} secondary={t("app.name")}/>
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary={renderLoadingText(app.template.name)}
+                            <ListItemText primary={renderLoadingText(app.template?.name)}
                                 secondary={t("app.section.template")}/>
                         </ListItem>
                         <ListItem>
@@ -106,7 +106,7 @@ function AppConclusion(props) {
             <Typography variant={"h4"} gutterBottom>
                 {t("app.section.entityDiagram")}
             </Typography>
-            <EntityDiagram entities={app.entities} appId={app.id} coordinates={coordinates} dense editable={false}/>
+            <EntityDiagram entities={app.entities} dense editable={false}/>
             <Dialog onClose={closeInformationDialog} open={!!generatorErrorMessage} fullWidth maxWidth={"xl"}>
                 <DialogTitle>{t("appConclusion.generationError.title")}</DialogTitle>
                 <DialogContent>

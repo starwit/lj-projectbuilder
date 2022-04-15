@@ -22,17 +22,23 @@ function updateApp(app, data) {
         draft.general = {appName: "", packageName: "", assignedGroups: []};
         draft.general.appName = data.baseName;
         draft.general.packageName = data.packageName;
-        draft.template = data.template;
-        draft.entities = data.entities;
         draft.general.assignedGroups = data.groupsToAssign;
         draft.general.isNew = !data.id;
         draft.general.isValid = isValid(draft.general);
+        draft.template = data.template;
+        draft.entities = data.entities;
     });
 }
 
 function updateTemplate(app, template) {
     return produce(app, draft => {
         draft.template = template;
+    });
+}
+
+function updateEntities(app, entities) {
+    return produce(app, draft => {
+        draft.entities = entities;
     });
 }
 
@@ -52,4 +58,10 @@ function isValid(general) {
             RegexConfig.packageName.test(general.packageName);
 }
 
-export {newApp, updateApp, updateTemplate, updateGeneral, toDatabaseApp};
+export {
+    newApp,
+    updateApp,
+    updateTemplate,
+    updateGeneral,
+    updateEntities,
+    toDatabaseApp};
