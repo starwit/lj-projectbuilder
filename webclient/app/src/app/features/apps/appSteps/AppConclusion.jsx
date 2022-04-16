@@ -43,7 +43,8 @@ function AppConclusion(props) {
 
     const handleGit = downloadRequestData => {
         return gitRest.setupApp(app.id, downloadRequestData).catch(error => {
-            if (error.response.data.messageKey === "error.generation.template") {
+            if (error.response.data.messageKey === "error.generation.template" ||
+                error.response.data.messageKey === "error.generation.generatepath") {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
                         action: key => <Button

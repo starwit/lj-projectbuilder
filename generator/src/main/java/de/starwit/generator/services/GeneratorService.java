@@ -150,7 +150,9 @@ public class GeneratorService {
             StringWriter output = new StringWriter();
             templateFileTargetPath.process(data, output);
             return output.toString();
-        } catch (IOException | TemplateException e) {
+        } catch (IOException e) {
+            throw new NotificationException("error.generation.generatepath", e.getMessage());
+        } catch (TemplateException e) {
             throw new NotificationException("error.generation.generatepath", e.getMessage());
         }
     }

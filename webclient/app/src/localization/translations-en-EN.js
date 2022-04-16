@@ -146,7 +146,8 @@ const translationsEnEN = {
     "error.badrequest": "This request is invalid.",
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
-    "error.generation.template": "This project could not be generated.",
+    "error.generation.template": "This app could not be generated.",
+    "error.generation.generatepath": "Generation of path is invalid.",
     "error.apptemplate.delete.appexists": "The template is still used by an app.",
     "error.optimisticLock": "Parallel attempt of saving an object. Please save again."
 };
