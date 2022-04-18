@@ -65,6 +65,8 @@ const translationsEnEN = {
     "entity.relations": "Relations",
     "entity.relations.empty": "no relations",
     "entity.center": "Center",
+    "entity.delete.title": "Delete entity",
+    "entity.delete.message": "Do you really want to delete this entity?",
 
     "field.new": "New field",
     "field.fieldName": "Name",

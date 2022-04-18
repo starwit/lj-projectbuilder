@@ -65,6 +65,8 @@ const translationsDeDE = {
     "entity.relations": "Relationen",
     "entity.relations.empty": "keine Relationen angelegt",
     "entity.center": "Zentrieren",
+    "entity.delete.title": "Entität löschen",
+    "entity.delete.message": "Wollen Sie diese Entität wirklich löschen?",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",
