@@ -1,4 +1,4 @@
-class MainTheme {
+class Theme {
     palette = {
         primary: {
             main: "#de8608",
