@@ -151,7 +151,7 @@ public class GeneratorService {
             templateFileTargetPath.process(data, output);
             return output.toString();
         } catch (IOException e) {
-            throw new NotificationException("error.generation.generatepath", e.getMessage());
+            throw new NotificationException("error.generation.ioexception", e.getMessage());
         } catch (TemplateException e) {
             throw new NotificationException("error.generation.generatepath", e.getMessage());
         }

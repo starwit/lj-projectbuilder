@@ -11,7 +11,7 @@ import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
-import MainTheme from "../../../../assets/themes/MainTheme";
+import Theme from "../../../../assets/themes/Theme";
 import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
@@ -20,7 +20,7 @@ function EntityDiagram(props) {
     const {appId, editable, entities, dense, onChange} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
-    const theme = new MainTheme();
+    const theme = new Theme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [selectedEntityId, setSelectedEntityId] = useState(null);
     const [coordinates, setCoordinates] = useState([]);
@@ -79,7 +79,7 @@ function EntityDiagram(props) {
         if (!editable) {
             return;
         }
-        let createEntity = updateEntity(updatedEntity).then(reloadEntities);
+        const createEntity = updateEntity(updatedEntity).then(reloadEntities);
         return createEntity;
     }
 

@@ -108,4 +108,4 @@ class Theme {
     };
 }
 
-export default MainTheme;
+export default Theme;
