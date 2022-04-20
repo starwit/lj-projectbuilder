@@ -5,10 +5,11 @@ import Statement from "../../../../commons/statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
+import ConfirmationDialog from "../../../../commons/confirmationDialog/ConfirmationDialog";
 
 function EntityCard(props) {
     const entityCardStyles = EntityCardStyles();
-    const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const {entity, onEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
@@ -69,10 +70,16 @@ function EntityCard(props) {
         }
     }
 
+    function openDeleteDialog() {
+        setIsDeleteDialogOpen(true);
+    }
+
+    function closeDeleteDialog() {
+        setIsDeleteDialogOpen(false);
+    }
+
     function prepareDelete() {
-        handleDelete(entity.id)
-            .then(setIsDeleting(false))
-            .catch(setIsDeleting(false));
+        handleDelete(entity.id);
     }
 
     function renderDeleteWrapper() {
@@ -80,8 +87,7 @@ function EntityCard(props) {
             return (
                 <Grid item sm={2}>
                     <IconButton
-                        onClick={prepareDelete}
-                        disabled={isDeleting}
+                        onClick={openDeleteDialog}
                     >
                         <Delete fontSize={"small"}/>
                     </IconButton>
@@ -113,6 +119,13 @@ function EntityCard(props) {
                 </Grid>
                 {renderFieldsTable(entity)}
             </Card>
+            <ConfirmationDialog
+                onSubmit={prepareDelete}
+                onClose={closeDeleteDialog}
+                title={t("entity.delete.title")}
+                message={t("entity.delete.message")}
+                open={isDeleteDialogOpen}
+            />
         </div>
     );
 }
