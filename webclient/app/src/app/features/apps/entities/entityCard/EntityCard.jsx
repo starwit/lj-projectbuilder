@@ -5,18 +5,19 @@ import Statement from "../../../../commons/statement/Statement";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
+import ConfirmationDialog from "../../../../commons/confirmationDialog/ConfirmationDialog";
 
 function EntityCard(props) {
     const entityCardStyles = EntityCardStyles();
-    const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const {entity, onEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>;
+        let value = <Typography variant={"h6"} color={"text.secondary"} noWrap>{t("entity.new")}</Typography>;
         if (name) {
-            value = <Typography variant={"h6"}>{name}</Typography>;
+            value = <Typography variant={"h6"} noWrap>{name}</Typography>;
         }
         return value;
     }
@@ -36,9 +37,7 @@ function EntityCard(props) {
     function renderFieldsTable(entityToRender) {
         if (!entityToRender.fields || entityToRender.fields.length === 0) {
             return (
-                <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={t("entity.fields.empty")}/>
-                </div>
+                <Statement message={t("entity.fields.empty")}/>
             );
         }
         return (
@@ -69,10 +68,16 @@ function EntityCard(props) {
         }
     }
 
+    function openDeleteDialog() {
+        setIsDeleteDialogOpen(true);
+    }
+
+    function closeDeleteDialog() {
+        setIsDeleteDialogOpen(false);
+    }
+
     function prepareDelete() {
-        handleDelete(entity.id)
-            .then(setIsDeleting(false))
-            .catch(setIsDeleting(false));
+        handleDelete(entity.id);
     }
 
     function renderDeleteWrapper() {
@@ -80,8 +85,7 @@ function EntityCard(props) {
             return (
                 <Grid item sm={2}>
                     <IconButton
-                        onClick={prepareDelete}
-                        disabled={isDeleting}
+                        onClick={openDeleteDialog}
                     >
                         <Delete fontSize={"small"}/>
                     </IconButton>
@@ -90,22 +94,11 @@ function EntityCard(props) {
         }
     }
 
-    function calculateTitleWidth() {
-        let titleWidth = 12;
-        if (handleDelete) {
-            titleWidth -= 2;
-        }
-        if (onEdit) {
-            titleWidth -= 2;
-        }
-        return titleWidth;
-    }
-
     return (
         <div className={"anchor_" + entity.name}>
             <Card className={`${entityCardStyles.entityCard}`}>
                 <Grid container>
-                    <Grid item sm={calculateTitleWidth()}>
+                    <Grid item sm>
                         {renderTitle(entity.name)}
                     </Grid>
                     {renderEditButton(entity?.id)}
@@ -113,6 +106,13 @@ function EntityCard(props) {
                 </Grid>
                 {renderFieldsTable(entity)}
             </Card>
+            <ConfirmationDialog
+                onSubmit={prepareDelete}
+                onClose={closeDeleteDialog}
+                title={t("entity.delete.title")}
+                message={t("entity.delete.message")}
+                open={isDeleteDialogOpen}
+            />
         </div>
     );
 }

@@ -16,9 +16,6 @@ const EntityDiagramStyles = makeStyles(theme => ({
     draggableWrapperDense: {
         height: "20vh"
     },
-    statementWrapper: {
-        height: "10rem"
-    },
     codeButtonWrapper: {
         position: "absolute",
         bottom: "5%",

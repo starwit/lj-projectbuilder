@@ -13,6 +13,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Stack,
     Typography
 } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
@@ -123,25 +124,24 @@ function AppTemplateCard(props) {
                 </CardContent>
                 <Divider/>
                 <CardContent>
-                    <Grid container spacing={0}>
+                    <Grid container spacing={0} alignItems={"center"}>
                         <Grid item sm={7}>
-                            <Typography variant="body2" color="text.secondary">
-                                <br/>
-                                {appTemplate.description}
-                            </Typography>
-                            <List>
-                                <ListItem disablePadding>
-                                    <ListItemIcon>
-                                        <GitHub/>
-                                    </ListItemIcon>
-                                    <ListItemText primary={appTemplate.location}
-                                        secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
-                                </ListItem>
-                            </List>
+                            <Stack spacing={2}>
+                                <Typography variant="body2" color="text.secondary">
+                                    {appTemplate.description}
+                                </Typography>
+                                <List>
+                                    <ListItem disablePadding>
+                                        <ListItemIcon>
+                                            <GitHub/>
+                                        </ListItemIcon>
+                                        <ListItemText primary={appTemplate.location}
+                                            secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
+                                    </ListItem>
+                                </List>
+                            </Stack>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <br/>
-                            <br/>
                             <GitDataButton
                                 credentialsRequired={appTemplate.credentialsRequired}
                                 handleAfterSuccess={handleAfterGitSuccess}

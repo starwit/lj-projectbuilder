@@ -1,10 +1,10 @@
 import React from "react";
 import {createTheme, ThemeProvider} from "@mui/material";
-import MainTheme from "../../assets/themes/MainTheme";
+import Theme from "../../assets/themes/Theme";
 
-function StarwitTheme(props) {
+function MainTheme(props) {
     // theme settings
-    const theme = createTheme(MainTheme);
+    const theme = createTheme(Theme);
 
     return (
         <ThemeProvider theme={theme}>
@@ -13,4 +13,4 @@ function StarwitTheme(props) {
     );
 }
 
-export default StarwitTheme;
+export default MainTheme;

@@ -1,4 +1,4 @@
-const MainTheme = {
+const Theme = {
     palette: {
         primary: {
             main: "#de8608",
@@ -103,4 +103,4 @@ const MainTheme = {
     }
 }
 
-export default MainTheme;
+export default Theme;

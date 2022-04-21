@@ -10,9 +10,6 @@ const AppTemplateDialogStyles = makeStyles(theme => ({
         alignContent: "center",
         justifyContent: "space-between"
     },
-    statementWrapper: {
-        height: "15rem"
-    },
     flex: {
         flex: 1
     },

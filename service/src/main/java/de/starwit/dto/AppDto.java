@@ -28,6 +28,8 @@ public class AppDto extends AbstractEntity<Long> {
     @Length(max = 100)
     private String packageName;
 
+    private String targetPath;
+
     @Valid
     private AppTemplateDto template;
 
@@ -84,5 +86,13 @@ public class AppDto extends AbstractEntity<Long> {
 
     public void setUserGroups(List<String> userGroups) {
         this.userGroups = userGroups;
+    }
+
+    public String getTargetPath() {
+        return targetPath;
+    }
+
+    public void setTargetPath(String targetPath) {
+        this.targetPath = targetPath;
     }
 }
