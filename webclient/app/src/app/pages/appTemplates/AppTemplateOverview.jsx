@@ -8,7 +8,7 @@ import UserRest from "../../services/UserRest";
 import {Add} from "@mui/icons-material";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
-import AddFabButton from "../../commons/addFabButton/AddFabButton";
+import AddFabButton from "../../commons/buttons/addFabButton/AddFabButton";
 
 function AppTemplateOverview() {
     const {t} = useTranslation();

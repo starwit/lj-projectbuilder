@@ -36,7 +36,7 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         return entity;
     }
 
-    private void setValidationToEntity(FieldDto dto, Attribute entity){
+    private void setValidationToEntity(FieldDto dto, Attribute entity) {
         if (dto == null || dto.getFieldType() == null || dto.getFieldValidateRules() == null) {
             return;
         }
@@ -44,17 +44,17 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         FieldValidateRulesType[] allowedRules = dto.getFieldType().getValidationRules();
         List<FieldValidateRulesType> rules = dto.getFieldValidateRules();
         for (FieldValidateRulesType allowedRule : allowedRules) {
-            if(rules.contains(allowedRule)) {
+            if (rules.contains(allowedRule)) {
                 switch (allowedRule) {
                     case min:
                         entity.setMin(dto.getFieldValidateRulesMin());
-                        break;                
+                        break;
                     case max:
                         entity.setMax(dto.getFieldValidateRulesMax());
                         break;
                     case minlength:
                         entity.setMin(dto.getFieldValidateRulesMinlength());
-                        break;                    
+                        break;
                     case maxlength:
                         entity.setMax(dto.getFieldValidateRulesMaxlength());
                         break;
@@ -86,43 +86,43 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         for (FieldValidateRulesType allowedRule : allowedRules) {
             switch (allowedRule) {
                 case min:
-                    if(entity.getMin() != null && entity.getDataType() != DataType.String) {
+                    if (entity.getMin() != null && entity.getDataType() != DataType.String) {
                         rules.add(FieldValidateRulesType.min);
                         dto.setFieldValidateRulesMin(entity.getMin());
                     }
-                    break;                
+                    break;
                 case max:
-                    if(entity.getMax() != null && entity.getDataType() != DataType.String) {
+                    if (entity.getMax() != null && entity.getDataType() != DataType.String) {
                         rules.add(FieldValidateRulesType.max);
                         dto.setFieldValidateRulesMax(entity.getMax());
                     }
                     break;
                 case minlength:
-                    if(entity.getMin() != null && entity.getDataType() == DataType.String) {
+                    if (entity.getMin() != null && entity.getDataType() == DataType.String) {
                         rules.add(FieldValidateRulesType.minlength);
                         dto.setFieldValidateRulesMinlength(entity.getMin());
                     }
                     break;
                 case maxlength:
-                    if(entity.getMax() != null && entity.getDataType() == DataType.String) {
+                    if (entity.getMax() != null && entity.getDataType() == DataType.String) {
                         rules.add(FieldValidateRulesType.maxlength);
                         dto.setFieldValidateRulesMaxlength(entity.getMax());
                     }
                     break;
                 case pattern:
-                    if(entity.getPattern() != null) {
-                       rules.add(FieldValidateRulesType.pattern);
-                       dto.setFieldValidateRulesPattern(entity.getPattern());
-                       dto.setFieldValidateRulesPatternJava(entity.getPatterJava());
+                    if (entity.getPattern() != null) {
+                        rules.add(FieldValidateRulesType.pattern);
+                        dto.setFieldValidateRulesPattern(entity.getPattern());
+                        dto.setFieldValidateRulesPatternJava(entity.getPatterJava());
                     }
-                    break;            
+                    break;
                 case required:
-                    if(entity.isRequired()) {
+                    if (entity.isRequired()) {
                         rules.add(FieldValidateRulesType.required);
                     }
                     break;
                 case unique:
-                    if(entity.isUnique()) {
+                    if (entity.isUnique()) {
                         rules.add(FieldValidateRulesType.unique);
                     }
                     break;
@@ -134,5 +134,5 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
             dto.setFieldValidateRules(rules);
         }
     }
-    
+
 }

@@ -38,5 +38,4 @@ public class Position extends AbstractEntity<Long> {
         this.positionY = positionY;
     }
 
- 
 }

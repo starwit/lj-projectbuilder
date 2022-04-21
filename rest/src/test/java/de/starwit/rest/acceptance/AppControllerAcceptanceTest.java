@@ -89,7 +89,6 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
-
     @Test
     public void isValidated() throws Exception {
         // given
@@ -130,7 +129,8 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
+        assertThat(response.getContentAsString())
+                .isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
     }
 
     @Test

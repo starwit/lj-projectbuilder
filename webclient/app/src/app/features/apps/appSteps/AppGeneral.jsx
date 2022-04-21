@@ -1,28 +1,20 @@
 import React from "react";
 import {Container, Grid, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
 import AppStepsStyles from "./AppStepsStyles";
-import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
+import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
     const {t} = useTranslation();
     const {
-        isCreate,
-        setAppName,
-        setPackageName,
-        appName,
-        packageName,
+        value,
         userGroups,
-        assignedGroups,
-        setAssignedGroups
+        onChange
     } = props;
-    const appStepsStyles = AppStepsStyles();
 
-    const handleGroupChange = items => {
-        setAssignedGroups(items);
-    };
+    const appStepsStyles = AppStepsStyles();
 
     return (
         <Container maxWidth={false}>
@@ -32,26 +24,28 @@ function AppGeneral(props) {
                         label={t("app.name") + "*"}
                         regex={RegexConfig.applicationBaseName}
                         helperText={t("app.name.hint")}
-                        value={appName}
+                        name="appName"
+                        value={value.appName}
                         fullWidth
-                        onChange={event => setAppName(event.target.value)}
-                        isCreate={isCreate}
+                        onChange={onChange}
+                        isCreate={value.isNew}
                     />
                     <div className={appStepsStyles.padding}/>
                     <ValidatedTextField
                         label={t("app.packageName") + "*"}
                         regex={RegexConfig.packageName}
                         helperText={t("app.packageName.hint")}
-                        value={packageName}
+                        name="packageName"
+                        value={value.packageName}
                         fullWidth
-                        onChange={event => setPackageName(event.target.value)}
-                        isCreate={isCreate}
+                        onChange={onChange}
+                        isCreate={value.isNew}
                     />
                     <div className={appStepsStyles.padding}/>
                     <MultipleSelectChip
                         values={userGroups}
-                        selected={assignedGroups}
-                        handleExternalChange={handleGroupChange}
+                        selected={value.assignedGroups}
+                        handleExternalChange={onChange}
                         label={t("select.groups")}
                     />
                 </Grid>
