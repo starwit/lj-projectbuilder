@@ -23,7 +23,8 @@ import de.starwit.generator.config.Constants;
 @Component("AppRenamer")
 public class AppRenamer {
 
-    public final static String[] EXT = new String[] { "java", "js", "html", "sql", "xml", "md", "MD", "log", "yml" };
+    public final static String[] EXT = new String[] { "java", "js", "html", "sql", "xml", "md", "MD", "log", "yml",
+            "json" };
     final static Logger LOG = LoggerFactory.getLogger(AppRenamer.class);
 
     /**

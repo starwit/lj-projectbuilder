@@ -21,8 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.starwit.dto.AppDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
+import de.starwit.mapper.AppMapper;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
@@ -48,6 +50,9 @@ public class GeneratorService {
     static final String FILE_WRITING_ERROR = "Error during File writing: ";
 
     private static final String GENERATION = "###GENERATION###";
+
+    @Autowired
+    private AppMapper appMapper;
 
     @Autowired
     private EntityMapper entityMapper;
@@ -85,9 +90,15 @@ public class GeneratorService {
      * @param setupBean - app data and generation configuration.
      * @return parameter for freemarker
      */
-    private Map<String, Object> fillTemplateGlobalParameter(App app) {
+    private Map<String, Object> fillTemplateGlobalParameter(App appEntity) {
         Map<String, Object> data = new HashMap<>();
-        data.put("app", app);
+        // support old format
+        data.put("project", appEntity);
+        data.put("projecthome", Constants.TMP_DIR);
+        AppDto appDto = appMapper.convertToDto(appEntity);
+
+        // support new format
+        data.put("app", appDto);
         data.put("apphome", Constants.TMP_DIR);
         return data;
     }
@@ -139,7 +150,9 @@ public class GeneratorService {
             StringWriter output = new StringWriter();
             templateFileTargetPath.process(data, output);
             return output.toString();
-        } catch (IOException | TemplateException e) {
+        } catch (IOException e) {
+            throw new NotificationException("error.generation.ioexception", e.getMessage());
+        } catch (TemplateException e) {
             throw new NotificationException("error.generation.generatepath", e.getMessage());
         }
     }

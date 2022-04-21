@@ -110,12 +110,12 @@ public class GitController {
         }
 
         if (fileToZip.isDirectory()) {
-            LOG.info("+{}", zipEntryName);
+            LOG.debug("+{}", zipEntryName);
             for (File file : fileToZip.listFiles()) {
                 addDirToZipArchive(zos, file, zipEntryName);
             }
         } else {
-            LOG.info("   {}", zipEntryName);
+            LOG.debug("   {}", zipEntryName);
             FileSystemResource resource = new FileSystemResource(fileToZip);
             ZipEntry zipEntry = new ZipEntry(resource.getFilename());
             // Configure the zip entry, the properties of the file
@@ -126,5 +126,4 @@ public class GitController {
             zos.closeEntry();
         }
     }
-
 }

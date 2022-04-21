@@ -1,4 +1,4 @@
-class MainTheme {
+class Theme {
     palette = {
         primary: {
             main: "#de8608",
@@ -108,4 +108,4 @@ class MainTheme {
     };
 }
 
-export default MainTheme;
+export default Theme;
