@@ -6,7 +6,7 @@ const StatementStyles = makeStyles(theme => ({
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        height: props.height,
+        height: (props.height && props.height ? props.height : "100%"),
         width: "100%"
     }),
     content: {

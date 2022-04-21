@@ -7,7 +7,7 @@ import iconEmpty from "./icon-empty.png";
 function Statement(props) {
     const {icon, message, actionMessage, onActionClick, enableSpacing, spacingHeight} = props;
 
-    const statementStyles = StatementStyles({height: (enableSpacing && spacingHeight ? spacingHeight : "100%")});
+    const statementStyles = StatementStyles({height: spacingHeight, enableSpacing: enableSpacing});
 
     function renderActionButton() {
         if (actionMessage && onActionClick) {
