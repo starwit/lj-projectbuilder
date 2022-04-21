@@ -19,13 +19,13 @@ public class AppDto extends AbstractEntity<Long> {
     @Schema(defaultValue = "defaultapp")
     @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Length(max = 100)
+    @Length(max = 100)
     private String baseName;
 
     @Schema(defaultValue = "defaultpackage")
     @NotBlank
-	@Pattern(regexp = "^[A-Za-z0-9]*$")
-	@Length(max = 100)
+    @Pattern(regexp = "^[A-Za-z0-9]*$")
+    @Length(max = 100)
     private String packageName;
 
     @Valid

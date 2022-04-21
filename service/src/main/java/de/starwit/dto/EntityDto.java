@@ -20,8 +20,8 @@ public class EntityDto extends AbstractEntity<Long> {
 
     @Schema(defaultValue = "DefaultEntity")
     @NotBlank
-	@Pattern(regexp = "^[A-Z][a-zA-Z0-9]*$")
-	@Length(max = 100)
+    @Pattern(regexp = "^[A-Z][a-zA-Z0-9]*$")
+    @Length(max = 100)
     private String name;
 
     @Valid
@@ -36,24 +36,31 @@ public class EntityDto extends AbstractEntity<Long> {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public List<FieldDto> getFields() {
         return fields;
     }
+
     public void setFields(List<FieldDto> fields) {
         this.fields = fields;
     }
+
     public List<Relationship> getRelationships() {
         return relationships;
     }
+
     public void setRelationships(List<Relationship> relationships) {
         this.relationships = relationships;
     }
+
     public Position getPosition() {
         return position;
     }
+
     public void setPosition(Position position) {
         this.position = position;
     }

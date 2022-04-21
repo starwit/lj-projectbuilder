@@ -10,7 +10,7 @@ function EntityCard(props) {
     const entityCardStyles = EntityCardStyles();
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const {entity, handleEdit, handleDelete, editable} = props;
+    const {entity, onEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
     function renderTitle(name) {
@@ -21,8 +21,8 @@ function EntityCard(props) {
         return value;
     }
 
-    function renderAttributes(entity) {
-        return entity.fields.map((field, index) => {
+    function renderAttributes(entityToRender) {
+        return entityToRender.fields.map((field, index) => {
             return (
 
                 <TableRow key={index}>
@@ -33,8 +33,8 @@ function EntityCard(props) {
         });
     }
 
-    function renderFieldsTable(entity) {
-        if (!entity.fields || entity.fields.length === 0) {
+    function renderFieldsTable(entityToRender) {
+        if (!entityToRender.fields || entityToRender.fields.length === 0) {
             return (
                 <Statement message={t("entity.fields.empty")}/>
             );
@@ -50,17 +50,17 @@ function EntityCard(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {renderAttributes(entity)}
+                    {renderAttributes(entityToRender)}
                 </TableBody>
             </Table>
         );
     }
 
-    function renderEditButton() {
-        if (handleEdit && editable) {
+    function renderEditButton(entityId) {
+        if (onEdit && editable) {
             return (
                 <Grid item sm={2}>
-                    <IconButton onClick={() => handleEdit(entity)}>
+                    <IconButton onClick={() => onEdit(entityId)}>
                         <Edit fontSize={"small"}/></IconButton>
                 </Grid>
             );
@@ -93,7 +93,7 @@ function EntityCard(props) {
         if (handleDelete) {
             titleWidth -= 2;
         }
-        if (handleEdit) {
+        if (onEdit) {
             titleWidth -= 2;
         }
         return titleWidth;
@@ -106,7 +106,7 @@ function EntityCard(props) {
                     <Grid item sm={calculateTitleWidth()}>
                         {renderTitle(entity.name)}
                     </Grid>
-                    {renderEditButton()}
+                    {renderEditButton(entity?.id)}
                     {renderDeleteWrapper()}
                 </Grid>
                 {renderFieldsTable(entity)}
@@ -117,7 +117,7 @@ function EntityCard(props) {
 
 EntityCard.propTypes = {
     entity: PropTypes.object.isRequired,
-    handleEdit: PropTypes.func,
+    onEdit: PropTypes.func,
     handleDelete: PropTypes.func,
     editable: PropTypes.bool
 };
