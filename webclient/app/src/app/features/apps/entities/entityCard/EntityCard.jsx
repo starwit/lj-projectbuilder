@@ -15,9 +15,9 @@ function EntityCard(props) {
     const {t} = useTranslation();
 
     function renderTitle(name) {
-        let value = <Typography variant={"h6"} color={"text.secondary"}>{t("entity.new")}</Typography>;
+        let value = <Typography variant={"h6"} color={"text.secondary"} noWrap>{t("entity.new")}</Typography>;
         if (name) {
-            value = <Typography variant={"h6"}>{name}</Typography>;
+            value = <Typography variant={"h6"} noWrap>{name}</Typography>;
         }
         return value;
     }
@@ -96,22 +96,11 @@ function EntityCard(props) {
         }
     }
 
-    function calculateTitleWidth() {
-        let titleWidth = 12;
-        if (handleDelete) {
-            titleWidth -= 2;
-        }
-        if (onEdit) {
-            titleWidth -= 2;
-        }
-        return titleWidth;
-    }
-
     return (
         <div className={"anchor_" + entity.name}>
             <Card className={`${entityCardStyles.entityCard}`}>
                 <Grid container>
-                    <Grid item sm={calculateTitleWidth()}>
+                    <Grid item sm>
                         {renderTitle(entity.name)}
                     </Grid>
                     {renderEditButton(entity?.id)}
