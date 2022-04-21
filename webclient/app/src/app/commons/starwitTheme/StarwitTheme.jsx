@@ -4,7 +4,7 @@ import MainTheme from "../../assets/themes/MainTheme";
 
 function StarwitTheme(props) {
     // theme settings
-    const theme = createTheme(new MainTheme());
+    const theme = createTheme(MainTheme);
 
     return (
         <ThemeProvider theme={theme}>

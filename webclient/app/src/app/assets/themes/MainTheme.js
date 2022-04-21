@@ -1,5 +1,5 @@
-class MainTheme {
-    palette = {
+const MainTheme = {
+    palette: {
         primary: {
             main: "#de8608",
             contrastText: "#fff"
@@ -16,15 +16,15 @@ class MainTheme {
         line: {
             width: 4
         }
-    };
+    },
 
-    mixins = {
+    mixins: {
         toolbar: {
             minHeight: 48
         }
-    };
+    },
 
-    typography = {
+    typography: {
         useNextVariants: true,
         color: "#000",
         fontFamily: "Lato, sans-serif",
@@ -48,15 +48,15 @@ class MainTheme {
             fontSize: "1.2rem",
             marginBottom: 5
         }
-    };
+    },
 
-    shape = {
+    shape: {
         borderRadius: 0
-    };
+    },
 
-    overrides = {};
+    overrides: {},
 
-    components = {
+    components: {
         MuiContainer: {
             styleOverrides: {
                 root: {
@@ -66,7 +66,7 @@ class MainTheme {
         },
         MuiCard: {
             defaultProps: {
-                elevation: 5
+                elevation: 10
             },
             styleOverrides: {
                 root: {
@@ -75,9 +75,6 @@ class MainTheme {
             }
         },
         MuiButton: {
-            defaultProps: {
-                elevation: 5
-            },
             styleOverrides: {
                 // Name of the slot
                 textPrimary: {
@@ -93,9 +90,6 @@ class MainTheme {
             }
         },
         MuiFab: {
-            defaultProps: {
-                elevation: 5
-            },
             styleOverrides: {
                 // Name of the slot
                 primary: {
@@ -106,7 +100,7 @@ class MainTheme {
                 }
             }
         }
-    };
+    }
 }
 
 export default MainTheme;
