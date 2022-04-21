@@ -37,9 +37,7 @@ function EntityCard(props) {
     function renderFieldsTable(entityToRender) {
         if (!entityToRender.fields || entityToRender.fields.length === 0) {
             return (
-                <div className={entityCardStyles.statementWrapper}>
-                    <Statement message={t("entity.fields.empty")}/>
-                </div>
+                <Statement message={t("entity.fields.empty")}/>
             );
         }
         return (
