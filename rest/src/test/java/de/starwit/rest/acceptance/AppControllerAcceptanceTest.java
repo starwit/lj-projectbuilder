@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import de.starwit.TestdataConstants;
 import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
+import de.starwit.service.impl.AppTemplateService;
 
 public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTest<AppDto> {
 
@@ -27,6 +29,9 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
     private static final String data = TestdataConstants.TESTDATA_APP_DIR;
 
     private static final String restpath = "/api/apps/";
+
+    @Autowired
+    public AppTemplateService appTemplateService;
 
     private JacksonTester<AppDto> jsonTester;
 
@@ -50,6 +55,7 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         // given
         AppDto dto = readFromFile(data + "app.json");
         AppTemplateDto templateDto = new AppTemplateDto();
+
         templateDto.setId(1L);
         templateDto.setName("lirejarp");
         dto.setTemplate(templateDto);
@@ -88,7 +94,6 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
-
 
     @Test
     public void isValidated() throws Exception {
@@ -130,7 +135,8 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
+        assertThat(response.getContentAsString())
+                .isEqualTo("{\"messageKey\":\"error.app.notfound\",\"message\":\"App not found.\"}");
     }
 
     @Test
