@@ -26,7 +26,7 @@ import de.starwit.rest.controller.AppController;
 import de.starwit.service.impl.AppService;
 
 @WebMvcTest(controllers = AppController.class)
-@Import({AppMapper.class, EntityMapper.class, FieldMapper.class})
+@Import({ AppMapper.class, EntityMapper.class, FieldMapper.class })
 public class AppControllerIntegrationTest extends AbstractControllerIntegrationTest<AppDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(AppControllerIntegrationTest.class);
@@ -62,34 +62,34 @@ public class AppControllerIntegrationTest extends AbstractControllerIntegrationT
 
         MockHttpServletResponse response = retrieveById(0L);
 
-        //then
+        // then
         AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
-        //set default tempate
+        // set default tempate
         dto.setTemplate(appTemplateDto);
         assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-            .isEqualTo(jsonAppDto.write(dto).getJson());
+                .isEqualTo(jsonAppDto.write(dto).getJson());
     }
 
     @Test
     public void canRetrieveByIdWithFields() throws Exception {
-       
+
         // given
         AppDto dto = readFromFile(data + "app-with-fields.json");
         App entity = applicationMapper.convertToEntity(dto);
         when(appService.findById(0L)).thenReturn(entity);
-        
+
         MockHttpServletResponse response = retrieveById(0L);
 
-        //then
+        // then
         AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
-        //set default tempate
+        // set default tempate
         dto.setTemplate(appTemplateDto);
         assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-            .isEqualTo(jsonAppDto.write(dto).getJson());
+                .isEqualTo(jsonAppDto.write(dto).getJson());
     }
 
     @Test
@@ -99,16 +99,16 @@ public class AppControllerIntegrationTest extends AbstractControllerIntegrationT
         App entity = applicationMapper.convertToEntity(dto);
         when(appService.findById(0L)).thenReturn(entity);
 
-        //when
+        // when
         MockHttpServletResponse response = retrieveById(0L);
 
-        //then
+        // then
         AppTemplateDto appTemplateDto = applicationMapper.convertToDto(entity).getTemplate();
-        //set default tempate
+        // set default tempate
         dto.setTemplate(appTemplateDto);
         assertNotNull(appTemplateDto);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-            .isEqualTo(jsonAppDto.write(dto).getJson());
+                .isEqualTo(jsonAppDto.write(dto).getJson());
     }
 }

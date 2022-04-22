@@ -4,24 +4,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import de.starwit.TestdataConstants;
-import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
+import de.starwit.dto.SaveAppTemplateDto;
+import de.starwit.mapper.AppTemplateMapper;
+import de.starwit.persistence.entity.AppTemplate;
 import de.starwit.service.impl.AppTemplateService;
 
+@SpringBootTest
+@EnableAutoConfiguration
+@AutoConfigureMockMvc(addFilters = false)
 public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTest<AppDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
@@ -32,6 +40,13 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
 
     @Autowired
     public AppTemplateService appTemplateService;
+
+    @Autowired
+    public AppTemplateMapper appTemplateMapper;
+
+    private AppTemplate template;
+
+    private List<String> groups;
 
     private JacksonTester<AppDto> jsonTester;
 
@@ -50,29 +65,39 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
         return jsonTester;
     }
 
+    @BeforeEach
+    private void createAppTemplate() throws Exception {
+        if (template == null) {
+            SaveAppTemplateDto appTemplateDto = (SaveAppTemplateDto) readFromFile(
+                    TestdataConstants.TESTDATA_APPTEMPLATE_DIR + "apptemplate.json",
+                    SaveAppTemplateDto.class);
+            groups = new ArrayList<>();
+            groups.add("public");
+            appTemplateDto.setGroups(groups);
+            template = appTemplateService.saveOrUpdate(appTemplateMapper.convertToEntity(appTemplateDto));
+        }
+    }
+
     @Test
     public void canCreate() throws Exception {
         // given
         AppDto dto = readFromFile(data + "app.json");
-        AppTemplateDto templateDto = new AppTemplateDto();
-
-        templateDto.setId(1L);
-        templateDto.setName("lirejarp");
-        dto.setTemplate(templateDto);
+        dto.setTemplate(appTemplateMapper.convertToDto(template));
 
         // when
         MockHttpServletResponse response = create(dto);
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        JsonNode jsonNode = mapper.readTree(response.getContentAsString());
-        Long id = jsonNode.get("id").asLong();
-        dto.setId(id);
-        dto.setGroupsToAssign(new ArrayList<>());
-        dto.getGroupsToAssign().add("public");
+        AppDto responseDto = jsonTester.parseObject(response.getContentAsString());
+        dto.setId(responseDto.getId());
+        dto.setGroupsToAssign(groups);
         String applicationString = jsonTester.write(dto).getJson();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(applicationString);
+        assertThat(responseDto.getTemplate().getId()).isEqualTo(template.getId());
+        responseDto.setTemplate(appTemplateMapper.convertToDto(template));
+        String responseString = jsonTester.write(responseDto).getJson();
+        assertThat(responseString).isEqualTo(applicationString);
     }
 
     @Test
@@ -99,10 +124,7 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
     public void isValidated() throws Exception {
         // given
         AppDto dto = readFromFile(data + "app-wrong-format.json");
-        AppTemplateDto templateDto = new AppTemplateDto();
-        templateDto.setId(1L);
-        templateDto.setName("lirejarp");
-        dto.setTemplate(templateDto);
+        dto.setTemplate(appTemplateMapper.convertToDto(template));
 
         // when
         MockHttpServletResponse response = create(dto);
@@ -158,22 +180,6 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
     public void canRetrieveByIdWithFields() throws Exception {
         // given
         AppDto dto = readFromFile(data + "app-with-fields.json");
-        MockHttpServletResponse response = create(dto);
-        AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
-
-        // when
-        response = retrieveById(dto2.getId());
-
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        AppDto result = mapper.readValue(response.getContentAsString(), AppDto.class);
-        assertThat(jsonTester.write(result).getJson()).isEqualTo(jsonTester.write(dto2).getJson());
-    }
-
-    @Test
-    public void canRetrieveByIdWithRelations() throws Exception {
-        // given
-        AppDto dto = readFromFile(data + "app-with-relations.json");
         MockHttpServletResponse response = create(dto);
         AppDto dto2 = mapper.readValue(response.getContentAsString(), AppDto.class);
 

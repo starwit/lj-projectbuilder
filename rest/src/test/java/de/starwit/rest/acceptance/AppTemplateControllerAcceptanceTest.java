@@ -6,6 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +18,9 @@ import de.starwit.TestdataConstants;
 import de.starwit.dto.SaveAppTemplateDto;
 import de.starwit.persistence.entity.AppTemplate;
 
+@SpringBootTest
+@EnableAutoConfiguration
+@AutoConfigureMockMvc(addFilters = false)
 public class AppTemplateControllerAcceptanceTest extends AbstractControllerAcceptanceTest<SaveAppTemplateDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(AppControllerAcceptanceTest.class);
@@ -44,7 +50,7 @@ public class AppTemplateControllerAcceptanceTest extends AbstractControllerAccep
     public void canCreate() throws Exception {
         // given
         SaveAppTemplateDto dto = readFromFile(data + "apptemplate.json");
-  
+
         // when
         MockHttpServletResponse response = create(dto);
 
