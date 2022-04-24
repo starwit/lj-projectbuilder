@@ -30,8 +30,11 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     @Schema(hidden = true)
     @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
-	@Size(max = 100)
+    @Size(max = 100)
     private String packagePlaceholder;
+
+    @Size(max = 100)
+    private String imageUrl;
 
     public String getLocation() {
         return location;
@@ -85,5 +88,13 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     public void setUserGroups(List<String> userGroups) {
         this.userGroups = userGroups;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

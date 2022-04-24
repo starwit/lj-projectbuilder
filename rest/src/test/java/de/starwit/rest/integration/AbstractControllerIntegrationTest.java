@@ -24,8 +24,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import de.starwit.persistence.entity.AbstractEntity;
 
-
-
 @WithMockUser(username = "admin", roles = { "ADMIN", "PBUSER" })
 @WebMvcTest()
 @Import({})
@@ -38,7 +36,6 @@ public abstract class AbstractControllerIntegrationTest<DTO extends AbstractEnti
 
     @Autowired
     protected ObjectMapper mapper;
-
 
     @BeforeEach
     public void setup() {
@@ -69,13 +66,13 @@ public abstract class AbstractControllerIntegrationTest<DTO extends AbstractEnti
     protected MockHttpServletResponse retrieveById(Long id) throws Exception {
         // when
         MockHttpServletResponse response = mvc.perform(
-        get(getRestPath() + id)
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andReturn().getResponse();
+                get(getRestPath() + id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
     }
-    
+
 }

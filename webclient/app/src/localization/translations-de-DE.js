@@ -64,6 +64,9 @@ const translationsDeDE = {
     "entity.fields.empty": "keine Felder angelegt",
     "entity.relations": "Relationen",
     "entity.relations.empty": "keine Relationen angelegt",
+    "entity.center": "Zentrieren",
+    "entity.delete.title": "Entität löschen",
+    "entity.delete.message": "Wollen Sie diese Entität wirklich löschen?",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",
@@ -145,9 +148,9 @@ const translationsDeDE = {
     "error.badrequest": "Die Anfrage ist fehlerhaft.",
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
-    "error.generation.template": "Das Projekt konnte nicht generiert werden.",
-    "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet."
-
-
+    "error.generation.template": "Die App konnte nicht generiert werden.",
+    "error.generation.generatepath": "Die Generierung eines Pfades aus der Templateconfiguration ist fehlgeschlagen.",
+    "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet.",
+    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut."
 };
 export default translationsDeDE;

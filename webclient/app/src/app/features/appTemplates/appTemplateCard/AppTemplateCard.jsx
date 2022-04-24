@@ -13,6 +13,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Stack,
     Typography
 } from "@mui/material";
 import AppTemplateCardStyles from "./AppTemplateCardStyles";
@@ -26,12 +27,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../../services/AppTemplateRest";
 import GitRest from "../../../services/GitRest";
-import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
-import GitDataButton from "../../../commons/gitDownloadButton/GitDataButton";
+import ConfirmationDialog from "../../../commons/confirmationDialog/ConfirmationDialog";
+import GitDataButton from "../../../commons/buttons/gitDownloadButton/GitDataButton";
 import {useSnackbar} from "notistack";
 
 const ExpandMore = styled(props => {
-    const {expand, ...other} = props;
+    const {...other} = props;
     return <IconButton {...other} />;
 })(({theme, expand}) => ({
     transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
@@ -61,41 +62,41 @@ function AppTemplateCard(props) {
         setOpenDeleteDialog(false);
     };
 
-    const handleExpandClick = appTemplateId => {
+    function handleExpandClick(appTemplateId) {
         loadAppTemplate(appTemplateId);
         setExpanded(!expanded);
-    };
+    }
 
-    const handleDialogOpen = () => {
+    function handleDialogOpen() {
         setOpenDialog(true);
         setSelectedAppTemplate(appTemplate);
-    };
+    }
 
-    const handleDialogClose = () => {
+    function handleDialogClose() {
         setOpenDialog(false);
-    };
+    }
 
-    const handleDelete = appTemplateId => {
+    function handleDelete(appTemplateId) {
         return appTemplateRest.delete(appTemplateId).then(() => {
             handleRefresh();
         });
-    };
+    }
 
-    const handleGit = downloadRequestData => {
+    function handleGit(downloadRequestData) {
         return gitRest.updateTemplates(appTemplate.id, downloadRequestData);
-    };
+    }
 
-    const handleAfterGitSuccess = () => {
+    function handleAfterGitSuccess() {
         handleRefresh();
         enqueueSnackbar(t("appTemplate.success.message"), {variant: "success"});
-    };
+    }
 
-    const loadAppTemplate = appTemplateId => {
+    function loadAppTemplate(appTemplateId) {
         const appTemplateRest2 = new AppTemplateRest();
         appTemplateRest2.findById(appTemplateId).then(response => {
             setExtendedAppTemplate(response.data);
         });
-    };
+    }
 
     useEffect(() => {
         SyntaxHighlighter.registerLanguage("javascript", js);
@@ -123,25 +124,24 @@ function AppTemplateCard(props) {
                 </CardContent>
                 <Divider/>
                 <CardContent>
-                    <Grid container spacing={0}>
+                    <Grid container spacing={0} alignItems={"center"}>
                         <Grid item sm={7}>
-                            <Typography variant="body2" color="text.secondary">
-                                <br/>
-                                {appTemplate.description}
-                            </Typography>
-                            <List>
-                                <ListItem disablePadding>
-                                    <ListItemIcon>
-                                        <GitHub/>
-                                    </ListItemIcon>
-                                    <ListItemText primary={appTemplate.location}
-                                        secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
-                                </ListItem>
-                            </List>
+                            <Stack spacing={2}>
+                                <Typography variant="body2" color="text.secondary">
+                                    {appTemplate.description}
+                                </Typography>
+                                <List>
+                                    <ListItem disablePadding>
+                                        <ListItemIcon>
+                                            <GitHub/>
+                                        </ListItemIcon>
+                                        <ListItemText primary={appTemplate.location}
+                                            secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
+                                    </ListItem>
+                                </List>
+                            </Stack>
                         </Grid>
                         <Grid item xs={5} align="right">
-                            <br/>
-                            <br/>
                             <GitDataButton
                                 credentialsRequired={appTemplate.credentialsRequired}
                                 handleAfterSuccess={handleAfterGitSuccess}

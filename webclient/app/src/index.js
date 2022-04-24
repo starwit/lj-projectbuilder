@@ -6,15 +6,15 @@ import * as serviceWorker from "./serviceWorker";
 import {HashRouter as Router} from "react-router-dom";
 import "./localization/i18n";
 import {SnackbarProvider} from "notistack";
-import StarwitTheme from "./app/commons/starwitTheme/StarwitTheme";
+import MainTheme from "./app/commons/mainTheme/MainTheme";
 
 ReactDOM.render((
     <Router>
-        <StarwitTheme>
+        <MainTheme>
             <SnackbarProvider maxSnack={5}>
                 <App/>
             </SnackbarProvider>
-        </StarwitTheme>
+        </MainTheme>
     </Router>
 ),
 document.getElementById("root")

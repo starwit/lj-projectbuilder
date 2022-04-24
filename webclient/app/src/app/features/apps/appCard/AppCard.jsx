@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
 import {useTranslation} from "react-i18next";
-import ConfirmationDialog from "../../../commons/alert/ConfirmationDialog";
+import ConfirmationDialog from "../../../commons/confirmationDialog/ConfirmationDialog";
 
 function AppCard(props) {
     const {app, onDeleteClick, onEditClick} = props;

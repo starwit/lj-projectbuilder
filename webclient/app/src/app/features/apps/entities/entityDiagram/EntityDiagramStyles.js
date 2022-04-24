@@ -2,11 +2,6 @@ import {makeStyles} from "@mui/styles";
 
 const EntityDiagramStyles = makeStyles(theme => ({
 
-    addFab: {
-        position: "absolute",
-        bottom: "5%",
-        right: "2%"
-    },
     drawer: {
         "width": "50vw",
         "flexShrink": 0,
@@ -21,12 +16,14 @@ const EntityDiagramStyles = makeStyles(theme => ({
     draggableWrapperDense: {
         height: "20vh"
     },
-    statementWrapper: {
-        height: "10rem"
-    },
     codeButtonWrapper: {
         position: "absolute",
         bottom: "5%",
+        left: "2%"
+    },
+    centerButtonWrapper: {
+        position: "absolute",
+        bottom: "12%",
         left: "2%"
     },
     draggable: {

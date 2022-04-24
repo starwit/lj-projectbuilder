@@ -23,7 +23,7 @@ import de.starwit.rest.controller.EntityController;
 import de.starwit.service.impl.DomainService;
 
 @WebMvcTest(controllers = EntityController.class)
-@Import({EntityMapper.class, FieldMapper.class})
+@Import({ EntityMapper.class, FieldMapper.class })
 public class EntityControllerIntegrationTest extends AbstractControllerIntegrationTest<EntityDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(EntityControllerIntegrationTest.class);
@@ -59,10 +59,10 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
         when(domainService.findById(0L)).thenReturn(domain);
         MockHttpServletResponse response = retrieveById(0L);
 
-        //then
+        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
+                .isEqualTo(jsonTester.write(dto).getJson());
 
     }
 
@@ -74,10 +74,10 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
         when(domainService.findById(0L)).thenReturn(domain);
         MockHttpServletResponse response = retrieveById(0L);
 
-        //then
+        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-            .isEqualTo(jsonTester.write(dto).getJson());
+                .isEqualTo(jsonTester.write(dto).getJson());
 
     }
 
@@ -90,15 +90,14 @@ public class EntityControllerIntegrationTest extends AbstractControllerIntegrati
             when(domainService.findById(0L)).thenReturn(domain);
             MockHttpServletResponse response = retrieveById(0L);
 
-            //then
+            // then
             assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
             assertThat(response.getContentAsString())
-                .isEqualTo(jsonTester.write(dto).getJson());
-        } catch(Exception e) {
+                    .isEqualTo(jsonTester.write(dto).getJson());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
 }

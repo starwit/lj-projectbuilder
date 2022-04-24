@@ -19,7 +19,7 @@ import {Delete, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import FieldAccordionStyles from "./FieldAccordionStyles";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 
 function FieldAccordion(props) {
@@ -100,7 +100,8 @@ function FieldAccordion(props) {
                         id="panel1a-header">
                         <Typography className={fieldAccordionStyles.title}>{renderAccordionTitle(name)}</Typography>
                         <Typography
-                            className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}</Typography>
+                            className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={4}>
@@ -137,7 +138,8 @@ function FieldAccordion(props) {
                                     fullWidth
                                     label={t("field.pattern")}
                                     value={pattern ?? ""}
-                                    onChange={event => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
+                                    onChange=
+                                        {event => editFieldProperty("fieldValidateRulesPattern", event.target.value)}
                                     disabled={isPatternDisabled}
                                 />
                             </Grid>

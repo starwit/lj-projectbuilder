@@ -6,33 +6,31 @@ import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useTranslation} from "react-i18next";
 import Statement from "../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
-import {updateRelationCoordinates} from "../../features/apps/entities/HandleRelations";
+import {newApp, updateApp} from "../../model/App";
+import {useImmer} from "use-immer";
 
-function AppOverview(props) {
-    const applicationRest = useMemo(() => new ApplicationRest(), []);
+function AppSummary(props) {
+    const appRest = useMemo(() => new ApplicationRest(), []);
     const {t} = useTranslation();
 
-    const [app, setApp] = useState(null);
+    const [app, setApp] = useImmer(newApp);
     const [appError, setAppError] = useState(null);
-    const [coordinates, setCoordinates] = useState(null);
     const {appId} = useParams();
 
     const loadApp = useCallback(appId => {
-        setApp(null);
         setAppError(null);
-        applicationRest.findById(appId).then(appResponse => {
-            setApp(appResponse.data);
-            setCoordinates(updateRelationCoordinates(appResponse.data.entities));
+        appRest.findById(appId).then(appResponse => {
+            setApp(updateApp(app, appResponse.data));
         }).catch(appResponseError => {
             setAppError(appResponseError.response);
         });
-    }, [applicationRest, setApp, setAppError]);
+    }, [appRest, setApp, setAppError]);
 
     useEffect(() => {
         loadApp(appId);
     }, [loadApp, appId]);
 
-    if (!app && !appError) {
+    if (!app.id && !appError) {
         return <LoadingSpinner
             message={t("app.loading")}
         />;
@@ -49,15 +47,9 @@ function AppOverview(props) {
 
     return (<>
         <AppConclusion
-            appId={+appId}
-            appName={app.baseName}
-            entities={app.entities}
-            coordinates={coordinates}
-            packageName={app.packageName}
-            templateName={app.template.name}
-            credentialsRequired={app.template.credentialsRequired}
+            app={app}
         />
     </>);
 }
 
-export default AppOverview;
+export default AppSummary;

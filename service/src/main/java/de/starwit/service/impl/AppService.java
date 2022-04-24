@@ -16,37 +16,43 @@ import de.starwit.persistence.repository.AppTemplateRepository;
 @Service
 public class AppService implements ServiceInterface<App, AppRepository> {
 
-	public final static String[] EXT = new String[] { "java", "js", "html", "sql", "xml" };
-	final static Logger LOG = LoggerFactory.getLogger(AppService.class);
+    public final static String[] EXT = new String[] { "java", "js", "html", "sql", "xml" };
+    final static Logger LOG = LoggerFactory.getLogger(AppService.class);
 
-	@Autowired
-	private AppRepository appRepository;
+    @Autowired
+    private AppRepository appRepository;
 
-	@Autowired
-	private AppTemplateRepository appTemplateRepository;
-	
-	@Override
-	public AppRepository getRepository() {
-		return appRepository;
-	}
+    @Autowired
+    private AppTemplateRepository appTemplateRepository;
 
-	public List<App> findByGroups(List<String> groups) {
+    @Override
+    public AppRepository getRepository() {
+        return appRepository;
+    }
+
+    public List<App> findByGroups(List<String> groups) {
 
         return this.getRepository().findByGroupString("," + String.join(",|", groups) + ",");
     }
 
-	@Override
-	public App saveOrUpdate(App entity) {
-		if (entity != null) {
-			AppTemplate appTempate;
-			if (entity.getTemplate() != null) {
-				appTempate = this.appTemplateRepository.getById(entity.getTemplate().getId());
-			} else {
-				appTempate = this.appTemplateRepository.getById(AppMapper.defaultAppTemplateID);
-			}
-			entity.setTemplate(appTempate);
-        	entity = this.getRepository().save(entity);
-		}
+    @Override
+    public App saveOrUpdate(App entity) {
+        if (entity != null) {
+            AppTemplate appTempate;
+            if (entity.getTemplate() != null && entity.getTemplate().getId() != null) {
+                appTempate = this.appTemplateRepository.getById(entity.getTemplate().getId());
+            } else {
+                List<AppTemplate> templates = this.appTemplateRepository
+                        .findFirstByGroupString("," + String.join(",|", entity.getGroups()) + ",");
+                if (templates != null && !templates.isEmpty()) {
+                    appTempate = templates.get(0);
+                } else {
+                    appTempate = this.appTemplateRepository.getById(AppMapper.defaultAppTemplateID);
+                }
+            }
+            entity.setTemplate(appTempate);
+            entity = this.getRepository().save(entity);
+        }
         return entity;
     }
 }

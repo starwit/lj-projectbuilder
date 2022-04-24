@@ -16,8 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import de.starwit.TestdataConstants;
-import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.AppDto;
+import de.starwit.dto.AppTemplateDto;
 import de.starwit.mapper.AppMapper;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.mapper.FieldMapper;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {
     Box,
     Button,
@@ -16,44 +16,39 @@ import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import {useTranslation} from "react-i18next";
 import {Close} from "@mui/icons-material";
 import AppTemplateRest from "../../../services/AppTemplateRest";
-import ValidatedTextField from "../../../commons/validatedTextField/ValidatedTextField";
+import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
-import MultipleSelectChip from "../../../commons/multipleSelectChip/MultipleSelectChip";
+import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
+import {useImmer} from "use-immer";
 
 function AppTemplateDialog(props) {
     const {appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups} = props;
     const {t} = useTranslation();
-    const [internalAppTemplate, setInternalAppTemplate] = useState(null);
+    const [internalAppTemplate, setInternalAppTemplate] = useImmer(null);
     const [hasFormError, setHasFormError] = React.useState(false);
     const appTemplateDialogStyles = AppTemplateDialogStyles();
     const appTemplateRest = new AppTemplateRest();
 
-    const onDialogClose = () => {
+    function onDialogClose() {
         onClose();
         setInternalAppTemplate(appTemplate);
-    };
+    }
 
-    const handleChange = event => {
+    function handleChange(event) {
         const {name, value} = event.target;
-        const appTemplateNew = {...internalAppTemplate};
-        appTemplateNew[name] = value;
-        setInternalAppTemplate(appTemplateNew);
-    };
+        setInternalAppTemplate(draft => {draft[name] = value;});
+    }
 
-    const handleGroupChange = items => {
-        const appTemplateNew = {...internalAppTemplate};
-        appTemplateNew["groups"] = items;
-        setInternalAppTemplate(appTemplateNew);
-    };
+    function handleGroupChange(items) {
+        setInternalAppTemplate(draft => {draft["groups"] = items;});
+    }
 
-    const handleCredentialsCheckbox = event => {
+    function handleCredentialsCheckbox(event) {
         const {name, checked} = event.target;
-        const appTemplateNew = {...internalAppTemplate};
-        appTemplateNew[name] = checked;
-        setInternalAppTemplate(appTemplateNew);
-    };
+        setInternalAppTemplate(draft => {draft[name] = checked;});
+    }
 
-    const handleSave = toSave => {
+    function handleSave(toSave) {
         if (hasFormError) {
             return;
         }
@@ -67,13 +62,13 @@ function AppTemplateDialog(props) {
                 handleSaveResponse(response);
             });
         }
-    };
+    }
 
-    const handleSaveResponse = response => {
+    function handleSaveResponse(response) {
         setInternalAppTemplate(response.data);
         onRefresh();
         onClose();
-    };
+    }
 
     useEffect(() => {
         if (!internalAppTemplate) {
@@ -97,14 +92,14 @@ function AppTemplateDialog(props) {
         return null;
     }
 
-    const insertTitle = () => {
+    function insertTitle() {
         if (isCreateDialog) {
             return (<Typography noWrap variant={"h6"} component={"p"}>{t("apptemplate.new")}</Typography>);
         } else {
             return (<Typography noWrap variant={"h6"}
                 component={"p"}>{t("apptemplate.edit", {appTemplateName: internalAppTemplate.name})}</Typography>);
         }
-    };
+    }
 
     return (
         <Dialog onClose={onDialogClose} open={open} spacing={2}>
