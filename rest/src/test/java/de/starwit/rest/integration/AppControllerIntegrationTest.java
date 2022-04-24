@@ -1,7 +1,6 @@
 package de.starwit.rest.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import de.starwit.TestdataConstants;
 import de.starwit.dto.AppDto;
-import de.starwit.dto.AppTemplateDto;
 import de.starwit.mapper.AppMapper;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.mapper.FieldMapper;
