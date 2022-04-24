@@ -5,8 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +24,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import de.starwit.TestdataConstants;
 import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
+import de.starwit.dto.SaveAppTemplateDto;
+import de.starwit.mapper.AppTemplateMapper;
+import de.starwit.persistence.entity.AppTemplate;
+import de.starwit.service.impl.AppTemplateService;
 
+@SpringBootTest
+@EnableAutoConfiguration
+@AutoConfigureMockMvc(addFilters = false)
 public class EntityControllerAcceptanceTest extends AbstractControllerAcceptanceTest<EntityDto> {
 
     private static final String data = TestdataConstants.TESTDATA_ENTITY_DIR;
@@ -47,11 +61,35 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
         return jsonTester;
     }
 
+    @Autowired
+    public AppTemplateService appTemplateService;
+
+    @Autowired
+    public AppTemplateMapper appTemplateMapper;
+
+    private static AppTemplate template;
+
+    private static List<String> groups;
+
+    @BeforeEach
+    private void createAppTemplate() throws Exception {
+        if (template == null) {
+            SaveAppTemplateDto appTemplateDto = (SaveAppTemplateDto) readFromFile(
+                    TestdataConstants.TESTDATA_APPTEMPLATE_DIR + "apptemplate.json",
+                    SaveAppTemplateDto.class);
+            groups = new ArrayList<>();
+            groups.add("public");
+            appTemplateDto.setGroups(groups);
+            template = appTemplateService.saveOrUpdate(appTemplateMapper.convertToEntity(appTemplateDto));
+        }
+    }
+
     @Test
     public void isValidatedRegEx() throws Exception {
 
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
+        appDto.setTemplate(appTemplateMapper.convertToDto(template));
         EntityDto dto = readFromFile(data + "entity-wrong-name.json");
         String requestObject = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, requestObject);
@@ -71,6 +109,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     public void canCreate() throws Exception {
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
+        appDto.setTemplate(appTemplateMapper.convertToDto(template));
         EntityDto dto = readFromFile(data + "entity.json");
         String requestObject = jsonAppTester.write(appDto).getJson();
         MockHttpServletResponse response = create(apprestpath, requestObject);
@@ -97,6 +136,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
 
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
+        appDto.setTemplate(appTemplateMapper.convertToDto(template));
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();
@@ -153,6 +193,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     public void canUpdate() throws Exception {
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
+        appDto.setTemplate(appTemplateMapper.convertToDto(template));
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();
@@ -180,6 +221,7 @@ public class EntityControllerAcceptanceTest extends AbstractControllerAcceptance
     public void canDelete() throws Exception {
         // given
         AppDto appDto = readAppFromFile(appdata + "app.json");
+        appDto.setTemplate(appTemplateMapper.convertToDto(template));
         EntityDto dto = readFromFile(data + "entity.json");
         appDto.getEntities().add(dto);
         String applicationString = jsonAppTester.write(appDto).getJson();

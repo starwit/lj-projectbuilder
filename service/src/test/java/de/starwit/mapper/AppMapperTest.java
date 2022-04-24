@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import de.starwit.dto.AppDto;
 import de.starwit.dto.EntityDto;
@@ -25,7 +25,7 @@ import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.Domain;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AppMapperTest {
 
     final static Logger LOG = LoggerFactory.getLogger(AppMapperTest.class);
@@ -59,14 +59,14 @@ public class AppMapperTest {
         }
     }
 
-    private App app;
-    private AppDto dto;
+    static private App app;
+    static private AppDto dto;
 
     @Autowired
     private AppMapper applicationMapper;
 
-    @Before
-    public void createApp() {
+    @BeforeAll
+    static public void createApp() {
         app = new App();
         app.setTitle("testAppTitle");
         app.setPackagePrefix("testpackage");
@@ -88,8 +88,8 @@ public class AppMapperTest {
         app.setTemplate(template);
     }
 
-    @Before
-    public void createAppDto() {
+    @BeforeAll
+    static public void createAppDto() {
         dto = new AppDto();
         dto.setBaseName("testAppTitle");
         dto.setPackageName("testpackage");

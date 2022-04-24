@@ -18,9 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,9 +28,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import de.starwit.persistence.entity.AbstractEntity;
 
-@SpringBootTest
-@EnableAutoConfiguration
-@AutoConfigureMockMvc(addFilters = false)
 public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntity<Long>> {
 
     final static Logger LOG = LoggerFactory.getLogger(AbstractControllerAcceptanceTest.class);
@@ -75,6 +69,19 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
             URL res = getClass().getClassLoader().getResource(path);
             File file = new File(res.getFile());
             DTO dto = mapper.readValue(file, getDtoClass());
+            return dto;
+        } catch (IOException e) {
+            LOG.error("JSON mapper failed", e);
+            throw new Exception("JSON mapper failed");
+        }
+    }
+
+    protected AbstractEntity<Long> readFromFile(String path, Class<? extends AbstractEntity<Long>> dtoClass)
+            throws Exception {
+        try {
+            URL res = getClass().getClassLoader().getResource(path);
+            File file = new File(res.getFile());
+            AbstractEntity<Long> dto = mapper.readValue(file, dtoClass);
             return dto;
         } catch (IOException e) {
             LOG.error("JSON mapper failed", e);
