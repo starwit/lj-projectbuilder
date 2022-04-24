@@ -40,7 +40,7 @@ services:
       retries: 30
     volumes:
       - keycloak-db-data:/var/lib/mysql
-    networks: 
+    networks:
       - backend
 
   keycloak:
@@ -48,13 +48,15 @@ services:
     volumes:
       - ./keycloak/imports:/opt/jboss/keycloak/imports
       - ./keycloak/local-test-users.json:/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json
+      - ./keycloak/themes/keycloak:/opt/jboss/keycloak/themes/lirejarp/
+      - ./keycloak/themes/keycloak.v2:/opt/jboss/keycloak/themes/lirejarp.v2/
     depends_on:
       db-keycloak:
         condition: service_healthy
     restart: on-failure
     environment:
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm.json
-      DB_VENDOR: mariadb 
+      DB_VENDOR: mariadb
       DB_ADDR: db-keycloak
       DB_PORT: 3307
       DB_USER: 'keycloak'
@@ -64,7 +66,7 @@ services:
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '8080:8080'
-    networks: 
+    networks:
       - backend
 
 # Names our volume
