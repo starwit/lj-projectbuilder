@@ -69,14 +69,15 @@ public class AppController {
     @IsUser
     @Operation(summary = "Update app")
     @PutMapping
-    public AppDto update(@Valid @RequestBody AppDto dto) {
+    public AppDto update(@Valid @RequestBody AppDto dto, Principal principal) {
         App app = new App();
         if (dto.getId() != null) {
             app = appService.findById(dto.getId());
         }
         List<String> assignedGroups = app.getGroups();
+        List<String> groups = GroupsHelper.getGroups(principal);
         assignedGroups = GroupsHelper.identifyAssignedGroups(dto.getGroupsToAssign(), assignedGroups,
-                dto.getUserGroups());
+                groups);
         dto.setGroupsToAssign(assignedGroups);
         app = appService.saveOrUpdate(appMapper.convertToEntity(dto));
         return appMapper.convertToDto(app);

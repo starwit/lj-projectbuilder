@@ -26,8 +26,6 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     private List<String> groups;
 
-    private List<String> userGroups;
-
     @Schema(hidden = true)
     @Pattern(regexp = "^([a-zA-Z_0-9|-])*$")
     @Size(max = 100)
@@ -80,14 +78,6 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     public void setGroups(List<String> groups) {
         this.groups = groups;
-    }
-
-    public List<String> getUserGroups() {
-        return userGroups;
-    }
-
-    public void setUserGroups(List<String> userGroups) {
-        this.userGroups = userGroups;
     }
 
     public String getImageUrl() {

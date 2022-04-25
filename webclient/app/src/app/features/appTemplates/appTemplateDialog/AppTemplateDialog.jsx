@@ -48,17 +48,17 @@ function AppTemplateDialog(props) {
         setInternalAppTemplate(draft => {draft[name] = checked;});
     }
 
-    function handleSave(toSave) {
+    function handleSave() {
         if (hasFormError) {
             return;
         }
-        toSave.userGroups = userGroups;
+        setInternalAppTemplate(draft => {draft.userGroups = userGroups;});
         if (isCreateDialog) {
-            appTemplateRest.create(toSave).then(response => {
+            appTemplateRest.create(internalAppTemplate).then(response => {
                 handleSaveResponse(response);
             });
         } else {
-            appTemplateRest.update(toSave).then(response => {
+            appTemplateRest.update(internalAppTemplate).then(response => {
                 handleSaveResponse(response);
             });
         }

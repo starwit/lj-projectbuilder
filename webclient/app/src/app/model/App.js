@@ -3,7 +3,7 @@ import RegexConfig from "../../regexConfig";
 
 const newApp =
     {id: null, template: null, entities: [],
-        general: {isNew: true, isValid: false, appName: "", packageName: "", assignedGroups: []}};
+        general: {isNew: true, isValid: false, appName: "", packageName: "", assignedGroups: ["public"]}};
 
 function toDatabaseApp(app) {
     const data = {};
@@ -49,7 +49,7 @@ function updateGeneral(app, event) {
             draft.general.isValid = isValid(draft.general);
         });
     } else {
-        return produce(app, draft => {draft.general["groups"] = items;});
+        return produce(app, draft => {draft.general["assignedGroups"] = event;});
     }
 }
 
