@@ -8,7 +8,9 @@ function ValidatedTextField(props) {
     const [changed, setChanged] = useState(false);
 
     useEffect(() => {
-        setError(!regex.test(value));
+        if (regex) {
+            setError(!regex.test(value));
+        }
     }, [value, regex]);
 
     return (
@@ -28,7 +30,7 @@ ValidatedTextField.defaultProps = {
 
 ValidatedTextField.propTypes = {
     helperText: PropTypes.string.isRequired,
-    regex: PropTypes.any.isRequired,
+    regex: PropTypes.any,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
     isCreate: PropTypes.bool
