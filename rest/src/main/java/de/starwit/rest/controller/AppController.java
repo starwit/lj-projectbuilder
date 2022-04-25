@@ -61,8 +61,8 @@ public class AppController {
     @IsUser
     @Operation(summary = "Create app")
     @PostMapping
-    public AppDto save(@Valid @RequestBody AppDto dto) {
-        return update(dto);
+    public AppDto save(@Valid @RequestBody AppDto dto, Principal principal) {
+        return update(dto, principal);
     }
 
     @IsAdmin

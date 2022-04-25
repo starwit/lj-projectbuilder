@@ -51,8 +51,8 @@ public class AppTemplateController {
     @IsAdmin
     @Operation(summary = "Create appTemplate (location, branch, description, credentialsRequired)")
     @PostMapping
-    public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
-        return update(appTemplateDto);
+    public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto, Principal principal) {
+        return update(appTemplateDto, principal);
     }
 
     @IsAdmin
