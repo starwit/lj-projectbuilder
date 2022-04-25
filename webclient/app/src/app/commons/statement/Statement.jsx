@@ -5,9 +5,8 @@ import PropTypes from "prop-types";
 import iconEmpty from "./icon-empty.png";
 
 function Statement(props) {
-    const {icon, message, actionMessage, onActionClick, enableSpacing, spacingHeight} = props;
-
-    const statementStyles = StatementStyles({height: spacingHeight, enableSpacing: enableSpacing});
+    const statementStyles = StatementStyles();
+    const {icon, message, actionMessage, onActionClick} = props;
 
     function renderActionButton() {
         if (actionMessage && onActionClick) {
@@ -37,15 +36,12 @@ Statement.propTypes = {
     message: PropTypes.string,
     icon: PropTypes.element,
     actionMessage: PropTypes.string,
-    onActionClick: PropTypes.func,
-    enableSpacing: PropTypes.bool,
-    spacingHeight: PropTypes.any
+    onActionClick: PropTypes.func
 };
 
 Statement.defaultProps = {
     message: "Keine Nachricht festgelegt",
-    icon: <img src={iconEmpty} alt="empty"/>,
-    spacingHeight: "15rem"
+    icon: <img src={iconEmpty} alt="empty"/>
 };
 
 export default Statement;

@@ -3,7 +3,7 @@ import {makeStyles} from "@mui/styles";
 const drawerWidth = 240;
 const appBarHeight = "3rem";
 
-const AppHeaderStyles = makeStyles(theme => ({
+const HeaderStyles = makeStyles(theme => ({
     root: {
         display: "flex"
     },
@@ -21,9 +21,10 @@ const AppHeaderStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "left",
         paddingLeft: 20,
+        color: theme.palette.secondary.main,
         [theme.breakpoints.up("sm")]: {
             display: "flex",
-            width: "100%",
+            width: "20%",
             justifyContent: "center"
         }
     },
@@ -71,4 +72,4 @@ const AppHeaderStyles = makeStyles(theme => ({
         height: `calc(${appBarHeight} + ${theme.spacing(3)})`
     }
 }));
-export default AppHeaderStyles;
+export default HeaderStyles;
