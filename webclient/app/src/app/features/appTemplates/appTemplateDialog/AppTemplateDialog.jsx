@@ -54,7 +54,7 @@ function AppTemplateDialog(props) {
         }
 
         const toSave = produce(internalAppTemplate, draft => {
-            draft.template = template;
+            draft.userGroups = userGroups;
         });
         setInternalAppTemplate(toSave);
         if (isCreateDialog) {
