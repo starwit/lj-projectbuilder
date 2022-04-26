@@ -11,16 +11,16 @@ import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
-import Theme from "../../../../assets/themes/Theme";
 import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
+import {useTheme} from "@mui/styles";
 
 function EntityDiagram(props) {
     const {appId, editable, entities, dense, onChange} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
-    const theme = new Theme();
+    const theme = new useTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [selectedEntityId, setSelectedEntityId] = useState(null);
     const [coordinates, setCoordinates] = useState([]);

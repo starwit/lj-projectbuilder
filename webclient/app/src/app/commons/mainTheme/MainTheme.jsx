@@ -4,7 +4,7 @@ import Theme from "../../assets/themes/Theme";
 
 function MainTheme(props) {
     // theme settings
-    const theme = createTheme(new Theme());
+    const theme = createTheme(Theme);
 
     return (
         <ThemeProvider theme={theme}>
