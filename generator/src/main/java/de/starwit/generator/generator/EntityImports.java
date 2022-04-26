@@ -77,6 +77,10 @@ public class EntityImports {
                         || RelationshipType.ManyToMany.equals(relation.getRelationshipType())) {
                     imports.add("import java.util.Set;");
                 }
+                if (RelationshipType.OneToOne.equals(relation.getRelationshipType()) &&
+                        relation.isOwnerSide()) {
+                    imports.add("import javax.persistence.CascadeType;");
+                }
             }
         }
         return imports;
