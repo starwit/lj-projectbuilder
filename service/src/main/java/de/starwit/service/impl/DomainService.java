@@ -31,7 +31,8 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
     }
 
     public Domain findByAppAndDomainId(Long appId, Long domainId) {
-        return this.getRepository().findByAppAndDomainId(appId, domainId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
+        return this.getRepository().findByAppAndDomainId(appId, domainId)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
     }
 
     public List<Domain> findByAppAndDomainName(Long appId, String domainName) {
@@ -43,7 +44,8 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
         return domainRepository;
     }
 
-    public void createRelationsForAllTargetDomains(Long appId, String sourceDomainName, List<Relationship> relationsSource) {
+    public void createRelationsForAllTargetDomains(Long appId, String sourceDomainName,
+            List<Relationship> relationsSource) {
         List<Domain> targetDomains = null;
         if (CollectionUtils.isEmpty(relationsSource)) {
             return;
@@ -61,13 +63,15 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
             targetDomains = this.getRepository().findByAppAndDomainName(appId, otherEntityName);
             if (!CollectionUtils.isEmpty(targetDomains)) {
                 for (Domain targetDomain : targetDomains) {
-                    createTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName), targetDomain);
+                    createTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName),
+                            targetDomain);
                 }
             }
         }
     }
 
-    private void createTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource, Domain targetDomain) {
+    private void createTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource,
+            Domain targetDomain) {
         if (CollectionUtils.isEmpty(relationshipsSource)) {
             return;
         }
@@ -85,6 +89,7 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
         targetRelationship.setOtherEntityRelationshipName(relationshipSource.getRelationshipName());
         targetRelationship.setRelationshipName(relationshipSource.getOtherEntityRelationshipName());
         targetRelationship.setRelationshipType(relationshipSource.getRelationshipType().getOpposite());
+        targetRelationship.setOwnerSide(!relationshipSource.isOwnerSide());
         return targetRelationship;
     }
 
@@ -102,7 +107,8 @@ public class DomainService implements ServiceInterface<Domain, DomainRepository>
     }
 
     public void deleteRelationsForAllTargetDomains(Long sourceDomainId) {
-        Domain domain = this.getRepository().findById(sourceDomainId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(sourceDomainId)));
+        Domain domain = this.getRepository().findById(sourceDomainId)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(sourceDomainId)));
         Long appId = domain.getApp().getId();
         String sourceDomainName = domain.getName();
         List<Relationship> relationsSource = domain.getRelationships();

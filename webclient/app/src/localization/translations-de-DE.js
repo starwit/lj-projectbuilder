@@ -79,6 +79,7 @@ const translationsDeDE = {
     "field.required": "Pflichtfeld.",
 
     "relationship.new": "Neue Relation",
+    "relationship.ownerSide": "Owner",
     "relationship.relationshipType": "Relationstyp",
     "relationship.sourceEntity": "Entität - Quelle der Relation",
     "relationship.sourceField": "Relationsname",

@@ -6,6 +6,8 @@ import java.util.Set;
 import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
 import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.Relationship;
+import de.starwit.persistence.entity.RelationshipType;
 
 /**
  *
@@ -56,6 +58,24 @@ public class EntityImports {
                     if (attr.getMin() != null) {
                         imports.add("import javax.validation.constraints.Min;");
                     }
+                }
+            }
+        }
+
+        if (domain.getRelationships() != null) {
+            for (Relationship relation : domain.getRelationships()) {
+                imports.add("import javax.persistence." + relation.getRelationshipType() + ";");
+                if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) ||
+                        RelationshipType.ManyToOne.equals(relation.getRelationshipType())) {
+                    imports.add("import javax.persistence.JoinColumn;");
+                }
+                if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) &&
+                        relation.isOwnerSide()) {
+                    imports.add("import javax.persistence.JoinTable;");
+                }
+                if (RelationshipType.OneToMany.equals(relation.getRelationshipType())
+                        || RelationshipType.ManyToMany.equals(relation.getRelationshipType())) {
+                    imports.add("import java.util.Set;");
                 }
             }
         }

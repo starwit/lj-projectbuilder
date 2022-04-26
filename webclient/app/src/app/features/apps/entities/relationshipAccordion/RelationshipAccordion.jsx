@@ -11,7 +11,8 @@ import {
     Select,
     Stack,
     TextField,
-    Typography
+    Typography,
+    Checkbox, FormGroup, FormControlLabel
 } from "@mui/material";
 import {Delete, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
@@ -29,7 +30,8 @@ function RelationshipAccordion(props) {
     function renderAccordionTitle() {
         let value = t("relationship.new");
         if (currentEntity.name && relationship.otherEntityName) {
-            value = `${currentEntity.name} -> ${relationship.otherEntityName} (${relationship.relationshipType})`;
+            value = `${relationship.relationshipName}: ${currentEntity.name} ` +
+                `-> ${relationship.otherEntityName} (${relationship.relationshipType})`;
         }
         return value;
     }
@@ -40,7 +42,9 @@ function RelationshipAccordion(props) {
                 <Accordion elevation={2}>
                     <AccordionSummary expandIcon={<ExpandMore/>} aria-controls="panel1a-content"
                         id="panel1a-header">
-                        <Typography className={relationshipStyles.title}>{renderAccordionTitle()}</Typography>
+                        <Typography className={relationshipStyles.title}>
+                            {renderAccordionTitle()}
+                        </Typography>
                         <Typography
                             className={relationshipStyles.subtitle}>{/* Add something interesting here */}</Typography>
                     </AccordionSummary>
@@ -64,6 +68,22 @@ function RelationshipAccordion(props) {
                                         ))}
                                     </Select>
                                 </FormControl>
+                                <FormGroup>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={relationship.ownerSide}
+                                                value={relationship.ownerSide}
+                                                label={t("relationship.ownerSide")}
+                                                onChange=
+                                                    {event => editRelationshipProperty("ownerSide",
+                                                        event.target.checked)}
+                                            />
+                                        }
+                                        label={t("relationship.ownerSide")}
+                                    />
+                                </FormGroup>
+
                             </Grid>
                             <Grid item sm={1}>
                                 <Typography gutterBottom>{t("relationship.source")}</Typography>
@@ -161,13 +181,6 @@ function RelationshipAccordion(props) {
         </Grid>
     );
 }
-
-RelationshipAccordion.propTypes = {
-    Relationship: PropTypes.instanceOf(RelationshipType),
-    entities: PropTypes.array,
-    currentEntity: PropTypes.object,
-    editRelationshipProperty: PropTypes.func
-};
 
 RelationshipAccordion.defaultProps = {};
 

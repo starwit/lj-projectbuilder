@@ -79,6 +79,7 @@ const translationsEnEN = {
     "field.required": "Mandatory.",
 
     "relationship.new": "New relation",
+    "relationship.ownerSide": "Owner",
     "relationship.relationshipType": "Relation type",
     "relationship.sourceEntity": "Source Entity",
     "relationship.sourceField": "Relationship Name",

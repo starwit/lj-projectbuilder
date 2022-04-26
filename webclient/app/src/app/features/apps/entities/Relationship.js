@@ -6,7 +6,8 @@ const RelationshipType = {
 };
 
 const defaultRelationship = {
-    relationshipType: RelationshipType.oneToMany
+    relationshipType: RelationshipType.oneToMany,
+    ownerSide: true
 };
 
 export {RelationshipType, defaultRelationship};
