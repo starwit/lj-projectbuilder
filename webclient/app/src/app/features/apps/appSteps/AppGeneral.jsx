@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Container, Grid, Stack, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
