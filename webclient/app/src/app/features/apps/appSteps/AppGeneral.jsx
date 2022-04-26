@@ -3,7 +3,6 @@ import {Container, Grid, Stack, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../regexConfig";
-import AppStepsStyles from "./AppStepsStyles";
 import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
@@ -13,51 +12,50 @@ function AppGeneral(props) {
         userGroups,
         onChange
     } = props;
-
-    const appStepsStyles = AppStepsStyles();
+    const groupsEvent = {target: {name: "assignedGroups", value: null}};
 
     return (
-            <Container maxWidth={false}>
-                <Grid container spacing={5}>
-                    <Grid item md={8}>
-                        <Stack spacing={3}>
-                            <ValidatedTextField
-                                    label={t("app.name") + "*"}
-                                    regex={RegexConfig.applicationBaseName}
-                                    helperText={t("app.name.hint")}
-                                    name="appName"
-                                    value={value.appName}
-                                    fullWidth
-                                    onChange={onChange}
-                                    isCreate={value.isNew}
-                            />
-                            <ValidatedTextField
-                                    label={t("app.packageName") + "*"}
-                                    regex={RegexConfig.packageName}
-                                    helperText={t("app.packageName.hint")}
-                                    name="packageName"
-                                    value={value.packageName}
-                                    fullWidth
-                                    onChange={onChange}
-                                    isCreate={value.isNew}
-                            />
-                            <MultipleSelectChip
-                                    values={userGroups}
-                                    selected={value.assignedGroups}
-                                    handleExternalChange={onChange}
-                                    label={t("select.groups")}
-                            />
-                        </Stack>
-                    </Grid>
-                    <Grid item md={4}>
-                        <Typography variant={"h3"} gutterBottom>{t("app.section.general.hello")}</Typography>
-                        <Typography variant={"body1"}
-                                gutterBottom>{t("app.section.general.enterInformation")}</Typography>
-                        <Typography variant={"body1"} gutterBottom>{t("app.section.general.clickNext")}</Typography>
-                    </Grid>
+        <Container maxWidth={false}>
+            <Grid container spacing={5}>
+                <Grid item md={8}>
+                    <Stack spacing={3}>
+                        <ValidatedTextField
+                            label={t("app.name") + "*"}
+                            regex={RegexConfig.applicationBaseName}
+                            helperText={t("app.name.hint")}
+                            name="appName"
+                            value={value.appName}
+                            fullWidth
+                            onChange={onChange}
+                            isCreate={value.isNew}
+                        />
+                        <ValidatedTextField
+                            label={t("app.packageName") + "*"}
+                            regex={RegexConfig.packageName}
+                            helperText={t("app.packageName.hint")}
+                            name="packageName"
+                            value={value.packageName}
+                            fullWidth
+                            onChange={onChange}
+                            isCreate={value.isNew}
+                        />
+                        <MultipleSelectChip
+                            values={userGroups}
+                            selected={value.assignedGroups}
+                            handleExternalChange={items => {groupsEvent.target.value = items; onChange(groupsEvent);}}
+                            label={t("select.groups")}
+                        />
+                    </Stack>
                 </Grid>
+                <Grid item md={4}>
+                    <Typography variant={"h3"} gutterBottom>{t("app.section.general.hello")}</Typography>
+                    <Typography variant={"body1"}
+                        gutterBottom>{t("app.section.general.enterInformation")}</Typography>
+                    <Typography variant={"body1"} gutterBottom>{t("app.section.general.clickNext")}</Typography>
+                </Grid>
+            </Grid>
 
-            </Container>
+        </Container>
     );
 }
 

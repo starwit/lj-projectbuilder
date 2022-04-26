@@ -51,14 +51,14 @@ public class AppTemplateController {
     @IsAdmin
     @Operation(summary = "Create appTemplate (location, branch, description, credentialsRequired)")
     @PostMapping
-    public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
-        return update(appTemplateDto);
+    public AppTemplate save(@Valid @RequestBody SaveAppTemplateDto appTemplateDto, Principal principal) {
+        return update(appTemplateDto, principal);
     }
 
     @IsAdmin
     @Operation(summary = "Update appTemplate (location, branch, description, credentialsRequired)")
     @PutMapping
-    public AppTemplate update(@Valid @RequestBody SaveAppTemplateDto appTemplateDto) {
+    public AppTemplate update(@Valid @RequestBody SaveAppTemplateDto appTemplateDto, Principal principal) {
         AppTemplate appTemplate = new AppTemplate();
         if (appTemplateDto.getId() != null) {
             appTemplate = appTemplateService.findById(appTemplateDto.getId());
@@ -69,7 +69,7 @@ public class AppTemplateController {
         appTemplate.setCredentialsRequired(appTemplateDto.isCredentialsRequired());
         List<String> assignedGroups = appTemplate.getGroups();
         assignedGroups = GroupsHelper.identifyAssignedGroups(appTemplateDto.getGroups(), assignedGroups,
-                appTemplateDto.getUserGroups());
+                GroupsHelper.getGroups(principal));
         appTemplate.setGroups(assignedGroups);
         return appTemplateService.saveOrUpdate(appTemplate);
     }

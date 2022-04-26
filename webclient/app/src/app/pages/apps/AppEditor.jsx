@@ -22,7 +22,7 @@ function AppEditor() {
     const history = useHistory();
     const appRest = useMemo(() => new ApplicationRest(), []);
     const userRest = useMemo(() => new UserRest(), []);
-    const [userGroups, setUserGroups] = useState(["public"]);
+    const [userGroups, setUserGroups] = useState([]);
     const [isAppLoading, setIsAppLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const {appId} = useParams();
@@ -49,11 +49,13 @@ function AppEditor() {
     const steps = [
         {
             label: t("app.section.general"),
-            component: <AppGeneral
-                value={app.general}
-                userGroups={userGroups}
-                onChange={changeEvent => setApp(updateGeneral(app, changeEvent))}
-            />,
+            component: (
+                <AppGeneral
+                    value={app.general}
+                    userGroups={userGroups}
+                    onChange={changeEvent => setApp(updateGeneral(app, changeEvent))}
+                />
+            ),
             condition: app.general.isValid
         },
         {
