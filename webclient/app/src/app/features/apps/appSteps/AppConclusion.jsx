@@ -40,12 +40,16 @@ function AppConclusion(props) {
         setGeneratorErrorMessage(null);
     }
 
+    const showMoreOnErrors = [
+        "error.generation.template",
+        "error.generation.generatepath",
+        "error.generation.generateglobal",
+        "error.generation.templatenotfound"
+    ];
+
     const handleGit = downloadRequestData => {
         return gitRest.setupApp(app.id, downloadRequestData).catch(error => {
-            if (error.response.data.messageKey === "error.generation.template" ||
-                error.response.data.messageKey === "error.generation.generatepath" ||
-                error.response.data.messageKey === "error.generation.generateglobal" ||
-                error.generation.templatenotfound === "error.generation.templatenotfound") {
+            if (showMoreOnErrors.includes(error.response.data.messageKey)) {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
                         action: key => <Button
