@@ -15,7 +15,6 @@ import {
     Checkbox, FormGroup, FormControlLabel
 } from "@mui/material";
 import {Delete, ExpandMore} from "@mui/icons-material";
-import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
 import {useTranslation} from "react-i18next";
 import {RelationshipType} from "../Relationship";
