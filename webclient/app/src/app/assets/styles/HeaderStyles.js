@@ -21,7 +21,7 @@ const HeaderStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "left",
         paddingLeft: 20,
-        color: theme.palette.secondary.main,
+        color: theme.palette.primary.contrastText,
         [theme.breakpoints.up("sm")]: {
             display: "flex",
             width: "20%",
