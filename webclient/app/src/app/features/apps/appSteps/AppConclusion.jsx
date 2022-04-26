@@ -138,4 +138,8 @@ function AppConclusion(props) {
     );
 }
 
+AppConclusion.propTypes = {
+    app: PropTypes.object
+};
+
 export default AppConclusion;
