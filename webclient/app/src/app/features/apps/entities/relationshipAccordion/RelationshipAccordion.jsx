@@ -15,6 +15,7 @@ import {
     Checkbox, FormGroup, FormControlLabel
 } from "@mui/material";
 import {Delete, ExpandMore} from "@mui/icons-material";
+import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
 import {useTranslation} from "react-i18next";
 import {RelationshipType} from "../Relationship";
@@ -181,6 +182,12 @@ function RelationshipAccordion(props) {
     );
 }
 
-RelationshipAccordion.defaultProps = {};
+RelationshipAccordion.propTypes = {
+    Relationship: PropTypes.instanceOf(RelationshipType),
+    targetEntities: PropTypes.array,
+    currentEntity: PropTypes.object,
+    editRelationshipProperty: PropTypes.func,
+    handleDelete: PropTypes.func
+};
 
 export default RelationshipAccordion;
