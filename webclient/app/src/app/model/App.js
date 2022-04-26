@@ -48,8 +48,8 @@ function updateGeneral(app, event) {
             draft.general[event.target.name] = event.target.value;
             draft.general.isValid = isValid(draft.general);
         });
-    } else {
-        return produce(app, draft => {draft.general["assignedGroups"] = event;});
+    } else if (event?.target?.name === "assignedGroups") {
+        return produce(app, draft => {draft.general["assignedGroups"] = event.target.value;});
     }
 }
 
