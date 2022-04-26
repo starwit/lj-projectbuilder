@@ -52,13 +52,17 @@ function AppTemplateDialog(props) {
         if (hasFormError) {
             return;
         }
-        setInternalAppTemplate(draft => {draft.userGroups = userGroups;});
+
+        const toSave = produce(internalAppTemplate, draft => {
+            draft.userGroups = userGroups;
+        });
+        setInternalAppTemplate(toSave);
         if (isCreateDialog) {
-            appTemplateRest.create(internalAppTemplate).then(response => {
+            appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
             });
         } else {
-            appTemplateRest.update(internalAppTemplate).then(response => {
+            appTemplateRest.update(toSave).then(response => {
                 handleSaveResponse(response);
             });
         }
@@ -169,7 +173,7 @@ function AppTemplateDialog(props) {
                 <DialogActions>
                     <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
                     <Button disabled={hasFormError}
-                        onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
+                        onClick={() => handleSave()}>{t("button.save")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

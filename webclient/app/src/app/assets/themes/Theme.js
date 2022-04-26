@@ -1,5 +1,5 @@
-class Theme {
-    palette = {
+const Theme = {
+    palette: {
         primary: {
             main: "#de8608",
             contrastText: "#fff"
@@ -16,15 +16,15 @@ class Theme {
         line: {
             width: 4
         }
-    };
+    },
 
-    mixins = {
+    mixins: {
         toolbar: {
             minHeight: 48
         }
-    };
+    },
 
-    typography = {
+    typography: {
         useNextVariants: true,
         color: "#000",
         fontFamily: "Lato, sans-serif",
@@ -48,15 +48,15 @@ class Theme {
             fontSize: "1.2rem",
             marginBottom: 5
         }
-    };
+    },
 
-    shape = {
+    shape: {
         borderRadius: 0
-    };
+    },
 
-    overrides = {};
+    overrides: {},
 
-    components = {
+    components: {
         MuiContainer: {
             styleOverrides: {
                 root: {
@@ -65,11 +65,12 @@ class Theme {
             }
         },
         MuiCard: {
+            defaultProps: {
+                elevation: 10
+            },
             styleOverrides: {
                 root: {
-                    backgroundColor: "#fff",
-                    // eslint-disable-next-line
-                    boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
+                    backgroundColor: "#fff"
                 }
             }
         },
@@ -83,10 +84,6 @@ class Theme {
                     fontWeight: "medium",
                     fontSize: "1rem"
                 },
-                containedPrimary: {
-                    // eslint-disable-next-line
-                    boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
-                },
                 containedSecondary: {
                     color: "#000"
                 }
@@ -96,16 +93,14 @@ class Theme {
             styleOverrides: {
                 // Name of the slot
                 primary: {
-                    backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)",
-                    // eslint-disable-next-line
-                    boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 10px 10px 10px 0px rgb(0 0 0 / 12%)"
+                    backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
                 },
                 containedSecondary: {
                     color: "#000"
                 }
             }
         }
-    };
+    }
 }
 
 export default Theme;

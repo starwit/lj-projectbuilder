@@ -12,6 +12,7 @@ function AppGeneral(props) {
         userGroups,
         onChange
     } = props;
+    const groupsEvent = {target: {name: "assignedGroups", value: null}};
 
     return (
         <Container maxWidth={false}>
@@ -41,7 +42,7 @@ function AppGeneral(props) {
                         <MultipleSelectChip
                             values={userGroups}
                             selected={value.assignedGroups}
-                            handleExternalChange={onChange}
+                            handleExternalChange={items => {groupsEvent.target.value = items; onChange(groupsEvent);}}
                             label={t("select.groups")}
                         />
                     </Stack>
