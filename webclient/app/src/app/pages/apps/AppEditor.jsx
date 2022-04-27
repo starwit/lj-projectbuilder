@@ -119,7 +119,7 @@ function AppEditor() {
         if (app.general.isNew) {
             restRequest = appRest.create(toDatabaseApp(app))
                 .then(response => {
-                    history.push(`/apps/${id}/edit`);
+                    history.push(`/apps/${response.data.id}/edit`);
                     return response;
                 });
         } else {
