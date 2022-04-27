@@ -79,6 +79,7 @@ const translationsDeDE = {
     "field.required": "Pflichtfeld.",
 
     "relationship.new": "Neue Relation",
+    "relationship.ownerSide": "Owner",
     "relationship.relationshipType": "Relationstyp",
     "relationship.sourceEntity": "Entität - Quelle der Relation",
     "relationship.sourceField": "Relationsname",
@@ -129,6 +130,7 @@ const translationsDeDE = {
     "error.appcheckout.branchisinvalid": "Der Branchname is ungültig. Er darf nur Buchstaben, Zahlen und /_- enthalten.",
     "error.appcheckout.jsonmapping.git": "Die Templatekonfiguration konnte nicht heruntergeladen werden. Bitte überprüfen Sie den Namen der Konfigurationsdatei. Sie muss template-config.json heißen.",
     "error.git.access.repositorynotfound": "Das angegebene Git-Repository konnte nicht gefunden werden. Bitte überpüfen Sie Repository-URL und Branch-Namen.",
+    "error.appcheckout.createtempappfolder": "Fehler beim erzeugen eines temporären Verzeichnisses auf dem Server. Bitte kontaktieren Sie ihren Administrator.",
     "error.accessdenied": "Sie sind für diese Aktion nicht berechtigt.",
     "error.general.delete": "Dieses Element konnte nicht gelöscht werden.",
     "error.general.create": "Dieses Element konnte nicht erstellt werden.",
@@ -149,7 +151,11 @@ const translationsDeDE = {
     "error.notfound": "Das Element wurde nicht gefunden.",
     "error.notexists": "Das Element existiert nicht.",
     "error.generation.template": "Die App konnte nicht generiert werden.",
+    "error.generation.generateglobal": "Templatedatei konnte nicht gelesen werden.",
     "error.generation.generatepath": "Die Generierung eines Pfades aus der Templateconfiguration ist fehlgeschlagen.",
+    "error.generation.templatenotfound": "Template konnte nicht gefunden werden",
+    "error.apprenamer.renamedirectories": "Fehler beim Umbenennen der Verzeichnisse beim Generieren.",
+    "error.apprenamer.renamefilecontent": "Fehler beim Ersetzen der Dateiinhalte.",
     "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet.",
     "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut."
 };
