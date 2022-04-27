@@ -20,6 +20,7 @@ import ValidatedTextField from "../../../commons/inputFields/validatedTextField/
 import RegexConfig from "../../../../regexConfig";
 import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 import {useImmer} from "use-immer";
+import {produce} from "immer";
 
 function AppTemplateDialog(props) {
     const {appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups} = props;
