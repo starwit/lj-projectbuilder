@@ -75,6 +75,7 @@ public class EntityImports {
 
     private static void addImportsForRelations(Set<String> imports, Relationship relation) {
         imports.add("import javax.persistence." + relation.getRelationshipType() + ";");
+        imports.add("import com.fasterxml.jackson.annotation.JsonFilter;");
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) ||
                 RelationshipType.ManyToOne.equals(relation.getRelationshipType())) {
             imports.add("import javax.persistence.JoinColumn;");
