@@ -1,7 +1,7 @@
 package de.starwit.generator.generator;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.DataType;
@@ -22,7 +22,10 @@ public class EntityImports {
      * @return Set of Java imports
      */
     public static Set<String> gatherEntityImports(Domain domain) {
-        Set<String> imports = new HashSet<>();
+        Set<String> imports = new TreeSet<>();
+
+        addGeneralImports(imports);
+
         if (domain.getAttributes() != null) {
             for (Attribute attr : domain.getAttributes()) {
                 addImportsForAttribute(imports, attr);
@@ -35,6 +38,13 @@ public class EntityImports {
             }
         }
         return imports;
+    }
+
+    private static void addGeneralImports(Set<String> imports) {
+        imports.add("import javax.persistence.Column;");
+        imports.add("import javax.persistence.Entity;");
+        imports.add("import javax.persistence.Table;");
+        imports.add("import javax.xml.bind.annotation.XmlRootElement;");
     }
 
     private static void addImportsForAttribute(Set<String> imports, Attribute attr) {
@@ -75,6 +85,9 @@ public class EntityImports {
 
     private static void addImportsForRelations(Set<String> imports, Relationship relation) {
         imports.add("import javax.persistence." + relation.getRelationshipType() + ";");
+        imports.add("import com.fasterxml.jackson.annotation.JsonFilter;");
+        // imports.add("import javax.persistence.FetchType;");
+
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) ||
                 RelationshipType.ManyToOne.equals(relation.getRelationshipType())) {
             imports.add("import javax.persistence.JoinColumn;");
