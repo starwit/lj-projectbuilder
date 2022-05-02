@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2-1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.2-0...v0.3.2-1) (2022-05-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated dependencies
+* ab#231 fix h2 issue, JUnit5, new versions
+
+### Features
+
+* ab[#203](https://github.com/starwit/lj-projectbuilder/issues/203) add immer for react state management ([bbb6cd8](https://github.com/mokkapps/changelog-generator-demo/commits/bbb6cd80fc4a84dc35250ffc7955963b69df720c))
+* AB[#211](https://github.com/starwit/lj-projectbuilder/issues/211) Implemented Grid auto-sizing for buttons and title ([#300](https://github.com/starwit/lj-projectbuilder/issues/300)) ([13403fa](https://github.com/mokkapps/changelog-generator-demo/commits/13403fa442b72bb43713ea44bd5bf238f551267e))
+* ab[#231](https://github.com/starwit/lj-projectbuilder/issues/231) fix h2 issue, JUnit5, new versions ([919721b](https://github.com/mokkapps/changelog-generator-demo/commits/919721b9546e719bafa6348720d261150e144dff))
+* AB[#232](https://github.com/starwit/lj-projectbuilder/issues/232) Deletion dialog for entities ([#305](https://github.com/starwit/lj-projectbuilder/issues/305)) ([dd41a97](https://github.com/mokkapps/changelog-generator-demo/commits/dd41a97dafd5fdacfa8387375093d178891979bf))
+* AB[#233](https://github.com/starwit/lj-projectbuilder/issues/233) Added default props ([#306](https://github.com/starwit/lj-projectbuilder/issues/306)) ([9e1e980](https://github.com/mokkapps/changelog-generator-demo/commits/9e1e9809fee6a9e8df1eb7c93a8c9c1f9d46f554))
+* ab[#238](https://github.com/starwit/lj-projectbuilder/issues/238) add individual keycloak theme ([#308](https://github.com/starwit/lj-projectbuilder/issues/308)) ([b4c0849](https://github.com/mokkapps/changelog-generator-demo/commits/b4c0849ccc36f47334e68af5f44868552cc4d8a5))
+* ab[#244](https://github.com/starwit/lj-projectbuilder/issues/244) frontend with relation ([5dfe4c0](https://github.com/mokkapps/changelog-generator-demo/commits/5dfe4c0b3773b4b5ec843ebc6a3701125726e6be))
+* allow # in branchname ([3ce34fb](https://github.com/mokkapps/changelog-generator-demo/commits/3ce34fbc7db4ae61f1680fd3c4a12cb6af1c5842))
+* better error messages for app generation ab[#191](https://github.com/starwit/lj-projectbuilder/issues/191) ([#313](https://github.com/starwit/lj-projectbuilder/issues/313)) ([03130ad](https://github.com/mokkapps/changelog-generator-demo/commits/03130adcf1e802fc0af57bc85ea3f1714fc77106))
+* updated dependencies ([01b1522](https://github.com/mokkapps/changelog-generator-demo/commits/01b1522c7fb390e4f64260298dbda322e22af8da))
+
+
+### Bug Fixes
+
+* ab[#205](https://github.com/starwit/lj-projectbuilder/issues/205) optimisticlock exception during center ([7313bc3](https://github.com/mokkapps/changelog-generator-demo/commits/7313bc343b68ad7dc38e6d7e850a46da6b49a880))
+* AB[#226](https://github.com/starwit/lj-projectbuilder/issues/226) Entity editor schnelles verschieben der Karten funktioniert manchmal nicht ([#317](https://github.com/starwit/lj-projectbuilder/issues/317)) ([bf69e43](https://github.com/mokkapps/changelog-generator-demo/commits/bf69e43e1ffe70a5ce753ff0bf9b5d4d2316101b))
+* assign groups to apps and templates ([df0f3af](https://github.com/mokkapps/changelog-generator-demo/commits/df0f3afb67785d7f44c582cba4533acc51de8aa8))
+* Integration tests ([6b3139b](https://github.com/mokkapps/changelog-generator-demo/commits/6b3139bb4f14ca5cfb418427480c64a8e922d0da))
+* next button for app creation was not working ([#316](https://github.com/starwit/lj-projectbuilder/issues/316)) ([97ff9a9](https://github.com/mokkapps/changelog-generator-demo/commits/97ff9a9f49e79691fe2e396fc453ff5151fcc893))
+* template generation (ab[#235](https://github.com/starwit/lj-projectbuilder/issues/235)) ([4cbdcf6](https://github.com/mokkapps/changelog-generator-demo/commits/4cbdcf65572972c8cee99294cb4c9b383c4f4f9c)), closes [#304](https://github.com/starwit/lj-projectbuilder/issues/304)
+
 ### [0.3.2-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.1...v0.3.2-0) (2022-04-06)
 
 
