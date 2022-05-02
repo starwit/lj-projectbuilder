@@ -1,3 +1,9 @@
+---
+layout: page
+title: Installation
+permalink: /installation/
+---
+
 # Installation on local PC
 
 [Back](../README.md)
@@ -15,7 +21,8 @@
 * docker and docker compose
 * Visual Studio Code
 
-The installation steps are only described for Linux Mint or Ubuntu. If you are using another operation system, you have to adjust your installation by your own.
+The installation steps are only described for Linux Mint or Ubuntu. If you are using another operation system, you have
+to adjust your installation by your own.
 
 ## Workplace Installation on Ubuntu 20.4 / Linux Mint
 
@@ -55,12 +62,13 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 apt install maven
 
 # Add environment variables
-echo 'export CLIENTSECRET=<<yourClientSecret>>' >> ~/.bashrc 
-echo 'export CLIENTID=<<yourClientID>>' >> ~/.bashrc 
-echo 'export JAVA_HOME=/usr/lib/jvm/default-java' >> ~/.bashrc 
+echo 'export CLIENTSECRET=<<yourClientSecret>>' >> ~/.bashrc
+echo 'export CLIENTID=<<yourClientID>>' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/default-java' >> ~/.bashrc
 
 exit
 ```
+
 Enable docker for your user:
 
 ```bash
@@ -70,7 +78,9 @@ sudo chown root:docker /var/run/docker.sock
 sudo chown -R root:docker /var/run/docker
 sudo chmod g=x /var/run/docker
 ```
+
 --> restart
+
 ## VS-Code Configuration
 
 The following extensions are installed:
@@ -107,7 +117,7 @@ To run projectBuilder via run-configuration directly, add launch configuration (
                 "APP_NAME": "FOO_APP",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID": "edba8e9e17f1c045633e",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET": "<<yourClientSecret>>"
-            }            
+            }
         }
     ]
 }
@@ -132,9 +142,10 @@ Password:ljprojectbuilder
 To be able to login to projectBuilder by your Github Account, you have to add your GitHub-User to your database:
 
 ```sql
-INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`) VALUES
-('your-github-user', 'PBUSER'),
+INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`)
+VALUES ('your-github-user', 'PBUSER'),
 ```
+
 ## Install ljprojectbuilder via Maven
 
 - go to directory ljprojectbuilder and open command line
@@ -143,9 +154,12 @@ INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`) VALUES
   ```bash
   mvn clean package -P frontend
   ```
+
 ### Run ljprojectbuilder
 
-You can run the main-class via Visual Studio Code, or start the build artifact (located in `application/target`) via command line with `java -jar application-0.0.1-SNAPSHOT.jar`. Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
+You can run the main-class via Visual Studio Code, or start the build artifact (located in `application/target`) via
+command line with `java -jar application-0.0.1-SNAPSHOT.jar`. Hence, Project Builder can be reached
+under http://localhost:8081/ljprojectbuilder/.
 
 ### Install ljprojectbuilder (pre-built docker-image) via docker-compose
 
@@ -156,8 +170,9 @@ sudo docker-compose -f mysql-docker-compose up
 ```
 
 ### Start frontend development server
+
 If you are running the project the first time, you have to install the dependencies.
-Navigate to ``webclient/app/`` in the project folder and run ``npm i``. 
+Navigate to ``webclient/app/`` in the project folder and run ``npm i``.
 
 Once this is finished you can start the development server with ``npm start``.
 The development server will be accessible through ``http://localhost:3000``.

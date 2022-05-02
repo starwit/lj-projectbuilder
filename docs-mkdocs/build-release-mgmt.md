@@ -1,9 +1,3 @@
----
-layout: page
-title: Release Management
-permalink: /release-management/
----
-
 # Build and Release Management
 
 ## CICD Workflow

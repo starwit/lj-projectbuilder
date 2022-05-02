@@ -1,8 +1,15 @@
+---
+layout: page
+title: Minikube
+permalink: /minikube/
+---
+
 # Minikube Kubernetes Installation for local Tests
 
 To run some kubernetes or helm tests on your local machine, you can install Minikube.
 
 ## Execute the following commands
+
 ```bash
 #!/bin/bash
 wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -19,6 +26,7 @@ minikube start --vm-driver=docker
 watch -n 1 kubectl get all --all-namespaces
 minikube addons enable ingress
 ```
+
 ## Check Installation
 
 Run `kubectl get all --all-namespaces` to check if kubectl command is running properly and cluster setup was successful.
@@ -27,7 +35,8 @@ Run `kubectl get all --all-namespaces` to check if kubectl command is running pr
 
 execute `minikube dashboard`
 
-Go to http://127.0.0.1:46683/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ for getting Minikube Dashboard.
+Go to http://127.0.0.1:46683/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ for
+getting Minikube Dashboard.
 
 ## Access Database from local Kubernetes Installation
 
@@ -42,7 +51,7 @@ anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $ curl -LO h
 100 38.3M  100 38.3M    0     0  13.7M      0  0:00:02  0:00:02 --:--:-- 13.7M
 anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $ sudo apt install virtualbox virtualbox-ext-pack
 Reading package lists... Done
-Building dependency tree       
+Building dependency tree
 Reading state information... Done
 The following additional packages will be installed:
   libgsoap-2.8.91 libvncserver1 virtualbox-dkms virtualbox-qt
@@ -60,7 +69,7 @@ Get:3 http://ftp.hosteurope.de/mirror/archive.ubuntu.com focal-updates/main amd6
 Get:4 http://ftp.hosteurope.de/mirror/archive.ubuntu.com focal-updates/multiverse amd64 virtualbox amd64 6.1.10-dfsg-1~ubuntu1.20.04.1 [21.4 MB]
 Get:5 http://ftp.hosteurope.de/mirror/archive.ubuntu.com focal-updates/multiverse amd64 virtualbox-ext-pack all 6.1.10-1~ubuntu1.20.04.1 [10.1 kB]
 Get:6 http://ftp.hosteurope.de/mirror/archive.ubuntu.com focal-updates/multiverse amd64 virtualbox-qt amd64 6.1.10-dfsg-1~ubuntu1.20.04.1 [21.7 MB]
-Fetched 44.1 MB in 6s (7,697 kB/s)        
+Fetched 44.1 MB in 6s (7,697 kB/s)
 Preconfiguring packages ...
 Selecting previously unselected package virtualbox-dkms.
 (Reading database ... 559672 files and directories currently installed.)
@@ -144,7 +153,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 57925077 (55M) [application/octet-stream]
 Saving to: ‘minikube-linux-amd64.1’
 
-minikube-linux-amd64.1                                      100%[=========================================================================================================================================>]  55.24M  16.2MB/s    in 3.5s    
+minikube-linux-amd64.1                                      100%[=========================================================================================================================================>]  55.24M  16.2MB/s    in 3.5s
 
 2020-12-27 21:25:10 (15.6 MB/s) - ‘minikube-linux-amd64.1’ saved [57925077/57925077]
 
@@ -215,7 +224,7 @@ anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $ minikube s
 
 anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $ sudo apt install conntrack
 Reading package lists... Done
-Building dependency tree       
+Building dependency tree
 Reading state information... Done
 Suggested packages:
   nftables
@@ -225,7 +234,7 @@ The following NEW packages will be installed
 Need to get 30.3 kB of archives.
 After this operation, 104 kB of additional disk space will be used.
 Get:1 http://ftp.hosteurope.de/mirror/archive.ubuntu.com focal/main amd64 conntrack amd64 1:1.4.5-2 [30.3 kB]
-Fetched 30.3 kB in 0s (191 kB/s)     
+Fetched 30.3 kB in 0s (191 kB/s)
 Selecting previously unselected package conntrack.
 (Reading database ... 560330 files and directories currently installed.)
 Preparing to unpack .../conntrack_1%3a1.4.5-2_amd64.deb ...
@@ -299,6 +308,7 @@ NAMESPACE     NAME                                DESIRED   CURRENT   READY   AG
 kube-system   replicaset.apps/coredns-74ff55c5b   1         1         1       7m16s
 anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $
 ```
+
 ## Uninstall Minikube
 
 ```bash

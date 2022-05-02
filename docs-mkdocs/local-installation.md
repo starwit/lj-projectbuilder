@@ -1,9 +1,3 @@
----
-layout: page
-title: Installation
-permalink: /installation/
----
-
 # Installation on local PC
 
 [Back](../README.md)
@@ -68,7 +62,6 @@ echo 'export JAVA_HOME=/usr/lib/jvm/default-java' >> ~/.bashrc
 
 exit
 ```
-
 Enable docker for your user:
 
 ```bash
@@ -78,9 +71,7 @@ sudo chown root:docker /var/run/docker.sock
 sudo chown -R root:docker /var/run/docker
 sudo chmod g=x /var/run/docker
 ```
-
 --> restart
-
 ## VS-Code Configuration
 
 The following extensions are installed:
@@ -142,10 +133,9 @@ Password:ljprojectbuilder
 To be able to login to projectBuilder by your Github Account, you have to add your GitHub-User to your database:
 
 ```sql
-INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`)
-VALUES ('your-github-user', 'PBUSER'),
+INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`) VALUES
+('your-github-user', 'PBUSER'),
 ```
-
 ## Install ljprojectbuilder via Maven
 
 - go to directory ljprojectbuilder and open command line
@@ -154,7 +144,6 @@ VALUES ('your-github-user', 'PBUSER'),
   ```bash
   mvn clean package -P frontend
   ```
-
 ### Run ljprojectbuilder
 
 You can run the main-class via Visual Studio Code, or start the build artifact (located in `application/target`) via

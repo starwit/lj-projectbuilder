@@ -1,11 +1,5 @@
----
-layout: page
-title: Templates
-permalink: /templates/
----
 
 # How To for Templates
-
 [Back](../README.md)
 
 - [How to Create a Template](#how-to-create-a-template)
@@ -79,7 +73,6 @@ The domain object is normally used in the template-files (*.ftl). Choose templat
 template-files for domains.
 
 #### Example
-
 ```
 @Table(name="${domain.name?upper_case}")
 public class ${domain.name}Entity extends AbstractEntity {

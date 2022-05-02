@@ -1,19 +1,22 @@
 ## Purpose
 
-Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code needs to be written and creating application quickly remains a challenge. Lirejarp App Builder is an application to kickstart new project via using templates. 
+Creating modern software always requires a number of things to do. One of these things is to persist data and to access
+persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code
+needs to be written and creating application quickly remains a challenge. Lirejarp App Builder is an application to
+kickstart new project via using templates.
 
 The Project Builder provides a configuration interfaces for creating new projects and applications.
 
 The lj-projectbuilder is deployed at https://lj.starwit.de/ljprojectbuilder/ contact info@starwit.de for access and more information.
 
-<p align="center"><img src="docs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
+<p align="center"><img src="docs-mkdocs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
 
 ## How Tos
 
-* [build and release project](docs/build-release-mgmt.md)
-* [installation on local PC](docs/local-installation.md)
-* [how to create templates](docs/templates-howto.md)
-* [architecture description for developer](docs/architecture.md)
+* [build and release project](docs-mkdocs/build-release-mgmt.md)
+* [installation on local PC](docs-mkdocs/local-installation.md)
+* [how to create templates](docs-mkdocs/templates-howto.md)
+* [architecture description for developer](docs-mkdocs/architecture.md)
 
 ## Running on Kubernetes
 

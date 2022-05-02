@@ -1,15 +1,8 @@
----
-layout: page
-title: Minikube
-permalink: /minikube/
----
-
 # Minikube Kubernetes Installation for local Tests
 
 To run some kubernetes or helm tests on your local machine, you can install Minikube.
 
 ## Execute the following commands
-
 ```bash
 #!/bin/bash
 wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -26,7 +19,6 @@ minikube start --vm-driver=docker
 watch -n 1 kubectl get all --all-namespaces
 minikube addons enable ingress
 ```
-
 ## Check Installation
 
 Run `kubectl get all --all-namespaces` to check if kubectl command is running properly and cluster setup was successful.
@@ -308,7 +300,6 @@ NAMESPACE     NAME                                DESIRED   CURRENT   READY   AG
 kube-system   replicaset.apps/coredns-74ff55c5b   1         1         1       7m16s
 anett@anett-laptop ~/git/lj-projectbuilder-github/lj-projectbuilder $
 ```
-
 ## Uninstall Minikube
 
 ```bash

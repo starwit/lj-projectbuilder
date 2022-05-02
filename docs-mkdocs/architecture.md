@@ -1,9 +1,3 @@
----
-layout: page
-title: Architecture
-permalink: /architecture/
----
-
 # Architecture
 
 [Back](../README.md)
