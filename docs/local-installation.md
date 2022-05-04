@@ -6,8 +6,6 @@ permalink: /installation/
 
 # Installation on local PC
 
-[Back](../README.md)
-
 ## Prerequisites for Development Workplace
 
 * github account to login to projectbuilder

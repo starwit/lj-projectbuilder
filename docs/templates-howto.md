@@ -6,8 +6,6 @@ permalink: /templates/
 
 # How To for Templates
 
-[Back](../README.md)
-
 - [How to Create a Template](#how-to-create-a-template)
 - [How to Configure Apptemplates](#how-to-configure-projecttemplates)
     * [project](#project)
