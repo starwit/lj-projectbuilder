@@ -9,22 +9,31 @@ The Project Builder provides a configuration interfaces for creating new project
 
 The lj-projectbuilder is deployed at https://lj.starwit.de/ljprojectbuilder/ contact info@starwit.de for access and more information.
 
-<p align="center"><img src="docs-mkdocs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
+<p align="center"><img src="docs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
 
 ## How Tos
 
-* [build and release project](docs-mkdocs/build-release-mgmt.md)
-* [installation on local PC](docs-mkdocs/local-installation.md)
-* [how to create templates](docs-mkdocs/templates-howto.md)
-* [architecture description for developer](docs-mkdocs/architecture.md)
+* [build and release project](docs/build-release-mgmt.md)
+* [installation on local PC](docs/local-installation.md)
+* [how to create templates](docs/templates-howto.md)
+* [architecture description for developer](docs/architecture.md)
 
 ## Running on Kubernetes
 
 Go to helm/ljprojectbuilder
+
 - copy values-template4private.yaml to values-private.yaml and add secret values
 - execute e.g.:
-  - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
-  - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
-.
+    - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
+    - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
+      .
 
+## Documentation
+
+The documentation files are located in `docs/` folder. \
+The docs will be deployed via GitHub actions to GitHub-pages.
+
+You can work on the docs locally by
+following [this guide](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+on GitHub
 

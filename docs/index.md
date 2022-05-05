@@ -5,9 +5,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
+title: Home
 ---
-
-# Welcome to Lirejarp Projectbuilder
 
 ## Purpose
 
@@ -21,7 +20,7 @@ The Project Builder provides a configuration interfaces for creating new project
 The lj-projectbuilder is deployed at https://lj.starwit.de/ljprojectbuilder/ contact info@starwit.de for access and more
 information.
 
-<p align="center"><img src="docs/imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
+<p align="center"><img src="imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
 
 ## How Tos
 
