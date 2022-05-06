@@ -60,7 +60,7 @@ To update project builder, put new release to docker-compose script and restart 
 
 Via github actions, a new release is built and pushed to docker hub. the docker-compose script is downloading the new images and deploying it to the server.
 
-![Overall picture](diagrams/depoyment.drawio.svg)
+![Overall picture](diagrams/deployment.drawio.svg)
 
 ## Deployment on Kubernetes
 
