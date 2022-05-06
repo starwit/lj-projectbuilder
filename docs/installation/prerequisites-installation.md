@@ -1,18 +1,19 @@
-# Installation on local PC
-
 [Back](../README.md)
 
-## Prerequisites for Development Workplace
+## Prerequisites Installation
+
+In the description below, the following prerequisites are installed:
 
 * github account to login to projectbuilder
 * Java 14 or later
 * Maven 3
-* NodeJs with NPM - [NodeJS Install](https://nodejs.org/en/download/package-manager/)
+* NodeJs with NPM (version 8.3.2) - [NodeJS Install](https://nodejs.org/en/download/package-manager/)
+* docker (Version 20.10.8 or higher) and docker compose (version 1.29.2)
+* hint: if not using docker-compose scripts, mariaDB 10.6 is needed
 
 **Recommended:**
 
 * linux operating system
-* docker and docker compose
 * Visual Studio Code
 
 The installation steps are only described for Linux Mint or Ubuntu. If you are using another operation system, you have to adjust your installation by your own.
@@ -53,11 +54,6 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 
 # Install Maven
 apt install maven
-
-# Add environment variables
-echo 'export CLIENTSECRET=<<yourClientSecret>>' >> ~/.bashrc 
-echo 'export CLIENTID=<<yourClientID>>' >> ~/.bashrc 
-echo 'export JAVA_HOME=/usr/lib/jvm/default-java' >> ~/.bashrc 
 
 exit
 ```
@@ -107,57 +103,8 @@ To run projectBuilder via run-configuration directly, add launch configuration (
                 "APP_NAME": "FOO_APP",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTID": "edba8e9e17f1c045633e",
                 "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENTSECRET": "<<yourClientSecret>>"
-            }            
+            }
         }
     ]
 }
 ```
-
-## MariaDB Installation and Configuration
-
-Go to workplace folder and run the following command:
-
-```bash
-docker-compose -f mysql-docker-compose up
-```
-
-Configure the database Connection in VS Code Client as followed:
-
-```
-Username:ljprojectbuilder
-Database:ljprojectbuilder
-Password:ljprojectbuilder
-```
-
-To be able to login to projectBuilder by your Github Account, you have to add your GitHub-User to your database:
-
-```sql
-INSERT INTO `ALLOWEDUSER` (`USERALIAS`, `USERROLE`) VALUES
-('your-github-user', 'PBUSER'),
-```
-## Install ljprojectbuilder via Maven
-
-- go to directory ljprojectbuilder and open command line
-- Install the frontend dependencies: ``npm i webclient/app/``
-- Build app running all tests:
-  ```bash
-  mvn clean package -P frontend
-  ```
-### Run ljprojectbuilder
-
-You can run the main-class via Visual Studio Code, or start the build artifact (located in `application/target`) via command line with `java -jar application-0.0.1-SNAPSHOT.jar`. Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/.
-
-### Install ljprojectbuilder (pre-built docker-image) via docker-compose
-
-Go to workplace folder and run the following command:
-
-```bash
-sudo docker-compose -f mysql-docker-compose up
-```
-
-### Start frontend development server
-If you are running the project the first time, you have to install the dependencies.
-Navigate to ``webclient/app/`` in the project folder and run ``npm i``. 
-
-Once this is finished you can start the development server with ``npm start``.
-The development server will be accessible through ``http://localhost:3000``.
