@@ -66,7 +66,7 @@ Password:ljprojectbuilder
 ```
 MySQLWorkbench is recommanded to access database for development purpose.
 
-#### Keycloak
+### Keycloak
 
 You can access keycloak admin-console under localhost:8081/auth. If you want to start your application without keycloak connection, you need to change spring-boot profile to dev in application\src\main\resources\application.properties.
 
