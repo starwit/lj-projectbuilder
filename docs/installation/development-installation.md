@@ -12,32 +12,42 @@ If you need more information about installing prerequisites (ubuntu / linux mint
 
 ### Installation Steps
 
+:exclamation: Each step is executed form project home directory.
+
 1) go to deployment folder and start environment (database and keycloak) via docker-compose:
 
-```shell
-cd deployment
-docker-compose -f localenv-docker-compose.yml up
-```
+    ```bash
+    cd deployment
+    docker-compose -f localenv-docker-compose.yml up
+    ```
+
 2) go to webclient/app and install ui
 
-```shell
-cd webclient/app
-npm install --legacy-peer-deps
-```
+    ```bash
+    cd webclient/app
+    npm install --legacy-peer-deps
+    ```
+
 3) build project
-```
-mvn clean install -P frontend
-```
+
+    ```bash
+    mvn clean install -P frontend
+    ```
+
 4) start project
 
-```shell
-java -jar application/target/application-0.0.1-SNAPSHOT.jar
-```
-You can also run the main-class via Visual Studio Code, or start the build artifact (located in `application/target`) via command line with `java -jar application-0.0.1-SNAPSHOT.jar`.
+    ```bash
+    java -jar application/target/application-0.0.1-SNAPSHOT.jar
+    ```
+    You can also run the main-class via Visual Studio Code.
 
-**Hence, Project Builder can be reached under http://localhost:8081/ljprojectbuilder/. If you are using keycloak, default user/password is admin/admin.**
 
-### Changing & Debugging
+* **Project Builder can be reached under http://localhost:8081/ljprojectbuilder/**
+* **If you are using keycloak:**
+    * **default user/password is admin/admin**
+    * **keycloak can be reached under http://localost:8081/auth**
+
+### Debugging
 
 #### Frontend Debugging
 
@@ -66,12 +76,15 @@ Password:ljprojectbuilder
 ```
 MySQLWorkbench is recommanded to access database for development purpose.
 
-### Keycloak
+### Starting without keycloak
 
-You can access keycloak admin-console under localhost:8081/auth. If you want to start your application without keycloak connection, you need to change spring-boot profile to dev in application\src\main\resources\application.properties.
+If you want to start your application without keycloak connection, you need to change spring-boot profile to dev in application\src\main\resources\application.properties.
 
-```
+```properties
 spring.profiles.active=dev
 ```
 
-or define env-variable SPRING_PROFILES_ACTIVE=dev
+or define env-variable
+```bash
+SPRING_PROFILES_ACTIVE=dev
+```

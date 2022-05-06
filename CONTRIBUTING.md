@@ -1,8 +1,7 @@
-# Contributing to LjProjectBuilder
+# Contributing to ProjectBuilder
 
 Thank you for your interest in contributing to our project! This document is
 a set of guidelines to help you contribute to this project. Please notice, that this is a starting point to open the project to a bigger community. Hence, the existing simple processes will be improved if the community is growing.
-
 
 ## Code of Conduct
 
@@ -29,7 +28,9 @@ We are also glad if you give us feedback and report bugs, issues and feature. Pl
 
 ### Code Contribution
 1) Use pull requests
-Contributions are done via Pull Requests - please do not check in any code in exisiting branches. Create a new branch for each ticket You should add the ticket number in the Pull-request and branch name: #[ticket-nr].
+Contributions are done via Pull Requests - please do not check in any code in exisiting branches. Create a new branch for each ticket You should add the ticket number in the Pull-request and branch name. Check [conventions for build & release management][build_management] for detailed information.
+
+[build_management]: docs/build-release-mgmt.md
 
 2) Commits for changelog
 If you have informations should be seen on the changelog, follow the [conventional commit syntax](https://www.conventionalcommits.org/en/v1.0.0/). It will appear automatically in the changelog after building the next release.
