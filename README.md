@@ -21,10 +21,9 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 ## Documentation
 
 * [Development Installation](docs/installation/development-installation.md)
-* [architecture description](docs/architecture.md)
-* [Build and Release project](docs/build-release-mgmt.md)
-* [architecture description for developer](docs/architecture.md)
-* [Deployment options](docs/deployment.md)
+* [Architecture Description](docs/architecture.md)
+* [Build and Release Project](docs/build-release-mgmt.md)
+* [Deployment Options](docs/deployment.md)
 * [Workflow Documentation](.github/workflows/readme.md)
 
 ## Documentation Template Creation
