@@ -48,6 +48,8 @@ services:
     volumes:
       - ./deployment/keycloak/imports:/opt/jboss/keycloak/imports
       - ./deployment/keycloak/local-test-users.json:/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json
+      - ./deployment/keycloak/themes/keycloak:/opt/jboss/keycloak/themes/lirejarp/
+      - ./deployment/keycloak/themes/keycloak.v2:/opt/jboss/keycloak/themes/lirejarp.v2/
     depends_on:
       db-keycloak:
         condition: service_healthy
