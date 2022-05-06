@@ -28,11 +28,13 @@ We are also glad if you give us feedback and report bugs, issues and feature. Pl
 
 ### Code Contribution
 **1. Use pull requests**
+
 Contributions are done via pull requests - please do not check in any code in exisiting branches. Create a new branch for each ticket You should add the ticket number in the Pull-request and branch name. Check [conventions for build & release management][build_management] for detailed information.
 
 [build_management]: docs/build-release-mgmt.md
 
 **2. Commits for changelog**
+
 If you have informations should be seen on the changelog, follow the [conventional commit syntax](https://www.conventionalcommits.org/en/v1.0.0/). It will appear automatically in the changelog after building the next release.
 
 ## Questions or Thoughts?
