@@ -16,6 +16,9 @@ services:
       interval: 5s
       timeout: 60s
       retries: 30
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
     volumes:
       - ljprojectbuilderv2-db-data:/var/lib/mysql
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
