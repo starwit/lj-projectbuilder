@@ -12,7 +12,7 @@ If you need more information about installing prerequisites (ubuntu / linux mint
 
 ### Installation Steps
 
-:exclamation: Each step is executed form project home directory.
+:exclamation: Each step is executed from project home directory.
 
 1) go to deployment folder and start environment (database and keycloak) via docker-compose:
 
@@ -63,7 +63,7 @@ NPM server starts under localhost:3000/ljprojectbuider/ by default
 
 #### Backend Debugging
 
-You can start the Spring boot application in debug mode. See Spring Boot documentation for futher details. The easiest way is, to use debug functionality integrated in your IDE like VS code.
+You can start the spring boot application in debug mode. See Spring Boot documentation for futher details. The easiest way is, to use debug functionality integrated in your IDE like VS code.
 
 ### MariaDB Client
 
@@ -78,7 +78,7 @@ MySQLWorkbench is recommended to access database for development purpose.
 
 ### Starting without keycloak
 
-If you want to start your application without keycloak connection, you need to change spring-boot profile to dev in application\src\main\resources\application.properties.
+If you want to start your application without keycloak connection, you need to change spring boot profile to dev in application\src\main\resources\application.properties.
 
 ```properties
 spring.profiles.active=dev
