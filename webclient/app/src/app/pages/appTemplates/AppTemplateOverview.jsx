@@ -6,9 +6,9 @@ import AppTemplateDialog from "../../features/appTemplates/appTemplateDialog/App
 import AppTemplateRest from "../../services/AppTemplateRest";
 import UserRest from "../../services/UserRest";
 import {Add} from "@mui/icons-material";
-import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 import AddFabButton from "../../commons/buttons/addFabButton/AddFabButton";
+import {LoadingSpinner} from "@starwit/frontend-commons";
 
 function AppTemplateOverview() {
     const {t} = useTranslation();

@@ -13,7 +13,7 @@ import {
     Typography
 } from "@mui/material";
 import {Add, Close} from "@mui/icons-material";
-import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
+import {LoadingSpinner} from "@starwit/frontend-commons";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
 import EntityDialogStyles from "./EntityDialogStyles";
@@ -24,13 +24,13 @@ import ValidatedTextField from "../../../../commons/inputFields/validatedTextFie
 import RegexConfig from "../../../../../regexConfig";
 import {LoadingButton} from "@mui/lab";
 import {
-    emptyEntity,
-    newEntity,
     addFieldToEntity,
     addRelationshipToEntity,
-    toDatabaseEntity,
+    emptyEntity,
     initEntity,
-    lowerFirstChar
+    lowerFirstChar,
+    newEntity,
+    toDatabaseEntity
 } from "../DefaultEntities";
 import FieldTypes from "./FieldTypes";
 import {useImmer} from "use-immer";

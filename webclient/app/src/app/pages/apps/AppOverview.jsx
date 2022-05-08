@@ -4,10 +4,10 @@ import AppCard from "../../features/apps/appCard/AppCard";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ApplicationRest from "../../services/ApplicationRest";
-import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
 import AddFabButton from "../../commons/buttons/addFabButton/AddFabButton";
+import {LoadingSpinner} from "@starwit/frontend-commons";
 
 function AppOverview() {
     const history = useHistory();
