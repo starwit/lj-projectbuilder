@@ -37,7 +37,7 @@ You can install the last version of projectBuilder with database via docker-comp
 cd deployment
 docker-compose up
 ```
-This is only recommanded for first testing and not for production use.
+This is only recommended for first testing and not for production use.
 
 ## Sponsors
 

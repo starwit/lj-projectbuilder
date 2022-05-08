@@ -74,7 +74,7 @@ Username:ljprojectbuilder
 Database:ljprojectbuilder
 Password:ljprojectbuilder
 ```
-MySQLWorkbench is recommanded to access database for development purpose.
+MySQLWorkbench is recommended to access database for development purpose.
 
 ### Starting without keycloak
 
