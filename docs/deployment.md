@@ -5,6 +5,10 @@ There are mainly three different deployments via docker-compose scripts:
 * remote deployment
 * deployment on kubernetes cluster
 
+The following software parts are deployed:
+
+![Overall picture](diagrams/deployment-current.drawio.svg)
+
 ## Development Deployment (private, with docker-compose)
 
 For development, ProjectBuilder is running native with java command in order to enable debugging and fast changes. in deployment folder are two docker-compose scripts:
@@ -70,8 +74,6 @@ Via github actions, a new release is built and pushed to docker hub. the docker-
     docker-compose -f projectbuilder-docker-compose.yml up -d
     ```
 5) reset env.sh
-
-![Overall picture](diagrams/deployment-current.drawio.svg)
 
 ## Deployment on Kubernetes
 
