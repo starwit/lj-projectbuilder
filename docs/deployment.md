@@ -15,7 +15,7 @@ For development, ProjectBuilder is running native with java command in order to 
 
 ### Usage of different scripts
 
-The scripts for server deployment are located under `deployment\https`. The following software is dieployed:
+The scripts for server deployment are located under `deployment\https`. The following software is deployed:
 
 * certbot + nginx: provides ssl-certificate-handling in oder to do https
 * keycloak: authentication and authorisation. For development, keycloak is using integrated database. In production an additional MariaDB is used
