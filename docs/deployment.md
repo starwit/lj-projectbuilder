@@ -5,7 +5,7 @@ There are mainly three different deployments via docker-compose scripts:
 * remote deployment
 * deployment on kubernetes cluster
 
-The following software parts are deployed:
+The following picture depicts the deployed softwarepart and the interaction with build & deployment automation.
 
 ![Overall picture](diagrams/deployment-current.drawio.svg)
 
@@ -37,24 +37,27 @@ In order to provided different release cicles for the different software product
 #### Initial Installation
 
 1) Install prerequisites. See [documentation for installation of prerequisites](installation/prerequisites-installation.md) for details.
-2) go to https folder
-3) set variables in env.sh and add it as source:
+2) checkout projectbuilder deployment folder
+3) go to https folder
+4) set variables in env.sh and add it as source:
     ```bash
     source env.sh
     ```
-4) establish certbot on nginx in order to be able to use letsencrypt:
+5) establish certbot on nginx in order to be able to use letsencrypt:
     ```bash
     bash init-letsencrypt.sh
     ```
-5) start env-docker-compose.yml
+6) start env-docker-compose.yml
     ```bash
     docker-compose -f env-docker-compose.yml up -d
     ```
-6) start projectbuilder-docker-compose.yml
+7) start projectbuilder-docker-compose.yml
     ```bash
     docker-compose -f projectbuilder-docker-compose.yml up -d
     ```
-7) reset env.sh
+8) reset env.sh
+
+:heavy_exclamation_mark: This deployment is not recommended for high user-counts. A downtime is needed for doing updates. Use e.g. Kubernetes deployment to ensure a failsave and stable environment.
 
 #### Update ProjectBuilder
 
