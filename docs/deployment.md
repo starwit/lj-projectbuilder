@@ -17,6 +17,8 @@ For development, ProjectBuilder is running native with java command in order to 
 
 ## Server Deployment (public, with docker-compose)
 
+:heavy_exclamation_mark: This deployment is not recommended for high user-counts. A downtime is needed for doing updates. Use e.g. Kubernetes deployment to ensure a failsave and stable environment.
+
 ### Usage of different scripts
 
 The scripts for server deployment are located under `deployment\https`. The following software is deployed:
@@ -56,8 +58,6 @@ In order to provided different release cicles for the different software product
     docker-compose -f projectbuilder-docker-compose.yml up -d
     ```
 8) reset env.sh
-
-:heavy_exclamation_mark: This deployment is not recommended for high user-counts. A downtime is needed for doing updates. Use e.g. Kubernetes deployment to ensure a failsave and stable environment.
 
 #### Update ProjectBuilder
 
