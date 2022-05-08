@@ -5,13 +5,13 @@ There are mainly three different deployments via docker-compose scripts:
 * remote deployment
 * deployment on kubernetes cluster
 
-## Development Deployment (private)
+## Development Deployment (private, with docker-compose)
 
 For development, ProjectBuilder is running native with java command in order to enable debugging and fast changes. in deployment folder are two docker-compose scripts:
 * localenv-docker-compose.yml: combines keycloak and mariaDB
 * mysqllocal-docker-compose.yml: deploys only mariaDB, if it is not needed to run ProjectBuilder with Keycloak (dev-mod)
 
-## Server Deployment (public)
+## Server Deployment (public, with docker-compose)
 
 ### Usage of different scripts
 
@@ -44,21 +44,32 @@ In order to provided different release cicles for the different software product
     ```
 5) start env-docker-compose.yml
     ```bash
-    docker-compose -f env-docker-compose.yml -d
+    docker-compose -f env-docker-compose.yml up -d
     ```
 6) start projectbuilder-docker-compose.yml
     ```bash
-    docker-compose -f projectbuilder-docker-compose.yml -d
+    docker-compose -f projectbuilder-docker-compose.yml up -d
     ```
 7) reset env.sh
 
 #### Update ProjectBuilder
 
-To update project builder, put new release to docker-compose script and restart the script
+Via github actions, a new release is built and pushed to docker hub. the docker-compose script downloads the new images and deploys it to the server. Hence, to update project builder, put new release to docker-compose script and restart the script.
 
-#### Connection to Build
-
-Via github actions, a new release is built and pushed to docker hub. the docker-compose script is downloading the new images and deploying it to the server.
+1) set variables in env.sh and add it as source:
+    ```bash
+    source env.sh
+    ```
+2) stop projectbuilder-docker-compose.yml
+    ```bash
+    docker-compose -f projectbuilder-docker-compose.yml down
+    ```
+3) update projectbuilder-docker-compose.yml
+4) restart projectbuilder-docker-compose.yml
+    ```bash
+    docker-compose -f projectbuilder-docker-compose.yml up -d
+    ```
+5) reset env.sh
 
 ![Overall picture](diagrams/deployment-current.drawio.svg)
 
