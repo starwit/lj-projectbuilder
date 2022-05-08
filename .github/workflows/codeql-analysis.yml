@@ -18,7 +18,8 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ develop]
   schedule:
-    - cron: '23 22 * * 2'
+    # executed each sunday, 23:30
+    - cron: '30 22 * * 0'
 
 jobs:
   analyze:
