@@ -6,7 +6,7 @@
 
 ## Purpose
 
-ProjectBuilder helps to speed up the creation and deployment of new applications.It kickstarts new projects based on templates and app-specific configuration.
+ProjectBuilder helps to speed up the creation and deployment of new applications. It kickstarts new projects based on templates and app-specific configuration.
 
 Code snippets can be easily transformed into templates and used in future applications. It helps companies to manage their software stack and minimize maintenance costs.
 
@@ -14,6 +14,7 @@ Code snippets can be easily transformed into templates and used in future applic
 
 ProjectBuilder is deployed at https://pb.starwit.de/.
 Contact info@starwit.de for access and more information.
+
 ## Contribution
 
 We are grateful for any contribution. Please refer to our [contribution guideline](CONTRIBUTING.md) and instructions document for any information.
