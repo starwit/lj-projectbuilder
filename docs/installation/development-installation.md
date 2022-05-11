@@ -80,11 +80,19 @@ MySQLWorkbench is recommended to access database for development purpose.
 
 If you want to start your application without keycloak, you need to change spring boot profile to dev in application\src\main\resources\application.properties.
 
-```properties
-spring.profiles.active=dev
-```
+    ```properties
+    spring.profiles.active=dev
+    ```
 
 or define env-variable
-```bash
-SPRING_PROFILES_ACTIVE=dev
-```
+
+    ```bash
+    SPRING_PROFILES_ACTIVE=dev
+    ```
+
+Start the database without keycloak:
+
+    ```bash
+    cd deployment
+    docker-compose -f localenv-docker-compose.yml up
+    ```
