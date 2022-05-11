@@ -1,7 +1,7 @@
 # Contributing to ProjectBuilder
 
 Thank you for your interest in contributing to our project! This document is
-a set of guidelines to help you contribute to this project. Please notice, that this is a starting point to open the project to a bigger community. Hence, the existing simple processes will be improved if the community is growing.
+a set of guidelines to help you contribute to this project. Please notice, that this is a starting point to opening the project to a bigger community. Hence, the existing simple processes will be improved if the community is growing.
 
 ## Code of Conduct
 
