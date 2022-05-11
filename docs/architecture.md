@@ -10,7 +10,7 @@ The ProjectBuilder itself is based on the same project structure like the [starw
 
 The following subprojects exist in every project built with projectBuilder:
 ### application
-This subproject defines the over-all spring boot application. It contains spring boot application configuration and is needed to build the application.
+This subproject defines the overall spring boot application. It contains spring boot application configuration and is needed to build the application.
 ### persistence
 This subproject contains classes for database access. In this project, all database scripts are placed. Through flyway, these scripts are executed automatically during project start. Two databases has to be supported with the scripts: h2 (for tests) and mysql.
 ### rest
