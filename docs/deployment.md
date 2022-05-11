@@ -17,7 +17,7 @@ For development, ProjectBuilder is running natively with java command to enable 
 
 ## Server Deployment (public, with docker-compose)
 
-:heavy_exclamation_mark: This deployment is not recommended for high user-counts. A downtime is needed for doing updates. Use e.g. Kubernetes deployment to ensure a failsave and stable environment.
+:heavy_exclamation_mark: This deployment is not recommended for high user counts. Downtime is needed for doing updates. Use e.g. Kubernetes deployment to ensure a failsafe and stable environment.
 
 ### Usage of different scripts
 
