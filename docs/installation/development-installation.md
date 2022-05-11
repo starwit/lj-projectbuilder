@@ -78,7 +78,7 @@ MySQLWorkbench is recommended to access database for development purpose.
 
 ### Starting without keycloak
 
-If you want to start your application without keycloak connection, you need to change spring boot profile to dev in application\src\main\resources\application.properties.
+If you want to start your application without keycloak, you need to change spring boot profile to dev in application\src\main\resources\application.properties.
 
 ```properties
 spring.profiles.active=dev
