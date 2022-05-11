@@ -1,6 +1,6 @@
 # Workflow Description
 
-Workflows for software quality chekc, build, packaging and release creation were established:
+Workflows for software quality check, build, packaging, and release creation were established:
 
 * **buildpublish.yml (Build and Publish)** to test docker builds and pushes on your own branch.
 * **createRelease.yml (Create release and tag)**
