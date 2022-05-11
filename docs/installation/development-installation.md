@@ -94,5 +94,5 @@ Start the database without keycloak:
 
 ```bash
 cd deployment
-docker-compose -f localenv-docker-compose.yml up
+docker-compose -f mysqllocal-docker-compose.yml up
 ```
