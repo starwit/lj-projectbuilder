@@ -12,7 +12,7 @@ If you need more information about installing prerequisites (ubuntu / linux mint
 
 ### Installation Steps
 
-:exclamation: Each step is executed from project home directory.
+:exclamation: Each step is executed from the project home directory.
 
 1) go to deployment folder and start environment (database and keycloak) via docker-compose:
 
