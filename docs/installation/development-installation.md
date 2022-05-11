@@ -28,7 +28,7 @@ If you need more information about installing prerequisites (ubuntu / linux mint
     npm install --legacy-peer-deps
     ```
 
-3) build project
+3) build the project
 
     ```bash
     mvn clean install -P frontend
