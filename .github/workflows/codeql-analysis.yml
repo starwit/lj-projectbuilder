@@ -16,7 +16,7 @@ on:
     branches: [ develop]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ develop]
+    branches: [ develop ]
   schedule:
     # executed each sunday, 23:30
     - cron: '30 22 * * 0'

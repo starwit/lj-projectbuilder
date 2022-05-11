@@ -28,11 +28,11 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 * [Workflow Documentation](.github/workflows/readme.md)
 
 ## Documentation Template Creation
-* [how to create templates](docs/templates-howto.md)
+* [Create Templates](docs/templates-howto.md)
 
 ## Installation with docker-compose
 
-You can install the last version of projectBuilder with database via docker-compose:
+You can install the last version of ProjectBuilder with a database via docker-compose:
 
 ```shell
 cd deployment
@@ -42,5 +42,5 @@ This is only recommended for first testing and not for production use.
 
 ## Sponsors
 
-Contact us on info@starwit.de to become a sponsor.
+Contact us at info@starwit.de to become a sponsor.
 
