@@ -39,4 +39,4 @@ If you have information should be seen on the changelog, follow the [conventiona
 
 ## Questions or Thoughts?
 
-Contact us on info@starwit.de
+Contact us at info@starwit.de
