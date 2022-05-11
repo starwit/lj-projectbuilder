@@ -2,7 +2,7 @@
 
 ## Prerequisites Installation
 
-In the description below, the following prerequisites are installed:
+In the description below, the following prerequisites should be installed:
 
 * github account to login to projectbuilder
 * Java 14 or later
