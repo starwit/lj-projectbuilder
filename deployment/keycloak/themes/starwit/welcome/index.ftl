@@ -29,7 +29,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="robots" content="noindex, nofollow">
 
-    <link rel="shortcut icon" href="${resourcesPath}/img/favicon.ico"/>
+    <link rel="shortcut icon" href="${resourcesPath}/favicon.ico"/>
 
     <#if properties.stylesCommon?has_content>
         <#list properties.stylesCommon?split(' ') as style>
@@ -48,11 +48,10 @@
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
             <div class="welcome-header">
-                <img src="${resourcesPath}/logo.png" alt="${productName}" border="0"/>
-                <h1>Welcome to <strong>${productNameFull}</strong></h1>
+                <h1>Welcome to <strong>Starwit</strong></h1>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-xs-12 col-sm-8">
                     <div class="card-pf h-l">
                         <#if successMessage?has_content>
                             <p class="alert success">${successMessage}</p>
@@ -98,46 +97,11 @@
                             <h3><a href="${adminUrl}"><img src="welcome-content/user.png">Administration Console <i
                                             class="fa fa-angle-right link" aria-hidden="true"></i></a></h3>
                             <div class="description">
-                                Centrally manage all aspects of the ${productNameFull} server
+                                manage access and rigths for users and groups
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="card-pf h-l">
-                        <h3><a href="${properties.documentationUrl}"><img class="doc-img"
-                                                                          src="welcome-content/admin-console.png">Documentation
-                                <i class="fa fa-angle-right link" aria-hidden="true"></i></a></h3>
-                        <div class="description">
-
-                            User Guide, Admin REST API and Javadocs
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <#if properties.displayCommunityLinks = "true">
-                        <div class="card-pf h-m">
-                            <h3><a href="http://www.keycloak.org"><img src="welcome-content/keycloak-project.png">Keycloak
-                                    Project <i class="fa fa-angle-right link" aria-hidden="true"></i></a></h3>
-                        </div>
-                        <div class="card-pf h-m">
-                            <h3><a href="https://groups.google.com/forum/#!forum/keycloak-user"><img
-                                            src="welcome-content/mail.png">Mailing List <i
-                                            class="fa fa-angle-right link" aria-hidden="true"></i></a></h3>
-                        </div>
-                        <div class="card-pf h-m">
-                            <h3><a href="https://issues.jboss.org/browse/KEYCLOAK"><img src="welcome-content/bug.png">Report
-                                    an issue <i class="fa fa-angle-right link" aria-hidden="true"></i></a></h3>
-                        </div>
-                    </#if>
-                </div>
-            </div>
-            <div class='footer'>
-                <#if properties.displayCommunityLinks = "true">
-                    <a href="http://www.jboss.org"><img src="welcome-content/jboss_community.png"
-                                                        alt="JBoss and JBoss Community"></a>
-                </#if>
             </div>
         </div>
     </div>
