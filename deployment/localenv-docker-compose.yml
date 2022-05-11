@@ -46,10 +46,10 @@ services:
   keycloak:
     image: jboss/keycloak
     volumes:
+    - ./keycloak/themes/keycloak:META-INF/keycloak-themes.json
       - ./keycloak/imports:/opt/jboss/keycloak/imports
       - ./keycloak/local-test-users.json:/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json
       - ./keycloak/themes/keycloak:/opt/jboss/keycloak/themes/lirejarp/
-      - ./keycloak/themes/keycloak.v2:/opt/jboss/keycloak/themes/lirejarp.v2/
     depends_on:
       db-keycloak:
         condition: service_healthy
