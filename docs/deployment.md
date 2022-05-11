@@ -80,7 +80,7 @@ Via github actions, a new release is built and pushed to docker hub. the docker-
 
 ## Deployment on Kubernetes
 
-There are helm charts available for deployment on kubernetes.
+There are helm charts available for deployment on Kubernetes.
 
 Go to helm/ljprojectbuilder
 - copy values-template4private.yaml to values-private.yaml and add secret values
