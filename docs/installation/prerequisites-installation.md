@@ -4,7 +4,7 @@
 
 In the description below, the following prerequisites should be installed:
 
-* github account to login to projectbuilder
+* github account to login to ProjectBuilder
 * Java 14 or later
 * Maven 3
 * NodeJs with NPM (version 8.3.2) - [NodeJS Install](https://nodejs.org/en/download/package-manager/)

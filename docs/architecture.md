@@ -4,7 +4,7 @@
 
 ## ProjectBuilder Components
 
-The project builder itself is based on the same project structure like the [starwit/reacthook-spring-template](https://github.com/starwit/reacthook-spring-template). The following description is valid for both. The project, based on Spring Boot is build via maven and is parted in subprojects shown in the diagram below.
+The ProjectBuilder itself is based on the same project structure like the [starwit/reacthook-spring-template](https://github.com/starwit/reacthook-spring-template). The following description is valid for both. The project, based on Spring Boot is build via maven and is parted in subprojects shown in the diagram below.
 
 ![Components projectBuilder](diagrams/projectbuilder-architecture-intern.drawio.svg)
 
@@ -19,11 +19,11 @@ This subproject enables the access from UI via RESTful webservices.
 The UI logic is placed in the webclient project. React is used. The Frontend is utilized with [Material-UI](https://www.mui.com) and its design structure (mostly based on [JSS](https://cssinjs.org/?v=v10.8.1)).
 
 ## ProjectBuilder specific
-In lirejarp ProjectBuilder, one additional project is implemented:
+In ProjectBuilder, one additional project is implemented:
 ### generator
 The generator project contains all logic to generate projects configured with the ProjectBuilder.
 
-Code generation via freemarker enables publishing of an entire running application via lirejarp project builder. The intent is to help to do the first step and using a standardized way to implement standard functionality. So, you will just generate once and change the code in the way you want. This pragmatic approach avoids a complex code generation.
+Code generation via freemarker enables publishing of an entire running application via ProjectBuilder. The intent is to help to do the first step and using a standardized way to implement standard functionality. So, you will just generate once and change the code in the way you want. This pragmatic approach avoids a complex code generation.
 
 ## Complete Components
 

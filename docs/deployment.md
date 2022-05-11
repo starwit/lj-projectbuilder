@@ -39,7 +39,7 @@ In order to provided different release cicles for the different software product
 #### Initial Installation
 
 1) Install prerequisites. See [documentation for installation of prerequisites](installation/prerequisites-installation.md) for details.
-2) checkout projectbuilder deployment folder
+2) checkout ProjectBuilder deployment folder
 3) go to https folder
 4) set variables in env.sh and add it as source:
     ```bash
@@ -61,7 +61,7 @@ In order to provided different release cicles for the different software product
 
 #### Update ProjectBuilder
 
-Via github actions, a new release is built and pushed to docker hub. the docker-compose script downloads the new images and deploys it to the server. Hence, to update project builder, put new release to docker-compose script and restart the script.
+Via github actions, a new release is built and pushed to docker hub. the docker-compose script downloads the new images and deploys it to the server. Hence, to update ProjectBuilder, put new release to docker-compose script and restart the script.
 
 1) set variables in env.sh and add it as source:
     ```bash
