@@ -3,7 +3,7 @@
 There are mainly three different deployments via docker-compose scripts:
 * development deployment
 * remote deployment
-* deployment on kubernetes cluster
+* deployment on Kubernetes cluster
 
 The following picture depicts the deployed softwarepart and the interaction with build & deployment automation.
 
