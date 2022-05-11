@@ -42,5 +42,5 @@ This is only recommended for first testing and not for production use.
 
 ## Sponsors
 
-Contact us on info@starwit.de to become a sponsor.
+Contact us at info@starwit.de to become a sponsor.
 
