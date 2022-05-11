@@ -32,7 +32,7 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 
 ## Installation with docker-compose
 
-You can install the last version of projectBuilder with database via docker-compose:
+You can install the last version of ProjectBuilder with a database via docker-compose:
 
 ```shell
 cd deployment
