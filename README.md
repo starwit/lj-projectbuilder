@@ -28,7 +28,7 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 * [Workflow Documentation](.github/workflows/readme.md)
 
 ## Documentation Template Creation
-* [how to create templates](docs/templates-howto.md)
+* [Create Templates](docs/templates-howto.md)
 
 ## Installation with docker-compose
 
