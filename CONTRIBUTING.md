@@ -35,7 +35,7 @@ Contributions are done via pull requests - please do not push any code in existi
 
 **2. Commits for changelog**
 
-If you have information should be seen on the changelog, follow the [conventional commit syntax](https://www.conventionalcommits.org/en/v1.0.0/). It will appear automatically in the changelog after building the next release.
+If you have information that should be seen on the changelog, follow the [conventional commit syntax](https://www.conventionalcommits.org/en/v1.0.0/). It will appear automatically in the changelog after building the next release.
 
 ## Questions or Thoughts?
 
