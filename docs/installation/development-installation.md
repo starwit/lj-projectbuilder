@@ -59,7 +59,7 @@ npm start
 ```
 NPM server starts under localhost:3000/ljprojectbuider/ by default
 
-! If you are using the installation with keycloak, make sure you are logged in before using - just go to localhost:8081/ljprojectbuilder in your browser.
+! If you are using the installation with keycloak, make sure you are logged in before first usage - just go to localhost:8081/ljprojectbuilder in your browser.
 
 #### Backend Debugging
 
