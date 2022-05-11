@@ -21,7 +21,7 @@ If you need more information about installing prerequisites (ubuntu / linux mint
     docker-compose -f localenv-docker-compose.yml up
     ```
 
-2) go to webclient/app and install ui
+2) go to `webclient/app` and install the frontend applications dependencies
 
     ```bash
     cd webclient/app
