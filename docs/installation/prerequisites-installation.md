@@ -8,7 +8,7 @@ In the description below, the following prerequisites should be installed:
 * Java 14 or later
 * Maven 3
 * NodeJs with NPM (version 8.3.2) - [NodeJS Install](https://nodejs.org/en/download/package-manager/)
-* docker (Version 20.10.8 or higher) and docker compose (version 1.29.2)
+* Docker (Version 20.10.8 or higher) and docker-compose (version 1.29.2)
 * hint: if not using docker-compose scripts, mariaDB 10.6 is needed
 
 **Recommended:**
