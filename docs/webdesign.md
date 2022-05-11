@@ -7,9 +7,3 @@ Lots of Java-based webapplications lack to involve webdesigners in the usual dev
 ## Prequisites
 You only need to install JDK 1.8, maven and ant to build your web-application. With the ant-script (build.xml) located in this directory, everything a webdesigner need is build.
 
-## Ant ```setup_project```
-Configures tomee-server, builds the project and starts the tomee-server with the webapplication included.
-In the folder webclient/src/main/webapp you can find all frontend code and include your changes.
-
-## Ant ```copy_frontend_local```
-Displays all changes in webclient project. All changes you did in ```webclient/src/main/webapp``` are transfered to the deployment-directory of the tomee-server.
