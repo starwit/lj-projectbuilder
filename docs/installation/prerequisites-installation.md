@@ -16,7 +16,7 @@ In the description below, the following prerequisites should be installed:
 * linux operating system
 * Visual Studio Code
 
-The installation steps are only described for Linux Mint or Ubuntu. If you are using another operation system, you have to adjust your installation by your own.
+The installation steps are only described for Linux Mint or Ubuntu. If you are using another operating system, you have to adjust your installation on your own.
 
 ## Workplace Installation on Ubuntu 20.4 / Linux Mint
 
