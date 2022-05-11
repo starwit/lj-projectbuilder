@@ -29,7 +29,7 @@ We are also glad if you give us feedback and report bugs, issues and features. P
 ### Code Contribution
 **1. Use pull requests**
 
-Contributions are done via pull requests - please do not check in any code in exisiting branches. Create a new branch for each ticket. You should add the ticket number in the Pull-request and branch name. Check [conventions for build & release management][build_management] for detailed information.
+Contributions are done via pull requests - please do not push any code in existing branches. Create a new branch for each ticket. You should add the ticket number in the Pull-request and branch name. Check [conventions for build & release management][build_management] for detailed information.
 
 [build_management]: docs/build-release-mgmt.md
 
