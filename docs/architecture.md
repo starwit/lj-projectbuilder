@@ -27,7 +27,7 @@ Code generation via freemarker enables publishing of an entire running applicati
 
 ## Complete Components
 
-In folder deployments, different docker-compose scripts exists in order to deploy ProjectBuilder with additional components:
+In the deployments folder, different docker-compose scripts exists in order to deploy ProjectBuilder with additional components:
 
 ![Components](diagrams/projectbuilder-architecture-env.drawio.svg)
 
