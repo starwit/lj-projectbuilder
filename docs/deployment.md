@@ -45,7 +45,7 @@ In order to provide different release cycles for the different software products
     ```bash
     source env.sh
     ```
-5) establish certbot on nginx in order to be able to use letsencrypt:
+5) establish certbot on Nginx in order to be able to use letsencrypt:
     ```bash
     bash init-letsencrypt.sh
     ```
