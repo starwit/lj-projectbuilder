@@ -23,16 +23,16 @@ For development, ProjectBuilder is running natively with java command to enable 
 
 The scripts for server deployment are located under `deployment\https`. The following software is deployed:
 
-* certbot + nginx: provides ssl-certificate-handling in oder to do https
-* keycloak: authentication and authorisation. For development, keycloak is using integrated database. In production an additional MariaDB is used
-* mariaDB: Database for projectBuilder
-* mariaDB for keycloak
+* certbot + Nginx: provides SSL-certificate-handling in order to do HTTPS
+* keycloak: authentication and authorization. For development, keycloak is using an integrated database. In production, an additional MariaDB is used
+* MariaDB: Database for projectBuilder
+* MariaDB for keycloak
 
-In order to provided different release cicles for the different software products, three compose scripts are used:
+In order to provide different release cycles for the different software products, three compose scripts are used:
 
-* docker-compose.yml: used during the installation of from init-letsencrypt.sh in order to integrate certbot ssl-secret-handling into nginx
-* env-docker-compose.yml: includes nginx, keycloak, which are only updated when new versions are provided by producers
-* projectbuildr-docker-compose.yml: includes projectBuilder with database and is updated on new projectBuilder release - which should be very often
+* docker-compose.yml: used during the installation of from init-letsencrypt.sh in order to integrate certbot SSL-secret-handling into Nginx
+* env-docker-compose.yml: includes Nginx, keycloak, which are only updated when new versions are provided by producers
+* projectbuilder-docker-compose.yml: includes projectBuilder with database and is updated on new projectBuilder release - which should be very often
 
 ### Installation Steps
 
