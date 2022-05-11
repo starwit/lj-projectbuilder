@@ -63,7 +63,7 @@ NPM server starts under localhost:3000/ljprojectbuider/ by default
 
 #### Backend Debugging
 
-You can start the spring boot application in debug mode. See Spring Boot documentation for futher details. The easiest way is, to use debug functionality integrated in your IDE like VS code.
+You can start the spring boot application in debug mode. See Spring Boot documentation for further details. The easiest way is, to use debug functionality integrated with your IDE like VS Code.
 
 ### MariaDB Client
 
