@@ -11,7 +11,7 @@ The following picture depicts the deployed software part and the interaction wit
 
 ## Development Deployment (private, with docker-compose)
 
-For development, ProjectBuilder is running natively with java command in order to enable debugging and fast changes. in the deployment folder are two docker-compose scripts:
+For development, ProjectBuilder is running natively with java command to enable debugging and fast changes. In the deployment folder are two docker-compose scripts:
 * localenv-docker-compose.yml: combines keycloak and MariaDB
 * mysqllocal-docker-compose.yml: deploys only MariaDB, if it is not needed to run ProjectBuilder with Keycloak (dev-mod)
 
