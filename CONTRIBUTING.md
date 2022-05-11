@@ -21,7 +21,7 @@ file a GitHub issue with details of what you'd like to see documented.
 ## How to Contribute
 
 ### Fixing Issues
-Please check issues at github issue tracker or contact us, if you want to contribute.
+Please check issues at GitHub issue tracker or contact us, if you want to contribute.
 
 ### Reporting Issues
 We are also glad if you give us feedback and report bugs, issues and feature. Please use issue tracker in the project for that.
