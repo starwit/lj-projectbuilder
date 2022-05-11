@@ -24,7 +24,7 @@ file a GitHub issue with details of what you'd like to see documented.
 Please check issues at GitHub issue tracker or contact us, if you want to contribute.
 
 ### Reporting Issues
-We are also glad if you give us feedback and report bugs, issues and feature. Please use issue tracker in the project for that.
+We are also glad if you give us feedback and report bugs, issues and features. Please use the issue tracker in the project for that.
 
 ### Code Contribution
 **1. Use pull requests**
