@@ -34,6 +34,6 @@ In the deployments folder, different docker-compose scripts exists in order to d
 The components are used as followed:
 
 * certbot + Nginx: provides SSL-certificate-handling in order to do HTTPS
-* keycloak: authentication and authorisation. For development, keycloak is using integrated database. In production an additional MariaDB is used
+* keycloak: authentication and authorisation. For development, keycloak is using an integrated database. In production, an additional MariaDB is used
 * mariaDB: Database for projectBuilder
 * mariaDB for keycloak
