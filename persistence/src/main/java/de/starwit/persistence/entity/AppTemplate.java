@@ -109,10 +109,7 @@ public class AppTemplate extends AbstractEntity<Long> {
     }
 
     public void setTemplateFiles(Set<TemplateFile> templateFiles) {
-        this.templateFiles.clear();
-        if (templateFiles != null) {
-            this.templateFiles.addAll(templateFiles);
-        }
+        this.templateFiles = templateFiles;
     }
 
     public List<String> getGroups() {
