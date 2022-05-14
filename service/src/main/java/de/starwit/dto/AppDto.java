@@ -36,6 +36,9 @@ public class AppDto extends AbstractEntity<Long> {
     @Valid
     private List<EntityDto> entities;
 
+    @Valid
+    private List<EnumDto> enums;
+
     private List<String> groupsToAssign;
 
     public String getBaseName() {
@@ -84,5 +87,13 @@ public class AppDto extends AbstractEntity<Long> {
 
     public void setTargetPath(String targetPath) {
         this.targetPath = targetPath;
+    }
+
+    public List<EnumDto> getEnums() {
+        return enums;
+    }
+
+    public void setEnums(List<EnumDto> enums) {
+        this.enums = enums;
     }
 }

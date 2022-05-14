@@ -53,6 +53,12 @@ public class AppMapperTest {
         }
 
         @Bean
+        public EnumMapper createEnumMapper() {
+            EnumMapper enumMapper = new EnumMapper();
+            return enumMapper;
+        }
+
+        @Bean
         public FieldMapper createFieldMapper() {
             FieldMapper fieldMapper = new FieldMapper();
             return fieldMapper;

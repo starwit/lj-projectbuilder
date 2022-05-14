@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Length;
 
 import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.entity.EnumDef;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema
@@ -25,6 +26,8 @@ public class FieldDto extends AbstractEntity<Long> {
     @Schema(defaultValue = "String")
     @NotNull
     private FieldType fieldType;
+
+    private EnumDef enumDef;
 
     private List<FieldValidateRulesType> fieldValidateRules;
     private Integer fieldValidateRulesMin;
@@ -59,6 +62,14 @@ public class FieldDto extends AbstractEntity<Long> {
 
     public void setFieldType(FieldType fieldType) {
         this.fieldType = fieldType;
+    }
+
+    public EnumDef getEnumDef() {
+        return enumDef;
+    }
+
+    public void setEnumDef(EnumDef enumDef) {
+        this.enumDef = enumDef;
     }
 
     public List<FieldValidateRulesType> getFieldValidateRules() {

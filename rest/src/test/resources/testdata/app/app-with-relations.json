@@ -23,7 +23,7 @@
             }
 
             ]
-        },        
+        },
         {
             "name": "Employee",
             "fields": [
@@ -170,5 +170,6 @@
           "applications": "*",
           "changelogDate": "20210923094702"
         }
-    ]
+    ],
+    "enums": []
 }
