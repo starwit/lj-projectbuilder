@@ -2,6 +2,7 @@
 layout: page
 title: Installation
 permalink: /installation/
+has_children: true
 ---
 
 [Back](../README.md)

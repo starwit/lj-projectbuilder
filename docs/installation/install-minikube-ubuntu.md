@@ -2,6 +2,7 @@
 layout: page
 title: Minikube
 permalink: /minikube/
+parent: Installation
 ---
 
 # Minikube Kubernetes Installation for local Tests
