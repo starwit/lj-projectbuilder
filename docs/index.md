@@ -8,33 +8,43 @@ layout: home
 title: Home
 ---
 
-## Purpose
 
-Creating modern software always requires a number of things to do. One of these things is to persist data and to access
-persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code
-needs to be written and creating application quickly remains a challenge. Lirejarp App Builder is an application to
-kickstart new project via using templates.
+<p align="center">
+    <img src="imgs/logo-color.png" alt="drawing" style="width:5em;"/>
+    <h1 align="center">Project Builder</h1>
+</p>
 
-The Project Builder provides a configuration interfaces for creating new projects and applications.
 
-The lj-projectbuilder is deployed at https://lj.starwit.de/ljprojectbuilder/ contact info@starwit.de for access and more
-information.
+ProjectBuilder helps to speed up the creation and deployment of new applications. It kickstarts new projects based on
+templates and app-specific configuration.
 
-<p align="center"><img src="imgs/lJProjectBuilder.png" alt="drawing" style="width:50%;"/></p>
+Code snippets can be easily transformed into templates and used in future applications. It helps companies to manage
+their software stack and minimize maintenance costs.
 
-## How Tos
+<p align="center"><img src="imgs/kickstart.png" alt="drawing" style="width:100%;"/></p>
 
-* [build and release project](docs/build-release-mgmt.md)
-* [installation on local PC](docs/local-installation.md)
-* [how to create templates](docs/templates-howto.md)
-* [architecture description for developer](docs/architecture.md)
+## Demo
 
-## Running on Kubernetes
+ProjectBuilder is deployed at [pb.starwit.de](https://pb.starwit.de/).
+Contact [info@starwit.de](mailto:info@starwit.de) for access and more information.
 
-Go to helm/ljprojectbuilder
+## Contribution
 
-- copy values-template4private.yaml to values-private.yaml and add secret values
-- execute e.g.:
-    - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
-    - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
-      .
+We are grateful for any contribution. Please refer to our [contribution guideline](CONTRIBUTING.md) and instructions
+document for any information.
+
+## Documentation
+
+* [Development Installation](installation/development-installation.md)
+* [Architecture Description](architecture.md)
+* [Build and Release Project](build-release-mgmt.md)
+* [Deployment Options](deployment.md)
+
+## Documentation Template Creation
+
+* [Create Templates](docs/templates-howto.md)
+
+## Sponsors
+
+Contact us at info@starwit.de to become a sponsor.
+
