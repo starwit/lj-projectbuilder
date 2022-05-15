@@ -182,9 +182,10 @@ public class GeneratorService {
         try {
             addLinesToFile(templateFile.getConcreteTargetPath() + Constants.FILE_SEP + templateFile.getFileName(),
                     getTemplate(templateFile.getConcreteTemplatePath()), data);
-        } catch (IOException | TemplateException e) {
-            LOG.error("Error during file writing: ", e);
-            throw new NotificationException("error.generation.generateadditionalcontent", "Error during file writing");
+        } catch (TemplateException e) {
+            throw new NotificationException("error.generation.template", e.getMessage());
+        } catch (IOException e) {
+            throw new NotificationException("error.generation.generateglobal", e.getMessage());
         }
     }
 

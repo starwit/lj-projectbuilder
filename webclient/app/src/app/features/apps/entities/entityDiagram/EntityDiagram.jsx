@@ -1,5 +1,5 @@
-import React, {useMemo, useState, useEffect} from "react";
-import {Code, Adjust} from "@mui/icons-material";
+import React, {useEffect, useMemo, useState} from "react";
+import {Adjust, Code} from "@mui/icons-material";
 import {Button, Drawer} from "@mui/material";
 import {docco} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
@@ -11,16 +11,16 @@ import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
-import Theme from "../../../../assets/themes/Theme";
 import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
+import {useTheme} from "@mui/styles";
 
 function EntityDiagram(props) {
     const {appId, editable, entities, dense, onChange} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
-    const theme = new Theme();
+    const theme = new useTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [selectedEntityId, setSelectedEntityId] = useState(null);
     const [coordinates, setCoordinates] = useState([]);
@@ -88,7 +88,7 @@ function EntityDiagram(props) {
         const newEntities = [...entities];
         newEntities[index] = updatedEntity;
         onChange(newEntities);
-        updatePositionInDB(entity);
+        updatePositionInDB(updatedEntity);
     }
 
     function renderEntities() {
@@ -105,19 +105,21 @@ function EntityDiagram(props) {
             }
 
             return (
-                <Draggable
-                    axis={"both"}
-                    onStop={(update, draggableData) => savePosition(entity, index, draggableData)}
-                    key={entity.id + index + ""}
-                    defaultClassName={entityDiagramStyles.draggable}
-                    position={entityCardPosition}
-                    disabled={!editable}
-                >
-                    <div>
-                        <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
-                            editable={editable}/>
-                    </div>
-                </Draggable>
+                    <Draggable
+                            axis={"both"}
+                            onStop={(update, draggableData) => {
+                                savePosition(entity, index, draggableData);
+                            }}
+                            key={entity.id + index + ""}
+                            defaultClassName={entityDiagramStyles.draggable}
+                            position={entityCardPosition}
+                            disabled={!editable}
+                    >
+                        <div>
+                            <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
+                                        editable={editable}/>
+                        </div>
+                    </Draggable>
             );
         });
     }
@@ -152,7 +154,7 @@ function EntityDiagram(props) {
         newEntities.forEach((entity, index) => {
             const updatedEntity = updatePosition(entity, {x: index * 30 + 100, y: index * 10});
             newEntities[index] = updatedEntity;
-            updatePositionInDB(entity);
+            updatePositionInDB(updatedEntity);
         });
         onChange(newEntities);
     }

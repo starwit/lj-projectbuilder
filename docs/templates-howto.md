@@ -5,12 +5,13 @@ permalink: /templates/
 ---
 
 # How To for Templates
+[Back](../README.md)
 
 - [How to Create a Template](#how-to-create-a-template)
 - [How to Configure Apptemplates](#how-to-configure-projecttemplates)
-    * [project](#project)
-    * [domain](#domain)
-    * [attribute](#attribute)
+  * [project](#project)
+  * [domain](#domain)
+  * [attribute](#attribute)
 - [Links](#links)
 
 # How to use the Default Template
@@ -21,24 +22,19 @@ permalink: /templates/
 
 #### 1. Create App and Push it to Git
 
-For creating a template, you need a project saved into a git repository. The generator with substitude all occurrences
-of the name in the apptemplate later on.
+For creating a template, you need a project saved into a git repository. The generator with substitude all occurrences of the name in the apptemplate later on.
 
 #### 2. Start ProjectBuilder
 
-Next, you have to download and start projectbuilder. You can build your own apptemplates by using the so called site in
-the projectBuilder.
+Next, you have to download and start ProjectBuilder. You can build your own apptemplates by using the so called site in the projectBuilder.
 
 #### 3. Configure Apptemplate
 
-You can configure your templatefiles via [Freemarker](https://freemarker.apache.org/). It is used as templating language
-for configuring the path to code templates as well as in the template files itself. Use the properties in
-the [Template Configuration](#template-configuration) section to find out which properties you can use in the templates.
+You can configure your templatefiles via [Freemarker](https://freemarker.apache.org/). It is used as templating language for configuring the path to code templates as well as in the template files itself. Use the properties in the [Template Configuration](#template-configuration) section to find out which properties you can use in the templates.
 
 #### 4. Create a App
 
-The next step is the creation of the project itself. Create an new project in ProjectBuilder and choose your git-project
-and apptemplate and enter a name and description.
+The next step is the creation of the project itself. Create an new project in ProjectBuilder and choose your git-project and apptemplate and enter a name and description.
 
 #### 5. Add Domains and Attributes
 
@@ -52,8 +48,7 @@ Now, everything is prepared and you can download your new app.
 
 ### **project**
 
-The project-object contains general information and can be used to configure the paths for templatefiles-sets saved as
-apptemplate.
+The project-object contains general information and can be used to configure the paths for templatefiles-sets saved as apptemplate.
 
 #### Example
 
@@ -73,11 +68,9 @@ apptemplate.
 
 ### **domain**
 
-The domain object is normally used in the template-files (*.ftl). Choose templatetyp DOMAIN to create separate
-template-files for domains.
+The domain object is normally used in the template-files (*.ftl). Choose templatetyp DOMAIN to create separate template-files for domains.
 
 #### Example
-
 ```
 @Table(name="${domain.name?upper_case}")
 public class ${domain.name}Entity extends AbstractEntity {

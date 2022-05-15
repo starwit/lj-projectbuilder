@@ -38,8 +38,6 @@ public class AppDto extends AbstractEntity<Long> {
 
     private List<String> groupsToAssign;
 
-    private List<String> userGroups;
-
     public String getBaseName() {
         return baseName;
     }
@@ -78,14 +76,6 @@ public class AppDto extends AbstractEntity<Long> {
 
     public void setGroupsToAssign(List<String> groupsToAssign) {
         this.groupsToAssign = groupsToAssign;
-    }
-
-    public List<String> getUserGroups() {
-        return userGroups;
-    }
-
-    public void setUserGroups(List<String> userGroups) {
-        this.userGroups = userGroups;
     }
 
     public String getTargetPath() {

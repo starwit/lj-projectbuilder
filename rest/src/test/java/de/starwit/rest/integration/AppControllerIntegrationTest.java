@@ -76,7 +76,6 @@ public class AppControllerIntegrationTest extends AbstractControllerIntegrationT
 
         MockHttpServletResponse response = retrieveById(0L);
 
-        // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
                 .isEqualTo(jsonAppDto.write(dto).getJson());

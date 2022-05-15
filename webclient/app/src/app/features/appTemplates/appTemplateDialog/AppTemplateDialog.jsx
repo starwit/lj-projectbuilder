@@ -20,6 +20,7 @@ import ValidatedTextField from "../../../commons/inputFields/validatedTextField/
 import RegexConfig from "../../../../regexConfig";
 import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 import {useImmer} from "use-immer";
+import {produce} from "immer";
 
 function AppTemplateDialog(props) {
     const {appTemplate, open, onClose, onRefresh, isCreateDialog, userGroups} = props;
@@ -48,11 +49,15 @@ function AppTemplateDialog(props) {
         setInternalAppTemplate(draft => {draft[name] = checked;});
     }
 
-    function handleSave(toSave) {
+    function handleSave() {
         if (hasFormError) {
             return;
         }
-        toSave.userGroups = userGroups;
+
+        const toSave = produce(internalAppTemplate, draft => {
+            draft.userGroups = userGroups;
+        });
+        setInternalAppTemplate(toSave);
         if (isCreateDialog) {
             appTemplateRest.create(toSave).then(response => {
                 handleSaveResponse(response);
@@ -169,7 +174,7 @@ function AppTemplateDialog(props) {
                 <DialogActions>
                     <Button onClick={onDialogClose}>{t("button.cancel")}</Button>
                     <Button disabled={hasFormError}
-                        onClick={() => handleSave(internalAppTemplate)}>{t("button.save")}</Button>
+                        onClick={() => handleSave()}>{t("button.save")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

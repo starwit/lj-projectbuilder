@@ -1,0 +1,98 @@
+version: "3.9"
+services:
+  db:
+    image: mariadb:latest
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: 'ljprojectbuilder'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'ljprojectbuilder'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'ljprojectbuilder'
+      # Password for root access
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    healthcheck:
+      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3306", "-u", "root", "-e", "select 1", "ljprojectbuilder"]
+      interval: 5s
+      timeout: 60s
+      retries: 30
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    volumes:
+      - ljprojectbuilderv2-db-data:/var/lib/mysql
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+
+  db-keycloak:
+    image: mariadb:latest
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: 'keycloak'
+      MYSQL_USER: 'keycloak'
+      MYSQL_PASSWORD: 'keycloak'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_TCP_PORT: 3307
+    healthcheck:
+      test: ["CMD", "mysql" ,"-h", "localhost", "-P", "3307", "-u", "root", "-e", "select 1", "keycloak"]
+      interval: 5s
+      timeout: 60s
+      retries: 30
+    volumes:
+      - keycloak-db-data:/var/lib/mysql
+    networks:
+      - backend
+
+  keycloak:
+    image: jboss/keycloak
+    volumes:
+      - ./deployment/keycloak/imports:/opt/jboss/keycloak/imports
+      - ./deployment/keycloak/local-test-users.json:/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json
+      - ./deployment/keycloak/themes/keycloak:/opt/jboss/keycloak/themes/lirejarp/
+      - ./deployment/keycloak/themes/keycloak.v2:/opt/jboss/keycloak/themes/lirejarp.v2/
+    depends_on:
+      db-keycloak:
+        condition: service_healthy
+    restart: on-failure
+    environment:
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm.json
+      DB_VENDOR: mariadb
+      DB_ADDR: db-keycloak
+      DB_PORT: 3307
+      DB_USER: 'keycloak'
+      DB_PASSWORD: 'keycloak'
+      PROXY_ADDRESS_FORWARDING: 'true'
+      KEYCLOAK_FRONTEND_URL: 'http://localhost:8080/auth'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '8080:8080'
+    expose:
+      - "8080"
+    networks:
+      - backend
+
+  projectbuilder:
+    image: starwitorg/ljprojectbuilder:v0.3.2
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/ljprojectbuilder?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SERVER_USE_FORWARD_HEADERS: "true"
+      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
+      SERVER_FORWARD_HEADERS_STRATEGY: FRAMEWORK
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '8081:8081'
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+
+# Names our volume
+volumes:
+  ljprojectbuilderv2-db-data:
+  keycloak-db-data:
+
+ # Networks to be created to facilitate communication between containers
+networks:
+  backend:

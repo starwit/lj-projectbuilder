@@ -79,6 +79,7 @@ const translationsEnEN = {
     "field.required": "Mandatory.",
 
     "relationship.new": "New relation",
+    "relationship.ownerSide": "Owner",
     "relationship.relationshipType": "Relation type",
     "relationship.sourceEntity": "Source Entity",
     "relationship.sourceField": "Relationship Name",
@@ -128,6 +129,7 @@ const translationsEnEN = {
     "error.appcheckout.passworisinvalid": "Invalid username or password. Only letters, numbers and !@#$%^&()*./_- are allowed.",
     "error.appcheckout.branchisinvalid": "Invalid branch. Only letters, numbers, and /_- are allowed.",
     "error.appcheckout.jsonmapping.git": "Template configuration could not be loaded. Please check config file (template-config.json).",
+    "error.appcheckout.createtempappfolder": "Temporary folder on server could not be created. Please contact your admin.",
     "error.git.access.repositorynotfound": "Git repository could not be found. Please check repository name and branch name.",
     "error.accessdenied": "You are not allowed to execute this action.",
     "error.general.delete": "This element could not be deleted.",
@@ -149,7 +151,11 @@ const translationsEnEN = {
     "error.notfound": "This element could not be found.",
     "error.notexists": "This element does not exist.",
     "error.generation.template": "This app could not be generated.",
+    "error.generation.generateglobal": "Reading template file failed.",
     "error.generation.generatepath": "Generation of path is invalid.",
+    "error.generation.templatenotfound": "Template could not be found.",
+    "error.apprenamer.renamedirectories": "Renaming directories during generation failed.",
+    "error.apprenamer.renamefilecontent": "Error processing file.",
     "error.apptemplate.delete.appexists": "The template is still used by an app.",
     "error.optimisticLock": "Parallel attempt of saving an object. Please save again."
 };

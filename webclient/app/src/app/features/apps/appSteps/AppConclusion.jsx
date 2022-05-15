@@ -14,7 +14,6 @@ import {
     Typography
 } from "@mui/material";
 import EntityDiagram from "../entities/entityDiagram/EntityDiagram";
-import PropTypes from "prop-types";
 import AppStepsStyles from "./AppStepsStyles";
 import {useTranslation} from "react-i18next";
 import GitRest from "../../../services/GitRest";
@@ -41,10 +40,16 @@ function AppConclusion(props) {
         setGeneratorErrorMessage(null);
     }
 
+    const showMoreOnErrors = [
+        "error.generation.template",
+        "error.generation.generatepath",
+        "error.generation.generateglobal",
+        "error.generation.templatenotfound"
+    ];
+
     const handleGit = downloadRequestData => {
         return gitRest.setupApp(app.id, downloadRequestData).catch(error => {
-            if (error.response.data.messageKey === "error.generation.template" ||
-                error.response.data.messageKey === "error.generation.generatepath") {
+            if (showMoreOnErrors.includes(error.response.data.messageKey)) {
                 setTimeout(() => {
                     enqueueSnackbar(t("appConclusion.generationError.snackbar"), {
                         action: key => <Button
@@ -134,8 +139,7 @@ function AppConclusion(props) {
 }
 
 AppConclusion.propTypes = {
-    app: PropTypes.object,
-    coordinates: PropTypes.array
+    app: PropTypes.object
 };
 
 export default AppConclusion;
