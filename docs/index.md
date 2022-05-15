@@ -44,6 +44,10 @@ document for any information.
 
 * [Create Templates](docs/templates-howto.md)
 
+## Documentation for the Documentation
+
+* [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+
 ## Sponsors
 
 Contact us at info@starwit.de to become a sponsor.
