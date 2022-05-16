@@ -31,7 +31,10 @@ baseurl: /lj-projectbuilder/      # place folder name if the site is served in a
 github_username: starwit
 
 # Build settings
-theme: minima
+#theme: minima
+remote_theme: just-the-docs/just-the-docs
+logo: "imgs/logo-color.png"
+search_enabled: false
 
 # Exclude from processing.
 # The following items will not be processed, by default.

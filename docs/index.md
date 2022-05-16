@@ -6,6 +6,7 @@
 
 layout: home
 title: Home
+nav_order: 1
 ---
 
 
@@ -47,6 +48,7 @@ document for any information.
 ## Documentation for the Documentation
 
 * [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+* [Just-The-Docs Theme](https://just-the-docs.github.io/just-the-docs/)
 
 ## Sponsors
 
