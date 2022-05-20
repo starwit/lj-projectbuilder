@@ -10,7 +10,7 @@ function AddFabButton(props) {
 
     return (
         <div className={addFabButton.fabWrapper}>
-            <Fab color="primary" aria-label="add" onClick={onClick}>
+            <Fab aria-label="add" onClick={onClick}>
                 <Add/>
             </Fab>
         </div>

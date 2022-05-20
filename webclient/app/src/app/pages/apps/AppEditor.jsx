@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Box, Step, StepLabel, Stepper} from "@mui/material";
+import {Box, Container, Step, StepLabel, Stepper} from "@mui/material";
 import AppTemplateSelection from "../../features/apps/appSteps/AppTemplateSelection";
 import EntityDiagram from "../../features/apps/entities/entityDiagram/EntityDiagram";
 import {ChevronLeft, ChevronRight, Done} from "@mui/icons-material";
@@ -12,7 +12,7 @@ import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
 import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useImmer} from "use-immer";
-import {newApp, updateApp, updateTemplate, updateGeneral, updateEntities, toDatabaseApp} from "../../model/App";
+import {newApp, toDatabaseApp, updateApp, updateEntities, updateGeneral, updateTemplate} from "../../model/App";
 import UserRest from "../../services/UserRest";
 
 function AppEditor() {
@@ -50,41 +50,41 @@ function AppEditor() {
         {
             label: t("app.section.general"),
             component: (
-                <AppGeneral
-                    value={app.general}
-                    userGroups={userGroups}
-                    onChange={changeEvent => setApp(updateGeneral(app, changeEvent))}
-                />
+                    <AppGeneral
+                            value={app.general}
+                            userGroups={userGroups}
+                            onChange={changeEvent => setApp(updateGeneral(app, changeEvent))}
+                    />
             ),
             condition: app.general.isValid
         },
         {
             label: t("app.section.template"),
             component: (
-                <AppTemplateSelection
-                    onChange={template => setApp(updateTemplate(app, template))}
-                    value={app.template}
-                />
+                    <AppTemplateSelection
+                            onChange={template => setApp(updateTemplate(app, template))}
+                            value={app.template}
+                    />
             ),
             condition: app.template
         },
         {
             label: t("app.section.entityDiagram"),
             component: (
-                <EntityDiagram
-                    appId={app.id}
-                    entities={app.entities}
-                    onChange={entities => setApp(updateEntities(app, entities))}
-                />
+                    <EntityDiagram
+                            appId={app.id}
+                            entities={app.entities}
+                            onChange={entities => setApp(updateEntities(app, entities))}
+                    />
             ),
             condition: app.entities?.length >= 1
         },
         {
             label: t("app.section.conclusion"),
             component: (
-                <AppConclusion
-                    app={app}
-                />
+                    <AppConclusion
+                            app={app}
+                    />
             ),
             condition: true
         }
@@ -93,13 +93,13 @@ function AppEditor() {
     function handleStep(nextActiveStep) {
         setIsSaving(true);
         handleSave()
-            .then(() => {
-                setActiveStep(nextActiveStep);
-                setIsSaving(false);
-            })
-            .catch(() => {
-                setIsSaving(false);
-            });
+                .then(() => {
+                    setActiveStep(nextActiveStep);
+                    setIsSaving(false);
+                })
+                .catch(() => {
+                    setIsSaving(false);
+                });
     }
 
     function handleBack() {
@@ -118,16 +118,16 @@ function AppEditor() {
         let restRequest;
         if (app.general.isNew) {
             restRequest = appRest.create(toDatabaseApp(app))
-                .then(response => {
-                    history.push(`/apps/${response.data.id}/edit`);
-                    return response;
-                });
+                    .then(response => {
+                        history.push(`/apps/${response.data.id}/edit`);
+                        return response;
+                    });
         } else {
             restRequest = appRest.update(toDatabaseApp(app))
-                .then(response => {
-                    setApp(updateApp(app, response.data));
-                    return response;
-                });
+                    .then(response => {
+                        setApp(updateApp(app, response.data));
+                        return response;
+                    });
         }
 
         return restRequest;
@@ -136,32 +136,32 @@ function AppEditor() {
     function handleFinishButton() {
         const restRequest = handleSave();
         restRequest
-            .then(() => {
-                history.replace("/");
-            });
+                .then(() => {
+                    history.replace("/");
+                });
     }
 
     function renderNextButton() {
         let content = (
-            <LoadingButton
-                onClick={handleNext}
-                disabled={!steps[activeStep].condition}
-                startIcon={<ChevronRight/>}
-                loading={isSaving}
-            >
-                {t("button.next")}
-            </LoadingButton>
+                <LoadingButton
+                        onClick={handleNext}
+                        disabled={!steps[activeStep].condition}
+                        startIcon={<ChevronRight/>}
+                        loading={isSaving}
+                >
+                    {t("button.next")}
+                </LoadingButton>
         );
         if (isLastStep()) {
             content = (
-                <LoadingButton
-                    onClick={handleFinishButton}
-                    disabled={!steps[activeStep].condition}
-                    loading={isSaving}
-                    startIcon={<Done/>}
-                >
-                    {t("button.done")}
-                </LoadingButton>
+                    <LoadingButton
+                            onClick={handleFinishButton}
+                            disabled={!steps[activeStep].condition}
+                            loading={isSaving}
+                            startIcon={<Done/>}
+                    >
+                        {t("button.done")}
+                    </LoadingButton>
             );
         }
         return content;
@@ -172,34 +172,36 @@ function AppEditor() {
     }
 
     return (
-        <div className={appEditorStyles.root}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((step, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    return (
-                        <Step key={index} {...stepProps}>
-                            <StepLabel {...labelProps}>{step.label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-            <Box className={appEditorStyles.navigationButtonsArray}>
-                <LoadingButton
-                    color="inherit"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={appEditorStyles.navigationButtonBack}
-                    startIcon={<ChevronLeft/>}
-                    loading={isSaving}
-                >
-                    {t("button.back")}
-                </LoadingButton>
-                <Box className={appEditorStyles.navigationButtonNext}/>
-                {renderNextButton()}
-            </Box>
-            {steps[activeStep].component}
-        </div>
+            <Container maxWidth={false}>
+                <div className={appEditorStyles.root}>
+                    <Stepper activeStep={activeStep}>
+                        {steps.map((step, index) => {
+                            const stepProps = {};
+                            const labelProps = {};
+                            return (
+                                    <Step key={index} {...stepProps}>
+                                        <StepLabel {...labelProps}>{step.label}</StepLabel>
+                                    </Step>
+                            );
+                        })}
+                    </Stepper>
+                    <Box className={appEditorStyles.navigationButtonsArray}>
+                        <LoadingButton
+                                color="inherit"
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                className={appEditorStyles.navigationButtonBack}
+                                startIcon={<ChevronLeft/>}
+                                loading={isSaving}
+                        >
+                            {t("button.back")}
+                        </LoadingButton>
+                        <Box className={appEditorStyles.navigationButtonNext}/>
+                        {renderNextButton()}
+                    </Box>
+                    {steps[activeStep].component}
+                </div>
+            </Container>
     );
 }
 

@@ -14,24 +14,37 @@ function AppHeader(props) {
     const {t} = useTranslation();
 
     return (
-        <>
-            <AppBar position="fixed" color="inherit" className={headerStyles.appBar}>
-                <Toolbar className={headerStyles.toolbar}>
-                    <img className={headerStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
-                    <Typography className={headerStyles.menuTitle} variant="h2" noWrap>
-                        {title}
-                    </Typography>
-                    <div className={headerStyles.spacer}/>
-                    {menuItems.map(item => (
-                        <Button key={item.title} color="secondary" disableRipple className={headerStyles.linkButton}
-                            onClick={() => history.push(item.link)}>{t(item.title)}</Button>
-                    ))}
-                    <IconButton color="secondary" disableRipple className={headerStyles.linkButton}
-                        onClick={() => history.push("/logout")}><Logout/></IconButton>
-                </Toolbar>
-            </AppBar>
-            <div className={headerStyles.contentSpacer}/>
-        </>
+            <>
+                <AppBar position="fixed" className={headerStyles.appBar}>
+                    <Toolbar className={headerStyles.toolbar}>
+                        <img className={headerStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
+                        <Typography className={headerStyles.menuTitle} variant="h2" noWrap color={"inherit"}>
+                            {title}
+                        </Typography>
+                        <div className={headerStyles.spacer}/>
+                        {menuItems.map(item => (
+                                <Button
+                                        color={"inherit"}
+                                        key={item.title}
+                                        disableRipple
+                                        className={headerStyles.linkButton}
+                                        onClick={() => history.push(item.link)}
+                                >
+                                    {t(item.title)}
+                                </Button>
+                        ))}
+                        <IconButton
+                                disableRipple
+                                className={headerStyles.linkButton}
+                                color={"inherit"}
+                                onClick={() => history.push("/logout")}
+                        >
+                            <Logout/>
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                <div className={headerStyles.contentSpacer}/>
+            </>
     );
 }
 

@@ -34,7 +34,7 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 ## Documentation for the Documentation
 
 * [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
-* [Just-The-Docs Theme](https://just-the-docs.github.io/just-the-docs/)
+* [Just-The-Docs ColorTheme](https://just-the-docs.github.io/just-the-docs/)
 
 ## Installation with docker-compose
 

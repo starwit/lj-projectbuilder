@@ -1,15 +1,12 @@
 import React from "react";
-import {createTheme, ThemeProvider} from "@mui/material";
-import Theme from "../../assets/themes/Theme";
+import {ThemeProvider} from "@mui/material";
+import ComponentTheme from "../../assets/themes/ComponentTheme";
 
 function MainTheme(props) {
-    // theme settings
-    const theme = createTheme(Theme);
-
     return (
-        <ThemeProvider theme={theme}>
-            {props.children}
-        </ThemeProvider>
+            <ThemeProvider theme={ComponentTheme}>
+                {props.children}
+            </ThemeProvider>
     );
 }
 

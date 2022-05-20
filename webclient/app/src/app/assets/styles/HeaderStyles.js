@@ -21,7 +21,6 @@ const HeaderStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "left",
         paddingLeft: 20,
-        color: theme.palette.primary.contrastText,
         [theme.breakpoints.up("sm")]: {
             display: "flex",
             width: "20%",
@@ -61,8 +60,6 @@ const HeaderStyles = makeStyles(theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-        backgroundColor: "#c7c7c7",
-        backgroundImage: "linear-gradient(-60deg, rgb(255, 88, 88) 0%, rgb(240, 152, 25) 100%)"
     },
     linkButton: {
         marginRight: theme.spacing(3),
