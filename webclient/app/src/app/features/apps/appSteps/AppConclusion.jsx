@@ -23,6 +23,7 @@ import {useSnackbar} from "notistack";
 import Button from "@mui/material/Button";
 import {docco} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import PropTypes from "prop-types";
 
 function AppConclusion(props) {
     const {app} = props;
