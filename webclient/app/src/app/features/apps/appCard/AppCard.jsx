@@ -42,7 +42,7 @@ function AppCard(props) {
                             {app.packageName}
                         </Typography>
                         <CardActions className={appCardStyles.cardActions}>
-                            <MoreHoriz className={appCardStyles.cardActions} color="primary"/>
+                            <MoreHoriz className={appCardStyles.cardActions} color="inherit"/>
                         </CardActions>
                     </CardContent>
                 </CardActionArea>

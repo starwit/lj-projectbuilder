@@ -12,11 +12,9 @@ function App() {
     return (
         <React.Fragment>
             <ErrorHandler>
-                <div className={appStyles.background}>
                     <CssBaseline/>
                     <AppHeader menuItems={appMenuItems}/>
                     <MainContentRouter/>
-                </div>
             </ErrorHandler>
         </React.Fragment>
     );

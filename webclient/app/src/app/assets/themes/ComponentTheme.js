@@ -19,6 +19,11 @@ const ComponentTheme = createTheme(ColorTheme,
                 defaultProps: {
                     spacing: 2
                 }
+            },
+            MuiIconButton: {
+                defaultProps: {
+                    color: "inherit"
+                }
             }
         }
     });
