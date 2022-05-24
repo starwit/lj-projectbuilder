@@ -105,21 +105,21 @@ function EntityDiagram(props) {
             }
 
             return (
-                    <Draggable
-                            axis={"both"}
-                            onStop={(update, draggableData) => {
-                                savePosition(entity, index, draggableData);
-                            }}
-                            key={entity.id + index + ""}
-                            defaultClassName={entityDiagramStyles.draggable}
-                            position={entityCardPosition}
-                            disabled={!editable}
-                    >
-                        <div>
-                            <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
-                                        editable={editable}/>
-                        </div>
-                    </Draggable>
+                <Draggable
+                    axis={"both"}
+                    onStop={(update, draggableData) => {
+                        savePosition(entity, index, draggableData);
+                    }}
+                    key={entity.id + index + ""}
+                    defaultClassName={entityDiagramStyles.draggable}
+                    position={entityCardPosition}
+                    disabled={!editable}
+                >
+                    <div>
+                        <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
+                            editable={editable}/>
+                    </div>
+                </Draggable>
             );
         });
     }
