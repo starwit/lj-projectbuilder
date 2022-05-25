@@ -42,6 +42,12 @@ function updateEntities(app, entities) {
     });
 }
 
+function updateEnums(app, enums) {
+    return produce(app, draft => {
+        draft.enums = enums;
+    });
+}
+
 function updateGeneral(app, event) {
     if (event?.target?.name === "appName" || event?.target?.name === "packageName") {
         return produce(app, draft => {
@@ -64,4 +70,5 @@ export {
     updateTemplate,
     updateGeneral,
     updateEntities,
+    updateEnums,
     toDatabaseApp};

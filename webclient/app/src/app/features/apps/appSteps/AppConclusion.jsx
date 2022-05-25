@@ -23,6 +23,7 @@ import {useSnackbar} from "notistack";
 import Button from "@mui/material/Button";
 import {docco} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import PropTypes from "prop-types";
 
 function AppConclusion(props) {
     const {app} = props;
@@ -112,7 +113,7 @@ function AppConclusion(props) {
             <Typography variant={"h4"} gutterBottom>
                 {t("app.section.entityDiagram")}
             </Typography>
-            <EntityDiagram entities={app.entities} dense editable={false}/>
+            <EntityDiagram entities={app.entities} enums={app.enums} dense editable={false}/>
             <Dialog onClose={closeInformationDialog} open={!!generatorErrorMessage} fullWidth maxWidth={"xl"}>
                 <DialogTitle>{t("appConclusion.generationError.title")}</DialogTitle>
                 <DialogContent>
