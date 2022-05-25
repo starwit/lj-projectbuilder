@@ -1,11 +1,13 @@
 package de.starwit.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import de.starwit.persistence.entity.AbstractEntity;
+import de.starwit.persistence.entity.Position;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema
@@ -22,6 +24,9 @@ public class EnumDto extends AbstractEntity<Long> {
     @NotBlank
     @Size(max = 500)
     private String value;
+
+    @Valid
+    private Position position;
 
     public String getName() {
         return name;
@@ -41,5 +46,13 @@ public class EnumDto extends AbstractEntity<Long> {
 
     public String[] getSelectList() {
         return value.split(",");
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

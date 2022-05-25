@@ -3,8 +3,10 @@ package de.starwit.persistence.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -36,6 +38,10 @@ public class EnumDef extends AbstractEntity<Long> {
     @JoinColumn(name = "APP_ID")
     private App app;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "POSITION_ID")
+    private Position position;
+
     public String getName() {
         return name;
     }
@@ -62,6 +68,14 @@ public class EnumDef extends AbstractEntity<Long> {
 
     public void setApp(App app) {
         this.app = app;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
 }
