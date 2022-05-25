@@ -41,10 +41,6 @@ function EntityDiagram(props) {
         setCoordinates(updateRelationCoordinates(entities));
     }, [entities]);
 
-    useEffect(() => {
-        enumRest.findAllByApp(appId);
-    }, [appId]);
-
     function addEntity() {
         setOpenEntityDialog(true);
     }
@@ -305,14 +301,13 @@ EntityDiagram.propTypes = {
     entities: PropTypes.array,
     enums: PropTypes.array,
     editable: PropTypes.bool,
-    dense: PropTypes.bool,
-    onChangeEntities: PropTypes.func,
-    onChangeEnums: PropTypes.func
+    dense: PropTypes.bool
 };
 
 EntityDiagram.defaultProps = {
     editable: true,
     entities: [],
+    enums: [],
     dense: false
 };
 
