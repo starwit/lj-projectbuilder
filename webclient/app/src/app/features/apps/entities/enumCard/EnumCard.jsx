@@ -21,11 +21,11 @@ function EnumCard(props) {
         return value;
     }
 
-    function renderEditButton(entityId) {
+    function renderEditButton() {
         if (onEdit && editable) {
             return (
                 <Grid item sm={2}>
-                    <IconButton onClick={() => onEdit(entityId)}>
+                    <IconButton onClick={() => onEdit(enumDef)}>
                         <Edit fontSize={"small"}/>
                     </IconButton>
                 </Grid>
@@ -64,7 +64,7 @@ function EnumCard(props) {
                     <Grid item sm>
                         {renderTitle(enumDef.name)}
                     </Grid>
-                    {renderEditButton(enumDef?.id)}
+                    {renderEditButton()}
                     {renderDeleteWrapper()}
                 </Grid>
                 <div size={"small"}>
