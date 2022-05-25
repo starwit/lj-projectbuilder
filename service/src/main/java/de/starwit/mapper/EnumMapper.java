@@ -17,6 +17,7 @@ public class EnumMapper implements CustomMapper<EnumDef, EnumDto> {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setValue(entity.getValue());
+        dto.setPosition(entity.getPosition());
         return dto;
     }
 
@@ -26,6 +27,7 @@ public class EnumMapper implements CustomMapper<EnumDef, EnumDto> {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setValue(dto.getValue());
+        entity.setPosition(dto.getPosition());
         return entity;
     }
 
