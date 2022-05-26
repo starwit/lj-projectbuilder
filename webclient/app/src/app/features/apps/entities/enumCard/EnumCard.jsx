@@ -13,6 +13,12 @@ function EnumCard(props) {
     const {enumDef, onEdit, handleDelete, editable} = props;
     const {t} = useTranslation();
 
+    function renderEnumType() {
+        return <Typography variant={"h6"} noWrap className={`${enumCardStyles.enumType}`}>
+            {t("enum.title")}
+        </Typography>;
+    }
+
     function renderTitle(name) {
         let value = <Typography variant={"h6"} color={"text.secondary"} noWrap>{t("enum.new")}</Typography>;
         if (name) {
@@ -42,7 +48,9 @@ function EnumCard(props) {
     }
 
     function prepareDelete() {
-        handleDelete(entity.id);
+        if (!!enumDef?.id) {
+            handleDelete(enumDef.id);
+        }
     }
 
     function renderDeleteWrapper() {
@@ -61,6 +69,9 @@ function EnumCard(props) {
         <div className={"anchor_" + enumDef.name}>
             <Card className={`${enumCardStyles.enumCard}`}>
                 <Grid container>
+                    <Grid item sm>
+                        {renderEnumType()}
+                    </Grid>
                     <Grid item sm>
                         {renderTitle(enumDef.name)}
                     </Grid>

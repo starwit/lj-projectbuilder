@@ -1,3 +1,5 @@
+import {produce} from "immer";
+
 const enumDefault = {
     name: "",
     value: "",
@@ -12,13 +14,14 @@ function updateEnumPosition(enumDef, draggableData) {
     });
 }
 
-function updateEnumPositionInList(enums, enumDef, index, draggableData) {
+function updateEnumInList(enums, enumDef, index) {
     return produce(enums, draft => {
-        draft[index] = updateEnumPosition(enumDef, draggableData);
+        draft[index] = enumDef;
     });
 }
 
 export {
     enumDefault,
-    updateEnumPositionInList
+    updateEnumInList,
+    updateEnumPosition
 };

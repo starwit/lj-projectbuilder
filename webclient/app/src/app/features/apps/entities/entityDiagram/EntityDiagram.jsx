@@ -14,14 +14,14 @@ import EnumCard from "../enumCard/EnumCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import EnumRest from "../../../../services/EnumRest";
-import {updateEnumPositionInList} from "../../../../modifiers/EnumModifier";
-import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
+import {updateEnumInList, updateEnumPosition} from "../../../../modifiers/EnumModifier";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
 import {useTheme} from "@mui/styles";
+import EntityDiagramButton from "../entityDiagramButton/EntityDiagramButton";
 
 function EntityDiagram(props) {
-    const [appId, entities, enums, editable, dense, onChangeEntities, onChangeEnums] = props;
+    const {appId, entities, enums, editable, dense, onChangeEntities, onChangeEnums} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
     const theme = new useTheme();
@@ -72,11 +72,15 @@ function EntityDiagram(props) {
         return entityRest.createEntityByApp(appId, entity);
     }
 
+    function updatePositionInDB(entity) {
+        return entityRest.updatePositionByApp(appId, entity);
+    }
+
     function deleteEnum(enumId) {
         if (!editable) {
             return;
         }
-        return enumRest.delete(entityId)
+        return enumRest.delete(enumId)
             .then(reloadEnums);
     }
 
@@ -122,6 +126,13 @@ function EntityDiagram(props) {
         newEntities[index] = updatedEntity;
         onChangeEntities(newEntities);
         updatePositionInDB(updatedEntity);
+    }
+
+    function saveEnumPosition(enums, enumDef, index, draggableData) {
+        const enumToUpdate = updateEnumPosition(enumDef, draggableData);
+        const enumList = updateEnumInList(enums, enumToUpdate, index);
+        updateEnum(enumToUpdate);
+        return enumList;
     }
 
     function renderEntities() {
@@ -174,7 +185,7 @@ function EntityDiagram(props) {
                 <Draggable
                     axis={"both"}
                     onStop={(update, draggableData) => {
-                        onChangeEnums(updateEnumPositionInList(enums, enumDef, index, draggableData));
+                        onChangeEnums(saveEnumPosition(enums, enumDef, index, draggableData));
                     }}
                     key={enumDef.id + index + ""}
                     defaultClassName={entityDiagramStyles.draggable}
@@ -197,8 +208,7 @@ function EntityDiagram(props) {
 
         return (
             <>
-                <AddFabButton onClick={addEntity}/>
-                <AddFabButton onClick={addEnum}/>
+                <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
             </>
         );
     }

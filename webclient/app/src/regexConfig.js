@@ -10,6 +10,6 @@ const RegexConfig = {
 
     relationship: /^([a-z][a-zA-Z0-9]{0,100})$/,
 
-    enumName: /^[a-z][a-zA-Z0-9]{1,100}$/
+    enumName: /^[A-Z][a-zA-Z0-9]{1,100}$/
 };
 export default RegexConfig;

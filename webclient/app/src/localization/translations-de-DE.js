@@ -67,6 +67,15 @@ const translationsDeDE = {
     "entity.center": "Zentrieren",
     "entity.delete.title": "Entität löschen",
     "entity.delete.message": "Wollen Sie diese Entität wirklich löschen?",
+    "entity.diagram.edit": "Bearbeiten",
+    "entity.diagram.entity": "Entität",
+    "entity.diagram.enum": "Enum",
+
+    "enum.title": "ENUM",
+    "enum.name": "Name",
+    "enum.name.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
+    "enum.value": "Werte",
+    "enum.value.hint": "Komma-separierte Liste der Enum-Werte",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",

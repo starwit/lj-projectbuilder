@@ -14,6 +14,7 @@ import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import {LoadingButton} from "@mui/lab";
+import EnumDialogStyles from "./EnumDialogStyles";
 import {
     enumDefault
 } from "../../../../modifiers/EnumModifier";
@@ -48,7 +49,7 @@ function EnumDialog(props) {
 
     function prepareSave() {
         setIsSaving(true);
-        handleSave(toDatabaseEntity(entity))
+        handleSave(currEnum)
             .then(() => {
                 onClose();
                 setIsSaving(false);
@@ -70,15 +71,15 @@ function EnumDialog(props) {
         });
     }
 
-    if (!entity) {
-        return <LoadingSpinner message={t("entity.loading")}/>;
+    if (!currEnum) {
+        return <LoadingSpinner message={t("enum.loading")}/>;
     }
 
     return (
-        <Dialog open={!!entityId || open} maxWidth={"xl"} fullWidth>
-            <DialogTitle className={enumDialogStyles.dialogHeaderBar}>
+        <Dialog open={!!currEnum?.id || open} maxWidth={"xl"} fullWidth>
+            <DialogTitle className={enumDialogStyles.dialogHeaderBar + " " + enumDialogStyles.enumBg}>
                 <Typography noWrap variant={"h6"} component={"p"}>
-                    {t("entity.edit", {entityName: entity.name})}
+                    {t("entity.edit", {entityName: currEnum.name})}
                 </Typography>
                 <div className={enumDialogStyles.flex}/>
                 <IconButton aria-label="close" onClick={onClose}>
@@ -91,7 +92,7 @@ function EnumDialog(props) {
                         isCreate={!currEnum || !currEnum.id }
                         fullWidth
                         label={t("enum.name") + "*"}
-                        value={entity.name}
+                        value={currEnum.name}
                         onChange={handleEnumName}
                         helperText={t("enum.name.hint")}
                         regex={RegexConfig.enumName}
@@ -100,7 +101,7 @@ function EnumDialog(props) {
                         isCreate={!currEnum || !currEnum.id }
                         fullWidth
                         label={t("enum.value") + "*"}
-                        value={entity.name}
+                        value={currEnum.value}
                         onChange={handleEnumValue}
                         helperText={t("enum.value.hint")}
                     />
