@@ -76,6 +76,8 @@ const translationsDeDE = {
     "enum.name.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
     "enum.value": "Werte",
     "enum.value.hint": "Komma-separierte Liste der Enum-Werte",
+    "enum.delete.title": "Enum löschen",
+    "enum.delete.message": "Wollen Sie den Enum wirklich löschen?",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",

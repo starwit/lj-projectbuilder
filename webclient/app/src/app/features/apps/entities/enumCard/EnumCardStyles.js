@@ -1,5 +1,4 @@
 import {makeStyles} from "@mui/styles";
-import {color} from "@mui/system";
 
 const EnumCardStyles = makeStyles(theme => ({
     enumCard: {
@@ -7,9 +6,6 @@ const EnumCardStyles = makeStyles(theme => ({
         width: "20rem",
         zIndex: "200",
         backgroundColor: "#ffefd1 !important"
-    },
-    enumType: {
-        color: "#999999 !important"
     }
 }));
 export default EnumCardStyles;

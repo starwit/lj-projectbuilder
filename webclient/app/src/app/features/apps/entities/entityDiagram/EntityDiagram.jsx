@@ -14,7 +14,7 @@ import EnumCard from "../enumCard/EnumCard";
 import Statement from "../../../../commons/statement/Statement";
 import EntityRest from "../../../../services/EntityRest";
 import EnumRest from "../../../../services/EnumRest";
-import {updateEnumInList, updateEnumPosition} from "../../../../modifiers/EnumModifier";
+import {updateEnumInList, updateEnumPosition, enumDefault} from "../../../../modifiers/EnumModifier";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
 import {useTheme} from "@mui/styles";
@@ -24,7 +24,7 @@ function EntityDiagram(props) {
     const {appId, entities, enums, editable, dense, onChangeEntities, onChangeEnums} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
-    const theme = new useTheme();
+    const theme = useTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
@@ -46,6 +46,7 @@ function EntityDiagram(props) {
     }
 
     function addEnum() {
+        setSelectedEnum(enumDefault);
         setOpenEnumDialog(true);
     }
 
@@ -227,6 +228,7 @@ function EntityDiagram(props) {
 
     function closeEnumDialog() {
         setOpenEnumDialog(false);
+        setSelectedEnum(null);
     }
 
     function centerEntities() {
