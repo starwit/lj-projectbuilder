@@ -49,7 +49,7 @@ function EnumCard(props) {
 
     function prepareDelete() {
         if (enumDef != null && !!enumDef.id) {
-            handleDelete(enumDef.id);
+            return handleDelete(enumDef.id);
         }
     }
 
