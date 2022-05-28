@@ -52,6 +52,9 @@ public class App extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "app", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Domain> domains;
 
+    @OneToMany(mappedBy = "app")
+    private List<EnumDef> enumDefs;
+
     @Column(name = "GROUPS")
     @Convert(converter = ListToStringConverter.class)
     private List<String> groups;
@@ -115,5 +118,13 @@ public class App extends AbstractEntity<Long> {
 
     public void setGroups(List<String> groups) {
         this.groups = groups;
+    }
+
+    public List<EnumDef> getEnumDefs() {
+        return enumDefs;
+    }
+
+    public void setEnumDefs(List<EnumDef> enumDefs) {
+        this.enumDefs = enumDefs;
     }
 }
