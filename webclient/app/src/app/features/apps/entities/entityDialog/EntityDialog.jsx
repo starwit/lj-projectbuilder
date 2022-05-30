@@ -13,7 +13,7 @@ import {
     Typography
 } from "@mui/material";
 import {Add, Close} from "@mui/icons-material";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
 import EntityDialogStyles from "./EntityDialogStyles";

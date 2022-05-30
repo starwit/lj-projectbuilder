@@ -8,7 +8,7 @@ import UserRest from "../../services/UserRest";
 import {Add} from "@mui/icons-material";
 import Statement from "../../commons/statement/Statement";
 import AddFabButton from "../../commons/buttons/addFabButton/AddFabButton";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppTemplateOverview() {
     const {t} = useTranslation();

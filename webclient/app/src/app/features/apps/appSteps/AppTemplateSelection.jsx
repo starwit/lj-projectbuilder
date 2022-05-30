@@ -5,7 +5,7 @@ import AppTemplateRest from "../../../services/AppTemplateRest";
 import Statement from "../../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppTemplateSelection(props) {
     const {onChange, value} = props;

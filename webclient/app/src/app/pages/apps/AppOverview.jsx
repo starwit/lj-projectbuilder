@@ -7,7 +7,7 @@ import ApplicationRest from "../../services/ApplicationRest";
 import Statement from "../../commons/statement/Statement";
 import {Add, Clear} from "@mui/icons-material";
 import AddFabButton from "../../commons/buttons/addFabButton/AddFabButton";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppOverview() {
     const history = useHistory();

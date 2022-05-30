@@ -7,7 +7,7 @@ import Statement from "../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {newApp, updateApp} from "../../model/App";
 import {useImmer} from "use-immer";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppSummary(props) {
     const appRest = useMemo(() => new ApplicationRest(), []);

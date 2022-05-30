@@ -13,7 +13,7 @@ import {LoadingButton} from "@mui/lab";
 import {useImmer} from "use-immer";
 import {newApp, toDatabaseApp, updateApp, updateEntities, updateGeneral, updateTemplate} from "../../model/App";
 import UserRest from "../../services/UserRest";
-import {LoadingSpinner} from "@starwit/frontend-commons";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppEditor() {
     const [activeStep, setActiveStep] = useState(0);
