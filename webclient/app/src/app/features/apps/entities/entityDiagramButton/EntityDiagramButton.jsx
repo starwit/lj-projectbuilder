@@ -20,7 +20,6 @@ function EntityDiagramButton(props) {
         <div className={buttonStyle.fabWrapper}>
             <SpeedDial
                 ariaLabel={t("entity.diagram.edit")}
-                sx={{position: "absolute", bottom: 16, right: 16}}
                 icon={<SpeedDialIcon />}
             >
                 {actions.map(action => (
