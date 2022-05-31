@@ -39,4 +39,11 @@ public class EnumMapper implements CustomMapper<EnumDef, EnumDto> {
         }
         return entities;
     }
+
+    public EnumDef addParent(EnumDef entity, App parent) {
+        if (entity != null) {
+            entity.setApp(parent);
+        }
+        return entity;
+    }
 }

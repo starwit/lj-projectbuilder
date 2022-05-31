@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {Delete, ExpandMore} from "@mui/icons-material";
 import {
     Accordion,
     AccordionDetails,
@@ -13,18 +13,21 @@ import {
     MenuItem,
     Select,
     TextField,
+    Stack,
     Typography
 } from "@mui/material";
-import {Delete, ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
-import FieldAccordionStyles from "./FieldAccordionStyles";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
+import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
+import FieldAccordionStyles from "./FieldAccordionStyles";
 
 function FieldAccordion(props) {
     const {
         fieldType,
+        enumDef,
+        enums,
         mandatory,
         min,
         max,
@@ -92,6 +95,40 @@ function FieldAccordion(props) {
         editFieldProperty("fieldValidateRulesPattern", "");
     }
 
+    function renderEnumSelect() {
+        if (fieldType === "Enum") {
+            return (
+                <FormControl fullWidth>
+                    <InputLabel id="enum-select-label">{t("field.enumSelect")}</InputLabel>
+                    <Typography
+                        className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}
+                    </Typography>
+                    <Select labelId="enum-select-label-id" id="enum-select"
+                        value={enumDef} label={t("field.enumSelect")}
+                        onChange={event => editFieldProperty("enumDef", event.target.value)}>
+                        {enums?.map(enumElement => renderEnumSelectList(enumElement))}
+                    </Select>
+                </FormControl>
+            );
+        }
+    }
+
+    function renderEnumSelectList(enumElement) {
+        if (enumElement.id === enumDef.id) {
+            return (
+                <MenuItem value={enumDef} key={enumDef.id}>
+                    {enumDef.name}
+                </MenuItem>
+            );
+        } else {
+            return (
+                <MenuItem value={enumElement} key={enumElement.id}>
+                    {enumElement.name}
+                </MenuItem>
+            );
+        }
+    }
+
     return (
         <Grid container alignItems={"center"} justifyItems={"center"}>
             <Grid item sm={11}>
@@ -117,18 +154,21 @@ function FieldAccordion(props) {
                                 />
                             </Grid>
                             <Grid item sm={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">{t("field.fieldType")}</InputLabel>
-                                    <Select labelId="demo-simple-select-label" id="demo-simple-select"
-                                        value={fieldType} label={t("field.fieldType")}
-                                        onChange={handleFieldTypeChange}>
-                                        {fieldTypes.map(fieldTypeElement => (
-                                            <MenuItem value={fieldTypeElement.name} key={fieldTypeElement.name}>
-                                                {fieldTypeElement.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                <Stack spacing={1}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="fieldtype-select-label">{t("field.fieldType")}</InputLabel>
+                                        <Select labelId="fieldtype-select-label-id" id="fieldtype-select"
+                                            value={fieldType} label={t("field.fieldType")}
+                                            onChange={handleFieldTypeChange}>
+                                            {fieldTypes.map(fieldTypeElement => (
+                                                <MenuItem value={fieldTypeElement.name} key={fieldTypeElement.name}>
+                                                    {fieldTypeElement.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    {renderEnumSelect()}
+                                </Stack>
                             </Grid>
                             <Grid item sm={12}>
                                 <Divider variant={"middle"}>{t("field.restrictions")}</Divider>

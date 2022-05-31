@@ -83,6 +83,7 @@ const translationsDeDE = {
     "field.fieldName": "Name",
     "field.fieldName.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "field.fieldType": "Datentyp",
+    "field.enumSelect": "Enumtyp",
     "field.restrictions": "Restriktionen",
     "field.pattern": "Pattern",
     "field.min": "Minimum",

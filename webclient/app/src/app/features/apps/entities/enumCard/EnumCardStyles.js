@@ -6,6 +6,10 @@ const EnumCardStyles = makeStyles(theme => ({
         width: "20rem",
         zIndex: "200",
         backgroundColor: "#ffefd1 !important"
+    },
+    enumType: {
+        color: "#999",
+        fontStyle: "italic"
     }
 }));
 export default EnumCardStyles;
