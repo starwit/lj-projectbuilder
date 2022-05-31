@@ -91,12 +91,15 @@ function FieldAccordion(props) {
     }
 
     function handleFieldTypeChange(event) {
+        if (event.target.value === "Enum" && enums?.length > 0) {
+            editFieldProperty("enumDef", enumDef ? enumDef : enums[0]);
+        }
         editFieldProperty("fieldType", event.target.value);
         editFieldProperty("fieldValidateRulesPattern", "");
     }
 
     function renderEnumSelect() {
-        if (fieldType === "Enum") {
+        if (fieldType === "Enum" && enums?.length > 0) {
             return (
                 <FormControl fullWidth>
                     <InputLabel id="enum-select-label">{t("field.enumSelect")}</InputLabel>
@@ -104,17 +107,25 @@ function FieldAccordion(props) {
                         className={fieldAccordionStyles.subtitle}>{/* Add something interesting here */}
                     </Typography>
                     <Select labelId="enum-select-label-id" id="enum-select"
-                        value={enumDef} label={t("field.enumSelect")}
+                        value={enumDef ? enumDef : enums[0]} label={t("field.enumSelect")}
                         onChange={event => editFieldProperty("enumDef", event.target.value)}>
                         {enums?.map(enumElement => renderEnumSelectList(enumElement))}
                     </Select>
+                </FormControl>
+            );
+        } else if (fieldType === "Enum") {
+            return (
+                <FormControl fullWidth>
+                    <Typography
+                        className={fieldAccordionStyles.subtitle}>{t("field.enumDef.notAvailable")}
+                    </Typography>
                 </FormControl>
             );
         }
     }
 
     function renderEnumSelectList(enumElement) {
-        if (enumElement.id === enumDef.id) {
+        if (enumElement.id === enumDef?.id) {
             return (
                 <MenuItem value={enumDef} key={enumDef.id}>
                     {enumDef.name}
@@ -209,18 +220,6 @@ function FieldAccordion(props) {
         </Grid>
     );
 }
-
-FieldAccordion.propTypes = {
-    fieldType: PropTypes.string,
-    mandatory: PropTypes.bool,
-    min: PropTypes.any,
-    max: PropTypes.any,
-    pattern: PropTypes.string,
-    name: PropTypes.string,
-    editFieldProperty: PropTypes.func.isRequired,
-    fieldTypes: PropTypes.array,
-    isCreate: PropTypes.bool
-};
 
 FieldAccordion.defaultProps = {
     fieldType: "",

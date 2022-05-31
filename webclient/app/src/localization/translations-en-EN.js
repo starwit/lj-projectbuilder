@@ -84,6 +84,7 @@ const translationsEnEN = {
     "field.fieldName.hint": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "field.fieldType": "Type",
     "field.enumSelect": "Enumtyp",
+    "field.enumDef.notAvailable": "No enum defined for this App.",
     "field.restrictions": "Restrictions",
     "field.pattern": "Pattern",
     "field.min": "Minimum",
@@ -169,6 +170,7 @@ const translationsEnEN = {
     "error.apprenamer.renamedirectories": "Renaming directories during generation failed.",
     "error.apprenamer.renamefilecontent": "Error processing file.",
     "error.apptemplate.delete.appexists": "The template is still used by an app.",
-    "error.optimisticLock": "Parallel attempt of saving an object. Please save again."
+    "error.optimisticLock": "Parallel attempt of saving an object. Please save again.",
+    "error.enum.delete.enititesexists": "The enum is still used by an entity."
 };
 export default translationsEnEN;

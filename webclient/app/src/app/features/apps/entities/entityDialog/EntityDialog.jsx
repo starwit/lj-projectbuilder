@@ -68,6 +68,9 @@ function EntityDialog(props) {
             if (!RegexConfig.fieldName.test(field.fieldName)) {
                 hasError = true;
             }
+            if (field.fieldType === "Enum" && field.enumDef == null) {
+                hasError = true;
+            }
         });
 
         entity.relationships?.forEach(relationship => {

@@ -8,7 +8,7 @@ const EnumCardStyles = makeStyles(theme => ({
         backgroundColor: "#ffefd1 !important"
     },
     enumType: {
-        color: "#999",
+        color: theme.palette.text.secondary,
         fontStyle: "italic"
     }
 }));
