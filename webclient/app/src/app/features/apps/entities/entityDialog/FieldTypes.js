@@ -35,6 +35,15 @@ const FieldTypes = [
         name: "Boolean"
     },
     {
+        name: "Date"
+    },
+    {
+        name: "Time"
+    },
+    {
+        name: "Timestamp"
+    },
+    {
         name: "Enum"
     }
 ];
