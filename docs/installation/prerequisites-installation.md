@@ -1,3 +1,11 @@
+---
+layout: page
+title: Installation
+permalink: /installation/
+has_children: true
+nav_order: 2
+---
+
 [Back](../README.md)
 
 ## Prerequisites Installation
