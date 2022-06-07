@@ -2,12 +2,12 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import AppConclusion from "../../features/apps/appSteps/AppConclusion";
 import ApplicationRest from "../../services/ApplicationRest";
 import {useParams} from "react-router-dom";
-import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useTranslation} from "react-i18next";
 import Statement from "../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {newApp, updateApp} from "../../model/App";
 import {useImmer} from "use-immer";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppSummary(props) {
     const appRest = useMemo(() => new ApplicationRest(), []);

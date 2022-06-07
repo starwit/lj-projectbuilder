@@ -20,6 +20,9 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         dto.setId(entity.getId());
         dto.setFieldName(entity.getName());
         dto.setFieldType(FieldType.valueOf(entity.getDataType().toString()));
+        if (DataType.Enum == entity.getDataType()) {
+            dto.setEnumDef(entity.getEnumDef());
+        }
         setValidationToDto(dto, entity);
         return dto;
     }
@@ -31,6 +34,9 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         entity.setName(dto.getFieldName());
         if (dto.getFieldType() != null) {
             entity.setDataType(DataType.valueOf(dto.getFieldType().toString()));
+            if (dto.getFieldType() == FieldType.Enum) {
+                entity.setEnumDef(dto.getEnumDef());
+            }
         }
         setValidationToEntity(dto, entity);
         return entity;

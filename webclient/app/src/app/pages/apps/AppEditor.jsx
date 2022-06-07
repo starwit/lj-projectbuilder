@@ -10,10 +10,18 @@ import AppGeneral from "../../features/apps/appSteps/AppGeneral";
 import {useHistory, useParams} from "react-router-dom";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
-import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useImmer} from "use-immer";
-import {newApp, updateApp, updateTemplate, updateGeneral, updateEntities, toDatabaseApp} from "../../model/App";
+import {
+    newApp,
+    updateApp,
+    updateTemplate,
+    updateGeneral,
+    updateEntities,
+    updateEnums,
+    toDatabaseApp
+} from "../../model/App";
 import UserRest from "../../services/UserRest";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppEditor() {
     const [activeStep, setActiveStep] = useState(0);
@@ -74,7 +82,9 @@ function AppEditor() {
                 <EntityDiagram
                     appId={app.id}
                     entities={app.entities}
-                    onChange={entities => setApp(updateEntities(app, entities))}
+                    enums={app.enums}
+                    onChangeEntities={entities => setApp(updateEntities(app, entities))}
+                    onChangeEnums={enums => setApp(updateEnums(app, enums))}
                 />
             ),
             condition: app.entities?.length >= 1

@@ -67,6 +67,17 @@ const translationsEnEN = {
     "entity.center": "Center",
     "entity.delete.title": "Delete entity",
     "entity.delete.message": "Do you really want to delete this entity?",
+    "entity.diagram.edit": "Edit",
+    "entity.diagram.entity": "Entity",
+    "entity.diagram.enum": "Enum",
+
+    "enum.title": "ENUM",
+    "enum.name": "Name",
+    "enum.name.hint": "Upper and lower case letters are allowed with numbers. First character must be a upper case letter.",
+    "enum.value": "Values",
+    "enum.value.hint": "Comma separated list of enum vaules",
+    "enum.delete.title": "Delete enum",
+    "enum.delete.message": "Do you really want to delete this enum?",
 
     "field.new": "New field",
     "field.fieldName": "Name",
