@@ -35,6 +35,9 @@ const FieldTypes = [
         name: "Boolean"
     },
     {
+        name: "Enum"
+    },
+    {
         name: "Date"
     },
     {
@@ -42,9 +45,6 @@ const FieldTypes = [
     },
     {
         name: "Timestamp"
-    },
-    {
-        name: "Enum"
     }
 ];
 
