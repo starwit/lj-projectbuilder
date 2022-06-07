@@ -9,7 +9,7 @@ import {
     Typography
 } from "@mui/material";
 import {Close} from "@mui/icons-material";
-import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
+import {LoadingSpinner} from "@starwit/react-starwit";
 import {useTranslation} from "react-i18next";
 import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";

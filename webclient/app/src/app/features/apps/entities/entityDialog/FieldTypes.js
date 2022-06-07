@@ -33,9 +33,6 @@ const FieldTypes = [
     },
     {
         name: "Boolean"
-    },
-    {
-        name: "Enum"
     }
 ];
 

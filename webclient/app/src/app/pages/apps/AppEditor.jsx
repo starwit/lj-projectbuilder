@@ -10,7 +10,6 @@ import AppGeneral from "../../features/apps/appSteps/AppGeneral";
 import {useHistory, useParams} from "react-router-dom";
 import ApplicationRest from "../../services/ApplicationRest";
 import {LoadingButton} from "@mui/lab";
-import LoadingSpinner from "../../commons/loadingSpinner/LoadingSpinner";
 import {useImmer} from "use-immer";
 import {
     newApp,
@@ -22,6 +21,7 @@ import {
     toDatabaseApp
 } from "../../model/App";
 import UserRest from "../../services/UserRest";
+import {LoadingSpinner} from "@starwit/react-starwit";
 
 function AppEditor() {
     const [activeStep, setActiveStep] = useState(0);
