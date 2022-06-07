@@ -77,7 +77,7 @@ function EntityCard(props) {
     }
 
     function prepareDelete() {
-        handleDelete(entity.id);
+        return handleDelete(entity.id);
     }
 
     function renderDeleteWrapper() {

@@ -2,11 +2,16 @@ package de.starwit.rest.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +26,9 @@ import de.starwit.dto.EnumDto;
 import de.starwit.mapper.EnumMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.EnumDef;
+import de.starwit.persistence.exception.NotificationException;
+import de.starwit.rest.exception.NotificationDto;
+import de.starwit.rest.exception.WrongAppIdException;
 import de.starwit.service.impl.AppService;
 import de.starwit.service.impl.EnumDefService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,5 +73,26 @@ public class EnumController {
         enumDef.setApp(app);
         enumDef = enumDefService.saveOrUpdate(enumDef);
         return enumMapper.convertToDto(enumDef);
+    }
+
+    @IsAdmin
+    @IsUser
+    @Operation(summary = "Delete enum with id")
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") Long id) throws NotificationException {
+        enumDefService.delete(id);
+    }
+
+    @ExceptionHandler(value = { EntityNotFoundException.class })
+    public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
+        NotificationDto output = new NotificationDto("error.entity.notfound", "Enum not found.");
+        return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = { WrongAppIdException.class })
+    public ResponseEntity<Object> handleException(WrongAppIdException ex) {
+        LOG.info(ex.getMessage());
+        NotificationDto output = new NotificationDto("error.wrongAppId", ex.getMessage());
+        return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 }

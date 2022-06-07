@@ -2,7 +2,7 @@ import {produce} from "immer";
 import RegexConfig from "../../regexConfig";
 
 const newApp =
-    {id: null, template: null, entities: [],
+    {id: null, template: null, entities: [], ennums: [],
         general: {isNew: true, isValid: false, appName: "", packageName: "", assignedGroups: ["public"]}};
 
 function toDatabaseApp(app) {
@@ -12,6 +12,7 @@ function toDatabaseApp(app) {
     data.packageName = app.general.packageName;
     data.template = app.template;
     data.entities = app.entities;
+    data.enums = app.enums;
     data.groupsToAssign = app.general.assignedGroups;
     return data;
 }
@@ -27,6 +28,7 @@ function updateApp(app, data) {
         draft.general.isValid = isValid(draft.general);
         draft.template = data.template;
         draft.entities = data.entities;
+        draft.enums = data.enums;
     });
 }
 
@@ -39,6 +41,12 @@ function updateTemplate(app, template) {
 function updateEntities(app, entities) {
     return produce(app, draft => {
         draft.entities = entities;
+    });
+}
+
+function updateEnums(app, enums) {
+    return produce(app, draft => {
+        draft.enums = enums;
     });
 }
 
@@ -64,4 +72,5 @@ export {
     updateTemplate,
     updateGeneral,
     updateEntities,
+    updateEnums,
     toDatabaseApp};
