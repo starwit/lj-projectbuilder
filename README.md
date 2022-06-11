@@ -2,6 +2,7 @@
 <p align="center">
     <img src="docs/imgs/logo-color.png" alt="drawing" style="width:5em;"/>
     <h1 align="center">Project Builder</h1>
+    see http://starwit.github.io/lj-projectbuilder/ for developer documentation
 </p>
 
 ## Purpose
