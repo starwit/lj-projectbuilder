@@ -294,6 +294,7 @@ function EntityDiagram(props) {
                 onClose={closeEntityDialog}
                 handleSave={data => prepareUpdateEntity(data)}
                 entities={entities}
+                enums={enums}
                 open={openEntityDialog}
             />
             <EnumDialog
