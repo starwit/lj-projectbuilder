@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import EnumCardStyles from "./EnumCardStyles";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
-import ConfirmationDialog from "../../../../commons/confirmationDialog/ConfirmationDialog";
+import ConfirmationDialog from "@starwit/react-starwit";
 
 function EnumCard(props) {
     const enumCardStyles = EnumCardStyles();

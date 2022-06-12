@@ -3,7 +3,7 @@ import AppHeader from "./commons/appHeader/AppHeader";
 import MainContentRouter from "./pages/MainContentRouter";
 import {CssBaseline} from "@mui/material";
 import AppStyles from "./AppStyles";
-import ErrorHandler from "./commons/errorHandler/ErrorHandler";
+import ErrorHandler from "@starwit/react-starwit";
 import {appMenuItems} from "./AppConfig";
 
 function App() {

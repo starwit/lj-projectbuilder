@@ -13,14 +13,11 @@ import {
     Typography
 } from "@mui/material";
 import {Add, Close} from "@mui/icons-material";
-import {LoadingSpinner} from "@starwit/react-starwit";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
 import EntityDialogStyles from "./EntityDialogStyles";
-import TabPanel from "../../../../commons/tabPanel/TabPanel";
-import Statement from "../../../../commons/statement/Statement";
+import {LoadingSpinner, TabPanel, Statement, ValidatedTextField} from "@starwit/react-starwit";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import {LoadingButton} from "@mui/lab";
 import {
