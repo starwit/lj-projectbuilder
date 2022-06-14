@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import RelationshipStyles from "./RelationshipStyles";
 import {useTranslation} from "react-i18next";
 import {RelationshipType} from "../Relationship";
-import ValidatedTextField from "@starwit/react-starwit";
+import {ValidatedTextField} from "@starwit/react-starwit";
 import RegexConfig from "../../../../../regexConfig";
 
 function RelationshipAccordion(props) {

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import AppCardStyles from "./AppCardStyles";
 import {useTranslation} from "react-i18next";
-import ConfirmationDialog from "@starwit/react-starwit";
+import {ConfirmationDialog} from "@starwit/react-starwit";
 
 function AppCard(props) {
     const {app, onDeleteClick, onEditClick} = props;
