@@ -62,7 +62,7 @@ function AppOverview() {
 
         return (
             <Grid container spacing={5}>
-                {apps.map(app => (
+                {apps?.map(app => (
                     <Grid item sm={6} xs={12} key={app.id}>
                         <AppCard
                             onEditClick={() => {
