@@ -3,6 +3,7 @@
     <img src="docs/imgs/logo-color.png" alt="drawing" style="width:5em;"/>
     <h1 align="center">Project Builder</h1>
 </p>
+<p align="center">http://starwit.github.io/lj-projectbuilder/</p>
 
 ## Purpose
 
