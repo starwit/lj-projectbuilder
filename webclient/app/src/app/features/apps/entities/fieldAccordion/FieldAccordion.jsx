@@ -99,7 +99,11 @@ function FieldAccordion(props) {
     }
 
     function renderEnumSelect() {
-        if (fieldType === "Enum" && enums?.length > 0) {
+        if (fieldType !== "Enum"){
+            return;
+        }
+
+        if (enums?.length > 0) {
             return (
                 <FormControl fullWidth>
                     <InputLabel id="enum-select-label">{t("field.enumSelect")}</InputLabel>
