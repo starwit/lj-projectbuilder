@@ -80,7 +80,7 @@ public class EntityController {
         App app = new App();
         app.setId(appId);
         domain = mapper.convertToEntity(dto);
-        domain.setApp(app);
+        domain = mapper.addParent(domain, app);
         if (domain.getId() != null) {
             domainService.deleteRelationsForAllTargetDomains(domain.getId());
         }
