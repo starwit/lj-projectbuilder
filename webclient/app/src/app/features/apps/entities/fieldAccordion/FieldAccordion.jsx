@@ -117,7 +117,7 @@ function FieldAccordion(props) {
                     </Select>
                 </FormControl>
             );
-        } else if (fieldType === "Enum") {
+        } else {
             return (
                 <FormControl fullWidth>
                     <Typography
