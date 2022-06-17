@@ -28,6 +28,7 @@ import de.starwit.mapper.AppMapper;
 import de.starwit.mapper.EntityMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.EnumDef;
 import de.starwit.persistence.entity.TemplateFile;
 import de.starwit.persistence.exception.NotificationException;
 import de.starwit.persistence.repository.AppRepository;
@@ -64,6 +65,7 @@ public class GeneratorService {
         App app = appRepository.findById(appId).orElseThrow();
         Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
         Collection<Domain> domains = app.getDomains();
+        Collection<EnumDef> enums = app.getEnumDefs();
         Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 
         for (TemplateFile templateFile : templateFiles) {
@@ -74,6 +76,12 @@ public class GeneratorService {
                     || templateFile.getFileName().contains("${entity")) {
                 for (Domain domain : domains) {
                     templateData.putAll(fillTemplateDomainParameter(domain));
+                    generatePath(templateData, templateFile);
+                    generateFileWithOverride(templateData, templateFile);
+                }
+            } else if (templateFile.getFileName().contains("${enumDef")) {
+                for (EnumDef enumDef : enums) {
+                    templateData.putAll(fillTemplateEnumParameter(enumDef));
                     generatePath(templateData, templateFile);
                     generateFileWithOverride(templateData, templateFile);
                 }
@@ -115,6 +123,19 @@ public class GeneratorService {
         data.put("domain", domain);
         data.put("entity", entityMapper.convertToDto(domain));
         data.put("imports", EntityImports.gatherEntityImports(domain));
+        return data;
+    }
+
+    /**
+     * Adds parameter for enum specific generations.
+     *
+     * @param enum - basic for entities
+     * @return
+     */
+    private Map<String, Object> fillTemplateEnumParameter(EnumDef enumDef) {
+        // Build the data-model
+        Map<String, Object> data = new HashMap<>();
+        data.put("enumDef", enumDef);
         return data;
     }
 

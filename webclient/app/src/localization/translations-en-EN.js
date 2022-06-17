@@ -83,7 +83,7 @@ const translationsEnEN = {
     "field.fieldName": "Name",
     "field.fieldName.hint": "Upper and lower case letters are allowed with numbers. First character must be a lower case letter.",
     "field.fieldType": "Type",
-    "field.enumSelect": "Enumtyp",
+    "field.enumSelect": "Enum Type",
     "field.enumDef.notAvailable": "No enum defined for this App.",
     "field.restrictions": "Restrictions",
     "field.pattern": "Pattern",
