@@ -225,6 +225,18 @@ function FieldAccordion(props) {
     );
 }
 
+FieldAccordion.propTypes = {
+    fieldType: PropTypes.string,
+    mandatory: PropTypes.bool,
+    min: PropTypes.any,
+    max: PropTypes.any,
+    pattern: PropTypes.string,
+    name: PropTypes.string,
+    editFieldProperty: PropTypes.func.isRequired,
+    fieldTypes: PropTypes.array,
+    isCreate: PropTypes.bool
+};
+
 FieldAccordion.defaultProps = {
     fieldType: "",
     mandatory: false,
