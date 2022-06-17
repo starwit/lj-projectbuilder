@@ -99,7 +99,11 @@ function FieldAccordion(props) {
     }
 
     function renderEnumSelect() {
-        if (fieldType === "Enum" && enums?.length > 0) {
+        if (fieldType !== "Enum"){
+            return;
+        }
+
+        if (enums?.length > 0) {
             return (
                 <FormControl fullWidth>
                     <InputLabel id="enum-select-label">{t("field.enumSelect")}</InputLabel>
@@ -113,7 +117,7 @@ function FieldAccordion(props) {
                     </Select>
                 </FormControl>
             );
-        } else if (fieldType === "Enum") {
+        } else {
             return (
                 <FormControl fullWidth>
                     <Typography
@@ -220,6 +224,18 @@ function FieldAccordion(props) {
         </Grid>
     );
 }
+
+FieldAccordion.propTypes = {
+    fieldType: PropTypes.string,
+    mandatory: PropTypes.bool,
+    min: PropTypes.any,
+    max: PropTypes.any,
+    pattern: PropTypes.string,
+    name: PropTypes.string,
+    editFieldProperty: PropTypes.func.isRequired,
+    fieldTypes: PropTypes.array,
+    isCreate: PropTypes.bool
+};
 
 FieldAccordion.defaultProps = {
     fieldType: "",
