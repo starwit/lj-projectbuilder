@@ -120,7 +120,7 @@ const translationsEnEN = {
     "appTemplate.config": "Template Configuration",
     "appTemplate.credentialsRequired": "private repo with Login",
     "appTemplate.description": "Description",
-    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 100",
+    "appTemplate.branch.hint": "Branch name contain letters, nubmers and characters /_- with a max length of 255",
 
     "appConclusion.generationError.title": "Error while generating.",
     "appConclusion.generationError.message": "While generating the app following error occurred:",

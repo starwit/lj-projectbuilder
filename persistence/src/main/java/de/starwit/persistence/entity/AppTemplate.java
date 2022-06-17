@@ -37,9 +37,9 @@ public class AppTemplate extends AbstractEntity<Long> {
     @Column(name = "LOCATION", nullable = false, length = 100)
     private String location;
 
-    @Size(max = 100)
+    @Size(max = 255)
     @Pattern(regexp = "^([a-zA-Z0-9#/_\\-]*)$")
-    @Column(name = "BRANCH", length = 100)
+    @Column(name = "BRANCH", length = 255)
     private String branch = "master";
 
     @Column(name = "CREDENTIALS_REQUIRED")
