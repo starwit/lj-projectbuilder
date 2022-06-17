@@ -117,7 +117,7 @@ const translationsDeDE = {
     "apptemplate.location": "Git-Repository",
     "apptemplate.location.hint": "Bitte geben Sie eine Git-Repository-URL ein",
     "appTemplate.branch": "Branch",
-    "appTemplate.branch.hint": "Der Branch Name kann 100 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
+    "appTemplate.branch.hint": "Der Branch Name kann 255 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
     "appTemplate.config": "Template Konfiguration",
     "appTemplate.credentialsRequired": "privates Repo mit Login",
     "appTemplate.description": "Beschreibung",
