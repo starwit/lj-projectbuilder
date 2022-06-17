@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
+import de.starwit.persistence.entity.Attribute;
 import de.starwit.persistence.entity.Domain;
 
 @Component
@@ -14,6 +15,9 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
 
     @Autowired
     private FieldMapper fieldMapper;
+
+    @Autowired
+    private EnumMapper enumMapper;
 
     @Override
     public EntityDto convertToDto(Domain entity) {
@@ -50,8 +54,25 @@ public class EntityMapper implements CustomMapper<Domain, EntityDto> {
         if (entities != null) {
             for (Domain entity : entities) {
                 entity.setApp(parent);
+                addParentToEnumDef(parent, entity.getAttributes());
             }
         }
         return entities;
+    }
+
+    public Domain addParent(Domain entity, App parent) {
+        if (entity != null) {
+            entity.setApp(parent);
+            addParentToEnumDef(parent, entity.getAttributes());
+        }
+        return entity;
+    }
+
+    private void addParentToEnumDef(App parent, List<Attribute> attributes) {
+        if (attributes != null) {
+            for (Attribute attribute : attributes) {
+                attribute.setEnumDef(enumMapper.addParent(attribute.getEnumDef(), parent));
+            }
+        }
     }
 }

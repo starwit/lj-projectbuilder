@@ -68,6 +68,7 @@ public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
             app.setEnumDefs(enumMapper.convertToEntityList(dto.getEnums()));
             app.setGroups(dto.getGroupsToAssign());
             entityMapper.addParent(app.getDomains(), app);
+            enumMapper.addParent(app.getEnumDefs(), app);
         }
 
         return app;

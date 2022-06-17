@@ -23,13 +23,21 @@ function EntityCard(props) {
 
     function renderAttributes(entityToRender) {
         return entityToRender.fields.map((field, index) => {
-            return (
-
-                <TableRow key={index}>
-                    <TableCell>{field.fieldName}</TableCell>
-                    <TableCell>{field.fieldType}</TableCell>
-                </TableRow>
-            );
+            if (field.fieldType === "Enum") {
+                return (
+                    <TableRow key={index}>
+                        <TableCell>{field.fieldName}</TableCell>
+                        <TableCell><i>{field.fieldType}</i> {field.enumDef?.name}</TableCell>
+                    </TableRow>
+                );
+            } else {
+                return (
+                    <TableRow key={index}>
+                        <TableCell>{field.fieldName}</TableCell>
+                        <TableCell>{field.fieldType}</TableCell>
+                    </TableRow>
+                );
+            }
         });
     }
 

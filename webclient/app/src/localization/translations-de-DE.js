@@ -83,6 +83,8 @@ const translationsDeDE = {
     "field.fieldName": "Name",
     "field.fieldName.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "field.fieldType": "Datentyp",
+    "field.enumSelect": "Enumtyp",
+    "field.enumDef.notAvailable": "Es wurde noch kein Enum für die App definiert.",
     "field.restrictions": "Restriktionen",
     "field.pattern": "Pattern",
     "field.min": "Minimum",
@@ -168,6 +170,7 @@ const translationsDeDE = {
     "error.apprenamer.renamedirectories": "Fehler beim Umbenennen der Verzeichnisse beim Generieren.",
     "error.apprenamer.renamefilecontent": "Fehler beim Ersetzen der Dateiinhalte.",
     "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet.",
-    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut."
+    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut.",
+    "error.enum.delete.enititesexists": "Der Enum wird noch in einer Entität verwendet."
 };
 export default translationsDeDE;

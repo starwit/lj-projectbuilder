@@ -27,7 +27,7 @@ public class FieldDto extends AbstractEntity<Long> {
     @NotNull
     private FieldType fieldType;
 
-    private EnumDef enumDef;
+    private EnumDto enumDef;
 
     private List<FieldValidateRulesType> fieldValidateRules;
     private Integer fieldValidateRulesMin;
@@ -64,11 +64,11 @@ public class FieldDto extends AbstractEntity<Long> {
         this.fieldType = fieldType;
     }
 
-    public EnumDef getEnumDef() {
+    public EnumDto getEnumDef() {
         return enumDef;
     }
 
-    public void setEnumDef(EnumDef enumDef) {
+    public void setEnumDef(EnumDto enumDef) {
         this.enumDef = enumDef;
     }
 

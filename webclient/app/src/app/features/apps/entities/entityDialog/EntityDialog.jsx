@@ -33,7 +33,7 @@ import FieldTypes from "./FieldTypes";
 import {useImmer} from "use-immer";
 
 function EntityDialog(props) {
-    const {entityId, onClose, handleSave, entities, open} = props;
+    const {entityId, onClose, handleSave, entities, enums, open} = props;
     const [value, setValue] = useState(0);
     const [entity, setEntity] = useImmer(null);
     const [hasFormError, setHasFormError] = useState(false);
@@ -63,6 +63,9 @@ function EntityDialog(props) {
 
         entity.fields?.forEach(field => {
             if (!RegexConfig.fieldName.test(field.fieldName)) {
+                hasError = true;
+            }
+            if (field.fieldType === "Enum" && field.enumDef == null) {
                 hasError = true;
             }
         });
@@ -192,12 +195,15 @@ function EntityDialog(props) {
                 fieldValidateRulesMaxlength,
                 fieldValidateRulesPattern,
                 fieldName,
+                enumDef,
                 fieldType
             } =
                     entity.fields[index];
             return (
                 <FieldAccordion
                     editFieldProperty={(key, value) => editFieldProperty(key, value, index)}
+                    enumDef={enumDef}
+                    enums={enums}
                     fieldTypes={FieldTypes}
                     fieldType={fieldType}
                     pattern={fieldValidateRulesPattern}

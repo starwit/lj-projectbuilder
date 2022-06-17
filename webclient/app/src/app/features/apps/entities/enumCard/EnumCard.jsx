@@ -14,7 +14,7 @@ function EnumCard(props) {
     const {t} = useTranslation();
 
     function renderEnumType() {
-        return <Typography variant={"h6"} noWrap className={`${enumCardStyles.enumType}`}>
+        return <Typography noWrap className={`${enumCardStyles.enumType}`}>
             {t("enum.title")}
         </Typography>;
     }
