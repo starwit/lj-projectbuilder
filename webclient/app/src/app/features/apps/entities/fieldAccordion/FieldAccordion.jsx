@@ -19,8 +19,8 @@ import {
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {ValidatedTextField} from "@starwit/react-starwit";
 import RegexConfig from "../../../../../regexConfig";
-import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import FieldAccordionStyles from "./FieldAccordionStyles";
 
 function FieldAccordion(props) {
@@ -99,7 +99,7 @@ function FieldAccordion(props) {
     }
 
     function renderEnumSelect() {
-        if (fieldType !== "Enum"){
+        if (fieldType !== "Enum") {
             return;
         }
 

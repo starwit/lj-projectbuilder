@@ -16,9 +16,8 @@ import AppTemplateDialogStyles from "./AppTemplateDialogStyles";
 import {useTranslation} from "react-i18next";
 import {Close} from "@mui/icons-material";
 import AppTemplateRest from "../../../services/AppTemplateRest";
-import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
+import {MultipleSelectChip, ValidatedTextField} from "@starwit/react-starwit";
 import RegexConfig from "../../../../regexConfig";
-import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 import {useImmer} from "use-immer";
 import {produce} from "immer";
 

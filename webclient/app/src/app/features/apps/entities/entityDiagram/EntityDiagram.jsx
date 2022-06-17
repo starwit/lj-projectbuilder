@@ -11,7 +11,7 @@ import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
 import EnumDialog from "../enumDialog/EnumDialog";
 import EnumCard from "../enumCard/EnumCard";
-import Statement from "../../../../commons/statement/Statement";
+import {Statement} from "@starwit/react-starwit";
 import EntityRest from "../../../../services/EntityRest";
 import EnumRest from "../../../../services/EnumRest";
 import {enumDefault, updateEnumInList, updateEnumPosition} from "../../../../modifiers/EnumModifier";
