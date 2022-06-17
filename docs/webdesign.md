@@ -1,3 +1,8 @@
+---
+layout: page
+title: Webdesign
+permalink: /webdesign/
+---
 
 # Webdesign [DEPRICATED]
 

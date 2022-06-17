@@ -208,9 +208,7 @@ function EntityDiagram(props) {
         }
 
         return (
-            <>
-                <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
-            </>
+            <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
         );
     }
 

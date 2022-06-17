@@ -3,6 +3,7 @@
     <img src="docs/imgs/logo-color.png" alt="drawing" style="width:5em;"/>
     <h1 align="center">Project Builder</h1>
 </p>
+<p align="center">http://starwit.github.io/lj-projectbuilder/</p>
 
 ## Purpose
 
@@ -28,7 +29,13 @@ We are grateful for any contribution. Please refer to our [contribution guidelin
 * [Workflow Documentation](.github/workflows/readme.md)
 
 ## Documentation Template Creation
+
 * [Create Templates](docs/templates-howto.md)
+
+## Documentation for the Documentation
+
+* [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+* [Just-The-Docs Theme](https://just-the-docs.github.io/just-the-docs/)
 
 ## Installation with docker-compose
 
@@ -38,6 +45,7 @@ You can install the last version of ProjectBuilder with a database via docker-co
 cd deployment
 docker-compose up
 ```
+
 This is only recommended for first testing and not for production use.
 
 ## Sponsors
