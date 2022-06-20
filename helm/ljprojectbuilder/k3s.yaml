@@ -1,0 +1,73 @@
+global:
+  keycloak:
+    authServerUrl: http://localhost/auth
+
+replicaCount: 1
+
+image:
+  repository: starwitorg/ljprojectbuilder
+  tag: "v0.3.2"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: github-docker-pull
+nameOverride: ""
+fullnameOverride: ""
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8081
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: localhost
+      paths: [/lj-projectbuilder]
+  tls:
+    - secretName: localhost-tls
+      hosts:
+        - localhost
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+mariadb:
+  auth:
+    rootPassword: root
+    database: ljprojectbuilder
+    username: ljprojectbuilder
+    password: ljprojectbuilder
+
+keycloak:
+  username: admin
+  password: admin
+  ingress:
+    enabled: true
+    rules:
+      - host: localhost
+        paths:
+          - path: /auth
+            pathType: Prefix
+  postgresql:
+    enabled: false
