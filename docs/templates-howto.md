@@ -17,6 +17,18 @@ nav_order: 3
 
 # How to use the Default Template
 
+A default react template can be found [here](https://github.com/starwit/reacthook-spring-template). You have to configure it in the projectBulider.
+
+![create template](imgs/template/createTemplpateHint.png)
+
+To add the default template, add following configuration:
+
+Git-Repository: https://github.com/starwit/reacthook-spring-template.git
+Branch: main
+Group: public
+
+![add new template](imgs/template/addNewTemplate.png)
+
 # How to load existing Template
 
 # How to Create a Template
