@@ -1,3 +1,10 @@
+---
+layout: page
+title: Development Installation
+permalink: /dev-install/
+parent: Installation
+---
+
 ## Development Installation
 
 ### Prerequisites
@@ -39,7 +46,7 @@ If you need more information about installing prerequisites (ubuntu / linux mint
     ```bash
     java -jar application/target/application-0.0.1-SNAPSHOT.jar
     ```
-    You can also run the main-class via Visual Studio Code.
+   You can also run the main-class via Visual Studio Code.
 
 
 * **Project Builder can be reached under http://localhost:8081/ljprojectbuilder/**

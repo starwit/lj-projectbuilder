@@ -94,6 +94,10 @@ function toDatabaseEntity(entity) {
             if (field.fieldValidateRulesPattern) {
                 field.fieldValidateRules.push("pattern");
             }
+
+            if (field.fieldType !== "Enum") {
+                field.enumDef = null;
+            }
         });
     });
 }

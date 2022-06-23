@@ -17,13 +17,14 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import de.starwit.TestdataConstants;
 import de.starwit.dto.EntityDto;
 import de.starwit.mapper.EntityMapper;
+import de.starwit.mapper.EnumMapper;
 import de.starwit.mapper.FieldMapper;
 import de.starwit.persistence.entity.Domain;
 import de.starwit.rest.controller.EntityController;
 import de.starwit.service.impl.DomainService;
 
 @WebMvcTest(controllers = EntityController.class)
-@Import({ EntityMapper.class, FieldMapper.class })
+@Import({ EntityMapper.class, FieldMapper.class, EnumMapper.class })
 public class EntityControllerIntegrationTest extends AbstractControllerIntegrationTest<EntityDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(EntityControllerIntegrationTest.class);

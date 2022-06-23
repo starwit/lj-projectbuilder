@@ -1,9 +1,13 @@
 package de.starwit.persistence.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
@@ -46,6 +50,10 @@ public class Attribute extends AbstractEntity<Long> {
 
     @Column(name = "NULLABLE")
     private boolean nullable = true;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ENUM_DEF_ID")
+    private EnumDef enumDef;
 
     // TODO
     @Transient
@@ -133,6 +141,14 @@ public class Attribute extends AbstractEntity<Long> {
 
     public void setUnique(boolean unique) {
         this.unique = unique;
+    }
+
+    public EnumDef getEnumDef() {
+        return enumDef;
+    }
+
+    public void setEnumDef(EnumDef enumDef) {
+        this.enumDef = enumDef;
     }
 
 }

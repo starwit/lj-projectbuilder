@@ -1,9 +1,8 @@
 import React from "react";
 import {Container, Grid, Stack, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../commons/inputFields/validatedTextField/ValidatedTextField";
+import {MultipleSelectChip, ValidatedTextField} from "@starwit/react-starwit";
 import RegexConfig from "../../../../regexConfig";
-import MultipleSelectChip from "../../../commons/inputFields/multipleSelectChip/MultipleSelectChip";
 
 function AppGeneral(props) {
     const {t} = useTranslation();

@@ -6,18 +6,20 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.AppDto;
+import de.starwit.dto.AppTemplateDto;
 import de.starwit.dto.EntityDto;
 import de.starwit.persistence.entity.App;
 import de.starwit.persistence.entity.AppTemplate;
-import de.starwit.persistence.repository.AppTemplateRepository;
 
 @Component
 public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
 
     @Autowired
-    EntityMapper entityMapper;
+    private EntityMapper entityMapper;
+
+    @Autowired
+    private EnumMapper enumMapper;
 
     private static final long serialVersionUID = 1L;
     public static final long defaultAppTemplateID = 1L;
@@ -31,6 +33,7 @@ public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
             dto.setPackageName(entity.getPackagePrefix());
             dto.setTargetPath(entity.getTargetPath());
             dto.setEntities(entityMapper.convertToDtoList(entity.getDomains()));
+            dto.setEnums(enumMapper.convertToDtoList(entity.getEnumDefs()));
             dto.setGroupsToAssign(entity.getGroups());
             AppTemplateDto appTemplateDto = new AppTemplateDto();
             if (entity.getTemplate() != null) {
@@ -62,8 +65,10 @@ public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
                 deleteIdsFromEntityDtos(dto.getEntities());
             }
             app.setDomains(entityMapper.convertToEntityList(dto.getEntities()));
+            app.setEnumDefs(enumMapper.convertToEntityList(dto.getEnums()));
             app.setGroups(dto.getGroupsToAssign());
             entityMapper.addParent(app.getDomains(), app);
+            enumMapper.addParent(app.getEnumDefs(), app);
         }
 
         return app;
@@ -76,5 +81,4 @@ public class AppMapper implements Serializable, CustomMapper<App, AppDto> {
             }
         }
     }
-
 }

@@ -1,11 +1,10 @@
 import {Card, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import {Delete, Edit} from "@mui/icons-material";
 import React, {useState} from "react";
-import Statement from "../../../../commons/statement/Statement";
+import {Statement, ConfirmationDialog} from "@starwit/react-starwit";
 import EntityCardStyles from "./EntityCardStyles";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
-import ConfirmationDialog from "../../../../commons/confirmationDialog/ConfirmationDialog";
 
 function EntityCard(props) {
     const entityCardStyles = EntityCardStyles();
@@ -24,13 +23,21 @@ function EntityCard(props) {
 
     function renderAttributes(entityToRender) {
         return entityToRender.fields.map((field, index) => {
-            return (
-
-                <TableRow key={index}>
-                    <TableCell>{field.fieldName}</TableCell>
-                    <TableCell>{field.fieldType}</TableCell>
-                </TableRow>
-            );
+            if (field.fieldType === "Enum") {
+                return (
+                    <TableRow key={index}>
+                        <TableCell>{field.fieldName}</TableCell>
+                        <TableCell><i>{field.fieldType}</i> {field.enumDef?.name}</TableCell>
+                    </TableRow>
+                );
+            } else {
+                return (
+                    <TableRow key={index}>
+                        <TableCell>{field.fieldName}</TableCell>
+                        <TableCell>{field.fieldType}</TableCell>
+                    </TableRow>
+                );
+            }
         });
     }
 
@@ -77,7 +84,7 @@ function EntityCard(props) {
     }
 
     function prepareDelete() {
-        handleDelete(entity.id);
+        return handleDelete(entity.id);
     }
 
     function renderDeleteWrapper() {

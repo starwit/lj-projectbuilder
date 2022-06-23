@@ -1,6 +1,13 @@
+---
+layout: page
+title: Deployment
+permalink: /deployment/
+---
+
 # ProjectBuilder Deployment
 
 There are mainly three different deployments via docker-compose scripts:
+
 * development deployment
 * remote deployment
 * deployment on Kubernetes cluster
@@ -85,5 +92,5 @@ There are helm charts available for deployment on Kubernetes.
 Go to helm/ljprojectbuilder
 - copy values-template4private.yaml to values-private.yaml and add secret values
 - execute e.g.:
-  - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
-  - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
+    - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
+    - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`

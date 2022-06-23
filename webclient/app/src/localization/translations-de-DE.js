@@ -67,11 +67,24 @@ const translationsDeDE = {
     "entity.center": "Zentrieren",
     "entity.delete.title": "Entität löschen",
     "entity.delete.message": "Wollen Sie diese Entität wirklich löschen?",
+    "entity.diagram.edit": "Bearbeiten",
+    "entity.diagram.entity": "Entität",
+    "entity.diagram.enum": "Enum",
+
+    "enum.title": "ENUM",
+    "enum.name": "Name",
+    "enum.name.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein großer Buchstabe sein.",
+    "enum.value": "Werte",
+    "enum.value.hint": "Komma-separierte Liste der Enum-Werte",
+    "enum.delete.title": "Enum löschen",
+    "enum.delete.message": "Wollen Sie den Enum wirklich löschen?",
 
     "field.new": "Neues Feld",
     "field.fieldName": "Name",
     "field.fieldName.hint": "Groß und Kleinschreibung mit Zahlen erlaubt. Erstes Zeichen muss ein kleiner Buchstabe sein.",
     "field.fieldType": "Datentyp",
+    "field.enumSelect": "Enumtyp",
+    "field.enumDef.notAvailable": "Es wurde noch kein Enum für die App definiert.",
     "field.restrictions": "Restriktionen",
     "field.pattern": "Pattern",
     "field.min": "Minimum",
@@ -104,7 +117,7 @@ const translationsDeDE = {
     "apptemplate.location": "Git-Repository",
     "apptemplate.location.hint": "Bitte geben Sie eine Git-Repository-URL ein",
     "appTemplate.branch": "Branch",
-    "appTemplate.branch.hint": "Der Branch Name kann 100 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
+    "appTemplate.branch.hint": "Der Branch Name kann 255 Zeichen lang sein und kann Buchstaben, Zahlen und die Zeichen /_- enthalten.",
     "appTemplate.config": "Template Konfiguration",
     "appTemplate.credentialsRequired": "privates Repo mit Login",
     "appTemplate.description": "Beschreibung",
@@ -157,6 +170,7 @@ const translationsDeDE = {
     "error.apprenamer.renamedirectories": "Fehler beim Umbenennen der Verzeichnisse beim Generieren.",
     "error.apprenamer.renamefilecontent": "Fehler beim Ersetzen der Dateiinhalte.",
     "error.apptemplate.delete.appexists": "Das Template wird noch in einer App verwendet.",
-    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut."
+    "error.optimisticLock": "Das Objekt oder deren Abhängigkeiten wurden versucht gleichzeitig zu speichern. Bitte speichern sie erneut.",
+    "error.enum.delete.enititesexists": "Der Enum wird noch in einer Entität verwendet."
 };
 export default translationsDeDE;

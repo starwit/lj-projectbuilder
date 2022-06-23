@@ -3,6 +3,7 @@ package de.starwit.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.starwit.dto.FieldDto;
@@ -14,12 +15,18 @@ import de.starwit.persistence.entity.DataType;
 @Component
 public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
 
+    @Autowired
+    private EnumMapper enumMapper;
+
     @Override
     public FieldDto convertToDto(Attribute entity) {
         FieldDto dto = new FieldDto();
         dto.setId(entity.getId());
         dto.setFieldName(entity.getName());
         dto.setFieldType(FieldType.valueOf(entity.getDataType().toString()));
+        if (DataType.Enum == entity.getDataType()) {
+            dto.setEnumDef(enumMapper.convertToDto(entity.getEnumDef()));
+        }
         setValidationToDto(dto, entity);
         return dto;
     }
@@ -31,6 +38,9 @@ public class FieldMapper implements CustomMapper<Attribute, FieldDto> {
         entity.setName(dto.getFieldName());
         if (dto.getFieldType() != null) {
             entity.setDataType(DataType.valueOf(dto.getFieldType().toString()));
+            if (dto.getFieldType() == FieldType.Enum) {
+                entity.setEnumDef(enumMapper.convertToEntity(dto.getEnumDef()));
+            }
         }
         setValidationToEntity(dto, entity);
         return entity;

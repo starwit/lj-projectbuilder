@@ -80,7 +80,7 @@ public class EntityController {
         App app = new App();
         app.setId(appId);
         domain = mapper.convertToEntity(dto);
-        domain.setApp(app);
+        domain = mapper.addParent(domain, app);
         if (domain.getId() != null) {
             domainService.deleteRelationsForAllTargetDomains(domain.getId());
         }
@@ -112,7 +112,7 @@ public class EntityController {
 
     @IsAdmin
     @IsUser
-    @Operation(summary = "Create (or update) entities in app with appid")
+    @Operation(summary = "Create entities in app with appid")
     @PostMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> saveAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         return updateAllByApp(appId, dtos);
@@ -120,7 +120,7 @@ public class EntityController {
 
     @IsAdmin
     @IsUser
-    @Operation(summary = "Create (or update) entities in app with appid")
+    @Operation(summary = "Update entities in app with appid")
     @PutMapping(value = "/all-by-app/{appId}")
     public List<EntityDto> updateAllByApp(@PathVariable("appId") Long appId, @Valid @RequestBody List<EntityDto> dtos) {
         for (EntityDto dto : dtos) {

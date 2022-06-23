@@ -9,23 +9,31 @@ import PropTypes from "prop-types";
 import EntityDiagramStyles from "./EntityDiagramStyles";
 import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
-import Statement from "../../../../commons/statement/Statement";
+import EnumDialog from "../enumDialog/EnumDialog";
+import EnumCard from "../enumCard/EnumCard";
+import {Statement} from "@starwit/react-starwit";
 import EntityRest from "../../../../services/EntityRest";
-import AddFabButton from "../../../../commons/buttons/addFabButton/AddFabButton";
+import EnumRest from "../../../../services/EnumRest";
+import {enumDefault, updateEnumInList, updateEnumPosition} from "../../../../modifiers/EnumModifier";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
 import {useTheme} from "@mui/styles";
+import EntityDiagramButton from "../entityDiagramButton/EntityDiagramButton";
 
 function EntityDiagram(props) {
-    const {appId, editable, entities, dense, onChange} = props;
+    const {appId, entities, enums, editable, dense, onChangeEntities, onChangeEnums} = props;
 
     const entityDiagramStyles = EntityDiagramStyles();
-    const theme = new useTheme();
+    const theme = useTheme();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [selectedEntityId, setSelectedEntityId] = useState(null);
     const [coordinates, setCoordinates] = useState([]);
     const entityRest = useMemo(() => new EntityRest(), []);
     const [openEntityDialog, setOpenEntityDialog] = useState(false);
+
+    const [selectedEntityId, setSelectedEntityId] = useState(null);
+    const [selectedEnum, setSelectedEnum] = useState(null);
+    const enumRest = useMemo(() => new EnumRest(), []);
+    const [openEnumDialog, setOpenEnumDialog] = useState(false);
 
     const {t} = useTranslation();
 
@@ -35,6 +43,11 @@ function EntityDiagram(props) {
 
     function addEntity() {
         setOpenEntityDialog(true);
+    }
+
+    function addEnum() {
+        setSelectedEnum(enumDefault);
+        setOpenEnumDialog(true);
     }
 
     function openDrawer() {
@@ -64,14 +77,40 @@ function EntityDiagram(props) {
         return entityRest.updatePositionByApp(appId, entity);
     }
 
+    function deleteEnum(enumId) {
+        if (!editable) {
+            return;
+        }
+        return enumRest.delete(enumId)
+            .then(reloadEnums);
+    }
+
+    function updateEnum(enumDef) {
+        if (!editable) {
+            return;
+        }
+        return enumRest.createByApp(appId, enumDef).then(reloadEnums);
+    }
+
     function reloadEntities() {
         if (!editable) {
             return;
         }
         return entityRest.findAllEntitiesByApp(appId).then(response => {
             const newEntities = response.data;
-            onChange(newEntities);
+            onChangeEntities(newEntities);
             return newEntities;
+        });
+    }
+
+    function reloadEnums() {
+        if (!editable) {
+            return;
+        }
+        return enumRest.findAllByApp(appId).then(response => {
+            const newEnums = response.data;
+            onChangeEnums(newEnums);
+            return newEnums;
         });
     }
 
@@ -79,20 +118,26 @@ function EntityDiagram(props) {
         if (!editable) {
             return;
         }
-        const createEntity = updateEntity(updatedEntity).then(reloadEntities);
-        return createEntity;
+        return updateEntity(updatedEntity).then(reloadEntities);
     }
 
     function savePosition(entity, index, draggableData) {
         const updatedEntity = updatePosition(entity, draggableData);
         const newEntities = [...entities];
         newEntities[index] = updatedEntity;
-        onChange(newEntities);
+        onChangeEntities(newEntities);
         updatePositionInDB(updatedEntity);
     }
 
+    function saveEnumPosition(enums, enumDef, index, draggableData) {
+        const enumToUpdate = updateEnumPosition(enumDef, draggableData);
+        const enumList = updateEnumInList(enums, enumToUpdate, index);
+        updateEnum(enumToUpdate);
+        return enumList;
+    }
+
     function renderEntities() {
-        if (entities.length === 0) {
+        if (entities.length === 0 && enums.length === 0 ) {
             return <Statement message={t("app.entities.empty")}/>;
         }
         return entities.map((entity, index) => {
@@ -105,21 +150,54 @@ function EntityDiagram(props) {
             }
 
             return (
-                    <Draggable
-                            axis={"both"}
-                            onStop={(update, draggableData) => {
-                                savePosition(entity, index, draggableData);
-                            }}
-                            key={entity.id + index + ""}
-                            defaultClassName={entityDiagramStyles.draggable}
-                            position={entityCardPosition}
-                            disabled={!editable}
-                    >
-                        <div>
-                            <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
-                                        editable={editable}/>
-                        </div>
-                    </Draggable>
+                <Draggable
+                    axis={"both"}
+                    onStop={(update, draggableData) => {
+                        savePosition(entity, index, draggableData);
+                    }}
+                    key={entity.id + index + ""}
+                    defaultClassName={entityDiagramStyles.draggable}
+                    position={entityCardPosition}
+                    disabled={!editable}
+                >
+                    <div>
+                        <EntityCard entity={entity} onEdit={setSelectedEntityId} handleDelete={deleteEntity}
+                            editable={editable}/>
+                    </div>
+                </Draggable>
+            );
+        });
+    }
+
+    function renderEnums() {
+        if (entities.length === 0 && enums.length === 0 ) {
+            return;
+        }
+        return enums.map((enumDef, index) => {
+            const enumDefPostiton = {x: 0, y: 0};
+
+            if (enumDef.position) {
+                const {positionX, positionY} = enumDef.position;
+                enumDefPostiton.x = positionX;
+                enumDefPostiton.y = positionY;
+            }
+
+            return (
+                <Draggable
+                    axis={"both"}
+                    onStop={(update, draggableData) => {
+                        onChangeEnums(saveEnumPosition(enums, enumDef, index, draggableData));
+                    }}
+                    key={enumDef.id + index + ""}
+                    defaultClassName={entityDiagramStyles.draggable}
+                    position={enumDefPostiton}
+                    disabled={!editable}
+                >
+                    <div>
+                        <EnumCard enumDef={enumDef} onEdit={setSelectedEnum} handleDelete={deleteEnum}
+                            editable={editable}/>
+                    </div>
+                </Draggable>
             );
         });
     }
@@ -130,7 +208,7 @@ function EntityDiagram(props) {
         }
 
         return (
-            <AddFabButton onClick={addEntity}/>
+            <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
         );
     }
 
@@ -146,6 +224,11 @@ function EntityDiagram(props) {
         setSelectedEntityId(null);
     }
 
+    function closeEnumDialog() {
+        setOpenEnumDialog(false);
+        setSelectedEnum(null);
+    }
+
     function centerEntities() {
         if (!editable) {
             return;
@@ -156,7 +239,7 @@ function EntityDiagram(props) {
             newEntities[index] = updatedEntity;
             updatePositionInDB(updatedEntity);
         });
-        onChange(newEntities);
+        onChangeEntities(newEntities);
     }
 
     function renderCenterButton() {
@@ -197,12 +280,13 @@ function EntityDiagram(props) {
                             className: entityDiagramStyles.syntaxHighlighterCodeTag
                         }}
                     >
-                        {JSON.stringify(entities, null, 4)}
+                        {JSON.stringify({entities: entities, enums: enums}, null, 4)}
                     </SyntaxHighlighter>
                 </Drawer>
             </React.Fragment>
             <div className={generateWrapper()}>
                 {renderEntities()}
+                {renderEnums()}
                 {renderRelations(coordinates, theme)}
             </div>
             <EntityDialog
@@ -210,14 +294,23 @@ function EntityDiagram(props) {
                 onClose={closeEntityDialog}
                 handleSave={data => prepareUpdateEntity(data)}
                 entities={entities}
+                enums={enums}
                 open={openEntityDialog}
+            />
+            <EnumDialog
+                enumDef={selectedEnum}
+                onClose={closeEnumDialog}
+                handleSave={data => updateEnum(data)}
+                open={openEnumDialog}
             />
         </>
     );
 }
 
 EntityDiagram.propTypes = {
+    appId: PropTypes.number,
     entities: PropTypes.array,
+    enums: PropTypes.array,
     editable: PropTypes.bool,
     dense: PropTypes.bool
 };
@@ -225,6 +318,7 @@ EntityDiagram.propTypes = {
 EntityDiagram.defaultProps = {
     editable: true,
     entities: [],
+    enums: [],
     dense: false
 };
 

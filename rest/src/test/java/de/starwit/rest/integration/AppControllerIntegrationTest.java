@@ -18,13 +18,14 @@ import de.starwit.TestdataConstants;
 import de.starwit.dto.AppDto;
 import de.starwit.mapper.AppMapper;
 import de.starwit.mapper.EntityMapper;
+import de.starwit.mapper.EnumMapper;
 import de.starwit.mapper.FieldMapper;
 import de.starwit.persistence.entity.App;
 import de.starwit.rest.controller.AppController;
 import de.starwit.service.impl.AppService;
 
 @WebMvcTest(controllers = AppController.class)
-@Import({ AppMapper.class, EntityMapper.class, FieldMapper.class })
+@Import({ AppMapper.class, EntityMapper.class, FieldMapper.class, EnumMapper.class })
 public class AppControllerIntegrationTest extends AbstractControllerIntegrationTest<AppDto> {
 
     final static Logger LOG = LoggerFactory.getLogger(AppControllerIntegrationTest.class);

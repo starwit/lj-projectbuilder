@@ -2,10 +2,9 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Container, Grid} from "@mui/material";
 import AppTemplateSelectCard from "../appTemplateSelectCard/AppTemplateSelectCard";
 import AppTemplateRest from "../../../services/AppTemplateRest";
-import LoadingSpinner from "../../../commons/loadingSpinner/LoadingSpinner";
-import Statement from "../../../commons/statement/Statement";
 import {Clear} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
+import {LoadingSpinner, Statement} from "@starwit/react-starwit";
 
 function AppTemplateSelection(props) {
     const {onChange, value} = props;
