@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.2...v0.3.3) (2022-06-24)
+
+
+### Features
+
+* AB[#239](https://github.com/starwit/lj-projectbuilder/issues/239) Add Hosted Documentation ([#309](https://github.com/starwit/lj-projectbuilder/issues/309)) ([c22cfad](https://github.com/mokkapps/changelog-generator-demo/commits/c22cfadcdfc9203cbb2d041b229c905d771b0572)), closes [ab#261](https://github.com/starwit/ab/issues/261) [#322](https://github.com/starwit/lj-projectbuilder/issues/322) [AB#261](https://github.com/starwit/AB/issues/261) [AB#261](https://github.com/starwit/AB/issues/261) [AB#261](https://github.com/starwit/AB/issues/261)
+* AB[#293](https://github.com/starwit/lj-projectbuilder/issues/293) Add enums to codeview ([#333](https://github.com/starwit/lj-projectbuilder/issues/333)) ([5da32ec](https://github.com/mokkapps/changelog-generator-demo/commits/5da32eca9e3a3aa89a7eac008e97b5832e0b82e1))
+* add Enum to Entity - ab[#246](https://github.com/starwit/lj-projectbuilder/issues/246) enums frontend ([#326](https://github.com/starwit/lj-projectbuilder/issues/326)) ([71b7635](https://github.com/mokkapps/changelog-generator-demo/commits/71b7635a8caa79bdf6f213f33fdf44a6e368c76f))
+* add enums backend ([d55039a](https://github.com/mokkapps/changelog-generator-demo/commits/d55039ab0335d29c4886ef717a39a86f717a0501))
+* add position to enum ([5813377](https://github.com/mokkapps/changelog-generator-demo/commits/5813377b2dc9e426dbc985655250a4651c7cca81))
+* adjust keycloak design for prod ([#321](https://github.com/starwit/lj-projectbuilder/issues/321), ab[#256](https://github.com/starwit/lj-projectbuilder/issues/256)) ([f5a688f](https://github.com/mokkapps/changelog-generator-demo/commits/f5a688f02ac27dfeef9cb6e6fb856b7674efbade))
+* development & deployment documentation ab[#259](https://github.com/starwit/lj-projectbuilder/issues/259) ([609c43d](https://github.com/mokkapps/changelog-generator-demo/commits/609c43d2fd1f9944df0d1d103b5894186b492c0c))
+* Enum added to Entity field selection ([aafd46b](https://github.com/mokkapps/changelog-generator-demo/commits/aafd46b0c2f6929bad38ef677aa7a091d58b0feb))
+* Enum added to Entity field selection ([#327](https://github.com/starwit/lj-projectbuilder/issues/327)) ([ba5f743](https://github.com/mokkapps/changelog-generator-demo/commits/ba5f743107ce5cf503ce454134b065c4c5768028))
+
+
+### Bug Fixes
+
+* AB[#295](https://github.com/starwit/lj-projectbuilder/issues/295) Increase max length of git branch names ([#334](https://github.com/starwit/lj-projectbuilder/issues/334)) ([0b86558](https://github.com/mokkapps/changelog-generator-demo/commits/0b865586b0dd4f8ecc7a5220595a402724d6c4d8))
+
 ### [0.3.2](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.2-0...v0.3.2) (2022-05-02)
 
 
