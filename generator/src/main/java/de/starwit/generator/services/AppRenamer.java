@@ -102,7 +102,9 @@ public class AppRenamer {
     private void renameFiles(String oldAppName, String newAppName, File directory) throws NotificationException {
         Collection<File> files = FileUtils.listFiles(directory, EXT, true);
         for (File file : files) {
-            renameFileContent(oldAppName, newAppName, file);
+            if (!("package.json").equals(file.getName())) {
+                renameFileContent(oldAppName, newAppName, file);
+            }
         }
     }
 
