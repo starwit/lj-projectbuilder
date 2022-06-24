@@ -27,7 +27,11 @@ Git-Repository: https://github.com/starwit/reacthook-spring-template.git
 Branch: main
 Group: public
 
-![add new template](imgs/template/addNewTemplate.png)
+![add new template](imgs/template/addNewTemplate.png).
+
+After adding the template, you have to load the template configuration into the database. Press "Refresh from Git-Repo"
+
+
 
 # How to load existing Template
 
