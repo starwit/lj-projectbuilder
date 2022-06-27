@@ -193,7 +193,7 @@ const entityFields = [
 
 | Name        | Type | Description     |
 | ------------|-------------| -------------|
-| name | String |
+| name | String | enum name |
 | value | String | comma separated list of enum values |
 | selectList | array of Strings | selection possibilities for UI |
 | position | Position | position on the entity-relationship diagram. Should not be needed for templates |
