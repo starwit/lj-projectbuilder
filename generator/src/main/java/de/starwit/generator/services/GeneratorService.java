@@ -148,14 +148,14 @@ public class GeneratorService {
      */
     protected void generatePath(Map<String, Object> data, TemplateFile templateFile) throws NotificationException {
         String targetPath = templateFile.getTargetPath();
-        if (!targetPath.startsWith(Constants.APP_HOME)) {
+        if (!targetPath.startsWith(Constants.APP_HOME) || targetPath.startsWith(Constants.PROJECT_HOME)) {
             targetPath = Constants.TARGET_PATH_PREFIX + targetPath;
         }
         String concreteTargetPath = generatePathWithFreemarker(data, targetPath);
         templateFile.setConcreteTargetPath(concreteTargetPath);
 
         String templatePath = templateFile.getTemplatePath();
-        if (!templatePath.startsWith(Constants.APP_HOME)) {
+        if (!targetPath.startsWith(Constants.APP_HOME) || targetPath.startsWith(Constants.PROJECT_HOME)) {
             templatePath = Constants.TEMPLATE_PATH_PREFIX + templatePath;
         }
         String contreteTemplatePath = generatePathWithFreemarker(data, templatePath);
