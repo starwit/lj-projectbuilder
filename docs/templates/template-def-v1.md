@@ -1,3 +1,10 @@
+---
+layout: page
+title: Template Definition Version 1
+permalink: /template-version-1/
+parent: Templates
+---
+
 # Template Definition Version 1 <sup>depricated</sup>
 
 The following objects can be used in template files.

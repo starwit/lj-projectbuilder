@@ -1,3 +1,10 @@
+---
+layout: page
+title: Template Definition Version 2
+permalink: /template-version-2/
+parent: Templates
+---
+
 # Template Definition Version 2
 
 The following objects can be used in template files. See also https://pb.starwit.de/ljprojectbuilder/swagger-ui.html
@@ -25,7 +32,7 @@ ${import}
 | ------------- |-------------| -------------|
 | targetPath | String | directory where the template is checked out  |
 | baseName | String | name of the app |
-| template | AppTemplate | app template used - not used in templates |  |
+| template | AppTemplate | app template used - not used in templates |
 | packageName | String | you can choose a package name which will be included in the Java-package path |
 | entities | Array of EntityDto | entities   |
 | enums | Array of EnumDTo | enums   |
