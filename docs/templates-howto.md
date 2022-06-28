@@ -1,12 +1,12 @@
 ---
 layout: page
 title: Templates
+has_children: true
 permalink: /templates/
 nav_order: 3
 ---
 
 # How To for Templates
-[Back](../README.md)
 
 - [How load existing Templates](#how-to-load-existing-templates)
 - [How to Create a Template](#how-to-create-an-own-template)
@@ -132,8 +132,8 @@ definition on https://pb.starwit.de/ljprojectbuilder/swagger-ui.html
 ## Write Template Files
 
 There are several objects you can use inside template files. The definition of these objects and implementation examples can be found here:
-* [version 1 <sup>depricated</sup>](template-def-v1.md)
-* [version 2](template-def-v2.md)
+* [version 1 <sup>depricated</sup>](templates/template-def-v1.md)
+* [version 2](templates/template-def-v2.md)
 
 ## Test Templates
 ### 1. Create a App
