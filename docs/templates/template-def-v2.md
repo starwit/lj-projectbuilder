@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Template Definition Version 2
+title: Version 2
 permalink: /template-version-2/
 parent: Templates
 ---
@@ -91,7 +91,7 @@ As shown in the example above, field is used in comination with a domain.
 #### **Example**
 
 Java
-```Java
+```java
 <#if entity.fields??>
     // entity fields
   <#list (entity.fields) as field>
@@ -131,7 +131,7 @@ Relation between two entities. They are saved bidirectional. If you create one r
 #### **Example**
 
 Java
-```Java
+```java
 <#if entity.relationships??>
     // entity relations
   <#list (entity.relationships) as relation>
@@ -170,7 +170,7 @@ Enums are added to the generator as "enumDefs" and contains directly to app conf
 #### **Example**
 
 Java
-```Java
+```java
         <#if field.fieldType == "Enum">
     @Enumerated(EnumType.STRING)
     @Column(name = "${field.fieldName?upper_case}"<#if field.required>, nullable = false</#if>)
@@ -179,7 +179,7 @@ Java
     private ${field.enumDef.name} ${field.fieldName};
 ```
 JavaScript
-```JavaScript
+```javascript
 const entityFields = [
 <#if entity.fields??>
 <#list (entity.fields) as field>

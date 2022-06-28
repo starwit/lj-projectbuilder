@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Template Definition Version 1
+title: Version 1
 permalink: /template-version-1/
 parent: Templates
 ---
