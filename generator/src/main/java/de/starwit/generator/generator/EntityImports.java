@@ -101,6 +101,9 @@ public class EntityImports {
                 || RelationshipType.ManyToMany.equals(relation.getRelationshipType())) {
             imports.add("import java.util.Set;");
         }
+        if (RelationshipType.ManyToOne.equals(relation.getRelationshipType())) {
+            imports.add("import com.fasterxml.jackson.annotation.JsonIgnore;");
+        }
         if (RelationshipType.OneToOne.equals(relation.getRelationshipType()) &&
                 relation.isOwnerSide()) {
             imports.add("import javax.persistence.CascadeType;");
