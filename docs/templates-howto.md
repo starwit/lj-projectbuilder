@@ -1,3 +1,9 @@
+---
+layout: page
+title: Templates
+permalink: /templates/
+nav_order: 3
+---
 
 # How To for Templates
 [Back](../README.md)

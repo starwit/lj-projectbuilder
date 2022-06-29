@@ -11,10 +11,10 @@ import EntityDialog from "../entityDialog/EntityDialog";
 import EntityCard from "../entityCard/EntityCard";
 import EnumDialog from "../enumDialog/EnumDialog";
 import EnumCard from "../enumCard/EnumCard";
-import Statement from "../../../../commons/statement/Statement";
+import {Statement} from "@starwit/react-starwit";
 import EntityRest from "../../../../services/EntityRest";
 import EnumRest from "../../../../services/EnumRest";
-import {updateEnumInList, updateEnumPosition, enumDefault} from "../../../../modifiers/EnumModifier";
+import {enumDefault, updateEnumInList, updateEnumPosition} from "../../../../modifiers/EnumModifier";
 import {renderRelations, updateRelationCoordinates} from "../HandleRelations";
 import {updatePosition} from "../DefaultEntities";
 import {useTheme} from "@mui/styles";
@@ -208,9 +208,7 @@ function EntityDiagram(props) {
         }
 
         return (
-            <>
-                <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
-            </>
+            <EntityDiagramButton handleEntityEdit={addEntity} handleEnumEdit={addEnum}/>
         );
     }
 
@@ -282,7 +280,7 @@ function EntityDiagram(props) {
                             className: entityDiagramStyles.syntaxHighlighterCodeTag
                         }}
                     >
-                        {JSON.stringify(entities, null, 4)}
+                        {JSON.stringify({entities: entities, enums: enums}, null, 4)}
                     </SyntaxHighlighter>
                 </Drawer>
             </React.Fragment>

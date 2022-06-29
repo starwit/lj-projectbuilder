@@ -13,24 +13,21 @@ import {
     Typography
 } from "@mui/material";
 import {Add, Close} from "@mui/icons-material";
-import LoadingSpinner from "../../../../commons/loadingSpinner/LoadingSpinner";
 import FieldAccordion from "../fieldAccordion/FieldAccordion";
 import RelationshipAccordion from "../relationshipAccordion/RelationshipAccordion";
 import EntityDialogStyles from "./EntityDialogStyles";
-import TabPanel from "../../../../commons/tabPanel/TabPanel";
-import Statement from "../../../../commons/statement/Statement";
+import {LoadingSpinner, TabPanel, Statement, ValidatedTextField} from "@starwit/react-starwit";
 import {useTranslation} from "react-i18next";
-import ValidatedTextField from "../../../../commons/inputFields/validatedTextField/ValidatedTextField";
 import RegexConfig from "../../../../../regexConfig";
 import {LoadingButton} from "@mui/lab";
 import {
-    emptyEntity,
-    newEntity,
     addFieldToEntity,
     addRelationshipToEntity,
-    toDatabaseEntity,
+    emptyEntity,
     initEntity,
-    lowerFirstChar
+    lowerFirstChar,
+    newEntity,
+    toDatabaseEntity
 } from "../DefaultEntities";
 import FieldTypes from "./FieldTypes";
 import {useImmer} from "use-immer";
