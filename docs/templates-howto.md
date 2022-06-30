@@ -122,7 +122,7 @@ In order to have domain-specific files, you additionally have to add them to `te
 
 The following substitutions are valid in template path:
 
-* `app` (or `project`<sup>depricated</sup>): all properties of the app defined in ProjectBuilder. See AppDto definition on https://pb.starwit.de/ljprojectbuilder/swagger-ui.html or definitions below
+* `app` (or `project`<sup>deprecated</sup>): all properties of the app defined in ProjectBuilder. See AppDto definition on https://pb.starwit.de/ljprojectbuilder/swagger-ui.html or definitions below
 * `apphome` (or `projecthome`<sup>depricated</sup>): if templatepath starts with ${apphome} or ${projecthome}, you can define a special targetPath, otherwise `${apphome}/${app.targetPath}/${app.baseName}/"`
 * `entity.name`: entity name defined in entity-relationship diagram
 * `enumDef.name`: name of the enum defined in entity-relationship diagram
