@@ -132,7 +132,7 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
                 .content(applicationString);
 
         MockHttpServletResponse response = mvc.perform(builder)
-                .andReturn().getResponse();
+            .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
@@ -147,7 +147,7 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
                 .content(applicationString);
 
         MockHttpServletResponse response = mvc.perform(builder)
-                .andReturn().getResponse();
+            .andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
         LOG.info(response.getContentAsString());
@@ -156,9 +156,9 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
 
     protected MockHttpServletResponse retrieveById(Long id) throws Exception {
         MockHttpServletResponse response = mvc.perform(
-                get(getRestPath() + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+        get(getRestPath() + id)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
@@ -166,10 +166,10 @@ public abstract class AbstractControllerAcceptanceTest<DTO extends AbstractEntit
 
     protected MockHttpServletResponse delete(Long id) throws Exception {
         MockHttpServletResponse response = mvc.perform(
-                MockMvcRequestBuilders.delete(getRestPath() + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn().getResponse();
+            MockMvcRequestBuilders.delete(getRestPath() + id)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn().getResponse();
 
         LOG.info(response.getContentAsString());
         return response;
