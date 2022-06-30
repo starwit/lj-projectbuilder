@@ -16,7 +16,7 @@ nav_order: 3
 
 In order to start with templating, you can use an already existing template. A default react template can be found [here](https://github.com/starwit/reacthook-spring-template).
 
-1. If it is not already existing, you have to add it to the ProjectBuilder.
+1. If not already done, add your Template to ProjectBuilder.
 
     * You can find the menu-item TEMPLATES in the header menu. It opens a list of all registered templates.
     * Check, if the following template configuration already exists:
