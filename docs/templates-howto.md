@@ -18,7 +18,7 @@ In order to start with templating, you can use an already existing template. A d
 
 1. If not already done, add your Template to ProjectBuilder.
 
-    * You can find the menu-item TEMPLATES in the header menu. It opens a list of all registered templates.
+    * You can find the menu-item `TEMPLATES` in the header menu. It opens a list of all registered templates.
     * Check, if the following template configuration already exists:
         ```
         Git-Repository: https://github.com/starwit/reacthook-spring-template.git
