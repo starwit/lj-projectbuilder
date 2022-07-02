@@ -44,6 +44,10 @@ spec:
               value: /{{ include "ljprojectbuilder.fullname" . }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{.Values.global.keycloak.authServerUrl}}
+            - name: SERVER_USE_FORWARD_HEADERS 
+              value: "true"
+            - name: SERVER_FORWARD_HEADERS_STRATEGY
+              value: FRAMEWORK
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
