@@ -11,12 +11,12 @@ import {BrowserTracing} from "@sentry/tracing";
 import * as Sentry from "@sentry/react";
 
 Sentry.init({
-    dsn: "[ENTER DSN KEY HERE!]",
+    dsn: "https://89ae8cc61d2545a2a88021f96a433b43@o1305630.ingest.sentry.io/6548197",
     integrations: [new BrowserTracing()],
 
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 0.75,
     enabled: process.env.NODE_ENV !== "development"
 });
 
