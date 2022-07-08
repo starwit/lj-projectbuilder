@@ -16,7 +16,7 @@ ENV SENTRY_ENVIRONMENT=__SENTRY_ENVIRONMENT_HERE__
 
 # Replace env var placeholders before running
 ADD entrypoint.sh ./
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/home/ljprojectbuilder/entrypoint.sh"]
 
 RUN cd /home/${USER}
 RUN ls -al
