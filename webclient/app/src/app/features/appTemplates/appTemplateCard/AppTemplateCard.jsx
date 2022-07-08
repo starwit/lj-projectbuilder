@@ -27,8 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
 import AppTemplateRest from "../../../services/AppTemplateRest";
 import GitRest from "../../../services/GitRest";
-import ConfirmationDialog from "../../../commons/confirmationDialog/ConfirmationDialog";
-import GitDataButton from "../../../commons/buttons/gitDownloadButton/GitDataButton";
+import {ConfirmationDialog, GitDataButton} from "@starwit/react-starwit";
 import {useSnackbar} from "notistack";
 
 const ExpandMore = styled(props => {

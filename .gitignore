@@ -17,3 +17,8 @@ rest/src/test/actual.json
 rest/src/test/test.json
 generator/.factorypath
 webclient/app/package-lock.json
+node_modules/.package-lock.json
+package-lock.json
+node_modules/@starwit/react-starwit
+helm/ljprojectbuilder/user-values.yaml
+test.log

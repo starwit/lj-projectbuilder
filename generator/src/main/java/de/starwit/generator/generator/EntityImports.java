@@ -89,7 +89,8 @@ public class EntityImports {
         // imports.add("import javax.persistence.FetchType;");
 
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) ||
-                RelationshipType.ManyToOne.equals(relation.getRelationshipType())) {
+                RelationshipType.ManyToOne.equals(relation.getRelationshipType()) ||
+                RelationshipType.OneToOne.equals(relation.getRelationshipType())) {
             imports.add("import javax.persistence.JoinColumn;");
         }
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) &&

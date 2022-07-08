@@ -84,13 +84,13 @@ public class EnumController {
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
-    public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
+    public ResponseEntity<NotificationDto> handleException(EntityNotFoundException ex) {
         NotificationDto output = new NotificationDto("error.entity.notfound", "Enum not found.");
         return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { WrongAppIdException.class })
-    public ResponseEntity<Object> handleException(WrongAppIdException ex) {
+    public ResponseEntity<NotificationDto> handleException(WrongAppIdException ex) {
         LOG.info(ex.getMessage());
         NotificationDto output = new NotificationDto("error.wrongAppId", ex.getMessage());
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
