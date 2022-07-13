@@ -20,3 +20,5 @@ webclient/app/package-lock.json
 node_modules/.package-lock.json
 package-lock.json
 node_modules/@starwit/react-starwit
+helm/ljprojectbuilder/user-values.yaml
+test.log

@@ -131,7 +131,8 @@ public class AppControllerAcceptanceTest extends AbstractControllerAcceptanceTes
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"entities[0].name\":\"must not be blank\"}");
+        assertThat(response.getContentAsString()).isEqualTo(
+                "{\"messageKey\":\"error.methodArgumentNotValid\",\"message\":\"{entities[0].name=must not be blank}\"}");
     }
 
     @Test

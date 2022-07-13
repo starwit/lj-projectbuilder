@@ -33,14 +33,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler(value = { Exception.class })
-    public ResponseEntity<Object> handleException(Exception ex) {
+    public ResponseEntity<NotificationDto> handleException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
         NotificationDto output = new NotificationDto("error.internalServerError", "Internal Server Error");
         return new ResponseEntity<>(output, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = { InvalidDefinitionException.class })
-    public ResponseEntity<Object> handleInvalidDefinitionException(Exception ex) {
+    public ResponseEntity<NotificationDto> handleInvalidDefinitionException(Exception ex) {
         LOG.error(ex.getClass() + " " + ex.getMessage(), ex.fillInStackTrace());
         String outputString = "Invalid Definition: " + ex.getMessage() + ".";
         NotificationDto output = new NotificationDto("error.invalidDefinition", outputString);
@@ -48,14 +48,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { Unauthorized.class })
-    public ResponseEntity<Object> handleUnauthorizedException(Unauthorized ex) {
+    public ResponseEntity<NotificationDto> handleUnauthorizedException(Unauthorized ex) {
         LOG.info("Unauthorized Exception: {}", ex.getMessage());
         NotificationDto output = new NotificationDto("error.unauthorized", "Unauthorized requests");
         return new ResponseEntity<>(output, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
-    public ResponseEntity<Object> handleException(MethodArgumentTypeMismatchException ex) {
+    public ResponseEntity<NotificationDto> handleException(MethodArgumentTypeMismatchException ex) {
         LOG.info("Wrong input value {}", ex.getMessage());
         Object exValue = ex.getValue();
         Class<?> exType = ex.getRequiredType();
@@ -69,14 +69,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { NotificationException.class })
-    public ResponseEntity<Object> handleException(NotificationException ex) {
+    public ResponseEntity<NotificationDto> handleException(NotificationException ex) {
         LOG.info("Wrong input value {}", ex.getMessage());
         NotificationDto output = new NotificationDto(ex.getExceptionKey(), ex.getExceptionMessage());
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = { InvalidDataAccessApiUsageException.class })
-    public ResponseEntity<Object> handleException(InvalidDataAccessApiUsageException ex) {
+    public ResponseEntity<NotificationDto> handleException(InvalidDataAccessApiUsageException ex) {
         LOG.info("{} Check if there is an ID declared while object shoud be created.", ex.getMessage());
         NotificationDto output = new NotificationDto("error.badrequest",
                 ex.getMessage() + " Check if there is an unvalid ID declared while object shoud be created.");
@@ -84,21 +84,21 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })
-    public ResponseEntity<Object> handleException(EntityNotFoundException ex) {
+    public ResponseEntity<NotificationDto> handleException(EntityNotFoundException ex) {
         LOG.info("Entity not found Exception: {}", ex.getMessage());
         NotificationDto output = new NotificationDto("error.notfound", "Entity not found");
         return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { EmptyResultDataAccessException.class })
-    public ResponseEntity<Object> handleException(EmptyResultDataAccessException ex) {
+    public ResponseEntity<NotificationDto> handleException(EmptyResultDataAccessException ex) {
         LOG.info(ex.getMessage());
         NotificationDto output = new NotificationDto("error.notexists", "Does not exists and cannot be deleted.");
         return new ResponseEntity<>(output, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { AccessDeniedException.class })
-    public ResponseEntity<Object> handleException(AccessDeniedException ex) {
+    public ResponseEntity<NotificationDto> handleException(AccessDeniedException ex) {
         LOG.info(ex.getMessage());
         NotificationDto output = new NotificationDto("error.accessdenied", "access denied");
         output.setMessageKey("error.accessdenied");
@@ -106,7 +106,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { ObjectOptimisticLockingFailureException.class })
-    public ResponseEntity<Object> handleException(ObjectOptimisticLockingFailureException ex) {
+    public ResponseEntity<NotificationDto> handleException(ObjectOptimisticLockingFailureException ex) {
         LOG.info(ex.getMessage());
         // this is on purpose. optimistic locks cannot be prevented
         NotificationDto output = new NotificationDto("error.optimisticLock", "Parallel saving to the database");
@@ -116,7 +116,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
-
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
 
@@ -124,7 +123,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);
         });
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+
+        NotificationDto output = new NotificationDto("error.methodArgumentNotValid", errors.toString());
+        return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 
 }

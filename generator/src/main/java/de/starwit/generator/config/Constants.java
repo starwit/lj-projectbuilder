@@ -15,6 +15,7 @@ public class Constants {
     public static final String DEFAULT_BRANCH = "main";
     public static final String TEMPLATE_CONFIG = "template-config.json";
     public static final String APP_HOME = "${apphome}";
+    public static final String PROJECT_HOME = "${projecthome}";
     /** deletion of temp files older than 1 minute **/
     public static final long MILLISECONDS_UNTIL_DELETION = 1 * 60 * 1000;
     public static final String GIT_URL_REGEX = "^(?:git|ssh|https?|git@[-w.]+):(//)?([a-zA-Z0-9./_-]{2,100})(.git)$";

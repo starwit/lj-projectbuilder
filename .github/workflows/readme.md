@@ -9,4 +9,4 @@ Workflows for software quality check, build, packaging, and release creation wer
     * :bangbang: If you are executing patch or higher release on another branch than main, release numbering might get broken.
 * **codeql-analysis.yml:** to ensure code quality, the code is checked for build errors, linting and security issues
 
-Code-analysis and build publish scripts are executed at each pull request change to develop. Code-analysis is additionally executed each Sunday at 23:30.
+Code-analysis and buildpublish scripts are executed at each pull request change to develop. Code-analysis is additionally executed each sunday at 23:30.

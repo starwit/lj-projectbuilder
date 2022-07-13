@@ -8,12 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-/**
- * AbstractEntity as basis for all entities in Lirejarp-Spring projects
- *
- * @author Dennis Hooth (Volkswagen AG)
- * @since 12.03.2019 10:30
- */
 @MappedSuperclass
 public abstract class AbstractEntity<PK extends Serializable> {
 
