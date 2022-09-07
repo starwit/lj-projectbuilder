@@ -155,7 +155,7 @@ public class GeneratorService {
         templateFile.setConcreteTargetPath(concreteTargetPath);
 
         String templatePath = templateFile.getTemplatePath();
-        if (!targetPath.startsWith(Constants.APP_HOME) || targetPath.startsWith(Constants.PROJECT_HOME)) {
+        if (!templatePath.startsWith(Constants.APP_HOME) || templatePath.startsWith(Constants.PROJECT_HOME)) {
             templatePath = Constants.TEMPLATE_PATH_PREFIX + templatePath;
         }
         String contreteTemplatePath = generatePathWithFreemarker(data, templatePath);
@@ -187,7 +187,7 @@ public class GeneratorService {
         } catch (TemplateNotFoundException e) {
             String templateUrl = generatePathWithFreemarker(data, templateFile.getFileName());
             throw new NotificationException("error.generation.templatenotfound",
-                    "Template with path " + templateUrl + "not found", templateUrl);
+                    "Template with path " + templateUrl + " not found", templateUrl);
         } catch (FileNotFoundException e) {
             throw new NotificationException("error.generation.filenotfound", e.getMessage(),
                     templateFile.getTargetPath(), templateFile.getTemplatePath());
