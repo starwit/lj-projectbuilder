@@ -31,7 +31,6 @@ import de.starwit.service.impl.AppTemplateService;
 public class AppCheckout {
 
     final static Logger LOG = LoggerFactory.getLogger(AppCheckout.class);
-
     @Autowired
     private AppTemplateService appTemplateService;
 

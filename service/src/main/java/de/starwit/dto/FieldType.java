@@ -60,18 +60,6 @@ public enum FieldType {
     Timestamp(new FieldValidateRulesType[] {
             FieldValidateRulesType.required,
             FieldValidateRulesType.unique
-    }),
-    Timestamp(new FieldValidateRulesType[] {
-            FieldValidateRulesType.required,
-            FieldValidateRulesType.unique
-    }),
-    Time(new FieldValidateRulesType[] {
-            FieldValidateRulesType.required,
-            FieldValidateRulesType.unique
-    }),
-    Date(new FieldValidateRulesType[] {
-            FieldValidateRulesType.required,
-            FieldValidateRulesType.unique
     });
 
     private final FieldValidateRulesType[] validation;

@@ -1,26 +1,5 @@
 package de.starwit.generator.services;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import de.starwit.dto.AppDto;
 import de.starwit.generator.config.Constants;
 import de.starwit.generator.generator.EntityImports;
@@ -36,13 +15,23 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The generator connects configuration with templates and starts generation.
  *
- * @author anett
- *
  * @param <E> different configuration for frontend, backend and business
+ * @author anett
  */
 @Service
 public class GeneratorService {
@@ -62,30 +51,46 @@ public class GeneratorService {
     private AppRepository appRepository;
 
     public void generate(Long appId) throws NotificationException {
+        LOG.debug("Gathering data for generation");
+
         App app = appRepository.findById(appId).orElseThrow();
         Set<TemplateFile> templateFiles = app.getTemplate().getTemplateFiles();
         Collection<Domain> domains = app.getDomains();
         Collection<EnumDef> enums = app.getEnumDefs();
         Map<String, Object> templateData = fillTemplateGlobalParameter(app);
 
+        LOG.debug("Beginning to iterate through {} template files now...", templateFiles.size());
+
         for (TemplateFile templateFile : templateFiles) {
+            LOG.debug("Starting with template {}", templateFile.getFileName());
             if (templateFile.isAppend()) {
+                LOG.debug("{} is appending", templateFile.getFileName());
                 generatePath(templateData, templateFile);
                 generateAdditionalContent(templateData, templateFile);
             } else if (templateFile.getFileName().contains("${domain")
                     || templateFile.getFileName().contains("${entity")) {
+                LOG.debug("Filename contains domain or entity.");
+
                 for (Domain domain : domains) {
+                    LOG.debug("Iterating through Domain {}", domain.getName());
+
                     templateData.putAll(fillTemplateDomainParameter(domain));
                     generatePath(templateData, templateFile);
                     generateFileWithOverride(templateData, templateFile);
                 }
             } else if (templateFile.getFileName().contains("${enumDef")) {
+                LOG.debug("Filename contains enumDef");
+
                 for (EnumDef enumDef : enums) {
+                    LOG.debug("Iterating through Enum {}", enumDef);
+
                     templateData.putAll(fillTemplateEnumParameter(enumDef));
                     generatePath(templateData, templateFile);
                     generateFileWithOverride(templateData, templateFile);
                 }
             } else {
+                LOG.debug("Does not contain anything");
+
                 generatePath(templateData, templateFile);
                 generateFileWithOverride(templateData, templateFile);
             }
