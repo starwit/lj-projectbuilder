@@ -29,12 +29,6 @@ public enum FieldType {
             FieldValidateRulesType.max,
             FieldValidateRulesType.unique
     }),
-    Float(new FieldValidateRulesType[] {
-            FieldValidateRulesType.required,
-            FieldValidateRulesType.min,
-            FieldValidateRulesType.max,
-            FieldValidateRulesType.unique
-    }),
     Double(new FieldValidateRulesType[] {
             FieldValidateRulesType.required,
             FieldValidateRulesType.min,
