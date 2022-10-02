@@ -3,4 +3,8 @@ const appMenuItems = [
     {title: "apptemplates.title", link: "/apptemplates/all"}
 ];
 
-export {appMenuItems};
+const sentryConfiguration = {
+    tracesSampleRate: .75
+};
+
+export {appMenuItems, sentryConfiguration};

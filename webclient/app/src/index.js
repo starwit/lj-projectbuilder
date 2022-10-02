@@ -7,9 +7,11 @@ import {HashRouter as Router} from "react-router-dom";
 import "./localization/i18n";
 import {SnackbarProvider} from "notistack";
 import MainTheme from "./app/commons/mainTheme/MainTheme";
+import SentryInit from "./app/commons/sentryInit/SentryInit";
 
 ReactDOM.render((
     <Router>
+        <SentryInit/>
         <MainTheme>
             <SnackbarProvider maxSnack={5}>
                 <App/>
