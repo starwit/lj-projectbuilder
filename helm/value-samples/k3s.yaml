@@ -33,7 +33,6 @@ ingress:
   tls:
     - secretName: localhost-tls
       hosts:
-        - markus-desktop2
         - <<YOURHOSTNAME>>
 
 autoscaling:
