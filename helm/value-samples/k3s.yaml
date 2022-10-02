@@ -58,7 +58,7 @@ keycloak:
   ingress:
     enabled: true
     rules:
-      - host: markus-desktop2
+      - host: <<YOURHOSTNAME>>
         paths:
           - path: /auth
             pathType: Prefix
