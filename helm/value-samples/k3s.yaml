@@ -1,6 +1,6 @@
 global:
   keycloak:
-    authServerUrl: http://markus-desktop2/auth
+    authServerUrl: http://<<YOURHOSTNAME>>/auth
 
 replicaCount: 1
 
