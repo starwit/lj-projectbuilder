@@ -9,6 +9,8 @@
     "@mui/lab": "^5.0.0-alpha.63",
     "@mui/material": "^5.0.0",
     "@mui/styles": "^5.0.0",
+    "@sentry/react": "^7.1.1",
+    "@sentry/tracing": "^7.1.1",
     "@starwit/react-starwit": "0.0.6-6",
     "axios": "^0.24.0",
     "i18next": "^21.0.1",

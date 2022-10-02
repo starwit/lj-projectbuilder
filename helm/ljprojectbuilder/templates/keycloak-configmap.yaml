@@ -1,0 +1,137 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ .Release.Name }}-realm-json
+data:
+    realm.json: |-
+        {
+        "id": "projectbuilder",
+        "realm": "projectbuilder",
+        "enabled": true,
+        "roles": {
+            "realm": [
+            {
+                "name": "ROLE_user",
+                "composite": false,
+                "clientRole": false,
+                "containerId": "projectbuilder",
+                "attributes": {}
+            },
+            {
+                "name": "ROLE_admin",
+                "composite": false,
+                "clientRole": false,
+                "containerId": "projectbuilder",
+                "attributes": {}
+            },
+            {
+                "name": "ROLE_reader",
+                "composite": false,
+                "clientRole": false,
+                "containerId": "projectbuilder",
+                "attributes": {}
+            }
+            ],
+            "client": {
+            "projectbuilder": []
+            }
+        },
+        "groups": [
+            {
+            "name": "public",
+            "path": "/public",
+            "attributes": {},
+            "realmRoles": [
+                "ROLE_reader"
+            ],
+            "clientRoles": {},
+            "subGroups": []
+            }
+        ],
+        "defaultGroups": [
+            "/public"
+        ],
+        "clients": [
+            {
+            "clientId": "projectbuilder",
+            "name": "projectbuilder",
+            "rootUrl": "",
+            "baseUrl": "",
+            "surrogateAuthRequired": false,
+            "enabled": true,
+            "alwaysDisplayInConsole": false,
+            "clientAuthenticatorType": "client-secret",
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "+"
+            ],
+            "notBefore": 0,
+            "bearerOnly": false,
+            "consentRequired": false,
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": false,
+            "publicClient": true,
+            "frontchannelLogout": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "id.token.as.detached.signature": "false",
+                "saml.assertion.signature": "false",
+                "saml.force.post.binding": "false",
+                "saml.multivalued.roles": "false",
+                "saml.encrypt": "false",
+                "login_theme": "starwit",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "backchannel.logout.revoke.offline.tokens": "false",
+                "saml.server.signature": "false",
+                "saml.server.signature.keyinfo.ext": "false",
+                "use.refresh.tokens": "true",
+                "exclude.session.state.from.auth.response": "false",
+                "oidc.ciba.grant.enabled": "false",
+                "saml.artifact.binding": "false",
+                "backchannel.logout.session.required": "true",
+                "client_credentials.use_refresh_token": "false",
+                "saml_force_name_id_format": "false",
+                "require.pushed.authorization.requests": "false",
+                "saml.client.signature": "false",
+                "tls.client.certificate.bound.access.tokens": "false",
+                "saml.authnstatement": "false",
+                "display.on.consent.screen": "false",
+                "saml.onetimeuse.condition": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true,
+            "nodeReRegistrationTimeout": -1,
+            "protocolMappers": [
+                {
+                "name": "groups",
+                "protocol": "openid-connect",
+                "protocolMapper": "oidc-group-membership-mapper",
+                "consentRequired": false,
+                "config": {
+                    "full.path": "false",
+                    "id.token.claim": "false",
+                    "access.token.claim": "true",
+                    "claim.name": "groups",
+                    "userinfo.token.claim": "true"
+                }
+                }
+            ],
+            "defaultClientScopes": [
+                "web-origins",
+                "roles",
+                "profile",
+                "email"
+            ],
+            "optionalClientScopes": [
+                "address",
+                "phone",
+                "offline_access",
+                "microprofile-jwt"
+            ]
+            }
+        ]
+        }

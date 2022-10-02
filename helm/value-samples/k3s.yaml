@@ -1,0 +1,64 @@
+global:
+  keycloak:
+    authServerUrl: http://<<YOURHOSTNAME>>/auth
+
+replicaCount: 1
+
+image:
+  repository: starwitorg/ljprojectbuilder
+  tag: "v0.3.3"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: github-docker-pull
+nameOverride: ""
+fullnameOverride: ""
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8081
+
+ingress:
+  enabled: true
+  hosts:
+    - host: <<YOURHOSTNAME>>
+  tls:
+    - secretName: localhost-tls
+      hosts:
+        - <<YOURHOSTNAME>>
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+mariadb:
+  auth:
+    rootPassword: root
+    database: ljprojectbuilder
+    username: ljprojectbuilder
+    password: ljprojectbuilder
+
+keycloak:
+  extraEnv: |
+    - name: KEYCLOAK_USER
+      value: admin
+    - name: KEYCLOAK_PASSWORD
+      value: password
+  ingress:
+    enabled: true
+    rules:
+      - host: <<YOURHOSTNAME>>
+        paths:
+          - path: /auth
+            pathType: Prefix
