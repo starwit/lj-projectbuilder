@@ -29,12 +29,6 @@ public enum FieldType {
             FieldValidateRulesType.max,
             FieldValidateRulesType.unique
     }),
-    Float(new FieldValidateRulesType[] {
-            FieldValidateRulesType.required,
-            FieldValidateRulesType.min,
-            FieldValidateRulesType.max,
-            FieldValidateRulesType.unique
-    }),
     Double(new FieldValidateRulesType[] {
             FieldValidateRulesType.required,
             FieldValidateRulesType.min,
@@ -46,6 +40,18 @@ public enum FieldType {
             FieldValidateRulesType.unique
     }),
     Enum(new FieldValidateRulesType[] {
+            FieldValidateRulesType.required,
+            FieldValidateRulesType.unique
+    }),
+    Date(new FieldValidateRulesType[] {
+            FieldValidateRulesType.required,
+            FieldValidateRulesType.unique
+    }),
+    Time(new FieldValidateRulesType[] {
+            FieldValidateRulesType.required,
+            FieldValidateRulesType.unique
+    }),
+    Timestamp(new FieldValidateRulesType[] {
             FieldValidateRulesType.required,
             FieldValidateRulesType.unique
     });

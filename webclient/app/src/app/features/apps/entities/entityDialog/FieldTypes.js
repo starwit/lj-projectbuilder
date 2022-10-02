@@ -22,11 +22,6 @@ const FieldTypes = [
         allowMax: true
     },
     {
-        name: "Float",
-        allowMin: true,
-        allowMax: true
-    },
-    {
         name: "Double",
         allowMin: true,
         allowMax: true
@@ -36,6 +31,15 @@ const FieldTypes = [
     },
     {
         name: "Enum"
+    },
+    {
+        name: "Date"
+    },
+    {
+        name: "Time"
+    },
+    {
+        name: "Timestamp"
     }
 ];
 
