@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ljprojectbuilder
-description: A Helm chart for lirejarp projectbuilder
+description: A helm chart for projectbuilder
 
 # A chart can be either an 'application' or a 'library' chart.
 #
