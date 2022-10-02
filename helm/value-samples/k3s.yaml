@@ -34,6 +34,7 @@ ingress:
     - secretName: localhost-tls
       hosts:
         - markus-desktop2
+        - <<YOURHOSTNAME>>
 
 autoscaling:
   enabled: false
