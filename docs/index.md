@@ -53,4 +53,3 @@ document for any information.
 ## Sponsors
 
 Contact us at info@starwit.de to become a sponsor.
-
