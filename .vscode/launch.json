@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Application",
+            "request": "launch",
+            "mainClass": "de.starwit.application.Application",
+            "projectName": "application",
+            "args": "",
+            "env": {
+                "APP_NAME": "ljprojectbuilder",
+            }
+        }
+    ]
+}

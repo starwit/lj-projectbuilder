@@ -9,10 +9,12 @@ public enum DataType {
 	Time("time"),
 	Timestamp("timestamp"),
 	BigDecimal("bigdecimal"),
+	Boolean("boolean"),
+	Long("long"),
 	Enum("enum");
-	
+
 	private String translationKey;
-	
+
 	DataType(String translationKey) {
 		this.translationKey = translationKey;
 	}

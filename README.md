@@ -1,30 +1,54 @@
-# Project Builder
+  
+<p align="center">
+    <img src="docs/imgs/logo-color.png" alt="drawing" style="width:5em;"/>
+    <h1 align="center">Project Builder</h1>
+</p>
+<p align="center">http://starwit.github.io/lj-projectbuilder/</p>
 
-## Motivation
+## Purpose
 
-Creating modern software always requires a number of things to do. One of these things is to persist data and to access persisted data. Finally the data should be presented in a userfriendly manner. Yet still a lot of boiler plate code needs to be written and creating application quickly remains a challenge. Lirejarp Project Builder is an application to kickstart new project via using templates. The Project Builder provides a configuration interfaces.
+ProjectBuilder helps to speed up the creation and deployment of new applications. It kickstarts new projects based on templates and app-specific configuration.
 
-A fully working example application of this pattern can be found is the [lirejarp template](https://github.com/starwit/lirejarp). Besides using described pattern it also contains an Javascript based client application that serves a UI to the Java based backend. This rigorous separation of UI is also intended as it helps to demonstrate architecture approach without mixing with UI issues.
+Code snippets can be easily transformed into templates and used in future applications. It helps companies to manage their software stack and minimize maintenance costs.
 
-This is a tool that helps you create a new project based on the [lirejarp template](https://github.com/starwit/lirejarp). Setup of a new project consists of two things: renaming all elements according to your project needs (files, packages, war-file) and creating base functionality for new domain objects. So project builder is a tool that collects in a GUI some data for your new project. Once you provided a new project name and your desired domain objects, your check out copy of LireJarp or other templates is modified and enhanced accordingly.
+<p align="center"><img src="docs/imgs/kickstart.png" alt="drawing" style="width:100%;"/></p>
 
-## Prerequisites
+ProjectBuilder is deployed at https://pb.starwit.de/.
+Contact info@starwit.de for access and more information.
 
-* Kubernetes Cluster
-* Helm
+## Contribution
 
-## Installation
+We are grateful for any contribution. Please refer to our [contribution guideline](CONTRIBUTING.md) and instructions document for any information.
 
-Go to helm/ljprojectbuilder
-- copy values-template4private.yaml to values-private.yaml and add secret values
-- execute e.g.:
-  - for local cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-private.yaml`
-  - for hetzner cluster: `helm install ljprojectbuilder . -n ljprojectbuilder -f values.yaml -f values-hetzner.yaml`
+## Documentation
 
-## Further Information
-* [installation on local PC](documentation/local-installation.md)
-* [how to create templates](documentation/templates-howto.md)
-* [architecture description for developer](documentation/architecture.md)
+* [Development Installation](docs/installation/development-installation.md)
+* [Architecture Description](docs/architecture.md)
+* [Build and Release Project](docs/build-release-mgmt.md)
+* [Deployment Options](docs/deployment.md)
+* [Workflow Documentation](.github/workflows/readme.md)
 
-## Screenshot
-![ljProjectBuilder](documentation/img/lJProjectBuilder.png)
+## Documentation Template Creation
+
+* [Create Templates](docs/templates-howto.md)
+
+## Documentation for the Documentation
+
+* [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+* [Just-The-Docs Theme](https://just-the-docs.github.io/just-the-docs/)
+
+## Installation with docker-compose
+
+You can install the last version of ProjectBuilder with a database via docker-compose:
+
+```shell
+cd deployment
+docker-compose up
+```
+
+This is only recommended for first testing and not for production use.
+
+## Sponsors
+
+Contact us at info@starwit.de to become a sponsor.
+

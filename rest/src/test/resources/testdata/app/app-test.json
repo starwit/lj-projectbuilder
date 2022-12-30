@@ -1,0 +1,32 @@
+{
+    "baseName": "Hallo",
+    "packageName": "Was",
+    "template": {
+        "id": 1,
+        "name": "lirejarp",
+        "location": "https://github.com/starwit/project-templates.git",
+        "branch": "main",
+        "credentialsRequired": false,
+        "description": "LireJarp@Spring - github master template",
+        "packagePlaceholder": "xyz"
+    },
+    "entities": [
+        {
+            "id": null,
+            "name": "Geht",
+            "fields": [
+                {
+                    "fieldName": "bei",
+                    "description": "",
+                    "fieldType": "string",
+                    "fieldValidateRulesPattern": "",
+                    "fieldValidateRulesMin": "",
+                    "fieldValidateRulesMax": "",
+                    "mandatory": false
+                }
+            ],
+            "relationships": []
+        }
+    ],
+    "enums": []
+}

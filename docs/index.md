@@ -1,37 +1,55 @@
-## Welcome to GitHub Pages
+---
 
-You can use the [editor on GitHub](https://github.com/starwit/lj-projectbuilder/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+# Feel free to add content and custom Front Matter to this file.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-### Markdown
+layout: home
+title: Home
+nav_order: 1
+---
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+<p align="center">
+    <img src="imgs/logo-color.png" alt="drawing" style="width:5em;"/>
+    <h1 align="center">Project Builder</h1>
+</p>
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+ProjectBuilder helps to speed up the creation and deployment of new applications. It kickstarts new projects based on
+templates and app-specific configuration.
 
-1. Numbered
-2. List
+Code snippets can be easily transformed into templates and used in future applications. It helps companies to manage
+their software stack and minimize maintenance costs.
 
-**Bold** and _Italic_ and `Code` text
+<p align="center"><img src="imgs/kickstart.png" alt="drawing" style="width:100%;"/></p>
 
-[Link](url) and ![Image](src)
-```
+## Demo
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+ProjectBuilder is deployed at [pb.starwit.de](https://pb.starwit.de/).
+Contact [info@starwit.de](mailto:info@starwit.de) for access and more information.
 
-### Jekyll Themes
+## Contribution
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/starwit/lj-projectbuilder/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+We are grateful for any contribution. Please refer to our [contribution guideline](CONTRIBUTING.md) and instructions
+document for any information.
 
-### Support or Contact
+## Documentation
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+* [Development Installation](installation/development-installation.md)
+* [Architecture Description](architecture.md)
+* [Build and Release Project](build-release-mgmt.md)
+* [Deployment Options](deployment.md)
+
+## Documentation Template Creation
+
+* [Create Templates](docs/templates-howto.md)
+
+## Documentation for the Documentation
+
+* [Start Jekyll locally](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll)
+* [Just-The-Docs Theme](https://just-the-docs.github.io/just-the-docs/)
+
+## Sponsors
+
+Contact us at info@starwit.de to become a sponsor.

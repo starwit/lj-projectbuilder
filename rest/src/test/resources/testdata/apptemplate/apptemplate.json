@@ -1,0 +1,8 @@
+{
+    "name": "lirejarp",
+    "location": "https://github.com/starwit/project-templates.git",
+    "branch": "v2",
+    "credentialsRequired": false,
+    "description": "LireJarp@Spring - github master template",
+    "packagePlaceholder": "xyz"
+}

@@ -1,80 +1,138 @@
 package de.starwit.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import javax.validation.ValidationException;
+import javax.persistence.EntityNotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import de.starwit.mapper.Mapper;
-import de.starwit.persistence.entity.DomainEntity;
-import de.starwit.persistence.entity.ProjectEntity;
-import de.starwit.persistence.exception.EntityNotFoundException;
-import de.starwit.persistence.exception.NotificationException;
+import de.starwit.persistence.entity.Domain;
+import de.starwit.persistence.entity.Relationship;
 import de.starwit.persistence.repository.DomainRepository;
-import de.starwit.persistence.repository.ProjectRepository;
 
 @Service
-public class DomainService implements ServiceInterface<DomainEntity> {
+public class DomainService implements ServiceInterface<Domain, DomainRepository> {
 
-	@Autowired
-	private ProjectRepository projectRepository;
+    @Autowired
+    private DomainRepository domainRepository;
 
-	@Autowired
-	private DomainRepository domainRepository;
-	
-	final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
-	
+    static final Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
-	public List<DomainEntity> findAllDomainsByProject(Long projectId) {
-		List<DomainEntity> entities = this.domainRepository.findAllDomainsByProject(projectId);
-		return Mapper.convertList(entities, DomainEntity.class, "project");
-	}
+    public List<Domain> findAllDomainsByApp(Long appId) {
+        List<Domain> entities = this.domainRepository.findAllDomainsByApp(appId);
+        return Mapper.convertList(entities, Domain.class, "app");
+    }
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void setDomainSelected(Long domainId, boolean selected) {
-		this.domainRepository.setDomainSelected(domainId, selected);
-	}
+    public Domain findByAppAndDomainId(Long appId, Long domainId) {
+        return this.getRepository().findByAppAndDomainId(appId, domainId)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(domainId)));
+    }
 
-	@Override
-	public List<DomainEntity> findAll() {
-		List<DomainEntity> entities = this.domainRepository.findAll();
-		return Mapper.convertList(entities, DomainEntity.class, "project");
-	}
+    public List<Domain> findByAppAndDomainName(Long appId, String domainName) {
+        return this.getRepository().findByAppAndDomainName(appId, domainName);
+    }
 
-	@Override
-	public DomainEntity findById(Long id) {
-		DomainEntity entity = this.domainRepository.findById(id).orElse(null);
-		return Mapper.convert(entity, DomainEntity.class, "project");
-	}
+    @Override
+    public DomainRepository getRepository() {
+        return domainRepository;
+    }
 
-	public DomainEntity saveOrUpdateThrowException(DomainEntity dto) throws ValidationException, NotificationException {
-		ProjectEntity project = this.projectRepository.findProjectByIdOrThrowExeption(dto.getProjectId());
-		
-		if (dto != null) {
-			dto.setProject(project);
-		}
-		dto = this.domainRepository.save(dto);
-		return Mapper.convert(dto, DomainEntity.class, "project");
-	}
+    public void createRelationsForAllTargetDomains(Long appId, String sourceDomainName,
+            List<Relationship> relationsSource) {
+        List<Domain> targetDomains = null;
+        if (CollectionUtils.isEmpty(relationsSource)) {
+            return;
+        }
 
-	@Override
-	public void delete(Long id) throws EntityNotFoundException {
-		this.domainRepository.deleteById(id);
-	}
+        HashMap<String, List<Relationship>> sourceRelationshipMap = new HashMap<>();
+        for (Relationship relationshipSource : relationsSource) {
+            if (sourceRelationshipMap.get(relationshipSource.getOtherEntityName()) == null) {
+                sourceRelationshipMap.put(relationshipSource.getOtherEntityName(), new ArrayList<>());
+            }
+            sourceRelationshipMap.get(relationshipSource.getOtherEntityName()).add(relationshipSource);
+        }
 
-	@Override
-	public DomainEntity saveOrUpdate(DomainEntity dto) throws ValidationException {
-		try {
-			return saveOrUpdateThrowException(dto);
-		} catch (NotificationException e) {
-			LOG.error("Error saving Domain.", e);
-			return null;
-		}
-	}
+        for (String otherEntityName : sourceRelationshipMap.keySet()) {
+            targetDomains = this.getRepository().findByAppAndDomainName(appId, otherEntityName);
+            if (!CollectionUtils.isEmpty(targetDomains)) {
+                for (Domain targetDomain : targetDomains) {
+                    createTargetDomainRelations(sourceDomainName, sourceRelationshipMap.get(otherEntityName),
+                            targetDomain);
+                }
+            }
+        }
+    }
+
+    private void createTargetDomainRelations(String sourceDomainName, List<Relationship> relationshipsSource,
+            Domain targetDomain) {
+        if (CollectionUtils.isEmpty(relationshipsSource)) {
+            return;
+        }
+
+        for (Relationship relationshipSource : relationshipsSource) {
+            Relationship targetRelationship = createTargetRelationship(sourceDomainName, relationshipSource);
+            targetDomain.getRelationships().add(targetRelationship);
+        }
+        this.getRepository().save(targetDomain);
+    }
+
+    private Relationship createTargetRelationship(String sourceDomainName, Relationship relationshipSource) {
+        Relationship targetRelationship = new Relationship();
+        targetRelationship.setOtherEntityName(sourceDomainName);
+        targetRelationship.setOtherEntityRelationshipName(relationshipSource.getRelationshipName());
+        targetRelationship.setRelationshipName(relationshipSource.getOtherEntityRelationshipName());
+        targetRelationship.setRelationshipType(relationshipSource.getRelationshipType().getOpposite());
+        targetRelationship.setOwnerSide(!relationshipSource.isOwnerSide());
+        return targetRelationship;
+    }
+
+    private void removeExistingRelationsFromTargetDomain(String sourceDomainName, Domain targetDomain) {
+        List<Relationship> relationsTarget = targetDomain.getRelationships();
+        List<Relationship> newRelationsTarget = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(relationsTarget)) {
+            for (Relationship relationshipTarget : relationsTarget) {
+                if (relationshipTarget.getOtherEntityName().equals(sourceDomainName)) {
+                    newRelationsTarget.add(relationshipTarget);
+                }
+            }
+        }
+        relationsTarget.removeAll(newRelationsTarget);
+    }
+
+    public void deleteRelationsForAllTargetDomains(Long sourceDomainId) {
+        Domain domain = this.getRepository().findById(sourceDomainId)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(sourceDomainId)));
+        Long appId = domain.getApp().getId();
+        String sourceDomainName = domain.getName();
+        List<Relationship> relationsSource = domain.getRelationships();
+        if (CollectionUtils.isEmpty(relationsSource)) {
+            return;
+        }
+
+        HashMap<String, List<Relationship>> sourceRelationshipMap = new HashMap<>();
+        for (Relationship relationshipSource : relationsSource) {
+            if (sourceRelationshipMap.get(relationshipSource.getOtherEntityName()) == null) {
+                sourceRelationshipMap.put(relationshipSource.getOtherEntityName(), new ArrayList<>());
+            }
+            sourceRelationshipMap.get(relationshipSource.getOtherEntityName()).add(relationshipSource);
+        }
+
+        for (String otherEntityName : sourceRelationshipMap.keySet()) {
+            List<Domain> targetDomains = null;
+            targetDomains = this.getRepository().findByAppAndDomainName(appId, otherEntityName);
+            if (!CollectionUtils.isEmpty(targetDomains)) {
+                for (Domain targetDomain : targetDomains) {
+                    removeExistingRelationsFromTargetDomain(sourceDomainName, targetDomain);
+                    this.getRepository().save(targetDomain);
+                }
+            }
+        }
+    }
 }

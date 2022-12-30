@@ -1,0 +1,22 @@
+{
+    "baseName": "Test",
+    "packageName": "AAAA",
+    "template": {
+        "id": 1,
+        "name": "lirejarp",
+        "location": "https://github.com/starwit/project-templates.git",
+        "branch": "main",
+        "credentialsRequired": false,
+        "description": "LireJarp@Spring - github master template",
+        "packagePlaceholder": "xyz"
+    },
+    "entities": [
+        {
+            "id": 1,
+            "name": "A",
+            "fields": [],
+            "relationships": []
+        }
+    ],
+    "enums": []
+}
