@@ -22,6 +22,12 @@ public class AppTemplate extends AbstractEntity<Long> {
     private String templateName = "lirejarp";
 
     @NotBlank
+    @Pattern(regexp = "^(.*\\.(?:json))$")
+    @Size(max = 100)
+    @Column(name = "CONFIG_FILE", nullable = false, length = 100)
+    private String configFile = "template-config.json";
+
+    @NotBlank
     @Pattern(regexp = "^([a-zA-Z_0-9]|-)*$")
     @Size(max = 100)
     @Column(name = "PACKAGE", nullable = false, length = 100)
@@ -62,6 +68,14 @@ public class AppTemplate extends AbstractEntity<Long> {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
+    }
+
+    public String getConfigFile() {
+        return configFile;
+    }
+
+    public void setConfigFile(String configFile) {
+        this.configFile = configFile;
     }
 
     public String getPackagePlaceholder() {

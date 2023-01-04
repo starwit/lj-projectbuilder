@@ -13,6 +13,7 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         SaveAppTemplateDto dto = new SaveAppTemplateDto();
         dto.setId(entity.getId());
         dto.setName(entity.getTemplateName());
+        dto.setConfigFile(entity.getConfigFile());
         dto.setLocation(entity.getLocation());
         dto.setBranch(entity.getBranch());
         dto.setDescription(entity.getDescription());
@@ -28,6 +29,7 @@ public class AppTemplateMapper implements CustomMapper<AppTemplate, SaveAppTempl
         AppTemplate entity = new AppTemplate();
         entity.setId(dto.getId());
         entity.setTemplateName(dto.getName());
+        entity.setConfigFile(dto.getConfigFile());
         entity.setLocation(dto.getLocation());
         entity.setBranch(dto.getBranch());
         entity.setDescription(dto.getDescription());

@@ -13,6 +13,11 @@ import java.util.List;
 public class SaveAppTemplateDto extends AppTemplateDto {
 
     @NotBlank
+    @Pattern(regexp = "^(.*\\.(?:json))$")
+    @Size(max = 100)
+    private String configFile = "template-config.json";
+
+    @NotBlank
     @Size(max = 100)
     @Pattern(regexp = "^(?:git|ssh|https?|git@[-w.]+):(//)?([a-zA-Z0-9./_-]{2,100})(.git)$")
     private String location;
@@ -32,6 +37,14 @@ public class SaveAppTemplateDto extends AppTemplateDto {
 
     @Size(max = 100)
     private String imageUrl;
+
+    public String getConfigFile() {
+        return configFile;
+    }
+
+    public void setConfigFile(String configFile) {
+        this.configFile = configFile;
+    }
 
     public String getLocation() {
         return location;
