@@ -31,7 +31,7 @@ function AppTemplateOverview() {
         "branch": "",
         "credentialsRequired": false,
         "description": "",
-        "configfile": "template-config.json",
+        "configFile": "template-config.json",
         "groups": ["public"]
     };
 

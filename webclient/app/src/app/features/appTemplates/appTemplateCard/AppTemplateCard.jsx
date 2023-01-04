@@ -123,11 +123,12 @@ function AppTemplateCard(props) {
                 </CardContent>
                 <Divider />
                 <CardContent>
-                    <Grid container spacing={0} alignItems={"center"}>
+                    <Grid container spacing={0} alignItems={"left"}>
                         <Grid item sm={7}>
                             <Stack spacing={2}>
                                 <Typography variant="body2" color="text.secondary">
-                                    {appTemplate.description}
+                                    <div>{appTemplate.description}</div>
+                                    <div>{t("appTemplate.configFile") + ": " + appTemplate.configFile}</div>
                                 </Typography>
                                 <List>
                                     <ListItem disablePadding>
@@ -136,8 +137,6 @@ function AppTemplateCard(props) {
                                         </ListItemIcon>
                                         <ListItemText primary={appTemplate.location}
                                             secondary={t("appTemplate.branch") + ": " + appTemplate.branch} />
-                                        <ListItemText primary={appTemplate.location}
-                                            secondary={t("appTemplate.configfile") + ": " + appTemplate.configfile} />
                                     </ListItem>
                                 </List>
                             </Stack>

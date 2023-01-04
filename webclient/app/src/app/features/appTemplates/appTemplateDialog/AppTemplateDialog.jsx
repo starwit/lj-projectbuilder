@@ -155,13 +155,13 @@ function AppTemplateDialog(props) {
                 />
                 <ValidatedTextField
                     fullWidth
-                    label={t("apptemplate.configfile") + "*"}
-                    value={internalAppTemplate.configfile}
+                    label={t("appTemplate.configFile") + "*"}
+                    value={internalAppTemplate.configFile}
                     name="configfile"
                     onChange={handleChange}
                     isCreate={isCreateDialog}
-                    helperText={t("apptemplate.configfile.hint")}
-                    regex={RegexConfig.appTemplateConfigfile}
+                    helperText={t("appTemplate.configFile.hint")}
+                    regex={RegexConfig.appTemplateConfigFile}
                 />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
                     <MultipleSelectChip
