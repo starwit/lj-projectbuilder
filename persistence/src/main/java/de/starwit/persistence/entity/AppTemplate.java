@@ -22,7 +22,7 @@ public class AppTemplate extends AbstractEntity<Long> {
     private String templateName = "lirejarp";
 
     @NotBlank
-    @Pattern(regexp = "^(.*\\.(?:json))$")
+    @Pattern(regexp = "^([a-zA-Z0-9#\\/\\._\\-]*\\.json)$")
     @Size(max = 100)
     @Column(name = "CONFIG_FILE", nullable = false, length = 100)
     private String configFile = "template-config.json";

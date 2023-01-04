@@ -13,7 +13,7 @@ import java.util.List;
 public class SaveAppTemplateDto extends AppTemplateDto {
 
     @NotBlank
-    @Pattern(regexp = "^(.*\\.(?:json))$")
+    @Pattern(regexp = "^([a-zA-Z0-9#\\/\\._\\-]*\\.json)$")
     @Size(max = 100)
     private String configFile = "template-config.json";
 
