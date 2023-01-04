@@ -113,15 +113,15 @@ function AppTemplateCard(props) {
                         </Grid>
                         <Grid item xs={5} align="right">
                             <IconButton onClick={handleDialogOpen}>
-                                <Edit fontSize={"small"}/>
+                                <Edit fontSize={"small"} />
                             </IconButton>
                             <IconButton onClick={() => setOpenDeleteDialog(true)}>
-                                <Delete fontSize={"small"}/>
+                                <Delete fontSize={"small"} />
                             </IconButton>
                         </Grid>
                     </Grid>
                 </CardContent>
-                <Divider/>
+                <Divider />
                 <CardContent>
                     <Grid container spacing={0} alignItems={"center"}>
                         <Grid item sm={7}>
@@ -132,10 +132,12 @@ function AppTemplateCard(props) {
                                 <List>
                                     <ListItem disablePadding>
                                         <ListItemIcon>
-                                            <GitHub/>
+                                            <GitHub />
                                         </ListItemIcon>
                                         <ListItemText primary={appTemplate.location}
-                                            secondary={t("appTemplate.branch") + ": " + appTemplate.branch}/>
+                                            secondary={t("appTemplate.branch") + ": " + appTemplate.branch} />
+                                        <ListItemText primary={appTemplate.location}
+                                            secondary={t("appTemplate.configfile") + ": " + appTemplate.configfile} />
                                     </ListItem>
                                 </List>
                             </Stack>
@@ -152,10 +154,10 @@ function AppTemplateCard(props) {
                 </CardContent>
 
                 <Divider>
-                    <Chip label={t("appTemplate.config")}/>
+                    <Chip label={t("appTemplate.config")} />
                     <ExpandMore expand={expanded} onClick={() => handleExpandClick(appTemplate.id)}
                         aria-expanded={expanded} aria-label="show more">
-                        <ExpandMoreIcon/>
+                        <ExpandMoreIcon />
                     </ExpandMore>
                 </Divider>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>

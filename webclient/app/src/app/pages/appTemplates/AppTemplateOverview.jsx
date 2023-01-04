@@ -26,13 +26,14 @@ function AppTemplateOverview() {
     }
 
     const defaultAppTemplate =
-        {
-            "location": "",
-            "branch": "",
-            "credentialsRequired": false,
-            "description": "",
-            "groups": ["public"]
-        };
+    {
+        "location": "",
+        "branch": "",
+        "credentialsRequired": false,
+        "description": "",
+        "configfile": "template-config.json",
+        "groups": ["public"]
+    };
 
     function reload() {
         const appTemplateRest = new AppTemplateRest();
@@ -54,14 +55,14 @@ function AppTemplateOverview() {
     function renderContent() {
         if (!appTemplates) {
             return (
-                <LoadingSpinner message={t("apptemplates.loading")}/>
+                <LoadingSpinner message={t("apptemplates.loading")} />
             );
         }
 
         if (appTemplates.length === 0) {
             return (
                 <Statement
-                    icon={<Add/>}
+                    icon={<Add />}
                     message={t("apptemplates.empty")}
                 />
             );
@@ -72,7 +73,7 @@ function AppTemplateOverview() {
                 {appTemplates.map(appTemplate => (
                     <Grid item key={appTemplate.id} sm={12} xs={12}>
                         <AppTemplateCard appTemplate={appTemplate} handleRefresh={reload}
-                            userGroups={userGroups}/>
+                            userGroups={userGroups} />
                     </Grid>
                 ))}
             </Grid>
@@ -94,7 +95,7 @@ function AppTemplateOverview() {
                 isCreateDialog={true}
                 userGroups={userGroups}
             />
-            <AddFabButton onClick={handleDialogOpen}/>
+            <AddFabButton onClick={handleDialogOpen} />
         </Container>
     );
 }

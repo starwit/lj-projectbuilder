@@ -7,6 +7,7 @@ const RegexConfig = {
 
     appTemplateLocation: /^(?:git|ssh|https?|git@[-w.]+):(\/\/)?([a-zA-Z0-9./_-]*)(.git)$/,
     appTemplateBranch: /^([a-zA-Z0-9#/_\\-]{0,255})$/,
+    appTemplateConfigfile: /^([a-zA-Z0-9#/._\\-]*\\(.json){0,100})$/,
 
     relationship: /^([a-z][a-zA-Z0-9]{0,100})$/,
 
