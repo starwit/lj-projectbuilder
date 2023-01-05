@@ -157,7 +157,7 @@ function AppTemplateDialog(props) {
                     fullWidth
                     label={t("appTemplate.configFile") + "*"}
                     value={internalAppTemplate.configFile}
-                    name="configfile"
+                    name="configFile"
                     onChange={handleChange}
                     isCreate={isCreateDialog}
                     helperText={t("appTemplate.configFile.hint")}

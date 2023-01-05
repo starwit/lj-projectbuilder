@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {styled} from "@mui/material/styles";
+import {Delete, Edit} from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import GitHub from "@mui/icons-material/GitHub";
 import {
+    Box,
     Card,
     CardContent,
     Chip,
@@ -16,19 +18,18 @@ import {
     Stack,
     Typography
 } from "@mui/material";
-import AppTemplateCardStyles from "./AppTemplateCardStyles";
-import {useTranslation} from "react-i18next";
-import GitHub from "@mui/icons-material/GitHub";
-import {Delete, Edit} from "@mui/icons-material";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
-import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
-import docco from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
-import AppTemplateRest from "../../../services/AppTemplateRest";
-import GitRest from "../../../services/GitRest";
+import {styled} from "@mui/material/styles";
 import {ConfirmationDialog, GitDataButton} from "@starwit/react-starwit";
 import {useSnackbar} from "notistack";
+import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
+import docco from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
+import AppTemplateRest from "../../../services/AppTemplateRest";
+import GitRest from "../../../services/GitRest";
+import AppTemplateDialog from "./../appTemplateDialog/AppTemplateDialog";
+import AppTemplateCardStyles from "./AppTemplateCardStyles";
 
 const ExpandMore = styled(props => {
     const {...other} = props;
@@ -127,8 +128,8 @@ function AppTemplateCard(props) {
                         <Grid item sm={7}>
                             <Stack spacing={2}>
                                 <Typography variant="body2" color="text.secondary">
-                                    <div>{appTemplate.description}</div>
-                                    <div>{t("appTemplate.configFile") + ": " + appTemplate.configFile}</div>
+                                    <Box>{appTemplate.description}</Box>
+                                    <Box>{t("appTemplate.configFile") + ": " + appTemplate.configFile}</Box>
                                 </Typography>
                                 <List>
                                     <ListItem disablePadding>
