@@ -24,7 +24,7 @@ import de.starwit.generator.config.Constants;
 public class AppRenamer {
 
     public final static String[] EXT = new String[] { "java", "js", "html", "sql", "xml", "md", "MD", "log", "yml",
-            "json", "conf", "sh" };
+            "json", "conf", "sh", "yaml" };
     final static Logger LOG = LoggerFactory.getLogger(AppRenamer.class);
 
     /**
