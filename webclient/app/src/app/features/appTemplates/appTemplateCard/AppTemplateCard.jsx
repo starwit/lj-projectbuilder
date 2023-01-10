@@ -127,7 +127,7 @@ function AppTemplateCard(props) {
                     <Grid container spacing={0} alignItems={"left"}>
                         <Grid item sm={7}>
                             <Stack spacing={2}>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" component="span">
                                     <Box>{appTemplate.description}</Box>
                                     <Box>{t("appTemplate.configFile") + ": " + appTemplate.configFile}</Box>
                                 </Typography>
