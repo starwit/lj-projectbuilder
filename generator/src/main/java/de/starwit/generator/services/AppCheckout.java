@@ -155,7 +155,7 @@ public class AppCheckout {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             // convert JSON string to Book object
             AppTemplate appTemplate = mapper.readValue(
-                    Paths.get(newAppFolder + Constants.FILE_SEP + Constants.TEMPLATE_CONFIG).toFile(),
+                    Paths.get(newAppFolder + Constants.FILE_SEP + template.getConfigFile()).toFile(),
                     AppTemplate.class);
 
             appTemplate.setId(template.getId());
@@ -163,6 +163,7 @@ public class AppCheckout {
             appTemplate.setDescription(template.getDescription());
             appTemplate.setBranch(template.getBranch());
             appTemplate.setCredentialsRequired(template.isCredentialsRequired());
+            appTemplate.setConfigFile(template.getConfigFile());
             appTemplate.setGroups(template.getGroups());
 
             return appTemplateService.updateFromRepo(appTemplate);

@@ -121,6 +121,8 @@ const translationsDeDE = {
     "appTemplate.config": "Template Konfiguration",
     "appTemplate.credentialsRequired": "privates Repo mit Login",
     "appTemplate.description": "Beschreibung",
+    "appTemplate.configFile": "Name der Konfigurationsdatei",
+    "appTemplate.configFile.hint": "Der Name kann 100 Zeichen lang sein und muss die Dateiendung .json besitzen",
 
     "appConclusion.generationError.title": "Fehler beim generieren.",
     "appConclusion.generationError.message": "Beim generieren der App ist folgender Fehler aufgetreten:",
