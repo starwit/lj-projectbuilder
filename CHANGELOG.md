@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4-1](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.4-0...v0.3.4-1) (2023-02-27)
+
+
+### Features
+
+* ab[#554](https://github.com/starwit/lj-projectbuilder/issues/554) enable different configs for template ([c4427c2](https://github.com/mokkapps/changelog-generator-demo/commits/c4427c288cb948dc8e1926382b47f46d02cc9ee3))
+
 ### [0.3.4-0](https://github.com/mokkapps/changelog-generator-demo/compare/v0.3.3...v0.3.4-0) (2022-09-17)
 
 
