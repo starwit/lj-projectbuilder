@@ -190,7 +190,7 @@ public class GeneratorService {
                     + generatePathWithFreemarker(data, templateFile.getFileName());
             writeGeneratedFile(targetFileUrl, getTemplate(templateFile.getConcreteTemplatePath()), data, true);
         } catch (TemplateNotFoundException e) {
-            String templateUrl = generatePathWithFreemarker(data, templateFile.getFileName());
+            String templateUrl = generatePathWithFreemarker(data, templateFile.getTemplatePath());
             throw new NotificationException("error.generation.templatenotfound",
                     "Template with path " + templateUrl + " not found", templateUrl);
         } catch (FileNotFoundException e) {

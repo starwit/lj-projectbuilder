@@ -109,12 +109,12 @@ function AppTemplateDialog(props) {
         <Dialog onClose={onDialogClose} open={open} spacing={2}>
             <DialogTitle className={appTemplateDialogStyles.dialogHeaderBar}>
                 {insertTitle()}
-                <div className={appTemplateDialogStyles.flex}/>
+                <div className={appTemplateDialogStyles.flex} />
                 <IconButton
                     aria-label="close"
                     onClick={onDialogClose}
                 >
-                    <Close/>
+                    <Close />
                 </IconButton>
             </DialogTitle>
             <Box
@@ -153,12 +153,22 @@ function AppTemplateDialog(props) {
                     name="description"
                     onChange={handleChange}
                 />
+                <ValidatedTextField
+                    fullWidth
+                    label={t("appTemplate.configFile") + "*"}
+                    value={internalAppTemplate.configFile}
+                    name="configFile"
+                    onChange={handleChange}
+                    isCreate={isCreateDialog}
+                    helperText={t("appTemplate.configFile.hint")}
+                    regex={RegexConfig.appTemplateConfigFile}
+                />
                 <FormGroup className={appTemplateDialogStyles.checkbox}>
                     <MultipleSelectChip
                         values={userGroups}
                         selected={internalAppTemplate.groups}
                         handleExternalChange={handleGroupChange}
-                        label={t("select.groups")}/>
+                        label={t("select.groups")} />
                     <FormControlLabel
                         control={
                             <Checkbox
