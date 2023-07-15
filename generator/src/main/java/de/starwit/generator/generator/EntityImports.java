@@ -41,61 +41,61 @@ public class EntityImports {
     }
 
     private static void addGeneralImports(Set<String> imports) {
-        imports.add("import javax.persistence.Column;");
-        imports.add("import javax.persistence.Entity;");
-        imports.add("import javax.persistence.Table;");
-        imports.add("import javax.xml.bind.annotation.XmlRootElement;");
+        imports.add("import jakarta.persistence.Column;");
+        imports.add("import jakarta.persistence.Entity;");
+        imports.add("import jakarta.persistence.Table;");
+        imports.add("import jakarta.xml.bind.annotation.XmlRootElement;");
     }
 
     private static void addImportsForAttribute(Set<String> imports, Attribute attr) {
         if (DataType.String.equals(attr.getDataType())) {
             if (attr.getMax() != null || attr.getMin() != null) {
-                imports.add("import javax.validation.constraints.Size;");
+                imports.add("import jakarta.validation.constraints.Size;");
             }
             if (!attr.isNullable()) {
-                imports.add("import javax.validation.constraints.NotBlank;");
+                imports.add("import jakarta.validation.constraints.NotBlank;");
             }
         } else if (DataType.Date.equals(attr.getDataType()) || DataType.Time.equals(attr.getDataType())
                 || DataType.Timestamp.equals(attr.getDataType())) {
             imports.add("import java.util.Date;");
-            imports.add("import javax.persistence.Temporal;");
-            imports.add("import javax.persistence.TemporalType;");
+            imports.add("import jakarta.persistence.Temporal;");
+            imports.add("import jakarta.persistence.TemporalType;");
         } else if (DataType.Enum.equals(attr.getDataType())) {
-            imports.add("import javax.persistence.EnumType;");
-            imports.add("import javax.persistence.Enumerated;");
+            imports.add("import jakarta.persistence.EnumType;");
+            imports.add("import jakarta.persistence.Enumerated;");
         } else if (DataType.BigDecimal.equals(attr.getDataType())) {
             imports.add("import java.math.BigDecimal;");
         }
         if (attr.getPattern() != null) {
-            imports.add("import javax.validation.constraints.Pattern;");
+            imports.add("import jakarta.validation.constraints.Pattern;");
         }
 
         if (!DataType.String.equals(attr.getDataType())) {
             if (!attr.isNullable()) {
-                imports.add("import javax.validation.constraints.NotNull;");
+                imports.add("import jakarta.validation.constraints.NotNull;");
             }
             if (attr.getMax() != null) {
-                imports.add("import javax.validation.constraints.Max;");
+                imports.add("import jakarta.validation.constraints.Max;");
             }
             if (attr.getMin() != null) {
-                imports.add("import javax.validation.constraints.Min;");
+                imports.add("import jakarta.validation.constraints.Min;");
             }
         }
     }
 
     private static void addImportsForRelations(Set<String> imports, Relationship relation) {
-        imports.add("import javax.persistence." + relation.getRelationshipType() + ";");
+        imports.add("import jakarta.persistence." + relation.getRelationshipType() + ";");
         imports.add("import com.fasterxml.jackson.annotation.JsonFilter;");
-        // imports.add("import javax.persistence.FetchType;");
+        // imports.add("import jakarta.persistence.FetchType;");
 
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) ||
                 RelationshipType.ManyToOne.equals(relation.getRelationshipType()) ||
                 RelationshipType.OneToOne.equals(relation.getRelationshipType())) {
-            imports.add("import javax.persistence.JoinColumn;");
+            imports.add("import jakarta.persistence.JoinColumn;");
         }
         if (RelationshipType.ManyToMany.equals(relation.getRelationshipType()) &&
                 relation.isOwnerSide()) {
-            imports.add("import javax.persistence.JoinTable;");
+            imports.add("import jakarta.persistence.JoinTable;");
         }
         if (RelationshipType.OneToMany.equals(relation.getRelationshipType())
                 || RelationshipType.ManyToMany.equals(relation.getRelationshipType())) {
@@ -103,7 +103,7 @@ public class EntityImports {
         }
         if (RelationshipType.OneToOne.equals(relation.getRelationshipType()) &&
                 relation.isOwnerSide()) {
-            imports.add("import javax.persistence.CascadeType;");
+            imports.add("import jakarta.persistence.CascadeType;");
         }
     }
 }
