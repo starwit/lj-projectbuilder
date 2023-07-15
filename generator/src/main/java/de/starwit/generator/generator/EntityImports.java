@@ -44,7 +44,6 @@ public class EntityImports {
         imports.add("import jakarta.persistence.Column;");
         imports.add("import jakarta.persistence.Entity;");
         imports.add("import jakarta.persistence.Table;");
-        imports.add("import jakarta.xml.bind.annotation.XmlRootElement;");
     }
 
     private static void addImportsForAttribute(Set<String> imports, Attribute attr) {
