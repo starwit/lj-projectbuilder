@@ -39,7 +39,7 @@ public class AppCheckoutTest {
     public void cloneGitRepoWithoutAuthTest() throws NotificationException, IOException, InterruptedException {
         final Path destDir = this.createDirectory(Constants.TMP_DIR + Constants.FILE_SEP + "tmplirejarp").toPath();
         LOG.info("Path is " + destDir.toString());
-        Git.gitClone(destDir, new URL("https://github.com/starwit/lirejarp.git"), "master");
+        Git.gitClone(destDir, new URL("https://github.com/starwit/reacthook-spring-template.git"), "main");
 
         String[] dirContent = destDir.toFile().list();
         assertTrue((dirContent != null && dirContent.length > 0), "Cloning repository results in an empty directory.");
@@ -62,8 +62,8 @@ public class AppCheckoutTest {
         LOG.info("Path is " + destDir.toString());
 
         AppTemplate template = new AppTemplate();
-        template.setLocation("https://github.com/starwit/project-templates.git");
-        template.setBranch("v2");
+        template.setLocation("https://github.com/starwit/reacthook-spring-template.git");
+        template.setBranch("main");
         List<String> groups = new ArrayList<>();
         groups.add("public");
         template.setGroups(groups);
@@ -71,12 +71,12 @@ public class AppCheckoutTest {
         Git.gitClone(destDir, new URL(template.getLocation()), template.getBranch());
 
         template = appCheckout.saveTemplateFile(template, destDir.toString());
-        assertEquals("lirejarp", template.getTemplateName());
-        assertEquals("xyz", template.getPackagePlaceholder());
+        assertEquals("reacthookspring", template.getTemplateName());
+        assertEquals("starwit", template.getPackagePlaceholder());
         assertNotNull(template.getTemplateFiles());
         boolean containsFilename = false;
         for (TemplateFile templateFile : template.getTemplateFiles()) {
-            if (templateFile.getFileName().equals("${domain.name}Entity.java")) {
+            if (templateFile.getFileName().equals("${entity.name}Entity.java")) {
                 containsFilename = true;
                 break;
             }
