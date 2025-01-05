@@ -95,7 +95,7 @@ jobs:
       run: |
         if [ -d "webclient/app" ]; then
           cd webclient/app
-          npm install
+          npm install --legacy-peer-deps
         fi
 
     - name: Build with Maven
