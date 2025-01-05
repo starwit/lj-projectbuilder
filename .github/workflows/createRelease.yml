@@ -8,6 +8,9 @@ on:
           description: "override default release version e.g. with 0.1.0-1"
           required: false
 
+permissions:
+  contents: write
+
 env:
   RELEASE_VERSION: ${{ github.event.inputs.release-version }}
   IMAGE_NAME: ljprojectbuilder
