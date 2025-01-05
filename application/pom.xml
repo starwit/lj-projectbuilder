@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.starwit</groupId>
         <artifactId>ljprojectbuilder</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.3.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>application</artifactId>
@@ -104,27 +104,41 @@
             </plugin>
 
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.4</version>
-                <configuration>
-                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
-                    <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
-                    <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
-                    <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
-                    <verbose>false</verbose>
-                    <includeOnlyProperties>
-                        <includeOnlyProperty>git.commit.id</includeOnlyProperty>
-                        <includeOnlyProperty>git.commit.message.full</includeOnlyProperty>
-                        <includeOnlyProperty>git.commit.time</includeOnlyProperty>
-                        <includeOnlyProperty>git.commit.user.email</includeOnlyProperty>
-                        <includeOnlyProperty>git.commit.user.name</includeOnlyProperty>
-                    </includeOnlyProperties>
-                    <excludeProperties>
-                        <excludeProperty>git.commit.id.abbrev</excludeProperty>
-                        <excludeProperty>git.commit.id.describe*</excludeProperty>
-                    </excludeProperties>
-                </configuration>
+                <groupId>se.bjurr.gitchangelog</groupId>
+                <artifactId>git-changelog-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>resources-helm-deployment</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/target/helm</outputDirectory>
+                            <delimiters>
+                                <delimiter>${*}</delimiter>
+                            </delimiters>
+                            <useDefaultDelimiters>false</useDefaultDelimiters>
+                            <resources>
+                                <resource>
+                                    <directory>
+                                        ${project.parent.basedir}/deployment/helm
+                                    </directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>**/*.txt</include>
+                                        <include>**/*.yaml</include>
+                                        <include>**/*.yml</include>
+                                        <include>**/*.tpl</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
