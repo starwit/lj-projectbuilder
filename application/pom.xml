@@ -126,7 +126,7 @@
                             <resources>
                                 <resource>
                                     <directory>
-                                        ${project.parent.basedir}/deployment/helm
+                                        ${project.parent.basedir}/helm
                                     </directory>
                                     <filtering>true</filtering>
                                     <includes>
