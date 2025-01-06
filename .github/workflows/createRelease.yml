@@ -20,7 +20,7 @@ env:
 jobs:
   build:
     name: "Creating changelog and release"
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
 
     steps:
     - name: Install GH CLI
@@ -108,7 +108,7 @@ jobs:
   publish_docker:
     name: "Build and publish docker"
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
     
     steps:
     - name: Get tag name
@@ -135,7 +135,7 @@ jobs:
   publish_helm:
     name: "Publish helm chart"
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
     
     steps:
     - name: get helm
