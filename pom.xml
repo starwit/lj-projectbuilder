@@ -9,13 +9,13 @@
 
     <groupId>de.starwit</groupId>
     <artifactId>ljprojectbuilder</artifactId>
-    <version>0.3.9-2-SNAPSHOT</version>
+    <version>0.3.9-2</version>
     <description>App template from test @ spring</description>
     <packaging>pom</packaging>
 
     <scm>
         <connection>scm:git:https://github.com/starwit/lj-projectbuilder.git</connection>
-        <tag>0.0.10</tag>
+        <tag>ljprojectbuilder-0.3.9-2</tag>
     </scm>    
 
     <properties>
