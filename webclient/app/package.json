@@ -48,6 +48,7 @@
   "proxy": "http://localhost:8081",
   "homepage": "./",
   "devDependencies": {
+    "ajv": "^8.17.1",
     "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^16.0.3",

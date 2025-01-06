@@ -40,7 +40,7 @@ jobs:
     - name: setup node
       uses: actions/setup-node@v4
       with:
-        node-version: 19.9.0
+        node-version: 22
 
     - run: npm --version
     - run: node --version
@@ -95,7 +95,7 @@ jobs:
       run: |
         if [ -d "webclient/app" ]; then
           cd webclient/app
-          npm install --legacy-peer-deps
+          npm install ajv --save-dev --legacy-peer-deps
         fi
 
     - name: Build with Maven
