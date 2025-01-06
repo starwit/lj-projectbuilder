@@ -15,7 +15,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/starwit/lj-projectbuilder.git</connection>
-        <tag>ljprojectbuilder-0.3.9-5</tag>
+        <tag>0.3.6</tag>
     </scm>    
 
     <properties>
