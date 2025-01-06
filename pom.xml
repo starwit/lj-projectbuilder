@@ -9,7 +9,7 @@
 
     <groupId>de.starwit</groupId>
     <artifactId>ljprojectbuilder</artifactId>
-    <version>0.3.9-5</version>
+    <version>0.3.9-6-SNAPSHOT</version>
     <description>App template from test @ spring</description>
     <packaging>pom</packaging>
 
